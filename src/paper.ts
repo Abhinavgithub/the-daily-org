@@ -66,6 +66,8 @@ export interface Paper<Section extends string = string, Persona extends string =
    * are asked for in; the dark theme's shades are in src/styles/main.scss.
    */
   colours?: { paper?: string; ink?: string; accent?: string };
+  /** Where the paper is published, such as "https://example.com". Used for links in the RSS feed, sitemap and link previews. */
+  address?: string;
   /** How the pipeline names itself to the sites it reads. `contact` is a web address where its owner can be reached. */
   bot: { name: string; contact: string };
 }

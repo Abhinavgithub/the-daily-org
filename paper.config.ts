@@ -11,6 +11,7 @@ export default definePaper({
     'A daily newspaper of the Salesforce stories worth reading, scored and summarised for developers, admins and architects.',
   creator: { name: 'Abhinav', url: 'https://www.salesforce.com/trailblazer/asingh0187' },
   timezone: 'Asia/Kolkata',
+  address: 'https://thedailyorg.com',
 
   // How the editor is told what the paper is about. Each reads as part of a sentence.
   topic: 'Salesforce technology',

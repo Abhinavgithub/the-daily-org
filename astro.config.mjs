@@ -1,12 +1,14 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
+import paper from './paper.config.ts';
 import { INK } from './src/lib/theme.ts';
 
 // The site's own address, used for absolute links in the RSS feed, the sitemap,
-// robots.txt and link previews. The host sets SITE_URL (see "Going live" in the
-// README); without it the site is taken to be running on this machine.
-const site = (process.env.SITE_URL || 'http://localhost:4321').replace(/\/+$/, '');
+// robots.txt and link previews. It is the paper's `address` in paper.config.ts;
+// SITE_URL, set on the host, takes its place when given. With neither, the
+// site is taken to be running on this machine.
+const site = (process.env.SITE_URL || paper.address || 'http://localhost:4321').replace(/\/+$/, '');
 
 export default defineConfig({
   site,
