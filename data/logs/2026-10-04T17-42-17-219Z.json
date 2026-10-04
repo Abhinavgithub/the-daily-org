@@ -1,0 +1,367 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-10-04T17:42:17.219Z",
+  "day": "2026-10-04",
+  "seconds": 846,
+  "finished": true,
+  "feeds": [
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 5
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 0,
+      "error": "HTTP 403 (5 attempts: HTTP 403, HTTP 403, HTTP 403, HTTP 403, HTTP 403)"
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 1
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "joys-of-apex",
+      "name": "The Joys of Apex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 0
+    },
+    {
+      "id": "unofficialsf",
+      "name": "UnofficialSF",
+      "items": 0
+    },
+    {
+      "id": "automation-champion",
+      "name": "Automation Champion",
+      "items": 0
+    },
+    {
+      "id": "sfdc-stop",
+      "name": "SFDC Stop",
+      "items": 0
+    },
+    {
+      "id": "yt-salesforce-developers",
+      "name": "Salesforce Developers on YouTube",
+      "items": 0,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-salesforce-admins",
+      "name": "Salesforce Admins on YouTube",
+      "items": 5,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-salesforce",
+      "name": "Salesforce on YouTube",
+      "items": 6,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-salesforce-ben",
+      "name": "Salesforce Ben on YouTube",
+      "items": 5,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-salesforce-hulk",
+      "name": "Salesforce Hulk on YouTube",
+      "items": 1,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-mytutorialrack",
+      "name": "MyTutorialRack on YouTube",
+      "items": 7,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-apex-hours",
+      "name": "Apex Hours on YouTube",
+      "items": 0,
+      "note": "read through the YouTube API"
+    }
+  ],
+  "articles": [
+    {
+      "title": "Salesforce has built the TSA a new AI agent to make travelling less awful for everyone",
+      "url": "https://www.salesforce.com/news/linked-content/salesforce-has-built-the-tsa-a-new-ai-agent-to-make-travelling-less-awful-for-everyone/",
+      "source": "Salesforce News",
+      "outcome": "dropped",
+      "reason": "none of the paper's keywords"
+    },
+    {
+      "title": "Salesforce Signs Definitive Agreement to Acquire Listen Labs",
+      "url": "https://www.salesforce.com/news/stories/salesforce-signs-definitive-agreement-to-acquire-listen-labs/",
+      "source": "Salesforce News",
+      "outcome": "dropped",
+      "reason": "none of the paper's keywords"
+    },
+    {
+      "title": "Find 10 things in the Salesforce release notes",
+      "url": "https://www.youtube.com/watch?v=kBY-BGa4YMk",
+      "source": "Salesforce Admins on YouTube",
+      "outcome": "not-relevant",
+      "score": 1
+    },
+    {
+      "title": "Salesforce’s Agentic CX Vision: 8 Dreamforce Announcements CX Leaders Need to Act On",
+      "url": "https://www.salesforce.com/news/linked-content/salesforces-agentic-cx-vision-8-dreamforce-announcements-cx-leaders-need-to-act-on/",
+      "source": "Salesforce News",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "How api-driven integration remains essential as ai agents expand into Salesforce",
+      "url": "https://www.youtube.com/watch?v=2px3xYEwsHc",
+      "source": "MyTutorialRack on YouTube",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: AI Agents Can't Replace This Salesforce Skill — 3 APIs To Learn First"
+    },
+    {
+      "title": "Would Salesforce Careers Survive an AI Bubble Burst?",
+      "url": "https://www.youtube.com/watch?v=0G23oaA608M",
+      "source": "Salesforce Ben on YouTube",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Salesforce Admin Superpowers are...",
+      "url": "https://www.youtube.com/watch?v=em8J97a652c",
+      "source": "Salesforce Admins on YouTube",
+      "outcome": "not-relevant",
+      "score": 1
+    },
+    {
+      "title": "Daniel Ricciardo Goes Inside F1’s 831M Fan Engine",
+      "url": "https://www.youtube.com/watch?v=JPmu8bIZuKc",
+      "source": "Salesforce on YouTube",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Multiplayer AI: The Shift from Smarter Individuals to a Smarter Company",
+      "url": "https://www.salesforce.com/news/stories/multiplayer-ai/",
+      "source": "Salesforce News",
+      "outcome": "not-relevant",
+      "score": 5
+    },
+    {
+      "title": "Getting to ROI: How Brands Turn Cost Centers into Revenue Engines with AI",
+      "url": "https://www.salesforce.com/news/stories/getting-to-roi-with-ai/",
+      "source": "Salesforce News",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "The Search for Formula1's Biggest Fan Starts Now | Salesforce",
+      "url": "https://www.youtube.com/watch?v=aMZDs7N4iNU",
+      "source": "Salesforce on YouTube",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Why you can't take the Application Architect exam #salesforce #careergoals #salesforcetips",
+      "url": "https://www.youtube.com/watch?v=kkt-EZJtriQ",
+      "source": "MyTutorialRack on YouTube",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "How Do I Decide If a New Salesforce Feature Belongs in My Org?",
+      "url": "https://www.youtube.com/watch?v=HiGSjH1ahQY",
+      "source": "Salesforce Admins on YouTube",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6"
+    },
+    {
+      "title": "How Do I Decide If a New Salesforce Feature Belongs in My Org?",
+      "url": "https://www.youtube.com/watch?v=8hylOBLoku8",
+      "source": "Salesforce Admins on YouTube",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6"
+    },
+    {
+      "title": "Weeks of Onboarding Done in Days | Siemens Demo, Dreamforce 2026",
+      "url": "https://www.youtube.com/watch?v=U79bIwksYKo",
+      "source": "Salesforce on YouTube",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Don't book the Salesforce Review Board until you watch this #salesforce #certification #careeradvice",
+      "url": "https://www.youtube.com/watch?v=9gEqKMCkGvY",
+      "source": "MyTutorialRack on YouTube",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Dreamforce 2026: What Koa, AIforce & the New Agentic Stack Mean for Your Business? | Salesforce Hulk",
+      "url": "https://www.youtube.com/watch?v=rfQXS2yg2sE",
+      "source": "Salesforce Hulk on YouTube",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Putting Agentforce to Work From Pipeline to Supply Chain | Dreamforce 2026",
+      "url": "https://www.youtube.com/watch?v=Y4z8cexwFI8",
+      "source": "Salesforce on YouTube",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "How To Become a Salesforce Architect in 2026 | 4 Truths Nobody Tells You About the Career Path",
+      "url": "https://www.youtube.com/watch?v=PT37t3cBZmQ",
+      "source": "MyTutorialRack on YouTube",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "The Five-Year Salesforce Career Audit",
+      "url": "https://www.youtube.com/watch?v=Dfv0MYI45No",
+      "source": "Salesforce Ben on YouTube",
+      "outcome": "not-relevant",
+      "score": 5
+    },
+    {
+      "title": "Native to Salesforce: What It Actually Means and Why It Changes Everything",
+      "url": "https://www.youtube.com/watch?v=vyg_5-YHYg8",
+      "source": "Salesforce Ben on YouTube",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6"
+    },
+    {
+      "title": "The formula to Salesforce Career Progression",
+      "url": "https://www.youtube.com/watch?v=9jEwvyrJ7FY",
+      "source": "Salesforce Ben on YouTube",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Inside Salesforce: How We Use Data 360 for Marketing | Dreamforce 2026",
+      "url": "https://www.youtube.com/watch?v=FK6KAkvlzUo",
+      "source": "Salesforce on YouTube",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "The Secret to Landing Your First Salesforce Job #salesforce  #techcareers  #interviewtips",
+      "url": "https://www.youtube.com/watch?v=YzDwARo-ocE",
+      "source": "MyTutorialRack on YouTube",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Configuring Agentforce Voice settings and telephony flows",
+      "url": "https://www.youtube.com/watch?v=ZvE7hUlCHw8",
+      "source": "Salesforce Admins on YouTube",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Agentforce Voice: Behind the Scenes Setup | Agentforce Decoded"
+    },
+    {
+      "title": "2M service calls. 30% resolved by AI agents.",
+      "url": "https://www.youtube.com/watch?v=HLgADym2BY8",
+      "source": "Salesforce on YouTube",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Get Salesforce Experience With No Job (Step-by-Step)",
+      "url": "https://www.youtube.com/watch?v=PpOwBE7HV5E",
+      "source": "MyTutorialRack on YouTube",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Using Apex frameworks to enforce code quality and platform limits in the AI era",
+      "url": "https://blog.beyondthecloud.dev/blog/framework-driven-development",
+      "source": "Beyond the Cloud",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Framework-Driven Development"
+    },
+    {
+      "title": "The Five-Year Salesforce Career Audit",
+      "url": "https://www.youtube.com/watch?v=4vebgPte1_Q",
+      "source": "Salesforce Ben on YouTube",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "100 Hours of Free Salesforce Training and Still No Job? Here's Why",
+      "url": "https://www.youtube.com/watch?v=6IYEU4ix84A",
+      "source": "MyTutorialRack on YouTube",
+      "outcome": "not-relevant",
+      "score": 3
+    }
+  ],
+  "proofread": [
+    {
+      "title": "How API-Driven Integration remains essential as AI agents expand into Salesforce",
+      "outcome": "corrected",
+      "reason": "summary: 6 words differ (at most 4 allowed)"
+    },
+    {
+      "title": "Configuring Agentforce Voice settings and telephony flows",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Using Apex frameworks to enforce code quality and platform limits in the AI era",
+      "outcome": "unchanged"
+    }
+  ],
+  "figures": [],
+  "model": {
+    "calls": 31,
+    "retries": {},
+    "usage": {
+      "qwen/qwen3.7-flash": {
+        "input": 40411,
+        "output": 102128
+      }
+    }
+  },
+  "statsAt": "2026-10-04T17:56:23.143Z"
+}
