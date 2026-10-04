@@ -1,0 +1,48 @@
+{
+  "name": "daily-paper",
+  "description": "A daily newspaper on a subject of your choosing: feeds in, a model scores and summarises, a static site out.",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "pipeline": "tsx pipeline/run.ts",
+    "models": "tsx pipeline/models.ts",
+    "check-paper": "tsx pipeline/check-paper.ts",
+    "sources": "tsx pipeline/sources-report.ts",
+    "try-source": "tsx pipeline/try-source.ts",
+    "new-paper": "tsx pipeline/new-paper.ts",
+    "backfill-images": "tsx pipeline/backfill-images.ts",
+    "backfill-authors": "tsx pipeline/backfill-authors.ts",
+    "revise": "tsx pipeline/revise.ts",
+    "figures": "tsx pipeline/figures.ts",
+    "favicon": "tsx pipeline/favicon.ts",
+    "daily": "npm run pipeline && npm run build",
+    "check": "astro check",
+    "test": "tsx --test pipeline/*.test.ts src/lib/*.test.ts"
+  },
+  "dependencies": {
+    "@astrojs/rss": "^4.0.19",
+    "@astrojs/sitemap": "^3.7.4",
+    "@mozilla/readability": "^0.6.0",
+    "astro": "^7.3.5",
+    "dotenv": "^18.0.5",
+    "linkedom": "^0.18.13",
+    "rss-parser": "^3.13.0",
+    "sass": "^1.105.1",
+    "sharp": "^0.35.5",
+    "tsx": "^4.23.15",
+    "yaml": "^2.9.1",
+    "zod": "^4.6.5"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.10",
+    "typescript": "^6.0.3"
+  }
+}

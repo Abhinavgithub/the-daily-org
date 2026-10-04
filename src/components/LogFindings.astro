@@ -1,0 +1,66 @@
+---
+import { RULES, type Finding } from '../lib/insights';
+
+// What the records say, most pressing first. Each says what was found, and under it what to do.
+
+interface Props {
+  findings: Finding[];
+}
+
+const { findings } = Astro.props;
+const WORD = { problem: 'Problem', watch: 'Watch', fine: 'Fine' };
+// A time said outright, for a reader without the script that turns it into "2 hours ago".
+const clock = (iso: string) => `on ${new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }).format(new Date(iso))}`;
+---
+
+<ul class="findings">
+  {
+    findings.map((finding) => (
+      <li
+        class:list={['finding', `finding--${finding.tone}`]}
+        hidden={finding.hidden}
+        data-at={finding.tone !== 'fine' ? finding.lastRunAt : undefined}
+        data-stale-after={finding.tone !== 'fine' && finding.lastRunAt ? RULES.staleHours : undefined}
+      >
+        <span class="finding__tone">{WORD[finding.tone]}</span>
+        <div class="finding__text">
+          <p class="finding__says">
+            {finding.tone === 'fine' && finding.lastRunAt ? (
+              <>
+                <span data-at={finding.lastRunAt} data-fresh-within={RULES.staleHours}>
+                  The pipeline ran{' '}
+                  <time datetime={finding.lastRunAt} data-ago>
+                    {clock(finding.lastRunAt)}
+                  </time>
+                  .{' '}
+                </span>
+                {finding.says}
+              </>
+            ) : finding.lastRunAt ? (
+              <>
+                The pipeline last ran{' '}
+                <time datetime={finding.lastRunAt} data-ago>
+                  {clock(finding.lastRunAt)}
+                </time>
+                .
+              </>
+            ) : (
+              finding.says
+            )}
+          </p>
+          {finding.action && (
+            <p class="finding__action">
+              {finding.action}
+              {finding.href && (
+                <>
+                  {' '}
+                  <a href={finding.href}>See&nbsp;it</a>
+                </>
+              )}
+            </p>
+          )}
+        </div>
+      </li>
+    ))
+  }
+</ul>

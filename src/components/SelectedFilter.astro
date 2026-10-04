@@ -1,0 +1,33 @@
+---
+// The tag or section a page is showing, as a pill that can be removed.
+// It sits in the masthead where an edition shows its date.
+interface Props {
+  label: string;
+  /** The page's heading for screen readers, such as "Stories tagged flow". */
+  heading: string;
+}
+
+const { label, heading } = Astro.props;
+---
+
+<h1 class="visually-hidden">{heading}</h1>
+<a class="selected" href="/" data-remove-filter aria-label={`Remove the ${label} filter`} title="Remove this filter">
+  <span>{label}</span>
+  <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+    <path d="m4 4 8 8M12 4l-8 8"></path>
+  </svg>
+</a>
+
+<script>
+  // Removing the filter goes back to the page you came from; opened directly, it goes to the latest edition.
+  document.querySelector('[data-remove-filter]')?.addEventListener('click', (event) => {
+    let cameFromHere = false;
+    try {
+      cameFromHere = document.referrer !== '' && new URL(document.referrer).origin === location.origin;
+    } catch {}
+    if (cameFromHere && history.length > 1) {
+      event.preventDefault();
+      history.back();
+    }
+  });
+</script>

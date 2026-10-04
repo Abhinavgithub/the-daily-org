@@ -1,0 +1,17 @@
+---
+import EditionPage from '../../components/EditionPage.astro';
+import { getEditions } from '../../lib/stories';
+
+export async function getStaticPaths() {
+  const editions = await getEditions();
+  // Editions are newest first, so the older one is the next in the list.
+  return editions.map((edition, i) => ({
+    params: { day: edition.day },
+    props: { edition, older: editions[i + 1]?.day, newer: editions[i - 1]?.day },
+  }));
+}
+
+const { edition, older, newer } = Astro.props;
+---
+
+<EditionPage edition={edition} older={older} newer={newer} />

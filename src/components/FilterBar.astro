@@ -1,0 +1,98 @@
+---
+import { PERSONAS } from '../config';
+import type { Story } from '../lib/stories';
+
+interface Props {
+  stories: Story[];
+}
+
+const { stories } = Astro.props;
+const personas = PERSONAS.filter((p) => stories.some((s) => s.data.personas.includes(p.id)));
+---
+
+<div class="filters" data-filters>
+  <div class="filters__line">
+    <!-- Each group's name is also its key in the page address. -->
+    <div class="filters__group filters__group--show" role="group" aria-label="Show" data-group="show">
+      <button type="button" class="chip" data-value="" aria-pressed="true">All stories</button>
+      <button type="button" class="chip" data-value="recommended" aria-pressed="false">Recommended</button>
+      <button type="button" class="chip" data-value="must" aria-pressed="false">Must-read</button>
+    </div>
+    {
+      personas.length > 0 && (
+        <div class="filters__group filters__group--for" role="group" aria-label="Written for" data-group="for">
+          <button type="button" class="chip" data-value="" aria-pressed="true">Everyone</button>
+          {
+            personas.map((p) => (
+              <button type="button" class="chip" data-value={p.id} aria-pressed="false">
+                {p.label}
+              </button>
+            ))
+          }
+        </div>
+      )
+    }
+  </div>
+</div>
+
+<script>
+  // The selection lives in the address, so it survives a reload and can be shared.
+  const root = document.querySelector<HTMLElement>('[data-filters]')!;
+  const cards = [...document.querySelectorAll<HTMLElement>('[data-card]')];
+  const groups = [...root.querySelectorAll<HTMLElement>('[data-group]')];
+  const empty = document.querySelector<HTMLElement>('[data-empty]');
+  const KEYS = ['for', 'show'] as const;
+  // Each mark on a story, and the Show choices it appears under. Must-read stories are also Recommended.
+  const SHOWN_UNDER: Record<string, string[]> = { must: ['must', 'recommended'], recommended: ['recommended'], other: [] };
+
+  const read = () => {
+    const params = new URLSearchParams(location.search);
+    const show = params.get('show') ?? '';
+    return { for: params.get('for') ?? '', show: show === 'must' || show === 'recommended' ? show : '' };
+  };
+
+  function write(next: Record<string, string>) {
+    const params = new URLSearchParams(location.search);
+    for (const [key, value] of Object.entries(next)) {
+      if (value) params.set(key, value);
+      else params.delete(key);
+    }
+    const query = params.toString();
+    history.replaceState(null, '', location.pathname + (query ? `?${query}` : '') + location.hash);
+    apply();
+  }
+
+  function apply() {
+    const state = read();
+    let shown = 0;
+    for (const card of cards) {
+      const match =
+        (!state.for || (card.dataset.personas ?? '').split(' ').includes(state.for)) &&
+        (!state.show || (SHOWN_UNDER[card.dataset.signal ?? 'other'] ?? []).includes(state.show));
+      card.hidden = !match;
+      if (match) shown++;
+    }
+    for (const group of groups) {
+      const selected = state[group.dataset.group as (typeof KEYS)[number]];
+      for (const pill of group.querySelectorAll<HTMLElement>('button')) {
+        pill.setAttribute('aria-pressed', String((pill.dataset.value ?? '') === selected));
+      }
+    }
+
+    if (empty) empty.hidden = shown > 0;
+    // The page is packed to the boxes on show, so it has to be packed again.
+    document.dispatchEvent(new Event('stories:filtered'));
+  }
+
+  for (const group of groups) {
+    group.addEventListener('click', (event) => {
+      const pill = (event.target as HTMLElement).closest<HTMLElement>('button');
+      if (pill) write({ [group.dataset.group!]: pill.dataset.value ?? '' });
+    });
+  }
+  for (const button of document.querySelectorAll('[data-filter-clear]')) {
+    button.addEventListener('click', () => write({ for: '', show: '' }));
+  }
+
+  apply();
+</script>

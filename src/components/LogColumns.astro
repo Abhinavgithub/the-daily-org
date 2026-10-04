@@ -1,0 +1,56 @@
+---
+// One column per run, oldest at the left, each divided into parts.
+
+interface Part {
+  label: string;
+  tone: 'main' | 'light' | 'rest' | 'faint' | 'unknown';
+  count: number;
+}
+
+interface Props {
+  title: string;
+  /** Each column's parts, in the order they stack from the bottom. `when` names the run in its tooltip. */
+  columns: { when: string; parts: Part[]; foot?: string }[];
+}
+
+const { title, columns } = Astro.props;
+const total = (parts: Part[]) => parts.reduce((sum, part) => sum + part.count, 0);
+const tallest = Math.max(1, ...columns.map((column) => total(column.parts)));
+// The key names every part that occurs somewhere, in the order they stack.
+const key = (columns[0]?.parts ?? []).filter((part) => columns.some((column) => column.parts.some((other) => other.label === part.label && other.count > 0)));
+---
+
+<figure class="columns columns--stacked">
+  <figcaption>{title}</figcaption>
+  {
+    columns.length === 0 ? (
+      <p class="ledger__none">Nothing in this period.</p>
+    ) : (
+      <>
+        <ol class="columns__plot">
+          {columns.map((column) => (
+            <li
+              tabindex="0"
+              data-tip={column.parts.filter((part) => part.count > 0).map((part) => `${part.count} ${part.label.toLowerCase()}`).join(', ') || 'Nothing'}
+              data-tip-label={column.when}
+            >
+              <span class="columns__value">{total(column.parts)}</span>
+              <span class="columns__stack" style={`height: ${(total(column.parts) / tallest) * 100}%`} aria-hidden="true">
+                {column.parts.filter((part) => part.count > 0).map((part) => <span class={`mark--${part.tone}`} style={`flex-grow: ${part.count}`} />)}
+              </span>
+              {column.foot && <span class="columns__day" aria-hidden="true">{column.foot}</span>}
+            </li>
+          ))}
+        </ol>
+        <ul class="key">
+          {key.map((part) => (
+            <li>
+              <span class:list={['key__swatch', `mark--${part.tone}`]} aria-hidden="true" />
+              {part.label}
+            </li>
+          ))}
+        </ul>
+      </>
+    )
+  }
+</figure>

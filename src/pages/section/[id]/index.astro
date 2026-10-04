@@ -1,0 +1,30 @@
+---
+import Masthead from '../../../components/Masthead.astro';
+import SelectedFilter from '../../../components/SelectedFilter.astro';
+import StoryGrid from '../../../components/StoryGrid.astro';
+import { SECTIONS } from '../../../config';
+import Layout from '../../../layouts/Layout.astro';
+import { getAllStories } from '../../../lib/stories';
+
+const LIMIT = 60;
+
+export async function getStaticPaths() {
+  const all = await getAllStories();
+  return SECTIONS.map((section) => ({
+    params: { id: section.id },
+    props: { section, stories: all.filter((s) => s.data.section === section.id) },
+  })).filter((path) => path.props.stories.length > 0);
+}
+
+const { section, stories } = Astro.props;
+const shown = stories.slice(0, LIMIT);
+---
+
+<Layout title={section.label}>
+  <Masthead>
+    <SelectedFilter label={section.label} heading={`Stories in ${section.label}`} />
+  </Masthead>
+  <main id="stories" class="wrap">
+    <StoryGrid stories={shown} showDay />
+  </main>
+</Layout>

@@ -1,0 +1,27 @@
+---
+import EditionPage from '../components/EditionPage.astro';
+import Masthead from '../components/Masthead.astro';
+import Layout from '../layouts/Layout.astro';
+import { getEditions } from '../lib/stories';
+
+const editions = await getEditions();
+const [latest, previous] = editions;
+---
+
+{
+  latest ? (
+    <EditionPage edition={latest} older={previous?.day} isLatest />
+  ) : (
+    <Layout>
+      <Masthead>
+        <h1 class="dateline__text">No editions yet</h1>
+      </Masthead>
+      <main id="stories" class="wrap prose">
+        <p>
+          There are no stories yet. Add a model API key to <code>.env</code>, then run
+          <code>npm run pipeline</code> to build the first edition.
+        </p>
+      </main>
+    </Layout>
+  )
+}

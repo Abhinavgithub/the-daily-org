@@ -1,0 +1,111 @@
+---
+import path from 'node:path';
+import sharp from 'sharp';
+import type { Figure } from '../lib/figure';
+
+interface Props {
+  figure: Exclude<Figure, { kind: 'none' }>;
+  /** The diagram as an illustration, shown in place of the drawn one. */
+  image?: string;
+}
+
+const { figure, image } = Astro.props;
+
+// What the illustration says, for readers who cannot see it.
+const words = (value: unknown): string[] => (typeof value === 'string' ? [value] : value && typeof value === 'object' ? Object.values(value).flatMap(words) : []);
+const { kind, caption, ...rest } = figure;
+const alt = `${caption}: ${words(rest).join('; ')}`;
+// Image models choose their own shape, so the page reads it to hold the right space before the picture loads.
+const size = image ? await sharp(path.join(process.cwd(), 'public', image)).metadata().catch(() => undefined) : undefined;
+---
+
+<figure class:list={['fig', image ? 'fig--image' : `fig--${kind}`]}>
+  {
+    image && (
+      <>
+        <button type="button" class="fig__zoom" data-zoom aria-label="Enlarge the picture" aria-haspopup="dialog">
+          <img src={image} alt={alt} width={size?.width} height={size?.height} loading="lazy" decoding="async" />
+        </button>
+        <dialog class="zoom" data-zoom-dialog aria-label={caption}>
+          <button type="button" class="zoom__close" data-zoom-close aria-label="Close">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+              <path d="M6 6l12 12M18 6 6 18" />
+            </svg>
+          </button>
+          <img src={image} alt={alt} width={size?.width} height={size?.height} loading="lazy" decoding="async" />
+          <p>{caption}</p>
+        </dialog>
+      </>
+    )
+  }
+  <div class="fig__body" hidden={Boolean(image)}>
+    {
+      figure.kind === 'steps' && (
+        <ol class="fig__steps">
+          {figure.steps.map((step) => (
+            <li>
+              <span>{step}</span>
+            </li>
+          ))}
+        </ol>
+      )
+    }
+    {
+      figure.kind === 'compare' && (
+        <div class="fig__compare">
+          {[figure.left, figure.right].map((side) => (
+            <div class="fig__side">
+              <p class="fig__heading">{side.heading}</p>
+              <ul>
+                {side.points.map((point) => (
+                  <li>{point}</li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+      )
+    }
+    {
+      figure.kind === 'numbers' && (
+        <dl class="fig__numbers">
+          {figure.numbers.map((n) => (
+            <div>
+              <dt>{n.value}</dt>
+              <dd>{n.label}</dd>
+            </div>
+          ))}
+        </dl>
+      )
+    }
+    {
+      figure.kind === 'parts' && (
+        <div class="fig__parts">
+          <p class="fig__heading">{figure.whole}</p>
+          <ul>
+            {figure.parts.map((part) => (
+              <li>{part}</li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </div>
+  <figcaption>{figure.caption}</figcaption>
+</figure>
+
+<script>
+  // A story's picture opens large over the page. The browser's own dialog gives
+  // Esc to close and puts the reader back on the picture afterwards.
+  document.addEventListener('click', (event) => {
+    const target = event.target as HTMLElement;
+    const opener = target.closest<HTMLElement>('[data-zoom]');
+    if (opener) {
+      opener.parentElement?.querySelector<HTMLDialogElement>('[data-zoom-dialog]')?.showModal();
+      return;
+    }
+    const dialog = target.closest<HTMLDialogElement>('[data-zoom-dialog]');
+    // A click on the dialog itself is a click on the dimmed page around the picture.
+    if (dialog && (target === dialog || target.closest('[data-zoom-close]'))) dialog.close();
+  });
+</script>

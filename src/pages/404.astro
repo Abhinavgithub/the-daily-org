@@ -1,0 +1,19 @@
+---
+import Masthead from '../components/Masthead.astro';
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="Page not found" noindex>
+  <Masthead>
+    <h1 class="dateline__text">Page not found</h1>
+  </Masthead>
+  <main id="stories" class="wrap">
+    <div class="prose notfound">
+      <p>This page is not in the paper. The address may be mistyped, or the story may have been removed.</p>
+      <p>
+        <a href="/">Read today's edition</a>, look through the <a href="/archive/">archive</a>, or
+        <a href="/search/">search every edition</a>.
+      </p>
+    </div>
+  </main>
+</Layout>

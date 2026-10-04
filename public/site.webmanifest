@@ -1,0 +1,22 @@
+{
+  "name": "The Daily Org",
+  "short_name": "The Daily Org",
+  "description": "A daily newspaper of the Salesforce stories worth reading, scored and summarised for developers, admins and architects.",
+  "start_url": "/",
+  "display": "browser",
+  "background_color": "#f1ebdd",
+  "theme_color": "#f1ebdd",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

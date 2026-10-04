@@ -1,0 +1,2494 @@
+// Tokens ---------------------------------------------------------------
+
+:root {
+  // Three layers: a desk behind everything, the newsprint sheet lying on it,
+  // and a lighter paper for the story blocks on the sheet. Ink tones are warm
+  // so nothing looks cold against any of them.
+  --desk: #c8bda6;
+  --paper: #{$paper};
+  --surface: #faf6ec;
+  --ink: #{$ink};
+  --muted: #5a5346;
+  --rule: #cdc4ae;
+  --sky: #2c5878;
+  --sky-wash: #e8e0cd;
+  --sun: #{$accent};
+  --backdrop: rgb(28 26 22 / 0.55);
+
+  // The box rule around a story: ink, thinned so it reads as printed, not framed.
+  --edge: color-mix(in srgb, var(--ink) 38%, transparent);
+
+  // One shadow scale for the whole site: a story lying on the page, and a
+  // note raised above it. Warm brown-black, to suit the paper.
+  --shadow-1: 0 1px 2px rgb(60 45 20 / 0.16), 0 6px 14px rgb(60 45 20 / 0.17);
+  --shadow-2: 0 2px 4px rgb(60 45 20 / 0.18), 0 16px 30px rgb(60 45 20 / 0.26);
+  // The whole newspaper on the desk. The first four layers draw the edges of
+  // two more pages beneath the front one, each a little narrower; the rest is
+  // the shadow the stack casts.
+  --shadow-sheet:
+    0 7px 0 -3px var(--paper), 0 8px 0 -3px var(--edge-solid), 0 15px 0 -7px var(--paper),
+    0 16px 0 -7px var(--edge-solid), 0 3px 6px rgb(60 45 20 / 0.2), 0 22px 48px rgb(60 45 20 / 0.34);
+  // The page edges need an opaque line, since they sit over the desk rather than over paper.
+  --edge-solid: color-mix(in srgb, var(--ink) 38%, var(--desk));
+
+  // Open-licensed faces in the manner of a broadsheet: Chomsky for the
+  // nameplate, Newsreader for headlines and reading text (it was drawn for
+  // news, and picks a sharper cut at headline sizes and a sturdier one at text
+  // sizes by itself), and Libre Franklin for labels.
+  --nameplate: 'Chomsky', 'Old English Text MT', 'UnifrakturCook', Georgia, serif;
+  --headline: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --text: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --display: 'Libre Franklin', 'Franklin Gothic Medium', 'Helvetica Neue', Arial, sans-serif;
+
+  // The whole type scale. Every font-size on the site is one of these.
+  --fs-nameplate: clamp(2.6rem, 8vw, 4.75rem);
+  --fs-title: 2rem;
+  --fs-headline: 1.25rem;
+  --fs-body: 1rem;
+  --fs-label: 0.8125rem;
+
+  // Space between the sheet's edge and its content, and between the sheet and the window.
+  --gutter: clamp(1rem, 2.4vw, 1.5rem);
+  --desk-gap: clamp(0.5rem, 2vw, 1.5rem);
+  --width: 78rem;
+  // Height of the header's search box and theme button.
+  --tool: 2.5rem;
+  color-scheme: light;
+}
+
+@mixin dark {
+  --desk: #0d0c0a;
+  --paper: #191713;
+  --surface: #24211b;
+  --ink: #ebe5d6;
+  --muted: #b0a896;
+  --rule: #3e392f;
+  --sky: #9cc3e0;
+  --sky-wash: #2e2a22;
+  --sun: #f0a85a;
+  --backdrop: rgb(0 0 0 / 0.7);
+
+  // Soft shadows barely show on a dark page, so they are stronger here and
+  // paired with a faint light along the top edge.
+  --shadow-1: inset 0 1px 0 rgb(255 255 255 / 0.05), 0 1px 2px rgb(0 0 0 / 0.5), 0 4px 10px rgb(0 0 0 / 0.4);
+  --shadow-2: inset 0 1px 0 rgb(255 255 255 / 0.07), 0 2px 4px rgb(0 0 0 / 0.55), 0 14px 28px rgb(0 0 0 / 0.55);
+  --shadow-sheet:
+    0 7px 0 -3px var(--paper), 0 8px 0 -3px var(--edge-solid), 0 15px 0 -7px var(--paper),
+    0 16px 0 -7px var(--edge-solid), 0 4px 8px rgb(0 0 0 / 0.6), 0 24px 56px rgb(0 0 0 / 0.75);
+  color-scheme: dark;
+
+  // The theme button shows the mode it switches to.
+  .icon-moon {
+    display: none;
+  }
+
+  .icon-sun {
+    display: block;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    @include dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  @include dark;
+}
+
+@font-face {
+  font-family: 'Chomsky';
+  src: url('/fonts/Chomsky.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+// Newsreader and Libre Franklin, served from this site so that reading the
+// paper asks nothing of anyone else's servers. Latin and extended Latin only.
+@font-face {
+  font-family: 'Libre Franklin';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/LibreFranklin-normal-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Libre Franklin';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/LibreFranklin-normal-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Newsreader';
+  font-style: italic;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/Newsreader-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Newsreader';
+  font-style: italic;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/Newsreader-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/Newsreader-normal-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/Newsreader-normal-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+// Base -----------------------------------------------------------------
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--desk);
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--sky);
+  text-underline-offset: 0.15em;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--sky);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+code {
+  font-size: inherit;
+  background: var(--sky-wash);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip {
+  position: absolute;
+  left: -999px;
+
+  &:focus {
+    left: var(--gutter);
+    top: 0.5rem;
+    background: var(--surface);
+    padding: 0.5rem 0.75rem;
+    z-index: 10;
+  }
+}
+
+.link-button {
+  color: var(--sky);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--ink);
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0.25rem 0.5rem;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--ink);
+  }
+
+  &[aria-pressed='true'] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+}
+
+.chip__count {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.7;
+}
+
+.wrap {
+  max-width: var(--width);
+  margin: 0 auto;
+  padding: 1.25rem var(--gutter) 2.5rem;
+}
+
+.prose {
+  > * {
+    max-width: 44rem;
+  }
+}
+
+.page-sub {
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  color: var(--muted);
+  margin: 0 0 1.25rem;
+}
+
+// The sheet -----------------------------------------------------------
+
+// The whole newspaper: bordered, and raised off the desk by its shadow.
+.sheet {
+  width: min(var(--width), 100% - 2 * var(--desk-gap));
+  // Extra room below for the page edges and the shadow.
+  margin: var(--desk-gap) auto calc(var(--desk-gap) + 1.5rem);
+  background: var(--paper);
+  border: 1px solid var(--edge);
+  box-shadow: var(--shadow-sheet);
+  // The part that turns when moving between editions.
+  view-transition-name: sheet;
+  position: relative;
+}
+
+// An empty layer over the sheet on which the curl of a turning page is drawn.
+.sheet::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  view-transition-name: turn-fold;
+}
+
+// Page turn ------------------------------------------------------------
+
+// Moving from one edition to another turns the sheet like a page of paper.
+// The browser pictures the old and new sheets, and these rules animate the
+// pictures; Layout.astro sets data-turn to say which way. Browsers without
+// this feature change at once.
+//
+// A sheet of paper does not swing like a board: it bends. So the page is
+// rolled back rather than rotated. A fold travels across the sheet; the page
+// is cut off at the fold, and a band along it is drawn as the curled paper,
+// lit like a cylinder, with its shadow falling on the page beneath.
+//
+// The fold is slanted, as it is when a hand takes a page by its bottom corner:
+// the bottom of the page leads and the top follows. Going to a newer edition
+// the bottom-right corner is drawn leftwards, so the fold leans like "/".
+// Going back, the bottom-left corner is drawn rightwards, and it leans like "\".
+@view-transition {
+  navigation: auto;
+}
+
+// Where the fold crosses the middle of the window, measured from the sheet's
+// left edge, and how wide the curl is. Registered so they can be animated.
+@property --fold {
+  syntax: '<length-percentage>';
+  inherits: false;
+  initial-value: 100%;
+}
+
+@property --curl {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+// The fold's lean. The sheet can be many windows tall, so the lean is worked
+// out around the middle of the window (50vh down), where the turn is watched.
+// --lean-run is how far the fold shifts sideways over that half window:
+// 50vh * tan(18deg). The far points of the cut below use tan(18deg) * 10000px.
+$lean: 18deg;
+$lean-run: 16.25vh;
+$lean-far: 3249px;
+
+// Nothing moves unless a page is being turned.
+::view-transition-group(*),
+::view-transition-old(*),
+::view-transition-new(*) {
+  animation: none;
+}
+
+::view-transition-image-pair(sheet) {
+  isolation: auto;
+}
+
+::view-transition-old(sheet),
+::view-transition-new(sheet) {
+  mix-blend-mode: normal;
+}
+
+// The page being turned lies flat to the left of the fold and is cut off along it.
+html[data-turn='newer']::view-transition-old(sheet) {
+  z-index: 1;
+  clip-path: polygon(
+    0 0,
+    calc(var(--fold) + #{$lean-run}) 0,
+    calc(var(--fold) + #{$lean-run} - #{$lean-far}) 10000px,
+    0 10000px
+  );
+}
+
+html[data-turn='older']::view-transition-new(sheet) {
+  z-index: 1;
+  clip-path: polygon(
+    0 0,
+    calc(var(--fold) - #{$lean-run}) 0,
+    calc(var(--fold) - #{$lean-run} + #{$lean-far}) 10000px,
+    0 10000px
+  );
+}
+
+// To a newer edition the current page rolls away to the left, uncovering the
+// new one. To an older edition the roll runs the other way: the older page
+// unrolls from the left over the current one.
+html[data-turn='newer']::view-transition-old(sheet),
+html[data-turn='newer']::view-transition-new(turn-fold) {
+  animation: roll 0.95s cubic-bezier(0.45, 0.05, 0.25, 1) both;
+}
+
+html[data-turn='older']::view-transition-new(sheet),
+html[data-turn='older']::view-transition-new(turn-fold) {
+  animation: roll 0.95s cubic-bezier(0.45, 0.05, 0.25, 1) reverse both;
+}
+
+// The curl is a long strip laid along the fold and leaning with it. It is kept
+// inside the sheet's outline so it never paints over the desk.
+::view-transition-group(turn-fold) {
+  clip-path: inset(0);
+}
+
+::view-transition-old(turn-fold) {
+  display: none;
+}
+
+html[data-turn]::view-transition-new(turn-fold) {
+  // Wide enough for the curl and both of its shadows, and long enough to
+  // cross the window at any lean. The fold is the strip's centre line.
+  --strip: 60vw;
+  inset: -150vh auto auto calc(var(--fold) - var(--strip) / 2);
+  inline-size: var(--strip);
+  block-size: 400vh;
+  // Turn about the point where the fold crosses the middle of the window.
+  transform-origin: 50% 200vh;
+  // From left to right: the curl's shadow on the flat page, the back of the
+  // paper rounding up to a highlight and down into the crease, then the
+  // shadow it casts on the page being uncovered.
+  background: linear-gradient(
+    to right,
+    transparent calc(50% - var(--curl) - 2.5vw),
+    rgb(40 30 12 / 0.24) calc(50% - var(--curl)),
+    color-mix(in srgb, var(--paper) 80%, #000) calc(50% - var(--curl)),
+    color-mix(in srgb, var(--surface) 92%, #000) calc(50% - var(--curl) * 0.8),
+    var(--surface) calc(50% - var(--curl) * 0.5),
+    color-mix(in srgb, var(--paper) 90%, #000) calc(50% - var(--curl) * 0.2),
+    color-mix(in srgb, var(--paper) 60%, #000) 50%,
+    rgb(40 30 12 / 0.4) 50%,
+    rgb(40 30 12 / 0.14) calc(50% + var(--curl) * 0.7),
+    transparent calc(50% + var(--curl) * 1.9)
+  );
+}
+
+html[data-turn='newer']::view-transition-new(turn-fold) {
+  transform: rotate($lean);
+}
+
+html[data-turn='older']::view-transition-new(turn-fold) {
+  transform: rotate(-$lean);
+}
+
+// The fold crosses the sheet, starting and ending far enough outside it that
+// the leaning line has cleared the window. The curl swells as the page lifts
+// and flattens as it lands.
+@keyframes roll {
+  from {
+    --fold: calc(100% + 18vh);
+    --curl: 0px;
+  }
+
+  20% {
+    --curl: 13vw;
+  }
+
+  78% {
+    --curl: 11vw;
+  }
+
+  to {
+    --fold: calc(0% - 18vh);
+    --curl: 0px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  @view-transition {
+    navigation: none;
+  }
+}
+
+// Masthead -------------------------------------------------------------
+
+.masthead {
+  max-width: var(--width);
+  margin: 0 auto;
+  padding: 1rem var(--gutter) 0;
+  text-align: center;
+
+  &::after {
+    content: '';
+    display: block;
+    margin-top: 1.1rem;
+    border-bottom: 1px solid var(--ink);
+  }
+}
+
+// Archive, search and the theme button on one line. Equal side columns keep the search centred.
+.masthead__bar {
+  display: grid;
+  grid-template-columns: 1fr minmax(0, 28rem) 1fr;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--display);
+  font-size: var(--fs-body);
+
+  > :first-child {
+    justify-self: start;
+  }
+
+  > :last-child {
+    justify-self: end;
+  }
+}
+
+.masthead__archive {
+  font-style: italic;
+}
+
+.tool {
+  display: inline-grid;
+  place-items: center;
+  width: var(--tool);
+  height: var(--tool);
+  padding: 0;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--sky-wash);
+    border-color: var(--sky);
+  }
+
+  svg {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+}
+
+.icon-sun {
+  display: none;
+}
+
+// The field and its icon are one box. The box, not the field, shows focus, so nothing overlaps.
+.search {
+  display: flex;
+  height: var(--tool);
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+
+  &:focus-within {
+    border-color: var(--sky);
+  }
+
+  input {
+    flex: 1;
+    min-width: 0;
+    color: var(--ink);
+    background: none;
+    border: 0;
+    outline: none;
+    padding: 0 0 0 0.9rem;
+
+    &::placeholder {
+      color: var(--muted);
+    }
+  }
+
+  button {
+    display: grid;
+    place-items: center;
+    width: var(--tool);
+    color: var(--muted);
+    background: none;
+    border: 0;
+    border-radius: 0 7px 7px 0;
+    cursor: pointer;
+
+    &:hover,
+    &:focus-visible {
+      color: var(--sky);
+      outline: none;
+    }
+
+    svg {
+      width: 1.15rem;
+      height: 1.15rem;
+    }
+  }
+}
+
+.dateline {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 1.5rem;
+  font-family: var(--display);
+  color: var(--muted);
+}
+
+.selected {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.3rem 0.6rem 0.3rem 0.85rem;
+  font-size: var(--fs-body);
+  line-height: 1.2;
+  color: var(--paper);
+  background: var(--ink);
+  border-radius: 3px;
+  text-decoration: none;
+
+  svg {
+    width: 0.85rem;
+    height: 0.85rem;
+    opacity: 0.75;
+  }
+
+  &:hover {
+    background: var(--sky);
+
+    svg {
+      opacity: 1;
+    }
+  }
+}
+
+.dateline__text {
+  font-size: var(--fs-headline);
+  font-weight: 500;
+  margin: 0;
+}
+
+.dateline__short {
+  display: none;
+}
+
+.dateline__step {
+  display: grid;
+  place-items: center;
+  width: 1.75rem;
+  height: 1.75rem;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  color: var(--ink);
+
+  svg {
+    width: 0.9rem;
+    height: 0.9rem;
+  }
+}
+
+a.dateline__step:hover {
+  background: var(--sky-wash);
+  border-color: var(--sky);
+}
+
+span.dateline__step {
+  opacity: 0.35;
+}
+
+.masthead__name {
+  display: block;
+  margin-top: 0.5rem;
+  font-family: var(--nameplate);
+  font-weight: 400;
+  font-size: var(--fs-nameplate);
+  line-height: 1.05;
+  color: var(--ink);
+  text-decoration: none;
+  text-wrap: balance;
+}
+
+.masthead__tagline {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.15rem 0;
+  margin: 0.7rem 0 0;
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  color: var(--muted);
+
+  align-items: baseline;
+
+  // The tagline, in the text face's true italic.
+  span:first-child {
+    font-family: var(--text);
+    font-style: italic;
+    font-size: 0.9375rem;
+  }
+
+  // A small diamond between the two parts, as a printer's ornament.
+  span + span::before {
+    content: '\25C6';
+    margin: 0 0.7rem;
+    font-size: 0.55rem;
+    vertical-align: 0.2em;
+    color: var(--muted);
+  }
+}
+
+// Filter bar -----------------------------------------------------------
+
+// A navigation row under the masthead, closed by a double rule.
+.wrap:has(.filters) {
+  padding-top: 0;
+}
+
+.filters {
+  margin-bottom: 1.5rem;
+  border-bottom: 3px double var(--ink);
+  font-family: var(--display);
+  font-size: var(--fs-label);
+}
+
+.filters__line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 0.55rem 0;
+}
+
+.filters__group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.1rem 1.4rem;
+  padding: 0.15rem 1.4rem;
+
+  // A rule between Show and For.
+  & + & {
+    border-left: 1px solid var(--rule);
+  }
+
+  // Plain words rather than pills; the chosen one is bold and underlined.
+  .chip {
+    padding: 0.2rem 0;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    background: none;
+    color: var(--ink);
+    font-weight: 500;
+
+    &:hover {
+      border-bottom-color: var(--rule);
+    }
+
+    &[aria-pressed='true'] {
+      font-weight: 700;
+      border-bottom-color: var(--ink);
+    }
+  }
+}
+
+// Stories --------------------------------------------------------------
+
+// Three newspaper columns. A story is one, two or three wide and as tall as
+// its own text, so the boxes differ in size as they do on a printed page.
+.grid {
+  --gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap);
+  align-items: start;
+}
+
+// Set by the arranging script once it has decided where each box goes: rows
+// become one pixel tall, so a box can be put at exactly the place chosen for it.
+.grid.is-packed {
+  grid-auto-rows: 1px;
+  row-gap: 0;
+}
+
+// Each story is a boxed clipping lying on the page.
+.story {
+  position: relative;
+  grid-column: span 1;
+  padding: 1.1rem 1.25rem 1.2rem;
+  background: var(--surface);
+  border: 1px solid var(--edge);
+  box-shadow: var(--shadow-1);
+  // Room above the box when the page scrolls to it from a link.
+  scroll-margin-top: 1rem;
+}
+
+.story--w2 {
+  grid-column: span 2;
+}
+
+.story--w3 {
+  grid-column: 1 / -1;
+}
+
+// A one-column story set across two columns to close a gap at the foot of the
+// page. Its headline stays the ordinary size.
+.story--stretch {
+  grid-column: span 2;
+}
+
+// The story a link pointed at.
+.story:target {
+  outline: 2px solid var(--sky);
+  outline-offset: 3px;
+}
+
+.story__byline {
+  // The "why read this" note is placed against this line.
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0 0 0.3rem;
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  color: var(--muted);
+}
+
+.story__title {
+  font-family: var(--headline);
+  font-weight: 700;
+  font-size: var(--fs-headline);
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  margin: 0 0 0.55rem;
+}
+
+.story--w2 .story__title,
+.story--w3 .story__title {
+  font-size: var(--fs-title);
+  line-height: 1.15;
+  margin-bottom: 0.7rem;
+}
+
+// Opens the original article.
+.story__link {
+  color: var(--ink);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--sky);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+  }
+}
+
+.story.is-read .story__link {
+  color: var(--muted);
+}
+
+.story__text {
+  line-height: 1.5;
+
+  p {
+    margin: 0 0 0.7rem;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Figure --------------------------------------------------------------
+// The diagram on a must-read story: line art in the paper's own ink and rules,
+// drawn from a few labels. It lays itself out by the width of its box, across
+// in a wide story and stacked in a single column.
+
+.fig {
+  container-type: inline-size;
+  margin: 0 0 0.9rem;
+  padding: 0.85rem 0 0.6rem;
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  line-height: 1.3;
+
+  ol,
+  ul,
+  dl,
+  dd,
+  p {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  figcaption {
+    margin-top: 0.75rem;
+    font-family: var(--text);
+    font-style: italic;
+    font-size: var(--fs-label);
+    line-height: 1.35;
+    color: var(--muted);
+  }
+}
+
+// The illustration, when the story has one, in place of the drawn diagram.
+.fig--image {
+  padding-top: 0.6rem;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--rule);
+  }
+}
+
+// The picture is a button: it opens large over the page.
+.fig__zoom {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.zoom {
+  width: min(72rem, 100vw - 2rem);
+  max-height: calc(100dvh - 2rem);
+  padding: 1rem 1rem 0.9rem;
+  overflow: auto;
+  border: 1px solid var(--edge-solid);
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-sheet);
+
+  &::backdrop {
+    background: rgb(0 0 0 / 0.62);
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: calc(100dvh - 9rem);
+    object-fit: contain;
+    border: 1px solid var(--rule);
+  }
+
+  p {
+    margin: 0.7rem 2.5rem 0 0;
+    font-family: var(--text);
+    font-style: italic;
+    font-size: var(--fs-body);
+    line-height: 1.4;
+    color: var(--muted);
+  }
+}
+
+.zoom__close {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid var(--edge-solid);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+
+  svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  &:hover {
+    background: var(--paper);
+  }
+}
+
+.fig__heading {
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+// Steps: numbered boxes joined by arrows.
+.fig__steps {
+  counter-reset: step;
+  display: grid;
+  gap: 1.1rem;
+
+  li {
+    counter-increment: step;
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    padding: 0.5rem 0.65rem;
+    border: 1px solid var(--edge-solid);
+    background: var(--paper);
+
+    &::before {
+      content: counter(step);
+      font-family: var(--headline);
+      font-weight: 700;
+      font-size: 1.05rem;
+      line-height: 1;
+    }
+  }
+
+  // The arrow to the next step: a short stem with a head.
+  li:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: calc(100% + 0.2rem);
+    width: 0.45rem;
+    height: 0.45rem;
+    border-right: 1.5px solid var(--ink);
+    border-bottom: 1.5px solid var(--ink);
+    transform: translateX(-50%) rotate(45deg);
+  }
+}
+
+@container (min-width: 30rem) {
+  .fig__steps {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    gap: 1.4rem;
+
+    li {
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    li:not(:last-child)::after {
+      left: calc(100% + 0.35rem);
+      top: 50%;
+      transform: translateY(-50%) rotate(-45deg);
+    }
+  }
+}
+
+// Compare: two headed lists with a rule between them.
+.fig__compare {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.fig__side {
+  .fig__heading {
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--ink);
+  }
+
+  li {
+    padding: 0.35rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  li:last-child {
+    border-bottom: 0;
+  }
+}
+
+@container (min-width: 19rem) {
+  .fig__compare {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  .fig__side + .fig__side {
+    margin-left: 0.75rem;
+    padding-left: 0.75rem;
+    border-left: 1px solid var(--rule);
+  }
+
+  .fig__side:first-child {
+    padding-right: 0;
+  }
+}
+
+// Numbers: the figures a story turns on, set large.
+.fig__numbers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 0;
+
+  > div {
+    flex: 1 1 7rem;
+    padding: 0 0.75rem;
+    border-left: 1px solid var(--rule);
+  }
+
+  > div:first-child {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  dt {
+    font-family: var(--headline);
+    font-weight: 700;
+    font-size: 1.75rem;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    font-variant-numeric: lining-nums;
+  }
+
+  dd {
+    margin-top: 0.2rem;
+    color: var(--muted);
+  }
+}
+
+// Parts: one thing, and beneath it what it is made of.
+.fig__parts {
+  .fig__heading {
+    padding: 0.45rem 0.65rem;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    text-align: center;
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+    gap: 0.4rem;
+    // The stem from the whole down to its parts.
+    margin-top: 0.7rem;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: -0.7rem;
+      height: 0.7rem;
+      border-left: 1px solid var(--ink);
+    }
+  }
+
+  li {
+    padding: 0.4rem 0.55rem;
+    border: 1px solid var(--edge-solid);
+  }
+}
+
+.story__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.8rem;
+  margin: 0.9rem 0 0;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  color: var(--muted);
+
+  a {
+    color: inherit;
+  }
+}
+
+.story__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 0.7rem;
+  list-style: none;
+  margin: 0.45rem 0 0;
+  padding: 0;
+  font-family: var(--display);
+  font-size: var(--fs-label);
+
+  a {
+    color: var(--muted);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--sky);
+      text-decoration: underline;
+    }
+  }
+}
+
+// When there is no source line above them, the tags carry the dividing rule.
+.story__text + .story__tags {
+  margin-top: 0.9rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--rule);
+}
+
+// "Why read this": an info button after the writer's name, and its note.
+.why__button {
+  display: grid;
+  place-items: center;
+  // A comfortable target around a small icon.
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: -0.25rem 0;
+  padding: 0;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  border-radius: 50%;
+  cursor: help;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--sky);
+  }
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+// Placed against the byline, so it stays within the story's own column and is
+// never cut off at the edge of the page.
+.why__pop {
+  display: none;
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  width: min(22rem, 100%);
+  padding: 0.7rem 0.85rem;
+  font-family: var(--text);
+  font-size: var(--fs-body);
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--edge);
+  border-radius: 3px;
+  box-shadow: var(--shadow-2);
+}
+
+.why.is-open .why__pop {
+  display: block;
+}
+
+@media (hover: hover) {
+  .why:hover .why__pop {
+    display: block;
+  }
+}
+
+.empty {
+  padding: 2rem 0;
+  font-family: var(--display);
+  text-align: center;
+
+  p {
+    margin: 0 0 0.5rem;
+  }
+}
+
+// Archive and search ---------------------------------------------------
+
+.browse {
+  max-width: 46rem;
+  margin-bottom: 2.5rem;
+  // Clear the top of the page when reached by its link.
+  scroll-margin-top: 1rem;
+
+  h2 {
+    font-family: var(--headline);
+    font-weight: 700;
+    font-size: var(--fs-headline);
+    margin: 0 0 0.75rem;
+  }
+}
+
+.browse__sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.archive,
+.results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 46rem;
+
+  li {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.1rem 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  a {
+    font-family: var(--headline);
+    font-weight: 700;
+    font-size: var(--fs-headline);
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+  }
+}
+
+.archive__count,
+.results__meta {
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+// The Archive and Search pages are set in the middle of the sheet: the line of
+// totals, the sections, and the list beneath.
+.wrap--centred {
+  .page-sub,
+  .browse h2 {
+    text-align: center;
+  }
+
+  .browse {
+    margin-inline: auto;
+  }
+
+  .browse__sections {
+    justify-content: center;
+  }
+}
+
+// Editions, newest first, each with its number: a block in the middle of the
+// page whose numbers, dates and counts line up in columns.
+.archive {
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  border-top: 1px solid var(--rule);
+
+  // Each row is its own grid, so the number's column is given a width for the dates to line up.
+  li {
+    grid-template-columns: 2.25rem 1fr auto;
+    align-items: baseline;
+    column-gap: 0.6rem;
+  }
+}
+
+.archive__no {
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.archive__count {
+  padding-left: 1.5rem;
+  text-align: right;
+}
+
+// Too narrow for one line: the count goes under the date.
+@media (max-width: 30rem) {
+  .archive li {
+    grid-template-columns: 2.25rem 1fr;
+  }
+
+  .archive__count {
+    grid-column: 2;
+    padding-left: 0;
+    text-align: left;
+  }
+}
+
+.results__meta,
+.results__why {
+  grid-column: 1 / -1;
+}
+
+// Search: the filters beside the results, the pair in the middle of the sheet.
+.search-page {
+  display: grid;
+  grid-template-columns: 12rem minmax(0, 44rem);
+  gap: 2.5rem;
+  justify-content: center;
+  align-items: start;
+}
+
+.search-page .results {
+  max-width: none;
+  border-top: 1px solid var(--rule);
+
+  li {
+    gap: 0.3rem 1rem;
+    padding: 1.1rem 0;
+  }
+}
+
+.results__section {
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+}
+
+// A searched word where it was found: underlined in the accent colour, not painted over.
+.results mark {
+  color: inherit;
+  background: none;
+  text-decoration: underline;
+  text-decoration-color: var(--sun);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.18em;
+}
+
+.results__more {
+  display: flex;
+  margin: 1.5rem auto 0;
+  padding: 0.45rem 0.9rem;
+}
+
+.search-filters {
+  position: sticky;
+  top: 1rem;
+  display: grid;
+  gap: 1.25rem;
+  font-family: var(--display);
+  font-size: var(--fs-label);
+
+  fieldset {
+    display: grid;
+    gap: 0.1rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+
+  legend {
+    padding: 0 0 0.4rem;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+}
+
+// One filter: the box, its name, and how many results it covers.
+.check {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 1.9rem;
+  cursor: pointer;
+
+  input {
+    width: 1rem;
+    height: 1rem;
+    margin: 0;
+    accent-color: var(--ink);
+    cursor: inherit;
+  }
+
+  &:has(input:disabled) {
+    color: var(--muted);
+    opacity: 0.6;
+    cursor: default;
+  }
+}
+
+.check__count {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.search-filters__clear {
+  justify-self: start;
+  padding: 0;
+  font: inherit;
+  color: var(--sky);
+  text-decoration: underline;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+// One column: the filters go above the results, each group's boxes in a row that wraps.
+@media (max-width: 64rem) {
+  .search-page {
+    grid-template-columns: minmax(0, 44rem);
+    gap: 1.25rem;
+  }
+
+  .search-filters {
+    position: static;
+    gap: 0.75rem;
+
+    fieldset {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 1.5rem;
+    }
+  }
+
+  .check {
+    grid-template-columns: auto auto auto;
+    gap: 0.45rem;
+  }
+}
+
+// Logs -----------------------------------------------------------------
+// The page for whoever runs the paper, which nothing links to. It is set
+// as a ledger, like the Stats page (the ledger and bar styles are under Stats).
+
+.wrap:has(.logs-nav) {
+  padding-top: 0;
+}
+
+// Links to the page's sections and the period, kept in view while scrolling.
+.logs-nav {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem 1.5rem;
+  max-width: 76rem;
+  margin: 0 auto 0.5rem;
+  padding: 0.6rem 0;
+  border-bottom: 3px double var(--ink);
+  background: var(--paper);
+  font-family: var(--display);
+  font-size: var(--fs-label);
+}
+
+.logs-nav__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+}
+
+.logs-nav__count {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.logs-nav__period {
+  display: flex;
+  gap: 0.4rem;
+}
+
+.ledger.ledger--wide {
+  max-width: 76rem;
+
+  .ledger__row {
+    // Clear of the links kept at the top when reached by one of them.
+    scroll-margin-top: 3.5rem;
+  }
+
+  // The first rule belongs to the first section showing, whichever period that is.
+  .ledger__row:first-of-type {
+    border-top: 1px solid var(--rule);
+  }
+}
+
+.logs__local {
+  margin: 0.25rem 0 0.75rem;
+}
+
+// What the records say, most pressing first.
+.findings {
+  display: grid;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.finding {
+  display: grid;
+  // The tag in a column of its own, so every sentence starts at the same edge.
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: 0 1.25rem;
+  align-items: start;
+  padding: 0.7rem 0;
+  border-bottom: 1px solid var(--rule);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  p {
+    margin: 0;
+    max-width: 62rem;
+  }
+}
+
+// The tone is said in a word; the colour only reinforces it.
+.finding__tone {
+  margin-top: 0.1rem;
+  padding: 0.1rem 0;
+  border: 1px solid var(--rule);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-align: center;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.finding--problem .finding__tone {
+  border-color: var(--sun);
+  color: var(--paper);
+  background: var(--sun);
+}
+
+.finding--watch .finding__tone {
+  border-color: var(--sun);
+  color: var(--sun);
+}
+
+.finding__says {
+  font-size: 0.95rem;
+  line-height: 1.4;
+  color: var(--ink);
+}
+
+.finding--fine .finding__says {
+  color: var(--muted);
+}
+
+.finding__action {
+  margin-top: 0.15rem !important;
+  color: var(--muted);
+}
+
+// The headline figures of a period. Each cell's label, figure and note share
+// rows with its neighbours', so each kind sits on one line across the page.
+.glance {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(8.25rem, 1fr));
+  gap: 0 1.5rem;
+  margin: 0;
+
+  > div {
+    display: grid;
+    grid-row: span 3;
+    grid-template-rows: subgrid;
+    margin-bottom: 1rem;
+  }
+
+  dt {
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  dd {
+    margin: 0.2rem 0 0;
+    font-family: var(--headline);
+    font-weight: 700;
+    font-size: 1.4rem;
+    line-height: 1.15;
+    white-space: nowrap;
+    font-variant-numeric: tabular-nums lining-nums;
+  }
+
+  dd.glance__note {
+    font-family: var(--display);
+    font-weight: 400;
+    font-size: var(--fs-label);
+    line-height: 1.35;
+    white-space: normal;
+    color: var(--muted);
+  }
+}
+
+// A column divided into parts, the first at the bottom.
+.columns__stack {
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 2px;
+  width: min(100%, 22px);
+  min-height: 2px;
+
+  span {
+    min-height: 2px;
+  }
+
+  span:last-child {
+    border-radius: 3px 3px 0 0;
+  }
+}
+
+// Room for the day under each column before the key.
+.columns--stacked .key {
+  margin-top: 1.9rem;
+}
+
+// A short label on a row: an outcome, a verdict.
+.tag {
+  display: inline-block;
+  padding: 0.05rem 0.45rem;
+  border: 1px solid var(--rule);
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.tag--published,
+.tag--strong {
+  border-color: var(--mark);
+  color: var(--ink);
+}
+
+.tag--invalid-reply,
+.tag--failing,
+.tag--unreadable,
+.tag--quiet,
+.tag--low {
+  border-color: var(--sun);
+  color: var(--sun);
+  font-weight: 600;
+}
+
+// Every article in one table, with a search box and a chip for each outcome.
+.articles__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin-bottom: 0.6rem;
+
+  input[type='search'] {
+    flex: 1 1 14rem;
+    max-width: 22rem;
+    padding: 0.35rem 0.6rem;
+    border: 1px solid var(--edge-solid);
+    border-radius: 0;
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+  }
+}
+
+.articles__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.articles .ledger__note {
+  margin: 0 0 0.4rem;
+}
+
+// One line an article: a long title is cut short, and is whole in its tooltip.
+.articles .log__table td:first-child {
+  width: 52%;
+  max-width: 0;
+
+  a {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.ledger__sum .chip {
+  align-self: center;
+}
+
+// One run: a line that can be read as it stands, and opens.
+.log {
+  border-bottom: 1px solid var(--rule);
+  line-height: 1.45;
+
+  summary {
+    display: grid;
+    grid-template-columns: 9.5rem 9rem minmax(4rem, 9rem) minmax(0, 1.3fr) minmax(0, 1fr) auto;
+    align-items: center;
+    gap: 0.25rem 1rem;
+    padding: 0.65rem 0;
+    cursor: pointer;
+
+    &:hover {
+      background: color-mix(in srgb, var(--surface) 70%, transparent);
+    }
+  }
+
+  h3 {
+    margin: 1.1rem 0 0.4rem;
+    font-family: var(--headline);
+    font-weight: 700;
+    font-size: 1.05rem;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ink);
+  }
+}
+
+.log__when {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums lining-nums;
+}
+
+// What became of the run's articles, as a small bar.
+.log__bar {
+  display: flex;
+  gap: 2px;
+  height: 8px;
+
+  span {
+    min-width: 3px;
+  }
+}
+
+.log__counts,
+.log__cost {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+// Fine or not, in words; the colour only reinforces it.
+.log__mark {
+  padding: 0.05rem 0.5rem;
+  border: 1px solid var(--rule);
+  color: var(--muted);
+}
+
+.log__mark--bad {
+  border-color: var(--sun);
+  color: var(--sun);
+  font-weight: 700;
+}
+
+.log__bad {
+  color: var(--sun);
+  font-weight: 600;
+}
+
+.log__body {
+  padding: 0.1rem 0 1.1rem 1.25rem;
+  border-left: 2px solid var(--rule);
+  margin: 0 0 0.75rem 0.25rem;
+}
+
+.log__problems {
+  margin: 0.6rem 0 0.75rem;
+  padding: 0.55rem 0.8rem 0.55rem 1.9rem;
+  border-left: 3px solid var(--sun);
+  background: var(--surface);
+}
+
+.log__scroll {
+  overflow-x: auto;
+}
+
+.log__table {
+  width: 100%;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+
+  th,
+  td {
+    padding: 0.32rem 0.9rem 0.32rem 0;
+    border-bottom: 1px solid var(--rule);
+    text-align: left;
+    vertical-align: top;
+  }
+
+  thead th {
+    border-bottom-color: var(--ink);
+    color: var(--muted);
+    font-weight: 400;
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  td:first-child {
+    min-width: 12rem;
+    overflow-wrap: anywhere;
+  }
+
+  // Figures and dates stay on one line, so rows keep one height.
+  td:not(:first-child) {
+    white-space: nowrap;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+}
+
+.log__reason {
+  display: block;
+  color: var(--muted);
+  overflow-wrap: anywhere;
+}
+
+.log__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    padding: 0.35rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  li:last-child {
+    border-bottom: 0;
+  }
+}
+
+.log__line {
+  margin: 0.6rem 0 0;
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 64rem) {
+  .log summary {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .log__what,
+  .log__bar,
+  .log__counts,
+  .log__cost {
+    grid-column: 1 / -1;
+  }
+
+  .log__bar {
+    max-width: 14rem;
+  }
+
+  .log__mark {
+    grid-row: 1;
+    grid-column: 2;
+  }
+}
+
+@media (max-width: 44rem) {
+  // The tag sits above its sentence, at its own width.
+  .finding {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.3rem;
+  }
+
+  .finding__tone {
+    justify-self: start;
+    padding: 0.1rem 0.5rem;
+  }
+
+  .logs-nav {
+    position: static;
+  }
+}
+
+// Stats ----------------------------------------------------------------
+
+.wrap:has([data-stats]) {
+  padding-top: 0;
+}
+
+// The edition list beside the period words.
+.stats__pick {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--muted);
+
+  select {
+    padding: 0.2rem 0.4rem;
+    border: 1px solid var(--edge-solid);
+    border-radius: 0;
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+    cursor: pointer;
+  }
+}
+
+.filters__group[hidden] {
+  display: none;
+}
+
+.wrap:has([data-stats]) .filters {
+  border-bottom: 0;
+  margin-bottom: 0.5rem;
+}
+
+// The page is a ledger: one column in the middle of the sheet, its sections
+// divided by rules, each named in the margin. Nothing here is boxed, so it does
+// not read as a page of stories.
+.ledger {
+  // The colours of the bars, apart from the paper's own ink. Chosen in pairs,
+  // light and dark, and checked for being told apart by eye and with colour blindness.
+  --mark: #1f5f94;
+  --mark-light: #5d9bcb;
+  --mark-rest: #9a917e;
+  --mark-faint: #c4baa3;
+
+  max-width: 62rem;
+  margin: 0 auto;
+  font-family: var(--display);
+  font-size: var(--fs-label);
+
+  b {
+    font-weight: 700;
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@mixin dark-marks {
+  .ledger {
+    --mark: #4d9ad6;
+    --mark-light: #a9d0ee;
+    --mark-rest: #8a8272;
+    --mark-faint: #5c5647;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    @include dark-marks;
+  }
+}
+
+:root[data-theme='dark'] {
+  @include dark-marks;
+}
+
+.mark--main {
+  background: var(--mark);
+}
+
+.mark--light {
+  background: var(--mark-light);
+}
+
+.mark--rest {
+  background: var(--mark-rest);
+}
+
+.mark--faint {
+  background: var(--mark-faint);
+}
+
+// Not known, or not usable: hatched, so it is not read as a count of something.
+.mark--unknown {
+  background: repeating-linear-gradient(135deg, var(--mark-faint) 0 3px, transparent 3px 6px);
+  outline: 1px solid var(--mark-faint);
+  outline-offset: -1px;
+}
+
+.ledger__head {
+  padding: 0.5rem 0 1.75rem;
+  text-align: center;
+
+  h2 {
+    margin: 0 0 0.5rem;
+    font-family: var(--headline);
+    font-weight: 700;
+    font-size: var(--fs-title);
+    line-height: 1.15;
+  }
+}
+
+.ledger__lede {
+  margin: 0;
+  font-family: var(--text);
+  font-size: 1.125rem;
+  color: var(--muted);
+  text-wrap: balance;
+}
+
+.ledger__row {
+  display: grid;
+  grid-template-columns: 11rem minmax(0, 1fr);
+  gap: 1rem 2rem;
+  padding: 1.5rem 0 1.75rem;
+  border-top: 1px solid var(--rule);
+
+  &:first-of-type {
+    border-top: 2px solid var(--ink);
+  }
+
+  h3 {
+    margin: 0.15rem 0 0;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  h4 {
+    margin: 0 0 0.6rem;
+    font-size: var(--fs-label);
+    font-weight: 700;
+  }
+}
+
+.ledger__note,
+.ledger__none {
+  margin: 0.75rem 0 0;
+  color: var(--muted);
+}
+
+.ledger__none {
+  margin-top: 0;
+}
+
+// The headline figures of a section, on one line.
+.ledger__sum {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.75rem;
+  margin: 0 0 1.1rem;
+  color: var(--muted);
+
+  b {
+    font-size: 1.05rem;
+  }
+}
+
+.ledger__lists {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: 1.75rem 2.5rem;
+}
+
+.ledger__charts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
+  gap: 1.75rem 2.5rem;
+}
+
+// A bar divided into the parts of a whole.
+.split__bar {
+  display: flex;
+  gap: 2px;
+  height: 14px;
+}
+
+.split__part {
+  min-width: 4px;
+
+  &:first-child {
+    border-radius: 3px 0 0 3px;
+  }
+
+  &:last-child {
+    border-radius: 0 3px 3px 0;
+  }
+}
+
+// What each shade stands for, with its figure.
+.key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem 1.5rem;
+  margin: 0.7rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+
+  li {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+}
+
+.key__swatch {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 2px;
+}
+
+// Tokens by model: the name, a bar on a shared scale, the total and its share.
+.models__list {
+  display: grid;
+  // The name's column is capped, so a long name wraps and leaves the bars their room.
+  grid-template-columns: fit-content(15rem) minmax(6rem, 1fr) auto auto;
+  gap: 0.6rem 1rem;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: contents;
+  }
+}
+
+.models__name {
+  overflow-wrap: anywhere;
+}
+
+.models__bar {
+  display: flex;
+  gap: 2px;
+  height: 12px;
+  min-width: 6px;
+
+  span {
+    min-width: 2px;
+    cursor: default;
+
+    &:first-child {
+      border-radius: 3px 0 0 3px;
+    }
+
+    &:last-child {
+      border-radius: 0 3px 3px 0;
+    }
+  }
+}
+
+.models__total,
+.models__share {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.models__share {
+  color: var(--muted);
+}
+
+.figures {
+  margin-top: 1rem;
+
+  summary {
+    width: fit-content;
+    color: var(--sky);
+    text-decoration: underline;
+    cursor: pointer;
+  }
+}
+
+.tokens {
+  width: 100%;
+  margin-top: 0.75rem;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+
+  th,
+  td {
+    padding: 0.4rem 0 0.4rem 1rem;
+    border-bottom: 1px solid var(--rule);
+    text-align: right;
+    font-weight: 400;
+  }
+
+  th:first-child {
+    padding-left: 0;
+    text-align: left;
+    overflow-wrap: anywhere;
+  }
+
+  thead th {
+    color: var(--muted);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  tfoot th,
+  tfoot td {
+    border-bottom: 0;
+    font-weight: 700;
+  }
+}
+
+// A ranked list: the name and its count, and a slim bar beneath.
+.bars {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.25rem 0.75rem;
+  }
+}
+
+.bars__label {
+  overflow-wrap: anywhere;
+}
+
+.bars__value {
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+
+.bars__track {
+  grid-column: 1 / -1;
+  height: 4px;
+  background: color-mix(in srgb, var(--rule) 55%, transparent);
+  border-radius: 2px;
+}
+
+.bars__fill {
+  display: block;
+  height: 100%;
+  min-width: 3px;
+  background: var(--mark);
+  border-radius: 2px;
+}
+
+// One slim column per edition.
+.columns {
+  margin: 0;
+
+  figcaption {
+    margin-bottom: 0.6rem;
+    font-weight: 700;
+  }
+}
+
+.columns__plot {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 9rem;
+  margin: 0;
+  padding: 0;
+  border-bottom: 1px solid var(--rule);
+  list-style: none;
+
+  li {
+    position: relative;
+    flex: 1 1 0;
+    max-width: 2.5rem;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    cursor: default;
+  }
+}
+
+.columns__value {
+  margin-bottom: 0.2rem;
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.columns__bar {
+  width: min(100%, 22px);
+  min-height: 2px;
+  border-radius: 3px 3px 0 0;
+}
+
+.columns__day {
+  position: absolute;
+  top: calc(100% + 0.3rem);
+  font-size: 0.72rem;
+  color: var(--muted);
+}
+
+.columns .ledger__note {
+  margin-top: 1.6rem;
+}
+
+// The exact figure behind a bar, shown beside it.
+.tip {
+  position: absolute;
+  z-index: 20;
+  display: grid;
+  gap: 0.1rem;
+  max-width: 16rem;
+  padding: 0.4rem 0.6rem;
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  line-height: 1.3;
+  color: var(--paper);
+  background: var(--ink);
+  border-radius: 3px;
+  pointer-events: none;
+
+  b {
+    font-variant-numeric: tabular-nums;
+  }
+
+  span {
+    opacity: 0.8;
+  }
+}
+
+[data-tip]:hover,
+[data-tip]:focus-visible {
+  filter: brightness(1.15);
+}
+
+// One column: each section's name goes above it.
+@media (max-width: 44rem) {
+  .ledger__row {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+
+  .models__list {
+    grid-template-columns: minmax(0, 1fr) auto auto;
+  }
+
+  .models__name {
+    grid-column: 1 / -1;
+    margin-bottom: -0.35rem;
+  }
+}
+
+// Footer ---------------------------------------------------------------
+
+.site-footer {
+  // The rule stops short of the sheet's edge, like the one under the masthead.
+  margin: 0 var(--gutter);
+  padding: 1.25rem 0 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  color: var(--muted);
+  text-align: center;
+
+  // One line where there is room; evenly balanced lines where there is not.
+  p {
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .site-footer__links {
+    margin-top: 0.5rem;
+  }
+}
+
+// Narrower screens -----------------------------------------------------
+
+@media (max-width: 64rem) {
+  // Two columns: a wide story takes both.
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .story--w2,
+  .story--w3 {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 44rem) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .story--w2 .story__title,
+  .story--w3 .story__title {
+    font-size: var(--fs-headline);
+  }
+
+  // The search gives way so Archive and the theme button keep their size.
+  .masthead__bar {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .filters__group + .filters__group {
+    border-left: 0;
+  }
+
+  .dateline__long {
+    display: none;
+  }
+
+  .dateline__short {
+    display: inline;
+  }
+}

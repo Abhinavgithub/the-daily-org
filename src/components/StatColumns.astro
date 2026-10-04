@@ -1,0 +1,46 @@
+---
+import { compact, formatNumber, type Count } from '../lib/stats';
+import { formatDay } from '../lib/stories';
+
+// One slim column per edition, oldest first. Each row's label is its day.
+
+interface Props {
+  title: string;
+  rows: Count[];
+  /** What is counted, for the tooltip: "stories", "tokens". */
+  unit: string;
+  /** Editions there are in all, when only the latest are shown. */
+  of?: number;
+}
+
+const { title, rows, unit, of = rows.length } = Astro.props;
+const tallest = Math.max(1, ...rows.map((row) => row.count));
+---
+
+<figure class="columns">
+  <figcaption>{title}</figcaption>
+  {
+    rows.length === 0 ? (
+      <p class="ledger__none">Nothing recorded.</p>
+    ) : (
+      <>
+        <ol class="columns__plot">
+          {rows.map((row) => (
+            <li tabindex="0" data-tip={`${formatNumber(row.count)} ${unit}`} data-tip-label={formatDay(row.label)}>
+              <span class="columns__value">{compact(row.count)}</span>
+              <span class="columns__bar mark--main" style={`height: ${(row.count / tallest) * 100}%`} aria-hidden="true" />
+              <span class="columns__day">
+                <span class="visually-hidden">{formatDay(row.label)}</span>
+                <span aria-hidden="true">{Number(row.label.slice(8))}</span>
+              </span>
+            </li>
+          ))}
+        </ol>
+        <p class="ledger__note">
+          {rows.length === 1 ? formatDay(rows[0].label) : `${formatDay(rows[0].label, 'short')} to ${formatDay(rows.at(-1)!.label, 'short')}`}
+          {of > rows.length && `, the latest ${rows.length} of ${of} editions`}
+        </p>
+      </>
+    )
+  }
+</figure>

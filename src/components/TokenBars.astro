@@ -1,0 +1,88 @@
+---
+import { formatNumber, share, type ModelTokens } from '../lib/stats';
+
+// Tokens by model: one bar each, on one scale, divided into what the model read
+// and what it wrote. The exact figures are in the table underneath.
+
+interface Props {
+  rows: ModelTokens[];
+}
+
+const { rows } = Astro.props;
+const total = (row: ModelTokens) => row.input + row.output;
+const all = rows.reduce((sum, row) => sum + total(row), 0);
+const input = rows.reduce((sum, row) => sum + row.input, 0);
+const most = Math.max(1, ...rows.map(total));
+---
+
+<div class="models">
+  <ul class="models__list">
+    {
+      rows.map((row) => (
+        <li>
+          <span class="models__name">{row.model}</span>
+          <span class="models__track">
+            <span class="models__bar" style={`width: ${Math.max(0.5, (total(row) / most) * 100)}%`}>
+              {row.input > 0 && (
+                <span class="mark--light" style={`flex-grow: ${row.input}`} tabindex="0" data-tip={formatNumber(row.input)} data-tip-label={`Read by ${row.model}`} />
+              )}
+              {row.output > 0 && (
+                <span class="mark--main" style={`flex-grow: ${row.output}`} tabindex="0" data-tip={formatNumber(row.output)} data-tip-label={`Written by ${row.model}`} />
+              )}
+            </span>
+          </span>
+          <span class="models__total">{formatNumber(total(row))}</span>
+          <span class="models__share">{share(total(row), all)}%</span>
+        </li>
+      ))
+    }
+  </ul>
+  <ul class="key">
+    <li>
+      <span class="key__swatch mark--light" aria-hidden="true" />
+      Read (input) <b>{formatNumber(input)}</b>
+    </li>
+    <li>
+      <span class="key__swatch mark--main" aria-hidden="true" />
+      Written (output) <b>{formatNumber(all - input)}</b>
+    </li>
+  </ul>
+
+  <details class="figures">
+    <summary>Show the figures</summary>
+    <table class="tokens">
+      <thead>
+        <tr>
+          <th scope="col">Model</th>
+          <th scope="col">Input</th>
+          <th scope="col">Output</th>
+          <th scope="col">Total</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          rows.map((row) => (
+            <tr>
+              <th scope="row">{row.model}</th>
+              <td>{formatNumber(row.input)}</td>
+              <td>{formatNumber(row.output)}</td>
+              <td>{formatNumber(total(row))}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+      {
+        rows.length > 1 && (
+          <tfoot>
+            <tr>
+              <th scope="row">All models</th>
+              <td>{formatNumber(input)}</td>
+              <td>{formatNumber(all - input)}</td>
+              <td>{formatNumber(all)}</td>
+            </tr>
+          </tfoot>
+        )
+      }
+    </table>
+  </details>
+</div>

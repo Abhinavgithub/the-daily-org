@@ -1,0 +1,75 @@
+---
+import { render } from 'astro:content';
+import { sectionLabel } from '../config';
+import type { Span } from '../lib/layout';
+import type { Signal } from '../lib/signal';
+import { formatAuthors, formatDay, storySlug, tagSlug, type Story } from '../lib/stories';
+import StoryFigure from './StoryFigure.astro';
+
+interface Props {
+  story: Story;
+  /** Columns the story occupies, out of three. */
+  span: Span;
+  /** The story's standing in its own edition. */
+  signal: Signal;
+  /** Show the edition date, for pages that mix editions. */
+  showDay?: boolean;
+}
+
+const { story, span, signal, showDay = false } = Astro.props;
+const { data } = story;
+const { Content } = await render(story);
+const slug = storySlug(story);
+const source = data.source_type === 'video' ? `${data.source}, video` : data.source;
+// The writer goes above the headline and the blog below the story. With no known writer, the blog takes the top line.
+const writer = formatAuthors(data.authors);
+const footer = Boolean(writer) || showDay;
+// A diagram is drawn only while the story is a must-read.
+const figure = signal === 'must' && data.figure && data.figure.kind !== 'none' ? data.figure : undefined;
+---
+
+<article
+  class:list={['story', `story--w${span}`]}
+  id={slug}
+  data-card
+  data-id={story.id}
+  data-personas={data.personas.join(' ')}
+  data-signal={signal}
+>
+  <p class="story__byline">
+    <span>{writer ? `By ${writer}` : source}</span>
+    <span class="why" data-why>
+      <button type="button" class="why__button" aria-label="Why read this" aria-describedby={`why-${slug}`}>
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+          <circle cx="8" cy="8" r="6.25"></circle>
+          <path d="M8 7.25v4"></path>
+          <circle cx="8" cy="4.9" r="0.4" fill="currentColor"></circle>
+        </svg>
+      </button>
+      <span class="why__pop" role="tooltip" id={`why-${slug}`}>{data.why_read}</span>
+    </span>
+  </p>
+  <h2 class="story__title">
+    <a class="story__link" href={data.url} target="_blank" rel="noopener" data-original>{data.title}</a>
+  </h2>
+  {figure && <StoryFigure figure={figure} image={data.figure_image} />}
+  <div class="story__text"><Content /></div>
+  {
+    footer && (
+      <p class="story__meta">
+        {writer && <span>{source}</span>}
+        {showDay && <a href={`/${data.date}/`}>{formatDay(data.date, 'short')}</a>}
+      </p>
+    )
+  }
+  <ul class="story__tags" aria-label="Section and tags">
+    <li><a href={`/section/${data.section}/`}>{sectionLabel(data.section).toLowerCase()}</a></li>
+    {
+      data.tags.map((tag) => (
+        <li>
+          <a href={`/tag/${tagSlug(tag)}/`}>{tag}</a>
+        </li>
+      ))
+    }
+  </ul>
+</article>

@@ -1,0 +1,39 @@
+---
+import { formatNumber, share, type Part } from '../lib/stats';
+
+// One bar divided into the parts of a whole, with each part named beneath it.
+
+interface Props {
+  parts: Part[];
+  /** What the whole bar is, for a screen reader: "46 articles reviewed". */
+  label: string;
+}
+
+const { parts, label } = Astro.props;
+const whole = parts.reduce((total, part) => total + part.count, 0);
+---
+
+<div class="split">
+  <div class="split__bar" role="img" aria-label={`${label}: ${parts.map((part) => `${part.label} ${part.count}`).join(', ')}`}>
+    {
+      parts.map((part) => (
+        <span
+          class:list={['split__part', `mark--${part.tone}`]}
+          style={`flex-grow: ${part.count}`}
+          data-tip={`${formatNumber(part.count)} (${share(part.count, whole)}%)`}
+          data-tip-label={part.label}
+        />
+      ))
+    }
+  </div>
+  <ul class="key">
+    {
+      parts.map((part) => (
+        <li>
+          <span class:list={['key__swatch', `mark--${part.tone}`]} aria-hidden="true" />
+          {part.label} <b>{formatNumber(part.count)}</b>
+        </li>
+      ))
+    }
+  </ul>
+</div>

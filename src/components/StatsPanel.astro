@@ -1,0 +1,147 @@
+---
+import { PERSONAS, sectionLabel } from '../config';
+import { formatCost, formatNumber, outcomes, share, tally, tokensByDay, totalRuns, type Run } from '../lib/stats';
+import type { Story } from '../lib/stories';
+import StatBars from './StatBars.astro';
+import StatColumns from './StatColumns.astro';
+import StatSplit from './StatSplit.astro';
+import TokenBars from './TokenBars.astro';
+
+// One period's account, set as a ledger: how it was made, what it cost, what
+// it covered, and for a longer period, how it went day by day.
+
+interface Props {
+  /** What the figures cover, for the heading: "Sunday, 4 October 2026", "October 2026", "All time". */
+  title: string;
+  runs: Run[];
+  stories: Story[];
+  /** One column per edition. Left out for a single day. */
+  trend?: boolean;
+}
+
+/** The most editions the trend shows, so its columns stay wide enough to read. */
+const TREND_DAYS = 31;
+
+const { title, runs, stories, trend = false } = Astro.props;
+const totals = totalRuns(runs);
+const tokens = totals.inputTokens + totals.outputTokens;
+const parts = outcomes(totals);
+// Stories the runs published that are no longer on the site, as when an edition was made again.
+const gone = totals.published - stories.length;
+
+const sections = tally(stories.map((s) => sectionLabel(s.data.section)));
+const sources = tally(stories.map((s) => s.data.source));
+const audience = PERSONAS.map((p) => ({ label: p.label, count: stories.filter((s) => s.data.personas.includes(p.id)).length }))
+  .filter((row) => row.count > 0)
+  .sort((a, b) => b.count - a.count);
+const perDay = tally(stories.map((s) => s.data.date)).sort((a, b) => a.label.localeCompare(b.label));
+const spentPerDay = tokensByDay(runs);
+const plural = (n: number, one: string, many: string) => (n === 1 ? one : many);
+---
+
+<div class="ledger">
+  <header class="ledger__head">
+    <h2>{title}</h2>
+    <p class="ledger__lede">
+      <b>{formatNumber(stories.length)}</b>{' '}
+      {plural(stories.length, 'story', 'stories')} published{
+        totals.assessed > 0 && (
+          <>
+            {' '}from <b>{formatNumber(totals.assessed)}</b> {plural(totals.assessed, 'article', 'articles')} reviewed
+          </>
+        )
+      }{
+        tokens > 0 && (
+          <>
+            , using <b>{formatNumber(tokens)}</b> tokens
+          </>
+        )
+      }.
+    </p>
+  </header>
+
+  <section class="ledger__row">
+    <h3>How it was made</h3>
+    <div>
+      {
+        parts.length === 0 ? (
+          <p class="ledger__none">No articles were reviewed by a model in this period.</p>
+        ) : (
+          <>
+            <StatSplit parts={parts} label={`${formatNumber(totals.assessed)} articles reviewed`} />
+            <p class="ledger__note">
+              {share(totals.published, totals.assessed)}% of the articles reviewed were published.
+              {gone > 0 && ` ${formatNumber(gone)} of those ${plural(gone, 'story is', 'stories are')} no longer in the paper.`}
+              {gone < 0 && ` ${formatNumber(-gone)} of the paper's stories ${plural(-gone, 'was', 'were')} added by hand, not through review.`}
+            </p>
+          </>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="ledger__row">
+    <h3>What it cost</h3>
+    <div>
+      {
+        tokens === 0 ? (
+          <p class="ledger__none">No tokens are recorded for this period.</p>
+        ) : (
+          <>
+            <p class="ledger__sum">
+              <span>
+                <b>{formatNumber(tokens)}</b> tokens
+              </span>
+              {totals.cost !== undefined && (
+                <span>
+                  about <b>{formatCost(totals.cost)}</b>
+                </span>
+              )}
+              {stories.length > 0 && (
+                <span>
+                  <b>{formatNumber(Math.round(tokens / stories.length))}</b> tokens a story
+                </span>
+              )}
+            </p>
+            <TokenBars rows={totals.tokens} />
+          </>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="ledger__row">
+    <h3>What it covered</h3>
+    <div class="ledger__lists">
+      <div>
+        <h4>Sections</h4>
+        <StatBars rows={sections} empty="No stories." />
+      </div>
+      <div>
+        <h4>Sources</h4>
+        <StatBars rows={sources} empty="No stories." />
+      </div>
+      {
+        PERSONAS.length > 0 && (
+          <div>
+            <h4>Written for</h4>
+            <StatBars rows={audience} empty="No stories." />
+            <p class="ledger__note">A story can be written for more than one audience.</p>
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  {
+    trend && (
+      <section class="ledger__row">
+        <h3>Over time</h3>
+        <div class="ledger__charts">
+          <StatColumns title="Stories per edition" rows={perDay.slice(-TREND_DAYS)} unit="stories" of={perDay.length} />
+          <StatColumns title="Tokens per edition" rows={spentPerDay.slice(-TREND_DAYS)} unit="tokens" of={spentPerDay.length} />
+        </div>
+      </section>
+    )
+  }
+</div>

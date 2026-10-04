@@ -1,0 +1,28 @@
+{
+  "kind": "figures",
+  "ranAt": "2026-10-04T10:43:54.066Z",
+  "day": "2026-10-04",
+  "seconds": 7,
+  "finished": true,
+  "feeds": [],
+  "articles": [],
+  "proofread": [],
+  "figures": [
+    {
+      "title": "How to voice-enable an Agent Script agent with proven best practices",
+      "outcome": "drawn",
+      "kind": "steps",
+      "image": "made"
+    }
+  ],
+  "model": {
+    "calls": 1,
+    "retries": {},
+    "usage": {
+      "google/gemini-2.5-flash-image": {
+        "input": 353,
+        "output": 1290
+      }
+    }
+  }
+}

@@ -1,0 +1,432 @@
+---
+// For whoever runs the paper. It is part of the site but nothing links to it:
+// it is reached by typing its address. Under `npm run dev` it is read fresh on
+// each request; on the built site it shows what was true when the site was built.
+import fs from 'node:fs';
+import path from 'node:path';
+import { SOURCES } from '../../../pipeline/sources';
+import { PAPER } from '../../config';
+import LogArticles from '../../components/LogArticles.astro';
+import LogColumns from '../../components/LogColumns.astro';
+import LogFindings from '../../components/LogFindings.astro';
+import LogGlance from '../../components/LogGlance.astro';
+import LogRun from '../../components/LogRun.astro';
+import Masthead from '../../components/Masthead.astro';
+import Layout from '../../layouts/Layout.astro';
+import { allArticles, byDay, facts, findings, glance, spending, within } from '../../lib/insights';
+import { byNewest, costsByRun, legacyRuns, problems, readLog, staleEditions, type RunLogData } from '../../lib/logs';
+import { addTallies, RULES as SOURCE_RULES, scorecard, standings } from '../../lib/sources';
+import { formatNumber, parseRuns } from '../../lib/stats';
+import { formatDay, getEditions } from '../../lib/stories';
+
+const data = path.join(process.cwd(), 'data');
+const read = (file: string) => (fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : '');
+const statsText = read(path.join(data, 'stats.jsonl'));
+
+const dir = path.join(data, 'logs');
+const logs = (fs.existsSync(dir) ? fs.readdirSync(dir) : [])
+  .filter((file) => file.endsWith('.json'))
+  .map((file) => readLog(read(path.join(dir, file))))
+  .filter((log): log is RunLogData => log !== null)
+  .sort(byNewest);
+const known = new Set(logs.flatMap((log) => (log.statsAt ? [log.statsAt] : [])));
+const older = legacyRuns(statsText, known).sort(byNewest);
+const costs = costsByRun(statsText);
+const costOf = (log: RunLogData) => costs[log.statsAt ?? log.ranAt];
+const runs = [...logs, ...older].sort(byNewest);
+const allFacts = runs.map((log) => facts(log, costOf(log)));
+
+let state: Record<string, { failures?: number; lastSuccessAt?: string; lastError?: string; lastPostAt?: string }> = {};
+try {
+  state = JSON.parse(read(path.join(data, 'sources.json')) || '{}');
+} catch {
+  // An unreadable file is treated as no record.
+}
+const failingFeeds = SOURCES.map((source) => ({ name: source.name, failures: state[source.id]?.failures ?? 0 })).filter((feed) => feed.failures >= SOURCE_RULES.failing);
+
+// How each source has done lately, with a verdict on each (see src/lib/sources.ts).
+const SCORE_DAYS = 60;
+const since = new Date(Date.now() - SCORE_DAYS * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+const statRuns = parseRuns(statsText);
+const recorded = statRuns.filter((run) => run.date >= since && Object.keys(run.sources).length > 0);
+const scores = scorecard(SOURCES, addTallies(recorded.map((run) => run.sources)), state);
+const date = (iso?: string) => (iso ? new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(iso)) : 'Not known');
+
+// Story files on disk against what the site is serving. They differ when the dev server has stopped noticing new files.
+const storiesDir = path.join(process.cwd(), 'src', 'content', 'stories');
+const onDisk = Object.fromEntries(
+  (fs.existsSync(storiesDir) ? fs.readdirSync(storiesDir) : [])
+    .filter((day) => /^\d{4}-\d{2}-\d{2}$/.test(day))
+    .map((day) => [day, fs.readdirSync(path.join(storiesDir, day)).filter((file) => file.endsWith('.md')).length] as const)
+    .filter(([, count]) => count > 0),
+);
+const served = Object.fromEntries((await getEditions()).map((edition) => [edition.day, edition.stories.length]));
+// Only a dev server can fall behind the files; a built site shows exactly what was on disk.
+const stale = import.meta.env.DEV ? staleEditions(onDisk, served).map((edition) => ({ ...edition, day: formatDay(edition.day, 'short') })) : [];
+const builtAt = new Date().toISOString();
+const when = (iso: string) => `on ${new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }).format(new Date(iso))}`;
+
+// Settings are read as the pipeline reads them; the dev server has them from .env.
+const setting = (name: string) => Number(import.meta.env[name] ?? process.env[name]);
+const budget = setting('MONTHLY_BUDGET_USD') > 0 ? setting('MONTHLY_BUDGET_USD') : undefined;
+const maxCalls = setting('LLM_MAX_CALLS') > 0 ? setting('LLM_MAX_CALLS') : undefined;
+const money = spending(statRuns.map((run) => ({ ranAt: run.ranAt, cost: run.cost, spentTokens: run.tokens.length > 0 })), budget, new Date(), PAPER.timezone);
+
+// The top of the page is worked out for each period, and the page shows one of them.
+const PERIODS = [
+  { id: '7', label: '7 days', days: 7 },
+  { id: '30', label: '30 days', days: 30 },
+  { id: 'all', label: 'All', days: undefined },
+] as const;
+const latest = allFacts.find((run) => run.kind === 'pipeline');
+const dayName = (day: string) => new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${day}T12:00:00Z`));
+const panels = PERIODS.map((period) => {
+  const mine = within(allFacts, period.days);
+  // One column a day, and no more of them than can be read.
+  const days = byDay(mine).slice(-31);
+  return {
+    ...period,
+    findings: findings({ runs: mine, latest, stale, failingFeeds, sourcesToLook: scores.filter((row) => row.verdict.look).map((row) => row.name), spending: money, maxCalls }),
+    glance: glance(mine),
+    outcomes: days.map((d) => ({
+      when: dayName(d.day),
+      foot: String(Number(d.day.slice(8))),
+      parts: [
+        { label: 'Published', tone: 'main' as const, count: d.published },
+        { label: 'Below the bar', tone: 'rest' as const, count: d.below },
+        { label: 'Not relevant', tone: 'faint' as const, count: d.notRelevant },
+        { label: 'Dropped or left over', tone: 'unknown' as const, count: d.lost },
+      ],
+    })),
+    calls: days.map((d) => ({
+      when: dayName(d.day),
+      foot: String(Number(d.day.slice(8))),
+      parts: [
+        { label: 'Calls that answered', tone: 'main' as const, count: Math.max(0, d.calls - d.retries) },
+        { label: 'Repeats', tone: 'light' as const, count: Math.min(d.calls, d.retries) },
+      ],
+    })),
+  };
+});
+const toLook = scores.filter((row) => row.verdict.look).length;
+const articles = allArticles(logs);
+---
+
+<Layout title="Logs" noindex>
+  <Masthead>
+    <h1 class="dateline__text">Logs</h1>
+  </Masthead>
+  <main class="wrap" data-logs>
+    <nav class="logs-nav" aria-label="On this page">
+      <div class="logs-nav__links">
+        <a href="#attention">Attention <span class="logs-nav__count" data-nav-count="attention" /></a>
+        <a href="#glance">At a glance</a>
+        <a href="#how">Day by day</a>
+        <a href="#sources">Sources <span class="logs-nav__count">{scores.length}</span></a>
+        <a href="#articles">Articles <span class="logs-nav__count" data-nav-count="articles" /></a>
+        <a href="#runs">Runs <span class="logs-nav__count" data-nav-count="runs" /></a>
+      </div>
+      <div class="logs-nav__period" role="group" aria-label="Period" data-periods>
+        {PERIODS.map((period, i) => (
+          <button type="button" class="chip" data-value={period.id} aria-pressed={i === 2 ? 'true' : 'false'}>
+            {period.label}
+          </button>
+        ))}
+      </div>
+    </nav>
+
+    <div class="ledger ledger--wide">
+{/* A built page shows what was true when it was built, so it says when that was. */}
+      {
+        !import.meta.env.DEV && (
+          <p class="ledger__note logs__local">
+            Built <time datetime={builtAt} data-ago>{when(builtAt)}</time>.
+          </p>
+        )
+      }
+
+      {
+        panels.map((panel) => (
+          <div data-period={panel.id} hidden={panel.id !== 'all'}>
+            <section class="ledger__row" id={panel.id === 'all' ? 'attention' : undefined}>
+              <h3>Needs attention</h3>
+              <LogFindings findings={panel.findings} />
+            </section>
+            <section class="ledger__row" id={panel.id === 'all' ? 'glance' : undefined}>
+              <h3>At a glance</h3>
+              <LogGlance glance={panel.glance} spending={money} />
+            </section>
+            <section class="ledger__row" id={panel.id === 'all' ? 'how' : undefined}>
+              <h3>Day by day</h3>
+              <div class="ledger__charts">
+                <LogColumns title="What became of each day's articles" columns={panel.outcomes} />
+                <LogColumns title="Model calls each day" columns={panel.calls} />
+              </div>
+            </section>
+          </div>
+        ))
+      }
+
+      <section class="ledger__row" id="sources">
+        <h3>Sources</h3>
+        <div>
+          <p class="ledger__sum">
+            <span>{standings(scores)}</span>
+            <button type="button" class="chip" data-sources-toggle aria-pressed="false" hidden={toLook === scores.length}>
+              Show all {scores.length}
+            </button>
+          </p>
+          <div class="log__scroll">
+            <table class="log__table">
+              <thead>
+                <tr>
+                  <th scope="col">Source</th>
+                  <th scope="col">Posts</th>
+                  <th scope="col">Reviewed</th>
+                  <th scope="col">Published</th>
+                  <th scope="col">Yield</th>
+                  <th scope="col">Avg score</th>
+                  <th scope="col">Tokens/story</th>
+                  <th scope="col">Last post</th>
+                  <th scope="col">Verdict</th>
+                </tr>
+              </thead>
+              <tbody>
+                {scores.map((row) => (
+                  <tr data-source-row data-look={row.verdict.look ? 'yes' : 'no'}>
+                    <td>{row.name}</td>
+                    <td>{row.tally.new}</td>
+                    <td>{row.tally.reviewed}</td>
+                    <td>{row.tally.published}</td>
+                    <td>{row.yield === undefined ? '-' : `${row.yield}%`}</td>
+                    <td>{row.averageScore?.toFixed(1) ?? '-'}</td>
+                    <td>{row.tokensPerStory === undefined ? '-' : formatNumber(row.tokensPerStory)}</td>
+                    <td>{date(row.lastPostAt)}</td>
+                    <td>
+                      <span class:list={['tag', `tag--${row.verdict.standing}`]}>{row.verdict.says}</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="ledger__note" data-sources-none hidden>No source needs a look.</p>
+<p class="ledger__note">Over the last {SCORE_DAYS} days.</p>
+        </div>
+      </section>
+
+      <section class="ledger__row" id="articles">
+        <h3>Articles</h3>
+        <LogArticles articles={articles} />
+      </section>
+
+      <section class="ledger__row" id="runs">
+        <h3>Runs</h3>
+        <div>
+          <div class="articles__controls">
+            <div class="articles__chips" role="group" aria-label="Runs" data-run-filter>
+              <button type="button" class="chip" data-value="" aria-pressed="true">All runs</button>
+              <button type="button" class="chip" data-value="problems" aria-pressed="false">Problems only</button>
+            </div>
+          </div>
+          {runs.length === 0 && <p class="ledger__none">No run is recorded yet. Run <code>npm run pipeline</code>.</p>}
+          {logs.map((run, i) => <LogRun log={run} open={i === 0 && problems(run).length > 0} cost={costOf(run)} />)}
+          <p class="ledger__none" data-runs-empty hidden>No run in this period matches.</p>
+          <button type="button" class="chip results__more" data-runs-more hidden>Show all runs</button>
+        </div>
+      </section>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  import { ago } from '../../lib/insights';
+  import { tips } from '../../lib/tip';
+
+  // The period, the run filter and the article search live in the address, so they survive a reload.
+  // Rows shown at first, and how many each "Show more" adds.
+  const PAGE = 10;
+  const MORE = 20;
+  const RUNS = 5;
+  const periods = document.querySelector<HTMLElement>('[data-periods]')!;
+  const panels = [...document.querySelectorAll<HTMLElement>('[data-period]')];
+  const runFilter = document.querySelector<HTMLElement>('[data-run-filter]')!;
+  const runs = [...document.querySelectorAll<HTMLElement>('[data-run]')];
+  const runsEmpty = document.querySelector<HTMLElement>('[data-runs-empty]')!;
+  const rows = [...document.querySelectorAll<HTMLElement>('[data-article]')];
+  const search = document.querySelector<HTMLInputElement>('[data-article-search]');
+  const chips = [...document.querySelectorAll<HTMLElement>('[data-outcome-chip]')];
+  const status = document.querySelector<HTMLElement>('[data-article-status]');
+  const more = document.querySelector<HTMLButtonElement>('[data-article-more]');
+  const runChip = document.querySelector<HTMLButtonElement>('[data-run-chip]');
+  const runChipName = document.querySelector<HTMLElement>('[data-run-chip-name]');
+  const runsMore = document.querySelector<HTMLButtonElement>('[data-runs-more]')!;
+  const sourceRows = [...document.querySelectorAll<HTMLElement>('[data-source-row]')];
+  const sourcesToggle = document.querySelector<HTMLButtonElement>('[data-sources-toggle]')!;
+  const sourcesNone = document.querySelector<HTMLElement>('[data-sources-none]')!;
+  const navCount = (name: string) => document.querySelector<HTMLElement>(`[data-nav-count="${name}"]`);
+  const DAYS: Record<string, number | undefined> = { '7': 7, '30': 30, all: undefined };
+
+  const params = new URLSearchParams(location.search);
+  const state = {
+    period: Object.hasOwn(DAYS, params.get('period') ?? '') ? params.get('period')! : 'all',
+    runs: params.get('runs') === 'problems' ? 'problems' : '',
+    outcome: params.get('outcome') ?? '',
+    q: params.get('q') ?? '',
+    run: '',
+    runName: '',
+    shown: PAGE,
+    allRuns: false,
+    allSources: params.get('sources') === 'all',
+  };
+
+  const press = (group: Element[], value: string, key: string) => {
+    for (const button of group) button.setAttribute('aria-pressed', String((button as HTMLElement).dataset[key] === value));
+  };
+
+  function apply() {
+    const days = DAYS[state.period];
+    const from = days ? Date.now() - days * 86_400_000 : 0;
+    const inPeriod = (element: HTMLElement) => Date.parse(element.dataset.at ?? '') >= from;
+
+    for (const panel of panels) panel.hidden = panel.dataset.period !== state.period;
+    press([...periods.querySelectorAll('button')], state.period, 'value');
+    // The section links point at whichever period is showing.
+    for (const panel of panels) {
+      const sections = panel.querySelectorAll<HTMLElement>(':scope > section');
+      ['attention', 'glance', 'how'].forEach((id, i) => {
+        if (panel.hidden) sections[i]?.removeAttribute('id');
+        else if (sections[i]) sections[i].id = id;
+      });
+    }
+
+    press([...runFilter.querySelectorAll('button')], state.runs, 'value');
+    // The newest few runs, until all are asked for.
+    const matching = runs.filter((run) => inPeriod(run) && (state.runs !== 'problems' || run.dataset.problem === 'yes'));
+    const listed = matching;
+    for (const run of runs) run.hidden = !matching.includes(run);
+    if (!state.allRuns) listed.slice(RUNS).forEach((run) => (run.hidden = true));
+    runsEmpty.hidden = matching.length > 0 || runs.length === 0;
+    runsMore.hidden = state.allRuns || listed.length <= RUNS;
+    runsMore.textContent = `Show all ${listed.length} runs`;
+    const runsCount = navCount('runs');
+    if (runsCount) runsCount.textContent = String(matching.length);
+
+    // Sources: the ones needing a look, until all are asked for.
+    for (const row of sourceRows) row.hidden = !state.allSources && row.dataset.look !== 'yes';
+    const visibleSources = sourceRows.filter((row) => !row.hidden).length;
+    sourcesNone.hidden = visibleSources > 0;
+    sourceRows[0]?.closest<HTMLElement>('.log__scroll')?.toggleAttribute('hidden', visibleSources === 0);
+    sourcesToggle.setAttribute('aria-pressed', String(state.allSources));
+    sourcesToggle.textContent = state.allSources ? 'Show only those needing a look' : `Show all ${sourceRows.length}`;
+
+    const attention = navCount('attention');
+    const pressing = document.querySelectorAll('[data-period]:not([hidden]) .finding--problem:not([hidden]), [data-period]:not([hidden]) .finding--watch:not([hidden])').length;
+    if (attention) attention.textContent = pressing ? String(pressing) : '';
+
+    if (!search || !status || !more) return;
+    const terms = state.q.toLowerCase().split(/\s+/).filter(Boolean);
+    const matches = (row: HTMLElement) =>
+      inPeriod(row) && (!state.run || row.dataset.at === state.run) && terms.every((term) => (row.dataset.text ?? '').includes(term));
+    const candidates = rows.filter(matches);
+    for (const chip of chips) {
+      const outcome = chip.dataset.outcomeChip ?? '';
+      chip.querySelector('[data-count]')!.textContent = String(outcome ? candidates.filter((row) => row.dataset.outcome === outcome).length : candidates.length);
+    }
+    press(chips, state.outcome, 'outcomeChip');
+    const kept = candidates.filter((row) => !state.outcome || row.dataset.outcome === state.outcome);
+    for (const row of rows) row.hidden = true;
+    kept.slice(0, state.shown).forEach((row) => (row.hidden = false));
+    const left = kept.length - state.shown;
+    more.hidden = left <= 0;
+    if (left > 0) more.textContent = `Show ${Math.min(MORE, left)} more`;
+    const articlesCount = navCount('articles');
+    if (articlesCount) articlesCount.textContent = String(candidates.length);
+    // Said only when the list has been narrowed: the chips already carry the full counts.
+    status.textContent = kept.length < rows.length ? `${kept.length} of ${rows.length} articles.` : '';
+    status.hidden = kept.length === rows.length;
+    if (runChip && runChipName) {
+      runChip.hidden = !state.run;
+      runChipName.textContent = `Run of ${state.runName}`;
+    }
+
+    const next = new URLSearchParams();
+    if (state.period !== 'all') next.set('period', state.period);
+    if (state.runs) next.set('runs', state.runs);
+    if (state.outcome) next.set('outcome', state.outcome);
+    if (state.q) next.set('q', state.q);
+    if (state.allSources) next.set('sources', 'all');
+    const query = next.toString();
+    history.replaceState(null, '', location.pathname + (query ? `?${query}` : '') + location.hash);
+  }
+
+  const fresh = () => {
+    state.shown = PAGE;
+    apply();
+  };
+
+  periods.addEventListener('click', (event) => {
+    const button = (event.target as HTMLElement).closest<HTMLElement>('button');
+    if (!button) return;
+    state.period = button.dataset.value ?? 'all';
+    fresh();
+  });
+  runFilter.addEventListener('click', (event) => {
+    const button = (event.target as HTMLElement).closest<HTMLElement>('button');
+    if (!button) return;
+    state.runs = button.dataset.value ?? '';
+    apply();
+  });
+  for (const chip of chips) {
+    chip.addEventListener('click', () => {
+      state.outcome = chip.dataset.outcomeChip ?? '';
+      fresh();
+    });
+  }
+  if (search) {
+    search.value = state.q;
+    search.addEventListener('input', () => {
+      state.q = search.value.trim();
+      fresh();
+    });
+  }
+  more?.addEventListener('click', () => {
+    state.shown += MORE;
+    apply();
+  });
+  runsMore.addEventListener('click', () => {
+    state.allRuns = true;
+    apply();
+  });
+  sourcesToggle.addEventListener('click', () => {
+    state.allSources = !state.allSources;
+    apply();
+  });
+  runChip?.addEventListener('click', () => {
+    state.run = '';
+    fresh();
+  });
+  // "See its articles" on a run narrows the Articles list to that run.
+  document.addEventListener('click', (event) => {
+    const link = (event.target as HTMLElement).closest<HTMLElement>('[data-show-run]');
+    if (!link) return;
+    state.run = link.dataset.showRun ?? '';
+    state.runName = link.dataset.runName ?? '';
+    state.outcome = '';
+    fresh();
+  });
+
+  // The page may have been built hours ago, so anything said in terms of "now" is worked out here.
+  const now = Date.now();
+  for (const time of document.querySelectorAll<HTMLTimeElement>('time[data-ago]')) {
+    time.title = time.textContent ?? '';
+    time.textContent = ago(time.dateTime, now, time.dataset.ago === 'short');
+  }
+  const hoursSince = (element: HTMLElement) => (now - Date.parse(element.dataset.at ?? '')) / 3_600_000;
+  // Shown once the last run is older than this many hours, and its opposite while it is not.
+  for (const element of document.querySelectorAll<HTMLElement>('[data-stale-after]')) element.hidden = hoursSince(element) <= Number(element.dataset.staleAfter);
+  for (const element of document.querySelectorAll<HTMLElement>('[data-fresh-within]')) element.hidden = hoursSince(element) > Number(element.dataset.freshWithin);
+
+  apply();
+  tips();
+</script>

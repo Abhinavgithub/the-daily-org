@@ -1,0 +1,31 @@
+{
+  "kind": "figures",
+  "ranAt": "2026-10-04T10:37:30.625Z",
+  "day": "2026-10-04",
+  "seconds": 95,
+  "finished": true,
+  "feeds": [],
+  "articles": [],
+  "proofread": [],
+  "figures": [
+    {
+      "title": "How to voice-enable an Agent Script agent with proven best practices",
+      "outcome": "drawn",
+      "kind": "steps",
+      "image": "failed",
+      "reason": "the drawing ran off the left and top and right and bottom of the picture"
+    }
+  ],
+  "model": {
+    "calls": 2,
+    "retries": {
+      "picture cut off": 1
+    },
+    "usage": {
+      "openai/gpt-5-image-mini": {
+        "input": 7986,
+        "output": 12488
+      }
+    }
+  }
+}

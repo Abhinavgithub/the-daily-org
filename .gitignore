@@ -1,0 +1,12 @@
+node_modules/
+dist/
+.astro/
+.env
+.env.*
+!.env.example
+.DS_Store
+# Not part of the paper.
+marketing/
+.claude/
+# Pictures the image model drew that were turned down, kept to look at.
+data/logs/rejected/

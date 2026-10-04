@@ -1,0 +1,116 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import Masthead from '../../components/Masthead.astro';
+import StatsPanel from '../../components/StatsPanel.astro';
+import Layout from '../../layouts/Layout.astro';
+import { inMonth, parseRuns } from '../../lib/stats';
+import { formatDay, getAllStories } from '../../lib/stories';
+
+const file = path.join(process.cwd(), 'data', 'stats.jsonl');
+const runs = fs.existsSync(file) ? parseRuns(fs.readFileSync(file, 'utf8')) : [];
+const stories = await getAllStories();
+
+// Every day that has an edition or a run, newest first.
+const days = [...new Set([...stories.map((s) => s.data.date), ...runs.map((r) => r.date)])].sort().reverse();
+const month = new Date().toISOString().slice(0, 7);
+const monthName = new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${month}-15T12:00:00Z`));
+---
+
+<Layout title="Stats">
+  <Masthead>
+    <h1 class="dateline__text">Stats</h1>
+  </Masthead>
+  <main class="wrap">
+    <div class="filters" data-stats>
+      <div class="filters__line">
+        <div class="filters__group" role="group" aria-label="Period" data-stats-views>
+          <button type="button" class="chip" data-value="daily" aria-pressed="true">Daily</button>
+          <button type="button" class="chip" data-value="month" aria-pressed="false">This month</button>
+          <button type="button" class="chip" data-value="all" aria-pressed="false">All time</button>
+        </div>
+        <div class="filters__group" data-stats-day>
+          <label class="stats__pick">
+            <span>Edition</span>
+            <select data-stats-select>
+              {days.map((day) => <option value={day}>{formatDay(day, 'short')}</option>)}
+            </select>
+          </label>
+        </div>
+      </div>
+    </div>
+
+    {
+      days.length === 0 ? (
+        <p class="prose">
+          Nothing to count yet. Run <code>npm run pipeline</code> to build the first edition.
+        </p>
+      ) : (
+        <>
+          {days.map((day, i) => (
+            <div data-panel="daily" data-day={day} hidden={i > 0}>
+              <StatsPanel title={formatDay(day)} runs={runs.filter((r) => r.date === day)} stories={stories.filter((s) => s.data.date === day)} />
+            </div>
+          ))}
+          <div data-panel="month" hidden>
+            <StatsPanel
+              title={monthName}
+              runs={runs.filter((r) => inMonth(r.date, month))}
+              stories={stories.filter((s) => inMonth(s.data.date, month))}
+              trend
+            />
+          </div>
+          <div data-panel="all" hidden>
+            <StatsPanel title="All time" runs={runs} stories={stories} trend />
+          </div>
+        </>
+      )
+    }
+
+  </main>
+</Layout>
+
+<script>
+  import { tips } from '../../lib/tip';
+
+  // The chosen period and edition live in the address, so they survive a reload.
+  const views = document.querySelector<HTMLElement>('[data-stats-views]')!;
+  const select = document.querySelector<HTMLSelectElement>('[data-stats-select]')!;
+  const dayGroup = document.querySelector<HTMLElement>('[data-stats-day]')!;
+  const panels = [...document.querySelectorAll<HTMLElement>('[data-panel]')];
+  const days = [...select.options].map((option) => option.value);
+
+  const read = () => {
+    const params = new URLSearchParams(location.search);
+    const view = params.get('view') ?? '';
+    const day = params.get('day') ?? '';
+    return { view: view === 'month' || view === 'all' ? view : 'daily', day: days.includes(day) ? day : (days[0] ?? '') };
+  };
+
+  function apply() {
+    const { view, day } = read();
+    for (const panel of panels) panel.hidden = panel.dataset.panel !== view || (view === 'daily' && panel.dataset.day !== day);
+    for (const button of views.querySelectorAll('button')) button.setAttribute('aria-pressed', String(button.dataset.value === view));
+    dayGroup.hidden = view !== 'daily';
+    select.value = day;
+  }
+
+  function write(view: string, day: string) {
+    const params = new URLSearchParams();
+    if (view !== 'daily') params.set('view', view);
+    else if (day && day !== days[0]) params.set('day', day);
+    const query = params.toString();
+    history.replaceState(null, '', location.pathname + (query ? `?${query}` : ''));
+    apply();
+  }
+
+  views.addEventListener('click', (event) => {
+    const button = (event.target as HTMLElement).closest<HTMLElement>('button');
+    if (button) write(button.dataset.value ?? 'daily', read().day);
+  });
+  select.addEventListener('change', () => write('daily', select.value));
+
+  apply();
+
+  tips();
+</script>

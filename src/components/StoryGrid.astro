@@ -1,0 +1,175 @@
+---
+import { storySpans } from '../lib/layout';
+import { getSignals, type Story } from '../lib/stories';
+import StoryCard from './StoryCard.astro';
+
+interface Props {
+  stories: Story[];
+  showDay?: boolean;
+}
+
+const { stories, showDay = false } = Astro.props;
+const spans = storySpans(stories.map((story) => story.data.interest_score));
+const signals = await getSignals();
+---
+
+<div class="grid" data-grid>
+  {
+    stories.map((story, i) => (
+      <StoryCard story={story} span={spans[i]} signal={signals.get(story.id) ?? 'other'} showDay={showDay} />
+    ))
+  }
+</div>
+
+<script>
+  // Arranging ---------------------------------------------------------------
+  // CSS cannot yet arrange boxes of mixed widths into even columns. So the
+  // boxes are measured here, `pack` decides where each goes so that the
+  // columns end as close together as possible, and the grid is given
+  // one-pixel rows so each box can be put exactly there.
+  // Without this script the boxes sit in ordinary rows, which still reads fine.
+  import { pack, type Box } from '../lib/pack';
+
+  const grids = [...document.querySelectorAll<HTMLElement>('[data-grid]')];
+  const spanOf = (card: HTMLElement) => (card.classList.contains('story--w3') ? 3 : card.classList.contains('story--w2') ? 2 : 1);
+
+  function arrange(grid: HTMLElement) {
+    const all = [...grid.querySelectorAll<HTMLElement>('[data-card]')];
+    const cards = all.filter((card) => !card.hidden);
+
+    // Back to ordinary rows, so each box can be measured at its natural height.
+    grid.classList.remove('is-packed');
+    for (const card of all) {
+      card.style.gridColumn = '';
+      card.style.gridRow = '';
+      card.classList.remove('story--stretch');
+    }
+    const style = getComputedStyle(grid);
+    const columns = style.gridTemplateColumns.split(' ').length;
+    // One column needs no arranging: boxes simply follow one another.
+    if (columns < 2 || cards.length === 0) return;
+    const gap = parseFloat(style.columnGap) || 0;
+
+    const heights = cards.map((card) => card.getBoundingClientRect().height);
+    // A one-column story may be set across two columns at the foot of the page, so measure that too.
+    const singles = cards.filter((card) => spanOf(card) === 1);
+    for (const card of singles) card.classList.add('story--stretch');
+    const stretched = new Map(singles.map((card) => [card, card.getBoundingClientRect().height]));
+    for (const card of singles) card.classList.remove('story--stretch');
+
+    const boxes: Box[] = cards.map((card, i) => ({ span: spanOf(card), height: heights[i], heightWide: stretched.get(card) }));
+    const { placements } = pack(boxes, columns, gap);
+
+    grid.classList.add('is-packed');
+    cards.forEach((card, i) => {
+      const { column, span, top, height, widened } = placements[i];
+      card.classList.toggle('story--stretch', widened);
+      card.style.gridColumn = `${column + 1} / span ${span}`;
+      card.style.gridRow = `${Math.round(top) + 1} / span ${Math.ceil(height)}`;
+    });
+  }
+
+  const arrangeAll = () => grids.forEach(arrange);
+  let queued = false;
+  function packAll() {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => {
+      queued = false;
+      arrangeAll();
+    });
+  }
+
+  // Box heights change with the page's width and when the fonts arrive. Only the
+  // grid's width is watched: arranging changes its height, which must not start it again.
+  const widths = new WeakMap<Element, number>();
+  const observer = new ResizeObserver((entries) => {
+    for (const entry of entries) {
+      const width = Math.round(entry.contentRect.width);
+      if (widths.get(entry.target) === width) continue;
+      widths.set(entry.target, width);
+      packAll();
+    }
+  });
+  for (const grid of grids) {
+    widths.set(grid, Math.round(grid.getBoundingClientRect().width));
+    observer.observe(grid);
+  }
+  document.fonts?.ready.then(packAll);
+  document.addEventListener('stories:filtered', packAll);
+  arrangeAll();
+
+  // A link to one story: packing moves things, so go to it again once the page has settled.
+  if (location.hash) {
+    let id = '';
+    try {
+      id = decodeURIComponent(location.hash.slice(1));
+    } catch {
+      // A hash that is not valid encoding names no story.
+    }
+    const target = id ? document.getElementById(id) : null;
+    if (target?.matches('[data-card]')) requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
+  }
+
+  // Read marks ------------------------------------------------------------
+  // A story counts as read once its headline has been followed. Kept in this browser only.
+  const READ_KEY = 'read-stories';
+  const cards = [...document.querySelectorAll<HTMLElement>('[data-card]')];
+  const read = (() => {
+    try {
+      return new Set<string>(JSON.parse(localStorage.getItem(READ_KEY) ?? '[]'));
+    } catch {
+      return new Set<string>();
+    }
+  })();
+  for (const card of cards) card.classList.toggle('is-read', read.has(card.dataset.id!));
+
+  // "auxclick" covers a middle-click, which also opens the article.
+  for (const type of ['click', 'auxclick']) {
+    document.addEventListener(type, (event) => {
+      const card = (event.target as HTMLElement).closest('[data-original]')?.closest<HTMLElement>('[data-card]');
+      if (!card || read.has(card.dataset.id!)) return;
+      read.add(card.dataset.id!);
+      card.classList.add('is-read');
+      try {
+        localStorage.setItem(READ_KEY, JSON.stringify([...read].slice(-2000)));
+      } catch {}
+    });
+  }
+
+  // "Why read this" ---------------------------------------------------------
+  // Hovering shows the note through CSS. This adds the same for a tap and for
+  // the keyboard, which have no hover: the button opens it, and Esc, a second
+  // tap, a tap elsewhere or moving on closes it.
+  const notes = [...document.querySelectorAll<HTMLElement>('[data-why]')];
+  const close = (note: HTMLElement) => {
+    note.classList.remove('is-open');
+    note.querySelector('button')?.setAttribute('aria-expanded', 'false');
+  };
+  const open = (note: HTMLElement) => {
+    notes.filter((other) => other !== note).forEach(close);
+    note.classList.add('is-open');
+    note.querySelector('button')?.setAttribute('aria-expanded', 'true');
+  };
+
+  for (const note of notes) {
+    const button = note.querySelector('button')!;
+    button.setAttribute('aria-expanded', 'false');
+    let wasOpen = false;
+    // Pressing focuses the button before the click arrives, so note the state first.
+    button.addEventListener('pointerdown', () => {
+      wasOpen = note.classList.contains('is-open');
+    });
+    button.addEventListener('focus', () => open(note));
+    button.addEventListener('blur', () => close(note));
+    button.addEventListener('click', () => (wasOpen ? close(note) : open(note)));
+    note.addEventListener('mouseleave', () => close(note));
+  }
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') notes.forEach(close);
+  });
+  document.addEventListener('pointerdown', (event) => {
+    const inside = (event.target as HTMLElement).closest('[data-why]');
+    notes.filter((note) => note !== inside).forEach(close);
+  });
+</script>

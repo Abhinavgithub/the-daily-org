@@ -1,0 +1,104 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-10-04T09:52:21.317Z",
+  "day": "2026-10-04",
+  "seconds": 3,
+  "finished": true,
+  "feeds": [
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 3
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "joys-of-apex",
+      "name": "The Joys of Apex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 0
+    },
+    {
+      "id": "unofficialsf",
+      "name": "UnofficialSF",
+      "items": 0
+    },
+    {
+      "id": "automation-champion",
+      "name": "Automation Champion",
+      "items": 0
+    },
+    {
+      "id": "sfdc-stop",
+      "name": "SFDC Stop",
+      "items": 0
+    },
+    {
+      "id": "medium-salesforce",
+      "name": "Medium",
+      "items": 10
+    },
+    {
+      "id": "yt-salesforce-developers",
+      "name": "Salesforce Developers on YouTube",
+      "items": 0,
+      "note": "read through the YouTube API"
+    }
+  ],
+  "articles": [
+    {
+      "title": "Configurar Templates no WhatsApp API e Salesforce Marketing Cloud",
+      "url": "https://douglasabnovato.medium.com/configurar-templates-no-whatsapp-api-e-salesforce-marketing-cloud-c5f098ce7cee?source=rss------salesforce-5",
+      "source": "Medium",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "SFMC Tips #356 : Personalization: Configuring Resolvers in Sitemap Builder",
+      "url": "https://medium.com/@marketingcloudtips/personalization-configuring-resolvers-in-sitemap-builder-35ff82e9fd00?source=rss------salesforce-5",
+      "source": "Medium",
+      "outcome": "dropped",
+      "reason": "too short"
+    }
+  ],
+  "proofread": [],
+  "figures": [],
+  "model": {
+    "calls": 0,
+    "retries": {},
+    "usage": {}
+  },
+  "statsAt": "2026-10-04T09:52:24.073Z"
+}

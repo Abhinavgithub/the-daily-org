@@ -1,0 +1,62 @@
+---
+import Masthead from '../../components/Masthead.astro';
+import { SECTIONS } from '../../config';
+import Layout from '../../layouts/Layout.astro';
+import { countLabel, formatDay, getEditions } from '../../lib/stories';
+
+const editions = await getEditions();
+const all = editions.flatMap((e) => e.stories);
+const sections = SECTIONS.map((s) => ({
+  ...s,
+  count: all.filter((story) => story.data.section === s.id).length,
+})).filter((s) => s.count > 0);
+// Editions are numbered from the first, so the newest carries the highest number.
+const digits = Math.max(2, String(editions.length).length);
+const numberOf = (index: number) => String(editions.length - index).padStart(digits, '0');
+---
+
+<Layout title="Archive">
+  <Masthead>
+    <h1 class="dateline__text">Archive</h1>
+  </Masthead>
+  <main id="stories" class="wrap wrap--centred">
+    <p class="page-sub">
+      {countLabel(editions.length, 'edition', 'editions')} and {countLabel(all.length, 'story', 'stories')}
+    </p>
+    {
+      editions.length === 0 ? (
+        <p class="prose">
+          No editions yet. Run <code>npm run pipeline</code> to build the first one.
+        </p>
+      ) : (
+        <>
+          <section class="browse" id="sections" aria-labelledby="sections-title">
+            <h2 id="sections-title">Sections</h2>
+            <ul class="browse__sections">
+              {sections.map((s) => (
+                <li>
+                  <a class="chip" href={`/section/${s.id}/`}>
+                    {s.label} <span class="chip__count">{s.count}</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </section>
+          <section class="browse" aria-labelledby="editions-title">
+            <h2 id="editions-title">Editions</h2>
+            <ol class="archive" reversed>
+              {editions.map((edition, index) => (
+                <li>
+                  <!-- The list itself gives the position to a screen reader. -->
+                  <span class="archive__no" aria-hidden="true">{numberOf(index)}</span>
+                  <a href={`/${edition.day}/`}>{formatDay(edition.day)}</a>
+                  <span class="archive__count">{countLabel(edition.stories.length, 'story', 'stories')}</span>
+                </li>
+              ))}
+            </ol>
+          </section>
+        </>
+      )
+    }
+  </main>
+</Layout>

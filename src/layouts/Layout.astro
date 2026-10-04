@@ -1,0 +1,132 @@
+---
+import { SITE } from '../config';
+import '../styles/main.scss';
+
+interface Props {
+  title?: string;
+  description?: string;
+  /** Set on edition pages. Moving between two editions turns the page. */
+  edition?: string;
+  /** Ask search engines to leave the page out. */
+  noindex?: boolean;
+  /** The picture shown when the page is shared, as a path on this site. Without one, the paper's icon. */
+  image?: string;
+}
+
+const { title, description = SITE.description, edition, noindex = false, image } = Astro.props;
+const pageTitle = title ? `${title} | ${SITE.name}` : SITE.name;
+// This page's own address and its picture, in full, for search engines and link previews.
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const preview = new URL(image ?? '/icon-512.png', Astro.site);
+---
+
+<!doctype html>
+<html lang="en" data-edition={edition}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={preview} />
+    <meta name="twitter:card" content={image ? 'summary_large_image' : 'summary'} />
+    <link rel="alternate" type="application/rss+xml" title={SITE.name} href="/rss.xml" />
+    <link rel="preload" href="/fonts/Chomsky.woff2" as="font" type="font/woff2" crossorigin />
+    <script is:inline>
+      // Turning the page between editions. The browser animates between the old
+      // page and this one (see "Page turn" in main.scss); this decides which way.
+      // Each page notes its edition as it is left, and the next one compares.
+      (() => {
+        const KEY = 'last-edition';
+        const root = document.documentElement;
+        const edition = root.dataset.edition || '';
+        addEventListener('pagereveal', (event) => {
+          const transition = event.viewTransition;
+          if (!transition) return;
+          let last = '';
+          try {
+            last = sessionStorage.getItem(KEY) || '';
+          } catch {}
+          // Only one edition to another is a turned page; anything else changes at once.
+          if (!edition || !last || last === edition) {
+            transition.skipTransition();
+            return;
+          }
+          root.dataset.turn = edition > last ? 'newer' : 'older';
+          transition.finished.finally(() => delete root.dataset.turn);
+        });
+        const leave = () => {
+          try {
+            sessionStorage.setItem(KEY, edition);
+          } catch {}
+        };
+        addEventListener('pageswap', leave);
+        addEventListener('pagehide', leave);
+      })();
+    </script>
+    <script is:inline>
+      // Set before first paint so the page never flashes the wrong theme.
+      try {
+        const saved = localStorage.getItem('theme');
+        if (saved === 'light' || saved === 'dark') document.documentElement.dataset.theme = saved;
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#stories">Skip to stories</a>
+    <!-- The newspaper itself: one sheet lying on the desk that is the window's background. -->
+    <div class="sheet">
+      <slot />
+      <footer class="site-footer">
+        <p>
+          {SITE.name} is an independent project{SITE.disclaimer ? `, ${SITE.disclaimer}` : ''}. Summaries are written by AI and can be wrong,
+          so check the original.
+        </p>
+        <p class="site-footer__links"><a href="/stats/">Stats</a></p>
+      </footer>
+    </div>
+    <script is:inline>
+      // "/" jumps to search, unless you are already typing somewhere.
+      document.addEventListener('keydown', (event) => {
+        if (event.key !== '/' || event.metaKey || event.ctrlKey || event.altKey) return;
+        const target = event.target;
+        if (target instanceof HTMLElement && (target.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(target.tagName))) return;
+        if (document.querySelector('dialog[open]')) return;
+        const search = document.querySelector('[data-site-search]');
+        if (!search) return;
+        event.preventDefault();
+        search.focus();
+      });
+
+      document.querySelectorAll('[data-theme-toggle]').forEach((button) => {
+        const root = document.documentElement;
+        const isDark = () =>
+          root.dataset.theme ? root.dataset.theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches;
+        // The icon itself is swapped in CSS; this keeps the spoken label and tooltip in step.
+        const label = () => {
+          const text = isDark() ? 'Switch to light mode' : 'Switch to dark mode';
+          button.setAttribute('aria-label', text);
+          button.title = text;
+        };
+        label();
+        button.addEventListener('click', () => {
+          root.dataset.theme = isDark() ? 'light' : 'dark';
+          try {
+            localStorage.setItem('theme', root.dataset.theme);
+          } catch {}
+          label();
+        });
+      });
+    </script>
+  </body>
+</html>

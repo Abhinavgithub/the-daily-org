@@ -1,0 +1,61 @@
+---
+import { dollars, type Glance, type Spending } from '../lib/insights';
+import { compact, formatNumber } from '../lib/stats';
+
+// The headline figures of a period, each with a few words of context.
+
+interface Props {
+  glance: Glance;
+  spending: Spending;
+}
+
+const { glance, spending } = Astro.props;
+const yieldShare = glance.reviewed ? Math.round((glance.published / glance.reviewed) * 100) : undefined;
+---
+
+<dl class="glance">
+  <div>
+    <dt>Last run</dt>
+    <dd>
+      {glance.lastRun ? (
+        <time datetime={glance.lastRun.at} data-ago="short">
+          {glance.lastRun.ago}
+        </time>
+      ) : (
+        'None'
+      )}
+    </dd>
+    <dd class="glance__note">{glance.lastRun ? (glance.lastRun.fine ? 'finished without problems' : 'had problems') : 'in this period'}</dd>
+  </div>
+  <div>
+    <dt>Published</dt>
+    <dd>{formatNumber(glance.published)}</dd>
+    <dd class="glance__note">in {glance.runs} {glance.runs === 1 ? 'run' : 'runs'}</dd>
+  </div>
+  <div>
+    <dt>Reviewed</dt>
+    <dd>{formatNumber(glance.reviewed)}</dd>
+    <dd class="glance__note">{yieldShare === undefined ? 'by the model' : `${yieldShare}% published`}</dd>
+  </div>
+  <div>
+    <dt>Model calls</dt>
+    <dd>{formatNumber(glance.calls)}</dd>
+    <dd class="glance__note">{glance.retries ? `${formatNumber(glance.retries)} were repeats` : 'none repeated'}</dd>
+  </div>
+  <div>
+    <dt>Tokens</dt>
+    <dd>{compact(glance.tokens)}</dd>
+    <dd class="glance__note">{glance.published ? `${compact(Math.round(glance.tokens / glance.published))} a story` : 'read and written'}</dd>
+  </div>
+  <div>
+    <dt>Cost this month</dt>
+    <dd>{spending.costed ? dollars(spending.spent) : 'Not known'}</dd>
+    <dd class="glance__note">
+      {
+        spending.costed === 0
+          ? 'no run has recorded a cost yet'
+          : `${spending.budget ? `of ${dollars(spending.budget)}, ` : ''}on pace for ${dollars(spending.pace)}${spending.costed < spending.runs ? `; ${spending.costed} of ${spending.runs} runs recorded` : ''}`
+      }
+    </dd>
+  </div>
+</dl>

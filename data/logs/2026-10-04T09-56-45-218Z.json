@@ -1,0 +1,420 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-10-04T09:56:45.218Z",
+  "day": "2026-10-04",
+  "seconds": 1463,
+  "finished": true,
+  "feeds": [
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 10
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 7
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 9
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 2
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 10
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 2
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 1
+    },
+    {
+      "id": "joys-of-apex",
+      "name": "The Joys of Apex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 6
+    },
+    {
+      "id": "unofficialsf",
+      "name": "UnofficialSF",
+      "items": 0
+    },
+    {
+      "id": "automation-champion",
+      "name": "Automation Champion",
+      "items": 0
+    },
+    {
+      "id": "sfdc-stop",
+      "name": "SFDC Stop",
+      "items": 0
+    },
+    {
+      "id": "medium-salesforce",
+      "name": "Medium",
+      "items": 10
+    },
+    {
+      "id": "yt-salesforce-developers",
+      "name": "Salesforce Developers on YouTube",
+      "items": 2,
+      "note": "read through the YouTube API"
+    }
+  ],
+  "articles": [
+    {
+      "title": "Salesforce Microfrontend (UI Embedding) で React アプリの埋め込みを試す",
+      "url": "https://developer.salesforce.com/blogs/2026/09/salesforce-microfrontend-ui-embedding-jp",
+      "source": "Salesforce Developers Blog",
+      "outcome": "dropped",
+      "reason": "not in English"
+    },
+    {
+      "title": "AIエージェント用の意思決定スコアリングスキルを作成する",
+      "url": "https://developer.salesforce.com/blogs/2026/09/build-a-decision-scoring-skill-for-any-agent-jp",
+      "source": "Salesforce Developers Blog",
+      "outcome": "dropped",
+      "reason": "not in English"
+    },
+    {
+      "title": "Hosted MCP Serverを使ってSalesforceにSlackを接続する",
+      "url": "https://developer.salesforce.com/blogs/2026/09/connect-slack-to-salesforce-with-hosted-mcp-servers-jp",
+      "source": "Salesforce Developers Blog",
+      "outcome": "dropped",
+      "reason": "not in English"
+    },
+    {
+      "title": "Salesforce Hosted MCP Serverをセキュアにする方法",
+      "url": "https://developer.salesforce.com/blogs/2026/09/how-to-secure-salesforce-hosted-mcp-servers-jp",
+      "source": "Salesforce Developers Blog",
+      "outcome": "dropped",
+      "reason": "not in English"
+    },
+    {
+      "title": "開発の意図に応じてツールを自動で選択 – Agentforce Vibesの新機能「アビリティ」",
+      "url": "https://developer.salesforce.com/blogs/2026/09/intent-driven-tool-selection-using-abilities-in-agentforce-vibes-jp",
+      "source": "Salesforce Developers Blog",
+      "outcome": "dropped",
+      "reason": "not in English"
+    },
+    {
+      "title": "Use custom Python chunking to improve Agentforce retrieval accuracy in Data 360",
+      "url": "https://developer.salesforce.com/blogs/2026/09/pro-code-chunking-of-data-360-search-indexes-for-agentforce",
+      "source": "Salesforce Developers Blog",
+      "outcome": "published",
+      "score": 8,
+      "reason": "article title: Pro-Code Chunking of Data 360 Search Indexes for Agentforce"
+    },
+    {
+      "title": "Use the new Group Element to organize Flow Builder canvas sections",
+      "url": "https://salesforcetime.com/2026/09/24/make-flows-easier-to-read-with-the-new-group-element/",
+      "source": "Salesforce Time",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Make Flows Easier to Read with the New Group Element"
+    },
+    {
+      "title": "September Monthly Retro: What Changed, What Matters, and What Admins Should Do Next",
+      "url": "https://admin.salesforce.com/blog/2026/september-monthly-retro-what-changed-what-matters-and-what-admins-should-do-next-podcast",
+      "source": "Salesforce Admins Blog",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6"
+    },
+    {
+      "title": "How Agentforce Health Monitoring detects silent failures and reduces alert latency",
+      "url": "https://engineering.salesforce.com/ai-agent-observability-making-silent-production-failures-visible-and-actionable/",
+      "source": "Salesforce Engineering",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: AI Agent Observability: Making Silent Production Failures Visible and Actionable"
+    },
+    {
+      "title": "Using Agentforce Vibes skills to inspect and configure your Salesforce org",
+      "url": "https://admin.salesforce.com/blog/2026/skills-in-agentforce-vibes-a-guide-for-admins",
+      "source": "Salesforce Admins Blog",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Skills in Agentforce Vibes: A Guide for Admins"
+    },
+    {
+      "title": "Replicate the standard Recently Viewed List View inside a Screen Flow",
+      "url": "https://salesforcetime.com/2026/09/20/how-to-find-the-recently-viewed-records-in-flow/",
+      "source": "Salesforce Time",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: How to Find the Recently Viewed Records in Flow"
+    },
+    {
+      "title": "Dreamforce 2026 Product Highlights for Admins",
+      "url": "https://admin.salesforce.com/blog/2026/dreamforce-2026-product-highlights-for-admins",
+      "source": "Salesforce Admins Blog",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6"
+    },
+    {
+      "title": "AI-Enabled Customer Support with DigitalOcean: Less Plumbing, More Focus",
+      "url": "https://andyinthecloud.com/2026/09/17/ai-enabled-customer-support-with-digitalocean-less-plumbing-more-focus/",
+      "source": "Andy in the Cloud",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Stop Explaining Your Salesforce Org to AI Every Time",
+      "url": "https://salesforcetime.com/2026/09/17/stop-explaining-your-salesforce-org-to-ai-every-time/",
+      "source": "Salesforce Time",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "How Data 360 compiles governed context for artificial intelligence agents at production scale",
+      "url": "https://engineering.salesforce.com/how-data-360-builds-trusted-context-the-enduring-layer-for-enterprise-ai/",
+      "source": "Salesforce Engineering",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: How Data 360 Builds Trusted Context: The Enduring Layer for Enterprise AI"
+    },
+    {
+      "title": "Trailblazer Community is Moving to Slack",
+      "url": "https://salesforcetime.com/2026/09/16/trailblazer-community-is-moving-to-slack/",
+      "source": "Salesforce Time",
+      "outcome": "not-relevant",
+      "score": 5
+    },
+    {
+      "title": "Use Headless Experience Layer to build agentic user interfaces across multiple platforms",
+      "url": "https://www.youtube.com/watch?v=mnvGnN3ny-o",
+      "source": "Salesforce Developers on YouTube",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: AIforce AMA: Build Rich Agentic UI with Headless Experience Layer"
+    },
+    {
+      "title": "AIforce codeLive: Bring Salesforce to Any Interface with HXL",
+      "url": "https://www.youtube.com/watch?v=LQHv9hMhqa4",
+      "source": "Salesforce Developers on YouTube",
+      "outcome": "below-threshold",
+      "score": 4,
+      "reason": "scored 4, the threshold is 6"
+    },
+    {
+      "title": "How Data 360 data graphs deliver trusted customer context to Agentforce",
+      "url": "https://engineering.salesforce.com/how-ai-agents-get-trusted-customer-context-with-data-360-data-graphs/",
+      "source": "Salesforce Engineering",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: How AI Agents Get Trusted Customer Context with Data 360 Data Graphs"
+    },
+    {
+      "title": "Generate custom Salesforce Connect adapters with ai skills and headless registration",
+      "url": "https://developer.salesforce.com/blogs/2026/09/build-custom-salesforce-connect-adapters-smarter-with-salesforce-skills",
+      "source": "Salesforce Developers Blog",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Build Custom Salesforce Connect Adapters Smarter with Salesforce Skills"
+    },
+    {
+      "title": "Salesforce updates its Well-Architected Framework with five pillars and an agentic lens",
+      "url": "https://www.salesforce.com/blog/new-well-architected-framework/",
+      "source": "Salesforce Architects",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Introducing the New Salesforce Well-Architected Framework"
+    },
+    {
+      "title": "Architecting real-time mobile personalization with server-side decisioning and content zones",
+      "url": "https://engineering.salesforce.com/engineering-real-time-mobile-personalization-across-ios-android-react-native-and-flutter/",
+      "source": "Salesforce Engineering",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Engineering Real-Time Mobile Personalization Across iOS, Android, React Native, and Flutter"
+    },
+    {
+      "title": "How Flow Tags simplify organization in the Automation App",
+      "url": "https://salesforcetime.com/2026/09/11/how-to-use-tags-to-organize-flows-in-salesforce/",
+      "source": "Salesforce Time",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: How to Use Tags to Organize Flows in Salesforce"
+    },
+    {
+      "title": "Use the account record to anchor identity, access, and onboarding in Experience Cloud",
+      "url": "https://www.salesforce.com/blog/experience-cloud-identity-access-account/",
+      "source": "Salesforce Architects",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Start with Accounts: Design Identity and Access That Scales"
+    },
+    {
+      "title": "Deploy Python code extensions for complex Data 360 batch transformations",
+      "url": "https://developer.salesforce.com/blogs/2026/09/build-deploy-run-and-troubleshoot-complex-transformations-with-python-and-pyspark-while-keeping-execution-governed-by-data-360",
+      "source": "Salesforce Developers Blog",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Run Complex Data Transformations in Data 360 with Code Extension"
+    },
+    {
+      "title": "What Does the Salesforce Admin Job Market Look Like Right Now?",
+      "url": "https://admin.salesforce.com/blog/2026/what-does-the-salesforce-admin-job-market-look-like-right-now-podcast",
+      "source": "Salesforce Admins Blog",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Tracing retrieval augmented generation accuracy failures backward through the context pipeline",
+      "url": "https://engineering.salesforce.com/enterprise-ai-accuracy-building-a-more-trustworthy-rag-application/",
+      "source": "Salesforce Engineering",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Enterprise AI Accuracy: Building a More Trustworthy RAG Application"
+    },
+    {
+      "title": "Use Agentforce Vibes to audit and update field descriptions for agents",
+      "url": "https://admin.salesforce.com/blog/2026/use-agentforce-vibes-to-find-and-fix-metadata-gaps",
+      "source": "Salesforce Admins Blog",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Use Agentforce Vibes to Find and Fix Metadata Gaps"
+    },
+    {
+      "title": "Connecting metadata and runtime telemetry to prioritize enterprise org remediation",
+      "url": "https://engineering.salesforce.com/how-metadata-and-runtime-telemetry-reveal-which-enterprise-system-problems-to-fix-first/",
+      "source": "Salesforce Engineering",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: How Metadata and Runtime Telemetry Reveal Which Enterprise System Problems to Fix First"
+    },
+    {
+      "title": "Understanding the new Apex heap limits and transition settings in Winter '27",
+      "url": "https://bobbuzzard.blogspot.com/2026/09/increased-apex-heap-size-in-winter-27.html",
+      "source": "Bob Buzzard Blog",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Increased Apex Heap Size in Winter '27"
+    },
+    {
+      "title": "Salesforce announces general availability of Web Console as a modern browser-based IDE",
+      "url": "https://developer.salesforce.com/blogs/2026/09/announcing-general-availability-web-console-your-modern-in-browser-ide",
+      "source": "Salesforce Developers Blog",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Announcing General Availability: Web Console – Your Modern In-Browser IDE"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Use custom Python chunking to improve Agentforce retrieval accuracy in Data 360",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Use the new Group Element to organize Flow Builder canvas sections",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "How Agentforce Health Monitoring detects silent failures and reduces alert latency",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Using Agentforce Vibes Skills to inspect and configure your Salesforce org",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Replicate the standard Recently Viewed List View inside a Screen Flow",
+      "outcome": "corrected"
+    },
+    {
+      "title": "How Data 360 compiles governed context for artificial intelligence agents at production scale",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Use Headless Experience Layer to build agentic user interfaces across multiple platforms",
+      "outcome": "corrected"
+    },
+    {
+      "title": "How Data 360 data graphs deliver trusted customer context to Agentforce",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Generate custom Salesforce Connect adapters with AI skills and headless registration",
+      "outcome": "corrected",
+      "reason": "summary: \"datasource\" was removed"
+    },
+    {
+      "title": "Salesforce updates its Well-Architected Framework with five pillars and an agentic lens",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Architecting real-time mobile personalization with server-side decisioning and content zones",
+      "outcome": "corrected"
+    },
+    {
+      "title": "How Flow Tags simplify organization in the Automation App",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Use the account record to anchor identity, access, and onboarding in Experience Cloud",
+      "outcome": "kept",
+      "reason": "summary: 12 words differ (at most 5 allowed)"
+    },
+    {
+      "title": "Deploy Python Code Extensions for complex Data 360 batch transformations",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Tracing retrieval-augmented generation accuracy failures backward through the context pipeline",
+      "outcome": "corrected",
+      "reason": "reason to read: \"salesforce\" was removed"
+    },
+    {
+      "title": "Use Agentforce Vibes to audit and update field descriptions for agents",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Connecting metadata and runtime telemetry to prioritize enterprise org remediation",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Understanding the new Apex heap limits and transition settings in Winter '27",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Salesforce announces general availability of Web Console as a modern browser-based IDE",
+      "outcome": "corrected"
+    }
+  ],
+  "figures": [
+    {
+      "title": "Salesforce introduces beta Test Mode for Flow debugging and regression testing",
+      "outcome": "drawn",
+      "kind": "compare"
+    }
+  ],
+  "model": {
+    "calls": 46,
+    "retries": {},
+    "usage": {
+      "qwen/qwen3.7-flash": {
+        "input": 76697,
+        "output": 167037
+      }
+    }
+  },
+  "statsAt": "2026-10-04T10:21:08.157Z"
+}

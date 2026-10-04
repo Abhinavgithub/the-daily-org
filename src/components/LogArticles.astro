@@ -1,0 +1,85 @@
+---
+import type { ArticleRow } from '../lib/insights';
+import { OUTCOME_LABELS, type ArticleOutcome } from '../lib/logs';
+
+// Every article of every run kept, in one table that can be searched and narrowed.
+
+interface Props {
+  articles: ArticleRow[];
+}
+
+const { articles } = Astro.props;
+const day = (iso: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }).format(new Date(iso));
+const SHORT: Record<ArticleOutcome, string> = {
+  published: 'Published',
+  'below-threshold': 'Below the bar',
+  'not-relevant': 'Not relevant',
+  dropped: 'Dropped',
+  'invalid-reply': 'Unusable reply',
+  deferred: 'Left over',
+};
+const present = (Object.keys(SHORT) as ArticleOutcome[]).filter((outcome) => articles.some((article) => article.outcome === outcome));
+---
+
+<div class="articles" data-articles>
+  {
+    articles.length === 0 ? (
+      <p class="ledger__none">No run has kept its articles yet. The next run of the pipeline will.</p>
+    ) : (
+      <>
+        <div class="articles__controls">
+          <label class="visually-hidden" for="article-search">Search articles by title or source</label>
+          <input id="article-search" type="search" placeholder="Search title or source" autocomplete="off" data-article-search />
+          <div class="articles__chips" role="group" aria-label="Outcome">
+            <button type="button" class="chip" data-outcome-chip="" aria-pressed="true">
+              All <span class="chip__count" data-count />
+            </button>
+            {present.map((outcome) => (
+              <button type="button" class="chip" data-outcome-chip={outcome} aria-pressed="false">
+                {SHORT[outcome]} <span class="chip__count" data-count />
+              </button>
+            ))}
+          </div>
+          <button type="button" class="chip" data-run-chip hidden>
+            <span data-run-chip-name /> <span aria-hidden="true">×</span>
+            <span class="visually-hidden">Show every run</span>
+          </button>
+        </div>
+        <p class="ledger__note" data-article-status aria-live="polite" />
+        <div class="log__scroll">
+          <table class="log__table">
+            <thead>
+              <tr>
+                <th scope="col">Article</th>
+                <th scope="col">Source</th>
+                <th scope="col">Outcome</th>
+                <th scope="col">Score</th>
+                <th scope="col">Run</th>
+              </tr>
+            </thead>
+            <tbody>
+              {articles.map((article) => (
+                <tr data-article data-outcome={article.outcome} data-at={article.ranAt} data-text={`${article.title} ${article.source}`.toLowerCase()}>
+                  <td>
+                    <a href={article.url} target="_blank" rel="noopener" title={article.outcome === 'published' && article.reason ? `${article.title} (${article.reason})` : article.title}>
+                      {article.title}
+                    </a>
+                    {/* A second line only where it explains a decision. */}
+                    {article.reason && article.outcome !== 'published' && <span class="log__reason">{article.reason}</span>}
+                  </td>
+                  <td>{article.source}</td>
+                  <td>
+                    <span class:list={['tag', `tag--${article.outcome}`]}>{OUTCOME_LABELS[article.outcome] ?? article.outcome}</span>
+                  </td>
+                  <td>{article.score ?? ''}</td>
+                  <td>{day(article.ranAt)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <button type="button" class="chip results__more" data-article-more hidden>Show more</button>
+      </>
+    )
+  }
+</div>

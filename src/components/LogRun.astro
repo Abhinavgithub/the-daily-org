@@ -1,0 +1,138 @@
+---
+import { dollars, facts } from '../lib/insights';
+import { problems, type RunLogData } from '../lib/logs';
+import { formatNumber } from '../lib/stats';
+
+// One run: a line that can be read without opening it, and what happened in it underneath.
+
+interface Props {
+  log: RunLogData;
+  open?: boolean;
+  /** What the run cost in US dollars, when its stats line recorded it. */
+  cost?: number;
+}
+
+const { log, open = false, cost } = Astro.props;
+const wrong = problems(log);
+const f = facts(log, cost);
+const when = new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }).format(new Date(log.ranAt));
+const failedFeeds = log.feeds.filter((feed) => feed.error);
+const retries = Object.entries(log.model.retries).filter(([, n]) => n > 0);
+const usage = Object.entries(log.model.usage);
+const PROOF = { corrected: 'Corrected', unchanged: 'Needed nothing', kept: 'Kept as written', skipped: 'Not proof-read' };
+const FIGURE = { drawn: 'Drawn', none: 'Nothing to draw', refused: 'Refused', skipped: 'Skipped' };
+// What became of the run's articles, as the parts of a small bar.
+const parts = [
+  { label: 'published', count: f.published, tone: 'main' },
+  { label: 'below the bar', count: f.below, tone: 'rest' },
+  { label: 'not relevant', count: f.notRelevant, tone: 'faint' },
+  { label: 'dropped before review', count: f.dropped, tone: 'unknown' },
+  { label: 'left for the next run', count: f.deferred, tone: 'unknown' },
+].filter((part) => part.count > 0);
+const drawn = log.figures.filter((figure) => figure.outcome === 'drawn').length;
+---
+
+<details class="log" open={open} data-run data-at={log.ranAt} data-problem={wrong.length > 0 ? 'yes' : 'no'}>
+  <summary>
+    <span class="log__when">{when}</span>
+    <span class="log__what">{log.kind === 'figures' ? 'Diagrams' : log.day ? `Edition ${log.day}` : 'Pipeline'}</span>
+    <span class="log__bar" aria-hidden="true">
+      {parts.map((part) => <span class={`mark--${part.tone}`} style={`flex-grow: ${part.count}`} title={`${part.count} ${part.label}`} />)}
+    </span>
+    <span class="log__counts">
+      {log.kind === 'figures' ? `${drawn} drawn` : f.reviewed || f.published ? `${f.published} published of ${f.reviewed} reviewed` : 'Nothing new'}
+    </span>
+    <span class="log__cost">
+      {formatNumber(f.calls)} {f.calls === 1 ? 'call' : 'calls'}
+      {log.seconds > 0 && ` · ${Math.round(log.seconds / 60) || '<1'} min`}
+      {cost !== undefined && ` · ${dollars(cost)}`}
+    </span>
+    <span class:list={['log__mark', wrong.length > 0 && 'log__mark--bad']}>{wrong.length > 0 ? 'Problems' : 'Fine'}</span>
+  </summary>
+
+  <div class="log__body">
+    {
+      wrong.length > 0 && (
+        <ul class="log__problems">
+          {wrong.map((problem) => (
+            <li>{problem}</li>
+          ))}
+        </ul>
+      )
+    }
+    {log.totals && <p class="ledger__note">This run was made before logs were kept. {formatNumber(log.totals.fetched)} feed items were read; nothing was recorded per article.</p>}
+
+    {
+      log.articles.length > 0 && (
+        <p class="log__line">
+          {parts.map((part) => `${part.count} ${part.label}`).join(', ')}.{' '}
+          <a href="#articles" data-show-run={log.ranAt} data-run-name={when}>
+            See its {log.articles.length} {log.articles.length === 1 ? 'article' : 'articles'}
+          </a>
+        </p>
+      )
+    }
+
+    {
+      failedFeeds.length > 0 && (
+        <section>
+          <h3>Feeds that failed</h3>
+          <ul class="log__list">
+            {failedFeeds.map((feed) => (
+              <li>
+                <strong>{feed.name}</strong>
+                <span class="log__reason">{feed.error}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      log.proofread.length > 0 && (
+        <section>
+          <h3>Proof-reading</h3>
+          <ul class="log__list">
+            {log.proofread.map((proof) => (
+              <li>
+                <span class:list={[proof.reason && 'log__bad']}>{PROOF[proof.outcome] ?? proof.outcome}</span>: {proof.title}
+                {proof.reason && <span class="log__reason">{proof.reason}</span>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    {
+      log.figures.length > 0 && (
+        <section>
+          <h3>Diagrams</h3>
+          <ul class="log__list">
+            {log.figures.map((figure) => (
+              <li>
+                <span class:list={[figure.outcome === 'refused' && 'log__bad']}>
+                  {FIGURE[figure.outcome] ?? figure.outcome}
+                  {figure.kind && ` (${figure.kind})`}
+                </span>
+                {figure.image && <span class:list={[figure.image === 'failed' && 'log__bad']}>{figure.image === 'made' ? ', illustrated' : ', no illustration'}</span>}: {figure.title}
+                {figure.reason && <span class="log__reason">{figure.reason}</span>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+
+    <section>
+      <h3>Model</h3>
+      <p class="log__line">
+        {formatNumber(log.model.calls)} {log.model.calls === 1 ? 'call' : 'calls'}
+        {log.seconds > 0 && `, ${Math.round(log.seconds / 60) || '<1'} min`}
+        {retries.length > 0 && `. Extra calls: ${retries.map(([cause, n]) => `${cause} (${n})`).join(', ')}`}
+        {usage.length > 0 && `. Tokens: ${usage.map(([model, spent]) => `${model} ${formatNumber(spent.input)} in, ${formatNumber(spent.output)} out`).join('; ')}`}
+      </p>
+    </section>
+  </div>
+</details>

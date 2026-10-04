@@ -1,0 +1,32 @@
+---
+import { formatNumber, type Count } from '../lib/stats';
+
+// A ranked list: each row a name, its count, and a slim bar beneath them.
+
+interface Props {
+  rows: Count[];
+  /** Shown when there is nothing to count. */
+  empty?: string;
+}
+
+const { rows, empty = 'Nothing recorded.' } = Astro.props;
+const most = Math.max(1, ...rows.map((row) => row.count));
+---
+
+{
+  rows.length === 0 ? (
+    <p class="ledger__none">{empty}</p>
+  ) : (
+    <ul class="bars">
+      {rows.map((row) => (
+        <li>
+          <span class="bars__label">{row.label}</span>
+          <span class="bars__value">{formatNumber(row.count)}</span>
+          <span class="bars__track" aria-hidden="true">
+            <span class="bars__fill" style={`width: ${(row.count / most) * 100}%`} />
+          </span>
+        </li>
+      ))}
+    </ul>
+  )
+}

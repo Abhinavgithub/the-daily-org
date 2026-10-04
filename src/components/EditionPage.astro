@@ -1,0 +1,65 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { formatDay, type Edition } from '../lib/stories';
+import FilterBar from './FilterBar.astro';
+import Masthead from './Masthead.astro';
+import StoryGrid from './StoryGrid.astro';
+
+interface Props {
+  edition: Edition;
+  older?: string;
+  newer?: string;
+  isLatest?: boolean;
+}
+
+const { edition, older, newer, isLatest = false } = Astro.props;
+const { day, stories } = edition;
+const steps = [
+  { day: older, label: 'Older edition', path: 'M10 3 5 8l5 5' },
+  { day: newer, label: 'Newer edition', path: 'm6 3 5 5-5 5' },
+];
+---
+
+<Layout title={isLatest ? undefined : formatDay(day)} edition={day} image={stories.find((story) => story.data.figure_image)?.data.figure_image}>
+  <Masthead>
+    {
+      steps.map((step, i) => {
+        const icon = (
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d={step.path} />
+          </svg>
+        );
+        const control = step.day ? (
+          <a class="dateline__step" href={`/${step.day}/`} aria-label={`${step.label}, ${formatDay(step.day)}`}>
+            {icon}
+          </a>
+        ) : (
+          <span class="dateline__step" aria-hidden="true">
+            {icon}
+          </span>
+        );
+        // The date sits between the two arrows.
+        return i === 0 ? (
+          <>
+            {control}
+            <h1 class="dateline__text">
+              <span class="dateline__long">{formatDay(day)}</span>
+              <span class="dateline__short">{formatDay(day, 'short')}</span>
+            </h1>
+          </>
+        ) : (
+          control
+        );
+      })
+    }
+  </Masthead>
+
+  <main id="stories" class="wrap">
+    <FilterBar stories={stories} />
+    <StoryGrid stories={stories} />
+    <div class="empty" data-empty hidden>
+      <p>No stories in this edition match those filters.</p>
+      <button type="button" class="link-button" data-filter-clear>Clear filters</button>
+    </div>
+  </main>
+</Layout>

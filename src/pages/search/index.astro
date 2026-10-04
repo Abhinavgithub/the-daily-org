@@ -1,0 +1,253 @@
+---
+import Masthead from '../../components/Masthead.astro';
+import { PERSONAS, SECTIONS } from '../../config';
+import Layout from '../../layouts/Layout.astro';
+import { getAllStories } from '../../lib/stories';
+
+// Somewhere to start from, before a search and when one finds nothing.
+const all = await getAllStories();
+const sections = SECTIONS.map((s) => ({
+  ...s,
+  count: all.filter((story) => story.data.section === s.id).length,
+})).filter((s) => s.count > 0);
+---
+
+<Layout title="Search">
+  <Masthead>
+    <h1 class="dateline__text">Search</h1>
+  </Masthead>
+  <main id="stories" class="wrap wrap--centred">
+    <p class="page-sub" data-search-status aria-live="polite">Type a word or two in the search box above.</p>
+
+    <div class="search-page" data-search-page hidden>
+      <!-- Each group's name is also its key in the page address, as on an edition. -->
+      <aside class="search-filters" aria-label="Narrow the results">
+        <fieldset data-group="show">
+          <legend>Show</legend>
+          <label class="check">
+            <input type="checkbox" value="recommended" />
+            <span>Recommended</span>
+            <span class="check__count" data-count></span>
+          </label>
+          <label class="check">
+            <input type="checkbox" value="must" />
+            <span>Must-read</span>
+            <span class="check__count" data-count></span>
+          </label>
+        </fieldset>
+        {
+          PERSONAS.length > 0 && (
+            <fieldset data-group="for">
+              <legend>Written for</legend>
+              {PERSONAS.map((p) => (
+                <label class="check">
+                  <input type="checkbox" value={p.id} />
+                  <span>{p.label}</span>
+                  <span class="check__count" data-count />
+                </label>
+              ))}
+            </fieldset>
+          )
+        }
+        <button type="button" class="search-filters__clear" data-clear hidden>Clear filters</button>
+      </aside>
+      <div class="search-page__results">
+        <ol class="results" data-search-results></ol>
+        <button type="button" class="chip results__more" data-more hidden>Show more</button>
+      </div>
+    </div>
+
+    {
+      sections.length > 0 && (
+        <section class="browse" data-browse aria-labelledby="browse-title">
+          <h2 id="browse-title">Browse a section</h2>
+          <ul class="browse__sections">
+            {sections.map((s) => (
+              <li>
+                <a class="chip" href={`/section/${s.id}/`}>
+                  {s.label} <span class="chip__count">{s.count}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </main>
+</Layout>
+
+<script>
+  interface Entry {
+    href: string;
+    title: string;
+    why: string;
+    source: string;
+    section: string;
+    day: string;
+    text: string;
+    personas: string[];
+    signal: 'must' | 'recommended' | 'other';
+  }
+
+  /** How many results are shown at first, and how many each press of "Show more" adds. */
+  const PAGE = 20;
+
+  const input = document.querySelector<HTMLInputElement>('[data-site-search]')!;
+  const status = document.querySelector<HTMLElement>('[data-search-status]')!;
+  const page = document.querySelector<HTMLElement>('[data-search-page]')!;
+  const list = document.querySelector<HTMLElement>('[data-search-results]')!;
+  const more = document.querySelector<HTMLButtonElement>('[data-more]')!;
+  const clear = document.querySelector<HTMLButtonElement>('[data-clear]')!;
+  const browse = document.querySelector<HTMLElement>('[data-browse]');
+  const boxes = [...page.querySelectorAll<HTMLInputElement>('input[type="checkbox"]')];
+  const groupOf = (box: HTMLInputElement) => box.closest<HTMLElement>('[data-group]')!.dataset.group as 'show' | 'for';
+  const ticked = (group: 'show' | 'for') => boxes.filter((box) => groupOf(box) === group && box.checked).map((box) => box.value);
+
+  let index: Entry[] | null = null;
+  let shown = PAGE;
+
+  // Must-read stories are recommended too, as on an edition.
+  const showsAs = (entry: Entry, value: string) => (value === 'must' ? entry.signal === 'must' : entry.signal !== 'other');
+  const passes = {
+    show: (entry: Entry, values: string[]) => values.length === 0 || values.some((value) => showsAs(entry, value)),
+    for: (entry: Entry, values: string[]) => values.length === 0 || values.some((value) => entry.personas.includes(value)),
+  };
+
+  /** `text` as nodes, with each searched word marked. Built from text, so nothing in a story can be read as markup. */
+  function marked(text: string, terms: string[]): Node[] {
+    // A single letter is in nearly every word, and marking each one helps nobody.
+    terms = terms.filter((term) => term.length > 1);
+    if (terms.length === 0) return [document.createTextNode(text)];
+    const pattern = new RegExp(`(${terms.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi');
+    return text.split(pattern).map((part, i) => {
+      if (i % 2 === 0) return document.createTextNode(part);
+      const mark = document.createElement('mark');
+      mark.textContent = part;
+      return mark;
+    });
+  }
+
+  function row(entry: Entry, terms: string[]): HTMLElement {
+    const item = document.createElement('li');
+    const link = document.createElement('a');
+    link.href = entry.href;
+    link.append(...marked(entry.title, terms));
+    const meta = document.createElement('span');
+    meta.className = 'results__meta';
+    const section = document.createElement('span');
+    section.className = 'results__section';
+    section.textContent = entry.section;
+    meta.append(section, ` · ${entry.source} · ${entry.day}`);
+    const why = document.createElement('span');
+    why.className = 'results__why';
+    why.append(...marked(entry.why, terms));
+    item.append(link, meta, why);
+    return item;
+  }
+
+  /** The address carries the search and the ticked boxes, so a search can be reloaded or shared. */
+  function remember(query: string) {
+    const params = new URLSearchParams();
+    if (query) {
+      params.set('q', query);
+      for (const group of ['for', 'show'] as const) if (ticked(group).length) params.set(group, ticked(group).join(','));
+    }
+    const search = params.toString().replace(/%2C/g, ',');
+    history.replaceState(null, '', location.pathname + (search ? `?${search}` : ''));
+  }
+
+  async function run(focusFrom?: number) {
+    const query = input.value.trim();
+    remember(query);
+
+    if (!query) {
+      page.hidden = true;
+      if (browse) browse.hidden = false;
+      list.replaceChildren();
+      status.textContent = 'Type a word or two in the search box above.';
+      return;
+    }
+    try {
+      index ??= (await (await fetch('/search.json')).json()) as Entry[];
+    } catch {
+      status.textContent = 'The search index could not be loaded. Reload the page to try again.';
+      return;
+    }
+
+    const terms = query.toLowerCase().split(/\s+/);
+    const matches = index
+      .map((entry) => {
+        const title = entry.title.toLowerCase();
+        const rest = `${entry.why} ${entry.source} ${entry.section} ${entry.text}`.toLowerCase();
+        if (!terms.every((t) => title.includes(t) || rest.includes(t))) return null;
+        // Title matches first; the index is already newest first, and sort is stable.
+        return { entry, weight: terms.filter((t) => title.includes(t)).length };
+      })
+      .filter((m) => m !== null)
+      .sort((a, b) => b.weight - a.weight)
+      .map((m) => m.entry);
+
+    if (matches.length === 0) {
+      page.hidden = true;
+      if (browse) browse.hidden = false;
+      list.replaceChildren();
+      status.textContent = `No stories match “${query}”. Try a shorter or more general word${browse ? ', or browse a section' : ''}.`;
+      return;
+    }
+
+    // Beside each box: how many results it covers, given what is ticked in the other group.
+    const show = ticked('show');
+    const audience = ticked('for');
+    for (const box of boxes) {
+      const group = groupOf(box);
+      const others = matches.filter((entry) => (group === 'show' ? passes.for(entry, audience) : passes.show(entry, show)));
+      const count = others.filter((entry) => passes[group](entry, [box.value])).length;
+      box.closest('label')!.querySelector('[data-count]')!.textContent = String(count);
+      box.disabled = count === 0 && !box.checked;
+    }
+    clear.hidden = show.length + audience.length === 0;
+
+    const kept = matches.filter((entry) => passes.show(entry, show) && passes.for(entry, audience));
+    list.replaceChildren(...kept.slice(0, shown).map((entry) => row(entry, terms)));
+    const left = kept.length - shown;
+    more.hidden = left <= 0;
+    if (left > 0) more.textContent = `Show ${Math.min(PAGE, left)} more`;
+    page.hidden = false;
+    if (browse) browse.hidden = true;
+
+    const total = `${matches.length} ${matches.length === 1 ? 'story matches' : 'stories match'} “${query}”`;
+    status.textContent = clear.hidden ? `${total}.` : kept.length === 0 ? `${total}, but none fit these filters.` : `${total}, ${kept.length} with these filters.`;
+
+    // After "Show more", the keyboard carries on from the first story it added.
+    if (focusFrom !== undefined) list.children[focusFrom]?.querySelector('a')?.focus();
+  }
+
+  /** A new search or a changed filter starts again from the first results. */
+  const fresh = () => {
+    shown = PAGE;
+    run();
+  };
+
+  const params = new URLSearchParams(location.search);
+  input.value = params.get('q') ?? input.value;
+  for (const box of boxes) box.checked = (params.get(groupOf(box)) ?? '').split(',').includes(box.value);
+
+  input.addEventListener('input', fresh);
+  input.form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    fresh();
+  });
+  for (const box of boxes) box.addEventListener('change', fresh);
+  clear.addEventListener('click', () => {
+    for (const box of boxes) box.checked = false;
+    fresh();
+    boxes.find((box) => !box.disabled)?.focus();
+  });
+  more.addEventListener('click', () => {
+    const from = shown;
+    shown += PAGE;
+    run(from);
+  });
+  input.focus();
+  run();
+</script>

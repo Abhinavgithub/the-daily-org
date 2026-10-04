@@ -1,0 +1,35 @@
+---
+import Masthead from '../../../components/Masthead.astro';
+import SelectedFilter from '../../../components/SelectedFilter.astro';
+import StoryGrid from '../../../components/StoryGrid.astro';
+import Layout from '../../../layouts/Layout.astro';
+import { getAllStories, tagSlug, type Story } from '../../../lib/stories';
+
+export async function getStaticPaths() {
+  const byTag = new Map<string, { name: string; stories: Story[] }>();
+  for (const story of await getAllStories()) {
+    for (const tag of story.data.tags) {
+      const slug = tagSlug(tag);
+      if (!slug) continue;
+      const entry = byTag.get(slug) ?? { name: tag, stories: [] };
+      entry.stories.push(story);
+      byTag.set(slug, entry);
+    }
+  }
+  return [...byTag.entries()].map(([slug, { name, stories }]) => ({
+    params: { tag: slug },
+    props: { name, stories },
+  }));
+}
+
+const { name, stories } = Astro.props;
+---
+
+<Layout title={`Tagged ${name}`}>
+  <Masthead>
+    <SelectedFilter label={name} heading={`Stories tagged ${name}`} />
+  </Masthead>
+  <main id="stories" class="wrap">
+    <StoryGrid stories={stories} showDay />
+  </main>
+</Layout>
