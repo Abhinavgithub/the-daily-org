@@ -1,0 +1,13 @@
+// For Cloudflare, when the site is deployed as a Worker serving static files.
+// `npx wrangler deploy` builds the site and uploads `dist`; with this file in
+// place Wrangler does not try to set the project up by itself.
+{
+  "name": "the-daily-org",
+  "compatibility_date": "2026-10-01",
+  "build": { "command": "npm run build" },
+  "assets": {
+    "directory": "./dist",
+    // An address with no page gets the paper's own not-found page.
+    "not_found_handling": "404-page"
+  }
+}
