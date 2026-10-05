@@ -9,12 +9,12 @@ const escape = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 
 /** A function that rewrites every one of `terms` to the capitalisation given. A trailing "s" in the text is kept. */
 export function glossary(terms: readonly string[]): (text: string) => string {
-  // Longer terms first, so "Custom Metadata Type" wins over "Custom Metadata".
+  // Longer terms first, so "Signal Box Diagram" wins over "Signal Box".
   const rules = [...terms]
     .sort((a, b) => b.length - a.length)
     .map((term) => ({
       term,
-      // A space in a term also matches a hyphen or several spaces: "record triggered flow".
+      // A space in a term also matches a hyphen or several spaces: "narrow gauge line".
       pattern: new RegExp(`(?<![\\w-])${escape(term).replace(/[ -]/g, '[ -]')}(s?)(?![\\w-])`, 'gi'),
     }));
   return (text) => {
@@ -37,8 +37,8 @@ export function applyGlossary(text: string, paper: Paper = PAPER): string {
 
 /**
  * Turn a Title Case Headline into sentence case, keeping proper nouns. A word
- * keeps its capital if it has one inside it or a digit ("AIforce", "DevOps"),
- * is all capitals ("SOQL"), or is written with a capital in the middle of a
+ * keeps its capital if it has one inside it or a digit ("RailLab", "RailOps"),
+ * is all capitals ("ETCS"), or is written with a capital in the middle of a
  * sentence somewhere in `context`. Headlines already in sentence case are
  * returned untouched. Run the glossary afterwards to restore feature names.
  */
@@ -59,7 +59,7 @@ export function sentenceCase(headline: string, context = ''): string {
       const word = bare(token);
       const afterColon = i > 0 && /[:?!]$/.test(tokens[i - 1]);
       if (i === 0 || afterColon || !/^\p{Lu}/u.test(word)) return token;
-      // Judged part by part, so "Per-Instance" is lowered but "AIforce-Ready" is not.
+      // Judged part by part, so "Per-Instance" is lowered but "RailLab-Ready" is not.
       const parts = word.split('-');
       const keeps =
         /\d/.test(word) ||

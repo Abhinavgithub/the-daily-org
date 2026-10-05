@@ -6,38 +6,38 @@ import { applyGlossary as applyGlossaryFor, sentenceCase } from './style';
 // The tests' own paper, not the one this project publishes.
 const applyGlossary = (text: string) => applyGlossaryFor(text, PAPER);
 
-test('the glossary fixes Salesforce terms and leaves ordinary words alone', () => {
+test('the glossary fixes the terms of the paper and leaves ordinary words alone', () => {
   assert.equal(
-    applyGlossary('unlike records in a custom object or Custom Settings'),
-    'unlike records in a Custom Object or Custom Settings',
+    applyGlossary('unlike wagons in a goods yard or Branch Lines'),
+    'unlike wagons in a Goods Yard or Branch Lines',
   );
-  assert.equal(applyGlossary('custom metadata types and custom metadata'), 'Custom Metadata Types and Custom Metadata');
-  assert.equal(applyGlossary('permission sets, a permission set group'), 'Permission Sets, a Permission Set Group');
-  assert.equal(applyGlossary('soql in apex, and an lwc'), 'SOQL in Apex, and an LWC');
-  assert.equal(applyGlossary('a record triggered flow and a screen flow'), 'a Record-Triggered Flow and a Screen Flow');
-  assert.equal(applyGlossary('lightning web components'), 'Lightning Web Components');
+  assert.equal(applyGlossary('signal box diagrams and a signal box'), 'Signal Box Diagrams and a Signal Box');
+  assert.equal(applyGlossary('track circuits, a track circuit board'), 'Track Circuits, a Track Circuit Board');
+  assert.equal(applyGlossary('etcs on eurostar, and a tgv'), 'ETCS on Eurostar, and a TGV');
+  assert.equal(applyGlossary('a narrow gauge line and a main line'), 'a Narrow-Gauge Line and a Main Line');
+  assert.equal(applyGlossary('diesel multiple units'), 'Diesel Multiple Units');
   // Ordinary English and identifiers are untouched.
-  const plain = 'The flow of data and the trigger for the change. Deal_Policy__mdt, apex-class, MyApexHelper.';
+  const plain = 'The line of people and the signal for the change. Yard_Plan__v2, eurostar-class, MyEurostarHelper.';
   assert.equal(applyGlossary(plain), plain);
-  assert.equal(applyGlossary(applyGlossary('custom objects')), 'Custom Objects', 'idempotent');
+  assert.equal(applyGlossary(applyGlossary('goods yards')), 'Goods Yards', 'idempotent');
 });
 
 test('headlines are put in sentence case, keeping proper nouns', () => {
-  const context = 'The team behind Cloud Atlas replaced the limits. It runs on Salesforce and uses AIforce.';
+  const context = 'The team behind Track Atlas replaced the limits. It runs on Eurostar and uses RailLab.';
   assert.equal(
-    sentenceCase('Cloud Atlas Replaces Per-Instance Rate Limits With Fleet-Wide Protection', context),
-    'Cloud Atlas replaces per-instance rate limits with fleet-wide protection',
+    sentenceCase('Track Atlas Replaces Per-Train Speed Limits With Fleet-Wide Protection', context),
+    'Track Atlas replaces per-train speed limits with fleet-wide protection',
   );
   assert.equal(
-    applyGlossary(sentenceCase('Custom Metadata Types as One Deployable Home for Values Across Salesforce', context)),
-    'Custom Metadata Types as one deployable home for values across Salesforce',
+    applyGlossary(sentenceCase('Signal Box Diagrams as One Shared Home for Routes Across Eurostar', context)),
+    'Signal Box Diagrams as one shared home for routes across Eurostar',
   );
   assert.equal(
-    applyGlossary(sentenceCase('Custom Metadata Types as One Home for Values Across Salesforce and Slack', '')),
-    'Custom Metadata Types as one home for values across Salesforce and Slack',
+    applyGlossary(sentenceCase('Signal Box Diagrams as One Home for Routes Across Eurostar and Amtrak', '')),
+    'Signal Box Diagrams as one home for routes across Eurostar and Amtrak',
     'brand names are restored by the glossary even when the story text never mentions them',
   );
-  assert.equal(sentenceCase('Inside AIforce: How SOQL Limits Shape DevOps Center', context), 'Inside AIforce: How SOQL limits shape DevOps center');
-  const already = 'Agent Designer automates multi-agent AI team design and repair';
+  assert.equal(sentenceCase('Inside RailLab: How ETCS Limits Shape RailOps Center', context), 'Inside RailLab: How ETCS limits shape RailOps center');
+  const already = 'Route Designer automates multi-train AI timetable design and repair';
   assert.equal(sentenceCase(already, context), already);
 });

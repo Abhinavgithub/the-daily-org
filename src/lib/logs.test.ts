@@ -6,7 +6,7 @@ import { test } from 'node:test';
 import { KEEP, RunLog } from '../../pipeline/log';
 import { byNewest, legacyRuns, problems, readLog, staleEditions, summary } from './logs';
 
-const tmp = () => fs.mkdtempSync(path.join(os.tmpdir(), 'herald-logs-'));
+const tmp = () => fs.mkdtempSync(path.join(os.tmpdir(), 'paper-logs-'));
 
 /** A run with one of everything. */
 function sample(startedAt = new Date('2026-10-05T06:00:00Z')) {

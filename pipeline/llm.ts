@@ -62,7 +62,7 @@ interface Reply {
 export function configFromEnv(overrides: { model?: string } = {}): LlmConfig {
   const models = overrides.model
     ? [overrides.model]
-    : (process.env.LLM_MODELS ?? 'inclusionai/ling-3.1-flash,apodex/apodex-1.1-mini:free,openrouter/free')
+    : (process.env.LLM_MODELS ?? 'openrouter/free')
         .split(',')
         .map((m) => m.trim())
         .filter(Boolean);

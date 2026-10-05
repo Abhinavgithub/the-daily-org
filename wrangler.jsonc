@@ -1,7 +1,7 @@
-// For Cloudflare, where the site is deployed as a Worker serving static files.
-// Cloudflare runs `npm run build` (set in the Worker's build settings), then
-// `npx wrangler deploy` uploads `dist`. With this file in place Wrangler does
-// not try to set the project up by itself.
+// For hosts that deploy with Wrangler: the site is served as static files from
+// `dist`. The host runs `npm run build`, then `npx wrangler deploy` uploads the
+// result. With this file in place Wrangler does not try to set the project up
+// by itself.
 {
   "name": "the-daily-org",
   "compatibility_date": "2026-10-01",

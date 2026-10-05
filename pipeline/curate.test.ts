@@ -18,7 +18,7 @@ test('malformed JSON gets one corrective retry, then succeeds', async () => {
   assert.deepEqual(llm.retries, { 'invalid reply': 1 });
   assert.equal(verdict.depth_score, 7, 'numeric strings are coerced');
   assert.equal(verdict.utility_score, 10, 'scores are clamped to 1-10');
-  assert.deepEqual(verdict.tags, ['apex', 'bulk-patterns']);
+  assert.deepEqual(verdict.tags, ['eurostar', 'bulk-patterns']);
 });
 
 test('model output is reduced to plain prose', async () => {
@@ -34,44 +34,44 @@ test('two unusable replies skip the item', async () => {
 });
 
 test('the model writes the headline, with the article title as the fallback', async () => {
-  const withTitle = { ...good, title: '"Apex triggers need a handler per object."' };
+  const withTitle = { ...good, title: '"Eurostar departures need a check per platform."' };
   let run = client([() => ok(JSON.stringify(withTitle))]);
-  assert.equal((await curate(run.llm, item, 'text')).verdict.title, 'Apex triggers need a handler per object');
+  assert.equal((await curate(run.llm, item, 'text')).verdict.title, 'Eurostar departures need a check per platform');
 
   run = client([() => ok(JSON.stringify(good))]);
   assert.equal((await curate(run.llm, item, 'text')).verdict.title, item.title, 'no headline in the reply');
 
   assert.equal(cleanHeadline('x'.repeat(200), 'Fallback'), 'Fallback', 'over-long');
-  assert.equal(cleanHeadline('**Using custom metadata** in flows', 'Fallback'), 'Using Custom Metadata in flows');
+  assert.equal(cleanHeadline('**Using goods yards** in plans', 'Fallback'), 'Using Goods Yards in plans');
 });
 
 test('proof-reading corrects text but cannot rewrite it', async () => {
   const copy = {
-    title: 'Bulk patterns for apex triggers',
-    why_read: 'You will learns how to bulkify a trigger.',
-    summary: 'First paragraph about custom objects.\n\nSecond paragraph.',
+    title: 'Bulk patterns for eurostar departures',
+    why_read: 'You will learns how to plan a departure.',
+    summary: 'First paragraph about goods yards.\n\nSecond paragraph.',
   };
   const reply = (fields: object) => () => ok(JSON.stringify({ ...copy, ...fields }));
 
-  let run = client([reply({ why_read: 'You will learn how to bulkify a trigger.' })]);
+  let run = client([reply({ why_read: 'You will learn how to plan a departure.' })]);
   let result = await proofread(run.llm, copy);
   assert.equal(result.outcome, 'corrected');
-  assert.equal(result.copy.why_read, 'You will learn how to bulkify a trigger.');
-  assert.equal(result.copy.title, 'Bulk patterns for Apex triggers', 'glossary applied after the model');
-  assert.equal(result.copy.summary, 'First paragraph about Custom Objects.\n\nSecond paragraph.');
+  assert.equal(result.copy.why_read, 'You will learn how to plan a departure.');
+  assert.equal(result.copy.title, 'Bulk patterns for Eurostar departures', 'glossary applied after the model');
+  assert.equal(result.copy.summary, 'First paragraph about Goods Yards.\n\nSecond paragraph.');
 
   // A bad field is thrown away on its own; a good one in the same reply is still used.
-  run = client([reply({ summary: 'Short.', why_read: 'You will learn how to bulkify a trigger.' })]);
+  run = client([reply({ summary: 'Short.', why_read: 'You will learn how to plan a departure.' })]);
   result = await proofread(run.llm, copy);
   assert.equal(result.outcome, 'corrected');
-  assert.equal(result.copy.summary, 'First paragraph about Custom Objects.\n\nSecond paragraph.', 'summary reverted');
-  assert.equal(result.copy.why_read, 'You will learn how to bulkify a trigger.', 'reason kept');
+  assert.equal(result.copy.summary, 'First paragraph about Goods Yards.\n\nSecond paragraph.', 'summary reverted');
+  assert.equal(result.copy.why_read, 'You will learn how to plan a departure.', 'reason kept');
   assert.equal(result.reverted.length, 1);
 
   // Merged paragraphs, or a reply that is not JSON, leave the story as written.
-  run = client([reply({ summary: 'First paragraph about custom objects. Second paragraph.' })]);
+  run = client([reply({ summary: 'First paragraph about goods yards. Second paragraph.' })]);
   result = await proofread(run.llm, copy);
-  assert.equal(result.copy.summary, 'First paragraph about Custom Objects.\n\nSecond paragraph.');
+  assert.equal(result.copy.summary, 'First paragraph about Goods Yards.\n\nSecond paragraph.');
   run = client([() => ok('I fixed it for you!')]);
   result = await proofread(run.llm, copy);
   assert.equal(result.outcome, 'kept');
@@ -82,22 +82,22 @@ test('proof-reading corrects text but cannot rewrite it', async () => {
   run = client([limited, limited, limited]);
   result = await proofread(run.llm, copy);
   assert.equal(result.outcome, 'skipped');
-  assert.equal(result.copy.title, 'Bulk patterns for Apex triggers');
+  assert.equal(result.copy.title, 'Bulk patterns for Eurostar departures');
 
   // A new headline is allowed to differ from the old title when asked for.
-  run = client([reply({ title: 'Handler classes keep Apex triggers bulk-safe as record volumes grow' })]);
-  assert.equal((await proofread(run.llm, copy)).copy.title, 'Bulk patterns for Apex triggers', 'headline rewrite not requested');
-  run = client([reply({ title: 'Handler classes keep Apex triggers bulk-safe as record volumes grow' })]);
+  run = client([reply({ title: 'Check lists keep Eurostar departures on time as passenger numbers grow' })]);
+  assert.equal((await proofread(run.llm, copy)).copy.title, 'Bulk patterns for Eurostar departures', 'headline rewrite not requested');
+  run = client([reply({ title: 'Check lists keep Eurostar departures on time as passenger numbers grow' })]);
   result = await proofread(run.llm, copy, { newHeadline: true });
-  assert.equal(result.copy.title, 'Handler classes keep Apex triggers bulk-safe as record volumes grow');
+  assert.equal(result.copy.title, 'Check lists keep Eurostar departures on time as passenger numbers grow');
 });
 
 test('proof-reading may not change names, numbers or more than a few words', () => {
-  const text = 'Setup requires Data 360 first, and then Coworker reads 270+ sources, a change from Winter \'27.';
+  const text = 'Opening requires Line 360 first, and then Coworker reads 270+ signals, a change from Winter \'27.';
   assert.equal(unfaithful(text, text), null);
   assert.equal(unfaithful('You will learns it and it work.', 'You will learn it and it works.'), null);
-  assert.equal(unfaithful('in a list view, because it works', 'in a List View because it works'), null);
-  assert.match(unfaithful(text, text.replace('Data 360', 'Data Cloud'))!, /360/);
+  assert.equal(unfaithful('in a goods yard, because it works', 'in a Goods Yard because it works'), null);
+  assert.match(unfaithful(text, text.replace('Line 360', 'Line North'))!, /360/);
   assert.match(unfaithful(text, text.replace('270+', '300+'))!, /270/);
   assert.match(unfaithful(text, text.replace('Coworker', 'the assistant'))!, /coworker/);
   assert.match(unfaithful('One.\n\nTwo.', 'One. Two.')!, /paragraphs/);
@@ -108,8 +108,8 @@ test('proof-reading may not change names, numbers or more than a few words', () 
 });
 
 test('identifiers keep their underscores', () => {
-  assert.equal(plainText('A Deal_Policy__mdt type and Is_Large_Deal__c, with _emphasis_ and __bold__ removed.'), 'A Deal_Policy__mdt type and Is_Large_Deal__c, with emphasis and bold removed.');
-  assert.equal(plainText('$CustomMetadata.Deal_Policy__mdt.Default'), '$CustomMetadata.Deal_Policy__mdt.Default');
+  assert.equal(plainText('A Yard_Plan__v2 type and Is_Long_Train__c, with _emphasis_ and __bold__ removed.'), 'A Yard_Plan__v2 type and Is_Long_Train__c, with emphasis and bold removed.');
+  assert.equal(plainText('$Depot.Yard_Plan__v2.Default'), '$Depot.Yard_Plan__v2.Default');
 });
 
 test('helpers', () => {
@@ -122,16 +122,16 @@ test('helpers', () => {
   assert.equal(prefilter(item, 'short'), 'too short');
   const noisy = { ...item, title: 'Our customer story', source: { ...item.source, noisy: true } };
   assert.equal(prefilter(noisy, 'Growth and synergy across the quarter. '.repeat(30)), "none of the paper's keywords");
-  assert.equal(prefilter(noisy, 'How we moved our Apex triggers to a handler framework. '.repeat(20)), null);
-  const japanese = { ...item, title: 'Salesforce Microfrontend で React アプリの埋め込みを試す' };
+  assert.equal(prefilter(noisy, 'How we moved our Eurostar departures to a new check list. '.repeat(20)), null);
+  const japanese = { ...item, title: 'Microfrontend で React アプリの埋め込みを試す' };
   assert.equal(prefilter(japanese, 'この記事では、マイクロフロントエンドを使って React アプリを埋め込む方法を説明します。'.repeat(20)), 'not in English');
-  assert.equal(prefilter(item, 'A post in English that quotes one phrase, こんにちは, and carries on about Apex. '.repeat(12)), null);
+  assert.equal(prefilter(item, 'A post in English that quotes one phrase, こんにちは, and carries on about Eurostar. '.repeat(12)), null);
 });
 
 test('a paper on another subject is edited without a word about this one', () => {
   const other = definePaper({
     ...PAPER,
-    name: 'The Orbit Herald',
+    name: 'The Orbit Gazette',
     topic: 'space science',
     readers: 'people who follow space science',
     relevant: 'reports a result in astronomy',
@@ -145,16 +145,16 @@ test('a paper on another subject is edited without a word about this one', () =>
     notAuthors: [],
   });
   const prompt = editorPrompt(other);
-  assert.match(prompt, /editor of "The Orbit Herald", a daily newspaper for people who follow space science/);
+  assert.match(prompt, /editor of "The Orbit Gazette", a daily newspaper for people who follow space science/);
   assert.match(prompt, /True only if the item reports a result in astronomy\. False for press releases\./);
   assert.match(prompt, /"section": one of "missions"\./);
   assert.match(prompt, /Write these names exactly as shown every time they appear: Hubble\./);
-  assert.doesNotMatch(prompt, /personas|Salesforce|Apex/);
+  assert.doesNotMatch(prompt, /personas|railway|Eurostar/i);
 
   // With no personas, whatever the model sends for them is dropped.
   const verdict = verdictSchema(other).parse({ ...good, section: 'missions', personas: ['developer'] });
   assert.deepEqual(verdict.personas, []);
-  assert.throws(() => verdictSchema(other).parse({ ...good, section: 'apex-and-platform' }), /section must be one of: missions/);
+  assert.throws(() => verdictSchema(other).parse({ ...good, section: 'track-and-signals' }), /section must be one of: missions/);
   assert.throws(() => verdictSchema(PAPER).parse({ ...good, personas: ['astronaut'] }), /each persona must be one of/);
 });
 

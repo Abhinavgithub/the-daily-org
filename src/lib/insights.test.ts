@@ -114,7 +114,7 @@ test('each finding has its rule, and problems come before things to watch', () =
     latest: bad,
     stale: [{ day: '2026-10-04', onDisk: 21, served: 19 }],
     failingFeeds: [{ name: 'Feed B', failures: 3 }],
-    sourcesToLook: ['SFDC Stop', 'Medium'],
+    sourcesToLook: ['Source A', 'Source B'],
     spending: { spent: 1.7, pace: 2.6, runs: 3, costed: 3, budget: 2 },
     maxCalls: 60,
     now: NOW,
@@ -129,7 +129,7 @@ test('each finding has its rule, and problems come before things to watch', () =
   assert.match(text, /watch: 24 of 40 model calls \(60%\) were repeats, 20 of them for rate limits\./);
   assert.match(text, /watch: 1 illustration could not be made\./);
   assert.match(text, /watch: Only 2 of 20 articles reviewed \(10%\) were published\./);
-  assert.match(text, /watch: 2 sources need a look: SFDC Stop, Medium\./);
+  assert.match(text, /watch: 2 sources need a look: Source A, Source B\./);
   assert.match(text, /watch: This month has cost \$1\.70 and is on pace for \$2\.60, against a budget of \$2\.00\./);
   assert.doesNotMatch(text, /reviews .* came back unusable/, '1 unusable reply in 20 is under the bar');
   assert.equal(found.find((f) => /left for the next run/.test(f.says))?.action, 'If this keeps happening, raise LLM_MAX_CALLS (now 60).');

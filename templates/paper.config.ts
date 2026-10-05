@@ -9,7 +9,7 @@ import { definePaper, youtube } from '../src/paper';
 
 export default definePaper({
   // The nameplate at the top of every page, and the line beneath it.
-  name: 'The Orbit Herald',
+  name: 'The Orbit Gazette',
   tagline: 'A Space Science Newspaper',
   // One sentence for search engines and the RSS feed.
   description: 'A daily newspaper of the space science stories worth reading, scored and summarised.',
@@ -79,7 +79,7 @@ export default definePaper({
 
   // How the pipeline names itself to the sites it reads. Sites can refuse readers
   // that do not say who they are, so give a real address where you can be reached.
-  bot: { name: 'OrbitHeraldBot', contact: 'https://example.com' },
+  bot: { name: 'OrbitGazetteBot', contact: 'https://example.com' },
 });
 
 // Not used until a YouTube source is added above.

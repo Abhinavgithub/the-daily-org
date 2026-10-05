@@ -17,7 +17,7 @@ test('a feed with the whole article is used without requesting the page', async 
   assert.deepEqual(requested, [], 'no page request');
   assert.ok(fromFeed.text.startsWith('By Adam White and Mei Chen'));
   assert.deepEqual(fromFeed.authors, ['Adam White', 'Mei Chen'], 'byline in the feed text');
-  assert.equal(fromFeed.image, 'https://cdn.example/flow.png');
+  assert.equal(fromFeed.image, 'https://cdn.example/timetable.png');
 
   const fromPage = await extractContent(teaser, readPage);
   assert.deepEqual(requested, ['https://blog.example/retro/']);

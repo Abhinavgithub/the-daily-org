@@ -15,6 +15,7 @@ export const SITE = {
   creator: PAPER.creator,
   description: PAPER.description,
   disclaimer: PAPER.disclaimer,
+  repository: PAPER.repository,
 };
 
 export const SECTIONS = PAPER.sections;

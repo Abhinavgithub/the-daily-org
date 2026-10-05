@@ -15,8 +15,8 @@ const makeFigure = (llm: LlmClient, story: Parameters<typeof makeFigureFor>[1]) 
 const validateFigure = (raw: string, story: Parameters<typeof validateFigureFor>[1]) => validateFigureFor(raw, story, PAPER);
 
 const story = {
-  title: 'Data graphs cut Agentforce lookups to 200 milliseconds',
-  summary: 'The team achieved P50 performance below 200 milliseconds, down from about 400 milliseconds, and delivered five data graphs in six months. Data 360 holds the identity graph.',
+  title: 'New signals cut junction delays to 200 milliseconds',
+  summary: 'The team achieved P50 performance below 200 milliseconds, down from about 400 milliseconds, and delivered five signal boxes in six months. Line 360 carries the freight.',
 };
 
 const ok = (content: string) => new Response(JSON.stringify({ model: 'm1', choices: [{ message: { content } }], usage: {} }));
@@ -32,8 +32,8 @@ test('a diagram is tidied and kept when it says only what the story says', () =>
   );
   assert.deepEqual(figure, { kind: 'numbers', caption: 'Response time halved', numbers: [{ value: '200 ms', label: 'P50, down from 400 ms' }] });
   assert.deepEqual(validateFigure('{"kind":"none"}', story), { kind: 'none' });
-  const steps = validateFigure('{"kind":"steps","caption":"How it works","steps":["Build a custom object","Query Data 360"]}', story);
-  assert.equal(steps.kind === 'steps' && steps.steps[0], 'Build a Custom Object', 'feature names take house style');
+  const steps = validateFigure('{"kind":"steps","caption":"How it works","steps":["Build a goods yard","Reopen Line 360"]}', story);
+  assert.equal(steps.kind === 'steps' && steps.steps[0], 'Build a Goods Yard', 'the paper\'s names take house style');
 });
 
 test('a diagram may not state a number the story does not', () => {
@@ -148,7 +148,7 @@ test('an illustration comes back as a WebP file, and a reply without a usable pi
 });
 
 test('a must-read story gets its diagram drawn from the article, then illustrated', async (t) => {
-  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'herald-'));
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'paper-'));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
   const places = { storiesDir: path.join(root, 'stories'), figuresDir: path.join(root, 'public', 'figures'), paper: PAPER };
 
@@ -217,7 +217,7 @@ test('a rate-limited picture is asked for again', async () => {
 });
 
 test('only the top story of an edition is illustrated', async (t) => {
-  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'herald-'));
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'paper-'));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
   const places = { storiesDir: path.join(root, 'stories'), figuresDir: path.join(root, 'public', 'figures'), paper: PAPER };
   const dir = path.join(places.storiesDir, '2026-10-04');

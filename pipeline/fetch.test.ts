@@ -6,9 +6,9 @@ import { item, sampleFeed } from './testing';
 
 test('a feed is parsed into items with people, text and pictures', async () => {
   const items = await parseFeed(sampleFeed, item.source, new Date('2026-09-20T00:00:00Z'));
-  assert.deepEqual(items.map((i) => i.title), ['Flow Test Mode', 'Monthly Retro', 'Chunking'], 'old items are left out');
+  assert.deepEqual(items.map((i) => i.title), ['Timetable Test Mode', 'Monthly Retro', 'Chunking'], 'old items are left out');
   assert.deepEqual(items[0].authors, ['Adam White']);
-  assert.equal(items[0].image, 'https://cdn.example/flow.png');
+  assert.equal(items[0].image, 'https://cdn.example/timetable.png');
   assert.ok(items[0].feedText.length > FULL_TEXT && !items[0].feedText.includes('<p>'));
   assert.deepEqual(items[1].authors, [], 'an email address is not a byline');
   assert.equal(items[1].image, 'https://cdn.example/retro.jpg', 'first image in the content');
@@ -58,7 +58,7 @@ test('a YouTube source is read through the API when there is a key, and from its
   const apiBody = {
     items: [
       {
-        snippet: { title: 'Agent Script in ten minutes', description: 'Line one.\n\nLine two.', thumbnails: { high: { url: 'https://i.ytimg.com/vi/vid1/hq.jpg' } } },
+        snippet: { title: 'Signalling in ten minutes', description: 'Line one.\n\nLine two.', thumbnails: { high: { url: 'https://i.ytimg.com/vi/vid1/hq.jpg' } } },
         contentDetails: { videoId: 'vid1', videoPublishedAt: '2026-09-28T10:00:00Z' },
       },
       { snippet: { title: 'An old video' }, contentDetails: { videoId: 'vid0', videoPublishedAt: '2026-01-01T10:00:00Z' } },
@@ -87,7 +87,7 @@ test('a YouTube source is read through the API when there is a key, and from its
   assert.ok(!out.asked[0].url.includes(KEY));
   assert.equal(out.asked[0].headers['X-goog-api-key'], KEY);
   assert.deepEqual(out.items.map((i) => [i.title, i.url, i.feedText, i.image]), [
-    ['Agent Script in ten minutes', 'https://www.youtube.com/watch?v=vid1', 'Line one. Line two.', 'https://i.ytimg.com/vi/vid1/hq.jpg'],
+    ['Signalling in ten minutes', 'https://www.youtube.com/watch?v=vid1', 'Line one. Line two.', 'https://i.ytimg.com/vi/vid1/hq.jpg'],
   ]);
   assert.deepEqual(out.notes, ['Channel: read through the YouTube API']);
 

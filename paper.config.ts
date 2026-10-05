@@ -12,6 +12,7 @@ export default definePaper({
   creator: { name: 'Abhinav', url: 'https://www.salesforce.com/trailblazer/asingh0187' },
   timezone: 'Asia/Kolkata',
   address: 'https://thedailyorg.com',
+  repository: 'https://github.com/Abhinavgithub/the-daily-org',
 
   // How the editor is told what the paper is about. Each reads as part of a sentence.
   topic: 'Salesforce technology',

@@ -33,8 +33,8 @@ test('finding the writer', () => {
   assert.deepEqual(findAuthors(doc('<meta name="author" content="Scott Nyberg">'), 'By Ann Lee and Raj Rao We built'), ['Ann Lee', 'Raj Rao']);
 
   // Things that are not people.
-  assert.deepEqual(cleanAuthors('Salesforce Engineering', /\bsalesforce\b/i), [], "the paper's own words for what is not a person");
-  assert.deepEqual(cleanAuthors('Salesforce Engineering', null), ['Salesforce Engineering']);
+  assert.deepEqual(cleanAuthors('Railway Engineering', /\brailway\b/i), [], "the paper's own words for what is not a person");
+  assert.deepEqual(cleanAuthors('Railway Engineering', null), ['Railway Engineering']);
   assert.deepEqual(cleanAuthors('https://facebook.com/someone'), []);
   assert.deepEqual(cleanAuthors('Editorial Team'), []);
   assert.deepEqual(cleanAuthors('admin'), []);

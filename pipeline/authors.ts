@@ -38,7 +38,7 @@ export function cleanAuthors(raw: string, alsoNot: RegExp | null = PAPERS_OWN): 
 /** "By Ann Lee and Raj Rao In our series…" at the very start of an article. */
 export function authorsFromLeadingByline(text: string): string[] {
   // A word of a name is a capitalised word or an initial ("F."). A full stop after a
-  // whole word ends the byline, so "Mei Chen. Flow Test Mode…" stops at "Chen".
+  // whole word ends the byline, so "Mei Chen. Timetable Test Mode…" stops at "Chen".
   const word = String.raw`(?:\p{Lu}\.|\p{Lu}[\p{L}'’-]+)`;
   const name = String.raw`${word}(?: ${word}){0,3}`;
   const match = text.trimStart().match(new RegExp(String.raw`^By (${name}(?:(?:,| and|,? &) ${name}){0,2})`, 'u'));

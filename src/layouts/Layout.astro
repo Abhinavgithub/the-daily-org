@@ -92,7 +92,16 @@ const preview = new URL(image ?? '/icon-512.png', Astro.site);
           {SITE.name} is an independent project{SITE.disclaimer ? `, ${SITE.disclaimer}` : ''}. Summaries are written by AI and can be wrong,
           so check the original.
         </p>
-        <p class="site-footer__links"><a href="/stats/">Stats</a></p>
+        <p class="site-footer__links">
+          <a href="/stats/">Stats</a>
+          {
+            SITE.repository && (
+              <a href={SITE.repository} target="_blank" rel="noopener">
+                GitHub
+              </a>
+            )
+          }
+        </p>
       </footer>
     </div>
     <script is:inline>
