@@ -1,7 +1,9 @@
 ---
-import { PERSONAS, sectionLabel } from '../config';
-import { formatCost, formatNumber, outcomes, share, tally, tokensByDay, totalRuns, type Run } from '../lib/stats';
+import { PAPER, PERSONAS, sectionLabel } from '../config';
+import { topWithOthers, totalReadership, type ReadershipDay } from '../lib/readership';
+import { formatCost, formatNumber, outcomes, share, tally, tokensByDay, totalRuns, type Part, type Run } from '../lib/stats';
 import type { Story } from '../lib/stories';
+import ReadershipTrend from './ReadershipTrend.astro';
 import StatBars from './StatBars.astro';
 import StatColumns from './StatColumns.astro';
 import StatSplit from './StatSplit.astro';
@@ -15,6 +17,8 @@ interface Props {
   title: string;
   runs: Run[];
   stories: Story[];
+  /** The period's saved days of readership. Empty when readers are not counted. */
+  readers?: ReadershipDay[];
   /** One column per edition. Left out for a single day. */
   trend?: boolean;
 }
@@ -22,7 +26,18 @@ interface Props {
 /** The most editions the trend shows, so its columns stay wide enough to read. */
 const TREND_DAYS = 31;
 
-const { title, runs, stories, trend = false } = Astro.props;
+/** Countries and referrers named before the rest are added together, and pages listed. */
+const TOP_COUNTRIES = 5;
+const TOP_PAGES = 5;
+const TOP_REFERRERS = 6;
+
+const { title, runs, stories, readers = [], trend = false } = Astro.props;
+// The paper's own address, so a move between its pages is not counted as somewhere readers came from.
+const own = PAPER.address ? [new URL(PAPER.address).hostname] : [];
+const read = totalReadership(readers, { sections: sectionLabel, own });
+// Phone, desktop and tablet as the parts of one bar, the largest in the strongest shade.
+const tones: Part['tone'][] = ['main', 'rest', 'faint', 'unknown'];
+const devices: Part[] = read.devices.map((row, i) => ({ ...row, tone: tones[Math.min(i, tones.length - 1)] }));
 const totals = totalRuns(runs);
 const tokens = totals.inputTokens + totals.outputTokens;
 const parts = outcomes(totals);
@@ -59,6 +74,44 @@ const plural = (n: number, one: string, many: string) => (n === 1 ? one : many);
       }.
     </p>
   </header>
+
+  {
+    read.views > 0 && (
+      <section class="ledger__row">
+        <h3>Who read it</h3>
+        <div>
+          <p class="ledger__sum">
+            <span>
+              <b>{formatNumber(read.views)}</b> {plural(read.views, 'view', 'views')}
+            </span>
+            <span>
+              <b>{formatNumber(read.visits)}</b> {plural(read.visits, 'visit', 'visits')}
+            </span>
+          </p>
+          {devices.length > 0 && (
+            <div class="ledger__devices">
+              <StatSplit parts={devices} label={`${formatNumber(read.views)} views by device`} />
+            </div>
+          )}
+          {trend && read.byDay.length > 1 && <ReadershipTrend days={read.byDay} />}
+          <div class="ledger__lists">
+            <div>
+              <h4>Views by country</h4>
+              <StatBars rows={topWithOthers(read.countries, TOP_COUNTRIES)} />
+            </div>
+            <div>
+              <h4>Most read</h4>
+              <StatBars rows={read.pages.slice(0, TOP_PAGES)} />
+            </div>
+            <div>
+              <h4>Where readers came from</h4>
+              <StatBars rows={topWithOthers(read.referrers, TOP_REFERRERS)} />
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   <section class="ledger__row">
     <h3>How it was made</h3>

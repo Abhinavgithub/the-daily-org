@@ -46,6 +46,16 @@ jobs:
       - name: Write the edition
         run: npm run pipeline
 
+      # Who read the paper, up to yesterday. The edition is published whether or not this works.
+      - name: Fetch readership
+        if: always()
+        continue-on-error: true
+        env:
+          READERSHIP_API_TOKEN: ${{ secrets.READERSHIP_API_TOKEN }}
+          READERSHIP_ACCOUNT_ID: ${{ secrets.READERSHIP_ACCOUNT_ID }}
+          READERSHIP_SITE_ID: ${{ secrets.READERSHIP_SITE_ID }}
+        run: npm run readership
+
       # Runs even when the pipeline stopped part-way: it writes each story as it goes,
       # and what it has done is worth keeping.
       - name: Commit the edition

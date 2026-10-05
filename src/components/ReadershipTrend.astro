@@ -1,0 +1,82 @@
+---
+import { scaleSteps } from '../lib/readership';
+import { compact, formatNumber } from '../lib/stats';
+import { formatDay } from '../lib/stories';
+
+// Views and visits day by day, as two lines. Drawn when the site is built, so
+// it needs no script. The two lines differ in stroke as well as colour, and
+// the figures are given in a table for readers who cannot see the chart.
+
+interface Props {
+  days: { date: string; views: number; visits: number }[];
+}
+
+const { days } = Astro.props;
+const W = 640;
+const H = 220;
+// Room on the right for the latest day's two figures, printed at the end of their lines.
+const pad = { left: 44, right: 60, top: 12, bottom: 28 };
+const top = Math.max(1, ...days.map((d) => Math.max(d.views, d.visits)));
+const ticks = scaleSteps(top);
+const ceiling = ticks[4];
+const x = (i: number) => (days.length === 1 ? (pad.left + W - pad.right) / 2 : pad.left + (i / (days.length - 1)) * (W - pad.left - pad.right));
+const y = (n: number) => H - pad.bottom - (n / ceiling) * (H - pad.top - pad.bottom);
+const line = (pick: (d: (typeof days)[number]) => number) => days.map((d, i) => `${x(i).toFixed(1)},${y(pick(d)).toFixed(1)}`).join(' ');
+// A date under the first and last day, and a few between when there is room.
+const every = Math.max(1, Math.ceil(days.length / 6));
+const labelled = days.map((_, i) => i === 0 || i === days.length - 1 || (i % every === 0 && days.length - 1 - i >= every / 2));
+const short = (date: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${date}T12:00:00Z`));
+// The latest day's figures sit at the end of their lines; when the lines end close together the two are nudged apart.
+const last = days.at(-1)!;
+const ends = { views: y(last.views), visits: y(last.visits) };
+// Far enough apart for the larger lettering the chart has on a phone.
+if (Math.abs(ends.views - ends.visits) < 24) {
+  const middle = (ends.views + ends.visits) / 2;
+  const viewsOnTop = last.views >= last.visits;
+  ends.views = middle + (viewsOnTop ? -12 : 12);
+  ends.visits = middle + (viewsOnTop ? 12 : -12);
+}
+---
+
+<figure class="reads">
+  <figcaption>Readership by day</figcaption>
+  <p class="reads__key" aria-hidden="true">
+    <span class="reads__swatch reads__swatch--views"></span>Views
+    <span class="reads__swatch reads__swatch--visits"></span>Visits
+  </p>
+  <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`Views and visits a day, ${formatDay(days[0].date, 'short')} to ${formatDay(days.at(-1)!.date, 'short')}. The figures are in the table that follows.`}>
+    {
+      ticks.map((tick) => (
+        <>
+          <line class="reads__grid" x1={pad.left} x2={W - pad.right} y1={y(tick)} y2={y(tick)} />
+          <text class="reads__tick" x={pad.left - 8} y={y(tick)} text-anchor="end" dominant-baseline="middle">{compact(tick)}</text>
+        </>
+      ))
+    }
+    {days.map((d, i) => labelled[i] && <text class="reads__tick" x={x(i)} y={H - 8} text-anchor={days.length === 1 ? 'middle' : i === 0 ? 'start' : i === days.length - 1 ? 'end' : 'middle'}>{short(d.date)}</text>)}
+    <polyline class="reads__line reads__line--views" points={line((d) => d.views)} />
+    <polyline class="reads__line reads__line--visits" points={line((d) => d.visits)} />
+    <text class="reads__end reads__end--views" x={x(days.length - 1) + 8} y={ends.views} dominant-baseline="middle">{compact(last.views)}</text>
+    <text class="reads__end" x={x(days.length - 1) + 8} y={ends.visits} dominant-baseline="middle">{compact(last.visits)}</text>
+    {
+      days.length <= 31 &&
+        days.map((d, i) => (
+          <>
+            <circle class="reads__dot reads__dot--views" cx={x(i)} cy={y(d.views)} r="3.5">
+              <title>{`${formatDay(d.date, 'short')}: ${formatNumber(d.views)} views`}</title>
+            </circle>
+            <circle class="reads__dot reads__dot--visits" cx={x(i)} cy={y(d.visits)} r="3.5">
+              <title>{`${formatDay(d.date, 'short')}: ${formatNumber(d.visits)} visits`}</title>
+            </circle>
+          </>
+        ))
+    }
+  </svg>
+  <table class="visually-hidden">
+    <caption>Views and visits by day</caption>
+    <thead><tr><th scope="col">Day</th><th scope="col">Views</th><th scope="col">Visits</th></tr></thead>
+    <tbody>
+      {days.map((d) => <tr><th scope="row">{formatDay(d.date, 'short')}</th><td>{d.views}</td><td>{d.visits}</td></tr>)}
+    </tbody>
+  </table>
+</figure>

@@ -4,12 +4,15 @@ import path from 'node:path';
 import Masthead from '../../components/Masthead.astro';
 import StatsPanel from '../../components/StatsPanel.astro';
 import Layout from '../../layouts/Layout.astro';
+import { parseReadership } from '../../lib/readership';
 import { inMonth, parseRuns } from '../../lib/stats';
 import { formatDay, getAllStories } from '../../lib/stories';
 
 const file = path.join(process.cwd(), 'data', 'stats.jsonl');
 const runs = fs.existsSync(file) ? parseRuns(fs.readFileSync(file, 'utf8')) : [];
 const stories = await getAllStories();
+const readersFile = path.join(process.cwd(), 'data', 'readership.jsonl');
+const readers = fs.existsSync(readersFile) ? parseReadership(fs.readFileSync(readersFile, 'utf8')) : [];
 
 // Every day that has an edition or a run, newest first.
 const days = [...new Set([...stories.map((s) => s.data.date), ...runs.map((r) => r.date)])].sort().reverse();
@@ -49,7 +52,12 @@ const monthName = new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numer
         <>
           {days.map((day, i) => (
             <div data-panel="daily" data-day={day} hidden={i > 0}>
-              <StatsPanel title={formatDay(day)} runs={runs.filter((r) => r.date === day)} stories={stories.filter((s) => s.data.date === day)} />
+              <StatsPanel
+                title={formatDay(day)}
+                runs={runs.filter((r) => r.date === day)}
+                stories={stories.filter((s) => s.data.date === day)}
+                readers={readers.filter((d) => d.date === day)}
+              />
             </div>
           ))}
           <div data-panel="month" hidden>
@@ -57,11 +65,12 @@ const monthName = new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numer
               title={monthName}
               runs={runs.filter((r) => inMonth(r.date, month))}
               stories={stories.filter((s) => inMonth(s.data.date, month))}
+              readers={readers.filter((d) => inMonth(d.date, month))}
               trend
             />
           </div>
           <div data-panel="all" hidden>
-            <StatsPanel title="All time" runs={runs} stories={stories} trend />
+            <StatsPanel title="All time" runs={runs} stories={stories} readers={readers} trend />
           </div>
         </>
       )

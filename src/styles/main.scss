@@ -2190,44 +2190,30 @@ span.dateline__step {
   border-radius: 2px;
 }
 
-// Tokens by model: the name, a bar on a shared scale, the total and its share.
+// Tokens by model, stacked like the other lists: the name with its total and
+// share, a bar on a scale shared by all the models, and its two figures beneath.
+.models .key {
+  margin: 0 0 1.1rem;
+}
+
 .models__list {
   display: grid;
-  // The name's column is capped, so a long name wraps and leaves the bars their room.
-  grid-template-columns: fit-content(15rem) minmax(6rem, 1fr) auto auto;
-  gap: 0.6rem 1rem;
-  align-items: center;
+  gap: 1.1rem;
+  max-width: 44rem;
   margin: 0;
   padding: 0;
   list-style: none;
 
   li {
-    display: contents;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto 3rem;
+    gap: 0.3rem 0.75rem;
+    align-items: baseline;
   }
 }
 
 .models__name {
   overflow-wrap: anywhere;
-}
-
-.models__bar {
-  display: flex;
-  gap: 2px;
-  height: 12px;
-  min-width: 6px;
-
-  span {
-    min-width: 2px;
-    cursor: default;
-
-    &:first-child {
-      border-radius: 3px 0 0 3px;
-    }
-
-    &:last-child {
-      border-radius: 0 3px 3px 0;
-    }
-  }
 }
 
 .models__total,
@@ -2240,49 +2226,45 @@ span.dateline__step {
   color: var(--muted);
 }
 
-.figures {
-  margin-top: 1rem;
+// The full width every model is measured against.
+.models__track {
+  grid-column: 1 / -1;
+  height: 14px;
+  background: color-mix(in srgb, var(--rule) 55%, transparent);
+  border-radius: 3px;
+}
 
-  summary {
-    width: fit-content;
-    color: var(--sky);
-    text-decoration: underline;
-    cursor: pointer;
+.models__bar {
+  display: flex;
+  gap: 2px;
+  height: 100%;
+  min-width: 6px;
+
+  span {
+    min-width: 2px;
+
+    &:first-child {
+      border-radius: 3px 0 0 3px;
+    }
+
+    &:last-child {
+      border-radius: 0 3px 3px 0;
+    }
   }
 }
 
-.tokens {
-  width: 100%;
-  margin-top: 0.75rem;
-  border-collapse: collapse;
+// What the model read and what it wrote, under its bar.
+.models__parts {
+  grid-column: 1 / -1;
+  font-size: 0.75rem;
+  color: var(--muted);
   font-variant-numeric: tabular-nums;
+}
 
-  th,
-  td {
-    padding: 0.4rem 0 0.4rem 1rem;
-    border-bottom: 1px solid var(--rule);
-    text-align: right;
-    font-weight: 400;
-  }
-
-  th:first-child {
-    padding-left: 0;
-    text-align: left;
-    overflow-wrap: anywhere;
-  }
-
-  thead th {
-    color: var(--muted);
-    font-size: 0.72rem;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  tfoot th,
-  tfoot td {
-    border-bottom: 0;
-    font-weight: 700;
-  }
+// Phone, desktop and tablet, as one bar under the readership figures.
+.ledger__devices {
+  max-width: 44rem;
+  margin: 0 0 1.5rem;
 }
 
 // A ranked list: the name and its count, and a slim bar beneath.
@@ -2322,6 +2304,107 @@ span.dateline__step {
   min-width: 3px;
   background: var(--mark);
   border-radius: 2px;
+}
+
+// Views and visits by day, as two lines.
+.reads {
+  margin: 0 0 1.75rem;
+  max-width: 44rem;
+
+  figcaption {
+    margin-bottom: 0.4rem;
+    font-weight: 700;
+  }
+
+  svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+  }
+}
+
+.reads__key {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  margin: 0 0 0.5rem;
+  color: var(--muted);
+}
+
+.reads__swatch {
+  width: 1.5rem;
+  border-top: 2.5px solid var(--mark);
+
+  &:not(:first-child) {
+    margin-left: 0.9rem;
+  }
+}
+
+.reads__swatch--visits {
+  border-top: 2.5px dashed var(--ink);
+}
+
+.reads__grid {
+  stroke: var(--rule);
+  stroke-width: 1;
+}
+
+.reads__tick {
+  fill: var(--muted);
+  font-family: var(--display);
+  font-size: 11px;
+}
+
+// The latest day's figure, at the end of its line.
+.reads__end {
+  fill: var(--ink);
+  font-family: var(--display);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.reads__end--views {
+  fill: var(--mark);
+}
+
+.reads__line {
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.reads__line--views {
+  stroke: var(--mark);
+}
+
+// The chart is drawn at 640 wide and scaled to its box, so on a phone its figures are set larger to stay readable.
+@media (max-width: 44rem) {
+  .reads__tick {
+    font-size: 19px;
+  }
+
+  .reads__end {
+    font-size: 18px;
+  }
+}
+
+// Dashed as well as coloured, so the two lines can be told apart without colour.
+.reads__line--visits {
+  stroke: var(--ink);
+  stroke-dasharray: 7 5;
+}
+
+.reads__dot--views {
+  fill: var(--mark);
+}
+
+.reads__dot--visits {
+  fill: var(--paper);
+  stroke: var(--ink);
+  stroke-width: 2;
 }
 
 // One slim column per edition.
@@ -2416,15 +2499,6 @@ span.dateline__step {
   .ledger__row {
     grid-template-columns: minmax(0, 1fr);
     gap: 0.75rem;
-  }
-
-  .models__list {
-    grid-template-columns: minmax(0, 1fr) auto auto;
-  }
-
-  .models__name {
-    grid-column: 1 / -1;
-    margin-bottom: -0.35rem;
   }
 }
 

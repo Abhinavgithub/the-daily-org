@@ -42,6 +42,7 @@ It refuses to run with uncommitted changes and asks before deleting anything. Th
 | `npm run sources` | How each source has done (`-- --days 90` for a longer span), with a verdict on each. |
 | `npm run try-source -- <feed address>` | What a new source would add. `--review 3` has the model score its latest three; `--youtube <channel ID>` tries a channel. |
 | `npm run figures` | Adds missing diagrams to must-read stories. `-- --day YYYY-MM-DD` for one edition, `-- --redo` to draw them again. |
+| `npm run readership` | Saves who read the paper, up to yesterday, for the Stats page. Needs the `READERSHIP_` settings. |
 | `npm run revise -- --glossary-only` | Re-applies the glossary to every story, with no model calls. |
 | `npm run favicon` | Redraws the icons from the paper's name and colours. |
 | `npm run check` / `npm test` | Type-checks, and runs the tests. |
@@ -73,6 +74,7 @@ All in `.env`; `.env.example` explains each.
 | `SCORE_THRESHOLD` | Stories below this score (1 to 10) are not published. |
 | `YOUTUBE_API_KEY` | Optional. Makes YouTube sources reliable; without it their feed fails at random. |
 | `MONTHLY_BUDGET_USD` | Optional. The Logs page warns when the month is on pace to pass it. |
+| `READERSHIP_API_TOKEN`, `READERSHIP_ACCOUNT_ID`, `READERSHIP_SITE_ID` | Optional. Read-only access to the site's web analytics, so the Stats page can show views, visits, countries and most-read pages. |
 | `SITE_URL` | Optional. Takes the place of the paper's `address`. |
 
 ## Cost
@@ -88,7 +90,7 @@ All in `.env`; `.env.example` explains each.
 |---|---|
 | `/` and `/YYYY-MM-DD/` | The latest edition, and any edition by date. |
 | `/archive/`, `/search/` | Every edition, and search across them. |
-| `/stats/` | For readers: stories published, articles reviewed, tokens by model. |
+| `/stats/` | For readers: who read the paper, stories published, articles reviewed, tokens by model. |
 | `/logs/` | For whoever runs the paper: what needs attention, every run, and why each article was or was not published. |
 
 `/logs/` is unlinked, not private: anyone with the address can read it. Put it behind your host's password protection if that matters.
