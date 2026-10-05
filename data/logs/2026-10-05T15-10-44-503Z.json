@@ -1,0 +1,164 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-10-05T15:10:44.503Z",
+  "day": "2026-10-05",
+  "seconds": 113,
+  "finished": true,
+  "feeds": [
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 0
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 4
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "joys-of-apex",
+      "name": "The Joys of Apex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 0
+    },
+    {
+      "id": "unofficialsf",
+      "name": "UnofficialSF",
+      "items": 0
+    },
+    {
+      "id": "automation-champion",
+      "name": "Automation Champion",
+      "items": 0
+    },
+    {
+      "id": "sfdc-stop",
+      "name": "SFDC Stop",
+      "items": 0
+    },
+    {
+      "id": "yt-salesforce-developers",
+      "name": "Salesforce Developers on YouTube",
+      "items": 0,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-salesforce-admins",
+      "name": "Salesforce Admins on YouTube",
+      "items": 0,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-salesforce",
+      "name": "Salesforce on YouTube",
+      "items": 1,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-salesforce-ben",
+      "name": "Salesforce Ben on YouTube",
+      "items": 0,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-salesforce-hulk",
+      "name": "Salesforce Hulk on YouTube",
+      "items": 0,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-mytutorialrack",
+      "name": "MyTutorialRack on YouTube",
+      "items": 0,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-apex-hours",
+      "name": "Apex Hours on YouTube",
+      "items": 0,
+      "note": "read through the YouTube API"
+    }
+  ],
+  "articles": [
+    {
+      "title": "Control Your AI Reputation with Palmata | Dreamforce 2026",
+      "url": "https://www.youtube.com/watch?v=ht5FsdrtBfc",
+      "source": "Salesforce on YouTube",
+      "outcome": "dropped",
+      "reason": "none of the paper's keywords"
+    },
+    {
+      "title": "Is a Salesforce Career Gap Career Suicide?",
+      "url": "https://www.salesforceben.com/is-a-salesforce-career-gap-career-suicide/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 5
+    },
+    {
+      "title": "Why AI Fluency Could Soon Outrank Your Salesforce Certifications",
+      "url": "https://www.salesforceben.com/why-ai-fluency-could-soon-outrank-your-salesforce-certifications/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "‘How Do We Even Start?’: The Agentforce Question That Dominated Dreamforce",
+      "url": "https://www.salesforceben.com/how-do-we-even-start-the-agentforce-question-that-dominated-dreamforce/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 5
+    }
+  ],
+  "proofread": [],
+  "figures": [],
+  "model": {
+    "calls": 3,
+    "retries": {},
+    "usage": {
+      "qwen/qwen3.7-flash": {
+        "input": 7574,
+        "output": 10966
+      }
+    }
+  },
+  "statsAt": "2026-10-05T15:12:37.702Z"
+}
