@@ -1,6 +1,7 @@
 [
   {
     "name": "Winter '27",
+    "who": "orgs",
     "stages": [
       {
         "place": "sandboxes",
@@ -21,6 +22,7 @@
   },
   {
     "name": "Spring '27",
+    "who": "orgs",
     "stages": [
       {
         "place": "sandboxes",

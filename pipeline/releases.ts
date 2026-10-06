@@ -46,7 +46,7 @@ export function releasesFromTrust(entries: TrustMaintenance[]): Release[] {
         if (last && Date.parse(day) - Date.parse(last.to) <= DAY) last.to = day;
         else stages.push({ place: stages.length === 0 ? 'sandboxes' : 'production', from: day, to: day });
       }
-      return { name, stages };
+      return { name, who: 'orgs', stages };
     })
     .sort((a, b) => a.stages[0].from.localeCompare(b.stages[0].from));
 }

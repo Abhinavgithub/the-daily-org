@@ -12,6 +12,8 @@ export interface Stage {
 
 export interface Release {
   name: string;
+  /** Who gets a release, as it reads in "Last ... get it": "orgs". Without it the line speaks of waves. */
+  who?: string;
   /** In order of date. */
   stages: Stage[];
 }
@@ -49,22 +51,31 @@ export function sentence(release: Release, today: string): string {
   const coming = stages.filter((stage) => stage.from > today);
   if (begun.length === 0) return `${name} reaches ${stages[0].place} on ${when(stages[0], today)}.${ahead(stages.slice(1), today)}`;
   const place = begun.at(-1)!.place;
-  if (coming.length === 0) return `${name} is arriving in ${place}. Last wave: ${when(begun.at(-1)!, today)}.`;
+  const who = release.who;
+  if (coming.length === 0) return `${name} is arriving in ${place}. ${who ? `Last ${who} get it` : 'Last wave:'} ${when(begun.at(-1)!, today)}.`;
   // Still to come in the same place: the release is part-way through it.
-  if (coming[0].place === place) return `${name} is arriving in ${place}. Still to come: ${list(coming.map((stage) => when(stage, today)))}.`;
+  if (coming[0].place === place) {
+    const days = list(coming.map((stage) => when(stage, today)));
+    if (!who) return `${name} is arriving in ${place}. Still to come: ${days}.`;
+    return `${name} is arriving in ${place}. ${coming.length === 1 ? 'Last' : 'More'} ${who} get it ${days}.`;
+  }
   return `${name} is in ${place}.${ahead(coming, today)}`;
 }
 
 /**
  * The release to announce today, with its line, or nothing. A release is
  * announced from `ANNOUNCE_DAYS` before its first date until its last has passed.
+ * `rest` is the line without the name it opens with.
  */
-export function bannerFor(releases: Release[], today: string): { release: Release; says: string } | undefined {
+export function bannerFor(releases: Release[], today: string): { release: Release; says: string; rest: string } | undefined {
   const release = [...releases]
     .filter((candidate) => candidate.stages.length > 0)
     .sort((a, b) => a.stages[0].from.localeCompare(b.stages[0].from))
     .find((candidate) => time(today) >= time(candidate.stages[0].from) - ANNOUNCE_DAYS * DAY && today <= candidate.stages.at(-1)!.to);
-  return release && { release, says: sentence(release, today) };
+  if (!release) return undefined;
+  const says = sentence(release, today);
+  // The line opens with the release's name, which the page sets apart from the rest.
+  return { release, says, rest: says.slice(release.name.length) };
 }
 
 /** Whatever was saved, read as releases; anything misshapen is left out. */
@@ -74,6 +85,6 @@ export function readReleases(raw: unknown): Release[] {
   return raw.flatMap((entry) => {
     if (!entry || typeof entry.name !== 'string' || !Array.isArray(entry.stages)) return [];
     const stages = (entry.stages as Stage[]).filter((stage) => stage && typeof stage.place === 'string' && isDay(stage.from) && isDay(stage.to));
-    return stages.length ? [{ name: entry.name, stages }] : [];
+    return stages.length ? [{ name: entry.name, ...(typeof entry.who === 'string' && entry.who ? { who: entry.who } : {}), stages }] : [];
   });
 }

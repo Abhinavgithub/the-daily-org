@@ -27,6 +27,7 @@ test('hundreds of windows come down to each release, its preview and its waves',
   assert.deepEqual(releasesFromTrust(listed), [
     {
       name: "Winter '27",
+      who: 'orgs',
       stages: [
         { place: 'sandboxes', from: '2026-09-05', to: '2026-09-05' },
         { place: 'production', from: '2026-10-03', to: '2026-10-03' },
@@ -35,6 +36,7 @@ test('hundreds of windows come down to each release, its preview and its waves',
     },
     {
       name: "Spring '27",
+      who: 'orgs',
       stages: [
         { place: 'sandboxes', from: '2027-01-09', to: '2027-01-09' },
         { place: 'production', from: '2027-02-06', to: '2027-02-06' },

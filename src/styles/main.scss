@@ -494,34 +494,43 @@ html[data-turn='older']::view-transition-new(turn-fold) {
   }
 }
 
-// One line under the nameplate when a release is near. It sits between the masthead's rule and the filters.
+// One line under the nameplate when a release is near, set as a paper sets a late
+// notice: a flag, on a tinted strip as wide as the masthead's rule.
 .release {
   max-width: var(--width);
   margin: 0 auto;
-  padding: 0.55rem var(--gutter) 0;
+  padding: 0 var(--gutter);
   font-family: var(--display);
   font-size: var(--fs-label);
   line-height: 1.45;
   text-align: center;
-  text-wrap: balance;
   color: var(--ink);
+}
 
-  // A rule as wide as the masthead's, which is drawn the same way.
-  &::after {
-    content: '';
-    display: block;
-    margin-top: 0.55rem;
-    border-bottom: 1px solid var(--rule);
+.release__says {
+  display: block;
+  padding: 0.6rem 0.75rem;
+  border-bottom: 1px solid var(--ink);
+  background: var(--sky-wash);
+  text-wrap: balance;
+
+  strong {
+    font-weight: 600;
   }
 }
 
-.release__label {
+// The flag: reversed out of the accent colour, before the sentence.
+.release__flag {
+  display: inline-block;
   margin-right: 0.6rem;
+  padding: 0.05rem 0.4rem;
+  background: var(--sun);
+  color: var(--paper);
   font-size: 0.72rem;
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--sun);
+  vertical-align: 0.05em;
 }
 
 // Archive, search and the theme button on one line. Equal side columns keep the search centred.
