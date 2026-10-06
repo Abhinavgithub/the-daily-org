@@ -17,7 +17,7 @@ Check a box when the step is built, tested and committed.
   - [ ] 4b. Reddit (r/salesforce) and Salesforce Stack Exchange, as a separate "From the community" section with a high threshold
   - [ ] 4c. GitHub releases (Salesforce CLI, Code Analyzer, LWC)
   - [ ] 4d. Trust status incidents and security advisories
-- [ ] 5. **Second pass on borderline stories** with a stronger model (the cheap model stays for the first pass).
+- [ ] 5. ~~**Second pass on borderline stories** with a stronger model.~~ **Skipped for now** (6 Oct). Three models were tried on the 23 replay articles, twice each: DeepSeek V4 Pro was less consistent than the current model, Gemini 3.8 Flash rejected both flagged misses, and Claude Haiku 4.5 was the most consistent but agreed with the current model on 2 of 3 flags and scored nearly everything 7 or 8. None was enough better to pay for. Results are in `data/replay/models/` on the machine that ran them. Worth another look if flip-flopping around the threshold becomes a visible problem.
 - [ ] 6. **Release special.** Detect a new release from the release notes feed and flag it; build only after approval. Digest of the top changes per persona, plus a "what breaks" section (retirements, critical updates, deprecations). About $0.10 to $0.50 a release.
 
 Out of scope for now: email, newsletters, sharing, subscriptions.
