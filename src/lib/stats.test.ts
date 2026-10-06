@@ -19,7 +19,7 @@ const lines = [
 test('run lines are read leniently', () => {
   const runs = parseRuns(lines);
   assert.equal(runs.length, 4, 'a broken line and a line without a real date are skipped');
-  assert.deepEqual(runs[0], { date: '2026-09-30', ranAt: '2026-09-30T12:00:00Z', assessed: 0, published: 0, belowThreshold: 0, notRelevant: 0, invalid: 0, tokens: [], sources: {} });
+  assert.deepEqual(runs[0], { date: '2026-09-30', ranAt: '2026-09-30T12:00:00Z', assessed: 0, published: 0, belowThreshold: 0, briefs: 0, notRelevant: 0, invalid: 0, tokens: [], sources: {} });
   assert.deepEqual(runs[1].tokens, [{ model: 'm1', input: 34159, output: 15037 }]);
   assert.deepEqual(runs[2].tokens, [{ model: 'm1 and m2, combined', input: 39612, output: 50914, combined: true }], 'not guessed between two models');
   assert.deepEqual(runs[3].tokens, [{ model: 'm2', input: 700, output: 200 }, { model: 'm1', input: 200, output: 100 }]);
@@ -38,7 +38,7 @@ test('tokens add up by model, heaviest first, with a combined row last', () => {
 
   const october = totalRuns(parseRuns(lines).filter((run) => inMonth(run.date, '2026-10')));
   assert.equal(october.assessed, 31);
-  assert.deepEqual(totalRuns([]), { assessed: 0, published: 0, belowThreshold: 0, notRelevant: 0, invalid: 0, inputTokens: 0, outputTokens: 0, tokens: [] });
+  assert.deepEqual(totalRuns([]), { assessed: 0, published: 0, belowThreshold: 0, briefs: 0, notRelevant: 0, invalid: 0, inputTokens: 0, outputTokens: 0, tokens: [] });
 });
 
 test('counts are sorted most frequent first, then by name', () => {
@@ -54,6 +54,15 @@ test('what became of the articles reviewed always adds up to them', () => {
     [['Published', 21], ['Below the score bar', 3], ['Not relevant', 4], ['Unusable reply', 1]],
   );
   assert.equal(recorded.cost, 0.0747);
+
+  // Close calls printed in brief are their own part, taken out of those that fell short.
+  const withBriefs = totalRuns(parseRuns('{"date":"2026-10-06","assessed":10,"published":4,"notRelevant":1,"belowThreshold":5,"briefs":2}\n{"date":"2026-10-06","assessed":3,"published":0,"belowThreshold":3,"briefs":9}'));
+  assert.deepEqual(
+    outcomes(withBriefs).map((part) => [part.label, part.count]),
+    [['Published', 4], ['Printed in brief', 5], ['Below the score bar', 3], ['Not relevant', 1]],
+    'a run cannot have printed more briefs than fell below the threshold',
+  );
+  assert.equal(outcomes(withBriefs).reduce((sum, part) => sum + part.count, 0), withBriefs.assessed);
 
   // An older run says how many it reviewed and published, and no more.
   const older = totalRuns(parseRuns('{"date":"2026-10-03","assessed":12,"published":3,"models":["m1"],"inputTokens":5,"outputTokens":5}'));

@@ -1,27 +1,23 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
+import { hasBriefs } from '../content.config';
+import { groupEditions } from './editions';
 import { byRank, signalOf, type Signal } from './signal';
 
 export type Story = CollectionEntry<'stories'>;
+export type Brief = CollectionEntry<'briefs'>;
 
 export interface Edition {
   day: string;
   stories: Story[];
+  /** Close calls printed as one line each. A day with these and no stories is still an edition. */
+  briefs: Brief[];
 }
 
-const rank = (a: Story, b: Story) => byRank(a.data, b.data);
-
-/** All editions, newest first, each with its stories ranked best first. */
+/** All editions, newest first, each with its stories and its briefs ranked best first. */
 export async function getEditions(): Promise<Edition[]> {
-  const all = await getCollection('stories');
-  const byDay = new Map<string, Story[]>();
-  for (const story of all) {
-    const list = byDay.get(story.data.date) ?? [];
-    list.push(story);
-    byDay.set(story.data.date, list);
-  }
-  return [...byDay.entries()]
-    .map(([day, stories]) => ({ day, stories: stories.sort(rank) }))
-    .sort((a, b) => b.day.localeCompare(a.day));
+  // Asking for a collection with nothing in it is warned about, so the briefs are asked for only once there are some.
+  const [stories, briefs] = await Promise.all([getCollection('stories'), hasBriefs ? getCollection('briefs') : []]);
+  return groupEditions(stories, briefs, { stories: (a, b) => byRank(a.data, b.data), briefs: (a, b) => byRank(a.data, b.data) });
 }
 
 /** Every story, newest edition first, best first within an edition. */

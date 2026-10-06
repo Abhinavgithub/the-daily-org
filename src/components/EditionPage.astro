@@ -1,6 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import { formatDay, type Edition } from '../lib/stories';
+import { MAX_BRIEFS } from '../lib/editions';
+import { formatDay, getEditions, type Edition } from '../lib/stories';
+import BriefList from './BriefList.astro';
 import FilterBar from './FilterBar.astro';
 import Masthead from './Masthead.astro';
 import StoryGrid from './StoryGrid.astro';
@@ -14,6 +16,9 @@ interface Props {
 
 const { edition, older, newer, isLatest = false } = Astro.props;
 const { day, stories } = edition;
+const briefs = edition.briefs.slice(0, MAX_BRIEFS);
+// A day with only briefs points back to the last edition that had stories.
+const lastFull = stories.length > 0 ? undefined : (await getEditions()).find((other) => other.day < day && other.stories.length > 0)?.day;
 const steps = [
   { day: older, label: 'Older edition', path: 'M10 3 5 8l5 5' },
   { day: newer, label: 'Newer edition', path: 'm6 3 5 5-5 5' },
@@ -55,10 +60,12 @@ const steps = [
   </Masthead>
 
   <main id="stories" class="wrap">
-    <FilterBar stories={stories} />
-    <StoryGrid stories={stories} />
+    <FilterBar stories={[...stories, ...briefs]} marks={stories.length > 0} />
+    <StoryGrid stories={stories}>
+      <BriefList briefs={briefs} alone={stories.length === 0} lastFull={lastFull} />
+    </StoryGrid>
     <div class="empty" data-empty hidden>
-      <p>No stories in this edition match those filters.</p>
+      <p>Nothing in this edition matches those filters.</p>
       <button type="button" class="link-button" data-filter-clear>Clear filters</button>
     </div>
   </main>

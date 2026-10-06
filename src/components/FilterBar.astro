@@ -1,23 +1,28 @@
 ---
 import { PERSONAS } from '../config';
-import type { Story } from '../lib/stories';
-
 interface Props {
-  stories: Story[];
+  /** Everything the edition prints, stories and briefs, for the audiences it offers. */
+  stories: { data: { personas: string[] } }[];
+  /** Offer Recommended and Must-read. Left out on a day with no stories, which has neither. */
+  marks?: boolean;
 }
 
-const { stories } = Astro.props;
+const { stories, marks = true } = Astro.props;
 const personas = PERSONAS.filter((p) => stories.some((s) => s.data.personas.includes(p.id)));
 ---
 
 <div class="filters" data-filters>
   <div class="filters__line">
     <!-- Each group's name is also its key in the page address. -->
-    <div class="filters__group filters__group--show" role="group" aria-label="Show" data-group="show">
-      <button type="button" class="chip" data-value="" aria-pressed="true">All stories</button>
-      <button type="button" class="chip" data-value="recommended" aria-pressed="false">Recommended</button>
-      <button type="button" class="chip" data-value="must" aria-pressed="false">Must-read</button>
-    </div>
+    {
+      marks && (
+        <div class="filters__group filters__group--show" role="group" aria-label="Show" data-group="show">
+          <button type="button" class="chip" data-value="" aria-pressed="true">All stories</button>
+          <button type="button" class="chip" data-value="recommended" aria-pressed="false">Recommended</button>
+          <button type="button" class="chip" data-value="must" aria-pressed="false">Must-read</button>
+        </div>
+      )
+    }
     {
       personas.length > 0 && (
         <div class="filters__group filters__group--for" role="group" aria-label="Written for" data-group="for">
@@ -41,6 +46,9 @@ const personas = PERSONAS.filter((p) => stories.some((s) => s.data.personas.incl
   const cards = [...document.querySelectorAll<HTMLElement>('[data-card]')];
   const groups = [...root.querySelectorAll<HTMLElement>('[data-group]')];
   const empty = document.querySelector<HTMLElement>('[data-empty]');
+  const briefs = [...document.querySelectorAll<HTMLElement>('[data-brief]')];
+  // A page that does not offer Recommended and Must-read is not narrowed by them, whatever its address says.
+  const offersMarks = Boolean(root.querySelector('[data-group="show"]'));
   const KEYS = ['for', 'show'] as const;
   // Each mark on a story, and the Show choices it appears under. Must-read stories are also Recommended.
   const SHOWN_UNDER: Record<string, string[]> = { must: ['must', 'recommended'], recommended: ['recommended'], other: [] };
@@ -48,7 +56,7 @@ const personas = PERSONAS.filter((p) => stories.some((s) => s.data.personas.incl
   const read = () => {
     const params = new URLSearchParams(location.search);
     const show = params.get('show') ?? '';
-    return { for: params.get('for') ?? '', show: show === 'must' || show === 'recommended' ? show : '' };
+    return { for: params.get('for') ?? '', show: offersMarks && (show === 'must' || show === 'recommended') ? show : '' };
   };
 
   function write(next: Record<string, string>) {
@@ -78,6 +86,9 @@ const personas = PERSONAS.filter((p) => stories.some((s) => s.data.personas.incl
         pill.setAttribute('aria-pressed', String((pill.dataset.value ?? '') === selected));
       }
     }
+
+    // The briefs share one box, which is hidden with the stories above. Within it, each brief follows the audience chosen.
+    for (const brief of briefs) brief.hidden = Boolean(state.for && !(brief.dataset.personas ?? '').split(' ').includes(state.for));
 
     if (empty) empty.hidden = shown > 0;
     // The page is packed to the boxes on show, so it has to be packed again.

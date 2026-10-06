@@ -50,7 +50,9 @@ const numberOf = (index: number) => String(editions.length - index).padStart(dig
                   <!-- The list itself gives the position to a screen reader. -->
                   <span class="archive__no" aria-hidden="true">{numberOf(index)}</span>
                   <a href={`/${edition.day}/`}>{formatDay(edition.day)}</a>
-                  <span class="archive__count">{countLabel(edition.stories.length, 'story', 'stories')}</span>
+                  <span class="archive__count">
+                    {edition.stories.length > 0 ? countLabel(edition.stories.length, 'story', 'stories') : countLabel(edition.briefs.length, 'brief', 'briefs')}
+                  </span>
                 </li>
               ))}
             </ol>

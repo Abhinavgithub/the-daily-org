@@ -87,6 +87,8 @@ const sections = SECTIONS.map((s) => ({
     text: string;
     personas: string[];
     signal: 'must' | 'recommended' | 'other';
+    /** A one-line item from an edition's "In brief" box, not a full story. */
+    brief?: boolean;
   }
 
   /** How many results are shown at first, and how many each press of "Show more" adds. */
@@ -137,6 +139,13 @@ const sections = SECTIONS.map((s) => ({
     const section = document.createElement('span');
     section.className = 'results__section';
     section.textContent = entry.section;
+    // A brief says so first, so it is not taken for a full story.
+    if (entry.brief) {
+      const kind = document.createElement('span');
+      kind.className = 'results__section';
+      kind.textContent = 'In brief';
+      meta.append(kind, ' · ');
+    }
     meta.append(section, ` · ${entry.source} · ${entry.day}`);
     const why = document.createElement('span');
     why.className = 'results__why';
@@ -191,7 +200,7 @@ const sections = SECTIONS.map((s) => ({
       page.hidden = true;
       if (browse) browse.hidden = false;
       list.replaceChildren();
-      status.textContent = `No stories match “${query}”. Try a shorter or more general word${browse ? ', or browse a section' : ''}.`;
+      status.textContent = `Nothing matches “${query}”. Try a shorter or more general word${browse ? ', or browse a section' : ''}.`;
       return;
     }
 
@@ -215,7 +224,7 @@ const sections = SECTIONS.map((s) => ({
     page.hidden = false;
     if (browse) browse.hidden = true;
 
-    const total = `${matches.length} ${matches.length === 1 ? 'story matches' : 'stories match'} “${query}”`;
+    const total = `${matches.length} ${matches.length === 1 ? 'result matches' : 'results match'} “${query}”`;
     status.textContent = clear.hidden ? `${total}.` : kept.length === 0 ? `${total}, but none fit these filters.` : `${total}, ${kept.length} with these filters.`;
 
     // After "Show more", the keyboard carries on from the first story it added.

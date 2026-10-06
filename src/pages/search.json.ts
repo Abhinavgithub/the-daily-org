@@ -1,5 +1,6 @@
 import { sectionLabel } from '../config';
-import { formatDay, getAllStories, getSignals, storyHref } from '../lib/stories';
+import { MAX_BRIEFS } from '../lib/editions';
+import { formatDay, getAllStories, getEditions, getSignals, storyHref } from '../lib/stories';
 
 // The whole archive as one static file for the search page to filter in the browser.
 export async function GET() {
@@ -17,5 +18,21 @@ export async function GET() {
     signal: signals.get(story.id) ?? 'other',
     text: [story.data.original_title ?? '', story.data.tags.join(' '), story.data.authors.join(' '), story.body ?? ''].join(' '),
   }));
-  return new Response(JSON.stringify(index), { headers: { 'Content-Type': 'application/json' } });
+  // The briefs each edition prints, found by their headline and the sentence under it. A result opens the edition at its "In brief" box.
+  const briefs = (await getEditions()).flatMap((edition) =>
+    edition.briefs.slice(0, MAX_BRIEFS).map((brief) => ({
+      href: `/${edition.day}/#in-brief`,
+      title: brief.data.title,
+      why: brief.data.why_read,
+      source: brief.data.source,
+      section: sectionLabel(brief.data.section),
+      day: formatDay(brief.data.date, 'short'),
+      personas: brief.data.personas,
+      // A brief is neither Recommended nor Must-read.
+      signal: 'other' as const,
+      text: brief.data.original_title ?? '',
+      brief: true,
+    })),
+  );
+  return new Response(JSON.stringify([...index, ...briefs]), { headers: { 'Content-Type': 'application/json' } });
 }

@@ -108,6 +108,7 @@ If the repository is public, so is `data/logs/`, with what each run rejected and
 ## Good to know
 
 - If new stories do not appear in `npm run dev` after a pipeline run, restart it (`npx astro dev stop`, then `npm run dev`).
+- An article that scores one point under the threshold is printed as a one-line brief at the foot of the edition, and a day with only briefs is still an edition. Briefs can be searched, and the Stats page counts them apart from stories. They are files in `src/content/briefs/`.
 - To remove a story, delete its file; it will not come back. To have it assessed again, also delete its entry in `data/seen.json`.
 - Summaries are written by a language model and can be wrong. The site says so in its footer.
 

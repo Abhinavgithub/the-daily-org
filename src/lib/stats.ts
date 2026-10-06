@@ -29,6 +29,8 @@ export interface Run {
   /** What became of them. Runs from before these were recorded count each as nothing. */
   published: number;
   belowThreshold: number;
+  /** How many of those below the threshold were close enough to be printed in brief. */
+  briefs: number;
   notRelevant: number;
   invalid: number;
   tokens: ModelTokens[];
@@ -75,6 +77,8 @@ export function parseRuns(text: string): Run[] {
       assessed: number(raw.assessed),
       published: number(raw.published),
       belowThreshold: number(raw.belowThreshold),
+      // Never more than fell below the threshold, whatever the line says.
+      briefs: Math.min(number(raw.briefs), number(raw.belowThreshold)),
       notRelevant: number(raw.notRelevant),
       invalid: number(raw.invalidReplies),
       tokens: tokensOf(raw),
@@ -102,6 +106,7 @@ export interface Totals {
   assessed: number;
   published: number;
   belowThreshold: number;
+  briefs: number;
   notRelevant: number;
   invalid: number;
   /** In US dollars, or undefined unless every run that used tokens recorded its cost. */
@@ -131,6 +136,7 @@ export function totalRuns(runs: Run[]): Totals {
     assessed: sum((run) => run.assessed),
     published: sum((run) => run.published),
     belowThreshold: sum((run) => run.belowThreshold),
+    briefs: sum((run) => run.briefs),
     notRelevant: sum((run) => run.notRelevant),
     invalid: sum((run) => run.invalid),
     ...(costed ? { cost: sum((run) => run.cost ?? 0) } : {}),
@@ -142,7 +148,7 @@ export function totalRuns(runs: Run[]): Totals {
 
 /** One part of a divided bar. `tone` picks its shade: the part the bar is about, or one of the rest. */
 export interface Part extends Count {
-  tone: 'main' | 'rest' | 'faint' | 'unknown';
+  tone: 'main' | 'light' | 'rest' | 'faint' | 'unknown';
 }
 
 /**
@@ -154,7 +160,9 @@ export function outcomes(totals: Totals): Part[] {
   const known = totals.published + totals.belowThreshold + totals.notRelevant + totals.invalid;
   const parts: Part[] = [
     { label: 'Published', count: totals.published, tone: 'main' },
-    { label: 'Below the score bar', count: totals.belowThreshold, tone: 'rest' },
+    // A close call that was printed in brief is shown as that, and not with the rest that fell short.
+    { label: 'Printed in brief', count: totals.briefs, tone: 'light' },
+    { label: 'Below the score bar', count: totals.belowThreshold - totals.briefs, tone: 'rest' },
     { label: 'Not relevant', count: totals.notRelevant, tone: 'faint' },
     { label: 'Unusable reply', count: totals.invalid, tone: 'unknown' },
     { label: 'Not recorded', count: Math.max(0, totals.assessed - known), tone: 'unknown' },

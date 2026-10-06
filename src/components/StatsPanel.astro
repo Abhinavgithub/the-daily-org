@@ -123,7 +123,7 @@ const plural = (n: number, one: string, many: string) => (n === 1 ? one : many);
           <>
             <StatSplit parts={parts} label={`${formatNumber(totals.assessed)} articles reviewed`} />
             <p class="ledger__note">
-              {share(totals.published, totals.assessed)}% of the articles reviewed were published.
+              {share(totals.published, totals.assessed)}% of the articles reviewed were published{totals.briefs > 0 && `, and ${formatNumber(totals.briefs)} more ${plural(totals.briefs, 'was', 'were')} printed in brief`}.
               {gone > 0 && ` ${formatNumber(gone)} of those ${plural(gone, 'story is', 'stories are')} no longer in the paper.`}
               {gone < 0 && ` ${formatNumber(-gone)} of the paper's stories ${plural(-gone, 'was', 'were')} added by hand, not through review.`}
             </p>

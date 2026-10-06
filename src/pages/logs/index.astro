@@ -52,15 +52,17 @@ const recorded = statRuns.filter((run) => run.date >= since && Object.keys(run.s
 const scores = scorecard(SOURCES, addTallies(recorded.map((run) => run.sources)), state);
 const date = (iso?: string) => (iso ? new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(iso)) : 'Not known');
 
-// Story files on disk against what the site is serving. They differ when the dev server has stopped noticing new files.
-const storiesDir = path.join(process.cwd(), 'src', 'content', 'stories');
-const onDisk = Object.fromEntries(
-  (fs.existsSync(storiesDir) ? fs.readdirSync(storiesDir) : [])
-    .filter((day) => /^\d{4}-\d{2}-\d{2}$/.test(day))
-    .map((day) => [day, fs.readdirSync(path.join(storiesDir, day)).filter((file) => file.endsWith('.md')).length] as const)
-    .filter(([, count]) => count > 0),
-);
-const served = Object.fromEntries((await getEditions()).map((edition) => [edition.day, edition.stories.length]));
+// Story and brief files on disk against what the site is serving. They differ when the dev server has stopped noticing new files.
+const onDisk: Record<string, number> = {};
+for (const kind of ['stories', 'briefs']) {
+  const dir = path.join(process.cwd(), 'src', 'content', kind);
+  for (const day of fs.existsSync(dir) ? fs.readdirSync(dir) : []) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) continue;
+    const count = fs.readdirSync(path.join(dir, day)).filter((file) => file.endsWith('.md')).length;
+    if (count > 0) onDisk[day] = (onDisk[day] ?? 0) + count;
+  }
+}
+const served = Object.fromEntries((await getEditions()).map((edition) => [edition.day, edition.stories.length + edition.briefs.length]));
 // Only a dev server can fall behind the files; a built site shows exactly what was on disk.
 const stale = import.meta.env.DEV ? staleEditions(onDisk, served).map((edition) => ({ ...edition, day: formatDay(edition.day, 'short') })) : [];
 const builtAt = new Date().toISOString();

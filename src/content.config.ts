@@ -1,3 +1,4 @@
+import fs from 'node:fs';
 import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { z } from 'astro/zod';
@@ -40,4 +41,30 @@ const stories = defineCollection({
   }),
 });
 
-export const collections = { stories };
+// Close calls, printed as one line each. A brief has no summary, diagram or tags.
+// Until the paper has printed its first brief there are no files, and the file loader warns about that on every build.
+export const hasBriefs = fs.existsSync('./src/content/briefs') && fs.readdirSync('./src/content/briefs', { recursive: true }).some((file) => String(file).endsWith('.md'));
+
+const briefs = defineCollection({
+  loader: hasBriefs ? glob({ pattern: '*/*.md', base: './src/content/briefs' }) : () => [],
+  schema: z.object({
+    title: z.string(),
+    original_title: z.string().optional(),
+    url: z.url(),
+    source: z.string(),
+    date: z
+      .union([z.string(), z.date()])
+      .transform((d) => (typeof d === 'string' ? d : d.toISOString().slice(0, 10)))
+      .pipe(z.string().regex(/^\d{4}-\d{2}-\d{2}$/)),
+    section: z.string(),
+    personas: z.array(z.string()).default([]),
+    why_read: z.string(),
+    interest_score: score,
+    depth_score: score,
+    novelty_score: score,
+    utility_score: score,
+    model: z.string().optional(),
+  }),
+});
+
+export const collections = { stories, briefs };

@@ -121,7 +121,7 @@ test('each finding has its rule, and problems come before things to watch', () =
   });
   const text = says(found);
   for (const expected of [
-    /problem: The site is out of date: it shows 19 of 21 stories for 2026-10-04\./,
+    /problem: The site is out of date: it shows 19 of 21 stories and briefs for 2026-10-04\./,
     /problem: The last run stopped early: the cap of 40 model calls was reached\./,
     /problem: Feed B has failed 3 runs in a row\./,
   ]) assert.match(text, expected);

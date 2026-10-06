@@ -19,6 +19,8 @@ const signals = await getSignals();
       <StoryCard story={story} span={spans[i]} signal={signals.get(story.id) ?? 'other'} showDay={showDay} />
     ))
   }
+  <!-- Anything else printed among the stories, such as the briefs, is arranged with them as the last box. -->
+  <slot />
 </div>
 
 <script>
@@ -123,11 +125,14 @@ const signals = await getSignals();
     }
   })();
   for (const card of cards) card.classList.toggle('is-read', read.has(card.dataset.id!));
+  // A brief is marked by itself, since several share one box.
+  for (const brief of document.querySelectorAll<HTMLElement>('[data-brief]')) brief.classList.toggle('is-read', read.has(brief.dataset.id!));
 
   // "auxclick" covers a middle-click, which also opens the article.
   for (const type of ['click', 'auxclick']) {
     document.addEventListener(type, (event) => {
-      const card = (event.target as HTMLElement).closest('[data-original]')?.closest<HTMLElement>('[data-card]');
+      const target = event.target as HTMLElement;
+      const card = target.closest('[data-original]')?.closest<HTMLElement>('[data-card]') ?? target.closest('a')?.closest<HTMLElement>('[data-brief]');
       if (!card || read.has(card.dataset.id!)) return;
       read.add(card.dataset.id!);
       card.classList.add('is-read');

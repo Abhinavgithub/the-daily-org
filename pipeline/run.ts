@@ -8,13 +8,14 @@ import { canonicalUrl, forget, GIVE_UP_DAYS, givenUp, loadPending, loadSeen, sav
 import { articleText, extractContent } from './extract';
 import { fetchFeeds, type FeedItem } from './fetch';
 import { configFromEnv, keepFreeModels, LlmClient, LlmError } from './llm';
+import { isBrief } from '../src/lib/editions';
 import { RunLog } from './log';
 import { PAPER } from '../src/config';
 import { addTallies, emptyTally, scorecard, type SourceTally } from '../src/lib/sources';
 import { parseRuns } from '../src/lib/stats';
 import { SOURCES } from './sources';
 import { failingSources, loadState, lookBackDays, recordComplete, recordFailure, recordFetched, recordNewest, saveState } from './state';
-import { STORIES_DIR, writeStories, type Publishable } from './write';
+import { STORIES_DIR, writeBriefs, writeStories, type Publishable } from './write';
 
 const { values: args } = parseArgs({
   options: {
@@ -252,6 +253,7 @@ console.log(`Assessing with ${models.join(', then ')}${config.imageModel ? `, il
 // Each story is proof-read and written as soon as it is accepted, so a run that
 // is interrupted keeps everything it has paid for.
 const written: string[] = [];
+const briefs: string[] = [];
 let figures = { made: 0, illustrated: 0, none: 0, rejected: 0, skipped: 0 };
 const counts = { rejected: 0, belowThreshold: 0, invalid: 0, deferred: 0 };
 const proofs = { corrected: 0, unchanged: 0, kept: 0, skipped: 0 };
@@ -306,6 +308,8 @@ function record(cutShort?: string): string {
     published: written.length,
     notRelevant: counts.rejected,
     belowThreshold: counts.belowThreshold,
+    // How many of those were close enough to be printed in brief.
+    briefs: briefs.length,
     invalidReplies: counts.invalid,
     deferred: cutShort ? candidates.length - tallied((tally) => tally.reviewed) - counts.invalid : counts.deferred,
     llmCalls: llm.calls,
@@ -372,8 +376,16 @@ for (const [i, { item, key, text, image }] of candidates.entries()) {
     } else if (v.interest_score < threshold) {
       counts.belowThreshold++;
       tally.below++;
-      console.log(`  [${i + 1}/${candidates.length}] Scored ${v.interest_score}, below ${threshold}: ${item.title}`);
-      runLog.article({ ...entry, outcome: 'below-threshold', score: v.interest_score, reason: `scored ${v.interest_score}, the threshold is ${threshold}` });
+      // A close call is not thrown away: it is printed in brief, as the model wrote it, at no further cost.
+      const brief = isBrief(v, threshold);
+      if (brief) briefs.push(...writeBriefs(day, [{ item, curated }]));
+      console.log(`  [${i + 1}/${candidates.length}] Scored ${v.interest_score}, below ${threshold}${brief ? ', printed in brief' : ''}: ${item.title}`);
+      runLog.article({
+        ...entry,
+        outcome: 'below-threshold',
+        score: v.interest_score,
+        reason: `scored ${v.interest_score}, the threshold is ${threshold}${brief ? '; printed in brief' : ''}`,
+      });
     } else {
       console.log(`  [${i + 1}/${candidates.length}] Scored ${v.interest_score}, publishing: ${item.title}`);
       runLog.article({ ...entry, title: v.title, outcome: 'published', score: v.interest_score, reason: v.title === item.title ? undefined : `article title: ${item.title}` });
@@ -453,7 +465,7 @@ record();
 console.log(
   `\nPublished ${written.length} to ${path.relative(process.cwd(), path.join(STORIES_DIR, day))}. ` +
     `${counts.rejected} not relevant, ${counts.belowThreshold} below threshold, ${counts.invalid} unusable replies, ` +
-    `${counts.deferred} left for the next run. ${llm.calls} model calls${llm.cost ? `, $${llm.cost.toFixed(4)}` : ''}.`,
+    `${counts.deferred} left for the next run.${briefs.length ? ` ${briefs.length} printed in brief.` : ''} ${llm.calls} model calls${llm.cost ? `, $${llm.cost.toFixed(4)}` : ''}.`,
 );
 if (written.length) {
   console.log(

@@ -250,7 +250,7 @@ export function findings(input: FindingsInput): Finding[] {
   const sum = (pick: (run: RunFacts) => number) => runs.reduce((total, run) => total + pick(run), 0);
 
   for (const edition of input.stale) {
-    found.push({ tone: 'problem', says: `The site is out of date: it shows ${edition.served} of ${edition.onDisk} stories for ${edition.day}.`, action: 'Restart the dev server (npx astro dev stop, then npm run dev).' });
+    found.push({ tone: 'problem', says: `The site is out of date: it shows ${edition.served} of ${edition.onDisk} stories and briefs for ${edition.day}.`, action: 'Restart the dev server (npx astro dev stop, then npm run dev).' });
   }
 
   if (!latest) {

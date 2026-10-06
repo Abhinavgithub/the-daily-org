@@ -1,0 +1,59 @@
+---
+import { formatDay, type Brief } from '../lib/stories';
+
+// The close calls: articles that fell one point short of a story, set as one
+// boxed clipping among the stories. Each is a headline that opens the original
+// and a sentence on why it is worth a look. On a day with no stories the box
+// is the edition, and runs the full width.
+
+interface Props {
+  briefs: Brief[];
+  /** The edition has no stories, so the briefs are all of it. */
+  alone?: boolean;
+  /** The most recent edition that has stories, to point to when this one has none. */
+  lastFull?: string;
+}
+
+const { briefs, alone = false, lastFull } = Astro.props;
+const personas = [...new Set(briefs.flatMap((brief) => brief.data.personas))];
+---
+
+{
+  briefs.length > 0 && (
+    <section
+      class:list={['story', alone ? 'story--w3' : 'story--w1', 'briefs', alone && 'briefs--alone']}
+      id="in-brief"
+      aria-labelledby="briefs-title"
+      data-card
+      data-id="in-brief"
+      data-personas={personas.join(' ')}
+    >
+      <h2 class="briefs__title" id="briefs-title">In brief</h2>
+      {
+        alone && (
+          <p class="briefs__note">
+            No full stories today.
+            {lastFull && (
+              <>
+                {' '}
+                <a href={`/${lastFull}/`}>Read the edition of {formatDay(lastFull)}</a>.
+              </>
+            )}
+          </p>
+        )
+      }
+      <!-- Alone, the briefs run in as many columns as there are, up to three. -->
+      <ul style={alone ? `--columns: ${Math.min(briefs.length, 3)}` : undefined}>
+        {briefs.map((brief) => (
+          <li data-brief data-id={brief.data.url} data-personas={brief.data.personas.join(' ')}>
+            <h3>
+              <a href={brief.data.url} target="_blank" rel="noopener">{brief.data.title}</a>
+            </h3>
+            <p>{brief.data.why_read}</p>
+            <p class="briefs__source">{brief.data.source}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}
