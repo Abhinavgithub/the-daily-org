@@ -650,6 +650,248 @@ html[data-turn='older']::view-transition-new(turn-fold) {
   }
 }
 
+// A release edition ----------------------------------------------------
+// One release, from its own notes: a front page of its headlines, what it
+// enforces, then everything printed, under the notes' own areas and products.
+.edition {
+  max-width: 62rem;
+  margin: 0.5rem auto 0;
+  font-family: var(--display);
+  font-size: var(--fs-label);
+}
+
+.edition__facts {
+  margin: 0 0 1rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+.edition__search {
+  display: grid;
+  justify-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+
+  input {
+    width: min(100%, 30rem);
+    padding: 0.5rem 0.75rem;
+    border: 1px solid var(--edge-solid);
+    border-radius: 0;
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+    font-size: var(--fs-body);
+  }
+}
+
+.edition__status {
+  margin: 0;
+  min-height: 1.2em;
+  color: var(--muted);
+}
+
+// The headlines: the few features that matter most, set as the paper sets its stories.
+.edition__lead {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+
+  @media (max-width: 60rem) {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  @media (max-width: 40rem) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.edition__headline {
+  padding: 1rem 1.1rem 1.1rem;
+  border: 1px solid var(--edge);
+  background: var(--surface);
+  box-shadow: var(--shadow-1);
+
+  &[hidden] {
+    display: none;
+  }
+
+  h2 {
+    margin: 0 0 0.5rem;
+    font-family: var(--headline);
+    font-weight: 700;
+    font-size: var(--fs-headline);
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+    text-wrap: balance;
+  }
+
+  p:last-child {
+    margin: 0;
+    font-family: var(--text);
+    font-size: var(--fs-body);
+    line-height: 1.5;
+  }
+}
+
+// Where a headline is filed: its area, and its product.
+.edition__kicker {
+  margin: 0 0 0.4rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.edition a {
+  color: var(--ink);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--sky);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+  }
+}
+
+.edition__facts a {
+  color: var(--sky);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+// What the release enforces: under a heavy rule, each change beneath a flag that says when.
+.edition__enforced {
+  margin-bottom: 2rem;
+  padding: 1rem 0 0.25rem;
+  border-top: 3px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+
+  > h2 {
+    margin: 0;
+    font-family: var(--headline);
+    font-weight: 700;
+    font-size: var(--fs-headline);
+    line-height: 1.2;
+  }
+
+  article {
+    padding: 0.9rem 0;
+    border-top: 1px solid var(--rule);
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  h3 {
+    margin: 0 0 0.35rem;
+    font-family: var(--headline);
+    font-weight: 700;
+    font-size: 1.125rem;
+    line-height: 1.25;
+  }
+
+  article p:last-child {
+    margin: 0;
+    max-width: 46rem;
+    font-family: var(--text);
+    font-size: var(--fs-body);
+    line-height: 1.5;
+  }
+}
+
+.edition__note {
+  margin: 0.3rem 0 0.9rem;
+  color: var(--muted);
+}
+
+// The areas, as links down the page, each with how many of its features are printed.
+.edition__areas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem 1.4rem;
+  margin-bottom: 0.75rem;
+  padding: 0.6rem 0;
+  border-top: 1px solid var(--rule);
+  font-weight: 500;
+
+  a[hidden] {
+    display: none;
+  }
+}
+
+.edition__list {
+  max-width: none;
+
+  .ledger__row {
+    // Clear of the top of the window when reached by its link.
+    scroll-margin-top: 1rem;
+
+    &[hidden] {
+      display: none;
+    }
+
+    h3 {
+      display: grid;
+      gap: 0.25rem;
+      align-content: start;
+    }
+  }
+}
+
+.edition__product {
+  & + & {
+    margin-top: 1.25rem;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+
+  // The product: a quiet sub-heading over its features.
+  h4 {
+    margin: 0 0 0.5rem;
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--rule);
+    font-size: var(--fs-label);
+    font-weight: 700;
+    color: var(--muted);
+  }
+
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    padding: 0.45rem 0;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  li a {
+    font-family: var(--headline);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    line-height: 1.25;
+  }
+
+  li p {
+    margin: 0.2rem 0 0;
+    max-width: 46rem;
+    font-family: var(--text);
+    font-size: var(--fs-body);
+    line-height: 1.5;
+    color: var(--ink);
+  }
+}
+
 // Archive, search and the theme button on one line. Equal side columns keep the search centred.
 .masthead__bar {
   display: grid;

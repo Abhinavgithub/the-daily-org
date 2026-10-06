@@ -1,5 +1,6 @@
 ---
 import { counted } from '../lib/bulletin';
+import { getReleaseEditions } from '../lib/release-store';
 import { getBulletin } from '../lib/stories';
 
 // The two parts of the paper: its stories, and the Bulletin, which holds what
@@ -10,18 +11,25 @@ import { getBulletin } from '../lib/stories';
 // A tool's release is not counted.
 
 interface Props {
-  current: 'news' | 'bulletin';
+  /** The part the reader is in. Left out on a page that is neither, such as a release edition. */
+  current?: 'news' | 'bulletin';
 }
 
 const { current } = Astro.props;
 const { latest, items } = await getBulletin();
-const listed = items
-  .filter((item) => counted(item.data.kind))
-  .map((item) => ({ id: item.id, date: item.data.date, ...(item.data.kind === 'alert' && /incident/i.test(item.data.flag ?? '') ? { incident: true } : {}) }));
+const listed = [
+  ...items
+    .filter((item) => counted(item.data.kind))
+    .map((item) => ({ id: item.id, date: item.data.date, ...(item.data.kind === 'alert' && /incident/i.test(item.data.flag ?? '') ? { incident: true } : {}) })),
+  // A release edition is new once, when it is first built; its later revisions are not announced.
+  ...getReleaseEditions().map((edition) => ({ id: `release-edition/${edition.release.slug}`, date: edition.builtAt.slice(0, 10) })),
+];
 ---
 
 <nav class="tabs" aria-label="Parts of the paper">
-  <a href={current === 'news' ? Astro.url.pathname : '/'} aria-current={current === 'news' ? 'page' : undefined}>News</a>
+  <a href={current === 'news' ? Astro.url.pathname : '/'} aria-current={current === 'news' ? 'page' : undefined}>
+    News
+  </a>
   <a
     href="/bulletin/"
     aria-current={current === 'bulletin' ? 'page' : undefined}

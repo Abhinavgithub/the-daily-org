@@ -1,0 +1,191 @@
+---
+// A release edition: one release, from its own release notes. The head of the
+// page is its front page, the features that matter most; then what the release
+// enforces in every org; then every feature printed, under the notes' own areas
+// and products. One box searches the names of all three.
+import Masthead from '../../../components/Masthead.astro';
+import Tabs from '../../../components/Tabs.astro';
+import Layout from '../../../layouts/Layout.astro';
+import { enforcedNow, headlines, linkTo, printed } from '../../../lib/release-edition';
+import { BAR, getReleaseEditions } from '../../../lib/release-store';
+import { countLabel, formatDay } from '../../../lib/stories';
+
+export function getStaticPaths() {
+  return getReleaseEditions().map((edition) => ({ params: { slug: edition.release.slug }, props: { edition } }));
+}
+
+const { edition } = Astro.props;
+const { name } = edition.release;
+const areas = printed(edition, BAR);
+const lead = headlines(edition, BAR);
+const enforced = enforcedNow(edition);
+const total = areas.reduce((sum, area) => sum + area.count, 0);
+const updated = (edition.notesPublished ?? edition.builtAt).slice(0, 10);
+const anchor = (text: string) => `area-${text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
+// What the search looks through for a feature: where it is filed, and what it is called.
+const found = (...parts: string[]) => parts.join(' ').toLowerCase();
+---
+
+<Layout title={`${name} release edition`}>
+  <Masthead>
+    <h1 class="dateline__text">{name} release edition</h1>
+  </Masthead>
+  <Tabs />
+  <main class="wrap">
+    <div class="edition" data-edition>
+      <p class="edition__facts">
+        {countLabel(total, 'feature', 'features')} from{' '}
+        {edition.notes ? (
+          <a href={edition.notes} target="_blank" rel="noopener">
+            the official release notes
+          </a>
+        ) : (
+          'the official release notes'
+        )}
+        , as they stood on {formatDay(updated, 'short')}.
+      </p>
+
+      <div class="edition__search">
+        <label class="visually-hidden" for="edition-search">Search this edition by area, product or feature</label>
+        <input id="edition-search" type="search" placeholder="Search areas, products and features" autocomplete="off" data-edition-search />
+        <p class="edition__status" data-edition-status aria-live="polite"></p>
+      </div>
+
+      {
+        lead.length > 0 && (
+          <section class="edition__lead" aria-label="The headlines of this release" data-edition-block>
+            {lead.map((feature) => (
+              <article class="edition__headline" data-feature data-text={found(feature.area, feature.product, feature.name)}>
+                <p class="edition__kicker">
+                  {feature.area}
+                  {feature.product !== feature.area && ` · ${feature.product}`}
+                </p>
+                <h2>
+                  <a href={linkTo(edition, feature.topic)} target="_blank" rel="noopener">
+                    {feature.name}
+                  </a>
+                </h2>
+                <p>{feature.says}</p>
+              </article>
+            ))}
+          </section>
+        )
+      }
+
+      {
+        enforced.length > 0 && (
+          <section class="edition__enforced" aria-labelledby="enforced-title" data-edition-block>
+            <h2 id="enforced-title">Enforced with this release</h2>
+            <p class="edition__note">Changes made in every org, whether or not anything is done about them.</p>
+            {enforced.map((change) => (
+              <article data-feature data-text={found('enforced release updates', change.name)}>
+                <p class="flag">{change.deadline ? `Enforced ${change.deadline}` : 'Enforced this release'}</p>
+                <h3>
+                  <a href={linkTo(edition, change.topic)} target="_blank" rel="noopener">
+                    {change.name}
+                  </a>
+                </h3>
+                <p>{change.says}</p>
+              </article>
+            ))}
+          </section>
+        )
+      }
+
+      <nav class="edition__areas" aria-label="Areas of this release">
+        {areas.map((area) => (
+          <a href={`#${anchor(area.name)}`} data-area-link={anchor(area.name)}>
+            {area.name} <span class="chip__count">{area.count}</span>
+          </a>
+        ))}
+      </nav>
+
+      <div class="ledger edition__list">
+        {areas.map((area) => (
+          <section class="ledger__row" id={anchor(area.name)} data-area>
+            <h3>
+              {area.name}
+              <span class="bulletin__window" data-area-count>
+                {countLabel(area.count, 'feature', 'features')}
+              </span>
+            </h3>
+            <div>
+              {area.products.map((product) => (
+                <div class="edition__product" data-product>
+                  {/* An area that lists its features itself has no product to name. */}
+                  {product.name !== area.name && <h4>{product.name}</h4>}
+                  <ul>
+                    {product.features.map((feature) => (
+                      <li data-feature data-text={found(area.name, product.name, feature.name)}>
+                        <a href={linkTo(edition, feature.topic)} target="_blank" rel="noopener">
+                          {feature.name}
+                        </a>
+                        <p>{feature.says}</p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+
+      <div class="empty" data-edition-empty hidden>
+        <p>Nothing in this edition matches that search.</p>
+        <button type="button" class="link-button" data-edition-clear>Clear the search</button>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  import { matches } from '../../../lib/release-edition';
+
+  // The search lives in the address, so it survives a reload and can be shared.
+  const input = document.querySelector<HTMLInputElement>('[data-edition-search]');
+  const root = document.querySelector<HTMLElement>('[data-edition]');
+  if (input && root) {
+    const status = root.querySelector<HTMLElement>('[data-edition-status]')!;
+    const empty = root.querySelector<HTMLElement>('[data-edition-empty]')!;
+    const list = [...root.querySelectorAll<HTMLElement>('.edition__list [data-feature]')];
+    const every = [...root.querySelectorAll<HTMLElement>('[data-feature]')];
+
+    function apply() {
+      const typed = input!.value.trim();
+      for (const feature of every) feature.hidden = !matches(feature.dataset.text ?? '', typed);
+      // A product, an area or a block with nothing left in it is not shown as an empty heading.
+      for (const group of root!.querySelectorAll<HTMLElement>('[data-product], [data-area], [data-edition-block]')) {
+        group.hidden = !group.querySelector('[data-feature]:not([hidden])');
+      }
+      for (const area of root!.querySelectorAll<HTMLElement>('[data-area]')) {
+        const shown = area.querySelectorAll('[data-feature]:not([hidden])').length;
+        const count = area.querySelector('[data-area-count]');
+        if (count) count.textContent = `${shown} ${shown === 1 ? 'feature' : 'features'}`;
+        const link = root!.querySelector<HTMLElement>(`[data-area-link="${area.id}"]`);
+        if (link) {
+          link.hidden = area.hidden;
+          link.querySelector('.chip__count')!.textContent = String(shown);
+        }
+      }
+      const shown = list.filter((feature) => !feature.hidden).length;
+      status.textContent = typed ? `${shown} of ${list.length} features match.` : '';
+      empty.hidden = !typed || every.some((feature) => !feature.hidden);
+
+      const params = new URLSearchParams(location.search);
+      if (typed) params.set('q', typed);
+      else params.delete('q');
+      const query = params.toString();
+      history.replaceState(null, '', location.pathname + (query ? `?${query}` : '') + location.hash);
+    }
+
+    input.value = new URLSearchParams(location.search).get('q') ?? '';
+    input.addEventListener('input', apply);
+    root.querySelector('[data-edition-clear]')?.addEventListener('click', () => {
+      input.value = '';
+      apply();
+      input.focus();
+    });
+    apply();
+  }
+</script>

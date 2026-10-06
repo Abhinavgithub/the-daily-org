@@ -24,6 +24,13 @@ export default definePaper({
   disclaimer: 'not affiliated with or endorsed by Salesforce',
   // The dates of the coming releases, from Salesforce's Trust site, for the Bulletin.
   releases: 'salesforce-trust',
+  // A release edition for each release, from Salesforce's own release notes. These are the notes' own names for
+  // their areas. Customization and Development point to Platform in Winter '27, and are kept in case that changes.
+  releaseNotes: {
+    from: 'salesforce-help',
+    areas: ['Agentforce and Generative AI', 'AIforce', 'Automation', 'Customization', 'Data 360', 'Development', 'Platform', 'Sales', 'Service', 'Slack Integrations'],
+    bar: 8,
+  },
   // Security advisories and wide incidents, also from Trust. They are printed in the Bulletin whatever they score.
   alerts: 'salesforce-trust',
 

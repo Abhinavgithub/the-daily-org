@@ -2,6 +2,8 @@
 import Masthead from '../../components/Masthead.astro';
 import { SECTIONS } from '../../config';
 import Layout from '../../layouts/Layout.astro';
+import { printed } from '../../lib/release-edition';
+import { BAR, getReleaseEditions } from '../../lib/release-store';
 import { countLabel, formatDay, getEditions } from '../../lib/stories';
 
 const editions = await getEditions();
@@ -10,6 +12,8 @@ const sections = SECTIONS.map((s) => ({
   ...s,
   count: all.filter((story) => story.data.section === s.id).length,
 })).filter((s) => s.count > 0);
+// The release editions, which stand apart from the daily ones: one a release, and not of any one day.
+const releases = getReleaseEditions().map((edition) => ({ ...edition.release, features: printed(edition, BAR).reduce((sum, area) => sum + area.count, 0) }));
 // Editions are numbered from the first, so the newest carries the highest number.
 const digits = Math.max(2, String(editions.length).length);
 const numberOf = (index: number) => String(editions.length - index).padStart(digits, '0');
@@ -42,8 +46,21 @@ const numberOf = (index: number) => String(editions.length - index).padStart(dig
               ))}
             </ul>
           </section>
+          {releases.length > 0 && (
+            <section class="browse" id="release-editions" aria-labelledby="releases-title">
+              <h2 id="releases-title">Release editions</h2>
+              <ol class="archive">
+                {releases.map((release) => (
+                  <li>
+                    <a href={`/releases/${release.slug}/`}>{release.name}</a>
+                    <span class="archive__count">{countLabel(release.features, 'feature', 'features')}</span>
+                  </li>
+                ))}
+              </ol>
+            </section>
+          )}
           <section class="browse" aria-labelledby="editions-title">
-            <h2 id="editions-title">Editions</h2>
+            <h2 id="editions-title">Daily editions</h2>
             <ol class="archive" reversed>
               {editions.map((edition, index) => (
                 <li>

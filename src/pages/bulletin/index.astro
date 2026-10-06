@@ -12,6 +12,7 @@ import { PAPER } from '../../config';
 import Layout from '../../layouts/Layout.astro';
 import { WINDOWS, type BulletinKind } from '../../lib/bulletin';
 import { openReleases, readReleases } from '../../lib/releases';
+import { getReleaseEditions } from '../../lib/release-store';
 import { formatDay, getBulletin } from '../../lib/stories';
 
 const { latest, items } = await getBulletin();
@@ -29,6 +30,8 @@ try {
 }
 const today = new Date().toISOString().slice(0, 10);
 const open = openReleases(releases, today);
+// A release whose notes are out has an edition of its own, which its line leads to.
+const editions = new Map(getReleaseEditions().map((edition) => [edition.release.name, `/releases/${edition.release.slug}/`]));
 // A section is shown when the paper reads that kind of thing, whether or not there is any just now.
 const follows = {
   releases: Boolean(PAPER.releases),
@@ -52,11 +55,17 @@ const follows = {
           <section class="ledger__row" id="releases">
             <h3>Releases</h3>
             {/* The lines depend on the day they are read, so they are worked out again in the browser. */}
-            <div data-releases={JSON.stringify(releases)}>
+            <div data-releases={JSON.stringify(releases)} data-editions={JSON.stringify(Object.fromEntries(editions))}>
               {open.map(({ release, rest }) => (
                 <p class="bulletin__release">
                   <strong>{release.name}</strong>
                   {rest}
+                  {editions.has(release.name) && (
+                    <>
+                      {' '}
+                      <a href={editions.get(release.name)}>Release&nbsp;edition</a>
+                    </>
+                  )}
                 </p>
               ))}
               {open.length === 0 && <p class="ledger__none">No release dates are known.</p>}
@@ -154,6 +163,7 @@ const follows = {
     // The reader's own day, not the day the page was built.
     const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
     try {
+      const editions: Record<string, string> = JSON.parse(box.dataset.editions ?? '{}');
       const open = openReleases(readReleases(JSON.parse(box.dataset.releases ?? '[]')), today);
       if (open.length > 0) {
         box.replaceChildren(
@@ -163,6 +173,13 @@ const follows = {
             const name = document.createElement('strong');
             name.textContent = release.name;
             line.append(name, rest);
+            const edition = editions[release.name];
+            if (edition) {
+              const link = document.createElement('a');
+              link.href = edition;
+              link.textContent = 'Release\u00a0edition';
+              line.append(' ', link);
+            }
             return line;
           }),
         );

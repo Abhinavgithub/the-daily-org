@@ -11,6 +11,10 @@ export type SourceType = (typeof SOURCE_TYPES)[number];
 export const CALENDARS = ['salesforce-trust'] as const;
 export type Calendar = (typeof CALENDARS)[number];
 
+/** Where a paper's release notes can be read from. Each is read by pipeline/release-notes.ts. */
+export const RELEASE_NOTES = ['salesforce-help'] as const;
+export type ReleaseNotes = (typeof RELEASE_NOTES)[number];
+
 /** Where a paper's alerts can be read from. Each is read by pipeline/alerts.ts. */
 export const ALERT_FEEDS = ['salesforce-trust'] as const;
 export type AlertFeed = (typeof ALERT_FEEDS)[number];
@@ -98,6 +102,13 @@ export interface Paper<Section extends string = string, Persona extends string =
    */
   releases?: Calendar;
   /**
+   * Optional. The release notes a release edition is made from: where they are read,
+   * which of their areas the paper covers, by the names the notes give them, and the
+   * fewest points a feature needs to be printed (8 unless said). With this, each
+   * release gets an edition of its own, built when its notes appear.
+   */
+  releaseNotes?: { from: ReleaseNotes; areas: readonly string[]; bar?: number };
+  /**
    * Optional. Where notices that are printed whatever their score are read from:
    * security advisories, and failures that reach many users at once. They are shown in the Bulletin.
    */
@@ -159,6 +170,8 @@ export function problemsWith(paper: Paper): string[] {
   const personas = ids(paper.personas ?? [], 'persona');
   if (!paper.sources?.length) problems.push('"sources" needs at least one source.');
   ids(paper.sources ?? [], 'source');
+  if (paper.releaseNotes && !RELEASE_NOTES.includes(paper.releaseNotes.from)) problems.push(`"releaseNotes.from" is "${paper.releaseNotes.from}"; use one of ${RELEASE_NOTES.join(', ')}, or leave "releaseNotes" out.`);
+  if (paper.releaseNotes && paper.releaseNotes.areas.length === 0) problems.push('"releaseNotes.areas" is empty: name the areas of the notes the paper covers.');
   if (paper.alerts !== undefined && !ALERT_FEEDS.includes(paper.alerts)) problems.push(`"alerts" names the feed "${paper.alerts}"; use one of ${ALERT_FEEDS.join(', ')}, or leave it out.`);
   if (paper.releases !== undefined && !CALENDARS.includes(paper.releases)) problems.push(`"releases" names the calendar "${paper.releases}"; use one of ${CALENDARS.join(', ')}, or leave it out.`);
 

@@ -1,0 +1,2474 @@
+{
+  "release": {
+    "name": "Winter '27",
+    "number": "264.0.0",
+    "slug": "winter-27"
+  },
+  "notesPublished": "2026-10-06T07:19:04.000Z",
+  "builtAt": "2026-10-06T18:22:11.417Z",
+  "model": "qwen/qwen3.7-flash",
+  "areas": [
+    {
+      "name": "Agentforce and Generative AI",
+      "topic": "release-notes.rn_einstein.htm",
+      "features": [
+        {
+          "topic": "release-notes.rn_einstein_models_gemini_flash_3_8.htm",
+          "product": "Supported Models",
+          "name": "Gemini 3.8 flash generally available",
+          "says": "The Gemini 3.8 model is ready for production use with a 1,000 requests per minute rate limit in supported features like prompt templates.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_agentforce_dev_preview.htm",
+          "product": "Agentforce Builder",
+          "name": "Agentforce assistant automated testing (beta)",
+          "says": "The assistant now automatically runs simulate mode previews to validate agent functionality and edge cases, iterating until behavior matches expectations.",
+          "score": 9
+        },
+        {
+          "topic": "release-notes.rn_agentforce_commit.htm",
+          "product": "Agentforce Agents",
+          "name": "Simplified agent versioning and activation",
+          "says": "You can now activate a draft agent version without manually committing it first, as Agentforce Builder automatically commits it during activation.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_einstein_bots_upgrade_tool.htm",
+          "product": "Einstein Bots",
+          "name": "Einstein Bot to Agentforce Service Agent upgrade (generally available)",
+          "says": "The generally available upgrade tool converts an Einstein Bot to an Agentforce Service Agent while keeping the original bot available for review.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_agentforce_file_upload.htm",
+          "product": "Agentforce Agents",
+          "name": "Agent file upload support in conversations",
+          "says": "Agents now accept file attachments like screenshots and PDFs in chat, interpreting content to answer questions or attach files to Salesforce records.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_einstein_agent_memory.htm",
+          "product": "Agentforce Development",
+          "name": "Agent memory for persistent context (generally available)",
+          "says": "Agents now recall relevant details from past conversations and reference user profile data to deliver personalized responses from the first message.",
+          "score": 9
+        },
+        {
+          "topic": "release-notes.rn_agentforce_clt_preview_local.htm",
+          "product": "Agentforce Builder",
+          "name": "Improved custom Lightning type preview in Builder",
+          "says": "Custom Lightning types now render directly in Agentforce Builder previews for actions created or modified anywhere, without requiring a prior commit.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_ecv2_continue_conversation.htm",
+          "product": "Enhanced Chat v2",
+          "name": "Session continuation in enhanced chat v2",
+          "says": "Customers can easily resume ended or timed-out messaging sessions by clicking Continue Conversation directly in the chat window.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_ecv2_conversation_view_updates.htm",
+          "product": "Enhanced Chat v2",
+          "name": "Enhanced chat v2 UI improvements",
+          "says": "Customer messages remain visible while responses load, and the avatar now sits above the Send Message field for a cleaner layout.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_einstein_agentforce_render.htm",
+          "product": "Agentforce Connections",
+          "name": "Consistent action output formatting",
+          "says": "Use render nested inline action to always format an agent action's output consistently on a specific connection.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_einstein_agentforce_render.htm",
+          "product": "Agentforce Connections",
+          "name": "JSON action output format",
+          "says": "Actions can now format their output as JSON so connections receive structured data directly.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_einstein_agentforce_render.htm",
+          "product": "Agentforce Connections",
+          "name": "End reasoning after action",
+          "says": "The show_and_return nested inline action lets agents send a response and end reasoning immediately after an action completes.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_einstein_prompt_builder_template_field_gen_model.htm",
+          "product": "Field Generation",
+          "name": "Field generation follow-ups respect selected model",
+          "says": "Follow-up refinement responses in the field generation panel now generate from your assigned prompt template model instead of the Salesforce default LLM.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_einstein_prompt_builder_template_field_gen.htm",
+          "product": "Field Generation",
+          "name": "Validate field generation refinements setting",
+          "says": "A new Setup setting limits field generation refinements to business-related activity, ensuring credits are spent only on relevant use cases.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_einstein_agentforce_connection_instructions.htm",
+          "product": "Agentforce Connections",
+          "name": "Channel-Specific Connection Instructions",
+          "says": "You can now customize how agents reason and respond on Messaging, Service Email, or Marketing Email connections using tailored instructions.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_einstein_agentforce_custom_response_format.htm",
+          "product": "Agentforce Connections",
+          "name": "Dynamic messaging component response formats",
+          "says": "Agents can now populate custom response formats with dynamic content like forms, time selectors, and question options using action outputs.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_einstein_agentforce_compare_versions.htm",
+          "product": "Agentforce Builder",
+          "name": "Agent version comparison and merging",
+          "says": "You can now compare two agent versions and merge changes from one into another directly within Canvas and Script views.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_agentforce_voice_sip_headers.htm",
+          "product": "Agentforce Voice",
+          "name": "Custom SIP headers and REFER method for voice",
+          "says": "Inbound calls can now pass custom X-headers for context, and escalation flows can modify headers using the SIP REFER method upon disconnect.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_agentforce_auto_enable.htm",
+          "product": "Agentforce Platform Settings",
+          "name": "Agentforce platform enabled by default",
+          "says": "The Agentforce platform is now automatically enabled for all eligible orgs at creation or upgrade, removing the manual setup toggle.",
+          "score": 9
+        },
+        {
+          "topic": "release-notes.rn_agentforce_metadata.htm",
+          "product": "Agentforce Development",
+          "name": "Streamlined agent metadata types for deployment",
+          "says": "New metadata types automatically retrieve an agent and all its dependencies via Salesforce CLI, simplifying sandbox-to-production deployments.",
+          "score": 9
+        },
+        {
+          "topic": "release-notes.rn_agentforce_voice_enforce_phone_number_limit.htm",
+          "product": "Agentforce Voice",
+          "name": "Enforced phone number limits for voice",
+          "says": "Production orgs now enforce license-based phone number limits, while sandboxes and trials are capped at ten numbers regardless of license.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_agentforce_voice_post_call_transcript.htm",
+          "product": "Agentforce Voice",
+          "name": "Complete post-call transcript visibility",
+          "says": "The Service Console now displays both agent-customer and rep-customer transcripts in post-call records, matching the full conversation history.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_agentforce_voice_pause_resume_recording_with_api.htm",
+          "product": "Agentforce Voice",
+          "name": "Toolkit API Call Recording controls",
+          "says": "Developers can now pause and resume call recordings via the Voice Toolkit API without requiring the Control Call Recording user permission.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_einstein_models_gemini_flash_3_7.htm",
+          "product": "Supported Models",
+          "name": "Gemini 3.7 Flash generally available",
+          "says": "The Gemini 3.7 Flash model is generally available for production use with a 1,000 requests per minute rate limit in prompt templates.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_agentforce_multi_agent_orchestrate.htm",
+          "product": "Agentforce Interoperability",
+          "name": "Multi-Agent orchestration (generally available)",
+          "says": "Agents can now connect with other specialized Agentforce agents in your org to collaborate on complex tasks and deliver improved outcomes.",
+          "score": 9
+        },
+        {
+          "topic": "release-notes.rn_einstein_models_gemini_flash_3_6.htm",
+          "product": "Supported Models",
+          "name": "Gemini 3.6 Flash general availability",
+          "says": "The Gemini 3.6 Flash model is ready for production use with a 1,000 requests per minute rate limit, supporting prompt templates and other functionality.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_sra_status.htm",
+          "product": "Service Assistant",
+          "name": "Service plan creation status indicator",
+          "says": "Service reps now see a status indicator in the component signaling a service plan is being created, replacing the previous lack of progress indication.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_agentforce_mcp_per_user_auth.htm",
+          "product": "Agentforce and Generative AI Release Notes",
+          "name": "Per-User authentication for external MCP servers",
+          "says": "Agentforce agents can now authenticate to external Model Context Protocol servers using per-user credentials instead of shared system connections, ensuring a clear per-user audit trail.",
+          "score": 8
+        }
+      ]
+    },
+    {
+      "name": "AIforce",
+      "topic": "release-notes.rn_headless360.htm",
+      "features": [
+        {
+          "topic": "release-notes.rn_tpm_customize_promo_ai_assistant.htm",
+          "product": "Consumer Goods",
+          "name": "Define and customize promotions with an AI coding assistant",
+          "says": "Use natural-language instructions in a supported AI coding environment to configure how Salesforce creates, updates, and copies promotions through the Promotion Business Object API.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_tpm_customize_tpe_single_guided_flow.htm",
+          "product": "Consumer Goods",
+          "name": "Set up trade promotion effectiveness analytics with an AI coding agent",
+          "says": "Use an AI coding agent and prebuilt skills to automate Tableau Next setup, customize dashboards to your KPIs, and align data connectors to prevent blank metrics.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_fsc_flexible_hierarchies_ai_setup.htm",
+          "product": "Financial Services",
+          "name": "Set up flexible hierarchies with a coding agent",
+          "says": "Describe hierarchy nodes in a supported AI coding environment to generate type configurations, node definitions, and relationships automatically instead of configuring them individually in Setup.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_loyalty_promotions.htm",
+          "product": "Loyalty Management",
+          "name": "Build complex loyalty promotions with AI tools",
+          "says": "Use a conversational AI tool to create qualifiers and milestones for accrual events and engagement trails by describing requirements in plain language and confirming details.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_loyalty_program_setup.htm",
+          "product": "Loyalty Management",
+          "name": "Set up loyalty programs with AI tools",
+          "says": "Describe your program in plain language to an AI tool that creates and activates the program, tier models, currencies, activities, and assessment rules in a guided workflow.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_headless360_mcp_servers_cms_content.htm",
+          "product": "Salesforce MCP Servers",
+          "name": "Connect AI assistants to Salesforce CMS with MCP servers",
+          "says": "The GA Content Read-Only server adds 18 tools to access CMS content, while the new Content Write server provides 15 tools to create and manage workspaces, content, variants, folders, and channels.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_health_icm_set_up_with_an_conversational_asst.htm",
+          "product": "Health",
+          "name": "Set up intelligent care management with a conversational assistant",
+          "says": "Use a conversational AI assistant to validate prerequisites, enable frameworks, configure care plans and gap detection, and add UI components without navigating multiple setup pages.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_insurance_set_up_products_with_ai.htm",
+          "product": "Insurance",
+          "name": "Set up insurance products with an AI assistant",
+          "says": "Use an AI coding assistant to check licenses, complete initial org setup, and create products, coverages, and attributes from natural language or CSV/JSON specifications.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_lsc_customer_engagement_key_account_management_with_ai.htm",
+          "product": "Life Sciences",
+          "name": "Set up key account management faster with an AI coding agent",
+          "says": "Use an AI coding agent to automate KAM prerequisites, import goals, provide record data via natural language, and apply changes with built-in compliance guardrails and pause/resume support.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_fsc_meeting_concierge_ai_setup.htm",
+          "product": "Meeting Concierge",
+          "name": "Set up meeting concierge with an AI assistant",
+          "says": "Use an AI-assisted workflow in a supported coding environment to configure Meeting Concierge end-to-end without navigating multiple setup pages.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_setup_with_agentforce_objects5.htm",
+          "product": "Setup with Agentforce",
+          "name": "Explore 124 more objects in setup with Agentforce",
+          "says": "Use natural language with the Setup agent to get details on 124 additional Setup objects, including OpportunitySplitType, AccountRelationshipShareRule, and ContentAsset.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_tools_commerce_vibes.htm",
+          "product": "Agentforce Vibes",
+          "name": "Agentforce Commerce vibes for B2C Commerce",
+          "says": "Delegate multistep development tasks to an autonomous VS Code agent that understands your storefront project and B2C Commerce instance across Storefront Next, SFRA, and PWA Kit.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_fsc_digital_origination_ai_setup.htm",
+          "product": "Financial Services",
+          "name": "Configure home loan origination with an AI coding assistant",
+          "says": "Describe home loan products and journeys to an AI coding assistant that coordinates setup across catalogs, pricing, intake, disclosures, and underwriter consoles.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_health_home_health_setup_assistant.htm",
+          "product": "Health",
+          "name": "Accelerate home health setup with AI-guided configuration",
+          "says": "Use an AI coding assistant to validate licenses, install packages, generate metadata, activate scheduling flows, and build patient portals without navigating multiple setup pages.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_health_provider_search_setup_assistant.htm",
+          "product": "Health",
+          "name": "Build provider search with a conversational setup assistant",
+          "says": "Use a conversational setup assistant to verify prerequisites, enable Data Pipelines, seed records, and configure criteria-based search and AI-powered provider matching.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_health_referral_management_setup_assistant.htm",
+          "product": "Health",
+          "name": "Configure referral management through conversation",
+          "says": "Use a conversational setup assistant to configure referral layouts, creation flows, provider search integration, case automation, and optional prior authorization and outreach features.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_health_agentforce_foundations_setup_assistant.htm",
+          "product": "Health",
+          "name": "Roll out Agentforce Health Foundations from a prompt",
+          "says": "Use a conversational setup assistant to validate prerequisites, enable core features, and automatically create record types, layouts, and Lightning components for the Health Console.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_health_iam_setup_assistant.htm",
+          "product": "Health",
+          "name": "Set up appointment scheduling from your AI coding assistant",
+          "says": "Use a conversational setup assistant to verify data, enable pipelines, connect Scheduler, and configure territories, resources, work types, and console components automatically.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_insurance_brokerage_agency_billing_ai_coding_assistant.htm",
+          "product": "Insurance",
+          "name": "Configure agency billing faster with an AI coding assistant",
+          "says": "Describe billing outcomes in plain language to an agent that configures legal entities, tax rules, permissions, and license checks, optionally verifying with a created policy.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_tools_agentic_development.htm",
+          "product": "Platform",
+          "name": "Analyze Agentforce Vibes usage with the Agentic Development dashboard",
+          "says": "Use the Agentic Development dashboard to track and analyze Agentforce Vibes data from across your orgs, and enable Developer-Level Insights to see individual user analytics.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_headless360_mfw_insights.htm",
+          "product": "Platform",
+          "name": "Analyze Multi-Framework app performance in Scale Center",
+          "says": "Generate the Multi-Framework Insights dashboard to review page views and drill down into detailed performance metrics for your top ten most-used apps.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_packaging_post_install_ai_skill.htm",
+          "product": "Platform",
+          "name": "Automate managed package post-install configuration with an AI skill",
+          "says": "Use the dx-pkg-post-install-configure AI Skill to automate post-install configuration for any Salesforce managed package directly from your AI coding client.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_trialforce_ai_skills.htm",
+          "product": "Platform",
+          "name": "Create and track trial orgs with AI skills",
+          "says": "Use two AI Skills to create trial, Developer Edition, and Trialforce orgs and track their expiration dates directly from your AI coding client.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_scratch_orgs_ai_skills.htm",
+          "product": "Platform",
+          "name": "Create, compare, and manage Scratch Orgs with AI skills",
+          "says": "Use five AI Skills to create and manage scratch orgs, org shapes, and scratch org snapshots, compare orgs for drift, and track org expiration.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_headless360_cc_plugin_disclosure.htm",
+          "product": "Platform",
+          "name": "Expand the Salesforce Development Plugin with specialized capabilities",
+          "says": "Open a project and describe your task to trigger guided workflows that combine AI Skills, Salesforce CLI, hosted MCP servers, agents, hooks, and commands to build, test, and deploy.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_devhub_ai_skill.htm",
+          "product": "Platform",
+          "name": "Manage Dev Hub from your coding client with an AI skill",
+          "says": "Use the new dx-org-devhub-configure AI Skill to enable and manage your Dev Hub directly from your AI coding client by using natural-language prompts.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_sandboxes_ai_skills.htm",
+          "product": "Platform",
+          "name": "Manage sandbox lifecycle with AI Skills",
+          "says": "Use AI Skills to manage sandboxes directly from your AI coding client, helping you create, refresh, activate sandboxes, and generate post-copy configuration files.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_salesforce_in_claude.htm",
+          "product": "Sales",
+          "name": "Access Salesforce context in Claude (beta)",
+          "says": "Get deal health, pipeline risk, and account context surfaced directly in your Claude conversation via a secure MCP connection, backed by live org data in a read-only beta.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_entitlements_headless_setup.htm",
+          "product": "Service",
+          "name": "Automate SLA Management Setup with AI skills",
+          "says": "Set up SLA Management end-to-end without navigating multiple Setup pages, using an AI skill to create policies, milestones, and define conditions for auto-applying entitlements.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_headless_sms_setup.htm",
+          "product": "Service",
+          "name": "Configure SMS channels with headless Claude skill",
+          "says": "Launch an Enhanced SMS channel in minutes using a headless Claude skill that configures auto-responses, consent, activation, and routing across APIs and setup pages.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_messaging_enhanced_chat_headless_skill.htm",
+          "product": "Service",
+          "name": "Deploy Enhanced Chat channels with AI skills",
+          "says": "Create and deploy headless Enhanced Chat channels from natural-language instructions using AI skills that handle routing, verification, and embedded deployment code.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_service_email_set_up_email_to_case_headless_360.htm",
+          "product": "Service",
+          "name": "Set up Email-to-Case with Headless agent",
+          "says": "Set up a standard Email-to-Case channel through one guided conversation with the Headless 360 agent, configuring prerequisites and routing in a repeatable API-driven workflow.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_setup_with_agentforce_data360.htm",
+          "product": "Setup with Agentforce",
+          "name": "Remove Data 360 Requirement for Setup with Agentforce",
+          "says": "You can now use Setup with Agentforce without enabling Data 360 in your org, though specialized tasks like working with custom report types still depend on it.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_setup_with_agentforce_permset.htm",
+          "product": "Setup with Agentforce",
+          "name": "Simplify Setup with Agentforce permission assignment",
+          "says": "Enable user access to Setup with Agentforce faster using a combined permission set group instead of assigning two separate permission sets manually.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_setup_with_agentforce_enablement_page.htm",
+          "product": "Setup with Agentforce",
+          "name": "Streamlined enablement page for Setup with Agentforce",
+          "says": "Get up and running with Setup with Agentforce faster using a redesigned, step-by-step enablement page to manage prerequisites, features, and permissions.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_setup_with_agentforce_objects4.htm",
+          "product": "Setup with Agentforce",
+          "name": "Expand Setup agent read access to 190+ objects",
+          "says": "Use natural language with the Setup agent to view details on over 190 additional Setup objects, though the agent retains read-only access without create or update capabilities.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_setup_with_agentforce_bulk_actions.htm",
+          "product": "Setup with Agentforce",
+          "name": "Bulk manage users with Setup agent",
+          "says": "Perform bulk actions on multiple users at once using the Setup agent, such as freezing departing employees or resetting passwords, available only for the User object.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_setup_with_agentforce_profile_access.htm",
+          "product": "Setup with Agentforce",
+          "name": "Query profile access summaries with Setup agent",
+          "says": "Ask the Setup agent whether a profile grants specific object access, field-level security, or user permissions, eliminating the need to click through multiple Setup pages.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_setup_with_agentforce_ps_summary.htm",
+          "product": "Setup with Agentforce",
+          "name": "Summarize Permission Sets and profiles with Setup agent",
+          "says": "Ask the Setup agent to summarize grants, object access, field permissions, and high-risk permissions for permission sets, profiles, and groups directly in chat.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_setup_with_agentforce_role_hierarchy.htm",
+          "product": "Setup with Agentforce",
+          "name": "Manage role hierarchy with Setup agent",
+          "says": "Create or update user roles by describing the needed change to the Setup agent, reviewing its recommendation, and confirming it before saving to your org.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_setup_with_agentforce_summarize_security.htm",
+          "product": "Setup with Agentforce",
+          "name": "Check MFA compliance summary with setup agent",
+          "says": "Use natural language to get a summary of your org's compliance with phishing-resistant MFA mandates, checking the status of all users with critical administrative permissions.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_setup_with_agentforce_freeze_reset_in_bulk.htm",
+          "product": "Setup with Agentforce",
+          "name": "Bulk reset passwords and freeze accounts with setup agent",
+          "says": "Use natural language to send password reset emails and freeze or unfreeze multiple user accounts simultaneously, moving beyond single-user limitations.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_builder_central.htm",
+          "product": "Builder Central",
+          "name": "Plan, build, and preview apps with Builder Central (beta)",
+          "says": "Describe the app or agent you want in plain language, and Salesforce Builder Central helps you plan, build, and preview it in one workspace before deploying to a sandbox.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_headless_channel_skill.htm",
+          "product": "Service",
+          "name": "Configure multi-platform messaging channels with Claude skill",
+          "says": "Launch Facebook, WhatsApp, LINE, or Apple Messages for Business channels in minutes using a headless Claude skill that handles configuration and routing across applications.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_skills.htm",
+          "product": "Platform",
+          "name": "Enhance AI coding agents with platform AI Skills",
+          "says": "AI Skills give your AI coding agent expertise in Lightning Web Components, Flow, and Apex, so it follows Salesforce patterns and best practices instead of generic guidance.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_setup_with_agentforce_objects3.htm",
+          "product": "Setup with Agentforce",
+          "name": "Read-Only access to 100+ Setup objects in Setup agent",
+          "says": "The Setup agent gains read access to over 100 additional Setup objects via natural language, though it cannot create, update, or delete them.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_cdp_2026_summer_document_ai_headless_mcp.htm",
+          "product": "Data 360",
+          "name": "Data 360 MCP server for Document AI configuration",
+          "says": "Connect external AI agents to the Data 360 MCP server to build, test, and activate Document AI configurations through natural-language conversation without navigating the UI.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_test_generate_using_ai.htm",
+          "product": "Automation",
+          "name": "Terminal-Based Flow test scenario generation with Agentforce",
+          "says": "Agentforce for Flow Headless drafts comprehensive test scenarios for various flow types directly from a terminal environment without opening Flow Builder.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_sales_agentforce_pipeline_management_setup_skill.htm",
+          "product": "Sales",
+          "name": "Pipeline management configuration skill for Agentforce",
+          "says": "This configuration skill uses natural-language prompts to automatically handle setup steps for opportunity text fields, allowing reps to review or admins to enable autonomous updates.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_set_up_a_help_agent_in_one_guided_workflow.htm",
+          "product": "Service",
+          "name": "Guided workflow for service cloud help agent setup",
+          "says": "The service-helpagent-coordinate skill consolidates agent configuration, knowledge grounding, chat deployment, routing, and testing into a single guided workflow.",
+          "score": 7
+        }
+      ]
+    },
+    {
+      "name": "Automation",
+      "topic": "release-notes.rn_automate.htm",
+      "features": [
+        {
+          "topic": "release-notes.rn_automate_flow_screen_reactive_formulas_visibility_264.htm",
+          "product": "Screen Flows",
+          "name": "Evaluate conditional visibility rules with reactive formulas",
+          "says": "Reference reactive formulas directly in conditional visibility rules for flow screens to build more responsive screen experiences.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_automate_automated_approvals_new_record_actions.htm",
+          "product": "Flow Approval Processes",
+          "name": "Debug, suspend, and resume flow approval processes",
+          "says": "Admins can suspend, resume, and debug approval submissions and orchestration runs for greater control and diagnostic information.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_builder_contains_with_multiselect_picklist.htm",
+          "product": "Flow Builder",
+          "name": "Filter records by multi-select picklists with the contains operator",
+          "says": "The contains operator now works in get, delete, update, and schedule-triggered flow elements without causing run-time errors.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_automate_automated_approvals_work_item_sharing.htm",
+          "product": "Flow Approval Processes",
+          "name": "Limit approval work item visibility to keep review steps confidential",
+          "says": "Set the sharing model to private to prevent reviewers at one step from viewing work items assigned to other steps.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_mfi_get_more_ways_to_act_on_flows_with_third_party_connectors.htm",
+          "product": "MuleSoft for Flow: Integration",
+          "name": "Integrate flows with external systems using third-party connector actions",
+          "says": "Use third-party connector actions in any flow to integrate with external systems for supported connectors.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_builder_unused_resources_264.htm",
+          "product": "Flow Builder",
+          "name": "Clean up flows faster with the unused resources filter",
+          "says": "Identify and remove unneeded resources from large flows using the new Unused filter in the Flow Builder Toolbox.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_collection_filter_criteria.htm",
+          "product": "Flow Builder",
+          "name": "Filter collections without loop elements",
+          "says": "Use the Collection Filter Criteria resource type to return matching items from data in one step without chaining loop elements.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_embedded_analytics.htm",
+          "product": "Flow Builder",
+          "name": "Monitor flow performance right on the canvas",
+          "says": "View flow performance data directly on the canvas to identify bottlenecks without relying on logs or external tools.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_automate_automated_approvals_request_approval_component.htm",
+          "product": "Flow Approval Processes",
+          "name": "Add multiple flow approval processes with the request approvals component",
+          "says": "Give submitters up to ten autolaunched flow approval processes to select from using the Request Approvals component.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_decision_split_by_date_field.htm",
+          "product": "Flow Builder",
+          "name": "Split flow paths by date or field value without expressions",
+          "says": "Route flow paths based on common conditions using simple inline pickers instead of building complex expressions.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_builder_version_comparison_additional_types_264.htm",
+          "product": "Flow Builder",
+          "name": "Compare versions of Data 360 and Agentforce marketing flows",
+          "says": "Flow version comparison now supports Data 360-triggered and Agentforce Marketing flow types across all audience sources.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_builder_test_debug_inputs_264.htm",
+          "product": "Flow Testing and Debugging",
+          "name": "Test flows with primitive collection inputs",
+          "says": "Populate primitive collections directly in the debugger to test various scenarios without editing your flow.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_builder_test_with_static_ids_264.htm",
+          "product": "Flow Testing and Debugging",
+          "name": "Test flows with specific records by entering a record ID",
+          "says": "Enter a static record ID directly in the debugger to test flows with objects that have limited searchability.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_builder_group_elements_together_264.htm",
+          "product": "Flow Builder",
+          "name": "Group elements to organize and simplify flows",
+          "says": "Organize related elements into named, collapsible groups to label logical sections and focus on the larger picture.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_builder.htm",
+          "product": "Flow Builder",
+          "name": "See more of your flow with a denser canvas",
+          "says": "See more of your flow with a denser canvas layout in Flow Builder.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_builder.htm",
+          "product": "Flow Builder",
+          "name": "Track flow changes over time with Edit History",
+          "says": "Track flow changes over time with the new Edit History feature.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_builder.htm",
+          "product": "Flow Builder",
+          "name": "Build flows faster with auto-generated element labels",
+          "says": "Build flows faster with auto-generated element labels.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_builder.htm",
+          "product": "Flow Builder",
+          "name": "Navigate and configure Decision elements more easily",
+          "says": "Navigate and configure Decision elements more easily in Flow Builder.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_error_handling.htm",
+          "product": "Flow Builder",
+          "name": "Catch field length violations when you save a flow",
+          "says": "Catch field length violations when you save a flow, before they cause run-time failures.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_error_handling.htm",
+          "product": "Flow Builder",
+          "name": "Find missing required fields in Create Records at save time",
+          "says": "Find missing required fields in Create Records elements at save time.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_error_handling.htm",
+          "product": "Flow Builder",
+          "name": "Reduce limit failures in scheduled flows with dynamic batch sizing",
+          "says": "Reduce limit failures in scheduled flows with dynamic batch sizing.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_error_handling.htm",
+          "product": "Flow Builder",
+          "name": "Automatically retry flows that hit record lock contention",
+          "says": "Automatically retry flows that hit record lock contention.",
+          "score": 9
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_builder_screen_flows.htm",
+          "product": "Flow Builder",
+          "name": "Process multiple records at once by running a Screen Flow from a mass Quick Action",
+          "says": "Process multiple records at once by running a screen flow from a mass quick action on a list view or related list.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_builder_screen_flows.htm",
+          "product": "Flow Builder",
+          "name": "Capture time values with the new Time screen component",
+          "says": "Capture time values with the new Time screen component.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_builder_screen_flows.htm",
+          "product": "Flow Builder",
+          "name": "Reference reactive formulas in conditional visibility rules on flow screens",
+          "says": "Reference reactive formulas in conditional visibility rules on flow screens.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_marketing_cloud.htm",
+          "product": "Flow Builder",
+          "name": "Trigger order confirmation flows directly with a REST API",
+          "says": "Trigger order confirmation flows directly with a REST API to send transactional messages in seconds.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_marketing_cloud.htm",
+          "product": "Flow Builder",
+          "name": "Manage Marketing Object records with standard Flow record elements",
+          "says": "Read, create, update, and delete Marketing Object records with standard Flow record elements.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_marketing_cloud.htm",
+          "product": "Flow Builder",
+          "name": "Copy an audience flow without disrupting live campaigns",
+          "says": "Copy an audience flow without disrupting live campaigns.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_marketing_cloud.htm",
+          "product": "Flow Builder",
+          "name": "Predict conversion outcomes for each audience member with Personalize Paths",
+          "says": "Predict the best conversion outcome for each audience member with Personalize Paths.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_debug.htm",
+          "product": "Flow Builder",
+          "name": "Debug flows and save reusable test scenarios with Flow Test Mode (beta)",
+          "says": "Debug flows and save reusable test scenarios in one place with the new Flow Test Mode (beta) for record-triggered and autolaunched flows.",
+          "score": 9
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_debug.htm",
+          "product": "Flow Builder",
+          "name": "Test flows in isolation with mock outputs for Action and Subflow elements",
+          "says": "Test flows in isolation with mock outputs for Action and Subflow elements.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_automate_flow_debug.htm",
+          "product": "Flow Builder",
+          "name": "Generate flow test scenarios from the command line with headless Agentforce",
+          "says": "Generate flow test scenarios from the command line with headless Agentforce for Flow.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_automate_automated_approvals_orchestrator_work_guide_configuration.htm",
+          "product": "Flow Approval Processes",
+          "name": "Open the next work item from the same running flow approval process",
+          "says": "The Orchestration Work Guide automatically opens the next work item from the same running flow approval process upon completion.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_automate_automated_approvals__approval_record_deletion_gdpr.htm",
+          "product": "Flow Approval Processes",
+          "name": "Delete approval submission records to meet GDPR requirements",
+          "says": "Automatically cancel in-progress approval submissions when deleting a parent record, then delete the approval submissions to fulfill GDPR requests.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_automate_automated_approvals_synchronous_background_steps.htm",
+          "product": "Flow Approval Processes",
+          "name": "Run background steps synchronously when actions support it",
+          "says": "Background steps calling synchronous actions now run synchronously, reducing end-to-end latency for flow approval processes.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_automate_automated_approvals_event_prioritization.htm",
+          "product": "Flow Approval Processes",
+          "name": "Route record-change events to a dedicated channel",
+          "says": "Running flow approval processes now route record-change events to a dedicated channel, preventing queue stalls during bulk operations.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_automate_orchestrator_work_guide_configuration.htm",
+          "product": "Flow Orchestration",
+          "name": "Open the next work item from the same orchestration run",
+          "says": "The Orchestration Work Guide automatically opens the next work item from the same orchestration run upon completion.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_automate_orchestrator_synchronous_background_steps.htm",
+          "product": "Flow Orchestration",
+          "name": "Run orchestration background steps synchronously when actions support it",
+          "says": "Background steps calling synchronous actions now run synchronously, reducing end-to-end latency for orchestration runs.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_automate_orchestrator_event_prioritization.htm",
+          "product": "Flow Orchestration",
+          "name": "Route orchestration record-change events to a dedicated channel",
+          "says": "Orchestration runs now route record-change events to a dedicated channel, preventing queue stalls during bulk operations.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_airr_ai_relationship_research.htm",
+          "product": "Automation for Customer 360 Apps and Industries",
+          "name": "AI Relationship Research",
+          "says": "Automatically discover, analyze, and present relationship intelligence about people and organizations connected to your records across multiple data sources.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_business_rules_engine_intro.htm",
+          "product": "Automation for Customer 360 Apps and Industries",
+          "name": "Expression sets and decision tables as Agentforce actions",
+          "says": "Run expression sets and decision tables as actions in Agentforce.",
+          "score": 9
+        },
+        {
+          "topic": "release-notes.rn_business_rules_engine_intro.htm",
+          "product": "Automation for Customer 360 Apps and Industries",
+          "name": "List branch element for rule conditions",
+          "says": "Use the List Branch element to build if-then-else rule conditions on list data in context-aware expression sets.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_business_rules_engine_intro.htm",
+          "product": "Automation for Customer 360 Apps and Industries",
+          "name": "Multiple decision table outcomes in standard expression sets",
+          "says": "Process multiple decision table outcomes in standard expression sets, even without Context Service.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_business_rules_engine_intro.htm",
+          "product": "Automation for Customer 360 Apps and Industries",
+          "name": "Dropdown selection for picklist values in conditions",
+          "says": "Select picklist values from a dropdown instead of typing them in expression set conditions.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_business_rules_engine_intro.htm",
+          "product": "Automation for Customer 360 Apps and Industries",
+          "name": "Direct decision table calls from Omniscripts",
+          "says": "Call decision tables directly from Omniscripts.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_business_rules_engine_intro.htm",
+          "product": "Automation for Customer 360 Apps and Industries",
+          "name": "Parallel and incremental decision table refreshes",
+          "says": "Speed up decision table refreshes with parallel processing and automatic incremental refreshes.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_business_rules_engine_intro.htm",
+          "product": "Automation for Customer 360 Apps and Industries",
+          "name": "Enhanced CSV decision table data types and status tracking",
+          "says": "Use more data types and manage null values and empty cells in CSV-based decision tables, and see each table's status from the list view.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_ctx_intro.htm",
+          "product": "Automation for Customer 360 Apps and Industries",
+          "name": "Setup audit trail for context definitions",
+          "says": "Track changes to your context definitions with Setup Audit Trail for create, update, and delete actions across context definitions, nodes, attributes, mappings, and filters.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_ctx_intro.htm",
+          "product": "Automation for Customer 360 Apps and Industries",
+          "name": "Single hydration for multilevel DMO hierarchies",
+          "says": "Context Service resolves parent-child relationships between data model objects in Data 360 and returns complete multilevel data hierarchies in a single hydration call, including zero-copy DMOs backed by external warehouses.",
+          "score": 9
+        },
+        {
+          "topic": "release-notes.rn_data_processing_engine.htm",
+          "product": "Automation for Customer 360 Apps and Industries",
+          "name": "Consistent multi-currency calculation behavior",
+          "says": "Control how currency values behave with multiple currencies so your calculations stay consistent and business-aligned.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_data_processing_engine.htm",
+          "product": "Automation for Customer 360 Apps and Industries",
+          "name": "Faster definition runs with failure tracking and interruption protection",
+          "says": "Run definitions faster, track partial failures, and protect active definition runs from interruption.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_data_processing_engine.htm",
+          "product": "Automation for Customer 360 Apps and Industries",
+          "name": "Parent record rollup totals and layered calculations",
+          "says": "Decide whether parent records count toward rollup totals, and keep layered calculations together in one place.",
+          "score": 7
+        }
+      ]
+    },
+    {
+      "name": "Data 360",
+      "topic": "release-notes.rn_c360_truth.htm",
+      "features": [
+        {
+          "topic": "release-notes.rn_cdp_2026_winter_retriever_playground_score_ga.htm",
+          "product": "Retrievers",
+          "name": "Advanced Retriever metrics in Retriever Playground",
+          "says": "The Retriever Playground generates a context precision score to objectively measure how well your retriever ranks relevant chunks higher than irrelevant ones.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_cdp_2026_summer_dc1_connection_errors_at_once.htm",
+          "product": "Data Cloud One",
+          "name": "Consolidated companion connection eligibility errors",
+          "says": "All unmet eligibility conditions for a failed companion org connection are now displayed together so you can fix issues before retrying.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_cdp_2026_summer_private_connect_multicloud_databricks_azure.htm",
+          "product": "Private Connect",
+          "name": "Salesforce-Managed private connect for databricks on Azure",
+          "says": "Salesforce provisions and maintains Azure private endpoints for secure connections without requiring AWS or Azure configuration on your end.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_cdp_2026_winter_intelligent_context_harmonized_citations.htm",
+          "product": "Intelligent Context",
+          "name": "Consistent source document rendering for intelligent context citations",
+          "says": "A harmonized schema provides a uniform view across source documents, allowing citations to open in-app and highlight specific text chunks.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_cdp_2026_winter_redeploy_datakit_containing_dg.htm",
+          "product": "Data Graph",
+          "name": "Reliable redeployment of data kits with data graphs",
+          "says": "Data kits containing unchanged data graphs can be redeployed without errors, ensuring reliable and repeatable deployment flows.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_cdp_2026_winter_activation_shortcuts.htm",
+          "product": "Activations",
+          "name": "Activation attribute shortcuts for segment builder",
+          "says": "Marketers can reuse preconfigured attribute shortcuts from segmentation directly on the activation canvas to simplify attribute selection.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_cdp_2026_winter_ad_audiences_ly_ads_activation.htm",
+          "product": "Ad Audiences",
+          "name": "Native activation destination for LY ads",
+          "says": "You can now activate segments directly to LY ads for targeted advertising campaigns and insights reporting within Data 360.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_cdp_2026_summer_marketing_agent.htm",
+          "product": "Data 360 Marketing Agent",
+          "name": "Natural language segment building with data 360 Marketing Agent",
+          "says": "Describe audiences in natural language and the Marketing Agent creates matching filter criteria, standard segments, or adds filters to existing segments.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_cdp_2026_summer_marketing_agent_build_segment.htm",
+          "product": "Data 360 Marketing Agent",
+          "name": "Data 360 marketing agent segment creation via natural language",
+          "says": "Describe an audience in natural language and the agent produces matching filter criteria, creating new segments or adding filters to open canvases.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_cdp_2026_winter_crc_run_multiple_queries.htm",
+          "product": "Clean Rooms",
+          "name": "Multiple query execution in clean room collaborations",
+          "says": "Users can run any query defined in a clean room's collaboration template by selecting the desired query for each execution.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_cdp_2026_winter_crc_schedule_queries_seg_pub.htm",
+          "product": "Clean Rooms",
+          "name": "Scheduled clean room queries on segment publish",
+          "says": "Queries can be scheduled to run automatically when their consumer segment publishes, keeping clean room insights current.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_cdp_2026_winter_onenote_unstructured_connector_ga.htm",
+          "product": "Unstructured Data Connectors",
+          "name": "Generally available microsoft OneNote unstructured connector",
+          "says": "Ingest notebook pages and embedded attachments from SharePoint team notebooks into Data 360 to power AI and search experiences.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_cdp_2026_summer_document_ai_headless_mcp.htm",
+          "product": "Document AI",
+          "name": "Data 360 MCP server for document AI configuration",
+          "says": "Connect AI agents like Claude or Cursor to the MCP server to generate document schemas, verify extraction accuracy, and publish them via natural language.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_cdp_2026_winter_dg_granular_gov.htm",
+          "product": "Data Graph",
+          "name": "Granular access control for data graphs",
+          "says": "Data 360 automatically prunes restricted fields, masks data, and excludes unauthorized child objects based on governance policies instead of all-or-nothing access.",
+          "score": 9
+        },
+        {
+          "topic": "release-notes.rn_cdp_2026_summer_predictive_model_loss_functions.htm",
+          "product": "AI Models",
+          "name": "Advanced regression loss functions in model builder",
+          "says": "Select Gamma or Quantile regression loss functions to analyze skewed data and predict specific percentiles rather than average values.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_cdp_2026_summer_predictive_model_unsupervised_clustering.htm",
+          "product": "AI Models",
+          "name": "Dynamic unsupervised clustering for record grouping",
+          "says": "Cluster records dynamically using pre-trained algorithms to identify natural groupings and anomalies without training reusable models.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_cdp_2026_summer_predictive_model_templates.htm",
+          "product": "AI Models",
+          "name": "Preconfigured predictive model templates in model builder",
+          "says": "Specify preconfigured templates to prepopulate model details, variables, filters, and recommended algorithms for faster, guided setup.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_cdp_2026_summer_predictive_model_propensity_to_buy_template.htm",
+          "product": "AI Models",
+          "name": "Propensity to Buy Template (Beta)",
+          "says": "This preconfigured template combines standard DMO data to calculate purchase likelihood scores for identifying high-value customer segments.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_cdp_2026_summer_snowflake_v2.htm",
+          "product": "Data Shares",
+          "name": "Snowflake zero-copy V2 connector for data shares",
+          "says": "Authenticate with OIDC and act on change data with streams and tasks, querying data as a mounted database without duplication.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_cdp_2026_winter_id_boost_ad_audiences.htm",
+          "product": "Activations",
+          "name": "Identity boost for ad audiences partner activations",
+          "says": "Enrich Data 360 records with more identifiers such as email addresses and phone numbers to improve audience matching before activation.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_cdp_2026_summer_ad_audiences_identity_boost.htm",
+          "product": "Ad Audiences",
+          "name": "Improved match rates for ad audiences with identity boost",
+          "says": "Reach more of your audience by enriching first-party customer data with attributes like email and phone numbers via certified identity providers.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_cdp_2026_summer_ad_audiences_reddit_activation.htm",
+          "product": "Ad Audiences",
+          "name": "Native activation destination for Reddit",
+          "says": "Activate segments directly to Reddit for targeted advertising campaigns and insights reporting within Data Cloud.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_cdp_2026_winter_code_ext_zero_copy.htm",
+          "product": "Code Extension",
+          "name": "Custom Python transformations on zero-copy data",
+          "says": "Run custom Python batch transformations on zero-copy backed data lake or model objects without copying data to the platform.",
+          "score": 9
+        }
+      ]
+    },
+    {
+      "name": "Platform",
+      "topic": "release-notes.rn_platform.htm",
+      "features": [
+        {
+          "topic": "release-notes.rn_lifecycle_center_jira_integration.htm",
+          "product": "DevOps",
+          "name": "Import Jira work items into Lifecycle Center",
+          "says": "Connect your Jira workspace to import Jira work items into Lifecycle Center, removing the need to manually reenter work details while retaining original summaries and descriptions.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_wallet_scratch_orgs.htm",
+          "product": "Digital Wallet",
+          "name": "Track Agentforce Vibes usage in Scratch Orgs via Digital Wallet",
+          "says": "Gain full visibility into developer-driven costs by monitoring Agentforce Vibes consumption in Digital Wallet.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_cms_bulk_delete.htm",
+          "product": "Salesforce CMS",
+          "name": "Bulk delete content and folders in enhanced CMS workspaces",
+          "says": "Delete folders and content in bulk to keep your enhanced CMS workspace organized, including deleting published items and entire folders at once.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_lifecycle_center_rebrand.htm",
+          "product": "Platform",
+          "name": "Next Generation DevOps Center renamed to Lifecycle Center",
+          "says": "Next Generation DevOps Center is now Lifecycle Center, bringing governance, change and release management, and real-time analytics together in one place while keeping existing projects working as before.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_lifecycle_center_governance_beta.htm",
+          "product": "Platform",
+          "name": "Govern coding agents at scale with Lifecycle Center Governance (beta)",
+          "says": "Lifecycle Center Governance includes predefined policies organized by category that are defined in Lifecycle Center and applied to coding agents in Agentforce Vibes with automatic enforcements like Code Analyzer checks.",
+          "score": 9
+        },
+        {
+          "topic": "release-notes.rn_customization_org_health_usage.htm",
+          "product": "Customization",
+          "name": "Monitor org Health and Usage from Setup",
+          "says": "Org Health and Usage is now available in Setup for all admins, providing insights into security, performance, trust, and usage metrics ranked by severity.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_slds_dark_mode_ga.htm",
+          "product": "Salesforce Lightning Design System",
+          "name": "Dark Mode for SLDS 2 Themes (Generally Available)",
+          "says": "Dark mode for Salesforce Lightning Design System 2 themes is now generally available so users can switch to a darker appearance whenever they want, and you can upload a dark-mode version of your company's logo.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_devhub_ai_skill.htm",
+          "product": "AgentExchange Partners",
+          "name": "Manage Dev Hub from coding clients with an AI Skill",
+          "says": "Use the new dx-org-devhub-configure AI Skill to enable and manage your Dev Hub directly from your AI coding client by using natural-language prompts.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_trialforce_ai_skills.htm",
+          "product": "AgentExchange Partners",
+          "name": "Create and track trial orgs with AI Skills",
+          "says": "Use AI Skills to manage your trial orgs directly from your AI coding client, helping you create trial, Developer Edition, and Trialforce orgs and track when your orgs expire.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_packaging_post_install_ai_skill.htm",
+          "product": "Packaging",
+          "name": "Automate managed package post-install configuration with an AI Skill",
+          "says": "Use the dx-pkg-post-install-configure AI Skill to automate post-install configuration for any Salesforce managed package directly from your AI coding client.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_sandboxes_ai_skills.htm",
+          "product": "Sandbox and Scratch Orgs",
+          "name": "Manage sandbox lifecycle with AI Skills",
+          "says": "Use AI Skills to manage your sandboxes directly from your AI coding client, helping you create, refresh, and activate sandboxes and generate and apply post-copy configuration files.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_scratch_orgs_ai_skills.htm",
+          "product": "Sandbox and Scratch Orgs",
+          "name": "Create and manage Scratch Orgs with AI Skills",
+          "says": "Use AI Skills to manage your scratch orgs directly from your AI coding client, helping you create and manage scratch orgs, org shapes, and scratch org snapshots, compare orgs for drift, and track org expiration.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_scale_center_mfw.htm",
+          "product": "Platform",
+          "name": "Generate Multi-Framework insights in Scale Center (beta)",
+          "says": "Now, you can access actionable metrics for your most-used Multi-Framework apps inside of Scale Center, analyzing up to ten apps with the most total page views over the last seven days.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_devops_agentic_development.htm",
+          "product": "Platform",
+          "name": "Track Agentforce Vibes usage in DevOps Center (developer preview)",
+          "says": "Use the Agentic Development dashboard to track and analyze Agentforce Vibes data from across your orgs, accessing more granular data on model usage and enabling Developer-Level Insights.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_einstein_prompt_builder_template_field_gen.htm",
+          "product": "Platform",
+          "name": "Validate Field Generation Refinements for business focus",
+          "says": "Turn on the new Validate Field Generation Refinements setting in Setup to steer users back to your specific business goals and ensure your Einstein credits are spent only on relevant business use cases.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_einstein_prompt_builder_template_field_gen_model.htm",
+          "product": "Platform",
+          "name": "Field generation refinements respect selected model",
+          "says": "Follow-up and refinement responses are now generated from the model that you selected in the prompt template instead of using the Salesforce default LLM.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_lab_quick_action_pages.htm",
+          "product": "Platform",
+          "name": "Build reusable Quick Actions with page-based Quick Actions (beta)",
+          "says": "Create quick actions based on accessible, reusable action layouts using the same authoring tool you use for Lightning pages, configuring dynamic visibility rules and organizing fields in one familiar interface.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_wallet_slackbot.htm",
+          "product": "Digital Wallet",
+          "name": "Track Slackbot usage via Digital Wallet",
+          "says": "Track and monitor your Flex Credits Slackbot consumption in Digital Wallet after your plan's pre-allocated message allowance is exhausted, with billing only supported for connections to production Salesforce orgs.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_slds_c_level_hooks.htm",
+          "product": "Salesforce Lightning Design System",
+          "name": "Customize components with SLDS 2 Styling API and component-level hooks (developer preview)",
+          "says": "We're expanding our styling hook system with a full Styling API that now includes component-level hooks to gain granular control over individual design components without affecting global styling hooks.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_apex_cursors_dmo.htm",
+          "product": "Apex",
+          "name": "Process Data 360 DMOs with Apex Cursors (Beta)",
+          "says": "Use Apex cursors with Data 360 data model objects to process large SOQL query result sets in manageable chunks, creating a cursor with Database.getCursor() and retrieving records with Cursor.fetch().",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_apex_heap_limit.htm",
+          "product": "Apex",
+          "name": "Increased Apex heap limits for synchronous and asynchronous transactions",
+          "says": "The Apex heap limit for synchronous transactions increases from 6 MB to 10 MB, and the limit for asynchronous transactions increases from 12 MB to 25 MB to handle larger datasets without hitting heap constraints.",
+          "score": 9
+        },
+        {
+          "topic": "release-notes.rn_apex_recompile_invalid_apex.htm",
+          "product": "Apex",
+          "name": "Recompile only invalid Apex classes and triggers",
+          "says": "Salesforce automatically identifies only classes and triggers that require recompilation, returning compilation results through Setup or the Tooling API endpoint to reduce compilation overhead and minimize potential runtime errors.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_lwc_skills.htm",
+          "product": "Lightning Components",
+          "name": "Accelerate lightning development with LWC skills",
+          "says": "Agentforce Vibes now includes skills providing guidance across the entire LWC lifecycle, so you can generate LWC code quickly based on latest best practices.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_api_retirement.htm",
+          "product": "API",
+          "name": "Salesforce Platform API versions 31.0 through 40.0 are being retired",
+          "says": "Salesforce Platform API versions 31.0 through 40.0 are being deprecated and retired.",
+          "score": 9
+        },
+        {
+          "topic": "release-notes.rn_agentexchange_gen_ai_summary.htm",
+          "product": "AgentExchange",
+          "name": "Enhance Solution Discovery with an AI-Powered Summary (Beta)",
+          "says": "A reasoned generative AI summary appears above AgentExchange search results to help evaluate apps and understand the solution landscape.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_agentexchange_mcp_server_tools.htm",
+          "product": "AgentExchange",
+          "name": "Add MCP server tools to your Agentforce agents",
+          "says": "Extend your AI agents' capabilities by adding AgentExchange-hosted MCP server tools directly in Agentforce Builder alongside standard actions.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_agentexchange_improved_view_mcp_servers.htm",
+          "product": "AgentExchange",
+          "name": "Browse MCP servers with dedicated cards on Agentforce registry",
+          "says": "Discover and evaluate MCP servers more easily on AgentExchange using dedicated server cards that show tools and associated solutions.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_agentexchange_track_app_installs.htm",
+          "product": "AgentExchange",
+          "name": "Install AgentExchange apps without leaving your workflow",
+          "says": "Install one or several AgentExchange apps at once directly inside Agentforce Builder with a background progress strip and completion notifications.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_agentexchange_request_app_install.htm",
+          "product": "AgentExchange",
+          "name": "Request app installs and updates from your admin (beta)",
+          "says": "Builders without install permissions can send a request to install or update an app directly from Agentforce Builder with a business justification.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_agentexchange_add_install_approvers.htm",
+          "product": "AgentExchange",
+          "name": "Assign Install Request Approvers in your org (beta)",
+          "says": "Admins can add trusted users as Install Request Approvers, triggering email and in-app notifications when requests are submitted or completed.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_evaluate_agentexchange_solution_listings_faster_with_a_redesigned_listing_page.htm",
+          "product": "AgentExchange",
+          "name": "Evaluate AgentExchange solution listings faster with a redesigned listing page",
+          "says": "The AgentExchange solution listing detail page features a redesigned layout that organizes specs, security, support, reviews, and pricing clearly.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_evaluate_partners_with_redesigned_consultant_listings_on_agentexchange.htm",
+          "product": "AgentExchange",
+          "name": "Evaluate consulting partners faster with a redesigned listing page",
+          "says": "Consultant listing pages are redesigned to help you evaluate partners faster by viewing competency levels, coverage, resources, and reviews.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_agentexchange_find_solutions_faster_redesigned_menu.htm",
+          "product": "AgentExchange",
+          "name": "Find solutions faster with a redesigned AgentExchange navigation menu",
+          "says": "A persistent header with mega-menus replaces the previous flat list of links to help you scan categories and jump straight to what you need.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_agentexchange_shop_with_recommendations_for_your_org.htm",
+          "product": "AgentExchange",
+          "name": "Shop AgentExchange with recommendations tailored to your org",
+          "says": "The AgentExchange homepage highlights listings that match your selected org's edition, products, and industry instead of generic trending apps.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_agentexchange_find_slack_and_tableau_solutions_in_agentexchange.htm",
+          "product": "AgentExchange",
+          "name": "Find Slack and Tableau solutions in AgentExchange",
+          "says": "Slack and Tableau Next apps now appear alongside Salesforce solutions when you search AgentExchange, with dedicated badges and filtering options.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_agentexchange_extend_your_ai_assistants_with_skills_and_plugins.htm",
+          "product": "AgentExchange",
+          "name": "Extend your AI assistants with skills and plugins from AgentExchange",
+          "says": "AgentExchange now hosts skills and plugins for extending Claude and other AI assistants, including overviews, file trees, and install instructions.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_agentexchange_gtm_renewals.htm",
+          "product": "AgentExchange Partners",
+          "name": "Renew customer contracts in the Go-To-Market app",
+          "says": "Partners can create, send, and fulfill renewal offers for existing customer contracts directly in the AgentExchange Go-To-Market app.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_agentexchange_gtm_multi-year-contract.htm",
+          "product": "AgentExchange Partners",
+          "name": "Set multi-year contract terms for private offers",
+          "says": "Partners can send private offers with 24-month or 36-month contract terms, in addition to the standard 12-month term, billing annually.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_appexchange_trialforce_identify_domain_verification.htm",
+          "product": "AgentExchange Partners",
+          "name": "Identify Trialforce email-sending domains that need verification",
+          "says": "Due to a security enhancement for outbound email, you must verify domains associated with your Trialforce branded email sets via Setup.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_see_a_modernized_look_for_your_agentexchange_solution_listings.htm",
+          "product": "AgentExchange Partners",
+          "name": "See a modernized look for your AgentExchange solution listings",
+          "says": "Your AgentExchange solution listing detail page receives an automatic modernized look and feel that helps buyers evaluate listings faster.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_apex_elastic_limits_batch.htm",
+          "product": "Apex",
+          "name": "Avoid workflow disruptions by enabling elastic limits for Batch jobs (beta)",
+          "says": "The elastic limits beta feature is now available to Batch jobs, throttling processing when standard asynchronous limits are exceeded to prevent failures.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_apex_elastic_limits_test_nonprod.htm",
+          "product": "Apex",
+          "name": "Test elastic limits by overriding async limits in nonprod orgs",
+          "says": "You can override the standard 24-hour rolling asynchronous Apex job limit in a nonproduction org to test elastic processing behavior before production.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_apex_integration_tests.htm",
+          "product": "Apex",
+          "name": "Test external services and HTTP callouts in Apex integration tests (developer preview)",
+          "says": "Write Apex integration tests that call real HTTP endpoints without requiring mock callouts, relax callout restrictions, and use @BeforeClass for shared test data setup.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_apex_discovery_api_testlevel.htm",
+          "product": "Apex",
+          "name": "Filter Test Discovery API results with the testLevel parameter",
+          "says": "Use the testLevel query parameter in the Test Discovery API to filter returned test methods, replacing the deprecated showAllMethods parameter.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_apex_namespace_shadowing_managed_packages.htm",
+          "product": "Apex",
+          "name": "Resolve field name conflicts in managed package SOQL queries",
+          "says": "Prevent duplicate field name errors in managed Apex SOQL queries by setting the explicitNamespace property on Database.QueryOptions to distinguish package and subscriber fields.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_apex_block_exec_anon_ru.htm",
+          "product": "Apex",
+          "name": "Block Apex anonymous code execution from managed packages (release update)",
+          "says": "Strengthen security by blocking managed package session IDs from authenticating and executing anonymous Apex code.",
+          "score": 9
+        },
+        {
+          "topic": "release-notes.rn_apex_symbol_api.htm",
+          "product": "Apex",
+          "name": "Build and use richer development tools with the Apex symbol API (beta)",
+          "says": "Access comprehensive Apex type information via the Tooling API REST resource to power IDE code completion, AI agents, and setup agents.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_apex_version_compiler_warnings.htm",
+          "product": "Apex",
+          "name": "Get compiler warnings for Apex API versions 9.0 through 19.0",
+          "says": "The Apex compiler now warns when compiling or deploying code at API versions 9.0 through 19.0, preparing for their future retirement.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_api_composite_em.htm",
+          "product": "API",
+          "name": "Get notified about composite API requests with EventLogFile event types",
+          "says": "Query the EventLogFile object for CompositeApi and CompositeApiSubrequest event types to track composite API and graph API requests.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_api_rest_openapi_spec_beta.htm",
+          "product": "API",
+          "name": "Other Improvements to Generating an OpenAPI Document for sObjects REST API (Beta)",
+          "says": "Generate OpenAPI documents using the latest specification to query all available resources and use wildcard characters in URIs.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_update_instanced_urls_in_api_traffic.htm",
+          "product": "API",
+          "name": "Update instanced URLs in API traffic (release update)",
+          "says": "Enforce API traffic routing through the org’s My Domain login URL to prevent disruption from unsupported incorrect instanced URLs.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_control_edge_network_routing_with_self_serve.htm",
+          "product": "API",
+          "name": "Control your Salesforce edge network routing with self-serve Setup",
+          "says": "Manage network routing with self-serve options on the My Domain Setup page to maintain connection reliability without contacting support.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_streaming_api_replay_tightening.htm",
+          "product": "API",
+          "name": "Streaming API replay tightening",
+          "says": "Starting with API version 68.0, the Streaming API server emits a per-channel replay watermark to enable faster syncing on resubscription.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_api_soap_login.htm",
+          "product": "API",
+          "name": "Assign Use Any API Auth permission for SOAP login() (release update)",
+          "says": "Require the Use Any API Auth user permission for SOAP API login() authentication, enforcing this uniformly across all orgs starting December 2026.",
+          "score": 9
+        },
+        {
+          "topic": "release-notes.rn_api_rest_latest.htm",
+          "product": "API",
+          "name": "Simplify REST API version management",
+          "says": "Use latest instead of a numbered version in a REST API URI to automatically route requests to the most recent supported version.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_api_bulk_refresh.htm",
+          "product": "API",
+          "name": "Ingest marketing object and consent data at scale with Bulk API 2.0",
+          "says": "Support insert, upsert, and a new refresh operation for marketing objects in Bulk API 2.0 to move large volumes of marketing data faster.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_api_soap_login_retirement.htm",
+          "product": "API",
+          "name": "Retire SOAP API login() Calls in Versions 31.0 Through 64.0 (Release Update)",
+          "says": "Retire SOAP API login() calls in versions 31.0 through 64.0 in Summer ’27, requiring updates to supported API versions.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_api_soql_where.htm",
+          "product": "API",
+          "name": "Compare values between fields in SOQL (beta)",
+          "says": "Perform arithmetic calculations directly in a SOQL WHERE clause with the FORMULA() function to compare field values efficiently.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_api_catalog.htm",
+          "product": "API Catalog",
+          "name": "API Catalog",
+          "says": "Centralize and manage APIs and MCP servers from sources like MuleSoft, Heroku, and Apex for use in Agentforce agents and flows.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_experiences_builder_sites.htm",
+          "product": "Experience Cloud",
+          "name": "Improve efficiency with Orchestration Work guide",
+          "says": "Improve efficiency for users completing multiple work items through the Orchestration Work guide.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_experiences_builder_sites.htm",
+          "product": "Experience Cloud",
+          "name": "Open native Agentforce panel in Mobile Publisher apps",
+          "says": "Open a native Agentforce panel in your Mobile Publisher apps.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_experiences_sharing.htm",
+          "product": "Experience Cloud",
+          "name": "Specify email From address for unverified domains",
+          "says": "Specify the From address that each Experience Cloud site uses to send email on behalf of a user with an unverified email domain.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_experiences_sharing.htm",
+          "product": "Experience Cloud",
+          "name": "Designate secondary sender for sensitive emails",
+          "says": "Designate a secondary sender email address to send more securely emails that contain sensitive data.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_experiences_sharing.htm",
+          "product": "Experience Cloud",
+          "name": "Hide sensitive fields from guest users",
+          "says": "Identify and hide fields that contain sensitive information from guest users while keeping them visible to portal users.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_ext_services_any_type_support.htm",
+          "product": "External Services",
+          "name": "Streamline flow integrations with external services support for any type",
+          "says": "Create external services based on any OpenAPI schema without Apex or Transform elements, sending data directly to endpoints for easier flow maintenance.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_customization_general_lab_request_approvals_component.htm",
+          "product": "General Setup",
+          "name": "Add multiple flow approval processes with Request Approvals component",
+          "says": "Configure the Request Approvals component to give submitters up to 10 autolaunched flow approval processes to select from for a record.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_customization_general_lab_orchestration_work_item_component_update.htm",
+          "product": "General Setup",
+          "name": "Open next Work item from same Orchestration run",
+          "says": "Configure the Orchestration Work Guide component to automatically open the next work item from the same orchestration run upon completion.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_list_views_inline.htm",
+          "product": "General Setup",
+          "name": "Make inline editing in List Views more flexible",
+          "says": "Enable inline editing for any editable field regardless of page layouts and allow it in list views containing multiple record types.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_field_history_tracking_ga.htm",
+          "product": "General Setup",
+          "name": "Enable field history tracking for users (generally available)",
+          "says": "Track up to 20 fields on the User object to monitor updates and view detailed change logs with timestamps and user attribution.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_setup_audit_trail.htm",
+          "product": "General Setup",
+          "name": "View Setup Audit Trail permission to access Setup Audit Trail (release update)",
+          "says": "Control Setup Audit Trail access with a dedicated permission, supporting least privilege without granting the broader View Setup permission.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_globalization_enable_icu_locale.htm",
+          "product": "Globalization",
+          "name": "Enable ICU locale formats (release update)",
+          "says": "Replace JDK locale formats with ICU standards for dates, times, currencies, and addresses to ensure consistent global formatting and better integration.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_lab_dyhi_follow.htm",
+          "product": "Lightning App Builder",
+          "name": "Add the Follow button to the Dynamic Highlights panel",
+          "says": "Customize Dynamic Highlights Panels to include the standard Follow button, allowing users to easily subscribe to record updates.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_lwc_versioning.htm",
+          "product": "Lightning Components",
+          "name": "LWC API version 68.0",
+          "says": "Update component API versions to access new features while ensuring existing components remain unaffected by future platform changes.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_lws_prog_click.htm",
+          "product": "Lightning Components",
+          "name": "Programmatic anchor clicks for same-origin URLs",
+          "says": "Replace window.open for same-origin Salesforce URLs with detached programmatic anchor clicks to avoid LockerSecurityError under Lightning Web Security.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_lc_lws_htmlanchorelement_distortion.htm",
+          "product": "Lightning Components",
+          "name": "HTMLAnchorElement distortion blocks data: URI scheme",
+          "says": "Block data: URIs on anchor elements for security and require using the blob: URI scheme for plain text downloads.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_lwc_console_navigation_item.htm",
+          "product": "Lightning Components",
+          "name": "Control navigation items in Lightning console apps",
+          "says": "Use the platformNavigationItemApi module to programmatically manage navigation items in Lightning console app menus.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_lwc_custom_element_mode.htm",
+          "product": "Lightning Components",
+          "name": "Use third-party web components in LWC (Generally Available)",
+          "says": "Integrate third-party web components directly into LWC templates using the lwc:external directive without rewriting them.",
+          "score": 9
+        },
+        {
+          "topic": "release-notes.rn_lwc_state_manager_refresh.htm",
+          "product": "Lightning Components",
+          "name": "Refresh state manager data",
+          "says": "Call the refresh() action on built-in state managers to fetch updated list or query data without reloading the page or reconfiguring the manager.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_lc_ui_embedding.htm",
+          "product": "Lightning Components",
+          "name": "Salesforce microfrontend (UI embedding)",
+          "says": "Embed existing external web applications directly into Salesforce pages while securely exchanging data, styling, and events.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_mobile_agentic_apps.htm",
+          "product": "Mobile",
+          "name": "Create native mobile apps with Agentforce (Limited Release)",
+          "says": "Use natural language prompts to generate, design, publish, and analyze native employee or customer mobile apps via Agentforce.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_mobile_app_new.htm",
+          "product": "Mobile",
+          "name": "Salesforce mobile app AI features",
+          "says": "Add AI-generated meeting next steps, on-device audio processing, and built-in post-meeting voice notes to streamline mobile workflows.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_mobile_publisher.htm",
+          "product": "Mobile",
+          "name": "Agentforce chat in mobile publisher",
+          "says": "Launch a native Agentforce chat experience directly from the floating action button within Mobile Publisher apps.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_tools_agentforce_dx.htm",
+          "product": "Platform Development Tools",
+          "name": "Agentforce DX pro-code tools",
+          "says": "Create, preview, and test AI agents directly within Salesforce DX projects using integrated CLI and VS Code tooling.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_developer_console.htm",
+          "product": "Platform Development Tools",
+          "name": "Developer console hidden by default",
+          "says": "Hide the Developer Console option from Setup by default to reduce clutter and encourage modern development alternatives.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_tools_dx_mcp.htm",
+          "product": "Platform Development Tools",
+          "name": "Salesforce DX MCP server",
+          "says": "Enable LLM interaction with Salesforce orgs by using the DX MCP Server to execute standard tasks like syncing metadata and running tests via natural language prompts.",
+          "score": 9
+        },
+        {
+          "topic": "release-notes.rn_protect_custom_object_access_UEL_restrictions.htm",
+          "product": "Platform Licensing and Digital Wallet",
+          "name": "Unified employee license Custom Object restrictions",
+          "says": "Restrict Unified Employee licensed users from accessing custom objects unless they belong to security-reviewed AppExchange packages.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_defer_sharing_calculations_UEL_upgrades.htm",
+          "product": "Platform Licensing and Digital Wallet",
+          "name": "Defer sharing calculations for bulk license updates",
+          "says": "Defer sharing recalculation during bulk Unified Employee license assignments to prevent performance failures and complete updates before system recalculation.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_unblock_connected_app_install.htm",
+          "product": "Platform Licensing and Digital Wallet",
+          "name": "OAuth installations in legacy developer orgs",
+          "says": "Allow connected app installations via OAuth in pre-2018 Developer Edition orgs by automatically granting the Approve Uninstalled Connected Apps permission.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_sharing_retain_manual.htm",
+          "product": "Permissions and Sharing",
+          "name": "Retain manual shares during record transfer",
+          "says": "Optionally preserve manual shares when transferring record ownership using a new org-level setting on the Sharing Settings page.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_permissions_profile_filtering_enforced.htm",
+          "product": "Permissions and Sharing",
+          "name": "Enable profile filtering (Release Update)",
+          "says": "Enforce default profile filtering to hide profile names except for users with View All Profiles, requiring explicit permission assignment beforehand.",
+          "score": 9
+        },
+        {
+          "topic": "release-notes.rn_sharing_apex_recalc.htm",
+          "product": "Permissions and Sharing",
+          "name": "Asynchronous sharing recalculation (Release Update)",
+          "says": "Shift certain group and role sharing recalculations to asynchronous processing, requiring updates to Apex and flows relying on synchronous behavior.",
+          "score": 9
+        },
+        {
+          "topic": "release-notes.rn_cms_brand_content_type.htm",
+          "product": "Salesforce CMS",
+          "name": "Brand content type in enhanced CMS workspaces",
+          "says": "Make the Brand content type available across all enhanced CMS workspaces to customize React app colors, typography, and styling.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_cms_v2_data_kit_search.htm",
+          "product": "Salesforce CMS",
+          "name": "CMS semantic search with base data kit 2.0",
+          "says": "Deploy CMS Base data kit 2.0 to enable AI-powered semantic search indexing based on taxonomy terms rather than exact tag matches.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_sf_connect_xorg_legacy_auth_retiring_ru.htm",
+          "product": "Salesforce Connect",
+          "name": "Cross-Org adapter legacy authentication retirement (release update)",
+          "says": "Password and OAuth 2.0 authentication methods for the cross-org adapter are being retired, and you must migrate external data sources to use named credentials.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_functions_retired.htm",
+          "product": "Salesforce Functions",
+          "name": "Salesforce Functions Retirement",
+          "says": "Salesforce Functions is no longer available for purchase or renewal, and you must deploy an alternative solution before your existing order term ends.",
+          "score": 9
+        },
+        {
+          "topic": "release-notes.rn_slds_ai_skills.htm",
+          "product": "Salesforce Lightning Design System",
+          "name": "SLDS AI skills for lightning development",
+          "says": "Three AI skills in Agentforce Vibes help you apply, validate, and migrate SLDS 1 code to SLDS 2 while catching compliance issues directly in your workflow.",
+          "score": 7
+        }
+      ]
+    },
+    {
+      "name": "Sales",
+      "topic": "release-notes.rn_sales.htm",
+      "features": [
+        {
+          "topic": "release-notes.rn_sales_email_maintain_verfication_exception.htm",
+          "product": "Email Configuration",
+          "name": "Maintain your email verification exception (Release Update)",
+          "says": "Configure an authorized email domain setting to maintain your exception when the release update enforces removal of existing domain allowlists that disable email verification.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_sales_sfo_retiring.htm",
+          "product": "Email, Calendar, and Integrations",
+          "name": "Salesforce for Outlook is being retired in January 2027",
+          "says": "Salesforce for Outlook is being retired in January 2027, recommending migration to the Outlook integration and Einstein Activity Capture.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_salesforce_in_claude.htm",
+          "product": "Salesforce in Claude",
+          "name": "Access Salesforce context without leaving Claude (Beta)",
+          "says": "Secure Salesforce MCP connections and pre-built skills surface live deal, pipeline, and account data directly in Claude conversations without separate integrations.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_automated_acct_mgmt_field_updates.htm",
+          "product": "Agentforce Sales Management",
+          "name": "Guided configuration for automated account management field updates",
+          "says": "Salesforce Go now includes a guided setup to configure automated account field updates, allowing admins to add fields, choose methods, enter instructions, and manage configurations.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_new_pipeline_experience_setup_experience.htm",
+          "product": "Agentforce Sales Management",
+          "name": "Streamlined pipeline management field updates in Salesforce Go",
+          "says": "Salesforce Go introduces a guided Automate Field Updates workflow to streamline opportunity field update configuration, replacing previous manual setup steps.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_sales_account_plans_setup_go.htm",
+          "product": "Sales Account Plans",
+          "name": "Complete account plans setup experience in Salesforce Go",
+          "says": "Salesforce Go now provides a full guided configuration for Account Plans, consolidating setup steps and allowing permission assignment via a single permission set.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_sales_productivity_eac_more_exclusions.htm",
+          "product": "Einstein Activity Capture",
+          "name": "Keyword-based email exclusion",
+          "says": "Use keywords to automatically detect and exclude emails containing specific words or phrases from Einstein Activity Capture.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_sales_productivity_eac_more_exclusions.htm",
+          "product": "Einstein Activity Capture",
+          "name": "Wildcard domain exclusion rules",
+          "says": "Apply wildcard rules to exclude calendar events and emails linked to specific web domains from Einstein Activity Capture.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_sales_productivity_eac_more_exclusions.htm",
+          "product": "Einstein Activity Capture",
+          "name": "Enhanced sensitive data detection",
+          "says": "Sensitive data detection now excludes emails prefixed with 'confidential' in subjects and Outlook messages marked confidential or private.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_sales_agentforce_pipeline_management_setup_skill.htm",
+          "product": "Agentforce Sales Management",
+          "name": "Pipeline management configuration skill",
+          "says": "An Agentforce skill uses natural-language prompts to automate opportunity field configuration, allowing reps to review suggestions or admins to enable autonomous updates.",
+          "score": 8
+        }
+      ]
+    },
+    {
+      "name": "Service",
+      "topic": "release-notes.rn_service.htm",
+      "features": [
+        {
+          "topic": "release-notes.rn_knowledge_clone_article.htm",
+          "product": "Knowledge",
+          "name": "Reuse existing content by cloning a knowledge article",
+          "says": "Save time and maintain consistency by starting a new article from an existing one, copying its fields and attached files.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_service_knowledge_image_access.htm",
+          "product": "Knowledge",
+          "name": "Keep Knowledge article images private after archiving",
+          "says": "Salesforce now checks the status and public visibility of a Knowledge article version before it serves any image embedded in the article.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_whatsapp_voice_messages.htm",
+          "product": "Messaging - WhatsApp Messaging",
+          "name": "Interact with Agentforce using WhatsApp voice messages",
+          "says": "WhatsApp users can now send voice messages to your Agentforce agent on WhatsApp instead of typing, switching between formats seamlessly.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_api_update_conversation_entries.htm",
+          "product": "Messaging - Conversation Data API",
+          "name": "Update Conversation entries after creation via API",
+          "says": "Use the Conversation Data API to update the content of existing conversation entries instead of deleting and recreating them.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_wa_pricing_changes.htm",
+          "product": "Messaging - WhatsApp Messaging",
+          "name": "Prepare for WhatsApp service and utility message pricing changes",
+          "says": "Meta is charging on a per-message basis for two WhatsApp message types that were previously free, and Salesforce will update its pricing accordingly.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_service_enhanced_chat_v2_default.htm",
+          "product": "Messaging - Enhanced Chat",
+          "name": "Give new orgs the latest Enhanced Chat experience by default",
+          "says": "New orgs that turn on chat now start with Enhanced Chat v2 instead of Enhanced Chat v1 without any extra configuration or opt-in step.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_afcc.htm",
+          "product": "Contact Center",
+          "name": "Agentforce Contact Center",
+          "says": "Agentforce Contact Center is an AI-first contact center within Salesforce that redefines customer engagement with a built-in telephony product.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_pcc_voice.htm",
+          "product": "Contact Center",
+          "name": "Partner Contact Center",
+          "says": "Connect a third-party contact center, such as Amazon Connect, with Salesforce by using Partner Contact Center for enhanced voice capabilities.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_it_srvcs_asset_management_parent.htm",
+          "product": "Agentforce IT Service",
+          "name": "AI agents for hardware lifecycle management",
+          "says": "Automate hardware lifecycle management with Agentforce AI agents that handle employee inquiries, sourcing decisions, and disposal reconciliation.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_it_srvcs_asset_management_parent.htm",
+          "product": "Agentforce IT Service",
+          "name": "Double-Entry ledger for IT asset tracking",
+          "says": "Track every inventory change with a complete double-entry ledger for audit compliance.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_it_srvcs_asset_management_parent.htm",
+          "product": "Agentforce IT Service",
+          "name": "Fast Path fulfillment for IT assets",
+          "says": "Simplify daily operations with Fast Path fulfillment that consolidates all actions on a single page.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_it_srvcs_asset_management_parent.htm",
+          "product": "Agentforce IT Service",
+          "name": "Customizable asset status mappings",
+          "says": "Customize asset status mappings to match your organizational processes.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_it_srvcs_cmdb_overview.htm",
+          "product": "Agentforce IT Service",
+          "name": "Configure CMDB List Views with role-specific details",
+          "says": "Configure configuration item list views to display the details relevant to your role and open related records directly from the list.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_it_srvcs_discovery_overview.htm",
+          "product": "Agentforce IT Service",
+          "name": "Splunk integration for CMDB updates",
+          "says": "Keep CMDB data current with server and cloud inventory and operational events from Splunk.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_it_srvcs_discovery_overview.htm",
+          "product": "Agentforce IT Service",
+          "name": "Dynamic Discovery targets for CMDB",
+          "says": "Use Dynamic Discovery to create Splunk discovery targets and review incomplete CIs before adding relevant resources to CMDB.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_it_srvcs_discovery_overview.htm",
+          "product": "Agentforce IT Service",
+          "name": "New Discovery objects and Platform Event",
+          "says": "Use the new Discovery objects and platform event that support Dynamic Discovery.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_it_service_it_compliance.htm",
+          "product": "Agentforce IT Service",
+          "name": "Automated evidence collection for compliance",
+          "says": "Strengthen your compliance program with continuous, automated evidence collection.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_it_service_it_compliance.htm",
+          "product": "Agentforce IT Service",
+          "name": "AI-Assisted Controls Coverage",
+          "says": "Provide AI-assisted controls coverage and trustworthy AI policy authoring.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_it_service_it_compliance.htm",
+          "product": "Agentforce IT Service",
+          "name": "Bulk actions for policy lifecycles",
+          "says": "Move through regulation and policy lifecycles faster with bulk actions.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_it_service_it_compliance.htm",
+          "product": "Agentforce IT Service",
+          "name": "Prebuilt Tableau dashboards for compliance",
+          "says": "Monitor your posture with prebuilt Tableau dashboards.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_it_srvcs_agentforce_parent.htm",
+          "product": "Agentforce IT Service",
+          "name": "AI-Powered file analysis for IT tickets",
+          "says": "Automate file analysis for IT tickets.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_it_srvcs_agentforce_parent.htm",
+          "product": "Agentforce IT Service",
+          "name": "Customizable AI prompts for IT processes",
+          "says": "Customize AI prompts to match your organization's processes.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_it_srvcs_agentforce_parent.htm",
+          "product": "Agentforce IT Service",
+          "name": "Custom Field mappings for AI processing",
+          "says": "Customize field mappings to match your organization's processes.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_it_srvcs_collaboration_parent.htm",
+          "product": "Agentforce IT Service",
+          "name": "Slackbot integration for IT issue resolution",
+          "says": "Resolve IT issues through natural conversations with Slackbot, handling requests like password resets, software access, and account provisioning.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_it_srvcs_collaboration_parent.htm",
+          "product": "Agentforce IT Service",
+          "name": "One-Click microsoft Teams deployment",
+          "says": "Deploy Teams integration with one click.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_it_srvcs_collaboration_parent.htm",
+          "product": "Agentforce IT Service",
+          "name": "Customizable Teams List Views",
+          "says": "Customize Teams list views to match how your team works.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_it_srvcs_self_service_parent.htm",
+          "product": "Agentforce IT Service",
+          "name": "Codeless portal UI customization",
+          "says": "Control which fields and buttons appear on the ticket list, ticket details, and approval list pages without writing code.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_it_srvcs_self_service_parent.htm",
+          "product": "Agentforce IT Service",
+          "name": "Multi-Language employee services portal",
+          "says": "Offer the portal in employees' preferred languages.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_it_srvcs_self_service_parent.htm",
+          "product": "Agentforce IT Service",
+          "name": "Ticket comments and activity feed",
+          "says": "Keep employees connected to IT with comments and a feed directly on their tickets.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_it_srvcs_self_service_parent.htm",
+          "product": "Agentforce IT Service",
+          "name": "Agentforce auto-conversion to Knowledge articles",
+          "says": "Turn resolved incidents, problems, and change requests into reusable Knowledge articles with Agentforce.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_it_srvcs_broadcast_notifications_parent.htm",
+          "product": "Agentforce IT Service",
+          "name": "Multi-Channel Incident Broadcasts",
+          "says": "Send broadcast updates during major incidents and change requests through email, in-app, Slack, and Teams in one action.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_it_srvcs_broadcast_notifications_parent.htm",
+          "product": "Agentforce IT Service",
+          "name": "Structured Slack Notifications",
+          "says": "Turn plain-text Slack alerts into structured notifications with labeled sections and action buttons so users can act without leaving Slack.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_it_srvcs_broadcast_notifications_parent.htm",
+          "product": "Agentforce IT Service",
+          "name": "Agentforce-Driven Notification Delivery",
+          "says": "Deliver notifications through an Agentforce agent so employees ask follow-up questions and take action right in the Slack thread.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_agentforce_hr_svc.htm",
+          "product": "AI Agents for Service Cloud",
+          "name": "Prebuilt Agentforce agents for HR service",
+          "says": "Cover more high-frequency employee requests with prebuilt Agentforce agents for payroll, compensation, time and scheduling, onboarding, and goals management.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_einstein_article_recommendations.htm",
+          "product": "AI Solutions for Service",
+          "name": "Agentforce Article Recommendations for cases",
+          "says": "Agentforce Article Recommendations identify and resolve multiple issues within an individual case.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_enhanced_summaries.htm",
+          "product": "AI Solutions for Service",
+          "name": "Expanded language support for Case Summaries",
+          "says": "Enhanced Summaries for Case now support five additional languages, so more of your global service reps receive summaries in their preferred language.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_einstein_work_summaries.htm",
+          "product": "AI Solutions for Service",
+          "name": "Auto-Generated work summaries for Voice and Messaging",
+          "says": "Automatically generate and save work summaries for Voice calls and Enhanced Messaging sessions.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_einstein_work_summaries.htm",
+          "product": "AI Solutions for Service",
+          "name": "Expanded language support for work Summaries",
+          "says": "Work Summaries now support five additional languages, so more of your global service reps receive summaries in their preferred language.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_einstein_work_summaries.htm",
+          "product": "AI Solutions for Service",
+          "name": "Retirement of Case work Summaries beta",
+          "says": "Work Summaries for Case (beta) is scheduled for retirement on September 30, 2026.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_service_replies_for_email.htm",
+          "product": "AI Solutions for Service",
+          "name": "Enterprise Knowledge grounding for Email Replies",
+          "says": "Service Replies for Email can now ground suggested replies in Enterprise Knowledge sources.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_cases_refine_case_comments_with_ai_powered_writing_tools.htm",
+          "product": "Case Management",
+          "name": "AI-Powered writing tools in case comments",
+          "says": "Service reps can now use AI-powered writing tools directly in the case comment editor to polish, expand, or summarize comment drafts while preserving their intended meaning.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_cases_refine_case_comments_with_ai_powered_writing_tools.htm",
+          "product": "Case Management",
+          "name": "Admin-Configurable Prompt Templates",
+          "says": "Reps can also refine comments by entering specific instructions, based on the guidance that admins configure in the Refine Case Comment prompt template.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_cases_refine_case_comments_with_ai_powered_writing_tools.htm",
+          "product": "Case Management",
+          "name": "Selective text revision capability",
+          "says": "The tools can revise either an entire comment or selected text.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_cases_easily_view_original_case_attachments.htm",
+          "product": "Case Management",
+          "name": "Inline display of original Case attachments",
+          "says": "Original case attachments now display directly inline under the Case Description field, eliminating the need to click a button or open a side panel.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_cases_enhanced_case_merge_updated_ui.htm",
+          "product": "Case Management",
+          "name": "Consolidated case merge setup page",
+          "says": "Configure case merging from a consolidated setup page.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_cases_enhanced_case_merge_updated_ui.htm",
+          "product": "Case Management",
+          "name": "Unified settings for Case Merge variants",
+          "says": "The revamped setup page brings together settings for Case Merge, Enhanced Case Merge (Beta), and Case Merge for Omni-Channel (Beta).",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_cases_enhanced_case_merge_updated_ui.htm",
+          "product": "Case Management",
+          "name": "Duplicate and Matching Rules in enhanced Merge beta",
+          "says": "Enhanced Case Merge (Beta) provides access to Duplicate Rules and Matching Rules.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_csi_unmetered_exp_signals.htm",
+          "product": "Customer Signals Intelligence",
+          "name": "Free Experience Signals in customer Signals Intelligence",
+          "says": "Customer Signals Intelligence now offers Experience Signals at no additional cost, consuming only Data Cloud credits and Flex Credits for LLM requests and agent actions.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_entitlements_deleting_outdated_case_milestones.htm",
+          "product": "Entitlements and Milestones",
+          "name": "Bulk deletion of outdated case milestones",
+          "says": "Delete case milestones in bulk through Data Loader or programmatically via Apex to reclaim data storage consumed by outdated milestone records.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_hr_svc_workflow_templates.htm",
+          "product": "HR Service",
+          "name": "Five new HR Service workflow templates",
+          "says": "Cover more employee scenarios out of the box with five templates added to the HR Service workflow library, such as shift swaps, timecard corrections, and direct deposit updates.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_hr_svc_cnfd_case_policy_engine.htm",
+          "product": "HR Service",
+          "name": "Protect confidential cases with case visibility policies",
+          "says": "Control who can see confidential cases by defining visibility rules directly on the case object with the Policy Engine, limiting access to specific users, queues, and teams.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_knowledge_blocks.htm",
+          "product": "Knowledge",
+          "name": "Reuse modular content across articles with knowledge blocks",
+          "says": "Knowledge Blocks are modular, reusable units of content that you create once and insert into any article as a managed, read-only block that reflects changes automatically.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_knowledge_creation_custom_prompts.htm",
+          "product": "Knowledge",
+          "name": "Create knowledge articles from any record with custom Prompt Templates",
+          "says": "Service reps can draft knowledge articles from any record using multiple custom prompt templates built in Prompt Builder, replacing the previous single-template limitation.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_knowledge_similarity.htm",
+          "product": "Knowledge",
+          "name": "Prevent duplicate articles with knowledge similarity",
+          "says": "When authors draft knowledge articles, they can check for similar articles in the knowledge base, surfacing matches and similarity scores to avoid creating duplicates.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_omni-channel_headless360_set_up_omni_channel_with_a_guided_skill_workflow.htm",
+          "product": "Routing",
+          "name": "Set up omni-channel with a guided skill workflow",
+          "says": "Set up Omni-Channel faster with a guided skill workflow that configures routing, queues, users, and permissions, detecting existing configuration and creating what is missing.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_omnichannel_monitor_service_reps.htm",
+          "product": "Routing",
+          "name": "Monitor service reps with the service reps component",
+          "says": "Get a comprehensive overview of service reps' real-time status and current work with the Service Reps component in Command Center for Service V2, monitoring presence and workload in a single list view.",
+          "score": 5
+        },
+        {
+          "topic": "release-notes.rn_deploy_messaging_automatically_during_agentic_portal_setup.htm",
+          "product": "Self Service",
+          "name": "Deploy messaging automatically during agentic portal setup",
+          "says": "Set up Enhanced Chat without manually configuring messaging channels or embedded service deployments, as the system provisions and deploys it automatically during Agentic Portal setup.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_reach_customers_with_in_app_notifications_for_proactive_service.htm",
+          "product": "Self Service",
+          "name": "Reach customers with in-app notifications for proactive service",
+          "says": "Deliver proactive service outreach through mobile in-app notifications in addition to email, reaching customers on the companion app surfaces they use most.",
+          "score": 6
+        },
+        {
+          "topic": "release-notes.rn_guide_customers_through_troubleshooting_steps_with_a_reusable_action_pilot.htm",
+          "product": "Self Service",
+          "name": "Guide customers through troubleshooting steps with a reusable action",
+          "says": "Add guided troubleshooting to proactive service scenarios without building separate Agentforce topics, using a general-purpose action that grounds responses in Knowledge and case history.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_set_up_your_agentic_portal_faster_with_a_guided_setup_wizard.htm",
+          "product": "Self Service",
+          "name": "Set up your agentic portal faster with a guided setup wizard",
+          "says": "Build a Self-Service Agentic Portal that takes you through site creation, feature configuration, component setup, review, and one-click deployment using a guided wizard.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_set_up_a_help_agent_in_one_guided_workflow.htm",
+          "product": "Self Service",
+          "name": "Set up a help agent in one guided workflow",
+          "says": "Setting up a Service Cloud Help Agent requires coordinating multiple tasks, now brought into one guided workflow skill that configures and deploys each part faster.",
+          "score": 7
+        }
+      ]
+    },
+    {
+      "name": "Slack Integrations",
+      "topic": "release-notes.rn_slack_apps.htm",
+      "features": [
+        {
+          "topic": "release-notes.rn_slack_apps_slackbot_salesforce.htm",
+          "product": "Slackbot in Salesforce",
+          "name": "Slackbot in Salesforce",
+          "says": "Slackbot is built into Salesforce, sharing your context and access to information to work across both systems for quick updates, planning, and fast information retrieval.",
+          "score": 7
+        },
+        {
+          "topic": "release-notes.rn_slack_agentforce_sales_for_slack.htm",
+          "product": "Sell Smarter in Slack: Agentforce Sales and the New Go Page",
+          "name": "Agentforce sales in Slackbot",
+          "says": "Agentforce Sales is now available directly in Slackbot, bringing Sales agents into your Slack workflow.",
+          "score": 8
+        },
+        {
+          "topic": "release-notes.rn_slack_agentforce_sales_for_slack.htm",
+          "product": "Sell Smarter in Slack: Agentforce Sales and the New Go Page",
+          "name": "Dedicated Go page for setup",
+          "says": "A new dedicated Go page makes setup fast and easy for admins.",
+          "score": 5
+        }
+      ]
+    }
+  ],
+  "enforced": [
+    {
+      "topic": "release-notes.rn_api_soap_login.htm",
+      "name": "Assign Use Any API Auth Permission for SOAP login()",
+      "says": "To authenticate with the SOAP API login() operation, all users must have the Use Any API Auth user permission assigned to them. Users without the Use Any API Auth user permission can no longer authenticate with SOAP API login() and will encounter an error.",
+      "when": "Enforced with This Release",
+      "deadline": "1 Dec 2026"
+    },
+    {
+      "topic": "release-notes.rn_general_accessibility_cards_docked_containers_ru_262.htm",
+      "name": "Enable Accessibility Enhancements for Cards, Docked Containers, Menu Lists, and Panels",
+      "says": "To help meet Web Content Accessibility Guidelines (WCAG) 2.2 for Resize and Reflow, enable Lightning Experience to adapt the behavior of cards, docked containers, menu lists, and panels when viewed at high magnification. This release update is dependent on the Enable Accessibility Enhancements for Page Headers and Modal Windows When Zoom Is Greater Than 200% release update.",
+      "when": "Enforced with This Release"
+    },
+    {
+      "topic": "release-notes.rn_general_accessibility_datepicker_recordheaders_ru.htm",
+      "name": "Enable Accessibility Enhancements for Date Pickers, Popovers, Bottom Utility Bars, Record Headers",
+      "says": "To help meet Web Content Accessibility Guidelines (WCAG) 2.2 for Resize and Reflow, enable Lightning Experience to adapt the behavior of date pickers, popovers, bottom utility bars, and record headers when viewed at high magnification. This release update is dependent on the Enable Accessibility Enhancements for Page Headers and Modal Windows When Zoom Is Greater Than 200% release update.",
+      "when": "Enforced with This Release"
+    },
+    {
+      "topic": "release-notes.rn_general_accessibility_page_headers_modals_ru.htm",
+      "name": "Enable Accessibility Enhancements for Page Headers and Modal Windows When Zoom Is Greater Than 200%",
+      "says": "To help meet Web Content Accessibility Guidelines (WCAG) 2.2 for Resize and Reflow, enable Lightning Experience to adapt the behavior of page headers and modal windows when viewed at high magnification. This is the beginning of our effort to comply with WCAG 2.2 Resize and Reflow guidelines.",
+      "when": "Enforced with This Release"
+    },
+    {
+      "topic": "release-notes.rn_permissions_profile_filtering_enforced.htm",
+      "name": "Enable Profile Filtering",
+      "says": "To improve the security of your Salesforce org, the Profile Filtering setting is enabled by default. Profile filtering prevents users from viewing profile names other than their own unless they’re assigned the View All Profiles permission.",
+      "when": "Enforced with This Release"
+    },
+    {
+      "topic": "release-notes.rn_sales_email_maintain_verfication_exception.htm",
+      "name": "Maintain Your Email Verification Exception",
+      "says": "If you previously disabled user email verifications through Salesforce Customer Support, configure an authorized email domain setting to maintain your exception and to preserve your users' ability to send email. When this release update is enforced, Salesforce removes the existing domain allowlists that disable email verification.",
+      "when": "Scheduled To Be Enforced Before Spring ’27",
+      "deadline": "1 Dec 2026"
+    },
+    {
+      "topic": "release-notes.rn_security_oauth_device.htm",
+      "name": "Restrict the OAuth 2.0 Device Flow to Local External Client Apps",
+      "says": "To secure the OAuth 2.0 device flow, Salesforce is restricting this flow to local external client apps with a localhost callback URL. To prepare for this change, review your usage of the device flow and update your connected apps and external client apps to meet the new criteria.",
+      "when": "Scheduled To Be Enforced Before Spring ’27",
+      "deadline": "30 Nov 2026"
+    },
+    {
+      "topic": "release-notes.rn_experiences_conceal_pii_guests.htm",
+      "name": "Conceal Personal Information Fields from Guest Users",
+      "says": "Set field visibility for guest users without affecting your settings for other external users. Turn on Independent Guest Field Masking to hide certain fields specifically from guest users.",
+      "when": "Scheduled to Be Enforced in Spring ’27"
+    },
+    {
+      "topic": "release-notes.rn_general_accessibility_todo_listboxes_ru_262.htm",
+      "name": "Enable Accessibility Enhancements for To Do Lists and Lightning Dual Listboxes When Zoom Is Greater Than 200%",
+      "says": "To help meet Web Content Accessibility Guidelines (WCAG) 2.2 for Resize and Reflow, enable Lightning Experience to adapt the behavior of To Do lists and Lightning dual listboxes when viewed at high magnification. This is part of our effort to comply with WCAG 2.2 Resize and Reflow guidelines.",
+      "when": "Scheduled to Be Enforced in Spring ’27"
+    },
+    {
+      "topic": "release-notes.rn_security_oauth_useragent.htm",
+      "name": "OAuth User-Agent and Hybrid User-Agent Flows Retirement",
+      "says": "Salesforce is retiring the OAuth user-agent flow and the OAuth hybrid user-agent flow. For better security, update your integrations to use the OAuth web-server flow or hybrid web-server flow with the Proof Key for Code Exchange (PKCE) extension.",
+      "when": "Scheduled to Be Enforced in Spring ’27",
+      "deadline": "20 Feb 2027"
+    },
+    {
+      "topic": "release-notes.rn_lc_rus_remove_nonpublic_fields_ru.htm",
+      "name": "Remove Non-Public Fields from Custom Object Data in Aura Action Responses",
+      "says": "To improve security, Salesforce is removing non-public system fields from custom object data returned in Aura action responses. This update filters out internal system fields that aren’t part of the public Salesforce API.",
+      "when": "Scheduled to Be Enforced in Spring ’27"
+    },
+    {
+      "topic": "release-notes.rn_vf_accessible_pdf_ru.htm",
+      "name": "Render Visualforce Pages as Accessible (Tagged) PDFs (Beta)",
+      "says": "With this update enabled, Visualforce pages rendered with renderAs=\"pdf\" use the accessible PDF rendering engine, which produces tagged PDF/UA output. Tagged PDFs include the document structure and metadata that assistive technologies such as screen readers rely on.",
+      "when": "Scheduled to Be Enforced in Spring ’27"
+    },
+    {
+      "topic": "release-notes.rn_security_oauth_unpw.htm",
+      "name": "Retirement of OAuth 2.0 Username-Password Flow for Connected Apps",
+      "says": "When this release update is enforced, we'll stop supporting the OAuth 2.0 username-password flow for connected apps. This update will break all connected app integrations that use this flow.",
+      "when": "Scheduled to Be Enforced in Spring ’27",
+      "deadline": "20 Feb 2027"
+    },
+    {
+      "topic": "release-notes.rn_roll_back_platform_event_trigger_transactions_on_unhandled_exceptions.htm",
+      "name": "Roll Back Platform Event Trigger Transactions on Unhandled Exceptions",
+      "says": "This update rolls back the transaction of a platform event Apex trigger when it throws an unhandled exception, so that partially written records are no longer committed.",
+      "when": "Scheduled to Be Enforced in Spring ’27"
+    },
+    {
+      "topic": "release-notes.rn_sf_connect_xorg_legacy_auth_retiring_ru.htm",
+      "name": "Salesforce Connect Cross-Org Adapter Legacy Authentication Is Being Retired",
+      "says": "The password and OAuth 2.0 authentication methods for the Salesforce Connect cross-org adapter are being retired. These authentication methods rely on the SOAP login() call, which is being retired.",
+      "when": "Scheduled to Be Enforced in Spring ’27"
+    },
+    {
+      "topic": "release-notes.rn_sales_salesforce_to_salesforce_retiring_ru.htm",
+      "name": "Salesforce to Salesforce Is Being Retired",
+      "says": "Salesforce to Salesforce is being retired in Spring ’27. Salesforce has more powerful and integrated solutions that align with modern business needs.",
+      "when": "Scheduled to Be Enforced in Spring ’27"
+    },
+    {
+      "topic": "release-notes.rn_api_soap_login_retirement.htm",
+      "name": "SOAP API login() Call in SOAP API Versions 31.0 Through 64.0 Is Being Retired",
+      "says": "In Summer ‘27, the SOAP API login() call in SOAP API versions 31.0 through 64.0 will no longer be supported and no longer be available.",
+      "when": "Scheduled to Be Enforced in Spring ’27"
+    },
+    {
+      "topic": "release-notes.rn_sharing_apex_recalc.htm",
+      "name": "Update Apex Code and Flows for Changed Sharing Recalculation Behavior",
+      "says": "To optimize performance after large-scale updates to groups or roles, Salesforce now performs some sharing recalculations asynchronously. If Apex code and flows require that share records be updated immediately, the code and flows can break when this release update is enforced.",
+      "when": "Scheduled to Be Enforced in Spring ’27"
+    },
+    {
+      "topic": "release-notes.rn_update_instanced_urls_in_api_traffic.htm",
+      "name": "Update Instanced URLs in API Traffic",
+      "says": "To prevent disruption when Salesforce ends support for API traffic that uses an incorrect instanced URL, make sure that API traffic to your org uses the org’s My Domain login URL. First available in Summer ’25, this release update was scheduled to be enforced in Spring ’26, but we have postponed the enforcement until Spring ’27.",
+      "when": "Scheduled to Be Enforced in Spring ’27"
+    },
+    {
+      "topic": "release-notes.rn_setup_audit_trail.htm",
+      "name": "View Setup Audit Trail Permission to Access Setup Audit Trail",
+      "says": "Control access to Setup Audit Trail with the dedicated View Setup Audit Trail permission. Admins can provide access without granting the broader View Setup permission, supporting the principle of least privilege.",
+      "when": "Scheduled to Be Enforced in Spring ’27"
+    },
+    {
+      "topic": "release-notes.rn_apex_block_exec_anon_ru.htm",
+      "name": "Block Apex Anonymous Code Execution from Managed Packages",
+      "says": "To strengthen subscriber org security, block managed package session IDs from authenticating anonymous Apex code. If you enable this update, installed managed packages can no longer use UserInfo.getSessionId() to obtain a session ID and then use the session ID to execute anonymous Apex.",
+      "when": "Scheduled to Be Enforced in Summer ’27"
+    },
+    {
+      "topic": "release-notes.rn_security_migrate_all_connected_apps.htm",
+      "name": "Migrate All Connected Apps to External Client Apps",
+      "says": "Keep your integrations supported by migrating to external client apps. In Summer '27, Salesforce is ending support for connected apps.",
+      "when": "Scheduled to Be Enforced in Summer ’27"
+    },
+    {
+      "topic": "release-notes.rn_product_configurator_optimize_performance.htm",
+      "name": "Optimize Performance for Revenue Management",
+      "says": "This update optimizes the Configuration API to speed up processing times in Product Configurator. Enable the test run in a sandbox environment to confirm that the optimizations work with your setup.",
+      "when": "Scheduled to Be Enforced in Summer ’27"
+    },
+    {
+      "topic": "release-notes.rn_sales_adopt_authorized_email_domains.htm",
+      "name": "Adopt Authorized Email Domains",
+      "says": "This update has been canceled and replaced by the Maintain Your Email Verification Exception update.",
+      "when": "Canceled Updates"
+    }
+  ],
+  "link": "https://help.salesforce.com/s/articleView?id={topic}&release=264&type=5",
+  "notes": "https://help.salesforce.com/s/articleView?id=release-notes.salesforce_release_notes.htm&release=264&type=5"
+}
