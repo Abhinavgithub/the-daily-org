@@ -10,3 +10,5 @@ marketing/
 .claude/
 # Pictures the image model drew that were turned down, kept to look at.
 data/logs/rejected/
+# What `npm run replay` reads and finds. It is rebuilt when needed.
+data/replay/
