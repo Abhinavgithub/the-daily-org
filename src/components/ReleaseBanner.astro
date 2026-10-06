@@ -1,7 +1,6 @@
 ---
 import fs from 'node:fs';
 import path from 'node:path';
-import { PAPER } from '../config';
 import { bannerFor, readReleases } from '../lib/releases';
 
 // One line under the nameplate when a release is near: its next date, then the
@@ -17,8 +16,6 @@ try {
 }
 const today = new Date().toISOString().slice(0, 10);
 const banner = bannerFor(releases, today);
-// Where the paper keeps its stories about releases, when it has such a section.
-const stories = PAPER.sections.find((section) => section.id === 'releases');
 ---
 
 {
@@ -27,12 +24,6 @@ const stories = PAPER.sections.find((section) => section.id === 'releases');
       <span class="release__says">
         <span class="release__flag">Release</span>
         <strong data-release-name>{banner?.release.name}</strong><span data-release-rest>{banner?.rest}</span>
-        {stories && (
-          <>
-            {' '}
-            <a href={`/section/${stories.id}/`}>Release&nbsp;stories</a>
-          </>
-        )}
       </span>
     </p>
   )
