@@ -44,7 +44,7 @@ It refuses to run with uncommitted changes and asks before deleting anything. Th
 | `npm run figures` | Adds missing diagrams to must-read stories. `-- --day YYYY-MM-DD` for one edition, `-- --redo` to draw them again. |
 | `npm run readership` | Saves who read the paper, up to yesterday, for the Stats page. Needs the `READERSHIP_` settings. |
 | `npm run revise -- --glossary-only` | Re-applies the glossary to every story, with no model calls. |
-| `npm run feedback` | Records what the paper got wrong: `-- junk <address>` for a printed story that should not have run, `-- missed <address>` for one it skipped, `-- list` to review. Kept in `data/feedback.jsonl`. |
+| `npm run feedback` | Records what the paper got wrong: `-- junk <address>` for a printed story that should not have run, `-- missed <address>` for one it skipped, `-- list` to review. Kept in `data/feedback.jsonl`. Under `npm run dev` the Logs page does the same with a button on each article. |
 | `npm run favicon` | Redraws the icons from the paper's name and colours. |
 | `npm run check` / `npm test` | Type-checks, and runs the tests. |
 

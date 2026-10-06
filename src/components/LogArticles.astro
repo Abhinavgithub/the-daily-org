@@ -1,14 +1,40 @@
 ---
 import type { ArticleRow } from '../lib/insights';
 import { OUTCOME_LABELS, type ArticleOutcome } from '../lib/logs';
+import { kindFor, normalizeUrl, type Feedback, type FeedbackKind } from '../../pipeline/feedback';
 
 // Every article of every run kept, in one table that can be searched and narrowed.
+// The last column is the reader's own verdict: a printed story that was junk, or
+// a rejected one that should have run. It can be given only where the page can save it.
 
 interface Props {
   articles: ArticleRow[];
+  /** What has been flagged so far, by article address. */
+  feedback: Feedback[];
+  /** Whether a flag can be saved from this page: on the dev server, not on the built site. */
+  canFlag: boolean;
 }
 
-const { articles } = Astro.props;
+const { articles, feedback, canFlag } = Astro.props;
+const CALL: Record<FeedbackKind, { label: string; hint: string }> = {
+  junk: { label: 'Junk', hint: 'This should not have been printed' },
+  missed: { label: 'Should have run', hint: 'This should have been printed' },
+};
+const address = (url: string) => {
+  try {
+    return normalizeUrl(url);
+  } catch {
+    return url;
+  }
+};
+const flags = new Map(feedback.map((entry) => [address(entry.url), entry]));
+const rows = articles.map((article) => {
+  const url = address(article.url);
+  const kind = kindFor(article.outcome);
+  // A flag stands only where it fits what the run did: a story flagged as junk is not also "missed" in the run that rejected it.
+  const flag = flags.get(url);
+  return { article, url, kind, flag: flag && flag.kind === kind ? flag : undefined };
+});
 const day = (iso: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }).format(new Date(iso));
 const SHORT: Record<ArticleOutcome, string> = {
   published: 'Published',
@@ -40,12 +66,17 @@ const present = (Object.keys(SHORT) as ArticleOutcome[]).filter((outcome) => art
               </button>
             ))}
           </div>
+          <button type="button" class="chip" data-flagged-chip aria-pressed="false" hidden={!canFlag && flags.size === 0}>
+            Flagged <span class="chip__count" data-count />
+          </button>
           <button type="button" class="chip" data-run-chip hidden>
             <span data-run-chip-name /> <span aria-hidden="true">×</span>
             <span class="visually-hidden">Show every run</span>
           </button>
         </div>
         <p class="ledger__note" data-article-status aria-live="polite" />
+        <p class="ledger__note" data-flag-sum hidden />
+        <p class="ledger__note articles__error" data-flag-error role="alert" hidden />
         <div class="log__scroll">
           <table class="log__table">
             <thead>
@@ -55,17 +86,43 @@ const present = (Object.keys(SHORT) as ArticleOutcome[]).filter((outcome) => art
                 <th scope="col">Outcome</th>
                 <th scope="col">Score</th>
                 <th scope="col">Run</th>
+                <th scope="col">Your call</th>
               </tr>
             </thead>
             <tbody>
-              {articles.map((article) => (
-                <tr data-article data-outcome={article.outcome} data-at={article.ranAt} data-text={`${article.title} ${article.source}`.toLowerCase()}>
+              {rows.map(({ article, url, kind, flag }) => (
+                <tr
+                  data-article
+                  data-outcome={article.outcome}
+                  data-at={article.ranAt}
+                  data-text={`${article.title} ${article.source}`.toLowerCase()}
+                  data-url={url}
+                  data-kind={kind}
+                  data-flagged={flag ? 'yes' : 'no'}
+                  data-title={article.title}
+                  data-source={article.source}
+                  data-score={article.score}
+                >
                   <td>
                     <a href={article.url} target="_blank" rel="noopener" title={article.outcome === 'published' && article.reason ? `${article.title} (${article.reason})` : article.title}>
                       {article.title}
                     </a>
                     {/* A second line only where it explains a decision. */}
                     {article.reason && article.outcome !== 'published' && <span class="log__reason">{article.reason}</span>}
+                    {kind && canFlag && (
+                      <input
+                        class="log__why"
+                        type="text"
+                        maxlength="500"
+                        placeholder="Why? (optional)"
+                        aria-label={`Why "${article.title}" is flagged`}
+                        autocomplete="off"
+                        value={flag?.note ?? ''}
+                        hidden={!flag}
+                        data-why
+                      />
+                    )}
+                    {!canFlag && flag?.note && <span class="log__reason">Flagged: {flag.note}</span>}
                   </td>
                   <td>{article.source}</td>
                   <td>
@@ -73,12 +130,21 @@ const present = (Object.keys(SHORT) as ArticleOutcome[]).filter((outcome) => art
                   </td>
                   <td>{article.score ?? ''}</td>
                   <td>{day(article.ranAt)}</td>
+                  <td>
+                    {kind && canFlag && (
+                      <button type="button" class="chip chip--call" data-flag aria-pressed={flag ? 'true' : 'false'} title={CALL[kind].hint}>
+                        {CALL[kind].label}
+                      </button>
+                    )}
+                    {kind && !canFlag && flag && <span class="tag tag--flagged">{CALL[kind].label}</span>}
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
         <button type="button" class="chip results__more" data-article-more hidden>Show more</button>
+        {!canFlag && <p class="ledger__note">Articles are flagged where the paper runs on your own machine, under <code>npm run dev</code>.</p>}
       </>
     )
   }

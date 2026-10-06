@@ -5,7 +5,7 @@ Budget: a few dollars a month at most; new features under about $0.25 a month un
 
 Check a box when the step is built, tested and committed.
 
-- [x] 1. **Feedback log.** Record by hand which printed stories were junk and which skipped ones should have run. The log doubles as test data for the later steps.
+- [x] 1. **Feedback log.** Record by hand which printed stories were junk and which skipped ones should have run. The log doubles as test data for the later steps. Flag from the Logs page under `npm run dev` (Articles, "Your call" column), or with `npm run feedback`.
 - [ ] 2. **Tune prompts and rules** (`relevant`, `notRelevant`, the scoring prompt) against that log. No new spend.
 - [ ] 3. **Group repeat coverage.** One story with "also covered by..." links; the number of sources feeds the score.
 - [ ] 4. **New sources**, one at a time, each checked with `npm run try-source`:

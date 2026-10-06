@@ -4,6 +4,7 @@
 // each request; on the built site it shows what was true when the site was built.
 import fs from 'node:fs';
 import path from 'node:path';
+import { loadFeedback } from '../../../pipeline/feedback';
 import { SOURCES } from '../../../pipeline/sources';
 import { PAPER } from '../../config';
 import LogArticles from '../../components/LogArticles.astro';
@@ -112,6 +113,13 @@ const panels = PERIODS.map((period) => {
 });
 const toLook = scores.filter((row) => row.verdict.look).length;
 const articles = allArticles(logs);
+// What the reader has flagged as wrong. It can be added to from this page only where the page can save it.
+let feedback: ReturnType<typeof loadFeedback> = [];
+try {
+  feedback = loadFeedback();
+} catch {
+  // An unreadable file is treated as no record.
+}
 ---
 
 <Layout title="Logs" noindex>
@@ -219,7 +227,7 @@ const articles = allArticles(logs);
 
       <section class="ledger__row" id="articles">
         <h3>Articles</h3>
-        <LogArticles articles={articles} />
+        <LogArticles articles={articles} feedback={feedback} canFlag={import.meta.env.DEV} />
       </section>
 
       <section class="ledger__row" id="runs">
@@ -260,6 +268,9 @@ const articles = allArticles(logs);
   const chips = [...document.querySelectorAll<HTMLElement>('[data-outcome-chip]')];
   const status = document.querySelector<HTMLElement>('[data-article-status]');
   const more = document.querySelector<HTMLButtonElement>('[data-article-more]');
+  const flaggedChip = document.querySelector<HTMLButtonElement>('[data-flagged-chip]');
+  const flagSum = document.querySelector<HTMLElement>('[data-flag-sum]');
+  const flagError = document.querySelector<HTMLElement>('[data-flag-error]');
   const runChip = document.querySelector<HTMLButtonElement>('[data-run-chip]');
   const runChipName = document.querySelector<HTMLElement>('[data-run-chip-name]');
   const runsMore = document.querySelector<HTMLButtonElement>('[data-runs-more]')!;
@@ -275,6 +286,7 @@ const articles = allArticles(logs);
     runs: params.get('runs') === 'problems' ? 'problems' : '',
     outcome: params.get('outcome') ?? '',
     q: params.get('q') ?? '',
+    flagged: params.get('flagged') === '1',
     run: '',
     runName: '',
     shown: PAGE,
@@ -336,7 +348,20 @@ const articles = allArticles(logs);
       chip.querySelector('[data-count]')!.textContent = String(outcome ? candidates.filter((row) => row.dataset.outcome === outcome).length : candidates.length);
     }
     press(chips, state.outcome, 'outcomeChip');
-    const kept = candidates.filter((row) => !state.outcome || row.dataset.outcome === state.outcome);
+    const isFlagged = (row: HTMLElement) => row.dataset.flagged === 'yes';
+    if (flaggedChip) {
+      flaggedChip.querySelector('[data-count]')!.textContent = String(candidates.filter(isFlagged).length);
+      flaggedChip.setAttribute('aria-pressed', String(state.flagged));
+    }
+    if (flagSum) {
+      // An article that came up in several runs is one article.
+      const flagged = new Map(rows.filter(isFlagged).map((row) => [row.dataset.url, row.dataset.kind]));
+      const junk = [...flagged.values()].filter((kind) => kind === 'junk').length;
+      const missed = flagged.size - junk;
+      flagSum.hidden = flagged.size === 0;
+      flagSum.textContent = `${flagged.size} flagged: ${junk} junk, ${missed} should have run.`;
+    }
+    const kept = candidates.filter((row) => (!state.outcome || row.dataset.outcome === state.outcome) && (!state.flagged || isFlagged(row)));
     for (const row of rows) row.hidden = true;
     kept.slice(0, state.shown).forEach((row) => (row.hidden = false));
     const left = kept.length - state.shown;
@@ -357,6 +382,7 @@ const articles = allArticles(logs);
     if (state.runs) next.set('runs', state.runs);
     if (state.outcome) next.set('outcome', state.outcome);
     if (state.q) next.set('q', state.q);
+    if (state.flagged) next.set('flagged', '1');
     if (state.allSources) next.set('sources', 'all');
     const query = next.toString();
     history.replaceState(null, '', location.pathname + (query ? `?${query}` : '') + location.hash);
@@ -392,6 +418,76 @@ const articles = allArticles(logs);
       fresh();
     });
   }
+  flaggedChip?.addEventListener('click', () => {
+    state.flagged = !state.flagged;
+    fresh();
+  });
+
+  // The reader's own verdict on an article. It is saved by the dev server; the same article in another run follows.
+  const sameArticle = (row: HTMLElement) => rows.filter((other) => other.dataset.url === row.dataset.url && other.dataset.kind === row.dataset.kind);
+  const why = (row: HTMLElement) => row.querySelector<HTMLInputElement>('[data-why]');
+  function show(row: HTMLElement, flagged: boolean, note: string) {
+    for (const other of sameArticle(row)) {
+      other.dataset.flagged = flagged ? 'yes' : 'no';
+      other.querySelector('[data-flag]')?.setAttribute('aria-pressed', String(flagged));
+      const field = why(other);
+      if (!field) continue;
+      field.hidden = !flagged;
+      field.value = note;
+      field.dataset.saved = note;
+    }
+  }
+  async function save(row: HTMLElement, flagged: boolean, note: string): Promise<boolean> {
+    if (flagError) flagError.hidden = true;
+    try {
+      const score = Number(row.dataset.score);
+      const response = await fetch('/__feedback', {
+        method: flagged ? 'POST' : 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url: row.dataset.url, kind: row.dataset.kind, title: row.dataset.title, source: row.dataset.source, interest: row.dataset.score ? score : undefined, note }),
+      });
+      if (!response.ok) throw new Error((await response.json().catch(() => ({}))).error ?? `The server answered ${response.status}.`);
+      return true;
+    } catch (error) {
+      if (flagError) {
+        flagError.textContent = `Not saved. ${(error as Error).message}`;
+        flagError.hidden = false;
+      }
+      return false;
+    }
+  }
+  for (const field of document.querySelectorAll<HTMLInputElement>('[data-why]')) field.dataset.saved = field.value;
+  document.addEventListener('click', async (event) => {
+    const button = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-flag]');
+    const row = button?.closest<HTMLElement>('[data-article]');
+    if (!button || !row) return;
+    const flagged = button.getAttribute('aria-pressed') !== 'true';
+    const before = why(row)?.dataset.saved ?? '';
+    // Shown at once, and put back if it could not be saved.
+    show(row, flagged, flagged ? before : '');
+    if (flagged) why(row)?.focus();
+    if (!(await save(row, flagged, flagged ? before : ''))) show(row, !flagged, before);
+    apply();
+  });
+  document.addEventListener('change', async (event) => {
+    const field = (event.target as HTMLElement).closest<HTMLInputElement>('[data-why]');
+    const row = field?.closest<HTMLElement>('[data-article]');
+    if (!field || !row || row.dataset.flagged !== 'yes') return;
+    const before = field.dataset.saved ?? '';
+    const note = field.value.trim();
+    show(row, true, note);
+    if (!(await save(row, true, note))) show(row, true, before);
+  });
+  document.addEventListener('keydown', (event) => {
+    const field = (event.target as HTMLElement).closest<HTMLInputElement>('[data-why]');
+    if (!field) return;
+    if (event.key === 'Enter') field.blur();
+    if (event.key === 'Escape') {
+      field.value = field.dataset.saved ?? '';
+      field.blur();
+    }
+  });
+
   more?.addEventListener('click', () => {
     state.shown += MORE;
     apply();

@@ -1910,9 +1910,49 @@ span.dateline__step {
   margin: 0 0 0.4rem;
 }
 
+// The reader's verdict on a row: quiet until pressed, and no taller than the row's text.
+.chip--call {
+  padding: 0.1rem 0.45rem;
+  color: var(--muted);
+
+  &[aria-pressed='true']::before {
+    content: '\2713';
+  }
+}
+
+.tag--flagged {
+  border-color: var(--ink);
+  color: var(--ink);
+}
+
+// Why an article was flagged, written under its title. It reads as a line of text until it is being typed in.
+.log__why {
+  display: block;
+  width: 100%;
+  margin-top: 0.15rem;
+  padding: 0.1rem 0;
+  border: 1px solid transparent;
+  border-bottom-color: var(--rule);
+  border-radius: 0;
+  background: none;
+  color: var(--ink);
+  font: inherit;
+
+  &:focus {
+    padding-inline: 0.3rem;
+    border-color: var(--edge-solid);
+    background: var(--surface);
+  }
+}
+
+.articles__error {
+  color: var(--sun);
+  font-weight: 600;
+}
+
 // One line an article: a long title is cut short, and is whole in its tooltip.
 .articles .log__table td:first-child {
-  width: 52%;
+  width: 44%;
   max-width: 0;
 
   a {
