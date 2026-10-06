@@ -94,17 +94,24 @@ export function deadlineIn(text: string): string | undefined {
   return match ? `${Number(match[2])} ${match[1].slice(0, 3)} ${match[3]}` : undefined;
 }
 
-/** The notes' Release Updates, as they stand: Salesforce's own title and words, with no model between. */
-export function enforcedFrom(entries: Entry[]): Enforced[] {
-  return entries
-    .filter((entry) => entry.kind === 'term')
-    .map((entry) => {
-      // The first two sentences say what changes and what happens to those who do nothing.
-      // A sentence ends at a full stop that a capital follows, which leaves "WCAG 2.2" and "login()" whole.
-      const says = entry.text.split(/(?<=[.!?])\s+(?=[A-Z])/).slice(0, 2).join(' ').trim();
-      const deadline = deadlineIn(entry.text);
-      return { topic: entry.topic, name: entry.title.replace(/\s*\(Release Update\)\s*$/i, ''), says, when: entry.group ?? '', ...(deadline ? { deadline } : {}) };
-    });
+/** The notes' Release Updates, as they stand: Salesforce's own title and words, with no model between. The title is set in the paper's case. */
+export function enforcedFrom(entries: Entry[], paper: Paper = PAPER): Enforced[] {
+  const terms = entries.filter((entry) => entry.kind === 'term');
+  const titled = (entry: Entry) => entry.title.replace(/\s*\(Release Update\)\s*$/i, '');
+  const titles = terms.map(titled).sort((a, b) => b.length - a.length);
+  return terms.map((entry) => {
+    // The first two sentences say what changes and what happens to those who do nothing.
+    // A sentence ends at a full stop that a capital follows, which leaves "WCAG 2.2" and "login()" whole.
+    const says = entry.text.split(/(?<=[.!?])\s+(?=[A-Z])/).slice(0, 2).join(' ').trim();
+    const deadline = deadlineIn(entry.text);
+    // What the text shows to be a name keeps its capital. Two things in it are capitalised without
+    // being names: another update quoted by its title, and a phrase spelt out before its initials.
+    let context = entry.text;
+    for (const title of titles) context = context.replaceAll(title, '');
+    context = context.replace(/(?:\p{Lu}\p{L}*\s+){2,}(?=\(\p{Lu}{2,}\))/gu, '');
+    const name = applyGlossary(sentenceCase(titled(entry), context), paper);
+    return { topic: entry.topic, name, says, when: entry.group ?? '', ...(deadline ? { deadline } : {}) };
+  });
 }
 
 export interface BuildOptions {
@@ -176,7 +183,7 @@ export async function buildEdition(llm: LlmClient, number: string, options: Buil
   if (updates) {
     await wait();
     const page = await helpTopic(updates.topic, number, context, request);
-    enforced = page.found ? enforcedFrom(entriesIn(page.html)) : [];
+    enforced = page.found ? enforcedFrom(entriesIn(page.html), paper) : [];
     log(`  ${UPDATES}: ${enforced.length} listed`);
   }
   return {

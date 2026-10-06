@@ -2321,26 +2321,26 @@
   "enforced": [
     {
       "topic": "release-notes.rn_api_soap_login.htm",
-      "name": "Assign Use Any API Auth Permission for SOAP login()",
+      "name": "Assign Use Any API Auth permission for SOAP login()",
       "says": "To authenticate with the SOAP API login() operation, all users must have the Use Any API Auth user permission assigned to them. Users without the Use Any API Auth user permission can no longer authenticate with SOAP API login() and will encounter an error.",
       "when": "Enforced with This Release",
       "deadline": "1 Dec 2026"
     },
     {
       "topic": "release-notes.rn_general_accessibility_cards_docked_containers_ru_262.htm",
-      "name": "Enable Accessibility Enhancements for Cards, Docked Containers, Menu Lists, and Panels",
+      "name": "Enable accessibility enhancements for cards, docked containers, menu lists, and panels",
       "says": "To help meet Web Content Accessibility Guidelines (WCAG) 2.2 for Resize and Reflow, enable Lightning Experience to adapt the behavior of cards, docked containers, menu lists, and panels when viewed at high magnification. This release update is dependent on the Enable Accessibility Enhancements for Page Headers and Modal Windows When Zoom Is Greater Than 200% release update.",
       "when": "Enforced with This Release"
     },
     {
       "topic": "release-notes.rn_general_accessibility_datepicker_recordheaders_ru.htm",
-      "name": "Enable Accessibility Enhancements for Date Pickers, Popovers, Bottom Utility Bars, Record Headers",
+      "name": "Enable accessibility enhancements for date pickers, popovers, bottom utility bars, record headers",
       "says": "To help meet Web Content Accessibility Guidelines (WCAG) 2.2 for Resize and Reflow, enable Lightning Experience to adapt the behavior of date pickers, popovers, bottom utility bars, and record headers when viewed at high magnification. This release update is dependent on the Enable Accessibility Enhancements for Page Headers and Modal Windows When Zoom Is Greater Than 200% release update.",
       "when": "Enforced with This Release"
     },
     {
       "topic": "release-notes.rn_general_accessibility_page_headers_modals_ru.htm",
-      "name": "Enable Accessibility Enhancements for Page Headers and Modal Windows When Zoom Is Greater Than 200%",
+      "name": "Enable accessibility enhancements for page headers and modal windows when zoom is greater than 200%",
       "says": "To help meet Web Content Accessibility Guidelines (WCAG) 2.2 for Resize and Reflow, enable Lightning Experience to adapt the behavior of page headers and modal windows when viewed at high magnification. This is the beginning of our effort to comply with WCAG 2.2 Resize and Reflow guidelines.",
       "when": "Enforced with This Release"
     },
@@ -2352,40 +2352,40 @@
     },
     {
       "topic": "release-notes.rn_sales_email_maintain_verfication_exception.htm",
-      "name": "Maintain Your Email Verification Exception",
+      "name": "Maintain your email verification exception",
       "says": "If you previously disabled user email verifications through Salesforce Customer Support, configure an authorized email domain setting to maintain your exception and to preserve your users' ability to send email. When this release update is enforced, Salesforce removes the existing domain allowlists that disable email verification.",
       "when": "Scheduled To Be Enforced Before Spring ’27",
       "deadline": "1 Dec 2026"
     },
     {
       "topic": "release-notes.rn_security_oauth_device.htm",
-      "name": "Restrict the OAuth 2.0 Device Flow to Local External Client Apps",
+      "name": "Restrict the OAuth 2.0 device flow to local External Client Apps",
       "says": "To secure the OAuth 2.0 device flow, Salesforce is restricting this flow to local external client apps with a localhost callback URL. To prepare for this change, review your usage of the device flow and update your connected apps and external client apps to meet the new criteria.",
       "when": "Scheduled To Be Enforced Before Spring ’27",
       "deadline": "30 Nov 2026"
     },
     {
       "topic": "release-notes.rn_experiences_conceal_pii_guests.htm",
-      "name": "Conceal Personal Information Fields from Guest Users",
+      "name": "Conceal personal information fields from Guest users",
       "says": "Set field visibility for guest users without affecting your settings for other external users. Turn on Independent Guest Field Masking to hide certain fields specifically from guest users.",
       "when": "Scheduled to Be Enforced in Spring ’27"
     },
     {
       "topic": "release-notes.rn_general_accessibility_todo_listboxes_ru_262.htm",
-      "name": "Enable Accessibility Enhancements for To Do Lists and Lightning Dual Listboxes When Zoom Is Greater Than 200%",
+      "name": "Enable accessibility enhancements for To Do lists and Lightning dual listboxes when zoom is greater than 200%",
       "says": "To help meet Web Content Accessibility Guidelines (WCAG) 2.2 for Resize and Reflow, enable Lightning Experience to adapt the behavior of To Do lists and Lightning dual listboxes when viewed at high magnification. This is part of our effort to comply with WCAG 2.2 Resize and Reflow guidelines.",
       "when": "Scheduled to Be Enforced in Spring ’27"
     },
     {
       "topic": "release-notes.rn_security_oauth_useragent.htm",
-      "name": "OAuth User-Agent and Hybrid User-Agent Flows Retirement",
+      "name": "OAuth user-agent and hybrid user-agent flows retirement",
       "says": "Salesforce is retiring the OAuth user-agent flow and the OAuth hybrid user-agent flow. For better security, update your integrations to use the OAuth web-server flow or hybrid web-server flow with the Proof Key for Code Exchange (PKCE) extension.",
       "when": "Scheduled to Be Enforced in Spring ’27",
       "deadline": "20 Feb 2027"
     },
     {
       "topic": "release-notes.rn_lc_rus_remove_nonpublic_fields_ru.htm",
-      "name": "Remove Non-Public Fields from Custom Object Data in Aura Action Responses",
+      "name": "Remove non-public fields from Custom Object data in Aura action responses",
       "says": "To improve security, Salesforce is removing non-public system fields from custom object data returned in Aura action responses. This update filters out internal system fields that aren’t part of the public Salesforce API.",
       "when": "Scheduled to Be Enforced in Spring ’27"
     },
@@ -2397,74 +2397,74 @@
     },
     {
       "topic": "release-notes.rn_security_oauth_unpw.htm",
-      "name": "Retirement of OAuth 2.0 Username-Password Flow for Connected Apps",
+      "name": "Retirement of OAuth 2.0 username-password flow for Connected Apps",
       "says": "When this release update is enforced, we'll stop supporting the OAuth 2.0 username-password flow for connected apps. This update will break all connected app integrations that use this flow.",
       "when": "Scheduled to Be Enforced in Spring ’27",
       "deadline": "20 Feb 2027"
     },
     {
       "topic": "release-notes.rn_roll_back_platform_event_trigger_transactions_on_unhandled_exceptions.htm",
-      "name": "Roll Back Platform Event Trigger Transactions on Unhandled Exceptions",
+      "name": "Roll back Platform Event trigger transactions on unhandled exceptions",
       "says": "This update rolls back the transaction of a platform event Apex trigger when it throws an unhandled exception, so that partially written records are no longer committed.",
       "when": "Scheduled to Be Enforced in Spring ’27"
     },
     {
       "topic": "release-notes.rn_sf_connect_xorg_legacy_auth_retiring_ru.htm",
-      "name": "Salesforce Connect Cross-Org Adapter Legacy Authentication Is Being Retired",
+      "name": "Salesforce Connect cross-org adapter legacy authentication is being retired",
       "says": "The password and OAuth 2.0 authentication methods for the Salesforce Connect cross-org adapter are being retired. These authentication methods rely on the SOAP login() call, which is being retired.",
       "when": "Scheduled to Be Enforced in Spring ’27"
     },
     {
       "topic": "release-notes.rn_sales_salesforce_to_salesforce_retiring_ru.htm",
-      "name": "Salesforce to Salesforce Is Being Retired",
+      "name": "Salesforce to Salesforce is being retired",
       "says": "Salesforce to Salesforce is being retired in Spring ’27. Salesforce has more powerful and integrated solutions that align with modern business needs.",
       "when": "Scheduled to Be Enforced in Spring ’27"
     },
     {
       "topic": "release-notes.rn_api_soap_login_retirement.htm",
-      "name": "SOAP API login() Call in SOAP API Versions 31.0 Through 64.0 Is Being Retired",
+      "name": "SOAP API login() call in SOAP API versions 31.0 through 64.0 is being retired",
       "says": "In Summer ‘27, the SOAP API login() call in SOAP API versions 31.0 through 64.0 will no longer be supported and no longer be available.",
       "when": "Scheduled to Be Enforced in Spring ’27"
     },
     {
       "topic": "release-notes.rn_sharing_apex_recalc.htm",
-      "name": "Update Apex Code and Flows for Changed Sharing Recalculation Behavior",
+      "name": "Update Apex code and flows for changed sharing recalculation behavior",
       "says": "To optimize performance after large-scale updates to groups or roles, Salesforce now performs some sharing recalculations asynchronously. If Apex code and flows require that share records be updated immediately, the code and flows can break when this release update is enforced.",
       "when": "Scheduled to Be Enforced in Spring ’27"
     },
     {
       "topic": "release-notes.rn_update_instanced_urls_in_api_traffic.htm",
-      "name": "Update Instanced URLs in API Traffic",
+      "name": "Update instanced URLs in API traffic",
       "says": "To prevent disruption when Salesforce ends support for API traffic that uses an incorrect instanced URL, make sure that API traffic to your org uses the org’s My Domain login URL. First available in Summer ’25, this release update was scheduled to be enforced in Spring ’26, but we have postponed the enforcement until Spring ’27.",
       "when": "Scheduled to Be Enforced in Spring ’27"
     },
     {
       "topic": "release-notes.rn_setup_audit_trail.htm",
-      "name": "View Setup Audit Trail Permission to Access Setup Audit Trail",
+      "name": "View Setup Audit Trail permission to access Setup Audit Trail",
       "says": "Control access to Setup Audit Trail with the dedicated View Setup Audit Trail permission. Admins can provide access without granting the broader View Setup permission, supporting the principle of least privilege.",
       "when": "Scheduled to Be Enforced in Spring ’27"
     },
     {
       "topic": "release-notes.rn_apex_block_exec_anon_ru.htm",
-      "name": "Block Apex Anonymous Code Execution from Managed Packages",
+      "name": "Block Apex anonymous code execution from managed packages",
       "says": "To strengthen subscriber org security, block managed package session IDs from authenticating anonymous Apex code. If you enable this update, installed managed packages can no longer use UserInfo.getSessionId() to obtain a session ID and then use the session ID to execute anonymous Apex.",
       "when": "Scheduled to Be Enforced in Summer ’27"
     },
     {
       "topic": "release-notes.rn_security_migrate_all_connected_apps.htm",
-      "name": "Migrate All Connected Apps to External Client Apps",
+      "name": "Migrate all Connected Apps to External Client Apps",
       "says": "Keep your integrations supported by migrating to external client apps. In Summer '27, Salesforce is ending support for connected apps.",
       "when": "Scheduled to Be Enforced in Summer ’27"
     },
     {
       "topic": "release-notes.rn_product_configurator_optimize_performance.htm",
-      "name": "Optimize Performance for Revenue Management",
+      "name": "Optimize performance for revenue management",
       "says": "This update optimizes the Configuration API to speed up processing times in Product Configurator. Enable the test run in a sandbox environment to confirm that the optimizations work with your setup.",
       "when": "Scheduled to Be Enforced in Summer ’27"
     },
     {
       "topic": "release-notes.rn_sales_adopt_authorized_email_domains.htm",
-      "name": "Adopt Authorized Email Domains",
+      "name": "Adopt authorized email domains",
       "says": "This update has been canceled and replaced by the Maintain Your Email Verification Exception update.",
       "when": "Canceled Updates"
     }

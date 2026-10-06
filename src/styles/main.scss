@@ -651,8 +651,8 @@ html[data-turn='older']::view-transition-new(turn-fold) {
 }
 
 // A release edition ----------------------------------------------------
-// One release, from its own notes: a front page of its headlines, what it
-// enforces, then everything printed, under the notes' own areas and products.
+// One release, from its own notes: its headlines by name, what it enforces,
+// then everything printed, under the notes' own areas and products.
 .edition {
   max-width: 62rem;
   margin: 0.5rem auto 0;
@@ -666,14 +666,26 @@ html[data-turn='older']::view-transition-new(turn-fold) {
   color: var(--muted);
 }
 
+// The search and the areas stay at the top of the window, so any area is one click away from anywhere on the page.
+.edition__bar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  margin-bottom: 1.25rem;
+  padding-top: 0.6rem;
+  border-bottom: 1px solid var(--ink);
+  background: var(--paper);
+}
+
 .edition__search {
-  display: grid;
-  justify-items: center;
-  gap: 0.4rem;
-  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
 
   input {
-    width: min(100%, 30rem);
+    flex: 0 1 30rem;
+    min-width: 0;
     padding: 0.5rem 0.75rem;
     border: 1px solid var(--edge-solid);
     border-radius: 0;
@@ -682,65 +694,109 @@ html[data-turn='older']::view-transition-new(turn-fold) {
     font: inherit;
     font-size: var(--fs-body);
   }
+
+  button {
+    flex: none;
+    white-space: nowrap;
+  }
 }
 
 .edition__status {
-  margin: 0;
-  min-height: 1.2em;
+  margin: 0.4rem 0 0;
+  text-align: center;
   color: var(--muted);
+
+  &:empty {
+    display: none;
+  }
 }
 
-// The headlines: the few features that matter most, set as the paper sets its stories.
-.edition__lead {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1.5rem;
-  margin-bottom: 2rem;
+// The areas, as links down the page, each with how many of its features are printed.
+.edition__areas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.35rem 1.4rem;
+  padding: 0.6rem 0;
+  font-weight: 500;
 
-  @media (max-width: 60rem) {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  a {
+    white-space: nowrap;
   }
 
+  a[hidden] {
+    display: none;
+  }
+
+  // On a narrow page the areas keep to one line and are drawn sideways, so the bar stays thin.
   @media (max-width: 40rem) {
-    grid-template-columns: minmax(0, 1fr);
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    a {
+      padding: 0.35rem 0;
+    }
   }
 }
 
-.edition__headline {
-  padding: 1rem 1.1rem 1.1rem;
-  border: 1px solid var(--edge);
-  background: var(--surface);
-  box-shadow: var(--shadow-1);
+// The headlines: the few features that matter most, by name, in the order they matter.
+.edition__lead {
+  margin-bottom: 1.5rem;
 
   &[hidden] {
     display: none;
   }
 
-  h2 {
+  > h2 {
     margin: 0 0 0.5rem;
-    font-family: var(--headline);
+    font-size: 0.72rem;
     font-weight: 700;
-    font-size: var(--fs-headline);
-    line-height: 1.2;
-    letter-spacing: -0.005em;
-    text-wrap: balance;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
   }
 
-  p:last-child {
+  ol {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-rows: repeat(3, auto);
+    grid-auto-flow: column;
+    gap: 0.6rem 2.5rem;
     margin: 0;
-    font-family: var(--text);
-    font-size: var(--fs-body);
-    line-height: 1.5;
+    padding: 0 0 0 1.4rem;
+
+    @media (max-width: 40rem) {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: none;
+      grid-auto-flow: row;
+    }
+  }
+
+  li {
+    &[hidden] {
+      display: none;
+    }
+
+    &::marker {
+      font-weight: 700;
+      color: var(--muted);
+    }
+  }
+
+  li a {
+    font-family: var(--headline);
+    font-weight: 700;
+    font-size: 1.125rem;
+    line-height: 1.25;
   }
 }
 
-// Where a headline is filed: its area, and its product.
+// Where a headline is filed, under its name.
 .edition__kicker {
-  margin: 0 0 0.4rem;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
+  display: block;
+  margin-top: 0.1rem;
   color: var(--muted);
 }
 
@@ -755,90 +811,190 @@ html[data-turn='older']::view-transition-new(turn-fold) {
   }
 }
 
-.edition__facts a {
+.edition__facts a,
+.edition__enforced p a {
   color: var(--sky);
   text-decoration: underline;
   text-underline-offset: 0.15em;
 }
 
-// What the release enforces: under a heavy rule, each change beneath a flag that says when.
-.edition__enforced {
-  margin-bottom: 2rem;
-  padding: 1rem 0 0.25rem;
-  border-top: 3px solid var(--ink);
-  border-bottom: 1px solid var(--ink);
+// A line that opens: a mark at its head says which way it will go.
+.edition summary {
+  display: flex;
+  align-items: baseline;
+  gap: 0.25rem 0.75rem;
+  cursor: pointer;
+  list-style: none;
 
-  > h2 {
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  &::before {
+    content: '+';
+    flex: none;
+    width: 0.8rem;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--muted);
+  }
+
+  &:hover h3 {
+    color: var(--sky);
+  }
+
+  h3 {
+    margin: 0;
+    font-family: var(--headline);
+    font-weight: 700;
+    line-height: 1.25;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--ink);
+  }
+}
+
+.edition details[open] > summary::before {
+  content: '\2212';
+}
+
+.edition details[hidden] {
+  display: none;
+}
+
+// What the release enforces: under a heavy rule, a line to a change. When it
+// takes hold stands in the margin, so the names run down one edge.
+.edition__enforced {
+  --when: 8.5rem;
+
+  margin-bottom: 1.75rem;
+  padding-top: 0.9rem;
+  border-top: 3px solid var(--ink);
+
+  &[hidden] {
+    display: none;
+  }
+
+  details {
+    border-top: 1px solid var(--rule);
+  }
+
+  summary {
+    display: grid;
+    grid-template-columns: var(--when) auto minmax(0, 1fr);
+    gap: 0 0.5rem;
+    padding: 0.6rem 0;
+
+    // The mark that says it opens stands by the name, not out in the margin.
+    &::before {
+      grid-column: 2;
+      grid-row: 1;
+    }
+  }
+
+  .edition__when {
+    grid-column: 1;
+    grid-row: 1;
+    color: var(--muted);
+  }
+
+  .flag {
+    margin: 0;
+  }
+
+  h3 {
+    grid-column: 3;
+    font-size: 1.0625rem;
+  }
+
+  details > p {
+    // Under the name: past the margin and the mark.
+    margin: 0 0 0.8rem calc(var(--when) + 1.8rem);
+    max-width: 46rem;
+    font-family: var(--text);
+    font-size: var(--fs-body);
+    line-height: 1.5;
+  }
+
+  // On a narrow page the margin is given up: when it takes hold stands over the name.
+  @media (max-width: 40rem) {
+    summary {
+      grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    .edition__when {
+      grid-column: 2;
+    }
+
+    summary::before {
+      grid-column: 1;
+      grid-row: 2;
+    }
+
+    h3 {
+      grid-column: 2;
+      grid-row: 2;
+    }
+
+    details > p {
+      margin-left: 1.3rem;
+    }
+  }
+}
+
+// The block's name, and how many changes stand under it.
+.edition__title {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 1rem;
+
+  h2 {
     margin: 0;
     font-family: var(--headline);
     font-weight: 700;
     font-size: var(--fs-headline);
     line-height: 1.2;
   }
-
-  article {
-    padding: 0.9rem 0;
-    border-top: 1px solid var(--rule);
-
-    &[hidden] {
-      display: none;
-    }
-  }
-
-  h3 {
-    margin: 0 0 0.35rem;
-    font-family: var(--headline);
-    font-weight: 700;
-    font-size: 1.125rem;
-    line-height: 1.25;
-  }
-
-  article p:last-child {
-    margin: 0;
-    max-width: 46rem;
-    font-family: var(--text);
-    font-size: var(--fs-body);
-    line-height: 1.5;
-  }
 }
 
 .edition__note {
-  margin: 0.3rem 0 0.9rem;
+  margin: 0.3rem 0 0.7rem;
   color: var(--muted);
 }
 
-// The areas, as links down the page, each with how many of its features are printed.
-.edition__areas {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.35rem 1.4rem;
-  margin-bottom: 0.75rem;
-  padding: 0.6rem 0;
-  border-top: 1px solid var(--rule);
-  font-weight: 500;
+// Every feature printed, under the notes' own areas. An area is a line until it is opened.
+.edition__list {
+  border-top: 3px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
 
-  a[hidden] {
-    display: none;
+.edition__area {
+  & + & {
+    border-top: 1px solid var(--rule);
+  }
+
+  > summary {
+    padding: 0.8rem 0;
+
+    h3 {
+      flex: 1;
+      font-size: var(--fs-headline);
+    }
   }
 }
 
-.edition__list {
-  max-width: none;
+.edition__count {
+  flex: none;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
 
-  .ledger__row {
-    // Clear of the top of the window when reached by its link.
-    scroll-margin-top: 1rem;
+.edition__body {
+  padding: 0.25rem 0 1.5rem 1.55rem;
 
-    &[hidden] {
-      display: none;
-    }
-
-    h3 {
-      display: grid;
-      gap: 0.25rem;
-      align-content: start;
-    }
+  @media (max-width: 40rem) {
+    padding-left: 0;
   }
 }
 

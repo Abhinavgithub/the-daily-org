@@ -40,6 +40,17 @@ test('only what takes hold with this release is shown as enforced, and a topic l
   assert.equal(linkTo(edition, 'release-notes.rn_a.htm'), 'https://notes.example/release-notes.rn_a.htm?release=264');
 });
 
+test('enforced changes with a day named come first, the soonest at the head', () => {
+  const now = 'Enforced with This Release';
+  const enforced = [
+    { topic: 'a', name: 'No day', says: '', when: now },
+    { topic: 'b', name: 'December', says: '', when: now, deadline: '1 Dec 2026' },
+    { topic: 'c', name: 'Also no day', says: '', when: now },
+    { topic: 'd', name: 'November', says: '', when: now, deadline: '15 Nov 2026' },
+  ];
+  assert.deepEqual(enforcedNow({ ...edition, enforced }).map((change) => change.name), ['November', 'December', 'No day', 'Also no day']);
+});
+
 test('a search finds every word typed, in any order', () => {
   assert.equal(matches('Automation Flow Builder Retry flows that hit record locks', 'flow retry'), true);
   assert.equal(matches('Automation Flow Builder Retry flows', 'APEX'), false);

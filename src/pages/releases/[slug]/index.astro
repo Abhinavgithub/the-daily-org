@@ -1,8 +1,8 @@
 ---
-// A release edition: one release, from its own release notes. The head of the
-// page is its front page, the features that matter most; then what the release
-// enforces in every org; then every feature printed, under the notes' own areas
-// and products. One box searches the names of all three.
+// A release edition: one release, from its own release notes. The page opens
+// short: the headlines by name, what the release enforces in every org, one
+// line each, and the notes' own areas, closed. An area opens to its products
+// and features. One box searches the names of all three, and stays in view.
 import Masthead from '../../../components/Masthead.astro';
 import Tabs from '../../../components/Tabs.astro';
 import Layout from '../../../layouts/Layout.astro';
@@ -45,29 +45,36 @@ const found = (...parts: string[]) => parts.join(' ').toLowerCase();
         , as they stood on {formatDay(updated, 'short')}.
       </p>
 
-      <div class="edition__search">
-        <label class="visually-hidden" for="edition-search">Search this edition by area, product or feature</label>
-        <input id="edition-search" type="search" placeholder="Search areas, products and features" autocomplete="off" data-edition-search />
+      <div class="edition__bar" data-edition-bar>
+        <div class="edition__search">
+          <label class="visually-hidden" for="edition-search">Search this edition by area, product or feature</label>
+          <input id="edition-search" type="search" placeholder="Search areas, products and features" autocomplete="off" data-edition-search />
+          <button type="button" class="link-button" data-edition-all hidden>Open all</button>
+        </div>
         <p class="edition__status" data-edition-status aria-live="polite"></p>
+        <nav class="edition__areas" aria-label="Areas of this release">
+          {areas.map((area) => (
+            <a href={`#${anchor(area.name)}`} data-area-link={anchor(area.name)}>
+              {area.name} <span class="chip__count">{area.count}</span>
+            </a>
+          ))}
+        </nav>
       </div>
 
       {
         lead.length > 0 && (
-          <section class="edition__lead" aria-label="The headlines of this release" data-edition-block>
-            {lead.map((feature) => (
-              <article class="edition__headline" data-feature data-text={found(feature.area, feature.product, feature.name)}>
-                <p class="edition__kicker">
-                  {feature.area}
-                  {feature.product !== feature.area && ` · ${feature.product}`}
-                </p>
-                <h2>
+          <section class="edition__lead" aria-labelledby="lead-title" data-edition-block>
+            <h2 id="lead-title">The headlines</h2>
+            <ol>
+              {lead.map((feature) => (
+                <li data-feature data-text={found(feature.area, feature.product, feature.name)}>
                   <a href={linkTo(edition, feature.topic)} target="_blank" rel="noopener">
                     {feature.name}
                   </a>
-                </h2>
-                <p>{feature.says}</p>
-              </article>
-            ))}
+                  <span class="edition__kicker">{feature.product !== feature.area ? feature.product : feature.area}</span>
+                </li>
+              ))}
+            </ol>
           </section>
         )
       }
@@ -75,41 +82,41 @@ const found = (...parts: string[]) => parts.join(' ').toLowerCase();
       {
         enforced.length > 0 && (
           <section class="edition__enforced" aria-labelledby="enforced-title" data-edition-block>
-            <h2 id="enforced-title">Enforced with this release</h2>
+            <div class="edition__title">
+              <h2 id="enforced-title">Enforced with this release</h2>
+              <span class="edition__count">{countLabel(enforced.length, 'change', 'changes')}</span>
+            </div>
             <p class="edition__note">Changes made in every org, whether or not anything is done about them.</p>
             {enforced.map((change) => (
-              <article data-feature data-text={found('enforced release updates', change.name)}>
-                <p class="flag">{change.deadline ? `Enforced ${change.deadline}` : 'Enforced this release'}</p>
-                <h3>
+              <details data-feature data-text={found('enforced release updates', change.name)}>
+                <summary>
+                  {/* When it takes hold, in the margin: only a day that is named is flagged. */}
+                  <span class="edition__when">{change.deadline ? <span class="flag">{change.deadline}</span> : 'This release'}</span>
+                  <h3>{change.name}</h3>
+                </summary>
+                <p>
+                  {change.says}{' '}
                   <a href={linkTo(edition, change.topic)} target="_blank" rel="noopener">
-                    {change.name}
+                    Read the release note
                   </a>
-                </h3>
-                <p>{change.says}</p>
-              </article>
+                </p>
+              </details>
             ))}
           </section>
         )
       }
 
-      <nav class="edition__areas" aria-label="Areas of this release">
+      <section class="edition__list" aria-labelledby="list-title">
+        <h2 id="list-title" class="visually-hidden">Every feature, by area</h2>
         {areas.map((area) => (
-          <a href={`#${anchor(area.name)}`} data-area-link={anchor(area.name)}>
-            {area.name} <span class="chip__count">{area.count}</span>
-          </a>
-        ))}
-      </nav>
-
-      <div class="ledger edition__list">
-        {areas.map((area) => (
-          <section class="ledger__row" id={anchor(area.name)} data-area>
-            <h3>
-              {area.name}
-              <span class="bulletin__window" data-area-count>
+          <details class="edition__area" id={anchor(area.name)} data-area>
+            <summary>
+              <h3>{area.name}</h3>
+              <span class="edition__count" data-area-count>
                 {countLabel(area.count, 'feature', 'features')}
               </span>
-            </h3>
-            <div>
+            </summary>
+            <div class="edition__body">
               {area.products.map((product) => (
                 <div class="edition__product" data-product>
                   {/* An area that lists its features itself has no product to name. */}
@@ -127,9 +134,9 @@ const found = (...parts: string[]) => parts.join(' ').toLowerCase();
                 </div>
               ))}
             </div>
-          </section>
+          </details>
         ))}
-      </div>
+      </section>
 
       <div class="empty" data-edition-empty hidden>
         <p>Nothing in this edition matches that search.</p>
@@ -148,8 +155,18 @@ const found = (...parts: string[]) => parts.join(' ').toLowerCase();
   if (input && root) {
     const status = root.querySelector<HTMLElement>('[data-edition-status]')!;
     const empty = root.querySelector<HTMLElement>('[data-edition-empty]')!;
+    const all = root.querySelector<HTMLButtonElement>('[data-edition-all]')!;
+    const bar = root.querySelector<HTMLElement>('[data-edition-bar]')!;
+    const areas = [...root.querySelectorAll<HTMLDetailsElement>('[data-area]')];
     const list = [...root.querySelectorAll<HTMLElement>('.edition__list [data-feature]')];
     const every = [...root.querySelectorAll<HTMLElement>('[data-feature]')];
+
+    // The bar stays at the top of the window, so whatever is jumped to stops below it.
+    const clear = () => (document.documentElement.style.scrollPaddingTop = `${bar.offsetHeight + 8}px`);
+    new ResizeObserver(clear).observe(bar);
+    clear();
+
+    const label = () => (all.textContent = areas.every((area) => area.hidden || area.open) ? 'Close all' : 'Open all');
 
     function apply() {
       const typed = input!.value.trim();
@@ -158,7 +175,7 @@ const found = (...parts: string[]) => parts.join(' ').toLowerCase();
       for (const group of root!.querySelectorAll<HTMLElement>('[data-product], [data-area], [data-edition-block]')) {
         group.hidden = !group.querySelector('[data-feature]:not([hidden])');
       }
-      for (const area of root!.querySelectorAll<HTMLElement>('[data-area]')) {
+      for (const area of areas) {
         const shown = area.querySelectorAll('[data-feature]:not([hidden])').length;
         const count = area.querySelector('[data-area-count]');
         if (count) count.textContent = `${shown} ${shown === 1 ? 'feature' : 'features'}`;
@@ -167,17 +184,58 @@ const found = (...parts: string[]) => parts.join(' ').toLowerCase();
           link.hidden = area.hidden;
           link.querySelector('.chip__count')!.textContent = String(shown);
         }
+        // A search opens the areas it finds something in, and closes them again when it is cleared.
+        if (typed && !area.hidden && !area.open) {
+          area.open = true;
+          area.dataset.bySearch = '';
+        } else if (!typed && 'bySearch' in area.dataset) {
+          area.open = false;
+          delete area.dataset.bySearch;
+        }
       }
       const shown = list.filter((feature) => !feature.hidden).length;
       status.textContent = typed ? `${shown} of ${list.length} features match.` : '';
       empty.hidden = !typed || every.some((feature) => !feature.hidden);
+      label();
 
       const params = new URLSearchParams(location.search);
       if (typed) params.set('q', typed);
       else params.delete('q');
       const query = params.toString();
-      history.replaceState(null, '', location.pathname + (query ? `?${query}` : '') + location.hash);
+      history.replaceState(null, '', location.pathname + (query ? `?${query}` : ''));
     }
+
+    // An area reached by its link is opened. The address does not record it, so the page
+    // always opens with every area closed.
+    function open(id: string) {
+      const area = areas.find((one) => one.id === id);
+      if (!area) return;
+      area.open = true;
+      area.scrollIntoView();
+    }
+
+    for (const link of root.querySelectorAll<HTMLElement>('[data-area-link]')) {
+      link.addEventListener('click', (event) => {
+        event.preventDefault();
+        open(link.dataset.areaLink!);
+      });
+    }
+    for (const area of areas) {
+      area.addEventListener('toggle', () => {
+        // An area the reader has opened or closed by hand is left as they set it.
+        if (!input.value.trim()) delete area.dataset.bySearch;
+        label();
+      });
+    }
+    all.hidden = false;
+    all.addEventListener('click', () => {
+      const to = all.textContent === 'Open all';
+      for (const area of areas) {
+        area.open = to;
+        delete area.dataset.bySearch;
+      }
+      label();
+    });
 
     input.value = new URLSearchParams(location.search).get('q') ?? '';
     input.addEventListener('input', apply);

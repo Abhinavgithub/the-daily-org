@@ -88,9 +88,14 @@ export function headlines(edition: Edition, bar = DEFAULT_BAR, most = HEADLINES)
   return chosen;
 }
 
-/** The changes that take hold with this release, and not the ones only scheduled or called off. */
+/**
+ * The changes that take hold with this release, and not the ones only scheduled
+ * or called off. Those with a day named come first, the soonest at the head;
+ * the rest follow in the notes' own order.
+ */
 export function enforcedNow(edition: Edition): Enforced[] {
-  return edition.enforced.filter((change) => /^enforced with this release/i.test(change.when));
+  const day = (change: Enforced) => (change.deadline && Date.parse(change.deadline)) || Number.MAX_SAFE_INTEGER;
+  return edition.enforced.filter((change) => /^enforced with this release/i.test(change.when)).sort((a, b) => day(a) - day(b));
 }
 
 /** Whatever was saved, read as an edition, or nothing when it is not one. */

@@ -54,12 +54,13 @@ test('a reply that cannot be read is asked for once more, and then the batch is 
 
 test('an enforced change keeps Salesforce’s own words, whole sentences, and its day when one is named', () => {
   const [soap, access] = enforcedFrom([
-    { topic: 't1', title: 'Assign Use Any API Auth Permission for SOAP login() (Release Update)', text: 'To authenticate with the SOAP API login() operation, all users must have the permission. Users without it get an error. Beginning December 1, 2026, this is enforced across all orgs. You can test in advance.', group: 'Enforced with This Release', kind: 'term' },
-    { topic: 't2', title: 'Enable Accessibility Enhancements (Release Update)', text: 'To help meet Web Content Accessibility Guidelines (WCAG) 2.2 for Resize and Reflow, enable the new behaviour. This update depends on another.', group: 'Enforced with This Release', kind: 'term' },
+    { topic: 't1', title: 'Assign Use Any API Auth Permission for SOAP login() (Release Update)', text: 'To authenticate with the SOAP API login() operation, all users must have the Use Any API Auth user permission. Users without it get an error. Beginning December 1, 2026, this is enforced across all orgs. You can test in advance.', group: 'Enforced with This Release', kind: 'term' },
+    { topic: 't2', title: 'Enable Accessibility Enhancements for Date Pickers (Release Update)', text: 'To help meet Web Content Accessibility Guidelines (WCAG) 2.2 for Resize and Reflow, enable the new behaviour. This update depends on another.', group: 'Enforced with This Release', kind: 'term' },
     { topic: 't3', title: 'A product', text: 'Not a change.', kind: 'child' },
   ]);
-  assert.deepEqual(soap, { topic: 't1', name: 'Assign Use Any API Auth Permission for SOAP login()', says: 'To authenticate with the SOAP API login() operation, all users must have the permission. Users without it get an error.', when: 'Enforced with This Release', deadline: '1 Dec 2026' });
+  assert.deepEqual(soap, { topic: 't1', name: 'Assign Use Any API Auth permission for SOAP login()', says: 'To authenticate with the SOAP API login() operation, all users must have the Use Any API Auth user permission. Users without it get an error.', when: 'Enforced with This Release', deadline: '1 Dec 2026' });
   assert.equal(access.says, 'To help meet Web Content Accessibility Guidelines (WCAG) 2.2 for Resize and Reflow, enable the new behaviour. This update depends on another.', 'a version number does not end a sentence');
+  assert.equal(access.name, 'Enable accessibility enhancements for date pickers', 'the title is set in sentence case');
   assert.equal(access.deadline, undefined);
   assert.equal(deadlineIn('Enforced starting March 15, 2027 in production.'), '15 Mar 2027');
   assert.equal(slugOf("Winter '27"), 'winter-27');
