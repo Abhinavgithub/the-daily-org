@@ -3,17 +3,21 @@ import path from 'node:path';
 import { create } from 'fontkitten';
 import sharp from 'sharp';
 import { PAPER } from '../src/config';
-import { INK } from '../src/lib/theme';
+import { INK, NAMEPLATE_ACCENT } from '../src/lib/theme';
 
 // Draws the site's icons: one blackletter capital from the nameplate's own
-// typeface, in the paper's ink on its newsprint. Run it again after changing
-// the paper's name or colours.
+// typeface, in the paper's ink on its newsprint. Where the nameplate prints a
+// word in colour, the icon is that word's letter in that colour. Run it again
+// after changing the paper's name or colours.
 //
-//   npm run favicon          the first letter of the name, leaving out "The"
+//   npm run favicon          the coloured word's first letter, or the name's, leaving out "The"
 //   npm run favicon -- H     another letter
 
 const PUBLIC = path.join(process.cwd(), 'public');
-const letter = (process.argv[2] ?? PAPER.name.replace(/^(the|a|an)\s+/i, '').trim()[0] ?? 'N').toUpperCase();
+const letter = (process.argv[2] ?? PAPER.accent?.trim()[0] ?? PAPER.name.replace(/^(the|a|an)\s+/i, '').trim()[0] ?? 'N').toUpperCase();
+// The coloured word's letter keeps its colour on a dark browser too; an ink letter turns to paper there.
+const coloured = Boolean(PAPER.accent);
+const fill = coloured ? NAMEPLATE_ACCENT : INK.ink;
 
 // A font file can hold several faces. The nameplate's holds one; were it to hold more, the first is the one meant.
 const file = create(fs.readFileSync(path.join(PUBLIC, 'fonts', 'Chomsky.woff2')));
@@ -30,7 +34,7 @@ function icon(options: { inset: number; border: boolean; adaptive: boolean }): s
   const y = 32 + (scale * (minY + maxY)) / 2;
   const dark = options.adaptive ? `<style>@media (prefers-color-scheme: dark){.p{fill:${INK.ink}}.i{fill:${INK.paper}}.b{stroke:${INK.paper}}}</style>` : '';
   const border = options.border ? `<rect class="b" x="2" y="2" width="60" height="60" fill="none" stroke="${INK.ink}" stroke-width="4"/>` : '';
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">${dark}<rect class="p" width="64" height="64" fill="${INK.paper}"/>${border}<path class="i" fill="${INK.ink}" transform="translate(${x.toFixed(2)} ${y.toFixed(2)}) scale(${scale.toFixed(5)} ${(-scale).toFixed(5)})" d="${glyph.path.toSVG()}"/></svg>\n`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">${dark}<rect class="p" width="64" height="64" fill="${INK.paper}"/>${border}<path${coloured ? '' : ' class="i"'} fill="${fill}" transform="translate(${x.toFixed(2)} ${y.toFixed(2)}) scale(${scale.toFixed(5)} ${(-scale).toFixed(5)})" d="${glyph.path.toSVG()}"/></svg>\n`;
 }
 
 const png = (svg: string, size: number) => sharp(Buffer.from(svg), { density: 72 * (size / 64) * 4 }).resize(size, size).png().toBuffer();

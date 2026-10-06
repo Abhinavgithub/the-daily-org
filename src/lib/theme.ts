@@ -16,4 +16,7 @@ const DEFAULTS = {
 
 const own: { paper?: string; ink?: string; accent?: string } = paper.colours ?? {};
 
+/** The word of the nameplate printed in colour, where a paper names one. The same blue as --nameplate-accent in the styles. */
+export const NAMEPLATE_ACCENT = '#00a1e0';
+
 export const INK = { paper: own.paper ?? DEFAULTS.paper, ink: own.ink ?? DEFAULTS.ink, accent: own.accent ?? DEFAULTS.accent };
