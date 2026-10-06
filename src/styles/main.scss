@@ -578,13 +578,14 @@ html[data-turn='older']::view-transition-new(turn-fold) {
   color: var(--muted);
 }
 
+// Set at the page's own size, like the notes under the other sections: the release's name stands out by weight.
 .bulletin__release {
   margin: 0;
-  font-size: var(--fs-body);
-  line-height: 1.5;
+  line-height: 1.45;
+  color: var(--ink);
 
   & + & {
-    margin-top: 0.5rem;
+    margin-top: 0.35rem;
   }
 
   strong {
