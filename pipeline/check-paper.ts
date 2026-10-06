@@ -1,6 +1,7 @@
 import 'dotenv/config';
 import { PAPER } from '../src/config';
 import { fetchFeeds } from './fetch';
+import { CALENDARS } from './releases';
 import { SOURCES } from './sources';
 
 // Tries every source in paper.config.ts once and says what came back. It makes
@@ -26,6 +27,15 @@ for (const source of SOURCES) {
   else console.log(`  ok      ${name}  ${String(own.length).padStart(3)} item${own.length === 1 ? ' ' : 's'}, newest ${own[0].published.toISOString().slice(0, 10)}`);
 }
 for (const note of notes) console.log(`\n  ${note}`);
+
+if (PAPER.releases) {
+  try {
+    const releases = await CALENDARS[PAPER.releases](fetch, new Date());
+    console.log(`\n  Release dates (${PAPER.releases}): ${releases.length ? releases.map((release) => `${release.name} from ${release.stages[0].from} to ${release.stages.at(-1)!.to}`).join('; ') : 'none listed'}`);
+  } catch (error) {
+    console.log(`\n  Release dates (${PAPER.releases}) could not be read: ${(error as Error).message}. The paper is published without them.`);
+  }
+}
 
 if (failures.length) {
   console.log(

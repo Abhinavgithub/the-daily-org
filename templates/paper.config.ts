@@ -77,6 +77,9 @@ export default definePaper({
   // Optional. Words that mark a byline as an organisation, not a person.
   notAuthors: ['nasa', 'esa'],
 
+  // Optional. `releases: 'salesforce-trust'` prints a line on the latest edition as a Salesforce
+  // release draws near. It is the only calendar there is so far; a paper on another subject leaves it out.
+
   // How the pipeline names itself to the sites it reads. Sites can refuse readers
   // that do not say who they are, so give a real address where you can be reached.
   bot: { name: 'OrbitGazetteBot', contact: 'https://example.com' },

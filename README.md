@@ -79,6 +79,13 @@ All in `.env`; `.env.example` explains each.
 | `READERSHIP_API_TOKEN`, `READERSHIP_ACCOUNT_ID`, `READERSHIP_SITE_ID` | Optional. Read-only access to the site's web analytics, so the Stats page can show views, visits, countries and most-read pages. |
 | `SITE_URL` | Optional. Takes the place of the paper's `address`. |
 
+## Release dates
+
+A paper can print one line on its latest edition as a release draws near, for example "Spring '27 reaches sandboxes on 9 Jan. Production: 6 Feb and 19 to 20 Feb." Set `releases` in `paper.config.ts` to the calendar to read; `salesforce-trust` is the only one so far.
+
+- Each run reads the dates and saves them in `data/releases.json`. If they cannot be read, the dates already known are kept and the edition is written as usual.
+- The line shows from 30 days before the first date until the last has passed, and moves on as each date goes by.
+
 ## Videos
 
 A YouTube video is judged on its transcript, with the description its uploader wrote placed before it. English captions written by a person are used when the video has them, otherwise the generated ones.

@@ -7,6 +7,7 @@ import { addFigures } from './figure';
 import { canonicalUrl, forget, GIVE_UP_DAYS, givenUp, loadPending, loadSeen, savePending, saveSeen, transcriptOverdue, waitingSources } from './dedupe';
 import { articleText, extractContent, type Extracted } from './extract';
 import { routeDown } from './transcript';
+import { updateReleases } from './releases';
 import { fetchFeeds, type FeedItem } from './fetch';
 import { configFromEnv, keepFreeModels, LlmClient, LlmError } from './llm';
 import { isBrief } from '../src/lib/editions';
@@ -160,6 +161,13 @@ for (const source of SOURCES) {
     error: failures.find((f) => f.source.id === source.id)?.error,
     note: fetchNotes.find((note) => note.startsWith(`${source.name}: `))?.slice(source.name.length + 2),
   });
+}
+
+// The dates of the next release, for the line the latest edition prints. Never a reason to stop.
+if (PAPER.releases && !dryRun) {
+  const read = await updateReleases(PAPER.releases);
+  if ('error' in read) console.warn(`  Release dates could not be read (${read.error}). The dates already known are kept.`);
+  else console.log(`Release dates read: ${read.releases.map((release) => `${release.name} from ${release.stages[0].from}`).join('; ')}.`);
 }
 
 // 2. Deduplicate, within this run and against earlier runs

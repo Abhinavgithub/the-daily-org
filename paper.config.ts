@@ -22,6 +22,8 @@ export default definePaper({
   notRelevant:
     'product marketing, pieces written for business or marketing leaders rather than for practitioners, customer success stories, promotion of an event still to come, sponsored comparisons, hiring posts, and anything not about Salesforce technology',
   disclaimer: 'not affiliated with or endorsed by Salesforce',
+  // The dates of the next release, from Salesforce's Trust site, for the line the latest edition prints ahead of it.
+  releases: 'salesforce-trust',
 
   sections: [
     { id: 'apex-and-platform', label: 'Apex and platform' },

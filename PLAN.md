@@ -13,10 +13,10 @@ Check a box when the step is built, tested and committed.
   - [x] 2c. **Tune prompts and rules** (`relevant`, `notRelevant`, the scoring prompt) against the feedback log. No new spend. First pass done 6 Oct on 3 flags: platform news now counts as relevant, pieces for business leaders do not, and the score weighs how much a story matters. 2 of 3 flags fixed, no control lost. Come back to it when there are 10 or more flags; `npm run replay -- --runs 2 --compare` measures any change.
 - [ ] 3. ~~**Group repeat coverage.** One story with "also covered by..." links; the number of sources feeds the score.~~ **Skipped for now** (6 Oct). Of the 30 stories printed on 3 and 4 Oct, none was covered by two sources, so there was nothing to group. Look again once step 4 adds sources that discuss the same news as the blogs (release notes, Reddit, GitHub releases).
 - [ ] 4. **New sources**, one at a time, each checked with `npm run try-source`:
-  - [ ] 4a. Official release notes and release dates
-  - [ ] 4b. Reddit (r/salesforce) and Salesforce Stack Exchange, as a separate "From the community" section with a high threshold
-  - [ ] 4c. GitHub releases (Salesforce CLI, Code Analyzer, LWC)
-  - [ ] 4d. Trust status incidents and security advisories
+  - [x] 4a. **Release dates, as a line on the latest edition.** The release notes have no feed and cannot be read, and the blogs cover what is in them, so 4a is the dates only, from Salesforce's Trust site. Built 6 Oct. Step 6 will use the same dates to know a release has arrived.
+  - [ ] 4b. Reddit (r/salesforce), one line a post in a "From the community" section; only posts that report something to know. Stack Exchange is left out: it is nearly silent. Built last.
+  - [ ] 4c. Tool releases (Salesforce CLI weekly notes, Code Analyzer, LWC): every new version gets one line, and a full story when it matters. Built third.
+  - [ ] 4d. Trust: security advisories, product-wide messages and major incidents on 5 or more instances, always printed and placed at the top. Built second.
 - [ ] 5. ~~**Second pass on borderline stories** with a stronger model.~~ **Skipped for now** (6 Oct). Three models were tried on the 23 replay articles, twice each: DeepSeek V4 Pro was less consistent than the current model, Gemini 3.8 Flash rejected both flagged misses, and Claude Haiku 4.5 was the most consistent but agreed with the current model on 2 of 3 flags and scored nearly everything 7 or 8. None was enough better to pay for. Results are in `data/replay/models/` on the machine that ran them. Worth another look if flip-flopping around the threshold becomes a visible problem.
 - [ ] 6. **Release special.** Detect a new release from the release notes feed and flag it; build only after approval. Digest of the top changes per persona, plus a "what breaks" section (retirements, critical updates, deprecations). About $0.10 to $0.50 a release.
 

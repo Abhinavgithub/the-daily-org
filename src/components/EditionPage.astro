@@ -5,6 +5,7 @@ import { formatDay, getEditions, type Edition } from '../lib/stories';
 import BriefList from './BriefList.astro';
 import FilterBar from './FilterBar.astro';
 import Masthead from './Masthead.astro';
+import ReleaseBanner from './ReleaseBanner.astro';
 import StoryGrid from './StoryGrid.astro';
 
 interface Props {
@@ -58,6 +59,8 @@ const steps = [
       })
     }
   </Masthead>
+  {/* A notice about what is coming belongs on today's paper, not on a past edition. */}
+  {isLatest && <ReleaseBanner />}
 
   <main id="stories" class="wrap">
     <FilterBar stories={[...stories, ...briefs]} marks={stories.length > 0} />

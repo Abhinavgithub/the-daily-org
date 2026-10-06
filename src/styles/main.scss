@@ -494,6 +494,36 @@ html[data-turn='older']::view-transition-new(turn-fold) {
   }
 }
 
+// One line under the nameplate when a release is near. It sits between the masthead's rule and the filters.
+.release {
+  max-width: var(--width);
+  margin: 0 auto;
+  padding: 0.55rem var(--gutter) 0;
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  line-height: 1.45;
+  text-align: center;
+  text-wrap: balance;
+  color: var(--ink);
+
+  // A rule as wide as the masthead's, which is drawn the same way.
+  &::after {
+    content: '';
+    display: block;
+    margin-top: 0.55rem;
+    border-bottom: 1px solid var(--rule);
+  }
+}
+
+.release__label {
+  margin-right: 0.6rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sun);
+}
+
 // Archive, search and the theme button on one line. Equal side columns keep the search centred.
 .masthead__bar {
   display: grid;

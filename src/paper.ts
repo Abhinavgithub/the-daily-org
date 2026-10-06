@@ -7,6 +7,10 @@
 export const SOURCE_TYPES = ['official', 'community', 'code', 'discussion', 'video'] as const;
 export type SourceType = (typeof SOURCE_TYPES)[number];
 
+/** Where a paper's release dates can be read from. Each is read by pipeline/releases.ts. */
+export const CALENDARS = ['salesforce-trust'] as const;
+export type Calendar = (typeof CALENDARS)[number];
+
 export interface Source<Persona extends string = string> {
   /** Short and unique, in lower case with hyphens. It names the feed in files and logs. */
   id: string;
@@ -68,6 +72,11 @@ export interface Paper<Section extends string = string, Persona extends string =
   colours?: { paper?: string; ink?: string; accent?: string };
   /** Where the paper is published, such as "https://example.com". Used for links in the RSS feed, sitemap and link previews. */
   address?: string;
+  /**
+   * Optional. Where the dates of the subject's next release are read from. With it,
+   * the latest edition carries a line announcing the release as it draws near.
+   */
+  releases?: Calendar;
   /** Optional. Where the paper's code is kept, such as a GitHub repository. Linked from the footer of every page. */
   repository?: string;
   /** How the pipeline names itself to the sites it reads. `contact` is a web address where its owner can be reached. */
@@ -125,6 +134,8 @@ export function problemsWith(paper: Paper): string[] {
   const personas = ids(paper.personas ?? [], 'persona');
   if (!paper.sources?.length) problems.push('"sources" needs at least one source.');
   ids(paper.sources ?? [], 'source');
+  if (paper.releases !== undefined && !CALENDARS.includes(paper.releases)) problems.push(`"releases" names the calendar "${paper.releases}"; use one of ${CALENDARS.join(', ')}, or leave it out.`);
+
   for (const source of paper.sources ?? []) {
     if (!/^https?:\/\//.test(source.url)) problems.push(`The source "${source.id}" needs a web address, got "${source.url}".`);
     if (!SOURCE_TYPES.includes(source.type)) problems.push(`The source "${source.id}" has the type "${source.type}"; use one of ${SOURCE_TYPES.join(', ')}.`);

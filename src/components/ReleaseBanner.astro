@@ -1,0 +1,47 @@
+---
+import fs from 'node:fs';
+import path from 'node:path';
+import { bannerFor, readReleases } from '../lib/releases';
+
+// One line under the nameplate when a release is near: its next date, then the
+// rest. The dates are in the page and the line is worked out again in the
+// browser, because the site is rebuilt only when an edition is written and the
+// line depends on the day it is read.
+
+let releases = readReleases(null);
+try {
+  releases = readReleases(JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', 'releases.json'), 'utf8')));
+} catch {
+  // No dates have been read yet, or the file is unreadable: there is no line.
+}
+const today = new Date().toISOString().slice(0, 10);
+const banner = bannerFor(releases, today);
+---
+
+{
+  releases.length > 0 && (
+    <p class="release" data-releases={JSON.stringify(releases)} hidden={!banner}>
+      <span class="release__label">Release</span>
+      <span data-release-says>{banner?.says}</span>
+    </p>
+  )
+}
+
+<script>
+  import { bannerFor, readReleases } from '../lib/releases';
+
+  const line = document.querySelector<HTMLElement>('[data-releases]');
+  if (line) {
+    const now = new Date();
+    // The reader's own day, not the day the page was built.
+    const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    let banner;
+    try {
+      banner = bannerFor(readReleases(JSON.parse(line.dataset.releases ?? '[]')), today);
+    } catch {
+      // The line stays as it was built.
+    }
+    line.hidden = !banner;
+    if (banner) line.querySelector('[data-release-says]')!.textContent = banner.says;
+  }
+</script>
