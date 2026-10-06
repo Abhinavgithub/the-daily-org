@@ -26,6 +26,7 @@ export function normalizeUrl(raw: string): string {
   url.hash = '';
   for (const key of [...url.searchParams.keys()]) if (/^(utm_|fbclid$|gclid$)/.test(key)) url.searchParams.delete(key);
   url.hostname = url.hostname.toLowerCase();
+  url.pathname = url.pathname.replace(/(.)\/$/, '$1');
   return url.toString().replace(/\/$/, '');
 }
 
