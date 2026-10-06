@@ -46,6 +46,14 @@ jobs:
       - name: Write the edition
         run: npm run pipeline
 
+      # The edition of a new release, on the two days one is owed. The day's paper is published whether or not this works.
+      - name: Build the release edition
+        if: always()
+        continue-on-error: true
+        # A build reads the notes slowly, to be a polite reader. Stopped here, the day's paper is still committed.
+        timeout-minutes: 25
+        run: npm run release-edition
+
       # Who read the paper, up to yesterday. The edition is published whether or not this works.
       - name: Fetch readership
         if: always()
