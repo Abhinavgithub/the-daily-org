@@ -24,7 +24,7 @@ export default definePaper({
   disclaimer: 'not affiliated with or endorsed by Salesforce',
   // The dates of the next release, from Salesforce's Trust site, for the line the latest edition prints ahead of it.
   releases: 'salesforce-trust',
-  // Security advisories and wide incidents, also from Trust. They are printed whatever they score, each as a line under the nameplate.
+  // Security advisories and wide incidents, also from Trust. They are printed whatever they score, in a box beside the lead story.
   alerts: 'salesforce-trust',
 
   sections: [

@@ -509,129 +509,14 @@ html[data-turn='older']::view-transition-new(turn-fold) {
   text-transform: uppercase;
 }
 
-// Alerts: one line each under the nameplate, as wide as the masthead's rule. Pressing a
-// line opens the account of it underneath. Closed, an alert costs the page a single line.
-.notices {
-  max-width: var(--width);
-  margin: 0 auto;
-  padding: 0 var(--gutter);
-  font-family: var(--display);
-  font-size: var(--fs-label);
-  line-height: 1.45;
-}
+// The alerts' box among the stories. It is the briefs' box with a heavy rule along the top, so it is not taken for a story.
+.story.alerts {
+  border-top: 3px solid var(--ink);
 
-.notice {
-  border-bottom: 1px solid var(--ink);
-  // Clear of the top of the window when a search result opens the page at it.
-  scroll-margin-top: 1rem;
-
-  summary {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: center;
-    gap: 0.15rem 0.6rem;
-    padding: 0.55rem 0;
-    cursor: pointer;
-    list-style: none;
-
-    &::-webkit-details-marker {
-      display: none;
-    }
-
-    // Says the line opens, and whether it has.
-    &::after {
-      content: '+';
-      width: 1ch;
-      font-weight: 700;
-      text-align: center;
-      color: var(--muted);
-    }
-
-    &:hover .notice__title {
-      text-decoration: underline;
-      text-underline-offset: 0.15em;
-    }
-  }
-
-  &[open] summary::after {
-    content: '\2212';
-  }
-
-  .flag {
-    margin: 0;
-  }
-}
-
-.notice__title {
-  font-weight: 600;
-  color: var(--ink);
-}
-
-// What the source states for certain, apart from the account written of it.
-.notice__facts {
-  color: var(--muted);
-}
-
-.notice__facts--below {
-  display: none;
-  font-family: var(--display);
-  font-size: var(--fs-label);
-}
-
-// A narrow page keeps the line to the flag and the headline; the facts move under it, with the account.
-@media (max-width: 40rem) {
-  // Set as running text, like the release line above it, with the sign that it opens at the right-hand edge.
-  .notice summary {
-    position: relative;
-    display: block;
-    padding-inline: 1.5rem;
-    text-align: center;
-    text-wrap: balance;
-
-    &::after {
-      position: absolute;
-      top: 50%;
-      right: 0;
-      translate: 0 -50%;
-    }
-  }
-
-  .notice .flag {
-    margin-right: 0.4rem;
-  }
-
-  .notice summary .notice__facts {
-    display: none;
-  }
-
-  .notice__facts--below {
-    display: block;
-  }
-}
-
-.notice__body {
-  max-width: 44rem;
-  margin: 0 auto;
-  padding: 0.1rem 0 0.9rem;
-  font-family: var(--text);
-  font-size: var(--fs-body);
-}
-
-.notices__more {
-  display: block;
-  width: 100%;
-  padding: 0.45rem 0;
-  border: 0;
-  border-bottom: 1px solid var(--ink);
-  background: none;
-  color: var(--muted);
-  font: inherit;
-  cursor: pointer;
-
-  &:hover {
-    color: var(--ink);
-    text-decoration: underline;
+  // The flag keeps its own small size, which the box's rule for its paragraphs would otherwise take from it.
+  p.flag {
+    margin-bottom: 0.4rem;
+    font-size: 0.72rem;
   }
 }
 

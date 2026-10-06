@@ -81,13 +81,13 @@ All in `.env`; `.env.example` explains each.
 
 ## Alerts
 
-A paper can print some notices whatever they score, each as one line under the nameplate that opens to show the account of it. Set `alerts` in `paper.config.ts` to the feed to read; `salesforce-trust` is the only one so far. It reads Salesforce's Trust site for:
+A paper can print some notices whatever they score, together in one box beside the lead story. Set `alerts` in `paper.config.ts` to the feed to read; `salesforce-trust` is the only one so far. It reads Salesforce's Trust site for:
 
 - **Security advisories**: always printed.
 - **Incidents** marked major that reach 5 or more instances, or all of them: always printed, once, with their state when the edition was written.
 - **Other messages to all customers**: printed unless the editor judges them not about a fault, outage or change a reader may meet.
 
-The model writes the headline and a short summary; the facts beside the headline are Trust's own. An edition shows two such lines and keeps any more behind "and N more". If the feed cannot be read, the edition is written without alerts and the Logs page says so.
+In the box each alert is a flag, a headline that opens the notice on Trust, and Trust's own facts. The model writes the headline, and a short summary that is shown where the alert is listed elsewhere: in search, on a section's page and in the feed. No filter hides the box. If the feed cannot be read, the edition is written without alerts and the Logs page says so.
 
 ## Release dates
 

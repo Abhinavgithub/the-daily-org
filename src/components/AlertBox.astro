@@ -1,0 +1,38 @@
+---
+import { storySlug, type Story } from '../lib/stories';
+
+// Notices that are printed whatever their score: a security advisory, a wide
+// incident. They share one box among the stories, set beside the lead story, so
+// they are seen on the first screen and take nothing from the top of the page.
+// Each is a flag, a headline that opens the notice itself, and what its source
+// states for certain. No filter hides the box.
+
+interface Props {
+  alerts: Story[];
+}
+
+const { alerts } = Astro.props;
+---
+
+{
+  alerts.length > 0 && (
+    <section class="story story--w1 briefs alerts" aria-labelledby="alerts-title" data-card data-id="alerts" data-always>
+      <h2 class="briefs__title" id="alerts-title">
+        Alerts
+      </h2>
+      <ul>
+        {alerts.map((story) => (
+          <li id={storySlug(story)}>
+            <p class="flag">{story.data.alert!.label}</p>
+            <h3>
+              <a href={story.data.url} target="_blank" rel="noopener">
+                {story.data.title}
+              </a>
+            </h3>
+            {story.data.alert!.facts && <p class="briefs__source">{story.data.alert!.facts}</p>}
+          </li>
+        ))}
+      </ul>
+    </section>
+  )
+}

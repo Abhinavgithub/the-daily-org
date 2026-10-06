@@ -16,9 +16,15 @@ const signals = await getSignals();
 <div class="grid" data-grid>
   {
     stories.map((story, i) => (
-      <StoryCard story={story} span={spans[i]} signal={signals.get(story.id) ?? 'other'} showDay={showDay} />
+      <>
+        <StoryCard story={story} span={spans[i]} signal={signals.get(story.id) ?? 'other'} showDay={showDay} />
+        {/* A box that belongs beside the lead story, such as the alerts, is second in the order the page is arranged by. */}
+        {i === 0 && <slot name="beside-lead" />}
+      </>
     ))
   }
+  {/* With no story to stand beside, it comes first. */}
+  {stories.length === 0 && <slot name="beside-lead" />}
   <!-- Anything else printed among the stories, such as the briefs, is arranged with them as the last box. -->
   <slot />
 </div>
@@ -109,8 +115,9 @@ const signals = await getSignals();
     } catch {
       // A hash that is not valid encoding names no story.
     }
-    const target = id ? document.getElementById(id) : null;
-    if (target?.matches('[data-card]')) requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
+    // The link may name a story, or something inside a box that several things share.
+    const target = id ? document.getElementById(id)?.closest<HTMLElement>('[data-card]') : null;
+    if (target) requestAnimationFrame(() => target.scrollIntoView({ block: 'start' }));
   }
 
   // Read marks ------------------------------------------------------------
