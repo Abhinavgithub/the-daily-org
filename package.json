@@ -24,6 +24,7 @@
     "figures": "tsx pipeline/figures.ts",
     "readership": "tsx pipeline/readership.ts",
     "favicon": "tsx pipeline/favicon.ts",
+    "feedback": "tsx pipeline/feedback-cli.ts",
     "daily": "npm run pipeline && npm run build",
     "check": "astro check",
     "test": "tsx --test pipeline/*.test.ts src/lib/*.test.ts"
