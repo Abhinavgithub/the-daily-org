@@ -8,6 +8,7 @@ import { canonicalUrl, forget, GIVE_UP_DAYS, givenUp, loadPending, loadSeen, sav
 import { articleText, extractContent, type Extracted } from './extract';
 import { routeDown } from './transcript';
 import { updateReleases } from './releases';
+import { updateQuote } from './quote';
 import { ALERT_FEEDS, readAlerts } from './alerts';
 import { NEW_SOURCE_DAYS } from './state';
 import { fetchFeeds, type FeedItem } from './fetch';
@@ -182,6 +183,13 @@ if (PAPER.releases && !dryRun) {
   const read = await updateReleases(PAPER.releases);
   if ('error' in read) console.warn(`  Release dates could not be read (${read.error}). The dates already known are kept.`);
   else console.log(`Release dates read: ${read.releases.map((release) => `${release.name} from ${release.stages[0].from}`).join('; ')}.`);
+}
+
+// The share price at the last close, for the head of the page. Never a reason to stop.
+if (PAPER.shares && !dryRun) {
+  const read = await updateQuote(PAPER.shares.symbol);
+  if ('error' in read) console.warn(`  The share price could not be read (${read.error}). The last one known is kept.`);
+  else console.log(`Share price read: ${read.quote.symbol} ${read.quote.close} at the close on ${read.quote.day}.`);
 }
 
 // 2. Deduplicate, within this run and against earlier runs

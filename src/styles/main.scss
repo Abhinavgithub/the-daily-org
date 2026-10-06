@@ -11,6 +11,10 @@
   --muted: #5a5346;
   --rule: #cdc4ae;
   --sky: #2c5878;
+  // The word of the nameplate printed in colour: the blue of the paper's subject.
+  --nameplate-accent: #00a1e0;
+  // A share price that rose. One that fell takes the alarm red.
+  --rise: #1f7a3d;
   --sky-wash: #e8e0cd;
   --sun: #{$accent};
   // For a failure of the service, and nothing else: the one red on the page.
@@ -66,6 +70,8 @@
   --muted: #b0a896;
   --rule: #3e392f;
   --sky: #9cc3e0;
+  --nameplate-accent: #00a1e0;
+  --rise: #5fc27e;
   --sky-wash: #2e2a22;
   --sun: #f0a85a;
   --alarm: #ff6b5e;
@@ -819,7 +825,8 @@ html[data-turn='older']::view-transition-new(turn-fold) {
 }
 
 // A line that opens: a mark at its head says which way it will go.
-.edition summary {
+.edition summary,
+.past summary {
   display: flex;
   align-items: baseline;
   gap: 0.25rem 0.75rem;
@@ -854,7 +861,8 @@ html[data-turn='older']::view-transition-new(turn-fold) {
   }
 }
 
-.edition details[open] > summary::before {
+.edition details[open] > summary::before,
+.past details[open] > summary::before {
   content: '\2212';
 }
 
@@ -1066,6 +1074,45 @@ html[data-turn='older']::view-transition-new(turn-fold) {
   }
 }
 
+// At the end of the bar: the share price, where the paper prints one, and the theme button.
+.masthead__tools {
+  display: flex;
+  align-items: center;
+  gap: 0.9rem;
+}
+
+// The share price at the last close, set small as a paper sets its market figures.
+.quote {
+  margin: 0;
+  font-size: var(--fs-label);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  color: var(--ink);
+
+  b {
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  // There is no room for it beside the search on a narrow page.
+  @media (max-width: 46rem) {
+    display: none;
+  }
+}
+
+// Which way it moved: said by the mark, and by its colour as well.
+.quote__move {
+  color: var(--muted);
+}
+
+.quote__move--up {
+  color: var(--rise);
+}
+
+.quote__move--down {
+  color: var(--alarm);
+}
+
 .masthead__archive {
   font-style: italic;
 }
@@ -1229,33 +1276,35 @@ span.dateline__step {
   text-wrap: balance;
 }
 
-.masthead__tagline {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.15rem 0;
-  margin: 0.7rem 0 0;
+// One word of the name in the paper's colour.
+.masthead__accent {
+  color: var(--nameplate-accent);
+}
+
+// The motto under the nameplate, as a printed paper carries one: small capitals
+// under a thin rule, and beneath them who edits the paper.
+.masthead__motto {
+  display: grid;
+  gap: 0.25rem;
+  margin-top: 0.8rem;
+  padding-top: 0.55rem;
+  border-top: 1px solid var(--rule);
   font-family: var(--display);
   font-size: var(--fs-label);
   color: var(--muted);
 
-  align-items: baseline;
-
-  // The tagline, in the text face's true italic.
-  span:first-child {
-    font-family: var(--text);
-    font-style: italic;
-    font-size: 0.9375rem;
+  p {
+    margin: 0;
   }
+}
 
-  // A small diamond between the two parts, as a printer's ornament.
-  span + span::before {
-    content: '\25C6';
-    margin: 0 0.7rem;
-    font-size: 0.55rem;
-    vertical-align: 0.2em;
-    color: var(--muted);
-  }
+.masthead__tagline {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-wrap: balance;
+  color: var(--ink);
 }
 
 // Filter bar -----------------------------------------------------------
@@ -1938,7 +1987,6 @@ span.dateline__step {
   padding: 0;
 }
 
-.archive,
 .results {
   list-style: none;
   margin: 0;
@@ -1962,7 +2010,6 @@ span.dateline__step {
   }
 }
 
-.archive__count,
 .results__meta {
   font-family: var(--display);
   font-size: var(--fs-label);
@@ -1987,46 +2034,105 @@ span.dateline__step {
   }
 }
 
-// Editions, newest first, each with its number: a block in the middle of the
-// page whose numbers, dates and counts line up in columns.
-.archive {
-  width: fit-content;
-  max-width: 100%;
-  margin-inline: auto;
-  border-top: 1px solid var(--rule);
+// The Archive ----------------------------------------------------------
+// A ledger of every edition: release editions, then daily ones a month at a
+// time, then the sections. One column, so everything on it shares its edges.
+.past {
+  margin-top: 0.5rem;
+}
 
-  // Each row is its own grid, so the number's column is given a width for the dates to line up.
-  li {
-    grid-template-columns: 2.25rem 1fr auto;
-    align-items: baseline;
-    column-gap: 0.6rem;
+.past__sum {
+  text-align: center;
+}
+
+.past__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+// An edition: its number, its day, and how much is in it.
+.past__row {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.15rem 0.6rem;
+  padding: 0.7rem 0;
+
+  & + & {
+    border-top: 1px solid var(--rule);
+  }
+
+  a {
+    grid-column: 2;
+    justify-self: start;
+    font-family: var(--headline);
+    font-weight: 700;
+    font-size: var(--fs-headline);
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--sky);
+      text-decoration: underline;
+      text-underline-offset: 0.15em;
+    }
   }
 }
 
-.archive__no {
-  font-family: var(--display);
-  font-size: var(--fs-label);
+// A row with no number, which starts at the column's own edge.
+.past__row--plain {
+  grid-template-columns: minmax(0, 1fr) auto;
+
+  a {
+    grid-column: 1;
+  }
+}
+
+.past__no {
   font-weight: 600;
   letter-spacing: 0.04em;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
 }
 
-.archive__count {
-  padding-left: 1.5rem;
-  text-align: right;
+.past__count {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 
-// Too narrow for one line: the count goes under the date.
-@media (max-width: 30rem) {
-  .archive li {
-    grid-template-columns: 2.25rem 1fr;
+// A month of daily editions, or a year of release editions: a line that opens.
+.past__month {
+  & + & {
+    border-top: 1px solid var(--rule);
   }
 
-  .archive__count {
-    grid-column: 2;
-    padding-left: 0;
-    text-align: left;
+  > summary {
+    padding: 0.55rem 0;
+
+    h4 {
+      flex: 1;
+      margin: 0;
+      font-family: var(--headline);
+      font-weight: 700;
+      font-size: 1.125rem;
+      line-height: 1.25;
+    }
+
+    &:hover h4 {
+      color: var(--sky);
+    }
+  }
+
+  &:first-child > summary {
+    padding-top: 0;
+  }
+
+  .past__list {
+    padding: 0 0 0.75rem 1.55rem;
   }
 }
 

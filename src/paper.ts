@@ -55,7 +55,9 @@ export interface Source<Persona extends string = string> {
 export interface Paper<Section extends string = string, Persona extends string = string> {
   /** The nameplate, as printed at the top of every page. */
   name: string;
-  /** The line under the nameplate. */
+  /** Optional. A word of the name to print in the paper's colour, such as "Org" in "The Daily Org". */
+  accent?: string;
+  /** The line under the nameplate: the paper's motto, set in capitals. */
   tagline: string;
   /** One sentence for search engines and the RSS feed. */
   description: string;
@@ -102,6 +104,12 @@ export interface Paper<Section extends string = string, Persona extends string =
    */
   releases?: Calendar;
   /**
+   * Optional. A company whose share price is printed at the head of the page, as it
+   * stood at the last close: its symbol on its market, and its name for those who
+   * are read the page.
+   */
+  shares?: { symbol: string; name: string };
+  /**
    * Optional. The release notes a release edition is made from: where they are read,
    * which of their areas the paper covers, by the names the notes give them, and the
    * fewest points a feature needs to be printed (8 unless said). With this, each
@@ -139,6 +147,7 @@ export function problemsWith(paper: Paper): string[] {
   };
   need(paper.name, 'name');
   need(paper.tagline, 'tagline');
+  if (paper.accent && !paper.name?.includes(paper.accent)) problems.push(`"accent" is "${paper.accent}", which is not part of the name "${paper.name}". Give a word of the name, or leave it out.`);
   need(paper.description, 'description');
   need(paper.topic, 'topic');
   need(paper.readers, 'readers');

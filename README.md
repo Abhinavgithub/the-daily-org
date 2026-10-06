@@ -46,6 +46,7 @@ It refuses to run with uncommitted changes and asks before deleting anything. Th
 | `npm run revise -- --glossary-only` | Re-applies the glossary to every story, with no model calls. |
 | `npm run feedback` | Records what the paper got wrong: `-- junk <address>` for a printed story that should not have run, `-- missed <address>` for one it skipped, `-- list` to review. Kept in `data/feedback.jsonl`. Under `npm run dev` the Logs page does the same with a button on each article. |
 | `npm run replay` | Judges the flagged articles again, with some the paper got right, under the rules as they stand, to measure a change to them. `-- --prefilter-only` makes no model calls; `-- --compare` lists what changed since the last replay; `-- --runs 2` finds unstable verdicts. Publishes nothing. |
+| `npm run release-edition` | Builds the release edition when one is owed, and does nothing otherwise. The daily run calls it. `-- --dry-run` says what is owed; `-- --release 264` builds that release's edition now. |
 | `npm run favicon` | Redraws the icons from the paper's name and colours. |
 | `npm run check` / `npm test` | Type-checks, and runs the tests. |
 
@@ -104,6 +105,16 @@ The paper has two tabs. **News** is its stories. **Bulletin** (`/bulletin/`) hol
 
 Bulletin items are kept in `src/content/bulletin`, apart from the stories, so they do not appear among them, in a section's page or in the feed. Search finds the ones the Bulletin is showing.
 
+## The release edition
+
+A release of the paper's subject gets an edition of its own, made from the official release notes and not from the daily news: `/releases/<release>/`, listed in the Archive apart from the daily editions. It is switched on by `releaseNotes` in `paper.config.ts`, which names where the notes are read, the areas of them the paper covers, and the score a feature needs to be printed.
+
+The page opens short: the headlines by name, what the release enforces in every org, and the notes' areas, closed. An area opens to its products and features, and one box searches all of it.
+
+An edition is built twice and no more. The first time is when the notes of a new release appear. The second is on the day the release has reached the last of production, by when the notes have been filled out; that date comes from `releases`. The notes are revised all through a release, and the edition does not follow them day by day. While no release is awaited and no second build is owed, the notes are not asked at all.
+
+The notes are read the way Salesforce's help site reads them, which is not a published service and can change. If it does, the day's paper is written as usual and the edition already saved stays.
+
 ## Videos
 
 A YouTube video is judged on its transcript, with the description its uploader wrote placed before it. English captions written by a person are used when the video has them, otherwise the generated ones.
@@ -117,6 +128,7 @@ A YouTube video is judged on its transcript, with the description its uploader w
 
 - With free models the paper costs nothing. Free tiers limit requests per day; `LLM_MAX_CALLS` keeps a run inside yours.
 - Paid models need `LLM_ALLOW_PAID=1`. Set `LLM_MAX_COST_USD`, and a credit limit on the key as well.
+- A release edition is about $0.02 a build on a cheap paid model, and is built twice a release.
 - Pictures are the main cost: an image model is paid per picture, so check its price before setting `LLM_IMAGE_MODEL`.
 - The words inside a picture cannot be checked by the pipeline, so look at new ones.
 
@@ -146,6 +158,7 @@ If the repository is public, so is `data/logs/`, with what each run rejected and
 - If new stories do not appear in `npm run dev` after a pipeline run, restart it (`npx astro dev stop`, then `npm run dev`).
 - An article that scores one point under the threshold is printed as a one-line brief at the foot of the edition, and a day with only briefs is still an edition. Briefs can be searched, and the Stats page counts them apart from stories. They are files in `src/content/briefs/`.
 - To remove a story, delete its file; it will not come back. To have it assessed again, also delete its entry in `data/seen.json`.
+- With `shares` set in `paper.config.ts`, the top of the page prints that company's share price at the last close, read once a day from Yahoo Finance. It is not a live price. The source asks for no key but is not a published service: if it stops answering, the last price is kept, and a price more than six days old is not printed.
 - Summaries are written by a language model and can be wrong. The site says so in its footer.
 
 ## Licence

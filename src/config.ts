@@ -11,6 +11,8 @@ export const PAPER: Paper = paper;
 
 export const SITE = {
   name: PAPER.name,
+  accent: PAPER.accent,
+  shares: PAPER.shares,
   tagline: PAPER.tagline,
   creator: PAPER.creator,
   description: PAPER.description,

@@ -1,10 +1,14 @@
 ---
+// The Archive: every edition there has been. It is set as a ledger, like the
+// Bulletin: release editions, a year at a time; daily editions, a month at a
+// time; and the sections the stories fall under. Only the newest month of daily
+// editions is open when the page is.
 import Masthead from '../../components/Masthead.astro';
 import { SECTIONS } from '../../config';
 import Layout from '../../layouts/Layout.astro';
 import { printed } from '../../lib/release-edition';
 import { BAR, getReleaseEditions } from '../../lib/release-store';
-import { countLabel, formatDay, getEditions } from '../../lib/stories';
+import { countLabel, getEditions } from '../../lib/stories';
 
 const editions = await getEditions();
 const all = editions.flatMap((e) => e.stories);
@@ -13,68 +17,111 @@ const sections = SECTIONS.map((s) => ({
   count: all.filter((story) => story.data.section === s.id).length,
 })).filter((s) => s.count > 0);
 // The release editions, which stand apart from the daily ones: one a release, and not of any one day.
-const releases = getReleaseEditions().map((edition) => ({ ...edition.release, features: printed(edition, BAR).reduce((sum, area) => sum + area.count, 0) }));
+const releases = getReleaseEditions().map((edition) => ({
+  ...edition.release,
+  features: printed(edition, BAR).reduce((sum, area) => sum + area.count, 0),
+  // A release belongs to the year in its name: Winter '27 is of 2027, though it arrives the autumn before.
+  year: edition.release.name.match(/['’](\d\d)\b/) ? `20${edition.release.name.match(/['’](\d\d)\b/)![1]}` : edition.builtAt.slice(0, 4),
+}));
+// A year to a group, newest first, as the release editions already are.
+const years = [...new Set(releases.map((release) => release.year))].map((year) => ({ year, releases: releases.filter((release) => release.year === year) }));
 // Editions are numbered from the first, so the newest carries the highest number.
 const digits = Math.max(2, String(editions.length).length);
-const numberOf = (index: number) => String(editions.length - index).padStart(digits, '0');
+const numbered = editions.map((edition, index) => ({
+  ...edition,
+  no: String(editions.length - index).padStart(digits, '0'),
+}));
+// A month to a group, newest first, as the editions already are.
+const months = [...new Set(numbered.map((edition) => edition.day.slice(0, 7)))].map((month) => ({
+  name: new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${month}-01T12:00:00Z`)),
+  editions: numbered.filter((edition) => edition.day.startsWith(month)),
+}));
+// The month and year stand over the group, so a row gives the day alone.
+const dayOf = (day: string) => new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' }).format(new Date(`${day}T12:00:00Z`));
 ---
 
 <Layout title="Archive">
   <Masthead>
     <h1 class="dateline__text">Archive</h1>
   </Masthead>
-  <main id="stories" class="wrap wrap--centred">
-    <p class="page-sub">
-      {countLabel(editions.length, 'edition', 'editions')} and {countLabel(all.length, 'story', 'stories')}
-    </p>
+  <main id="stories" class="wrap">
     {
-      editions.length === 0 ? (
+      editions.length === 0 && releases.length === 0 ? (
         <p class="prose">
           No editions yet. Run <code>npm run pipeline</code> to build the first one.
         </p>
       ) : (
-        <>
-          <section class="browse" id="sections" aria-labelledby="sections-title">
-            <h2 id="sections-title">Sections</h2>
-            <ul class="browse__sections">
-              {sections.map((s) => (
-                <li>
-                  <a class="chip" href={`/section/${s.id}/`}>
-                    {s.label} <span class="chip__count">{s.count}</span>
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </section>
+        <div class="ledger past">
+          <p class="page-sub past__sum">
+            {releases.length > 0
+              ? `${countLabel(editions.length, 'daily edition', 'daily editions')}, ${countLabel(all.length, 'story', 'stories')} and ${countLabel(releases.length, 'release edition', 'release editions')}`
+              : `${countLabel(editions.length, 'edition', 'editions')} and ${countLabel(all.length, 'story', 'stories')}`}
+          </p>
           {releases.length > 0 && (
-            <section class="browse" id="release-editions" aria-labelledby="releases-title">
-              <h2 id="releases-title">Release editions</h2>
-              <ol class="archive">
-                {releases.map((release) => (
-                  <li>
-                    <a href={`/releases/${release.slug}/`}>{release.name}</a>
-                    <span class="archive__count">{countLabel(release.features, 'feature', 'features')}</span>
-                  </li>
+            <section class="ledger__row" id="release-editions" aria-labelledby="releases-title">
+              <h3 id="releases-title">Release editions</h3>
+              <div>
+                {years.map((group) => (
+                  <details class="past__month">
+                    <summary>
+                      <h4>{group.year}</h4>
+                      <span class="past__count">{countLabel(group.releases.length, 'edition', 'editions')}</span>
+                    </summary>
+                    <ul class="past__list">
+                      {group.releases.map((release) => (
+                        <li class="past__row past__row--plain">
+                          <a href={`/releases/${release.slug}/`}>{release.name}</a>
+                          <span class="past__count">{countLabel(release.features, 'feature', 'features')}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </details>
                 ))}
-              </ol>
+              </div>
             </section>
           )}
-          <section class="browse" aria-labelledby="editions-title">
-            <h2 id="editions-title">Daily editions</h2>
-            <ol class="archive" reversed>
-              {editions.map((edition, index) => (
-                <li>
-                  <!-- The list itself gives the position to a screen reader. -->
-                  <span class="archive__no" aria-hidden="true">{numberOf(index)}</span>
-                  <a href={`/${edition.day}/`}>{formatDay(edition.day)}</a>
-                  <span class="archive__count">
-                    {edition.stories.length > 0 ? countLabel(edition.stories.length, 'story', 'stories') : countLabel(edition.briefs.length, 'brief', 'briefs')}
-                  </span>
-                </li>
-              ))}
-            </ol>
-          </section>
-        </>
+          {months.length > 0 && (
+            <section class="ledger__row" aria-labelledby="editions-title">
+              <h3 id="editions-title">Daily editions</h3>
+              <div>
+                {months.map((month, index) => (
+                  <details class="past__month" open={index === 0}>
+                    <summary>
+                      <h4>{month.name}</h4>
+                      <span class="past__count">{countLabel(month.editions.length, 'edition', 'editions')}</span>
+                    </summary>
+                    <ol class="past__list" reversed start={Number(month.editions[0].no)}>
+                      {month.editions.map((edition) => (
+                        <li class="past__row">
+                          <!-- The list itself gives the position to a screen reader. -->
+                          <span class="past__no" aria-hidden="true">{edition.no}</span>
+                          <a href={`/${edition.day}/`}>{dayOf(edition.day)}</a>
+                          <span class="past__count">
+                            {edition.stories.length > 0 ? countLabel(edition.stories.length, 'story', 'stories') : countLabel(edition.briefs.length, 'brief', 'briefs')}
+                          </span>
+                        </li>
+                      ))}
+                    </ol>
+                  </details>
+                ))}
+              </div>
+            </section>
+          )}
+          {sections.length > 0 && (
+            <section class="ledger__row" id="sections" aria-labelledby="sections-title">
+              <h3 id="sections-title">Sections</h3>
+              <ul class="browse__sections">
+                {sections.map((s) => (
+                  <li>
+                    <a class="chip" href={`/section/${s.id}/`}>
+                      {s.label} <span class="chip__count">{s.count}</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          )}
+        </div>
       )
     }
   </main>

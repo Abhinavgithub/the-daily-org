@@ -6,7 +6,9 @@ import { definePaper, youtube } from './src/paper';
 
 export default definePaper({
   name: 'The Daily Org',
-  tagline: 'A Salesforce Newspaper',
+  tagline: 'The independent daily for Salesforce admins, developers and architects',
+  accent: 'Org',
+  shares: { symbol: 'CRM', name: 'Salesforce' },
   description:
     'A daily newspaper of the Salesforce stories worth reading, scored and summarised for developers, admins and architects.',
   creator: { name: 'Abhinav', url: 'https://www.salesforce.com/trailblazer/asingh0187' },
@@ -29,7 +31,7 @@ export default definePaper({
   releaseNotes: {
     from: 'salesforce-help',
     areas: ['Agentforce and Generative AI', 'AIforce', 'Automation', 'Customization', 'Data 360', 'Development', 'Platform', 'Sales', 'Service', 'Slack Integrations'],
-    bar: 8,
+    bar: 7,
   },
   // Security advisories and wide incidents, also from Trust. They are printed in the Bulletin whatever they score.
   alerts: 'salesforce-trust',

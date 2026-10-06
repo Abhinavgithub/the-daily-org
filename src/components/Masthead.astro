@@ -1,5 +1,7 @@
 ---
 import { SITE } from '../config';
+import { quoteLine } from '../lib/quote';
+import { getQuote } from '../lib/quote-store';
 
 interface Props {
   /** Pre-fills the search box on the search page. */
@@ -7,6 +9,12 @@ interface Props {
 }
 
 const { query = '' } = Astro.props;
+// The share price at the last close, when the paper prints one and has a fresh one.
+const quote = SITE.shares ? getQuote() : undefined;
+const shares = quote && quoteLine(quote, SITE.shares!.name);
+// The name in three parts, when one word of it is printed in the paper's colour.
+const at = SITE.accent ? SITE.name.indexOf(SITE.accent) : -1;
+const name = at < 0 ? [SITE.name, '', ''] : [SITE.name.slice(0, at), SITE.accent, SITE.name.slice(at + SITE.accent!.length)];
 ---
 
 <header class="masthead">
@@ -30,7 +38,18 @@ const { query = '' } = Astro.props;
         </svg>
       </button>
     </form>
-    <button type="button" class="tool" data-theme-toggle aria-label="Switch to dark mode">
+    <div class="masthead__tools">
+      {
+        quote && shares && (
+          <p class="quote" title={shares.says}>
+            <span class="visually-hidden">{shares.says}</span>
+            <span aria-hidden="true">
+              <b>{quote.symbol}</b> {shares.price} <span class:list={['quote__move', shares.mark && (quote.change > 0 ? 'quote__move--up' : 'quote__move--down')]}>{shares.mark} {shares.change}</span>
+            </span>
+          </p>
+        )
+      }
+      <button type="button" class="tool" data-theme-toggle aria-label="Switch to dark mode">
       <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a7 7 0 1 0 10.5 10.5Z"></path>
       </svg>
@@ -39,14 +58,15 @@ const { query = '' } = Astro.props;
         <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
       </svg>
     </button>
+    </div>
   </div>
   <!-- The line above the nameplate: the edition date, or the page's title. -->
   <div class="dateline"><slot /></div>
-  <a class="masthead__name" href="/">{SITE.name}</a>
-  <p class="masthead__tagline">
-    <span>{SITE.tagline}</span>
-    <span>
+  <a class="masthead__name" href="/">{name[0]}{name[1] && <span class="masthead__accent">{name[1]}</span>}{name[2]}</a>
+  <div class="masthead__motto">
+    <p class="masthead__tagline">{SITE.tagline}</p>
+    <p class="masthead__by">
       Curated by <a href={SITE.creator.url} target="_blank" rel="noopener">{SITE.creator.name}</a>
-    </span>
-  </p>
+    </p>
+  </div>
 </header>
