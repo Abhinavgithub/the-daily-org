@@ -21,21 +21,31 @@ export function inWindow(kind: BulletinKind, date: string, latest: string): bool
   return age >= 0 && age < WINDOWS[kind];
 }
 
-/** What the page carries of each item so the count can be worked out: its name and the day it was printed. */
+/** What the page carries of each item so the counts can be worked out: its name, the day it was printed, and whether it is an incident. */
 export interface Listed {
   id: string;
   date: string;
+  /** A failure of the service itself, which is counted apart and shown in red. */
+  incident?: boolean;
 }
 
 /**
- * How many items the reader has not seen. `seen` is the names remembered from
- * earlier visits, or null for a reader who has never opened the Bulletin, who
- * is told only of the last few days so as not to be met with a large number.
+ * Whether an item is counted on the tab at all. A tool's release is not: there
+ * is one most weeks, and none of them is pressing.
  */
-export function unseen(items: Listed[], seen: string[] | null, latest: string): number {
-  if (seen === null) return items.filter((item) => daysApart(item.date, latest) < FIRST_VISIT_DAYS).length;
-  const known = new Set(seen);
-  return items.filter((item) => !known.has(item.id)).length;
+export const counted = (kind: BulletinKind) => kind !== 'release';
+
+/**
+ * How many items the reader has not seen: incidents, and everything else that
+ * is counted. `seen` is the names remembered from earlier visits, or null for a
+ * reader who has never opened the Bulletin, who is told only of the last few
+ * days so as not to be met with a large number.
+ */
+export function unseen(items: Listed[], seen: string[] | null, latest: string): { incidents: number; others: number } {
+  const known = new Set(seen ?? []);
+  const fresh = items.filter((item) => (seen === null ? daysApart(item.date, latest) < FIRST_VISIT_DAYS : !known.has(item.id)));
+  const incidents = fresh.filter((item) => item.incident).length;
+  return { incidents, others: fresh.length - incidents };
 }
 
 /** Where the browser keeps what has been seen. */

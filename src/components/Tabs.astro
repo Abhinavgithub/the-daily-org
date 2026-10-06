@@ -1,10 +1,13 @@
 ---
+import { counted } from '../lib/bulletin';
 import { getBulletin } from '../lib/stories';
 
 // The two parts of the paper: its stories, and the Bulletin, which holds what
 // is not a story. They are two pages, so these are links, and the one the
 // reader is on is marked. The Bulletin's link says how many of its items the
-// reader has not seen, which the browser remembers.
+// reader has not seen, which the browser remembers: incidents in red, since a
+// failure of the service is pressing, and other notices in the paper's accent.
+// A tool's release is not counted.
 
 interface Props {
   current: 'news' | 'bulletin';
@@ -12,7 +15,9 @@ interface Props {
 
 const { current } = Astro.props;
 const { latest, items } = await getBulletin();
-const listed = items.map((item) => ({ id: item.id, date: item.data.date }));
+const listed = items
+  .filter((item) => counted(item.data.kind))
+  .map((item) => ({ id: item.id, date: item.data.date, ...(item.data.kind === 'alert' && /incident/i.test(item.data.flag ?? '') ? { incident: true } : {}) }));
 ---
 
 <nav class="tabs" aria-label="Parts of the paper">
@@ -26,7 +31,8 @@ const listed = items.map((item) => ({ id: item.id, date: item.data.date }));
     data-current={current === 'bulletin' ? '' : undefined}
   >
     Bulletin
-    <span class="tabs__count" data-bulletin-count hidden></span>
+    <span class="tabs__count tabs__count--incident" data-bulletin-incidents hidden></span>
+    <span class="tabs__count" data-bulletin-others hidden></span>
   </a>
 </nav>
 
@@ -34,8 +40,9 @@ const listed = items.map((item) => ({ id: item.id, date: item.data.date }));
   import { SEEN_KEY, unseen, type Listed } from '../lib/bulletin';
 
   const tab = document.querySelector<HTMLAnchorElement>('[data-bulletin-tab]');
-  const count = tab?.querySelector<HTMLElement>('[data-bulletin-count]');
-  if (tab && count) {
+  const incidents = tab?.querySelector<HTMLElement>('[data-bulletin-incidents]');
+  const others = tab?.querySelector<HTMLElement>('[data-bulletin-others]');
+  if (tab && incidents && others) {
     let items: Listed[] = [];
     let seen: string[] | null = null;
     try {
@@ -55,11 +62,21 @@ const listed = items.map((item) => ({ id: item.id, date: item.data.date }));
       }
     } else {
       const fresh = unseen(items, seen, tab.dataset.latest ?? '');
-      if (fresh > 0) {
-        count.textContent = String(fresh);
-        count.hidden = false;
-        tab.setAttribute('aria-label', `Bulletin, ${fresh} new`);
+      const said: string[] = [];
+      if (fresh.incidents > 0) {
+        incidents.textContent = String(fresh.incidents);
+        incidents.hidden = false;
+        incidents.title = `${fresh.incidents} new ${fresh.incidents === 1 ? 'incident' : 'incidents'}`;
+        said.push(incidents.title);
       }
+      if (fresh.others > 0) {
+        others.textContent = String(fresh.others);
+        others.hidden = false;
+        others.title = `${fresh.others} new ${fresh.others === 1 ? 'notice' : 'notices'}`;
+        said.push(others.title);
+      }
+      // The colour is not the only thing that tells the two apart: each is named when read out or pointed at.
+      if (said.length) tab.setAttribute('aria-label', `Bulletin, ${said.join(' and ')}`);
     }
   }
 </script>

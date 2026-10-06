@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { daysApart, inWindow, unseen } from './bulletin';
+import { counted, daysApart, inWindow, unseen } from './bulletin';
 
 test('each kind of item stays on the page for its own number of days', () => {
   assert.equal(daysApart('2026-09-22', '2026-10-06'), 14);
@@ -14,16 +14,22 @@ test('each kind of item stays on the page for its own number of days', () => {
   assert.equal(inWindow('alert', '2026-10-07', '2026-10-06'), false, 'nothing from after the latest edition');
 });
 
-test('the count is what the reader has not seen, and a first visit is told only of the last two days', () => {
+test('the counts are what the reader has not seen, incidents apart, and a first visit is told only of the last two days', () => {
   const items = [
-    { id: 'a', date: '2026-10-06' },
+    { id: 'a', date: '2026-10-06', incident: true },
     { id: 'b', date: '2026-10-05' },
-    { id: 'c', date: '2026-10-04' },
+    { id: 'c', date: '2026-10-04', incident: true },
     { id: 'd', date: '2026-09-20' },
   ];
-  assert.equal(unseen(items, null, '2026-10-06'), 2, 'never opened: today and yesterday');
-  assert.equal(unseen(items, ['a', 'b', 'c', 'd'], '2026-10-06'), 0, 'opened since');
-  assert.equal(unseen([...items, { id: 'e', date: '2026-10-07' }], ['a', 'b', 'c', 'd'], '2026-10-07'), 1, 'one has arrived since');
-  assert.equal(unseen(items, [], '2026-10-06'), 4, 'opened once, when it was empty');
-  assert.equal(unseen([], null, '2026-10-06'), 0);
+  assert.deepEqual(unseen(items, null, '2026-10-06'), { incidents: 1, others: 1 }, 'never opened: today and yesterday');
+  assert.deepEqual(unseen(items, ['a', 'b', 'c', 'd'], '2026-10-06'), { incidents: 0, others: 0 }, 'opened since');
+  assert.deepEqual(unseen([...items, { id: 'e', date: '2026-10-07', incident: true }], ['a', 'b', 'c', 'd'], '2026-10-07'), { incidents: 1, others: 0 }, 'an incident has arrived since');
+  assert.deepEqual(unseen(items, [], '2026-10-06'), { incidents: 2, others: 2 }, 'opened once, when it was empty');
+  assert.deepEqual(unseen([], null, '2026-10-06'), { incidents: 0, others: 0 });
+});
+
+test('a tool release is not counted on the tab', () => {
+  assert.equal(counted('release'), false);
+  assert.equal(counted('alert'), true);
+  assert.equal(counted('community'), true);
 });

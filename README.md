@@ -81,7 +81,7 @@ All in `.env`; `.env.example` explains each.
 
 ## The Bulletin
 
-The paper has two tabs. **News** is its stories. **Bulletin** (`/bulletin/`) holds what is worth knowing and is not a story, so that none of it takes room from the stories. It is one page showing the picture as it stands, not one a day, and each kind of item stays on it for a while. The tab says how many of its items a reader has not yet seen, which their browser remembers.
+The paper has two tabs. **News** is its stories. **Bulletin** (`/bulletin/`) holds what is worth knowing and is not a story, so that none of it takes room from the stories. It is one page showing the picture as it stands, not one a day, and each kind of item stays on it for a while. The tab says how many of its items a reader has not yet seen, which their browser remembers: incidents in red, other alerts in the paper's accent. A tool's release is not counted.
 
 | Section | What it holds | Stays for | Switched on by |
 |---|---|---|---|

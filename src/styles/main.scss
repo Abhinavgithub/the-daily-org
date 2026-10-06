@@ -13,6 +13,8 @@
   --sky: #2c5878;
   --sky-wash: #e8e0cd;
   --sun: #{$accent};
+  // For a failure of the service, and nothing else: the one red on the page.
+  --alarm: #b3261e;
   --backdrop: rgb(28 26 22 / 0.55);
 
   // The box rule around a story: ink, thinned so it reads as printed, not framed.
@@ -66,6 +68,7 @@
   --sky: #9cc3e0;
   --sky-wash: #2e2a22;
   --sun: #f0a85a;
+  --alarm: #ff6b5e;
   --backdrop: rgb(0 0 0 / 0.7);
 
   // Soft shadows barely show on a dark page, so they are stronger here and
@@ -541,7 +544,11 @@ html[data-turn='older']::view-transition-new(turn-fold) {
   }
 }
 
-// How many of the Bulletin's items the reader has not seen.
+// How many of the Bulletin's items the reader has not seen. Incidents are counted apart, in red.
+.tabs__count--incident {
+  background: var(--alarm) !important;
+}
+
 .tabs__count {
   display: inline-block;
   min-width: 1.35em;
