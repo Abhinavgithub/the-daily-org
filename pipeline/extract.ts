@@ -3,6 +3,7 @@ import { parseHTML } from 'linkedom';
 import { authorsFromLeadingByline, cleanAuthors, findAuthors } from './authors';
 import type { FeedItem } from './fetch';
 import { get } from './http';
+import { notesOf } from './notes';
 import { fetchTranscript, VIDEO_CHARS, videoId, videoText, type Transcript } from './transcript';
 
 const MAX_CHARS = 12_000;
@@ -103,8 +104,14 @@ export async function extractContent(
   item: FeedItem,
   readPage: typeof extractPage = extractPage,
   readTranscript: (id: string) => Promise<Transcript> = fetchTranscript,
+  readNotes: (item: FeedItem) => Promise<string | undefined> = notesOf,
 ): Promise<Extracted> {
   let text = item.feedText;
+  // A release whose entry only points at its notes is read from the notes.
+  if (item.source.notes) {
+    const notes = await readNotes(item);
+    if (notes) return { text: notes.slice(0, MAX_CHARS), image: item.image, authors: [] };
+  }
   let image = item.image;
   let authors = authorsFromLeadingByline(text);
 

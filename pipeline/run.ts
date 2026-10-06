@@ -443,6 +443,13 @@ for (const [i, { item, key, text, image, basis }] of candidates.entries()) {
       await proofreadStory(story);
       written.push(...writeStories(day, [story]));
       tally.published++;
+    } else if (item.source.type === 'code' && (!v.relevant || v.interest_score < threshold)) {
+      // A release that does not make a story is still printed, as one line: a reader should not have to wonder whether there was one.
+      counts.belowThreshold++;
+      tally.below++;
+      briefs.push(...writeBriefs(day, [{ item, curated }]));
+      console.log(`  [${i + 1}/${candidates.length}] Scored ${v.interest_score}, a release, printed in brief: ${item.title}`);
+      runLog.article({ ...entry, outcome: 'below-threshold', score: v.interest_score, reason: `scored ${v.interest_score}, the threshold is ${threshold}; a release is always printed in brief` });
     } else if (!v.relevant) {
       counts.rejected++;
       tally.notRelevant++;

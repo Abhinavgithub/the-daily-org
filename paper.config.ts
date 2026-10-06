@@ -57,6 +57,19 @@ export default definePaper({
   // Candidates: note feeds worth trying here, and what `npm run try-source -- <address>` said of them.
   //   Salesforce Geek, Salesforce Emily, Coding With The Force (YouTube): channel IDs not known; none uploaded in late Sept 2026.
   sources: [
+    // Tools. Every release is printed, in a line at least. The CLI's feed is empty nightly builds, so its notes file is read;
+    // Code Analyzer's entries only say "see release notes", so the notes page is read for each.
+    { id: 'sf-cli', name: 'Salesforce CLI', url: 'https://raw.githubusercontent.com/forcedotcom/cli/main/releasenotes/README.md', type: 'code', changelog: true, personas: ['developer'] },
+    {
+      id: 'sf-code-analyzer',
+      name: 'Salesforce Code Analyzer',
+      url: 'https://github.com/forcedotcom/code-analyzer/releases.atom',
+      type: 'code',
+      notes: 'https://developer.salesforce.com/docs/platform/salesforce-code-analyzer/guide/release-notes.html',
+      personas: ['developer'],
+    },
+    { id: 'lwc', name: 'Lightning Web Components', url: 'https://github.com/salesforce/lwc/releases.atom', type: 'code', personas: ['developer'] },
+
     // Official
     { id: 'sf-developers', name: 'Salesforce Developers Blog', url: 'https://developer.salesforce.com/blogs/feed', type: 'official', personas: ['developer'] },
     { id: 'sf-admins', name: 'Salesforce Admins Blog', url: 'https://admin.salesforce.com/feed', type: 'official', personas: ['admin'] },

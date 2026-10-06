@@ -74,3 +74,14 @@ test('a video is read from its transcript, and from its description when there i
   const elsewhere = await extractContent({ ...video, url: 'https://vimeo.com/123' }, noPage, async () => { throw new Error('not asked for'); });
   assert.deepEqual([elsewhere.basis, elsewhere.transcript], ['description', undefined]);
 });
+
+test('a release whose entry only points at its notes is read from the notes', async () => {
+  const release = { ...item, source: { ...item.source, type: 'code' as const, notes: 'https://example.com/notes' }, title: 'Tool 5.16.0', feedText: 'See release notes' };
+  const noPage = async (): Promise<never> => { throw new Error('the notes are enough'); };
+  const none = async (): Promise<never> => { throw new Error('not a video'); };
+  const read = await extractContent(release, noPage, none, async () => 'NEW: something worth a line.');
+  assert.equal(read.text, 'NEW: something worth a line.');
+  // With no section for the version, it is read as any article is.
+  const fallback = await extractContent(release, async () => ({ text: 'The release page. '.repeat(100), authors: [] }), none, async () => undefined);
+  assert.match(fallback.text, /^The release page/);
+});

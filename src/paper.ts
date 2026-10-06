@@ -28,6 +28,16 @@ export interface Source<Persona extends string = string> {
   personas?: Persona[];
   /** Other addresses for the same feed, tried when the main one fails. */
   alternatives?: string[];
+  /**
+   * For a tool whose release notes are one long document, a section to a version: the
+   * address is that document, not a feed. Each dated section is read as a release.
+   */
+  changelog?: boolean;
+  /**
+   * For a feed of releases whose entries only point at the notes: the document
+   * that has them, a section to a version. The entry's version is looked up in it.
+   */
+  notes?: string;
   /** For a YouTube source: its channel ID, used to read it through the YouTube API when a key is set. */
   youtubeChannel?: string;
 }

@@ -2,6 +2,7 @@ import type { Alert } from './alerts';
 import Parser from 'rss-parser';
 import { cleanAuthors } from './authors';
 import { get } from './http';
+import { readChangelog } from './notes';
 import type { Source } from './sources';
 import { fetchUploads } from './youtube';
 
@@ -78,6 +79,8 @@ function feedImage(entry: Parser.Item & Extra, html: string): string | undefined
   );
 }
 
+const PRERELEASE = /\b(rc|alpha|beta|nightly|canary|next|preview|pre-?release)\b|-\d*(rc|alpha|beta)/i;
+
 /** The items of one feed published on or after `since`. Throws when the text is not a feed. */
 export async function parseFeed(xml: string, source: Source, since: Date): Promise<FeedItem[]> {
   const feed = await parser.parseString(xml);
@@ -86,12 +89,16 @@ export async function parseFeed(xml: string, source: Source, since: Date): Promi
     if (!entry.link || !entry.title || !entry.isoDate) continue;
     const published = new Date(entry.isoDate);
     if (Number.isNaN(published.getTime()) || published < since) continue;
+    // A feed of releases also lists builds that are not releases: candidates, nightlies.
+    if (source.type === 'code' && PRERELEASE.test(entry.title)) continue;
     const html = String(
       entry['content:encoded'] ?? entry.mediaGroup?.['media:description']?.[0] ?? entry.content ?? entry.contentSnippet ?? '',
     );
+    // A release is often titled with its version alone, which says nothing without the tool's name.
+    const title = entry.title.trim();
     items.push({
       source,
-      title: entry.title.trim(),
+      title: source.type === 'code' && /^v?\d[\w.-]*$/.test(title) ? `${source.name} ${title.replace(/^v/, '')}` : title,
       url: entry.link.trim(),
       published,
       authors: cleanAuthors(String(entry.creator ?? entry.author ?? '')),
@@ -144,6 +151,9 @@ async function fetchFeed(source: Source, since: Date, options: FetchOptions): Pr
     newest: all.reduce<Date | undefined>((latest, item) => (!latest || item.published > latest ? item.published : latest), undefined),
   });
   const whole = new Date(0);
+
+  // Release notes kept as one document are not a feed, and are read their own way.
+  if (source.changelog) return within(await readChangelog(source, new Date(), getFn));
 
   // A YouTube channel is read through the API when there is a key; the feed is the fallback.
   const key = options.youtubeKey ?? process.env.YOUTUBE_API_KEY ?? '';

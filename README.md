@@ -79,6 +79,14 @@ All in `.env`; `.env.example` explains each.
 | `READERSHIP_API_TOKEN`, `READERSHIP_ACCOUNT_ID`, `READERSHIP_SITE_ID` | Optional. Read-only access to the site's web analytics, so the Stats page can show views, visits, countries and most-read pages. |
 | `SITE_URL` | Optional. Takes the place of the paper's `address`. |
 
+## Tool releases
+
+A source of type `code` is a tool, and every release of it is printed: as a story when it scores well enough, otherwise as one line in "In brief" saying what the version changed. Release candidates and nightly builds are left out.
+
+- A feed of releases, such as a GitHub repository's `releases.atom`, is read like any other feed.
+- `changelog: true` is for a tool whose notes are one long document with a dated section a version: the source's address is that document.
+- `notes: '<address>'` is for a feed whose entries only point at the notes: each entry's version is looked up in that document.
+
 ## Alerts
 
 A paper can print some notices whatever they score, together in one box beside the lead story. Set `alerts` in `paper.config.ts` to the feed to read; `salesforce-trust` is the only one so far. It reads Salesforce's Trust site for:
