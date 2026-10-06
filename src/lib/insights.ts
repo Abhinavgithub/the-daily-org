@@ -230,6 +230,8 @@ export interface Finding {
    */
   lastRunAt?: string;
   hidden?: boolean;
+  /** The `ranAt` of the run to look at, when the finding comes from particular runs. */
+  run?: string;
 }
 
 export interface FindingsInput {
@@ -261,6 +263,11 @@ export function findings(input: FindingsInput): Finding[] {
   const found: Finding[] = [];
   const fine: string[] = [];
   const sum = (pick: (run: RunFacts) => number) => runs.reduce((total, run) => total + pick(run), 0);
+  /** The newest run of the period in which it happened, to send the reader to. */
+  const where = (pick: (run: RunFacts) => number) => {
+    const run = runs.find((candidate) => pick(candidate) > 0)?.ranAt;
+    return run ? { run } : {};
+  };
 
   for (const edition of input.stale) {
     found.push({ tone: 'problem', says: `The site is out of date: it shows ${edition.served} of ${edition.onDisk} stories and briefs for ${edition.day}.`, action: 'Restart the dev server (npx astro dev stop, then npm run dev).' });
@@ -271,7 +278,7 @@ export function findings(input: FindingsInput): Finding[] {
   } else {
     const stale = (now - Date.parse(latest.ranAt)) / 3_600_000 > RULES.staleHours;
     found.push({ tone: 'watch', says: `The pipeline last ran ${ago(latest.ranAt, now)}.`, action: 'Run npm run pipeline, or check the schedule.', lastRunAt: latest.ranAt, hidden: !stale });
-    if (!latest.finished) found.push({ tone: 'problem', says: `The last run stopped early${latest.stopped ? `: ${latest.stopped}` : ''}.`, action: 'What it left is picked up by the next run.', href: '#runs' });
+    if (!latest.finished) found.push({ tone: 'problem', says: `The last run stopped early${latest.stopped ? `: ${latest.stopped}` : ''}.`, action: 'What it left is picked up by the next run.', href: '#runs', run: latest.ranAt });
     if (latest.deferred > 0) {
       found.push({
         tone: 'watch',
@@ -307,7 +314,7 @@ export function findings(input: FindingsInput): Finding[] {
   // A feed that failed in the last run is said so, short of the several runs in a row that make it failing.
   const justFailed = latest?.feedsFailed ?? 0;
   if (justFailed > input.failingFeeds.length) {
-    found.push({ tone: 'watch', says: `${plural(justFailed, 'feed', 'feeds')} failed in the last run.`, action: 'One failure is often passing. It is flagged as failing after three runs in a row.', href: '#runs' });
+    found.push({ tone: 'watch', says: `${plural(justFailed, 'feed', 'feeds')} failed in the last run.`, action: 'One failure is often passing. It is flagged as failing after three runs in a row.', href: '#runs', run: latest!.ranAt });
   } else if (input.failingFeeds.length === 0) fine.push('every feed answered');
 
   const calls = sum((run) => run.calls);
@@ -319,6 +326,7 @@ export function findings(input: FindingsInput): Finding[] {
       says: `${retries} of ${calls} model calls (${percent(retries, calls)}) were repeats${limited ? `, ${limited} of them for rate limits` : ''}.`,
       action: limited * 2 >= retries ? 'Put a paid model first in LLM_MODELS, or raise LLM_MIN_INTERVAL_MS.' : 'See which model is failing under Runs.',
       href: '#runs',
+      ...where((run) => run.retries),
     });
   } else if (calls > 0) fine.push('few repeated calls');
 
@@ -331,16 +339,16 @@ export function findings(input: FindingsInput): Finding[] {
   const proofs = sum((run) => run.proofs);
   const discarded = sum((run) => run.proofsDiscarded);
   if (proofs >= RULES.proofs.proofs && discarded / proofs >= RULES.proofs.share) {
-    found.push({ tone: 'watch', says: `${discarded} of ${proofs} proof-reads (${percent(discarded, proofs)}) were partly thrown away.`, action: 'The model rewrites where it should only correct. Try another.', href: '#runs' });
+    found.push({ tone: 'watch', says: `${discarded} of ${proofs} proof-reads (${percent(discarded, proofs)}) were partly thrown away.`, action: 'The model rewrites where it should only correct. Try another.', href: '#runs', ...where((run) => run.proofsDiscarded) });
   }
 
   const figures = sum((run) => run.figures);
   const refused = sum((run) => run.figuresRefused);
   if (figures >= RULES.figures.figures && refused / figures >= RULES.figures.share) {
-    found.push({ tone: 'watch', says: `${refused} of ${figures} diagrams (${percent(refused, figures)}) were refused.`, action: 'They stated something the article did not, or were the wrong shape.', href: '#runs' });
+    found.push({ tone: 'watch', says: `${refused} of ${figures} diagrams (${percent(refused, figures)}) were refused.`, action: 'They stated something the article did not, or were the wrong shape.', href: '#runs', ...where((run) => run.figuresRefused) });
   }
   const pictures = sum((run) => run.picturesFailed);
-  if (pictures > 0) found.push({ tone: 'watch', says: `${plural(pictures, 'illustration', 'illustrations')} could not be made.`, action: 'Check LLM_IMAGE_MODEL and the credit on the account.', href: '#runs' });
+  if (pictures > 0) found.push({ tone: 'watch', says: `${plural(pictures, 'illustration', 'illustrations')} could not be made.`, action: 'The run says why. If the story now has its picture, a later run drew it and nothing needs doing.', href: '#runs', ...where((run) => run.picturesFailed) });
 
   const published = sum((run) => run.published);
   if (reviewed >= RULES.lowYield.reviewed && published / reviewed < RULES.lowYield.share) {

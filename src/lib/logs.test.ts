@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { test } from 'node:test';
 import { KEEP, RunLog } from '../../pipeline/log';
-import { byNewest, legacyRuns, problems, readLog, staleEditions, summary } from './logs';
+import { byNewest, legacyRuns, problems, readLog, runId, staleEditions, summary } from './logs';
 
 const tmp = () => fs.mkdtempSync(path.join(os.tmpdir(), 'paper-logs-'));
 
@@ -77,4 +77,10 @@ test('editions the site is serving out of date are found', () => {
     { day: '2026-10-03', onDisk: 0, served: 6 },
   ]);
   assert.deepEqual(staleEditions({ '2026-10-04': 21 }, { '2026-10-04': 21 }), []);
+});
+
+test('an illustration that could not be made is a problem of its run, and a run has a name to be linked by', () => {
+  const log = readLog('{"ranAt":"2026-10-04T10:37:30.625Z","figures":[{"title":"A","outcome":"drawn","image":"failed"},{"title":"B","outcome":"drawn","image":"made"}]}')!;
+  assert.deepEqual(problems(log), ['1 illustration not made']);
+  assert.equal(runId(log.ranAt), 'run-2026-10-04T10-37-30-625Z');
 });

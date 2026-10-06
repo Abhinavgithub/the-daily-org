@@ -504,6 +504,25 @@ try {
     state.run = '';
     fresh();
   });
+  // "See the run" on a finding goes to that run, wherever it is: folded away with the older ones, or filtered out.
+  document.addEventListener('click', (event) => {
+    const link = (event.target as HTMLElement).closest<HTMLAnchorElement>('[data-run-link]');
+    if (!link) return;
+    const run = document.getElementById(link.hash.slice(1)) as HTMLDetailsElement | null;
+    event.preventDefault();
+    // A run from before logs were kept has no entry of its own; the list of runs is the nearest thing.
+    if (!run) {
+      document.getElementById('runs')?.scrollIntoView();
+      return;
+    }
+    state.allRuns = true;
+    state.runs = '';
+    apply();
+    run.open = true;
+    run.scrollIntoView();
+    history.replaceState(null, '', location.pathname + location.search + link.hash);
+  });
+
   // "See its articles" on a run narrows the Articles list to that run.
   document.addEventListener('click', (event) => {
     const link = (event.target as HTMLElement).closest<HTMLElement>('[data-show-run]');

@@ -26,13 +26,13 @@ test('run lines are read leniently', () => {
   assert.deepEqual(parseRuns(''), []);
 });
 
-test('tokens add up by model, heaviest first, with a combined row last', () => {
+test('tokens add up by model, heaviest first, a combined row among them', () => {
   const all = totalRuns(parseRuns(lines));
   assert.equal(all.assessed, 31);
   assert.deepEqual(all.tokens, [
+    { model: 'm1 and m2, combined', input: 39612, output: 50914, combined: true },
     { model: 'm1', input: 34359, output: 15137 },
     { model: 'm2', input: 700, output: 200 },
-    { model: 'm1 and m2, combined', input: 39612, output: 50914, combined: true },
   ]);
   assert.deepEqual([all.inputTokens, all.outputTokens], [74671, 66251]);
 

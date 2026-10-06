@@ -1,5 +1,6 @@
 ---
 import { RULES, type Finding } from '../lib/insights';
+import { runId } from '../lib/logs';
 
 // What the records say, most pressing first. Each says what was found, and under it what to do.
 
@@ -54,7 +55,13 @@ const clock = (iso: string) => `on ${new Intl.DateTimeFormat('en-GB', { weekday:
               {finding.href && (
                 <>
                   {' '}
-                  <a href={finding.href}>See&nbsp;it</a>
+                  {finding.run ? (
+                    <a href={`#${runId(finding.run)}`} data-run-link>
+                      See&nbsp;the&nbsp;run
+                    </a>
+                  ) : (
+                    <a href={finding.href}>See&nbsp;it</a>
+                  )}
                 </>
               )}
             </p>

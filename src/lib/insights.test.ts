@@ -211,3 +211,14 @@ test('videos judged without their transcripts are said so, and a video waiting f
   assert.doesNotMatch(says(run({ ...at, videosHeard: 1, videosDescribed: 1 })), /description alone/, 'too few videos to say');
   assert.match(says(run({ ...at, videosHeard: 3, videosDescribed: 1 })), /videos were judged on their transcripts/i);
 });
+
+test('a finding that comes from a run names the newest run where it happened', () => {
+  const runs = [run({ ranAt: '2026-10-06T10:00:00Z' }), run({ ranAt: '2026-10-05T10:00:00Z', picturesFailed: 1 }), run({ ranAt: '2026-10-04T10:00:00Z', picturesFailed: 2 })];
+  const found = findings({ runs, latest: runs[0], stale: [], failingFeeds: [], sourcesToLook: [], now: Date.parse('2026-10-06T11:00:00Z') });
+  const pictures = found.find((finding) => finding.says.includes('illustrations could not be made'));
+  assert.equal(pictures?.run, '2026-10-05T10:00:00Z');
+  assert.doesNotMatch(pictures?.action ?? '', /npm|LLM_/, 'the advice is in plain words');
+
+  const stopped = run({ ranAt: '2026-10-06T10:00:00Z', finished: false, stopped: 'the call cap' });
+  assert.equal(findings({ runs: [stopped], latest: stopped, stale: [], failingFeeds: [], sourcesToLook: [] }).find((finding) => finding.tone === 'problem')?.run, '2026-10-06T10:00:00Z');
+});

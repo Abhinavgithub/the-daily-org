@@ -166,6 +166,9 @@ export function costsByRun(statsText: string): Record<string, number> {
   return costs;
 }
 
+/** The name a run goes by in the page, so that it can be linked to. */
+export const runId = (ranAt: string) => `run-${ranAt.replace(/[^0-9A-Za-z]+/g, '-')}`;
+
 /** Newest first. */
 export const byNewest = (a: RunLogData, b: RunLogData) => b.ranAt.localeCompare(a.ranAt);
 
@@ -178,6 +181,7 @@ export function problems(log: RunLogData): string[] {
   say(log.articles.filter((a) => a.outcome === 'invalid-reply').length, 'unusable model reply', 'unusable model replies');
   say(log.proofread.filter((p) => p.reason).length, 'proof-read discarded', 'proof-reads discarded');
   say(log.figures.filter((f) => f.outcome === 'refused').length, 'diagram refused', 'diagrams refused');
+  say(log.figures.filter((f) => f.image === 'failed').length, 'illustration not made', 'illustrations not made');
   return found;
 }
 

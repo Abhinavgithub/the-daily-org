@@ -1776,18 +1776,21 @@ span.dateline__step {
   color: var(--sun);
 }
 
+// The same size as everything else on the page: what was found stands out by weight, not by being larger.
 .finding__says {
-  font-size: 0.95rem;
-  line-height: 1.4;
+  font-weight: 600;
+  line-height: 1.45;
   color: var(--ink);
 }
 
 .finding--fine .finding__says {
+  font-weight: 400;
   color: var(--muted);
 }
 
 .finding__action {
   margin-top: 0.15rem !important;
+  line-height: 1.45;
   color: var(--muted);
 }
 
@@ -1920,11 +1923,6 @@ span.dateline__step {
   }
 }
 
-.tag--flagged {
-  border-color: var(--ink);
-  color: var(--ink);
-}
-
 // Why an article was flagged, written under its title. It reads as a line of text until it is being typed in.
 .log__why {
   display: block;
@@ -1971,6 +1969,8 @@ span.dateline__step {
 .log {
   border-bottom: 1px solid var(--rule);
   line-height: 1.45;
+  // Clear of the links kept at the top when a finding sends the reader here.
+  scroll-margin-top: 3.5rem;
 
   summary {
     display: grid;

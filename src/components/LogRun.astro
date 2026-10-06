@@ -1,6 +1,6 @@
 ---
 import { dollars, facts } from '../lib/insights';
-import { problems, type RunLogData } from '../lib/logs';
+import { problems, runId, type RunLogData } from '../lib/logs';
 import { formatNumber } from '../lib/stats';
 
 // One run: a line that can be read without opening it, and what happened in it underneath.
@@ -33,7 +33,7 @@ const parts = [
 const drawn = log.figures.filter((figure) => figure.outcome === 'drawn').length;
 ---
 
-<details class="log" open={open} data-run data-at={log.ranAt} data-problem={wrong.length > 0 ? 'yes' : 'no'}>
+<details class="log" id={runId(log.ranAt)} open={open} data-run data-at={log.ranAt} data-problem={wrong.length > 0 ? 'yes' : 'no'}>
   <summary>
     <span class="log__when">{when}</span>
     <span class="log__what">{log.kind === 'figures' ? 'Diagrams' : log.day ? `Edition ${log.day}` : 'Pipeline'}</span>

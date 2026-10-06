@@ -113,7 +113,7 @@ export interface Totals {
   cost?: number;
   inputTokens: number;
   outputTokens: number;
-  /** Heaviest first, with any combined rows last. */
+  /** Heaviest first, whether a row is one model or several counted together. */
   tokens: ModelTokens[];
 }
 
@@ -128,7 +128,7 @@ export function totalRuns(runs: Run[]): Totals {
   }
   const tokens = [...byModel.values()]
     .filter((row) => row.input + row.output > 0)
-    .sort((a, b) => Number(a.combined ?? false) - Number(b.combined ?? false) || b.input + b.output - (a.input + a.output) || a.model.localeCompare(b.model));
+    .sort((a, b) => b.input + b.output - (a.input + a.output) || a.model.localeCompare(b.model));
   const sum = (pick: (run: Run) => number) => runs.reduce((total, run) => total + pick(run), 0);
   const spending = runs.filter((run) => run.tokens.length > 0);
   const costed = spending.length > 0 && spending.every((run) => run.cost !== undefined);
