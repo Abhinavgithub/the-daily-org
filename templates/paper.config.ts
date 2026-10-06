@@ -78,7 +78,7 @@ export default definePaper({
   notAuthors: ['nasa', 'esa'],
 
   // Optional. `alerts: 'salesforce-trust'` prints Salesforce's security advisories and wide incidents at the
-  // head of the edition, whatever they score. Like `releases`, it is for a paper about Salesforce.
+  // top of the edition, one line each, whatever they score. Like `releases`, it is for a paper about Salesforce.
 
   // Optional. `releases: 'salesforce-trust'` prints a line on the latest edition as a Salesforce
   // release draws near. It is the only calendar there is so far; a paper on another subject leaves it out.

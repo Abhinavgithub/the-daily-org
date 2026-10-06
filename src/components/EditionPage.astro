@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { MAX_BRIEFS } from '../lib/editions';
 import { formatDay, getEditions, type Edition } from '../lib/stories';
-import AlertBlock from './AlertBlock.astro';
+import AlertStrip from './AlertStrip.astro';
 import BriefList from './BriefList.astro';
 import FilterBar from './FilterBar.astro';
 import Masthead from './Masthead.astro';
@@ -62,10 +62,10 @@ const steps = [
   </Masthead>
   {/* A notice about what is coming belongs on today's paper, not on a past edition. */}
   {isLatest && <ReleaseBanner />}
+  <AlertStrip alerts={edition.alerts} />
 
   <main id="stories" class="wrap">
     <FilterBar stories={[...stories, ...briefs]} marks={stories.length > 0} />
-    <AlertBlock alerts={edition.alerts} />
     <StoryGrid stories={stories}>
       <BriefList briefs={briefs} alone={stories.length === 0} lastFull={lastFull} />
     </StoryGrid>

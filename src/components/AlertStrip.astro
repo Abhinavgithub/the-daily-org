@@ -1,0 +1,85 @@
+---
+import { render } from 'astro:content';
+import { storySlug, type Story } from '../lib/stories';
+
+// Notices that are printed whatever their score: a security advisory, a wide
+// incident. Each is one line under the nameplate, so it is seen first and the
+// paper is not pushed down the page; the account of it opens under the line
+// when the line is pressed. Beyond the first few, the rest wait behind one more line.
+
+interface Props {
+  alerts: Story[];
+}
+
+/** Lines shown at once. An edition with more keeps the rest one press away. */
+const SHOWN = 2;
+
+const { alerts } = Astro.props;
+const all = await Promise.all(alerts.map(async (story) => ({ story, Content: (await render(story)).Content })));
+const groups = [all.slice(0, SHOWN), all.slice(SHOWN)];
+---
+
+{
+  all.length > 0 && (
+    <section class="notices" aria-label="Alerts" data-notices>
+      {groups.map(
+        (group, i) =>
+          group.length > 0 && (
+            <Fragment>
+              {i === 1 && (
+                <button type="button" class="notices__more" aria-expanded="false" data-notices-more>
+                  and {group.length} more
+                </button>
+              )}
+              <div hidden={i === 1} data-notices-rest={i === 1 ? '' : undefined}>
+                {group.map(({ story, Content }) => (
+                  <details class="notice" id={storySlug(story)}>
+                    <summary>
+                      <span class="flag">{story.data.alert!.label}</span>
+                      <span class="notice__title">{story.data.title}</span>
+                      {story.data.alert!.facts && <span class="notice__facts">{story.data.alert!.facts}</span>}
+                    </summary>
+                    <div class="notice__body story__text">
+                      {/* On a narrow page the line has no room for these, so they are said here. */}
+                      {story.data.alert!.facts && <p class="notice__facts notice__facts--below">{story.data.alert!.facts}</p>}
+                      <Content />
+                      <p>
+                        <a href={story.data.url} target="_blank" rel="noopener">
+                          Read it on {story.data.source}
+                        </a>
+                      </p>
+                    </div>
+                  </details>
+                ))}
+              </div>
+            </Fragment>
+          ),
+      )}
+    </section>
+  )
+}
+
+<script>
+  const notices = document.querySelector<HTMLElement>('[data-notices]');
+  if (notices) {
+    const more = notices.querySelector<HTMLButtonElement>('[data-notices-more]');
+    const rest = notices.querySelector<HTMLElement>('[data-notices-rest]');
+    const showRest = () => {
+      if (!more || !rest) return;
+      rest.hidden = false;
+      more.hidden = true;
+      more.setAttribute('aria-expanded', 'true');
+    };
+    more?.addEventListener('click', showRest);
+
+    // A search result opens the page at an alert: show it, and open it.
+    const openWanted = () => {
+      const wanted = location.hash ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+      if (!(wanted instanceof HTMLDetailsElement) || !notices.contains(wanted)) return;
+      if (rest?.contains(wanted)) showRest();
+      wanted.open = true;
+    };
+    openWanted();
+    window.addEventListener('hashchange', openWanted);
+  }
+</script>
