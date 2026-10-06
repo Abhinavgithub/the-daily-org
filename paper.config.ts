@@ -17,9 +17,10 @@ export default definePaper({
   // How the editor is told what the paper is about. Each reads as part of a sentence.
   topic: 'Salesforce technology',
   readers: 'Salesforce developers, admins and architects',
-  relevant: 'teaches a practitioner something about building on, configuring or architecting Salesforce',
+  relevant:
+    'teaches a practitioner something about building on, configuring or architecting Salesforce, or reports a change to the platform that they will have to work with: a release and what is in it, a new product, model or capability, or a retirement',
   notRelevant:
-    'product marketing, customer success stories, event promotion, sponsored comparisons, hiring posts, and anything not about Salesforce technology',
+    'product marketing, pieces written for business or marketing leaders rather than for practitioners, customer success stories, promotion of an event still to come, sponsored comparisons, hiring posts, and anything not about Salesforce technology',
   disclaimer: 'not affiliated with or endorsed by Salesforce',
 
   sections: [

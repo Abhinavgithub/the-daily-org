@@ -74,7 +74,7 @@ Reply with one JSON object and nothing else. No code fences, no commentary. The 
 - "depth_score": integer 1-10. How deep it goes. 3 is a surface overview, 8 is detailed, with worked examples, specifics or measurements.
 - "novelty_score": integer 1-10. How new the information is to an experienced reader.
 - "utility_score": integer 1-10. How directly a reader can use it.
-- "interest_score": integer 1-10. Your overall judgement of whether a busy reader should spend time on it. Be strict: 5 is an average post, 7 is clearly worth reading, 9 is rare.
+- "interest_score": integer 1-10. Your overall judgement of whether a busy reader should spend time on it. Be strict: 5 is an average post, 7 is clearly worth reading, 9 is rare. Weigh how much it matters to the readers as well as how well it is done: news of a change most of them will have to deal with outranks a careful walk-through of a corner few of them use, and a small convenience is not made important by being new.
 - "title": a headline for the story, written by you rather than copied from the article. ${HEADLINE_BRIEF}
 - "why_read": one or two sentences saying what the reader will come away knowing. State it plainly; do not sell.
 - "summary": two to four short paragraphs separated by blank lines, in your own words, covering the specific points the piece makes. Plain text only: no markdown, no links, no headings, no lists. Do not copy sentences from the article. Do not invent details that are not in the text.
