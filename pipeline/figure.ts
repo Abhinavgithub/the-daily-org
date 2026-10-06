@@ -326,7 +326,9 @@ export async function addFigures(
       const match = fs.readFileSync(file, 'utf8').match(/^---\n([\s\S]*?)\n---\n\n?([\s\S]*)$/);
       if (!match) return [];
       const doc = parseDocument(match[1]);
-      return [{ file, doc, data: doc.toJS() as Ranked, summary: match[2].trim() }];
+      const data = doc.toJS() as Ranked & { alert?: unknown };
+      // An alert heads the edition by its own right and is not ranked among the stories, so it is not drawn for.
+      return data.alert ? [] : [{ file, doc, data, summary: match[2].trim() }];
     })
     .sort((a, b) => byRank(a.data, b.data));
 

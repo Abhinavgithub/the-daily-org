@@ -51,6 +51,8 @@ export function writeStories(day: string, stories: Publishable[]): string[] {
       utility_score: v.utility_score,
       model: curated.model,
       ...(image ? { image } : {}),
+      // What it is flagged as, and what its source states for certain.
+      ...(item.alert ? { alert: { label: item.alert.label, facts: item.alert.facts } } : {}),
     };
     const number = String(existing + i + 1).padStart(2, '0');
     const file = path.join(dir, `${number}-${item.source.id}-${slugify(item.title)}.md`);

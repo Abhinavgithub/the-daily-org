@@ -11,6 +11,10 @@ export type SourceType = (typeof SOURCE_TYPES)[number];
 export const CALENDARS = ['salesforce-trust'] as const;
 export type Calendar = (typeof CALENDARS)[number];
 
+/** Where a paper's alerts can be read from. Each is read by pipeline/alerts.ts. */
+export const ALERT_FEEDS = ['salesforce-trust'] as const;
+export type AlertFeed = (typeof ALERT_FEEDS)[number];
+
 export interface Source<Persona extends string = string> {
   /** Short and unique, in lower case with hyphens. It names the feed in files and logs. */
   id: string;
@@ -77,6 +81,11 @@ export interface Paper<Section extends string = string, Persona extends string =
    * the latest edition carries a line announcing the release as it draws near.
    */
   releases?: Calendar;
+  /**
+   * Optional. Where notices that are printed whatever their score are read from:
+   * security advisories, and failures that reach many users at once. They head the edition.
+   */
+  alerts?: AlertFeed;
   /** Optional. Where the paper's code is kept, such as a GitHub repository. Linked from the footer of every page. */
   repository?: string;
   /** How the pipeline names itself to the sites it reads. `contact` is a web address where its owner can be reached. */
@@ -134,6 +143,7 @@ export function problemsWith(paper: Paper): string[] {
   const personas = ids(paper.personas ?? [], 'persona');
   if (!paper.sources?.length) problems.push('"sources" needs at least one source.');
   ids(paper.sources ?? [], 'source');
+  if (paper.alerts !== undefined && !ALERT_FEEDS.includes(paper.alerts)) problems.push(`"alerts" names the feed "${paper.alerts}"; use one of ${ALERT_FEEDS.join(', ')}, or leave it out.`);
   if (paper.releases !== undefined && !CALENDARS.includes(paper.releases)) problems.push(`"releases" names the calendar "${paper.releases}"; use one of ${CALENDARS.join(', ')}, or leave it out.`);
 
   for (const source of paper.sources ?? []) {

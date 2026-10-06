@@ -38,6 +38,8 @@ const stories = defineCollection({
     // The same diagram as an illustration, a file under public/figures. Shown in place of the drawn one.
     figure_image: z.string().startsWith('/figures/').optional(),
     model: z.string().optional(),
+    // Set on a notice printed whatever its score: the flag it goes under, and what its source states for certain.
+    alert: z.object({ label: z.string(), facts: z.string().default('') }).optional(),
   }),
 });
 

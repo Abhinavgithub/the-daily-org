@@ -8,6 +8,8 @@ import { canonicalUrl, forget, GIVE_UP_DAYS, givenUp, loadPending, loadSeen, sav
 import { articleText, extractContent, type Extracted } from './extract';
 import { routeDown } from './transcript';
 import { updateReleases } from './releases';
+import { ALERT_FEEDS, readAlerts } from './alerts';
+import { NEW_SOURCE_DAYS } from './state';
 import { fetchFeeds, type FeedItem } from './fetch';
 import { configFromEnv, keepFreeModels, LlmClient, LlmError } from './llm';
 import { isBrief } from '../src/lib/editions';
@@ -100,6 +102,13 @@ console.log(`Edition ${day}. Looking back ${windows}.`);
 
 // 1. Fetch
 const { items, failures, notes: fetchNotes, newest } = await fetchFeeds(SOURCES, (source) => new Date(startedAt.getTime() - daysFor(source) * 24 * 60 * 60 * 1000));
+// Notices printed whatever their score. They are read a fixed way back each time, and one printed before is not printed again.
+let alertsError: string | undefined;
+if (PAPER.alerts) {
+  const read = await readAlerts(PAPER.alerts, new Date(startedAt.getTime() - (override ?? NEW_SOURCE_DAYS) * 24 * 60 * 60 * 1000));
+  if ('error' in read) alertsError = read.error;
+  else items.push(...read.items);
+}
 const failed = new Set(failures.map((f) => f.source.id));
 for (const source of SOURCES) if (!failed.has(source.id)) recordFetched(state, source.id);
 for (const f of failures) recordFailure(state, f.source.id, f.error);
@@ -152,7 +161,12 @@ for (const f of failures) {
   const streak = state[f.source.id].failures;
   console.warn(`  Feed failed${streak > 1 ? ` (${streak} runs in a row)` : ''}: ${f.source.name}: ${f.error}`);
 }
+if (alertsError) console.warn(`  Alerts could not be read (${alertsError}). The edition is written without them.`);
 console.log(`Fetched ${items.length} recent items from ${SOURCES.length - failures.length} feeds.`);
+if (PAPER.alerts) {
+  const feed = ALERT_FEEDS[PAPER.alerts].source;
+  runLog.feed({ id: feed.id, name: feed.name, items: items.filter((item) => item.alert).length, error: alertsError });
+}
 for (const source of SOURCES) {
   runLog.feed({
     id: source.id,
@@ -189,7 +203,8 @@ let filtered = 0;
 // Everything is read before anything is decided, because whether a video waits
 // for its transcript depends on how the run's other videos fared.
 const extracted: { item: FeedItem; key: string; content: Extracted }[] = [];
-for (const { item, key } of fresh) extracted.push({ item, key, content: await extractContent(item) });
+// An alert is its own text: there is no article behind it to read.
+for (const { item, key } of fresh) extracted.push({ item, key, content: item.alert ? { text: item.feedText, authors: [] } : await extractContent(item) });
 
 // Videos: how many were read from a transcript, how many from a description alone, and how many wait.
 const videos = { transcript: 0, description: 0, waiting: 0 };
@@ -228,7 +243,8 @@ for (const { item, key, content } of extracted) {
     continue;
   }
   if (basis) videos[basis]++;
-  let reason = prefilter(item, text);
+  // An alert is short by nature and is not held to the rules for articles.
+  let reason = item.alert ? null : prefilter(item, text);
   if (reason) {
     filtered++;
     // Too short only because its page could not be read: leave it unseen, so the next run tries the page
@@ -256,7 +272,7 @@ console.log(`${candidates.length} passed the pre-filter, ${filtered} dropped${vi
 if (videos.transcript + videos.description > 0) console.log(`Videos: ${videos.transcript} read from a transcript, ${videos.description} from a description alone.`);
 
 if (dryRun) {
-  for (const { item, text, basis } of candidates) console.log(`  Would assess: [${item.source.name}] ${item.title}${basis ? ` (${basis}, ${text.length} characters)` : ''}`);
+  for (const { item, text, basis } of candidates) console.log(`  Would assess: [${item.source.name}] ${item.title}${basis ? ` (${basis}, ${text.length} characters)` : ''}${item.alert ? ` (${item.alert.label}: ${item.alert.facts})` : ''}`);
   console.log('Dry run: no model calls made, nothing written.');
   warnAboutFailingFeeds();
   process.exit(0);
@@ -418,7 +434,16 @@ for (const [i, { item, key, text, image, basis }] of candidates.entries()) {
     const v = curated.verdict;
     tally.reviewed++;
     tally.scores.push(v.interest_score);
-    if (!v.relevant) {
+    // An alert is printed whatever it scores. One that is not about security is still left to the editor's view of whether it belongs.
+    const waived = item.alert !== undefined && (v.relevant || item.alert.always);
+    if (waived) {
+      console.log(`  [${i + 1}/${candidates.length}] ${item.alert!.label}, publishing: ${item.title}`);
+      runLog.article({ ...entry, title: v.title, outcome: 'published', score: v.interest_score, reason: `printed as an alert (${item.alert!.label.toLowerCase()}), whatever its score` });
+      const story = { item, curated, image };
+      await proofreadStory(story);
+      written.push(...writeStories(day, [story]));
+      tally.published++;
+    } else if (!v.relevant) {
       counts.rejected++;
       tally.notRelevant++;
       console.log(`  [${i + 1}/${candidates.length}] Not relevant: ${item.title}`);
@@ -449,7 +474,15 @@ for (const [i, { item, key, text, image, basis }] of candidates.entries()) {
     tally.tokens += tokensSoFar() - before;
   } catch (err) {
     tally.tokens += tokensSoFar() - before;
-    if (err instanceof InvalidVerdict) {
+    if (err instanceof InvalidVerdict && item.alert) {
+      // An alert is not given up on for one bad reply: it waits for the next run.
+      counts.deferred++;
+      delete seen[key];
+      pending[key] ??= { source: item.source.id, since: day, why: 'deferred' };
+      saveProgress();
+      console.warn(`  [${i + 1}/${candidates.length}] Unusable model reply for an alert, to be tried again next run: ${item.title}`);
+      runLog.article({ ...entry, outcome: 'deferred', reason: 'unusable model reply; an alert is tried again' });
+    } else if (err instanceof InvalidVerdict) {
       counts.invalid++;
       seen[key] = day;
       delete pending[key];

@@ -91,6 +91,10 @@ function userPrompt(item: FeedItem, text: string): string {
     `URL: ${item.url}`,
     item.authors.length ? `Author: ${item.authors.join(', ')}` : '',
     item.source.personas?.length ? `This source usually writes for: ${item.source.personas.join(', ')}` : '',
+    // An alert is printed whatever is said of it here, so its summary has to be a full one.
+    item.alert ? `This is an official notice (${item.alert.label.toLowerCase()}) that the paper prints whatever its scores. Do not cut the fields short on that account. For a notice the "summary" is one paragraph of two or three sentences: what happened, who is affected and what, if anything, a reader should do.` : '',
+    // The paper's own test of relevance is written for articles. A notice is news when it tells of trouble a reader may meet.
+    item.alert && !item.alert.always ? 'For a notice like this one, "relevant" is true when it reports a fault, outage or change that readers may meet in their own work, and false for a corporate, legal or promotional note.' : '',
     '',
     '<article>',
     text,

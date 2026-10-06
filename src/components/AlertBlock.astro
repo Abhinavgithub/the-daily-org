@@ -1,0 +1,39 @@
+---
+import { render } from 'astro:content';
+import { storySlug, type Story } from '../lib/stories';
+
+// Notices that are printed whatever their score: a security advisory, a wide
+// incident. They head the edition in a ruled block of their own, outside the
+// grid of stories, so no filter hides them and no story is moved to make room.
+// The flag is the words on it; the heavy rule and the reversed block only add weight.
+
+interface Props {
+  alerts: Story[];
+}
+
+const { alerts } = Astro.props;
+const shown = await Promise.all(alerts.map(async (story) => ({ story, Content: (await render(story)).Content })));
+---
+
+{
+  shown.length > 0 && (
+    <section class="alerts" aria-label="Alerts">
+      {shown.map(({ story, Content }) => (
+        <article class="alert" id={storySlug(story)}>
+          <div class="alert__head">
+            <p class="flag">{story.data.alert!.label}</p>
+            <h2 class="alert__title">
+              <a class="story__link" href={story.data.url} target="_blank" rel="noopener">
+                {story.data.title}
+              </a>
+            </h2>
+            {story.data.alert!.facts && <p class="alert__facts">{story.data.alert!.facts}</p>}
+          </div>
+          <div class="story__text alert__text">
+            <Content />
+          </div>
+        </article>
+      ))}
+    </section>
+  )
+}

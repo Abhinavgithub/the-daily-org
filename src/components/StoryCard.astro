@@ -36,6 +36,8 @@ const figure = signal === 'must' && data.figure && data.figure.kind !== 'none' ?
   data-personas={data.personas.join(' ')}
   data-signal={signal}
 >
+  {/* Where an alert is listed among stories, on a search or a section page, it keeps its flag. */}
+  {data.alert && <p class="flag">{data.alert.label}</p>}
   <p class="story__byline">
     <span>{writer ? `By ${writer}` : source}</span>
     <span class="why" data-why>

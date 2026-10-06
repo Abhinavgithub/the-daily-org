@@ -79,6 +79,16 @@ All in `.env`; `.env.example` explains each.
 | `READERSHIP_API_TOKEN`, `READERSHIP_ACCOUNT_ID`, `READERSHIP_SITE_ID` | Optional. Read-only access to the site's web analytics, so the Stats page can show views, visits, countries and most-read pages. |
 | `SITE_URL` | Optional. Takes the place of the paper's `address`. |
 
+## Alerts
+
+A paper can print some notices whatever they score, in a block of their own at the head of the edition. Set `alerts` in `paper.config.ts` to the feed to read; `salesforce-trust` is the only one so far. It reads Salesforce's Trust site for:
+
+- **Security advisories**: always printed.
+- **Incidents** marked major that reach 5 or more instances, or all of them: always printed, once, with their state when the edition was written.
+- **Other messages to all customers**: printed unless the editor judges them not about a fault, outage or change a reader may meet.
+
+The model writes the headline and a short summary; the line of facts under the headline is Trust's own. If the feed cannot be read, the edition is written without alerts and the Logs page says so.
+
 ## Release dates
 
 A paper can print one line on its latest edition as a release draws near, for example "Spring '27 reaches sandboxes on 9 Jan. Production: 6 Feb and 19 to 20 Feb." Set `releases` in `paper.config.ts` to the calendar to read; `salesforce-trust` is the only one so far.

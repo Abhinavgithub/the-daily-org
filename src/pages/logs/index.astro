@@ -63,7 +63,7 @@ for (const kind of ['stories', 'briefs']) {
     if (count > 0) onDisk[day] = (onDisk[day] ?? 0) + count;
   }
 }
-const served = Object.fromEntries((await getEditions()).map((edition) => [edition.day, edition.stories.length + edition.briefs.length]));
+const served = Object.fromEntries((await getEditions()).map((edition) => [edition.day, edition.alerts.length + edition.stories.length + edition.briefs.length]));
 // Only a dev server can fall behind the files; a built site shows exactly what was on disk.
 const stale = import.meta.env.DEV ? staleEditions(onDisk, served).map((edition) => ({ ...edition, day: formatDay(edition.day, 'short') })) : [];
 const builtAt = new Date().toISOString();

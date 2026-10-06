@@ -494,6 +494,73 @@ html[data-turn='older']::view-transition-new(turn-fold) {
   }
 }
 
+// A flag: a word or two reversed out of ink, the heaviest mark the paper makes. It says what an alert is.
+.flag {
+  display: inline-block;
+  margin: 0 0 0.5rem;
+  padding: 0.05rem 0.4rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1.45;
+  text-transform: uppercase;
+}
+
+// Alerts head the edition in a block of their own, under a heavy rule: what it is and
+// what is known on the left, the account of it on the right. On a narrow page one follows the other.
+.alerts {
+  margin-bottom: 1.75rem;
+  border-top: 3px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+}
+
+.alert {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+  gap: 0.6rem 2.5rem;
+  padding: 1rem 0 1.1rem;
+  // Clear of the top of the window when a search result opens the page at it.
+  scroll-margin-top: 1rem;
+
+  & + & {
+    border-top: 1px solid var(--rule);
+  }
+
+  @media (max-width: 48rem) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.alert__title {
+  margin: 0;
+  font-family: var(--headline);
+  font-weight: 700;
+  font-size: var(--fs-headline);
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  text-wrap: balance;
+}
+
+// What the source states for certain, apart from the account written of it.
+.alert__facts {
+  margin: 0.45rem 0 0;
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.alert__text > :first-child {
+  margin-top: 0;
+}
+
+.alert__text > :last-child {
+  margin-bottom: 0;
+}
+
 // One line under the nameplate when a release is near, set as a paper sets a late
 // notice: a flag, on a tinted strip as wide as the masthead's rule.
 .release {

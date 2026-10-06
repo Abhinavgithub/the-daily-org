@@ -5,7 +5,7 @@ import { getEditions } from '../lib/stories';
 
 export async function GET(context: APIContext) {
   const editions = await getEditions();
-  const stories = editions.slice(0, 7).flatMap((edition) => edition.stories);
+  const stories = editions.slice(0, 7).flatMap((edition) => [...edition.alerts, ...edition.stories]);
 
   return rss({
     title: SITE.name,

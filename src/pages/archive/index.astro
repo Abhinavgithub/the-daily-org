@@ -5,7 +5,7 @@ import Layout from '../../layouts/Layout.astro';
 import { countLabel, formatDay, getEditions } from '../../lib/stories';
 
 const editions = await getEditions();
-const all = editions.flatMap((e) => e.stories);
+const all = editions.flatMap((e) => [...e.alerts, ...e.stories]);
 const sections = SECTIONS.map((s) => ({
   ...s,
   count: all.filter((story) => story.data.section === s.id).length,
@@ -51,7 +51,7 @@ const numberOf = (index: number) => String(editions.length - index).padStart(dig
                   <span class="archive__no" aria-hidden="true">{numberOf(index)}</span>
                   <a href={`/${edition.day}/`}>{formatDay(edition.day)}</a>
                   <span class="archive__count">
-                    {edition.stories.length > 0 ? countLabel(edition.stories.length, 'story', 'stories') : countLabel(edition.briefs.length, 'brief', 'briefs')}
+                    {edition.stories.length + edition.alerts.length > 0 ? countLabel(edition.stories.length + edition.alerts.length, 'story', 'stories') : countLabel(edition.briefs.length, 'brief', 'briefs')}
                   </span>
                 </li>
               ))}

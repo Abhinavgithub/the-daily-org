@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { MAX_BRIEFS } from '../lib/editions';
 import { formatDay, getEditions, type Edition } from '../lib/stories';
+import AlertBlock from './AlertBlock.astro';
 import BriefList from './BriefList.astro';
 import FilterBar from './FilterBar.astro';
 import Masthead from './Masthead.astro';
@@ -64,6 +65,7 @@ const steps = [
 
   <main id="stories" class="wrap">
     <FilterBar stories={[...stories, ...briefs]} marks={stories.length > 0} />
+    <AlertBlock alerts={edition.alerts} />
     <StoryGrid stories={stories}>
       <BriefList briefs={briefs} alone={stories.length === 0} lastFull={lastFull} />
     </StoryGrid>

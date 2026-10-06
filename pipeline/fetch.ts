@@ -1,3 +1,4 @@
+import type { Alert } from './alerts';
 import Parser from 'rss-parser';
 import { cleanAuthors } from './authors';
 import { get } from './http';
@@ -15,6 +16,8 @@ export interface FeedItem {
   feedText: string;
   /** A picture the feed attached to the item, as an https address. */
   image?: string;
+  /** Set on a notice the paper prints whatever its score. See pipeline/alerts.ts. */
+  alert?: Alert;
 }
 
 type Media = { $?: { url?: string; medium?: string; type?: string } };
