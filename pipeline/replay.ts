@@ -72,6 +72,8 @@ if (flags === 0) console.log('No article is flagged yet, so this only shows whet
 interface Kept {
   item: Omit<FeedItem, 'published' | 'source'> & { published: string; source: string };
   text: string;
+  /** For a video: what the text was built from. */
+  basis?: 'transcript' | 'description';
 }
 const UNKNOWN: Source = { id: 'unknown', name: 'Unknown', url: '', type: 'community' };
 const sourceOf = (name: string) => SOURCES.find((source) => source.name === name || source.id === name) ?? { ...UNKNOWN, name: name || UNKNOWN.name };
@@ -80,6 +82,8 @@ const read = new Map<string, { item: FeedItem; text: string }>();
 for (const c of cases) {
   if (!fs.existsSync(keptAt(c.url))) continue;
   const kept = JSON.parse(fs.readFileSync(keptAt(c.url), 'utf8')) as Kept;
+  // A video kept with only its description is read again, in case its transcript can be had now.
+  if (sourceOf(kept.item.source).type === 'video' && kept.basis !== 'transcript') continue;
   read.set(c.url, { item: { ...kept.item, published: new Date(kept.item.published), source: sourceOf(kept.item.source) }, text: kept.text });
 }
 const toRead = cases.filter((c) => !read.has(c.url));
@@ -98,11 +102,11 @@ if (toRead.length) {
   fs.mkdirSync(texts, { recursive: true });
   for (const c of toRead) {
     const item = inFeed.get(c.url) ?? { source: sourceOf(c.source), title: c.title, url: c.url, published: new Date(), authors: [], feedText: '' };
-    const { text, pageFailed } = await extractContent(item);
+    const { text, pageFailed, basis } = await extractContent(item);
     // Kept only when it is what the pipeline would have read; a failed page may be readable next time.
     if (pageFailed || !text) continue;
     read.set(c.url, { item, text });
-    const kept: Kept = { item: { ...item, published: item.published.toISOString(), source: item.source.id }, text };
+    const kept: Kept = { item: { ...item, published: item.published.toISOString(), source: item.source.id }, text, ...(basis ? { basis } : {}) };
     fs.writeFileSync(keptAt(c.url), JSON.stringify(kept));
   }
 }

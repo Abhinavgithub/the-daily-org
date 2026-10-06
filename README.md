@@ -79,6 +79,14 @@ All in `.env`; `.env.example` explains each.
 | `READERSHIP_API_TOKEN`, `READERSHIP_ACCOUNT_ID`, `READERSHIP_SITE_ID` | Optional. Read-only access to the site's web analytics, so the Stats page can show views, visits, countries and most-read pages. |
 | `SITE_URL` | Optional. Takes the place of the paper's `address`. |
 
+## Videos
+
+A YouTube video is judged on its transcript, with the description its uploader wrote placed before it. English captions written by a person are used when the video has them, otherwise the generated ones.
+
+- YouTube offers no official way to read another channel's captions. The pipeline asks as YouTube's own app does, with no key. This can stop working without notice, and may be refused on a hosted runner while it works on your machine.
+- A video with no captions yet is left for up to two days, since they often come some hours after the upload. After that, or when every request in a run is refused, it is judged on its description alone.
+- The Logs page says of each video which it was judged on, and warns when transcripts cannot be had.
+
 ## Cost
 
 - With free models the paper costs nothing. Free tiers limit requests per day; `LLM_MAX_CALLS` keeps a run inside yours.

@@ -3,6 +3,7 @@ import { parseHTML } from 'linkedom';
 import { authorsFromLeadingByline, cleanAuthors, findAuthors } from './authors';
 import type { FeedItem } from './fetch';
 import { get } from './http';
+import { fetchTranscript, VIDEO_CHARS, videoId, videoText, type Transcript } from './transcript';
 
 const MAX_CHARS = 12_000;
 /** With this much text in the feed, the article page adds nothing and is not requested. */
@@ -22,6 +23,11 @@ export interface Extracted {
   authors: string[];
   /** The article's page was wanted and could not be read, so `text` is only the feed's excerpt. */
   pageFailed?: boolean;
+  /** For a video: whether `text` holds what is said in it, or only what its uploader wrote under it. */
+  basis?: 'transcript' | 'description';
+  /** For a video with no transcript: why not. */
+  transcript?: Exclude<Transcript['status'], 'ok'>;
+  transcriptReason?: string;
 }
 
 /** The page's declared preview image as an absolute https URL. */
@@ -40,13 +46,8 @@ export function imageFromDocument(document: Document, pageUrl: string): string |
 }
 
 export function youtubeThumbnail(videoUrl: string): string | undefined {
-  try {
-    const url = new URL(videoUrl);
-    const id = url.hostname === 'youtu.be' ? url.pathname.slice(1) : url.searchParams.get('v');
-    return id && /^[\w-]{6,20}$/.test(id) ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : undefined;
-  } catch {
-    return undefined;
-  }
+  const id = videoId(videoUrl);
+  return id ? `https://i.ytimg.com/vi/${id}/hqdefault.jpg` : undefined;
 }
 
 // Pages -------------------------------------------------------------------
@@ -94,15 +95,27 @@ export async function articleText(url: string): Promise<string | undefined> {
 /**
  * The text the model will read, the story's image and its writers. A feed that
  * carries the whole article is used as it is; the article page is requested
- * only when the feed gives a short excerpt. Videos use the feed's description.
+ * only when the feed gives a short excerpt. A video is read from its
+ * transcript, with the feed's description before it; when there is no
+ * transcript the description stands alone, and the caller is told why.
  */
-export async function extractContent(item: FeedItem, readPage: typeof extractPage = extractPage): Promise<Extracted> {
+export async function extractContent(
+  item: FeedItem,
+  readPage: typeof extractPage = extractPage,
+  readTranscript: (id: string) => Promise<Transcript> = fetchTranscript,
+): Promise<Extracted> {
   let text = item.feedText;
   let image = item.image;
   let authors = authorsFromLeadingByline(text);
 
   if (item.source.type === 'video') {
     image = youtubeThumbnail(item.url) ?? image;
+    const id = videoId(item.url);
+    // A video that is not on YouTube has only what its feed says of it.
+    if (!id) return { text: text.slice(0, MAX_CHARS), image, authors, basis: 'description' };
+    const said = await readTranscript(id);
+    if (said.status === 'ok') return { text: videoText(text, said.text, said.written, VIDEO_CHARS), image, authors, basis: 'transcript' };
+    return { text: text.slice(0, MAX_CHARS), image, authors, basis: 'description', transcript: said.status, ...(said.status === 'failed' ? { transcriptReason: said.reason } : {}) };
   } else if (text.length < FULL_TEXT) {
     try {
       const page = await readPage(item.url);

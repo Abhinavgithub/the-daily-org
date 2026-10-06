@@ -124,7 +124,11 @@ const present = (Object.keys(SHORT) as ArticleOutcome[]).filter((outcome) => art
                     )}
                     {!canFlag && flag?.note && <span class="log__reason">Flagged: {flag.note}</span>}
                   </td>
-                  <td>{article.source}</td>
+                  <td>
+                    {article.source}
+                    {/* A video's verdict is only as good as what was read of it. */}
+                    {article.basis && <span class="log__reason">{article.basis === 'transcript' ? 'transcript' : 'description only'}</span>}
+                  </td>
                   <td>
                     <span class:list={['tag', `tag--${article.outcome}`]}>{OUTCOME_LABELS[article.outcome] ?? article.outcome}</span>
                   </td>

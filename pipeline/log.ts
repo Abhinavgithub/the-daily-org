@@ -52,6 +52,11 @@ export class RunLog {
     this.data.figures.push(entry);
   }
 
+  /** No video's transcript could be fetched, so the run's videos were judged on their descriptions. */
+  transcriptsDown(reason: string): void {
+    this.data.transcriptsDown = reason;
+  }
+
   /** The run did not get through everything. The first reason given is kept. */
   stop(reason: string): void {
     this.data.finished = false;

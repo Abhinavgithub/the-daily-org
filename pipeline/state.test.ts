@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { daysBetween, forget, givenUp, waitingSources } from './dedupe';
+import { daysBetween, forget, givenUp, transcriptOverdue, waitingSources } from './dedupe';
 import { failingSources, lookBackDays, recordComplete, recordFailure, recordFetched, type State } from './state';
 
 test('each feed is read back to its own last success', () => {
@@ -51,4 +51,11 @@ test('an article that is waiting is tried for a few days, then let go', () => {
   assert.deepEqual(forget(pending, seen, '2026-10-04'), ['https://x/old']);
   assert.deepEqual(seen, { 'https://x/old': '2026-10-04' });
   assert.deepEqual([...waitingSources(pending)], ['b']);
+});
+
+test('a video waits two days for its transcript, then is judged without it', () => {
+  const waiting = { source: 'yt', since: '2026-10-01', why: 'no-transcript' as const };
+  assert.equal(transcriptOverdue(undefined, '2026-10-01'), false, 'met for the first time');
+  assert.equal(transcriptOverdue(waiting, '2026-10-02'), false);
+  assert.equal(transcriptOverdue(waiting, '2026-10-03'), true);
 });

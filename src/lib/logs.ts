@@ -21,6 +21,10 @@ export interface LogArticle {
   /** The interest score, when the model gave one. */
   score?: number;
   reason?: string;
+  /** For a video: whether it was read from its transcript or only from its description. */
+  basis?: 'transcript' | 'description';
+  /** For a video left for the next run: what it is waiting for. */
+  awaiting?: 'transcript';
 }
 
 export interface LogFeed {
@@ -72,6 +76,8 @@ export interface RunLogData {
   proofread: LogProof[];
   figures: LogFigure[];
   model: { calls: number; retries: Record<string, number>; usage: Record<string, { input: number; output: number }> };
+  /** Why no video's transcript could be fetched in this run, when none could. */
+  transcriptsDown?: string;
   /** Present on a run from before logs were kept: only its totals are known. */
   totals?: LogTotals;
   /** With `totals`: what became of the articles, as far as the run's stats line says. */
@@ -105,6 +111,7 @@ export function readLog(text: string): RunLogData | null {
     proofread: list(raw.proofread),
     figures: list(raw.figures),
     model: { calls: count(model.calls), retries: record(model.retries), usage: record(model.usage) },
+    ...(typeof raw.transcriptsDown === 'string' ? { transcriptsDown: raw.transcriptsDown } : {}),
   };
 }
 

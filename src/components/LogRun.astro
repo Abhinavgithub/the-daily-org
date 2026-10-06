@@ -28,6 +28,7 @@ const parts = [
   { label: 'not relevant', count: f.notRelevant, tone: 'faint' },
   { label: 'dropped before review', count: f.dropped, tone: 'unknown' },
   { label: 'left for the next run', count: f.deferred, tone: 'unknown' },
+  { label: 'waiting for a transcript', count: f.awaitingTranscript, tone: 'unknown' },
 ].filter((part) => part.count > 0);
 const drawn = log.figures.filter((figure) => figure.outcome === 'drawn').length;
 ---

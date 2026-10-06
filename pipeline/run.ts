@@ -4,8 +4,9 @@ import path from 'node:path';
 import { parseArgs } from 'node:util';
 import { curate, InvalidVerdict, prefilter, proofread } from './curate';
 import { addFigures } from './figure';
-import { canonicalUrl, forget, GIVE_UP_DAYS, givenUp, loadPending, loadSeen, savePending, saveSeen, waitingSources } from './dedupe';
-import { articleText, extractContent } from './extract';
+import { canonicalUrl, forget, GIVE_UP_DAYS, givenUp, loadPending, loadSeen, savePending, saveSeen, transcriptOverdue, waitingSources } from './dedupe';
+import { articleText, extractContent, type Extracted } from './extract';
+import { routeDown } from './transcript';
 import { fetchFeeds, type FeedItem } from './fetch';
 import { configFromEnv, keepFreeModels, LlmClient, LlmError } from './llm';
 import { isBrief } from '../src/lib/editions';
@@ -175,12 +176,38 @@ for (const item of items) {
 console.log(`${fresh.length} ${fresh.length === 1 ? 'is' : 'are'} new.`);
 
 // 3. Extract and pre-filter
-const candidates: { item: FeedItem; key: string; text: string; image?: string }[] = [];
+const candidates: { item: FeedItem; key: string; text: string; image?: string; basis?: Extracted['basis'] }[] = [];
 let filtered = 0;
-for (const { item, key } of fresh) {
-  const { text, image, authors, pageFailed } = await extractContent(item);
+// Everything is read before anything is decided, because whether a video waits
+// for its transcript depends on how the run's other videos fared.
+const extracted: { item: FeedItem; key: string; content: Extracted }[] = [];
+for (const { item, key } of fresh) extracted.push({ item, key, content: await extractContent(item) });
+
+// Videos: how many were read from a transcript, how many from a description alone, and how many wait.
+const videos = { transcript: 0, description: 0, waiting: 0 };
+const refusal = extracted.find(({ content }) => content.transcript === 'failed')?.content.transcriptReason;
+const transcriptsDown = routeDown(extracted.flatMap(({ content }) => (content.basis ? [content.basis === 'transcript' ? 'ok' : (content.transcript ?? 'none')] : [])));
+if (transcriptsDown) {
+  console.warn(`  Video transcripts could not be fetched (${refusal}). Videos are judged on their descriptions in this run.`);
+  runLog.transcriptsDown(refusal ?? 'refused');
+}
+
+for (const { item, key, content } of extracted) {
+  const { text, image, authors, pageFailed, basis } = content;
   // The page's own byline beats the feed's, which is often whoever published the post.
   if (authors.length) item.authors = authors;
+  // A video with no transcript yet waits for one: captions often come some hours after the upload, and one
+  // refusal among successes is passing trouble. It does not wait when every request was refused, when its
+  // captions are in another language, or once it has waited long enough.
+  const mayCome = content.transcript === 'none' || content.transcript === 'upcoming' || (content.transcript === 'failed' && !transcriptsDown);
+  if (mayCome && !transcriptOverdue(pending[key], day)) {
+    videos.waiting++;
+    if (!dryRun) pending[key] ??= { source: item.source.id, since: day, why: 'no-transcript' };
+    console.log(`  Waiting for its transcript: ${item.title}`);
+    runLog.article({ title: item.title, url: item.url, source: item.source.name, outcome: 'deferred', reason: 'no transcript yet, to be tried again next run', awaiting: 'transcript' });
+    continue;
+  }
+  if (basis) videos[basis]++;
   let reason = prefilter(item, text);
   if (reason) {
     filtered++;
@@ -200,15 +227,16 @@ for (const { item, key } of fresh) {
       }
     }
     console.log(`  Dropped (${reason}): ${item.title}`);
-    runLog.article({ title: item.title, url: item.url, source: item.source.name, outcome: 'dropped', reason });
+    runLog.article({ title: item.title, url: item.url, source: item.source.name, outcome: 'dropped', reason, ...(basis ? { basis } : {}) });
   } else {
-    candidates.push({ item, key, text, image });
+    candidates.push({ item, key, text, image, basis });
   }
 }
-console.log(`${candidates.length} passed the pre-filter, ${filtered} dropped.`);
+console.log(`${candidates.length} passed the pre-filter, ${filtered} dropped${videos.waiting ? `, ${videos.waiting} waiting for a transcript` : ''}.`);
+if (videos.transcript + videos.description > 0) console.log(`Videos: ${videos.transcript} read from a transcript, ${videos.description} from a description alone.`);
 
 if (dryRun) {
-  for (const { item } of candidates) console.log(`  Would assess: [${item.source.name}] ${item.title}`);
+  for (const { item, text, basis } of candidates) console.log(`  Would assess: [${item.source.name}] ${item.title}${basis ? ` (${basis}, ${text.length} characters)` : ''}`);
   console.log('Dry run: no model calls made, nothing written.');
   warnAboutFailingFeeds();
   process.exit(0);
@@ -222,13 +250,13 @@ if (candidates.length === 0) {
   fs.mkdirSync(path.dirname(statsPath), { recursive: true });
   fs.appendFileSync(
     statsPath,
-    JSON.stringify({ date: day, ranAt: quietAt, fetched: items.length, new: fresh.length, prefiltered: filtered, assessed: 0, published: 0, llmCalls: 0, sources: tallies, failedFeeds: Object.fromEntries(failures.map((f) => [f.source.id, state[f.source.id].failures])) }) + '\n',
+    JSON.stringify({ date: day, ranAt: quietAt, fetched: items.length, new: fresh.length, prefiltered: filtered, assessed: 0, published: 0, llmCalls: 0, videos, sources: tallies, failedFeeds: Object.fromEntries(failures.map((f) => [f.source.id, state[f.source.id].failures])) }) + '\n',
   );
   runLog.save({ statsAt: quietAt });
   console.log(
     fresh.length === 0
       ? `Nothing new: all ${items.length} items in the window were handled by earlier runs. No edition written.`
-      : 'Nothing to assess: every new item was dropped by the pre-filter. No edition written.',
+      : `Nothing to assess: every new item was dropped by the pre-filter${videos.waiting ? ' or is waiting for its transcript' : ''}. No edition written.`,
   );
   warnAboutFailingFeeds();
   noteSourcesToLookAt();
@@ -316,6 +344,8 @@ function record(cutShort?: string): string {
     retries: llm.retries,
     proofread: proofs,
     figures,
+    // Videos read from a transcript, from a description alone, and left waiting for a transcript.
+    videos,
     models: [...modelsUsed],
     // Every reply is counted, proof-reading and diagrams included.
     inputTokens: Object.values(llm.usage).reduce((sum, spent) => sum + spent.input, 0),
@@ -347,8 +377,8 @@ for (const signal of ['SIGINT', 'SIGTERM'] as const) {
 const tokensSoFar = () => Object.values(llm.usage).reduce((sum, spent) => sum + spent.input + spent.output, 0);
 
 try {
-for (const [i, { item, key, text, image }] of candidates.entries()) {
-  const entry = { title: item.title, url: item.url, source: item.source.name };
+for (const [i, { item, key, text, image, basis }] of candidates.entries()) {
+  const entry = { title: item.title, url: item.url, source: item.source.name, ...(basis ? { basis } : {}) };
   const tally = tallyOf(item);
   const before = tokensSoFar();
   const limit = llm.limitReached(maxCalls);

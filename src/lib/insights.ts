@@ -19,8 +19,15 @@ export interface RunFacts {
   notRelevant: number;
   /** Turned away before review. */
   dropped: number;
-  /** Left for the next run. */
+  /** Left for the next run because the run stopped or ran out of calls. */
   deferred: number;
+  /** Videos left for the next run because their transcript had not come. */
+  awaitingTranscript: number;
+  /** Videos read from their transcript, and from their description alone. */
+  videosHeard: number;
+  videosDescribed: number;
+  /** Why no transcript could be fetched in this run, when none could. */
+  transcriptsDown?: string;
   invalid: number;
   reviewed: number;
   calls: number;
@@ -60,7 +67,11 @@ export function facts(log: RunLogData, cost?: number): RunFacts {
     below,
     notRelevant,
     dropped: log.outcomes?.dropped ?? outcomeCount(log, 'dropped'),
-    deferred: log.outcomes?.deferred ?? outcomeCount(log, 'deferred'),
+    deferred: log.outcomes?.deferred ?? log.articles.filter((article) => article.outcome === 'deferred' && !article.awaiting).length,
+    awaitingTranscript: log.articles.filter((article) => article.awaiting === 'transcript').length,
+    videosHeard: log.articles.filter((article) => article.basis === 'transcript').length,
+    videosDescribed: log.articles.filter((article) => article.basis === 'description').length,
+    ...(log.transcriptsDown ? { transcriptsDown: log.transcriptsDown } : {}),
     invalid,
     reviewed: log.totals?.reviewed ?? published + below + notRelevant + invalid,
     calls: log.model.calls,
@@ -173,7 +184,7 @@ export function byDay(runs: RunFacts[]): DayFacts[] {
     sum.published += run.published;
     sum.below += run.below;
     sum.notRelevant += run.notRelevant;
-    sum.lost += run.dropped + run.deferred + run.invalid;
+    sum.lost += run.dropped + run.deferred + run.awaitingTranscript + run.invalid;
     sum.calls += run.calls;
     sum.retries += run.retries;
     days.set(day, sum);
@@ -195,6 +206,8 @@ export const RULES = {
   figures: { share: 0.3, figures: 3 },
   /** Share of reviewed articles published, below which the paper is finding little. */
   lowYield: { share: 0.2, reviewed: 15 },
+  /** Share of videos judged on a description alone above which it is said, and the videos needed before it is judged. */
+  videos: { share: 0.5, videos: 4 },
   /** Share of the monthly budget at which spending is worth a warning. */
   budget: 0.8,
 };
@@ -268,6 +281,25 @@ export function findings(input: FindingsInput): Finding[] {
       });
     }
   }
+
+  // Videos are meant to be judged on what is said in them. The way to transcripts is unofficial and can shut.
+  const heard = sum((run) => run.videosHeard);
+  const described = sum((run) => run.videosDescribed);
+  if (latest?.transcriptsDown) {
+    found.push({
+      tone: 'watch',
+      says: `No video transcript could be fetched in the last run (${latest.transcriptsDown}), so its videos were judged on their descriptions.`,
+      action: 'Once is often passing. If every run says this, YouTube is refusing the machine the pipeline runs on.',
+      href: '#articles',
+    });
+  } else if (heard + described >= RULES.videos.videos && described / (heard + described) > RULES.videos.share) {
+    found.push({
+      tone: 'watch',
+      says: `${described} of ${heard + described} videos (${percent(described, heard + described)}) were judged on their description alone.`,
+      action: 'Their transcripts could not be had. A description says little of a video, so these verdicts are weaker.',
+      href: '#articles',
+    });
+  } else if (heard > 0) fine.push('videos were judged on their transcripts');
 
   for (const feed of input.failingFeeds) {
     found.push({ tone: 'problem', says: `${feed.name} has failed ${feed.failures} runs in a row.`, action: 'Check its address in paper.config.ts.', href: '#sources' });

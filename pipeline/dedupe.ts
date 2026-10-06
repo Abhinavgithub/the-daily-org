@@ -45,7 +45,7 @@ export interface Waiting {
   source: string;
   /** The edition day on which it was first met. */
   since: string;
-  why: 'unread' | 'deferred';
+  why: 'unread' | 'deferred' | 'no-transcript';
 }
 
 /** Canonical URL to what is waiting on it. */
@@ -55,6 +55,8 @@ const PENDING_PATH = path.join(process.cwd(), 'data', 'pending.json');
 
 /** Days a page is tried again before it is given up on. */
 export const GIVE_UP_DAYS = 3;
+/** Days a video waits for its transcript before it is judged on its description. A new upload often has no captions for some hours. */
+export const TRANSCRIPT_WAIT_DAYS = 2;
 /** Days anything may wait before it is dropped, so an article that has left its feed does not wait for ever. */
 export const FORGET_DAYS = 7;
 
@@ -76,6 +78,9 @@ export const daysBetween = (from: string, to: string) => Math.round((Date.parse(
 
 /** Whether a page that still cannot be read has been tried for long enough. */
 export const givenUp = (waiting: Waiting | undefined, day: string) => waiting !== undefined && daysBetween(waiting.since, day) >= GIVE_UP_DAYS;
+
+/** Whether a video has waited long enough for a transcript that has not come. */
+export const transcriptOverdue = (waiting: Waiting | undefined, day: string) => waiting !== undefined && daysBetween(waiting.since, day) >= TRANSCRIPT_WAIT_DAYS;
 
 /** Move what has waited too long from `pending` to `seen`. Returns the addresses moved. */
 export function forget(pending: Pending, seen: Seen, day: string): string[] {

@@ -188,3 +188,26 @@ test('runs are added up by day for the charts, and empty days are left out', () 
     { day: '2026-10-04', published: 3, below: 1, notRelevant: 1, lost: 3, calls: 45, retries: 25 },
   ]);
 });
+
+test('videos judged without their transcripts are said so, and a video waiting for one is not a run cut short', () => {
+  const log = readLog(
+    JSON.stringify({
+      ranAt: '2026-10-06T10:00:00Z',
+      transcriptsDown: 'Sign in to confirm you are not a bot',
+      articles: [
+        { title: 'A', url: 'https://y/a', source: 'Channel', outcome: 'published', basis: 'description' },
+        { title: 'B', url: 'https://y/b', source: 'Channel', outcome: 'deferred', awaiting: 'transcript' },
+        { title: 'C', url: 'https://y/c', source: 'Blog', outcome: 'deferred' },
+      ],
+    }),
+  ) as RunLogData;
+  const f = facts(log);
+  assert.deepEqual([f.deferred, f.awaitingTranscript, f.videosHeard, f.videosDescribed, f.transcriptsDown], [1, 1, 0, 1, 'Sign in to confirm you are not a bot']);
+
+  const says = (latest: RunFacts, runs = [latest]) => findings({ runs, latest, stale: [], failingFeeds: [], sourcesToLook: [], now: Date.parse('2026-10-06T11:00:00Z') }).map((finding) => finding.says).join(' | ');
+  assert.match(says(f), /No video transcript could be fetched in the last run \(Sign in to confirm you are not a bot\)/);
+  const at = { ranAt: '2026-10-06T10:00:00Z' };
+  assert.match(says(run({ ...at, videosHeard: 1, videosDescribed: 3 })), /3 of 4 videos \(75%\) were judged on their description alone/);
+  assert.doesNotMatch(says(run({ ...at, videosHeard: 1, videosDescribed: 1 })), /description alone/, 'too few videos to say');
+  assert.match(says(run({ ...at, videosHeard: 3, videosDescribed: 1 })), /videos were judged on their transcripts/i);
+});
