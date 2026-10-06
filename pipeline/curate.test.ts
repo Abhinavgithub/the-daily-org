@@ -179,3 +179,28 @@ test('a paper that is not sound says what is wrong with it', () => {
   assert.deepEqual(problemsWith({ ...PAPER, colours: { paper: '#0b1d3a', ink: '#ffffff' } }), []);
   assert.match(problemsWith({ ...PAPER, colours: { accent: 'navy' } }).join(' '), /The colour "accent" must be a hex colour/);
 });
+
+test('a source can have its own test of what belongs, and a forum post or a release may be short', async () => {
+  const forum = { ...item, source: { ...item.source, type: 'discussion' as const, relevant: 'reports a confirmed fault', notRelevant: 'a request for help' } };
+  const asked: string[] = [];
+  const llm = {
+    chat: async (messages: { role: string; content: string }[]) => {
+      asked.push(...messages.map((message) => message.content));
+      return { text: JSON.stringify(good), model: 'm1', inputTokens: 1, outputTokens: 1 };
+    },
+    noteRetry: () => {},
+  };
+  await curateFor(llm as never, forum, 'A post.', PAPER);
+  assert.match(asked[0], /True only if the item reports a confirmed fault\. False for a request for help\./, "the source's own words stand in for the paper's");
+  assert.match(asked[1], /post on a community forum/);
+
+  asked.length = 0;
+  await curateFor(llm as never, item, 'An article.', PAPER);
+  assert.doesNotMatch(asked[0], /confirmed fault/, 'any other source is held to the paper');
+
+  const words = (n: number) => 'word '.repeat(n / 5);
+  assert.equal(prefilter(forum, words(250)), 'too short');
+  assert.equal(prefilter(forum, words(350)), null, 'a paragraph is enough for a post');
+  assert.equal(prefilter(item, words(350)), 'too short', 'but not for an article');
+  assert.equal(prefilter({ ...item, source: { ...item.source, type: 'code' as const } }, words(100)), null, 'and a release can be a few lines');
+});

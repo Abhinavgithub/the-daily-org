@@ -30,7 +30,12 @@ try {
 const today = new Date().toISOString().slice(0, 10);
 const open = openReleases(releases, today);
 // A section is shown when the paper reads that kind of thing, whether or not there is any just now.
-const follows = { releases: Boolean(PAPER.releases), alerts: Boolean(PAPER.alerts), tools: PAPER.sources.some((source) => source.type === 'code') || tools.length > 0 };
+const follows = {
+  releases: Boolean(PAPER.releases),
+  alerts: Boolean(PAPER.alerts),
+  tools: PAPER.sources.some((source) => source.type === 'code') || tools.length > 0,
+  community: PAPER.sources.some((source) => source.type === 'discussion') || community.length > 0,
+};
 ---
 
 <Layout title="Bulletin">
@@ -112,7 +117,7 @@ const follows = { releases: Boolean(PAPER.releases), alerts: Boolean(PAPER.alert
       }
 
       {
-        community.length > 0 && (
+        follows.community && (
           <section class="ledger__row" id="community">
             <h3>
               Community <span class="bulletin__window">Last {WINDOWS.community} days</span>
@@ -131,6 +136,7 @@ const follows = { releases: Boolean(PAPER.releases), alerts: Boolean(PAPER.alert
                   </p>
                 </article>
               ))}
+              {community.length === 0 && <p class="ledger__none">Nothing from the community in the last {WINDOWS.community} days.</p>}
             </div>
           </section>
         )

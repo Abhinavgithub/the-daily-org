@@ -29,6 +29,12 @@ export interface Source<Persona extends string = string> {
   /** Other addresses for the same feed, tried when the main one fails. */
   alternatives?: string[];
   /**
+   * What earns an item from this source its place, where that differs from the paper's own
+   * `relevant` and `notRelevant`. A forum is not judged as a blog is. Each reads as the paper's does.
+   */
+  relevant?: string;
+  notRelevant?: string;
+  /**
    * For a tool whose release notes are one long document, a section to a version: the
    * address is that document, not a feed. Each dated section is read as a release.
    */

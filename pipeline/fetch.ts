@@ -181,9 +181,11 @@ async function fetchFeed(source: Source, since: Date, options: FetchOptions): Pr
       return viaFeed(await readFeed(addresses[attempt % addresses.length], source, whole, getFn));
     } catch (err) {
       errors.push((err as Error).message);
+      // Told to slow down: asking again at once only makes the wait longer. The next run will ask.
+      if (errors.at(-1) === 'HTTP 429') break;
     }
   }
-  throw new Error(`${apiProblem ? `${apiProblem}; then ` : ''}${errors.at(-1)} (${attempts} attempt${attempts === 1 ? '' : 's'}: ${errors.join(', ')})`);
+  throw new Error(`${apiProblem ? `${apiProblem}; then ` : ''}${errors.at(-1)} (${errors.length} attempt${errors.length === 1 ? '' : 's'}: ${errors.join(', ')})`);
 }
 
 /**

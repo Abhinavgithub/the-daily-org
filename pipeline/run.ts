@@ -453,6 +453,13 @@ for (const [i, { item, key, text, image, basis }] of candidates.entries()) {
       runLog.article({ ...entry, title: v.title, outcome: 'published', score: v.interest_score, reason: 'printed in the Bulletin; every release of a tool is' });
       bulletin.push(...writeBulletin(day, 'release', [{ item, curated }]));
       tally.published++;
+    } else if (item.source.type === 'discussion' && v.relevant) {
+      // A forum post is never a story. One the editor finds worth knowing is a line in the Bulletin, whatever it scores:
+      // a post is not written to be read as an article is, and its score says little.
+      console.log(`  [${i + 1}/${candidates.length}] From the community, for the Bulletin: ${item.title}`);
+      runLog.article({ ...entry, title: v.title, outcome: 'published', score: v.interest_score, reason: 'printed in the Bulletin, as a line from the community' });
+      bulletin.push(...writeBulletin(day, 'community', [{ item, curated }]));
+      tally.published++;
     } else if (!v.relevant) {
       counts.rejected++;
       tally.notRelevant++;

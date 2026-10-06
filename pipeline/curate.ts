@@ -19,7 +19,8 @@ function keywords(paper: Paper): RegExp | null {
 /** Cheap rules that run before any model call. Returns a reason when the item should be dropped. */
 export function prefilter(item: FeedItem, text: string, paper: Paper = PAPER): string | null {
   // A release's notes can be a few lines and still be the whole of it.
-  const minLength = item.source.type === 'code' ? 80 : item.source.type === 'video' ? 150 : 600;
+  // A forum post that says something worth knowing can do it in a paragraph.
+  const minLength = item.source.type === 'code' ? 80 : item.source.type === 'video' ? 150 : item.source.type === 'discussion' ? 300 : 600;
   if (text.length < minLength) return 'too short';
   // The paper is in English; a post mostly in another script is not for it.
   const letters = `${item.title} ${text.slice(0, 2000)}`.match(/\p{L}/gu) ?? [];
@@ -94,6 +95,8 @@ function userPrompt(item: FeedItem, text: string): string {
     item.source.personas?.length ? `This source usually writes for: ${item.source.personas.join(', ')}` : '',
     // Every release is printed, in a line at least, so the line has to say what the release changed.
     item.source.type === 'code' ? 'This is a release of a tool, and the paper prints a line for every release. Begin the "title" with the tool\'s name and version. In "why_read", say in one sentence what this version changes for someone who uses the tool; if it only fixes faults, say which.' : '',
+    // A forum post is one person's word, and the paper prints one line of it.
+    item.source.type === 'discussion' ? 'This is a post on a community forum: one person\'s account, not a published article. In "why_read", say in one sentence what a reader should know from it, as something reported and not as settled fact.' : '',
     // An alert is printed whatever is said of it here, so its summary has to be a full one.
     item.alert ? `This is an official notice (${item.alert.label.toLowerCase()}) that the paper prints whatever its scores. Do not cut the fields short on that account. For a notice the "summary" is one paragraph of two or three sentences: what happened, who is affected and what, if anything, a reader should do.` : '',
     // The paper's own test of relevance is written for articles. A notice is news when it tells of trouble a reader may meet.
@@ -166,8 +169,11 @@ export class InvalidVerdict extends Error {}
 
 /** One call per item, plus one corrective call if the reply does not validate. */
 export async function curate(llm: LlmClient, item: FeedItem, text: string, paper: Paper = PAPER): Promise<Curated> {
+  // A source may have its own test of what belongs, in place of the paper's.
+  const { relevant, notRelevant } = item.source;
+  const brief = relevant || notRelevant ? { ...paper, relevant: relevant ?? paper.relevant, notRelevant: notRelevant ?? paper.notRelevant } : paper;
   const messages: ChatMessage[] = [
-    { role: 'system', content: editorPrompt(paper) },
+    { role: 'system', content: editorPrompt(brief) },
     { role: 'user', content: userPrompt(item, text) },
   ];
   let inputTokens = 0;

@@ -108,3 +108,17 @@ test('a YouTube source is read through the API when there is a key, and from its
 test('feed text loses its markup and has its entities decoded', () => {
   assert.equal(stripHtml('<p>Tom &amp; Ann&#8217;s &quot;plan&quot; &#x2014; 5&nbsp;&lt;&nbsp;7 &hellip; &copy;</p><script>x()</script>'), 'Tom & Ann\'s "plan" - 5 < 7 ... &copy;');
 });
+
+test('a feed that says to slow down is not asked again in the same run', async () => {
+  let asked = 0;
+  const { failures } = await fetchFeeds([item.source], new Date('2026-09-20T00:00:00Z'), {
+    sleep: async () => {},
+    attempts: 5,
+    get: async () => {
+      asked++;
+      return new Response('', { status: 429 });
+    },
+  });
+  assert.equal(asked, 1);
+  assert.match(failures[0].error, /HTTP 429 \(1 attempt: HTTP 429\)/);
+});

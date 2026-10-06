@@ -88,6 +88,7 @@ The paper has two tabs. **News** is its stories. **Bulletin** (`/bulletin/`) hol
 | Releases | Where each coming release stands, and its dates | Until the release is out | `releases` in `paper.config.ts` |
 | Alerts | Notices printed whatever they score | 14 days | `alerts` in `paper.config.ts` |
 | Tools | Every release of the tools the paper follows, one line each | 30 days | a source of type `code` |
+| Community | Posts from a forum that report something worth knowing, one line each | 7 days | a source of type `discussion` |
 
 **Releases.** `releases: 'salesforce-trust'` reads the dates of Salesforce's releases from its Trust site into `data/releases.json` on each run. If they cannot be read, the dates already known are kept.
 
@@ -98,6 +99,8 @@ The paper has two tabs. **News** is its stories. **Bulletin** (`/bulletin/`) hol
 - A feed of releases, such as a GitHub repository's `releases.atom`, is read like any other feed.
 - `changelog: true` is for a tool whose notes are one long document with a dated section a version: the source's address is that document.
 - `notes: '<address>'` is for a feed whose entries only point at the notes: each entry's version is looked up in that document.
+
+**Community.** A source of type `discussion` is a forum. A post is never a story: one the editor finds relevant is a line in the Bulletin. A forum is mostly questions and opinion, so such a source should carry its own `relevant` and `notRelevant`, which stand in for the paper's when its posts are judged. Put it last among the sources, so that on a run that reaches its cap on calls the articles have been judged first.
 
 Bulletin items are kept in `src/content/bulletin`, apart from the stories, so they do not appear among them, in a section's page or in the feed. Search finds the ones the Bulletin is showing.
 

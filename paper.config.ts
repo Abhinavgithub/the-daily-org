@@ -98,6 +98,20 @@ export default definePaper({
     { id: 'yt-salesforce-hulk', name: 'Salesforce Hulk on YouTube', ...youtube('UCTzF0VQiCXsZ_41fjVuX7UA'), type: 'video', personas: ['developer', 'admin'] },
     { id: 'yt-mytutorialrack', name: 'MyTutorialRack on YouTube', ...youtube('UCb8Gc-Y6EnbLjRzeAvzmhVQ'), type: 'video', personas: ['developer', 'admin'] },
     { id: 'yt-apex-hours', name: 'Apex Hours on YouTube', ...youtube('UChTdRj6YfwqhR_WEFepkcJw'), type: 'video', personas: ['developer', 'architect'] },
+
+    // The community. A post is printed, as one line in the Bulletin, only when it reports something a
+    // practitioner needs to know. Reddit refuses a reader that asks more than once or twice in a row.
+    // It is last so that, on a run that reaches its cap on calls, the articles above have been judged first.
+    {
+      id: 'reddit-salesforce',
+      name: 'r/salesforce',
+      url: 'https://www.reddit.com/r/salesforce/.rss',
+      type: 'discussion',
+      relevant:
+        'reports something a practitioner needs to know and may not have heard: a change, notice or email from Salesforce explained, a confirmed fault, an outage, a limit or behaviour that surprised someone, or a workaround that works',
+      notRelevant:
+        'a request for help with the poster\'s own problem, an opinion or a question put to the room, talk of careers, pay, certifications or hiring, a poll, and anyone promoting their own tool, service, post or video',
+    },
   ],
 
   // An item from a source marked `noisy` is kept only if one of these appears in it.
