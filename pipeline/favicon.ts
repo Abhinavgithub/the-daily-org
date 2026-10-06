@@ -15,7 +15,9 @@ import { INK } from '../src/lib/theme';
 const PUBLIC = path.join(process.cwd(), 'public');
 const letter = (process.argv[2] ?? PAPER.name.replace(/^(the|a|an)\s+/i, '').trim()[0] ?? 'N').toUpperCase();
 
-const font = create(fs.readFileSync(path.join(PUBLIC, 'fonts', 'Chomsky.woff2')));
+// A font file can hold several faces. The nameplate's holds one; were it to hold more, the first is the one meant.
+const file = create(fs.readFileSync(path.join(PUBLIC, 'fonts', 'Chomsky.woff2')));
+const font = 'fonts' in file ? file.fonts[0] : file;
 const glyph = font.glyphForCodePoint(letter.codePointAt(0)!);
 const { minX, minY, maxX, maxY } = glyph.bbox;
 if (!(maxX > minX && maxY > minY)) throw new Error(`The nameplate font has no "${letter}".`);
