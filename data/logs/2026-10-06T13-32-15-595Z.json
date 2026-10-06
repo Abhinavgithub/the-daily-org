@@ -1,0 +1,246 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-10-06T13:32:15.595Z",
+  "day": "2026-10-06",
+  "seconds": 508,
+  "finished": true,
+  "feeds": [
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 1
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 1
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 1
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 1
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 0
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 4
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "joys-of-apex",
+      "name": "The Joys of Apex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 0
+    },
+    {
+      "id": "unofficialsf",
+      "name": "UnofficialSF",
+      "items": 0
+    },
+    {
+      "id": "automation-champion",
+      "name": "Automation Champion",
+      "items": 0
+    },
+    {
+      "id": "sfdc-stop",
+      "name": "SFDC Stop",
+      "items": 0
+    },
+    {
+      "id": "yt-salesforce-developers",
+      "name": "Salesforce Developers on YouTube",
+      "items": 0,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-salesforce-admins",
+      "name": "Salesforce Admins on YouTube",
+      "items": 0,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-salesforce",
+      "name": "Salesforce on YouTube",
+      "items": 4,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-salesforce-ben",
+      "name": "Salesforce Ben on YouTube",
+      "items": 3,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-salesforce-hulk",
+      "name": "Salesforce Hulk on YouTube",
+      "items": 0,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-mytutorialrack",
+      "name": "MyTutorialRack on YouTube",
+      "items": 1,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-apex-hours",
+      "name": "Apex Hours on YouTube",
+      "items": 0,
+      "note": "read through the YouTube API"
+    }
+  ],
+  "articles": [
+    {
+      "title": "43,000 of our closest friends in one place. We miss y’all already.",
+      "url": "https://www.youtube.com/watch?v=py6cTMx2ZV4",
+      "source": "Salesforce on YouTube",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Replay the biggest moments from Dreamforce 2026 in the new episode of This Month at Salesforce",
+      "url": "https://www.youtube.com/watch?v=LTlmSEzPn50",
+      "source": "Salesforce on YouTube",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Salesforce Winter ’27 Is Live: 10 Features to Share With Your Users",
+      "url": "https://www.youtube.com/watch?v=v1i4PXgZ-pw",
+      "source": "Salesforce Ben on YouTube",
+      "outcome": "not-relevant",
+      "score": 5
+    },
+    {
+      "title": "Would Your Salesforce Career Survive an AI Bubble Burst?",
+      "url": "https://www.youtube.com/watch?v=heOIOLLAh80",
+      "source": "Salesforce Ben on YouTube",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "What Keeps You Valuable When Patience For AI Runs Out?",
+      "url": "https://www.youtube.com/watch?v=1D3YA7v5UIE",
+      "source": "Salesforce Ben on YouTube",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Salesforce CPQ Is Ending? Do This Before It's Too Late (Revenue Cloud)",
+      "url": "https://www.youtube.com/watch?v=oK2qGMV2T5o",
+      "source": "MyTutorialRack on YouTube",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "How Salesforce engineered persistent memory for Agentforce agents",
+      "url": "https://engineering.salesforce.com/ai-agents-need-memory-building-persistent-memory-for-agentforce/",
+      "source": "Salesforce Engineering",
+      "outcome": "published",
+      "score": 8,
+      "reason": "article title: AI Agents Need Memory: Building Persistent Memory for Agentforce"
+    },
+    {
+      "title": "This Month at Salesforce | Ep 4 – AIforce Debuts at Dreamforce 2026",
+      "url": "https://www.youtube.com/watch?v=P5KLzbR0ppg",
+      "source": "Salesforce on YouTube",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Winter ’27 release guides architects through security enforcement and agent scaling",
+      "url": "https://www.salesforce.com/blog/winter-27-release-architect-highlights/",
+      "source": "Salesforce Architects",
+      "outcome": "published",
+      "score": 8,
+      "reason": "article title: Winter ’27 Release Architect Highlights: Security, Agentic Architecture, and Governance"
+    },
+    {
+      "title": "Winter 27 release brings Headless Toolkit, Multi Framework support, and Data SDK extensions",
+      "url": "https://developer.salesforce.com/blogs/2026/10/developers-guide-to-the-winter-27-release",
+      "source": "Salesforce Developers Blog",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: The Salesforce Developer’s Guide to the Winter ’27 Release"
+    },
+    {
+      "title": "Winter 27 release adds inline editing, sharing controls, email security, and report previews",
+      "url": "https://admin.salesforce.com/blog/2026/jens-top-winter-27-release-features-for-admins",
+      "source": "Salesforce Admins Blog",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Jen’s Top Winter ’27 Release Features For Admins"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "How Salesforce engineered persistent memory for Agentforce agents",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Winter ’27 release guides architects through security enforcement and agent scaling",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Winter 27 release brings Headless Toolkit, Multi Framework support, and Data SDK extensions",
+      "outcome": "corrected",
+      "reason": "summary: \"salesforce\" was removed"
+    },
+    {
+      "title": "Winter 27 release adds inline editing, sharing controls, email security, and report previews",
+      "outcome": "corrected"
+    }
+  ],
+  "figures": [
+    {
+      "title": "Winter ’27 release guides architects through security enforcement and agent scaling",
+      "outcome": "drawn",
+      "kind": "parts",
+      "image": "made"
+    }
+  ],
+  "model": {
+    "calls": 15,
+    "retries": {},
+    "usage": {
+      "qwen/qwen3.7-flash": {
+        "input": 23660,
+        "output": 53035
+      },
+      "google/gemini-3.1-flash-image": {
+        "input": 656,
+        "output": 1120
+      }
+    }
+  },
+  "statsAt": "2026-10-06T13:40:43.396Z"
+}
