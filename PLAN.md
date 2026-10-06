@@ -8,7 +8,7 @@ Check a box when the step is built, tested and committed.
 - [x] 1. **Feedback log.** Record by hand which printed stories were junk and which skipped ones should have run. The log doubles as test data for the later steps. Flag from the Logs page under `npm run dev` (Articles, "Your call" column), or with `npm run feedback`.
 - [ ] 2. **Better judgement of what is already read.**
   - [x] 2a. **Replay.** `npm run replay` judges the flagged articles again, with controls, so a rule change can be measured.
-  - [x] 2b. **Judge YouTube videos on their transcript.** Built 6 Oct. Still to do: after a week of daily runs, read the Logs page to see whether GitHub Actions is refused, and decide what to do with live events that have not been held yet.
+  - [x] 2b. **Judge YouTube videos on their transcript.** Built 6 Oct. Still to do: after a week of daily runs, read the Logs page to see whether GitHub Actions is refused. A live event that has not been held is skipped until it has been.
     Original note: Today a video is scored on its description alone, which is often a few lines and some links. Read the transcript when one can be fetched and fall back to the description when it cannot. Transcripts come by an unofficial route that can fail, most likely on the daily run in GitHub Actions, so the fallback and a count of how often it is used both matter. Comes before 2c, since tuning rules against description-only scores would measure the wrong thing.
   - [ ] 2c. **Tune prompts and rules** (`relevant`, `notRelevant`, the scoring prompt) against the feedback log. No new spend.
 - [ ] 3. **Group repeat coverage.** One story with "also covered by..." links; the number of sources feeds the score.

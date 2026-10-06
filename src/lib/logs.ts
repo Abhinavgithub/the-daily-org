@@ -24,7 +24,7 @@ export interface LogArticle {
   /** For a video: whether it was read from its transcript or only from its description. */
   basis?: 'transcript' | 'description';
   /** For a video left for the next run: what it is waiting for. */
-  awaiting?: 'transcript';
+  awaiting?: 'transcript' | 'airing';
 }
 
 export interface LogFeed {

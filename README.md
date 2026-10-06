@@ -85,6 +85,7 @@ A YouTube video is judged on its transcript, with the description its uploader w
 
 - YouTube offers no official way to read another channel's captions. The pipeline asks as YouTube's own app does, with no key. This can stop working without notice, and may be refused on a hosted runner while it works on your machine.
 - A video with no captions yet is left for up to two days, since they often come some hours after the upload. After that, or when every request in a run is refused, it is judged on its description alone.
+- A live event that has not been held yet is not judged until it has been. It is waited for up to 45 days.
 - The Logs page says of each video which it was judged on, and warns when transcripts cannot be had.
 
 ## Cost

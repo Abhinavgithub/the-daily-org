@@ -199,8 +199,20 @@ for (const { item, key, content } of extracted) {
   // A video with no transcript yet waits for one: captions often come some hours after the upload, and one
   // refusal among successes is passing trouble. It does not wait when every request was refused, when its
   // captions are in another language, or once it has waited long enough.
-  const mayCome = content.transcript === 'none' || content.transcript === 'upcoming' || (content.transcript === 'failed' && !transcriptsDown);
-  if (mayCome && !transcriptOverdue(pending[key], day)) {
+  // A live event that has not been held has nothing in it to judge. It is left alone until it has been.
+  if (content.transcript === 'upcoming') {
+    videos.waiting++;
+    console.log(`  Not held yet, left until it has been: ${item.title}`);
+    // Said once, on the run that first met it, not on every run until the day.
+    if (pending[key]?.why !== 'upcoming') runLog.article({ title: item.title, url: item.url, source: item.source.name, outcome: 'deferred', reason: 'a live event that has not been held yet', awaiting: 'airing' });
+    if (!dryRun && pending[key]?.why !== 'upcoming') pending[key] = { source: item.source.id, since: day, why: 'upcoming' };
+    continue;
+  }
+  // Once held, its wait for a transcript starts from now, not from when it was announced.
+  const aired = pending[key]?.why === 'upcoming';
+  const mayCome = content.transcript === 'none' || (content.transcript === 'failed' && !transcriptsDown);
+  if (mayCome && (aired || !transcriptOverdue(pending[key], day))) {
+    if (aired && !dryRun) delete pending[key];
     videos.waiting++;
     if (!dryRun) pending[key] ??= { source: item.source.id, since: day, why: 'no-transcript' };
     console.log(`  Waiting for its transcript: ${item.title}`);

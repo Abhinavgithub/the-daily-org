@@ -58,4 +58,10 @@ test('a video waits two days for its transcript, then is judged without it', () 
   assert.equal(transcriptOverdue(undefined, '2026-10-01'), false, 'met for the first time');
   assert.equal(transcriptOverdue(waiting, '2026-10-02'), false);
   assert.equal(transcriptOverdue(waiting, '2026-10-03'), true);
+
+  // A live event announced weeks ahead outlasts the week anything else may wait, but not for ever.
+  const pending = { 'https://y/event': { source: 'yt', since: '2026-10-01', why: 'upcoming' as const }, 'https://y/video': { ...waiting } };
+  const seen: Record<string, string> = {};
+  assert.deepEqual(forget(pending, seen, '2026-10-23'), ['https://y/video']);
+  assert.deepEqual(forget(pending, seen, '2026-11-15'), ['https://y/event']);
 });

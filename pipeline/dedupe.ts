@@ -45,7 +45,7 @@ export interface Waiting {
   source: string;
   /** The edition day on which it was first met. */
   since: string;
-  why: 'unread' | 'deferred' | 'no-transcript';
+  why: 'unread' | 'deferred' | 'no-transcript' | 'upcoming';
 }
 
 /** Canonical URL to what is waiting on it. */
@@ -79,12 +79,15 @@ export const daysBetween = (from: string, to: string) => Math.round((Date.parse(
 /** Whether a page that still cannot be read has been tried for long enough. */
 export const givenUp = (waiting: Waiting | undefined, day: string) => waiting !== undefined && daysBetween(waiting.since, day) >= GIVE_UP_DAYS;
 
+/** Days a live event that has not been held is waited for. Long enough for one announced weeks ahead; not for ever, since some are called off. */
+export const UPCOMING_DAYS = 45;
+
 /** Whether a video has waited long enough for a transcript that has not come. */
 export const transcriptOverdue = (waiting: Waiting | undefined, day: string) => waiting !== undefined && daysBetween(waiting.since, day) >= TRANSCRIPT_WAIT_DAYS;
 
 /** Move what has waited too long from `pending` to `seen`. Returns the addresses moved. */
 export function forget(pending: Pending, seen: Seen, day: string): string[] {
-  const gone = Object.keys(pending).filter((key) => daysBetween(pending[key].since, day) >= FORGET_DAYS);
+  const gone = Object.keys(pending).filter((key) => daysBetween(pending[key].since, day) >= (pending[key].why === 'upcoming' ? UPCOMING_DAYS : FORGET_DAYS));
   for (const key of gone) {
     seen[key] = day;
     delete pending[key];
