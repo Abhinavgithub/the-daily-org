@@ -6,6 +6,7 @@ import type { FeedItem } from './fetch';
 
 export const STORIES_DIR = path.join(process.cwd(), 'src', 'content', 'stories');
 export const BRIEFS_DIR = path.join(process.cwd(), 'src', 'content', 'briefs');
+export const BULLETIN_DIR = path.join(process.cwd(), 'src', 'content', 'bulletin');
 
 function slugify(title: string): string {
   return title
@@ -51,8 +52,6 @@ export function writeStories(day: string, stories: Publishable[]): string[] {
       utility_score: v.utility_score,
       model: curated.model,
       ...(image ? { image } : {}),
-      // What it is flagged as, and what its source states for certain.
-      ...(item.alert ? { alert: { label: item.alert.label, facts: item.alert.facts } } : {}),
     };
     const number = String(existing + i + 1).padStart(2, '0');
     const file = path.join(dir, `${number}-${item.source.id}-${slugify(item.title)}.md`);
@@ -89,6 +88,39 @@ export function writeBriefs(day: string, briefs: Publishable[], briefsDir = BRIE
     const number = String(existing + i + 1).padStart(2, '0');
     const file = path.join(dir, `${number}-${item.source.id}-${slugify(item.title)}.md`);
     fs.writeFileSync(file, `---\n${stringify(frontmatter, { lineWidth: 0 })}---\n`);
+    return file;
+  });
+}
+
+/** What a Bulletin item is: a notice printed whatever it scores, a tool's release, or a post from the community. */
+export type BulletinKind = 'alert' | 'release' | 'community';
+
+/**
+ * Write one file per item into the day's folder of the Bulletin: what the paper
+ * keeps apart from its stories. Each is a headline, one line, and for an alert
+ * its flag and what its source states for certain. Returns the paths written.
+ */
+export function writeBulletin(day: string, kind: BulletinKind, items: Publishable[], bulletinDir = BULLETIN_DIR): string[] {
+  const dir = path.join(bulletinDir, day);
+  fs.mkdirSync(dir, { recursive: true });
+  const existing = fs.readdirSync(dir).filter((f) => f.endsWith('.md')).length;
+  return items.map(({ item, curated }, i) => {
+    const v = curated.verdict;
+    const frontmatter = {
+      kind,
+      title: v.title,
+      original_title: item.title,
+      url: item.url,
+      source: item.source.name,
+      date: day,
+      line: v.why_read,
+      ...(item.alert ? { flag: item.alert.label, facts: item.alert.facts } : {}),
+      model: curated.model,
+    };
+    const number = String(existing + i + 1).padStart(2, '0');
+    const file = path.join(dir, `${number}-${item.source.id}-${slugify(item.title)}.md`);
+    // An alert keeps the short account written of it; a release or a post is its one line.
+    fs.writeFileSync(file, `---\n${stringify(frontmatter, { lineWidth: 0 })}---\n${kind === 'alert' ? `\n${v.summary}\n` : ''}`);
     return file;
   });
 }

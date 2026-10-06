@@ -88,12 +88,12 @@ export interface Paper<Section extends string = string, Persona extends string =
   address?: string;
   /**
    * Optional. Where the dates of the subject's next release are read from. With it,
-   * the latest edition carries a line announcing the release as it draws near.
+   * the Bulletin says where each coming release stands.
    */
   releases?: Calendar;
   /**
    * Optional. Where notices that are printed whatever their score are read from:
-   * security advisories, and failures that reach many users at once. They head the edition.
+   * security advisories, and failures that reach many users at once. They are shown in the Bulletin.
    */
   alerts?: AlertFeed;
   /** Optional. Where the paper's code is kept, such as a GitHub repository. Linked from the footer of every page. */

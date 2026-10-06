@@ -1,16 +1,16 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
-import { hasBriefs } from '../content.config';
+import { hasBriefs, hasBulletin } from '../content.config';
+import { inWindow } from './bulletin';
 import { groupEditions } from './editions';
 import { byRank, signalOf, type Signal } from './signal';
 
 export type Story = CollectionEntry<'stories'>;
 export type Brief = CollectionEntry<'briefs'>;
+export type BulletinItem = CollectionEntry<'bulletin'>;
 
 export interface Edition {
   day: string;
   stories: Story[];
-  /** Notices printed whatever their score. They head the edition and are not ranked among its stories. */
-  alerts: Story[];
   /** Close calls printed as one line each. A day with these and no stories is still an edition. */
   briefs: Brief[];
 }
@@ -19,16 +19,24 @@ export interface Edition {
 export async function getEditions(): Promise<Edition[]> {
   // Asking for a collection with nothing in it is warned about, so the briefs are asked for only once there are some.
   const [stories, briefs] = await Promise.all([getCollection('stories'), hasBriefs ? getCollection('briefs') : []]);
-  return groupEditions(stories, briefs, { stories: (a, b) => byRank(a.data, b.data), briefs: (a, b) => byRank(a.data, b.data) }).map((edition) => ({
-    ...edition,
-    stories: edition.stories.filter((story) => !story.data.alert),
-    alerts: edition.stories.filter((story) => story.data.alert),
-  }));
+  return groupEditions(stories, briefs, { stories: (a, b) => byRank(a.data, b.data), briefs: (a, b) => byRank(a.data, b.data) });
 }
 
-/** Every story, newest edition first: an edition's alerts, then its stories best first. */
+/**
+ * The Bulletin as it stands: the items still within their time on the page,
+ * newest first, and the day they are counted back from, which is the latest edition's.
+ */
+export async function getBulletin(): Promise<{ latest: string; items: BulletinItem[] }> {
+  const all = hasBulletin ? await getCollection('bulletin') : [];
+  const newest = [(await getEditions())[0]?.day, ...all.map((item) => item.data.date)].filter((day): day is string => Boolean(day)).sort().at(-1);
+  const latest = newest ?? new Date().toISOString().slice(0, 10);
+  const items = all.filter((item) => inWindow(item.data.kind, item.data.date, latest)).sort((a, b) => b.data.date.localeCompare(a.data.date) || a.id.localeCompare(b.id));
+  return { latest, items };
+}
+
+/** Every story, newest edition first, best first within an edition. */
 export async function getAllStories(): Promise<Story[]> {
-  return (await getEditions()).flatMap((edition) => [...edition.alerts, ...edition.stories]);
+  return (await getEditions()).flatMap((edition) => edition.stories);
 }
 
 /** Each story's mark, earned by its rank within its own edition. */

@@ -1,0 +1,65 @@
+---
+import { getBulletin } from '../lib/stories';
+
+// The two parts of the paper: its stories, and the Bulletin, which holds what
+// is not a story. They are two pages, so these are links, and the one the
+// reader is on is marked. The Bulletin's link says how many of its items the
+// reader has not seen, which the browser remembers.
+
+interface Props {
+  current: 'news' | 'bulletin';
+}
+
+const { current } = Astro.props;
+const { latest, items } = await getBulletin();
+const listed = items.map((item) => ({ id: item.id, date: item.data.date }));
+---
+
+<nav class="tabs" aria-label="Parts of the paper">
+  <a href={current === 'news' ? Astro.url.pathname : '/'} aria-current={current === 'news' ? 'page' : undefined}>News</a>
+  <a
+    href="/bulletin/"
+    aria-current={current === 'bulletin' ? 'page' : undefined}
+    data-bulletin-tab
+    data-items={JSON.stringify(listed)}
+    data-latest={latest}
+    data-current={current === 'bulletin' ? '' : undefined}
+  >
+    Bulletin
+    <span class="tabs__count" data-bulletin-count hidden></span>
+  </a>
+</nav>
+
+<script>
+  import { SEEN_KEY, unseen, type Listed } from '../lib/bulletin';
+
+  const tab = document.querySelector<HTMLAnchorElement>('[data-bulletin-tab]');
+  const count = tab?.querySelector<HTMLElement>('[data-bulletin-count]');
+  if (tab && count) {
+    let items: Listed[] = [];
+    let seen: string[] | null = null;
+    try {
+      items = JSON.parse(tab.dataset.items ?? '[]');
+      const kept = localStorage.getItem(SEEN_KEY);
+      seen = kept === null ? null : (JSON.parse(kept) as string[]);
+    } catch {
+      // Nothing can be remembered here, so nothing is counted.
+      items = [];
+    }
+    if ('current' in tab.dataset) {
+      // The reader is looking at the Bulletin: everything on it has now been seen.
+      try {
+        localStorage.setItem(SEEN_KEY, JSON.stringify(items.map((item) => item.id)));
+      } catch {
+        // Not remembered; the count will come back next time.
+      }
+    } else {
+      const fresh = unseen(items, seen, tab.dataset.latest ?? '');
+      if (fresh > 0) {
+        count.textContent = String(fresh);
+        count.hidden = false;
+        tab.setAttribute('aria-label', `Bulletin, ${fresh} new`);
+      }
+    }
+  }
+</script>

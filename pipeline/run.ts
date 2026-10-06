@@ -19,7 +19,7 @@ import { addTallies, emptyTally, scorecard, type SourceTally } from '../src/lib/
 import { parseRuns } from '../src/lib/stats';
 import { SOURCES } from './sources';
 import { failingSources, loadState, lookBackDays, recordComplete, recordFailure, recordFetched, recordNewest, saveState } from './state';
-import { STORIES_DIR, writeBriefs, writeStories, type Publishable } from './write';
+import { STORIES_DIR, writeBriefs, writeBulletin, writeStories, type Publishable } from './write';
 
 const { values: args } = parseArgs({
   options: {
@@ -177,7 +177,7 @@ for (const source of SOURCES) {
   });
 }
 
-// The dates of the next release, for the line the latest edition prints. Never a reason to stop.
+// The dates of the coming releases, for the Bulletin. Never a reason to stop.
 if (PAPER.releases && !dryRun) {
   const read = await updateReleases(PAPER.releases);
   if ('error' in read) console.warn(`  Release dates could not be read (${read.error}). The dates already known are kept.`);
@@ -318,6 +318,8 @@ console.log(`Assessing with ${models.join(', then ')}${config.imageModel ? `, il
 // is interrupted keeps everything it has paid for.
 const written: string[] = [];
 const briefs: string[] = [];
+// What went to the Bulletin, apart from the stories: alerts and tools' releases.
+const bulletin: string[] = [];
 let figures = { made: 0, illustrated: 0, none: 0, rejected: 0, skipped: 0 };
 const counts = { rejected: 0, belowThreshold: 0, invalid: 0, deferred: 0 };
 const proofs = { corrected: 0, unchanged: 0, kept: 0, skipped: 0 };
@@ -374,6 +376,8 @@ function record(cutShort?: string): string {
     belowThreshold: counts.belowThreshold,
     // How many of those were close enough to be printed in brief.
     briefs: briefs.length,
+    // Alerts and tools' releases, which are printed in the Bulletin and not among the stories.
+    bulletin: bulletin.length,
     invalidReplies: counts.invalid,
     deferred: cutShort ? candidates.length - tallied((tally) => tally.reviewed) - counts.invalid : counts.deferred,
     llmCalls: llm.calls,
@@ -437,19 +441,18 @@ for (const [i, { item, key, text, image, basis }] of candidates.entries()) {
     // An alert is printed whatever it scores. One that is not about security is still left to the editor's view of whether it belongs.
     const waived = item.alert !== undefined && (v.relevant || item.alert.always);
     if (waived) {
-      console.log(`  [${i + 1}/${candidates.length}] ${item.alert!.label}, publishing: ${item.title}`);
-      runLog.article({ ...entry, title: v.title, outcome: 'published', score: v.interest_score, reason: `printed as an alert (${item.alert!.label.toLowerCase()}), whatever its score` });
+      console.log(`  [${i + 1}/${candidates.length}] ${item.alert!.label}, for the Bulletin: ${item.title}`);
+      runLog.article({ ...entry, title: v.title, outcome: 'published', score: v.interest_score, reason: `printed in the Bulletin as an alert (${item.alert!.label.toLowerCase()}), whatever its score` });
       const story = { item, curated, image };
       await proofreadStory(story);
-      written.push(...writeStories(day, [story]));
+      bulletin.push(...writeBulletin(day, 'alert', [story]));
       tally.published++;
-    } else if (item.source.type === 'code' && (!v.relevant || v.interest_score < threshold)) {
-      // A release that does not make a story is still printed, as one line: a reader should not have to wonder whether there was one.
-      counts.belowThreshold++;
-      tally.below++;
-      briefs.push(...writeBriefs(day, [{ item, curated }]));
-      console.log(`  [${i + 1}/${candidates.length}] Scored ${v.interest_score}, a release, printed in brief: ${item.title}`);
-      runLog.article({ ...entry, outcome: 'below-threshold', score: v.interest_score, reason: `scored ${v.interest_score}, the threshold is ${threshold}; a release is always printed in brief` });
+    } else if (item.source.type === 'code') {
+      // Every release of a tool is printed, as one line in the Bulletin: a reader should not have to wonder whether there was one.
+      console.log(`  [${i + 1}/${candidates.length}] A release, for the Bulletin: ${item.title}`);
+      runLog.article({ ...entry, title: v.title, outcome: 'published', score: v.interest_score, reason: 'printed in the Bulletin; every release of a tool is' });
+      bulletin.push(...writeBulletin(day, 'release', [{ item, curated }]));
+      tally.published++;
     } else if (!v.relevant) {
       counts.rejected++;
       tally.notRelevant++;
@@ -555,7 +558,7 @@ record();
 console.log(
   `\nPublished ${written.length} to ${path.relative(process.cwd(), path.join(STORIES_DIR, day))}. ` +
     `${counts.rejected} not relevant, ${counts.belowThreshold} below threshold, ${counts.invalid} unusable replies, ` +
-    `${counts.deferred} left for the next run.${briefs.length ? ` ${briefs.length} printed in brief.` : ''} ${llm.calls} model calls${llm.cost ? `, $${llm.cost.toFixed(4)}` : ''}.`,
+    `${counts.deferred} left for the next run.${briefs.length ? ` ${briefs.length} printed in brief.` : ''}${bulletin.length ? ` ${bulletin.length} printed in the Bulletin.` : ''} ${llm.calls} model calls${llm.cost ? `, $${llm.cost.toFixed(4)}` : ''}.`,
 );
 if (written.length) {
   console.log(

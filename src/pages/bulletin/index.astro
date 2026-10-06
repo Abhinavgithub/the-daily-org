@@ -1,0 +1,168 @@
+---
+// The Bulletin: what the paper keeps apart from its stories. Release dates,
+// notices printed whatever they score, the releases of the tools it follows,
+// and posts from the community. It shows the picture as it stands, so it is one
+// page and not one a day; each kind of item stays on it for a while.
+import fs from 'node:fs';
+import path from 'node:path';
+import { render } from 'astro:content';
+import Masthead from '../../components/Masthead.astro';
+import Tabs from '../../components/Tabs.astro';
+import { PAPER } from '../../config';
+import Layout from '../../layouts/Layout.astro';
+import { WINDOWS, type BulletinKind } from '../../lib/bulletin';
+import { openReleases, readReleases } from '../../lib/releases';
+import { formatDay, getBulletin } from '../../lib/stories';
+
+const { latest, items } = await getBulletin();
+const of = (kind: BulletinKind) => items.filter((item) => item.data.kind === kind);
+const alerts = await Promise.all(of('alert').map(async (item) => ({ item, Content: (await render(item)).Content })));
+const tools = of('release');
+const community = of('community');
+const slug = (id: string) => id.split('/').pop()!;
+
+let releases = readReleases(null);
+try {
+  releases = readReleases(JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', 'releases.json'), 'utf8')));
+} catch {
+  // No dates have been read yet, or the file is unreadable.
+}
+const today = new Date().toISOString().slice(0, 10);
+const open = openReleases(releases, today);
+// A section is shown when the paper reads that kind of thing, whether or not there is any just now.
+const follows = { releases: Boolean(PAPER.releases), alerts: Boolean(PAPER.alerts), tools: PAPER.sources.some((source) => source.type === 'code') || tools.length > 0 };
+---
+
+<Layout title="Bulletin">
+  <Masthead>
+    <h1 class="dateline__text">Bulletin</h1>
+  </Masthead>
+  <Tabs current="bulletin" />
+  <main class="wrap">
+    <div class="ledger bulletin">
+      <p class="ledger__note bulletin__asof">As of {formatDay(latest)}.</p>
+
+      {
+        follows.releases && (
+          <section class="ledger__row" id="releases">
+            <h3>Releases</h3>
+            {/* The lines depend on the day they are read, so they are worked out again in the browser. */}
+            <div data-releases={JSON.stringify(releases)}>
+              {open.map(({ release, rest }) => (
+                <p class="bulletin__release">
+                  <strong>{release.name}</strong>
+                  {rest}
+                </p>
+              ))}
+              {open.length === 0 && <p class="ledger__none">No release dates are known.</p>}
+            </div>
+          </section>
+        )
+      }
+
+      {
+        follows.alerts && (
+          <section class="ledger__row" id="alerts">
+            <h3>
+              Alerts <span class="bulletin__window">Last {WINDOWS.alert} days</span>
+            </h3>
+            <div>
+              {alerts.map(({ item, Content }) => (
+                <article class="bulletin__item" id={slug(item.id)}>
+                  {item.data.flag && <p class="flag">{item.data.flag}</p>}
+                  <h4>
+                    <a href={item.data.url} target="_blank" rel="noopener">
+                      {item.data.title}
+                    </a>
+                  </h4>
+                  {item.data.facts && <p class="bulletin__facts">{item.data.facts}</p>}
+                  <div class="bulletin__text">
+                    <Content />
+                  </div>
+                </article>
+              ))}
+              {alerts.length === 0 && <p class="ledger__none">No alerts in the last {WINDOWS.alert} days.</p>}
+            </div>
+          </section>
+        )
+      }
+
+      {
+        follows.tools && (
+          <section class="ledger__row" id="tools">
+            <h3>
+              Tools <span class="bulletin__window">Last {WINDOWS.release} days</span>
+            </h3>
+            <div>
+              {tools.map((item) => (
+                <article class="bulletin__item" id={slug(item.id)}>
+                  <h4>
+                    <a href={item.data.url} target="_blank" rel="noopener">
+                      {item.data.title}
+                    </a>
+                  </h4>
+                  <p class="bulletin__text">{item.data.line}</p>
+                  <p class="bulletin__facts">{formatDay(item.data.date, 'short')}</p>
+                </article>
+              ))}
+              {tools.length === 0 && <p class="ledger__none">No releases in the last {WINDOWS.release} days.</p>}
+            </div>
+          </section>
+        )
+      }
+
+      {
+        community.length > 0 && (
+          <section class="ledger__row" id="community">
+            <h3>
+              Community <span class="bulletin__window">Last {WINDOWS.community} days</span>
+            </h3>
+            <div>
+              {community.map((item) => (
+                <article class="bulletin__item" id={slug(item.id)}>
+                  <h4>
+                    <a href={item.data.url} target="_blank" rel="noopener">
+                      {item.data.title}
+                    </a>
+                  </h4>
+                  <p class="bulletin__text">{item.data.line}</p>
+                  <p class="bulletin__facts">
+                    {item.data.source} · {formatDay(item.data.date, 'short')}
+                  </p>
+                </article>
+              ))}
+            </div>
+          </section>
+        )
+      }
+    </div>
+  </main>
+</Layout>
+
+<script>
+  import { openReleases, readReleases } from '../../lib/releases';
+
+  const box = document.querySelector<HTMLElement>('[data-releases]');
+  if (box) {
+    const now = new Date();
+    // The reader's own day, not the day the page was built.
+    const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    try {
+      const open = openReleases(readReleases(JSON.parse(box.dataset.releases ?? '[]')), today);
+      if (open.length > 0) {
+        box.replaceChildren(
+          ...open.map(({ release, rest }) => {
+            const line = document.createElement('p');
+            line.className = 'bulletin__release';
+            const name = document.createElement('strong');
+            name.textContent = release.name;
+            line.append(name, rest);
+            return line;
+          }),
+        );
+      }
+    } catch {
+      // The lines stay as they were built.
+    }
+  }
+</script>

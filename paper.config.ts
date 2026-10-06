@@ -22,9 +22,9 @@ export default definePaper({
   notRelevant:
     'product marketing, pieces written for business or marketing leaders rather than for practitioners, customer success stories, promotion of an event still to come, sponsored comparisons, hiring posts, and anything not about Salesforce technology',
   disclaimer: 'not affiliated with or endorsed by Salesforce',
-  // The dates of the next release, from Salesforce's Trust site, for the line the latest edition prints ahead of it.
+  // The dates of the coming releases, from Salesforce's Trust site, for the Bulletin.
   releases: 'salesforce-trust',
-  // Security advisories and wide incidents, also from Trust. They are printed whatever they score, in a box beside the lead story.
+  // Security advisories and wide incidents, also from Trust. They are printed in the Bulletin whatever they score.
   alerts: 'salesforce-trust',
 
   sections: [
@@ -57,7 +57,7 @@ export default definePaper({
   // Candidates: note feeds worth trying here, and what `npm run try-source -- <address>` said of them.
   //   Salesforce Geek, Salesforce Emily, Coding With The Force (YouTube): channel IDs not known; none uploaded in late Sept 2026.
   sources: [
-    // Tools. Every release is printed, in a line at least. The CLI's feed is empty nightly builds, so its notes file is read;
+    // Tools. Every release is printed, as a line in the Bulletin. The CLI's feed is empty nightly builds, so its notes file is read;
     // Code Analyzer's entries only say "see release notes", so the notes page is read for each.
     { id: 'sf-cli', name: 'Salesforce CLI', url: 'https://raw.githubusercontent.com/forcedotcom/cli/main/releasenotes/README.md', type: 'code', changelog: true, personas: ['developer'] },
     {

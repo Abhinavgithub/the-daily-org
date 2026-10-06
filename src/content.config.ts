@@ -38,8 +38,6 @@ const stories = defineCollection({
     // The same diagram as an illustration, a file under public/figures. Shown in place of the drawn one.
     figure_image: z.string().startsWith('/figures/').optional(),
     model: z.string().optional(),
-    // Set on a notice printed whatever its score: the flag it goes under, and what its source states for certain.
-    alert: z.object({ label: z.string(), facts: z.string().default('') }).optional(),
   }),
 });
 
@@ -69,4 +67,29 @@ const briefs = defineCollection({
   }),
 });
 
-export const collections = { stories, briefs };
+// The Bulletin: what the paper keeps apart from its stories. Like the briefs, it has no files until the first is printed.
+export const hasBulletin = fs.existsSync('./src/content/bulletin') && fs.readdirSync('./src/content/bulletin', { recursive: true }).some((file) => String(file).endsWith('.md'));
+
+const bulletin = defineCollection({
+  loader: hasBulletin ? glob({ pattern: '*/*.md', base: './src/content/bulletin' }) : () => [],
+  schema: z.object({
+    // A notice printed whatever it scores, a tool's release, or a post from the community.
+    kind: z.enum(['alert', 'release', 'community']),
+    title: z.string(),
+    original_title: z.string().optional(),
+    url: z.url(),
+    source: z.string(),
+    date: z
+      .union([z.string(), z.date()])
+      .transform((d) => (typeof d === 'string' ? d : d.toISOString().slice(0, 10)))
+      .pipe(z.string().regex(/^\d{4}-\d{2}-\d{2}$/)),
+    /** One sentence: what changed, or why it matters. */
+    line: z.string(),
+    // For an alert: the flag it goes under, and what its source states for certain.
+    flag: z.string().optional(),
+    facts: z.string().optional(),
+    model: z.string().optional(),
+  }),
+});
+
+export const collections = { stories, briefs, bulletin };

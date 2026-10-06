@@ -1,6 +1,6 @@
 import { sectionLabel } from '../config';
 import { MAX_BRIEFS } from '../lib/editions';
-import { formatDay, getAllStories, getEditions, getSignals, storyHref } from '../lib/stories';
+import { formatDay, getAllStories, getBulletin, getEditions, getSignals, storyHref } from '../lib/stories';
 
 // The whole archive as one static file for the search page to filter in the browser.
 export async function GET() {
@@ -34,5 +34,17 @@ export async function GET() {
       brief: true,
     })),
   );
-  return new Response(JSON.stringify([...index, ...briefs]), { headers: { 'Content-Type': 'application/json' } });
+  // What the Bulletin shows now. A result opens the Bulletin at that item; one that has left the page is not offered.
+  const bulletin = (await getBulletin()).items.map((item) => ({
+    href: `/bulletin/#${item.id.split('/').pop()}`,
+    title: item.data.title,
+    why: item.data.line,
+    source: item.data.source,
+    section: 'Bulletin',
+    day: formatDay(item.data.date, 'short'),
+    personas: [] as string[],
+    signal: 'other' as const,
+    text: [item.data.original_title ?? '', item.data.flag ?? '', item.body ?? ''].join(' '),
+  }));
+  return new Response(JSON.stringify([...index, ...briefs, ...bulletin]), { headers: { 'Content-Type': 'application/json' } });
 }

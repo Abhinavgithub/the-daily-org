@@ -77,11 +77,10 @@ export default definePaper({
   // Optional. Words that mark a byline as an organisation, not a person.
   notAuthors: ['nasa', 'esa'],
 
-  // Optional. `alerts: 'salesforce-trust'` prints Salesforce's security advisories and wide incidents in a box
-  // beside the lead story, whatever they score. Like `releases`, it is for a paper about Salesforce.
-
-  // Optional. `releases: 'salesforce-trust'` prints a line on the latest edition as a Salesforce
-  // release draws near. It is the only calendar there is so far; a paper on another subject leaves it out.
+  // Optional, for the Bulletin, the paper's second tab (see the README). Both are for a paper about Salesforce;
+  // a paper on another subject leaves them out.
+  //   alerts: 'salesforce-trust'     security advisories and wide incidents, printed whatever they score
+  //   releases: 'salesforce-trust'   the dates of the coming releases
 
   // How the pipeline names itself to the sites it reads. Sites can refuse readers
   // that do not say who they are, so give a real address where you can be reached.

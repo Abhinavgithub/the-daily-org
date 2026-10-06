@@ -79,30 +79,27 @@ All in `.env`; `.env.example` explains each.
 | `READERSHIP_API_TOKEN`, `READERSHIP_ACCOUNT_ID`, `READERSHIP_SITE_ID` | Optional. Read-only access to the site's web analytics, so the Stats page can show views, visits, countries and most-read pages. |
 | `SITE_URL` | Optional. Takes the place of the paper's `address`. |
 
-## Tool releases
+## The Bulletin
 
-A source of type `code` is a tool, and every release of it is printed: as a story when it scores well enough, otherwise as one line in "In brief" saying what the version changed. Release candidates and nightly builds are left out.
+The paper has two tabs. **News** is its stories. **Bulletin** (`/bulletin/`) holds what is worth knowing and is not a story, so that none of it takes room from the stories. It is one page showing the picture as it stands, not one a day, and each kind of item stays on it for a while. The tab says how many of its items a reader has not yet seen, which their browser remembers.
+
+| Section | What it holds | Stays for | Switched on by |
+|---|---|---|---|
+| Releases | Where each coming release stands, and its dates | Until the release is out | `releases` in `paper.config.ts` |
+| Alerts | Notices printed whatever they score | 14 days | `alerts` in `paper.config.ts` |
+| Tools | Every release of the tools the paper follows, one line each | 30 days | a source of type `code` |
+
+**Releases.** `releases: 'salesforce-trust'` reads the dates of Salesforce's releases from its Trust site into `data/releases.json` on each run. If they cannot be read, the dates already known are kept.
+
+**Alerts.** `alerts: 'salesforce-trust'` reads Trust for security advisories and for incidents marked major on 5 or more instances, which are always printed, and for other messages to all customers, which are printed unless the editor judges them not about a fault, outage or change a reader may meet. The model writes the headline and a short summary; the line of facts is Trust's own.
+
+**Tools.** A source of type `code` is a tool, and every release of it is printed, as one line saying what the version changed. Release candidates and nightly builds are left out.
 
 - A feed of releases, such as a GitHub repository's `releases.atom`, is read like any other feed.
 - `changelog: true` is for a tool whose notes are one long document with a dated section a version: the source's address is that document.
 - `notes: '<address>'` is for a feed whose entries only point at the notes: each entry's version is looked up in that document.
 
-## Alerts
-
-A paper can print some notices whatever they score, together in one box beside the lead story. Set `alerts` in `paper.config.ts` to the feed to read; `salesforce-trust` is the only one so far. It reads Salesforce's Trust site for:
-
-- **Security advisories**: always printed.
-- **Incidents** marked major that reach 5 or more instances, or all of them: always printed, once, with their state when the edition was written.
-- **Other messages to all customers**: printed unless the editor judges them not about a fault, outage or change a reader may meet.
-
-In the box each alert is a flag, a headline that opens the notice on Trust, and Trust's own facts. The model writes the headline, and a short summary that is shown where the alert is listed elsewhere: in search, on a section's page and in the feed. No filter hides the box. If the feed cannot be read, the edition is written without alerts and the Logs page says so.
-
-## Release dates
-
-A paper can print one line on its latest edition as a release draws near, for example "Spring '27 reaches sandboxes on 9 Jan. Production: 6 Feb and 19 to 20 Feb." Set `releases` in `paper.config.ts` to the calendar to read; `salesforce-trust` is the only one so far.
-
-- Each run reads the dates and saves them in `data/releases.json`. If they cannot be read, the dates already known are kept and the edition is written as usual.
-- The line shows from 30 days before the first date until the last has passed, and moves on as each date goes by.
+Bulletin items are kept in `src/content/bulletin`, apart from the stories, so they do not appear among them, in a section's page or in the feed. Search finds the ones the Bulletin is showing.
 
 ## Videos
 

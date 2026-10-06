@@ -509,54 +509,137 @@ html[data-turn='older']::view-transition-new(turn-fold) {
   text-transform: uppercase;
 }
 
-// The alerts' box among the stories. It is the briefs' box with a heavy rule along the top, so it is not taken for a story.
-.story.alerts {
-  border-top: 3px solid var(--ink);
+// The two parts of the paper, as links under the nameplate. The one the reader is on is underlined in ink.
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 2.25rem;
+  max-width: var(--width);
+  margin: 0 auto;
+  padding: 0.5rem var(--gutter) 0;
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
 
-  // The flag keeps its own small size, which the box's rule for its paragraphs would otherwise take from it.
-  p.flag {
-    margin-bottom: 0.4rem;
-    font-size: 0.72rem;
+  a {
+    padding: 0.2rem 0 0.35rem;
+    border-bottom: 2px solid transparent;
+    color: var(--muted);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--ink);
+      border-bottom-color: var(--rule);
+    }
+
+    &[aria-current='page'] {
+      color: var(--ink);
+      border-bottom-color: var(--ink);
+    }
   }
 }
 
-// One line under the nameplate when a release is near, set as a paper sets a late
-// notice: a flag, on a tinted strip as wide as the masthead's rule.
-.release {
-  max-width: var(--width);
-  margin: 0 auto;
-  padding: 0 var(--gutter);
-  font-family: var(--display);
-  font-size: var(--fs-label);
+// How many of the Bulletin's items the reader has not seen.
+.tabs__count {
+  display: inline-block;
+  min-width: 1.35em;
+  margin-left: 0.3rem;
+  padding: 0 0.3em;
+  background: var(--sun);
+  color: var(--paper);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0;
   line-height: 1.45;
   text-align: center;
-  color: var(--ink);
 }
 
-.release__says {
-  display: block;
-  padding: 0.6rem 0.75rem;
-  border-bottom: 1px solid var(--ink);
-  background: var(--sky-wash);
-  text-wrap: balance;
+// The Bulletin is set as a ledger: a section to a kind of thing, named in the margin.
+.bulletin {
+  margin-top: 0.5rem;
+
+  .ledger__row h3 {
+    display: grid;
+    gap: 0.25rem;
+    align-content: start;
+  }
+}
+
+.bulletin__asof {
+  margin: 0 0 1rem;
+}
+
+// How far back the section reaches, under its name.
+.bulletin__window {
+  font-weight: 400;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--muted);
+}
+
+.bulletin__release {
+  margin: 0;
+  font-size: var(--fs-body);
+  line-height: 1.5;
+
+  & + & {
+    margin-top: 0.5rem;
+  }
 
   strong {
     font-weight: 600;
   }
 }
 
-// The flag: reversed out of the accent colour, before the sentence.
-.release__flag {
-  display: inline-block;
-  margin-right: 0.6rem;
-  padding: 0.05rem 0.4rem;
-  background: var(--sun);
-  color: var(--paper);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-  vertical-align: 0.05em;
+.bulletin__item {
+  // Clear of the top of the window when a search result opens the page at it.
+  scroll-margin-top: 1rem;
+
+  & + & {
+    margin-top: 1.1rem;
+    padding-top: 1.1rem;
+    border-top: 1px solid var(--rule);
+  }
+
+  // A list of notices, so a size below a story's headline.
+  h4 {
+    margin: 0;
+    font-family: var(--headline);
+    font-weight: 700;
+    font-size: 1.125rem !important;
+    line-height: 1.25;
+    letter-spacing: -0.005em;
+    text-transform: none;
+
+    a {
+      color: var(--ink);
+      text-decoration: none;
+
+      &:hover {
+        color: var(--sky);
+        text-decoration: underline;
+      }
+    }
+  }
+}
+
+// What the source states for certain, or the day: small and quiet under the headline.
+.bulletin__facts {
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+}
+
+.bulletin__text {
+  margin: 0.45rem 0 0;
+  max-width: 44rem;
+  font-family: var(--text);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+
+  p {
+    margin: 0;
+  }
 }
 
 // Archive, search and the theme button on one line. Equal side columns keep the search centred.

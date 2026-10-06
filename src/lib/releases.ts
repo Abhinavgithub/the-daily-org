@@ -1,6 +1,6 @@
-// A release the paper's subject is about to have, and the line that announces
-// it. This runs at build time and again in the browser, since the site is only
-// rebuilt when an edition is written and the line depends on today's date.
+// The releases the paper's subject has coming, and the line that says where
+// each stands. This runs at build time and again in the browser, since the site
+// is only rebuilt when an edition is written and the line depends on today's date.
 
 /** One step of a release: where it arrives, and the day or days it does. Days are YYYY-MM-DD. */
 export interface Stage {
@@ -18,12 +18,7 @@ export interface Release {
   stages: Stage[];
 }
 
-/** Days before a release's first date that the paper starts to announce it. */
-export const ANNOUNCE_DAYS = 30;
-
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-const DAY = 86_400_000;
-const time = (day: string) => Date.parse(`${day}T00:00:00Z`);
 const capital = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
 
 /** "9 Jan", "19 to 20 Feb", "30 Jan to 1 Feb", with the year when it is not this one. */
@@ -63,19 +58,18 @@ export function sentence(release: Release, today: string): string {
 }
 
 /**
- * The release to announce today, with its line, or nothing. A release is
- * announced from `ANNOUNCE_DAYS` before its first date until its last has passed.
- * `rest` is the line without the name it opens with.
+ * The releases worth saying something of today: any that has begun and not
+ * finished, and the next one to come. Each comes with its line, and the line
+ * without the name it opens with, which the page sets apart.
  */
-export function bannerFor(releases: Release[], today: string): { release: Release; says: string; rest: string } | undefined {
-  const release = [...releases]
-    .filter((candidate) => candidate.stages.length > 0)
-    .sort((a, b) => a.stages[0].from.localeCompare(b.stages[0].from))
-    .find((candidate) => time(today) >= time(candidate.stages[0].from) - ANNOUNCE_DAYS * DAY && today <= candidate.stages.at(-1)!.to);
-  if (!release) return undefined;
-  const says = sentence(release, today);
-  // The line opens with the release's name, which the page sets apart from the rest.
-  return { release, says, rest: says.slice(release.name.length) };
+export function openReleases(releases: Release[], today: string): { release: Release; says: string; rest: string }[] {
+  const ahead = [...releases].filter((release) => release.stages.length > 0 && release.stages.at(-1)!.to >= today).sort((a, b) => a.stages[0].from.localeCompare(b.stages[0].from));
+  // Everything under way, and one beyond it.
+  const next = ahead.findIndex((release) => release.stages[0].from > today);
+  return (next < 0 ? ahead : ahead.slice(0, next + 1)).map((release) => {
+    const says = sentence(release, today);
+    return { release, says, rest: says.slice(release.name.length) };
+  });
 }
 
 /** Whatever was saved, read as releases; anything misshapen is left out. */

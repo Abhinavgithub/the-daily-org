@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { bannerFor, readReleases, sentence, type Release } from './releases';
+import { openReleases, readReleases, sentence, type Release } from './releases';
 
 const winter: Release = {
   name: "Winter '27",
@@ -35,15 +35,15 @@ test('days that span a month are said in full', () => {
   assert.equal(sentence(release, '2026-01-01'), 'R reaches production on 30 Jan to 1 Feb.');
 });
 
-test('a release is announced from thirty days before its first date until its last has passed', () => {
+test('the releases to speak of are any under way and the next to come', () => {
   const both = [spring, winter];
-  assert.equal(bannerFor(both, '2026-08-05'), undefined, 'thirty-one days before');
-  assert.equal(bannerFor(both, '2026-08-06')?.release.name, "Winter '27");
-  assert.equal(bannerFor(both, '2026-10-10')?.release.name, "Winter '27", 'the last day');
-  assert.equal(bannerFor(both, '2026-10-11'), undefined);
-  assert.equal(bannerFor(both, '2026-12-01'), undefined);
-  assert.equal(bannerFor(both, '2026-12-10')?.says, "Spring '27 reaches sandboxes on 9 Jan 2027. Production: 6 Feb 2027 and 19 to 20 Feb 2027.");
-  assert.equal(bannerFor([], '2026-10-06'), undefined);
+  const names = (today: string) => openReleases(both, today).map((open) => open.release.name);
+  assert.deepEqual(names('2026-08-01'), ["Winter '27"], 'only the next, when none has begun');
+  assert.deepEqual(names('2026-10-06'), ["Winter '27", "Spring '27"], 'one under way, and the one after it');
+  assert.deepEqual(names('2026-10-10'), ["Winter '27", "Spring '27"], 'its last day still counts');
+  assert.deepEqual(names('2026-10-11'), ["Spring '27"]);
+  assert.deepEqual(names('2027-02-21'), [], 'nothing known beyond the last');
+  assert.deepEqual(openReleases([], '2026-10-06'), []);
 });
 
 test('what was saved is read leniently', () => {
@@ -60,7 +60,7 @@ test('several waves still to come are said as more, and a calendar that names no
 });
 
 test('the line comes with its name apart, for the page to set in bold', () => {
-  const banner = bannerFor([winter], '2026-10-06')!;
-  assert.equal(banner.rest, ' is arriving in production. Last orgs get it 9 to 10 Oct.');
-  assert.equal(banner.release.name + banner.rest, banner.says);
+  const [open] = openReleases([winter], '2026-10-06');
+  assert.equal(open.rest, ' is arriving in production. Last orgs get it 9 to 10 Oct.');
+  assert.equal(open.release.name + open.rest, open.says);
 });
