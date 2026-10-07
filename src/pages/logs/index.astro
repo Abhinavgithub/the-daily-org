@@ -241,7 +241,7 @@ try {
               <button type="button" class="chip" data-value="problems" aria-pressed="false">Problems only</button>
             </div>
           </div>
-          {runs.length === 0 && <p class="ledger__none">No run is recorded yet. Run <code>npm run pipeline</code>.</p>}
+          {runs.length === 0 && <p class="ledger__none">No run is recorded yet. The paper's first run will show here.</p>}
           {logs.map((run, i) => <LogRun log={run} open={i === 0 && problems(run).length > 0} cost={costOf(run)} />)}
           <p class="ledger__none" data-runs-empty hidden>No run in this period matches.</p>
           <button type="button" class="chip results__more" data-runs-more hidden>Show all runs</button>

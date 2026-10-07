@@ -277,20 +277,20 @@ export function findings(input: FindingsInput): Finding[] {
   };
 
   for (const edition of input.stale) {
-    found.push({ tone: 'problem', says: `The site is out of date: it shows ${edition.served} of ${edition.onDisk} stories and briefs for ${edition.day}.`, action: 'Restart the dev server (npx astro dev stop, then npm run dev).' });
+    found.push({ tone: 'problem', says: `The site is out of date: it shows ${edition.served} of ${edition.onDisk} stories and briefs for ${edition.day}.`, action: 'The site running on this machine has stopped noticing new files. Stop it and start it again.' });
   }
 
   if (!latest) {
-    found.push({ tone: 'watch', says: 'No run of the pipeline is recorded.', action: 'Run npm run pipeline.' });
+    found.push({ tone: 'watch', says: 'No run of the pipeline is recorded.', action: 'The paper has not been written yet. Its first run will show here.' });
   } else {
     const stale = (now - Date.parse(latest.ranAt)) / 3_600_000 > RULES.staleHours;
-    found.push({ tone: 'watch', says: `The pipeline last ran ${ago(latest.ranAt, now)}.`, action: 'Run npm run pipeline, or check the schedule.', lastRunAt: latest.ranAt, hidden: !stale });
+    found.push({ tone: 'watch', says: `The pipeline last ran ${ago(latest.ranAt, now)}.`, action: 'The daily run has been missed. Check that its schedule is still switched on, or start a run by hand.', lastRunAt: latest.ranAt, hidden: !stale });
     if (!latest.finished) found.push({ tone: 'problem', says: `The last run stopped early${latest.stopped ? `: ${latest.stopped}` : ''}.`, action: 'What it left is picked up by the next run.', href: '#runs', run: latest.ranAt });
     if (latest.deferred > 0) {
       found.push({
         tone: 'watch',
         says: `${plural(latest.deferred, 'article was', 'articles were')} left for the next run.`,
-        action: `If this keeps happening, raise LLM_MAX_CALLS${input.maxCalls ? ` (now ${input.maxCalls})` : ''}.`,
+        action: `If this keeps happening, raise the limit on model calls for a run${input.maxCalls ? `, now ${input.maxCalls}` : ''} (the setting LLM_MAX_CALLS).`,
         href: '#articles',
       });
     }
@@ -316,7 +316,7 @@ export function findings(input: FindingsInput): Finding[] {
   } else if (heard > 0) fine.push('videos were judged on their transcripts');
 
   for (const feed of input.failingFeeds) {
-    found.push({ tone: 'problem', says: `${feed.name} has failed ${feed.failures} runs in a row.`, action: 'Check its address in paper.config.ts.', href: '#sources' });
+    found.push({ tone: 'problem', says: `${feed.name} has failed ${feed.failures} runs in a row.`, action: 'Its address may have changed, or it may be refusing the machine the paper runs on. Check the address the paper has for it.', href: '#sources' });
   }
   // A feed that failed in the last run is said so, short of the several runs in a row that make it failing.
   const justFailed = latest?.feedsFailed ?? 0;
@@ -356,7 +356,7 @@ export function findings(input: FindingsInput): Finding[] {
     found.push({
       tone: 'watch',
       says: `${retries} of ${calls} model calls (${percent(retries, calls)}) were repeats${limited ? `, ${limited} of them for rate limits` : ''}.`,
-      action: limited * 2 >= retries ? 'Put a paid model first in LLM_MODELS, or raise LLM_MIN_INTERVAL_MS.' : 'See which model is failing under Runs.',
+      action: limited * 2 >= retries ? 'The model is turning calls away for coming too fast. Put a paid model first, or leave more time between calls.' : 'See which model is failing under Runs.',
       href: '#runs',
       ...where((run) => run.retries),
     });
@@ -384,7 +384,7 @@ export function findings(input: FindingsInput): Finding[] {
 
   const published = sum((run) => run.published);
   if (reviewed >= RULES.lowYield.reviewed && published / reviewed < RULES.lowYield.share) {
-    found.push({ tone: 'watch', says: `Only ${published} of ${reviewed} articles reviewed (${percent(published, reviewed)}) were published.`, action: 'The sources, or the wording of "relevant" in paper.config.ts, need a look.', href: '#sources' });
+    found.push({ tone: 'watch', says: `Only ${published} of ${reviewed} articles reviewed (${percent(published, reviewed)}) were published.`, action: 'The sources, or the paper\'s description of what is relevant, need a look.', href: '#sources' });
   }
 
   if (input.sourcesToLook.length) {
@@ -400,7 +400,7 @@ export function findings(input: FindingsInput): Finding[] {
         says: over
           ? `This month has cost ${dollars(money.spent)}, over the budget of ${dollars(money.budget)}.`
           : `This month has cost ${dollars(money.spent)} and is on pace for ${dollars(money.pace)}, against a budget of ${dollars(money.budget)}.`,
-        action: 'Use a cheaper model, lower LLM_MAX_CALLS, or set LLM_MAX_COST_USD for each run.',
+        action: 'Use a cheaper model, lower the limit on model calls for a run, or set a limit on what one run may spend.',
       });
     } else fine.push(`spending is within budget (${dollars(money.spent)} of ${dollars(money.budget)})`);
   }

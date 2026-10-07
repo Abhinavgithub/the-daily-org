@@ -132,7 +132,7 @@ test('each finding has its rule, and problems come before things to watch', () =
   assert.match(text, /watch: 2 sources need a look: Source A, Source B\./);
   assert.match(text, /watch: This month has cost \$1\.70 and is on pace for \$2\.60, against a budget of \$2\.00\./);
   assert.doesNotMatch(text, /reviews .* came back unusable/, '1 unusable reply in 20 is under the bar');
-  assert.equal(found.find((f) => /left for the next run/.test(f.says))?.action, 'If this keeps happening, raise LLM_MAX_CALLS (now 60).');
+  assert.equal(found.find((f) => /left for the next run/.test(f.says))?.action, 'If this keeps happening, raise the limit on model calls for a run, now 60 (the setting LLM_MAX_CALLS).');
 
   const tones = found.map((f) => f.tone);
   assert.deepEqual(tones, [...tones].sort((a, b) => ['problem', 'watch', 'fine'].indexOf(a) - ['problem', 'watch', 'fine'].indexOf(b)));
@@ -233,10 +233,9 @@ test('something read from outside that fails is said so, and is a problem once i
   assert.match(says(findings({ ...quiet, runs: thrice, latest: thrice[0] })), /problem: The share price could not be read in the last 3 runs/);
   const fine = run({ checks: [dates, price(true)] });
   assert.match(says(findings({ ...quiet, runs: [fine], latest: fine })), /release dates and the share price were read/i);
-  // The advice on these is in plain words, with no command to type.
-  const told = findings({ ...quiet, runs: thrice, latest: thrice[0], release: { at: '2026-10-04T09:00:00Z', outcome: 'failed', says: 'HTTP 403' } }).filter((finding) => /share price|release edition/i.test(finding.says));
-  assert.equal(told.length, 2);
-  for (const finding of told) assert.doesNotMatch(finding.action ?? '', /npm |npx /);
+  // No advice on the page is a command to type.
+  const all = findings({ ...quiet, runs: thrice, latest: thrice[0], stale: [{ day: '4 Oct', onDisk: 3, served: 1 }], failingFeeds: [{ name: 'Feed B', failures: 3 }], release: { at: '2026-10-04T09:00:00Z', outcome: 'failed', says: 'HTTP 403' } });
+  for (const finding of [...all, ...findings({ ...quiet, runs: [] })]) assert.doesNotMatch(finding.action ?? '', /npm |npx /);
 });
 
 test('how the release edition step went is said: a failure to watch, a build or nothing owed as fine', () => {
