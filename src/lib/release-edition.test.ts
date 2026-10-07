@@ -35,6 +35,14 @@ test('the headlines are the highest scoring, taken from each area in turn', () =
   assert.deepEqual(headlines({ ...edition, areas: [] }), []);
 });
 
+test('the headlines the editor chose lead, in the order chosen, and the rest are filled in as before', () => {
+  const pick = (name: string) => ({ topic: `t-${name}`, name });
+  const chosen = { ...edition, headlines: [pick('Rename'), pick('Test mode'), pick('Shortcuts'), pick('Gone'), pick('Rename')] };
+  assert.deepEqual(headlines(chosen, 8, 4).map((f) => f.name), ['Rename', 'Test mode', 'Retry', 'Heap'], 'one below the bar, one no longer there and one named twice are passed over');
+  assert.deepEqual(headlines(chosen, 8, 1).map((f) => f.name), ['Rename']);
+  assert.deepEqual(headlines({ ...edition, headlines: [] }, 8, 2).map((f) => f.name), ['Retry', 'Heap']);
+});
+
 test('only what takes hold with this release is shown as enforced, and a topic leads to the notes', () => {
   assert.deepEqual(enforcedNow(edition).map((change) => change.name), ['SOAP login']);
   assert.equal(linkTo(edition, 'release-notes.rn_a.htm'), 'https://notes.example/release-notes.rn_a.htm?release=264');

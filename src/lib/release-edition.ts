@@ -45,6 +45,8 @@ export interface Edition {
   notes?: string;
   areas: Area[];
   enforced: Enforced[];
+  /** The features the editor chose to lead with, first to last, each known by its topic and its name. */
+  headlines?: { topic: string; name: string }[];
 }
 
 /** The fewest points a feature needs to be printed, unless the paper says otherwise. */
@@ -70,15 +72,21 @@ export function printed(edition: Edition, bar = DEFAULT_BAR): { name: string; to
 }
 
 /**
- * The features set as headlines: the highest scoring, and among equals one from
+ * The features set as headlines. Those the editor chose when the edition was
+ * built come first, in the order chosen, as long as each still clears the bar.
+ * Any place left is filled with the highest scoring, and among equals one from
  * each area in turn, so that the head of the edition is not all one area.
  */
 export function headlines(edition: Edition, bar = DEFAULT_BAR, most = HEADLINES): (Feature & { area: string })[] {
   const all = edition.areas.flatMap((area) => area.features.filter((f) => f.score >= bar).map((f) => ({ ...f, area: area.name })));
-  const top = Math.max(0, ...all.map((f) => f.score));
   const chosen: (Feature & { area: string })[] = [];
+  for (const pick of edition.headlines ?? []) {
+    const feature = all.find((f) => f.topic === pick.topic && f.name === pick.name);
+    if (feature && !chosen.includes(feature) && chosen.length < most) chosen.push(feature);
+  }
+  const top = Math.max(0, ...all.map((f) => f.score));
   for (let score = top; score >= bar && chosen.length < most; score--) {
-    const level = all.filter((f) => f.score === score);
+    const level = all.filter((f) => f.score === score && !chosen.includes(f));
     // One from each area, then a second from each, and so on.
     const byArea = edition.areas.map((area) => level.filter((f) => f.area === area.name));
     for (let round = 0; chosen.length < most && byArea.some((list) => list.length > round); round++) {

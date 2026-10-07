@@ -1,12 +1,13 @@
 {
+  "model": "qwen/qwen3.7-flash",
+  "link": "https://help.salesforce.com/s/articleView?id={topic}&release=264&type=5",
+  "builtAt": "2026-10-06T18:22:11.417Z",
   "release": {
     "name": "Winter '27",
     "number": "264.0.0",
     "slug": "winter-27"
   },
   "notesPublished": "2026-10-06T07:19:04.000Z",
-  "builtAt": "2026-10-06T18:22:11.417Z",
-  "model": "qwen/qwen3.7-flash",
   "areas": [
     {
       "name": "Agentforce and Generative AI",
@@ -2469,6 +2470,31 @@
       "when": "Canceled Updates"
     }
   ],
-  "link": "https://help.salesforce.com/s/articleView?id={topic}&release=264&type=5",
-  "notes": "https://help.salesforce.com/s/articleView?id=release-notes.salesforce_release_notes.htm&release=264&type=5"
+  "notes": "https://help.salesforce.com/s/articleView?id=release-notes.salesforce_release_notes.htm&release=264&type=5",
+  "headlines": [
+    {
+      "topic": "release-notes.rn_apex_heap_limit.htm",
+      "name": "Increased Apex heap limits for synchronous and asynchronous transactions"
+    },
+    {
+      "topic": "release-notes.rn_automate_flow_error_handling.htm",
+      "name": "Automatically retry flows that hit record lock contention"
+    },
+    {
+      "topic": "release-notes.rn_api_retirement.htm",
+      "name": "Salesforce Platform API versions 31.0 through 40.0 are being retired"
+    },
+    {
+      "topic": "release-notes.rn_agentforce_metadata.htm",
+      "name": "Streamlined agent metadata types for deployment"
+    },
+    {
+      "topic": "release-notes.rn_agentforce_multi_agent_orchestrate.htm",
+      "name": "Multi-Agent orchestration (generally available)"
+    },
+    {
+      "topic": "release-notes.rn_cdp_2026_winter_dg_granular_gov.htm",
+      "name": "Granular access control for data graphs"
+    }
+  ]
 }

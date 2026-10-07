@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { deadlineIn, enforcedFrom, featuresIn, KEEP_FROM, linesFor, slugOf } from './release-edition';
+import { deadlineIn, enforcedFrom, featuresIn, KEEP_FROM, linesFor, pickHeadlines, slugOf } from './release-edition';
 import type { Entry } from './release-notes';
 import { PAPER } from './testing';
 
@@ -64,4 +64,21 @@ test('an enforced change keeps Salesforce’s own words, whole sentences, and it
   assert.equal(access.deadline, undefined);
   assert.equal(deadlineIn('Enforced starting March 15, 2027 in production.'), '15 Mar 2027');
   assert.equal(slugOf("Winter '27"), 'winter-27');
+});
+
+test('the editor chooses the headlines from the highest scoring, no more than two from an area', async () => {
+  const f = (name: string, score: number) => ({ topic: `t-${name}`, product: 'P', name, says: `${name} changes.`, score });
+  const areas = [
+    { name: 'Automation', topic: 'a', features: [f('A1', 9), f('A2', 9), f('A3', 9), f('A4', 6)] },
+    { name: 'Platform', topic: 'p', features: [f('P1', 9), f('P2', 8)] },
+  ];
+  // Shown in order of score, then of the notes: A1, A2, A3, P1, P2, A4.
+  const { llm, asked } = answering(['not json', '{"headlines": [3, 99, 1, 2, 3, 5]}']);
+  assert.deepEqual((await pickHeadlines(llm, areas, "Winter '27", 3, PAPER)).map((pick) => pick.name), ['A3', 'A1', 'P2'], 'a number not on the list, one given twice and a third from one area are passed over');
+  assert.equal(asked.length, 2, 'a reply that cannot be read is asked for again');
+  assert.match(asked[0][1], /^1 \| Automation \| P \| A1 \| A1 changes\.\n2 \| Automation/);
+  // With no more features than places there is nothing to ask.
+  const few = answering([]);
+  assert.deepEqual((await pickHeadlines(few.llm, [areas[1]], "Winter '27", 3, PAPER)).map((pick) => pick.name), ['P1', 'P2']);
+  assert.equal(few.asked.length, 0);
 });
