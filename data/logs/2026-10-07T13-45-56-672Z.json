@@ -1,0 +1,458 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-10-07T13:45:56.672Z",
+  "day": "2026-10-07",
+  "seconds": 1238,
+  "finished": true,
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 0
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 1
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 0
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 2
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 1
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 1
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 1
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 1
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 8
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "joys-of-apex",
+      "name": "The Joys of Apex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 0
+    },
+    {
+      "id": "unofficialsf",
+      "name": "UnofficialSF",
+      "items": 0
+    },
+    {
+      "id": "automation-champion",
+      "name": "Automation Champion",
+      "items": 0
+    },
+    {
+      "id": "sfdc-stop",
+      "name": "SFDC Stop",
+      "items": 0
+    },
+    {
+      "id": "yt-salesforce-developers",
+      "name": "Salesforce Developers on YouTube",
+      "items": 0,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-salesforce-admins",
+      "name": "Salesforce Admins on YouTube",
+      "items": 0,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-salesforce",
+      "name": "Salesforce on YouTube",
+      "items": 6,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-salesforce-ben",
+      "name": "Salesforce Ben on YouTube",
+      "items": 4,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-salesforce-hulk",
+      "name": "Salesforce Hulk on YouTube",
+      "items": 0,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-mytutorialrack",
+      "name": "MyTutorialRack on YouTube",
+      "items": 1,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-apex-hours",
+      "name": "Apex Hours on YouTube",
+      "items": 0,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 24
+    }
+  ],
+  "articles": [
+    {
+      "title": "Salesforce GDC India STC Offer Time",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wzuhu6/salesforce_gdc_india_stc_offer_time/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "its page could not be read, to be tried again next run"
+    },
+    {
+      "title": "Technologists working beside biz leaders 🤜 🤛 is the new org",
+      "url": "https://www.youtube.com/watch?v=yA0-o69Jkp8",
+      "source": "Salesforce on YouTube",
+      "outcome": "dropped",
+      "reason": "none of the paper's keywords",
+      "basis": "description"
+    },
+    {
+      "title": "How do you scale AI without losing the human touch? | Dreamforce 2026",
+      "url": "https://www.youtube.com/watch?v=odXMhODuykY",
+      "source": "Salesforce on YouTube",
+      "outcome": "dropped",
+      "reason": "none of the paper's keywords",
+      "basis": "description"
+    },
+    {
+      "title": "Another thing Salesforce Broke - Winter '27 Release",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wz91kl/another_thing_salesforce_broke_winter_27_release/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "its page could not be read, to be tried again next run"
+    },
+    {
+      "title": "Prepping for my Salesforce Admin Certification",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wyriwf/prepping_for_my_salesforce_admin_certification/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "its page could not be read, to be tried again next run"
+    },
+    {
+      "title": "Key Winter '27 platform updates for admins and developers",
+      "url": "https://www.youtube.com/watch?v=bVoR2CfL-lI",
+      "source": "Salesforce Ben on YouTube",
+      "basis": "description",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Salesforce Winter ’27 Is Live: 4 Features to Share With Your Users"
+    },
+    {
+      "title": "Why can't I connect Claude to Salesforce?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wzuq7j/why_cant_i_connect_claude_to_salesforce/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Salesforce CLI 2.153.6 adds trace flag management and deprecates a secrets workaround",
+      "url": "https://github.com/forcedotcom/cli/blob/main/releasenotes/README.md?v=2.153.6#21536-october-7-2026-stable-rc",
+      "source": "Salesforce CLI",
+      "outcome": "published",
+      "score": 5,
+      "reason": "printed in the Bulletin; every release of a tool is"
+    },
+    {
+      "title": "Salesforce winter '27 brings Flow testing, bulk screen actions, and higher heap limits",
+      "url": "https://www.salesforceben.com/salesforce-winter-27-is-live-12-features-to-share-with-your-team/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Salesforce Winter ’27 Is Live: 12 Features to Share With Your Team"
+    },
+    {
+      "title": "Melbourne (Australia) Community Event - True Blue Blazing - Tues 20th Oct",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wzsxiw/melbourne_australia_community_event_true_blue/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "10 Claude Use Cases for Salesforce Admins",
+      "url": "https://www.salesforceben.com/10-claude-use-cases-for-salesforce-admins/",
+      "source": "Salesforce Ben",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "New Flex Credit pricing for AI agents risks pushing customers toward ungoverned architectures",
+      "url": "https://www.salesforceben.com/is-salesforce-ai-pricing-encouraging-bad-architecture/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 8,
+      "reason": "article title: Is Salesforce AI Pricing Encouraging Bad Architecture?"
+    },
+    {
+      "title": "Has anyone done a quote to cash vendor evalutaion with a real pilot or are we buying on requirement docs?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wzq9rq/has_anyone_done_a_quote_to_cash_vendor_evalutaion/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "AppExchange free app showing $999 Security Review fee — how to get the waiver?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wzq4ht/appexchange_free_app_showing_999_security_review/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Jotform Salesforce integration feeding Agentforce, will the filed mapping hold up?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wzo5iv/jotform_salesforce_integration_feeding_agentforce/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Salesforce delays phishing-resistant Multi-Factor Authentication enforcement",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wzgqox/mfa_phishing_delayed_again/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 7,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "CERT++ VS K2U",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wzg7cq/cert_vs_k2u/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Dynamic web forms using the Salesforce Tooling API in our scheduling app",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wzag19/dynamic_web_forms_using_the_salesforce_tooling/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Looking for some actual good AI projects for GTM Systems/SFDC Admin",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wz9g56/looking_for_some_actual_good_ai_projects_for_gtm/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Reported glitch sends Quote emails to Quote timeline instead of Contact",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wz7lpy/email_from_quote_activity_on_contact/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 4,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "Salesforce STC role — worth moving from a Salesforce technical POC role?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wz6q5o/salesforce_stc_role_worth_moving_from_a/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Hackers Threaten to Leak ASOS Snowflake Instance",
+      "url": "https://www.salesforceben.com/hackers-threaten-to-leak-asos-snowflake-instance/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Passed over for a promotion and probably going to train the new Director. Am I just seen as a good worker but not leadership material?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wz6174/passed_over_for_a_promotion_and_probably_going_to/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Advanced PySpark patterns for batch data transforms in Data 360",
+      "url": "https://developer.salesforce.com/blogs/2026/10/advanced-code-extension-pyspark-examples-for-batch-data-transforms",
+      "source": "Salesforce Developers Blog",
+      "outcome": "published",
+      "score": 8,
+      "reason": "article title: Advanced Code Extension PySpark Examples for Batch Data Transforms"
+    },
+    {
+      "title": "How Agentforce uses deterministic layers to keep agents accountable and safe",
+      "url": "https://www.salesforce.com/news/stories/giving-ai-autonomy-without-running-wild/",
+      "source": "Salesforce News",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Trustworthy, Explainable, and Accountable: How to Give AI Autonomy Without Letting It Run Wild"
+    },
+    {
+      "title": "Is this the new normal? 🤯",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wz4hhr/is_this_the_new_normal/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Winter '27 requires api auth permission for SOAP login",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wz45kk/about_those_update_unsupported_platform_soap_api/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 7,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "I built an open-source tool that shows what a Salesforce change will trigger (flows, triggers, validation rules, roll-ups) from a git diff",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wz0ep1/i_built_an_opensource_tool_that_shows_what_a/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Freelancers & consultants who do CRM or ERP migrations: how do you quote the 'figure out the client's data' part?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wyzjt0/freelancers_consultants_who_do_crm_or_erp/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "CPQ Architects: How are you passing bespoke consumption drawdown terms to downstream billing without custom code?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wywlks/cpq_architects_how_are_you_passing_bespoke/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Salesforce MTS (Identity) vs Nutanix MTS-2 (Database) - Which to choose?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wysap7/salesforce_mts_identity_vs_nutanix_mts2_database/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Salesforce DevOps in 2027: What about it ?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wyjiwo/salesforce_devops_in_2027_what_about_it/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Salesforce devs who became architects: how did you build judgment, especially without a mentor?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wyfjcf/salesforce_devs_who_became_architects_how_did_you/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Hiring Thread (October 2026)",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wuytg7/hiring_thread_october_2026/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 2
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Key Winter '27 platform updates for admins and developers",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Salesforce Winter '27 brings Flow testing, bulk screen actions, and higher heap limits",
+      "outcome": "corrected"
+    },
+    {
+      "title": "New Flex Credit pricing for AI agents risks pushing customers toward ungoverned architectures",
+      "outcome": "corrected",
+      "reason": "headline: \"credit\" was removed"
+    },
+    {
+      "title": "Advanced PySpark patterns for batch data transforms in Data 360",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "How Agentforce uses deterministic layers to keep agents accountable and safe",
+      "outcome": "unchanged"
+    }
+  ],
+  "figures": [
+    {
+      "title": "Advanced PySpark patterns for batch data transforms in Data 360",
+      "outcome": "drawn",
+      "kind": "steps",
+      "image": "made"
+    }
+  ],
+  "model": {
+    "calls": 37,
+    "retries": {
+      "invalid diagram": 1
+    },
+    "usage": {
+      "qwen/qwen3.7-flash": {
+        "input": 55664,
+        "output": 128532
+      },
+      "google/gemini-3.1-flash-image": {
+        "input": 638,
+        "output": 1120
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    }
+  ],
+  "transcriptsDown": "Sign in to confirm you’re not a bot",
+  "statsAt": "2026-10-07T14:06:34.340Z"
+}

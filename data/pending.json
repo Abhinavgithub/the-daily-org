@@ -1,1 +1,17 @@
-{}
+{
+  "https://reddit.com/r/salesforce/comments/1wzuhu6/salesforce_gdc_india_stc_offer_time": {
+    "source": "reddit-salesforce",
+    "since": "2026-10-07",
+    "why": "unread"
+  },
+  "https://reddit.com/r/salesforce/comments/1wz91kl/another_thing_salesforce_broke_winter_27_release": {
+    "source": "reddit-salesforce",
+    "since": "2026-10-07",
+    "why": "unread"
+  },
+  "https://reddit.com/r/salesforce/comments/1wyriwf/prepping_for_my_salesforce_admin_certification": {
+    "source": "reddit-salesforce",
+    "since": "2026-10-07",
+    "why": "unread"
+  }
+}
