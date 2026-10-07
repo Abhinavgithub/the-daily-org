@@ -55,6 +55,19 @@ const figure = signal === 'must' && data.figure && data.figure.kind !== 'none' ?
   {figure && <StoryFigure figure={figure} image={data.figure_image} />}
   <div class="story__text"><Content /></div>
   {
+    data.also.length > 0 && (
+      <p class="story__also">
+        Also told by{' '}
+        {data.also.map((other, i) => (
+          <>
+            {i > 0 && ', '}
+            <a href={other.url} target="_blank" rel="noopener" title={other.title}>{other.source}</a>
+          </>
+        ))}
+      </p>
+    )
+  }
+  {
     footer && (
       <p class="story__meta">
         {writer && <span>{source}</span>}

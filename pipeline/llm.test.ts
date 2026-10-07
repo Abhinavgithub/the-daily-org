@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { keepFreeModels, LlmError, type LlmConfig } from './llm';
+import { configFromEnv, keepFreeModels, LlmClient, LlmError, type LlmConfig } from './llm';
 import { client, ok } from './testing';
 
 test('a 429 is retried on the same model', async () => {
@@ -86,4 +86,45 @@ test('a reply that cannot be read is tried again, and a request every model refu
   const mixed = client([tooLong, () => new Response('', { status: 500 })], ['m1', 'm2']);
   mixed.llm.config.maxRetries = 0;
   await assert.rejects(mixed.llm.chat([{ role: 'user', content: 'a' }]), (err: LlmError) => err.refused === false);
+});
+
+test('a model is told how much it may think: the run\'s limit, a call\'s own, none at all, or nothing said', async () => {
+  const sent: unknown[] = [];
+  const asking = (reasoningTokens?: number) =>
+    new LlmClient({
+      baseUrl: 'https://llm.test/v1',
+      apiKey: 'k',
+      models: ['m1'],
+      minIntervalMs: 0,
+      maxRetries: 0,
+      reasoningTokens,
+      fetch: (async (_url: unknown, init?: RequestInit) => {
+        sent.push(JSON.parse(String(init?.body)).reasoning);
+        return ok('hello');
+      }) as typeof fetch,
+    });
+  const messages = [{ role: 'user' as const, content: 'hi' }];
+  await asking(400).chat(messages);
+  await asking(400).chat(messages, { reasoningTokens: 0 });
+  await asking(0).chat(messages);
+  await asking().chat(messages);
+  assert.deepEqual(sent, [{ max_tokens: 400 }, { enabled: false }, { enabled: false }, undefined]);
+});
+
+test('the limit on thinking is read from the settings', () => {
+  const read = (value?: string) => {
+    if (value === undefined) delete process.env.LLM_REASONING_TOKENS;
+    else process.env.LLM_REASONING_TOKENS = value;
+    return configFromEnv().reasoningTokens;
+  };
+  const before = process.env.LLM_REASONING_TOKENS;
+  try {
+    assert.equal(read(), undefined, 'left to the model unless told otherwise');
+    assert.equal(read(''), undefined);
+    assert.equal(read('1000'), 1000);
+    assert.equal(read('0'), 0, 'no thinking at all');
+    assert.equal(read('plenty'), undefined, 'what is not a number is no limit');
+  } finally {
+    read(before);
+  }
 });

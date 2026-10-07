@@ -1768,6 +1768,22 @@ span.dateline__step {
   }
 }
 
+// Other sources that told the same story: one quiet line under the text.
+.story__also {
+  margin: 0.7rem 0 0;
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  color: var(--muted);
+
+  a {
+    color: inherit;
+
+    &:hover {
+      color: var(--sky);
+    }
+  }
+}
+
 .story__tags {
   display: flex;
   flex-wrap: wrap;

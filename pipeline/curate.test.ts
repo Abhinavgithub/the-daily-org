@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { cleanHeadline as cleanHeadlineFor, curate as curateFor, editorPrompt, InvalidVerdict, parseJsonLoosely, plainText, prefilter as prefilterFor, proofread as proofreadFor, unfaithful, verdictSchema } from './curate';
+import { cleanHeadline as cleanHeadlineFor, curate as curateFor, editorPrompt, firstLook, InvalidVerdict, parseJsonLoosely, plainText, prefilter as prefilterFor, proofread as proofreadFor, unfaithful, verdictSchema } from './curate';
 import { definePaper, problemsWith } from '../src/paper';
 import { canonicalUrl } from './dedupe';
 import { client, good, item, ok, PAPER } from './testing';
@@ -203,4 +203,51 @@ test('a source can have its own test of what belongs, and a forum post or a rele
   assert.equal(prefilter(forum, words(350)), null, 'a paragraph is enough for a post');
   assert.equal(prefilter(item, words(350)), 'too short', 'but not for an article');
   assert.equal(prefilter({ ...item, source: { ...item.source, type: 'code' as const } }, words(100)), null, 'and a release can be a few lines');
+});
+
+test('the editor is shown the day\'s headlines and may say an item tells one of them again', async () => {
+  const asked: string[] = [];
+  const replying = (same_as: unknown) => ({
+    chat: async (messages: { role: string; content: string }[]) => {
+      asked.push(messages[1].content);
+      return { text: JSON.stringify({ ...good, same_as }), model: 'm1', inputTokens: 1, outputTokens: 1 };
+    },
+    noteRetry: () => {},
+  });
+  const edition = ['A new timetable for the branch line', 'Signal boxes get a remote panel'];
+  const told = async (same_as: unknown, shown = edition) => (await curateFor(replying(same_as) as never, item, 'text', PAPER, shown)).verdict.same_as;
+
+  assert.equal(await told(2), 2);
+  assert.match(asked[0], /Already in today's edition:\n1\. A new timetable for the branch line\n2\. Signal boxes get a remote panel\n<article>/);
+  assert.equal(await told('1'), 1, 'a number sent as text');
+  assert.equal(await told(null), null);
+  assert.equal(await told(3), null, 'a number that is not on the list');
+  assert.equal(await told('the first one'), null);
+
+  asked.length = 0;
+  assert.equal(await told(1, []), null, 'nothing to be the same as on an empty page');
+  assert.doesNotMatch(asked[0], /Already in today's edition/);
+  assert.equal((await curate(replying(undefined) as never, item, 'text')).verdict.same_as, null, 'a reply that leaves it out');
+});
+
+test('a forum post gets a first look, which may turn it away but not lose it', async () => {
+  const forum = { ...item, source: { ...item.source, type: 'discussion' as const, relevant: 'reports a confirmed fault', notRelevant: 'a request for help' } };
+  const sent: { messages: { content: string }[]; options: unknown }[] = [];
+  const noted: string[] = [];
+  const replying = (text: string) => ({
+    chat: async (messages: { content: string }[], options: unknown) => {
+      sent.push({ messages, options });
+      return { text, model: 'm1', inputTokens: 1, outputTokens: 1 };
+    },
+    noteRetry: (cause: string) => noted.push(cause),
+  });
+
+  assert.equal(await firstLook(replying('{"relevant": false}') as never, forum, 'x'.repeat(5000), PAPER), false);
+  assert.match(sent[0].messages[0].content, /True if the post reports a confirmed fault\. False for a request for help\./, "by the source's own test");
+  assert.ok(sent[0].messages[1].content.length < 1700, 'only the opening of the post is sent');
+  assert.deepEqual(sent[0].options, { reasoningTokens: 0 }, 'and no thinking is paid for');
+
+  assert.equal(await firstLook(replying('```json\n{"relevant": true}\n```') as never, forum, 'A post.', PAPER), true);
+  assert.equal(await firstLook(replying('I am not sure.') as never, forum, 'A post.', PAPER), null, 'an unreadable reply decides nothing');
+  assert.deepEqual(noted, ['unreadable first look']);
 });

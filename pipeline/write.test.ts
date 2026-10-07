@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { test } from 'node:test';
 import { good, item } from './testing';
-import { writeBriefs, writeBulletin } from './write';
+import { addAlso, STORIES_DIR, writeBriefs, writeBulletin, writeStories } from './write';
 
 test('a brief is written as its headline and reason, with no summary', (t) => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'paper-briefs-'));
@@ -43,4 +43,29 @@ test('a Bulletin item is written apart from the stories: an alert with its flag 
   assert.match(release, /^---\nkind: release\n/);
   assert.doesNotMatch(release, /flag:|facts:|What happened/);
   assert.ok(release.endsWith('---\n'));
+});
+
+test('a story told twice is printed once, with a line for the other telling', (t) => {
+  // A day far from any edition, since stories are written into the paper's own folder.
+  const day = '1999-01-01';
+  t.after(() => fs.rmSync(path.join(STORIES_DIR, day), { recursive: true, force: true }));
+  const curated = { verdict: { ...good, title: 'A new timetable for the branch line', summary: 'First paragraph.\n\nSecond paragraph.' } as never, model: 'm1', inputTokens: 0, outputTokens: 0 };
+  const other = { title: 'Branch line timetable, explained', url: 'https://example.com/video', source: 'Test on video' };
+
+  const [first] = writeStories(day, [{ item, curated }]);
+  assert.doesNotMatch(fs.readFileSync(first, 'utf8'), /also:/, 'no line where there is no other telling');
+
+  addAlso(first, other);
+  addAlso(first, { ...other, url: 'https://example.com/third' });
+  const text = fs.readFileSync(first, 'utf8');
+  assert.match(text, /\nalso:\n  - title: Branch line timetable, explained\n    url: https:\/\/example\.com\/video\n    source: Test on video\n  - title: Branch line timetable, explained\n    url: https:\/\/example\.com\/third\n/);
+  assert.ok(text.startsWith('---\ntitle: A new timetable for the branch line\n'), 'the rest of the story is as it was');
+  assert.ok(text.endsWith('---\n\nFirst paragraph.\n\nSecond paragraph.\n'));
+
+  // A better telling takes the first one's place, and carries the line for it.
+  const [second] = writeStories(day, [{ item: { ...item, title: 'The better telling' }, curated, also: [other] }]);
+  fs.rmSync(first);
+  assert.match(fs.readFileSync(second, 'utf8'), /\nalso:\n  - title: Branch line timetable, explained\n/);
+  const [third] = writeStories(day, [{ item, curated }]);
+  assert.equal(path.basename(third), '03-test-timing-eurostar-departures.md', 'numbered on from the highest, not from how many are left');
 });

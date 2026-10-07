@@ -72,6 +72,7 @@ All in `.env`; `.env.example` explains each.
 | `LLM_MODELS` | Ordered list: the first is used, the rest are fallbacks. |
 | `LLM_ALLOW_PAID` | `1` allows models that cost money. Default `0`. |
 | `LLM_MAX_COST_USD` | The most one run may spend. The run stops cleanly there. |
+| `LLM_REASONING_TOKENS` | Optional. The most a model may think before each answer; `0` is none. Empty leaves it to the model. |
 | `LLM_IMAGE_MODEL` | Optional. An image model that illustrates each edition's top story. |
 | `LLM_MAX_CALLS`, `LLM_MIN_INTERVAL_MS` | Calls per run and the gap between them. |
 | `SCORE_THRESHOLD` | Stories below this score (1 to 10) are not published. |

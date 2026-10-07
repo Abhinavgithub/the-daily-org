@@ -45,6 +45,7 @@ The kinds of diagram:
 Rules:
 - Use only what the article and the summary say. Every number must appear in one of them exactly as written there. Never invent a step, a part or a figure.
 - Labels are short noun or verb phrases, not sentences, with no full stop at the end.
+- The limits on length are exact, and spaces count. A label one character over is thrown away with the whole diagram, so write well inside each limit: ${LIMITS.step} characters is about six words, ${LIMITS.heading} about four.
 - "caption" is one plain sentence, at most ${LIMITS.caption} characters, saying what the diagram shows. Do not repeat the headline.
 - Write the names of products and features exactly as the article does.
 - No markdown, no emoji, no quotation marks around labels.`;

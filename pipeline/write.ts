@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { stringify } from 'yaml';
+import { parseDocument, stringify } from 'yaml';
 import type { Curated } from './curate';
 import type { FeedItem } from './fetch';
 
@@ -19,20 +19,29 @@ function slugify(title: string): string {
     .replace(/-+$/, '');
 }
 
+/** Another source's telling of a story the paper prints once: a line under it, linking to the piece. */
+export interface Also {
+  title: string;
+  url: string;
+  source: string;
+}
+
 export interface Publishable {
   item: FeedItem;
   curated: Curated;
   image?: string;
+  also?: Also[];
 }
 
 /** Write one markdown file per story into the day's folder, best first. Returns the paths written. */
 export function writeStories(day: string, stories: Publishable[]): string[] {
   const dir = path.join(STORIES_DIR, day);
   fs.mkdirSync(dir, { recursive: true });
-  const existing = fs.readdirSync(dir).filter((f) => f.endsWith('.md')).length;
+  // Numbered on from the highest number in the folder, not from how many files it holds: a story may have been taken out.
+  const existing = Math.max(0, ...fs.readdirSync(dir).filter((f) => f.endsWith('.md')).map((f) => parseInt(f, 10) || 0));
   const ranked = [...stories].sort((a, b) => b.curated.verdict.interest_score - a.curated.verdict.interest_score);
 
-  return ranked.map(({ item, curated, image }, i) => {
+  return ranked.map(({ item, curated, image, also }, i) => {
     const v = curated.verdict;
     const frontmatter = {
       title: v.title,
@@ -52,12 +61,23 @@ export function writeStories(day: string, stories: Publishable[]): string[] {
       utility_score: v.utility_score,
       model: curated.model,
       ...(image ? { image } : {}),
+      ...(also?.length ? { also } : {}),
     };
     const number = String(existing + i + 1).padStart(2, '0');
     const file = path.join(dir, `${number}-${item.source.id}-${slugify(item.title)}.md`);
     fs.writeFileSync(file, `---\n${stringify(frontmatter, { lineWidth: 0 })}---\n\n${v.summary}\n`);
     return file;
   });
+}
+
+/** Add a line under a story already written: another source that tells the same story. */
+export function addAlso(file: string, also: Also): void {
+  const match = fs.readFileSync(file, 'utf8').match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  if (!match) return;
+  const doc = parseDocument(match[1]);
+  const listed = (doc.toJS().also ?? []) as Also[];
+  doc.set('also', [...listed, also]);
+  fs.writeFileSync(file, `---\n${doc.toString({ lineWidth: 0 }).trimEnd()}\n---\n${match[2]}`);
 }
 
 /**

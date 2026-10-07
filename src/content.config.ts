@@ -37,6 +37,8 @@ const stories = defineCollection({
     figure: figureSchema(z as never).optional(),
     // The same diagram as an illustration, a file under public/figures. Shown in place of the drawn one.
     figure_image: z.string().startsWith('/figures/').optional(),
+    // Other sources that told the same story on the day. The paper prints it once, with a line for each of them.
+    also: z.array(z.object({ title: z.string(), url: z.url(), source: z.string() })).default([]),
     model: z.string().optional(),
   }),
 });

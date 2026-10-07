@@ -2,7 +2,7 @@ import 'dotenv/config';
 import fs from 'node:fs';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
-import { curate, InvalidVerdict, prefilter, proofread } from './curate';
+import { curate, firstLook, InvalidVerdict, prefilter, proofread } from './curate';
 import { addFigures } from './figure';
 import { canonicalUrl, forget, GIVE_UP_DAYS, givenUp, loadPending, loadSeen, savePending, saveSeen, transcriptOverdue, waitingSources } from './dedupe';
 import { articleText, extractContent, type Extracted } from './extract';
@@ -20,7 +20,7 @@ import { addTallies, emptyTally, scorecard, type SourceTally } from '../src/lib/
 import { parseRuns } from '../src/lib/stats';
 import { SOURCES } from './sources';
 import { failingSources, loadState, lookBackDays, recordComplete, recordFailure, recordFetched, recordNewest, saveState } from './state';
-import { STORIES_DIR, writeBriefs, writeBulletin, writeStories, type Publishable } from './write';
+import { addAlso, STORIES_DIR, writeBriefs, writeBulletin, writeStories, type Also, type Publishable } from './write';
 
 const { values: args } = parseArgs({
   options: {
@@ -327,11 +327,14 @@ console.log(`Assessing with ${models.join(', then ')}${config.imageModel ? `, il
 // Each story is proof-read and written as soon as it is accepted, so a run that
 // is interrupted keeps everything it has paid for.
 const written: string[] = [];
+// The run's stories in the order they were accepted, which is how the editor is shown them: it is asked of each
+// later item whether it tells one of them again. A story keeps its place when a better telling takes it over.
+const edition: { story: Publishable; file: string }[] = [];
 const briefs: string[] = [];
 // What went to the Bulletin, apart from the stories: alerts and tools' releases.
 const bulletin: string[] = [];
 let figures = { made: 0, illustrated: 0, none: 0, rejected: 0, skipped: 0 };
-const counts = { rejected: 0, belowThreshold: 0, invalid: 0, deferred: 0 };
+const counts = { rejected: 0, belowThreshold: 0, invalid: 0, deferred: 0, repeats: 0 };
 const proofs = { corrected: 0, unchanged: 0, kept: 0, skipped: 0 };
 const modelsUsed = new Set<string>();
 let stopped = false;
@@ -423,6 +426,9 @@ for (const signal of ['SIGINT', 'SIGTERM'] as const) {
   });
 }
 
+/** The line printed under a story for another source that told it. */
+const alsoLine = (item: FeedItem): Also => ({ title: item.title, url: item.url, source: item.source.name });
+
 /** Tokens the run has used so far, for charging each article's share to its source. */
 const tokensSoFar = () => Object.values(llm.usage).reduce((sum, spent) => sum + spent.input + spent.output, 0);
 
@@ -440,7 +446,21 @@ for (const [i, { item, key, text, image, basis }] of candidates.entries()) {
     continue;
   }
   try {
-    const curated = await curate(llm, item, text);
+    // A forum post gets a first look before it is read in full: most are a question or a grumble, and are turned away here.
+    if (item.source.type === 'discussion' && !item.alert && (await firstLook(llm, item, text)) === false) {
+      refusedInARow = [];
+      seen[key] = day;
+      delete pending[key];
+      tally.reviewed++;
+      tally.notRelevant++;
+      counts.rejected++;
+      console.log(`  [${i + 1}/${candidates.length}] Not relevant, on a first look: ${item.title}`);
+      runLog.article({ ...entry, outcome: 'not-relevant', reason: 'turned away on a first look, without a full assessment' });
+      saveProgress();
+      tally.tokens += tokensSoFar() - before;
+      continue;
+    }
+    const curated = await curate(llm, item, text, PAPER, edition.map(({ story }) => story.curated.verdict.title));
     refusedInARow = [];
     modelsUsed.add(curated.model);
     seen[key] = day;
@@ -488,13 +508,35 @@ for (const [i, { item, key, text, image, basis }] of candidates.entries()) {
         score: v.interest_score,
         reason: `scored ${v.interest_score}, the threshold is ${threshold}${brief ? '; printed in brief' : ''}`,
       });
+    } else if (v.same_as && edition[v.same_as - 1].story.curated.verdict.interest_score >= v.interest_score) {
+      // The paper has this story already, told at least as well. It is printed once, with a line under it for this telling.
+      const { story: first, file } = edition[v.same_as - 1];
+      const line = alsoLine(item);
+      addAlso(file, line);
+      (first.also ??= []).push(line);
+      counts.repeats++;
+      console.log(`  [${i + 1}/${candidates.length}] Scored ${v.interest_score}, the same story as one in the edition, added under it: ${item.title}`);
+      runLog.article({ ...entry, outcome: 'published', score: v.interest_score, reason: `the same story as "${first.curated.verdict.title}"; printed as a line under it` });
+      tally.published++;
     } else {
-      console.log(`  [${i + 1}/${candidates.length}] Scored ${v.interest_score}, publishing: ${item.title}`);
+      // A better telling of a story the paper has takes its place, and the first becomes the line under it.
+      const replaced = v.same_as ? edition[v.same_as - 1] : undefined;
+      console.log(`  [${i + 1}/${candidates.length}] Scored ${v.interest_score}, publishing${replaced ? ' in place of an earlier telling' : ''}: ${item.title}`);
       runLog.article({ ...entry, title: v.title, outcome: 'published', score: v.interest_score, reason: v.title === item.title ? undefined : `article title: ${item.title}` });
-      const story = { item, curated, image };
+      const story: Publishable = { item, curated, image, ...(replaced ? { also: [alsoLine(replaced.story.item), ...(replaced.story.also ?? [])] } : {}) };
       await proofreadStory(story);
       // 6. Write
-      written.push(...writeStories(day, [story]));
+      const [file] = writeStories(day, [story]);
+      written.push(file);
+      if (replaced) {
+        fs.rmSync(replaced.file, { force: true });
+        if (written.includes(replaced.file)) written.splice(written.indexOf(replaced.file), 1);
+        counts.repeats++;
+        runLog.amend(replaced.story.item.url, { reason: `the same story as "${v.title}", which scored higher; printed as a line under it` });
+        edition[v.same_as! - 1] = { story, file };
+      } else {
+        edition.push({ story, file });
+      }
       tally.published++;
     }
     saveProgress();
@@ -575,7 +617,7 @@ record();
 console.log(
   `\nPublished ${written.length} to ${path.relative(process.cwd(), path.join(STORIES_DIR, day))}. ` +
     `${counts.rejected} not relevant, ${counts.belowThreshold} below threshold, ${counts.invalid} unusable replies, ` +
-    `${counts.deferred} left for the next run.${briefs.length ? ` ${briefs.length} printed in brief.` : ''}${bulletin.length ? ` ${bulletin.length} printed in the Bulletin.` : ''} ${llm.calls} model calls${llm.cost ? `, $${llm.cost.toFixed(4)}` : ''}.`,
+    `${counts.deferred} left for the next run.${counts.repeats ? ` ${counts.repeats} told twice, printed once.` : ''}${briefs.length ? ` ${briefs.length} printed in brief.` : ''}${bulletin.length ? ` ${bulletin.length} printed in the Bulletin.` : ''} ${llm.calls} model calls${llm.cost ? `, $${llm.cost.toFixed(4)}` : ''}.`,
 );
 if (written.length) {
   console.log(

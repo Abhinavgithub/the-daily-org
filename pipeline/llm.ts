@@ -24,6 +24,8 @@ export interface LlmConfig {
   imageModel?: string;
   /** The most one run may spend, in US dollars, where the provider reports what each call cost. */
   maxCostUsd?: number;
+  /** The most tokens a model may spend thinking before it answers. 0 is none at all. Unset, nothing is asked of the model. */
+  reasoningTokens?: number;
   minIntervalMs: number;
   maxRetries: number;
   /** Called for every extra call the run had to make, with a one-line explanation. */
@@ -59,6 +61,22 @@ interface Reply {
   error?: { message?: string; code?: number };
 }
 
+/** What a call may ask for that differs from the run's settings. */
+export interface ChatOptions {
+  /** In place of the run's `reasoningTokens`, for a call that needs less thought or none. */
+  reasoningTokens?: number;
+}
+
+/**
+ * LLM_REASONING_TOKENS: a whole number, or empty to leave it to the model. A model left to itself may think for
+ * thousands of tokens before a short answer and is paid for each, but a limit made the editor less steady on a
+ * hard article when it was tried, so none is set unless asked for.
+ */
+function reasoningFromEnv(raw = ''): number | undefined {
+  const tokens = Number(raw);
+  return raw.trim() && Number.isInteger(tokens) && tokens >= 0 ? tokens : undefined;
+}
+
 export function configFromEnv(overrides: { model?: string } = {}): LlmConfig {
   const models = overrides.model
     ? [overrides.model]
@@ -72,6 +90,7 @@ export function configFromEnv(overrides: { model?: string } = {}): LlmConfig {
     models,
     imageModel: process.env.LLM_IMAGE_MODEL?.trim() || undefined,
     maxCostUsd: Number(process.env.LLM_MAX_COST_USD) > 0 ? Number(process.env.LLM_MAX_COST_USD) : undefined,
+    reasoningTokens: reasoningFromEnv(process.env.LLM_REASONING_TOKENS),
     minIntervalMs: Number(process.env.LLM_MIN_INTERVAL_MS ?? 3500),
     maxRetries: 2,
   };
@@ -171,8 +190,11 @@ export class LlmClient {
     spent.output += reply.usage?.completion_tokens ?? 0;
   }
 
-  private async once(model: string, messages: ChatMessage[]): Promise<ChatResult | Retry> {
-    const reply = await this.post(model, { messages, temperature: 0.2 }, 90_000);
+  private async once(model: string, messages: ChatMessage[], options: ChatOptions): Promise<ChatResult | Retry> {
+    // A model that does not think, or a provider that does not know the setting, passes over it.
+    const tokens = options.reasoningTokens ?? this.config.reasoningTokens;
+    const reasoning = tokens === undefined ? {} : { reasoning: tokens > 0 ? { max_tokens: tokens } : { enabled: false } };
+    const reply = await this.post(model, { messages, temperature: 0.2, ...reasoning }, 90_000);
     if ('reason' in reply) return reply;
     const text = reply.choices?.[0]?.message?.content ?? '';
     if (!text.trim()) return { retryAfterMs: 0, reason: 'empty response' };
@@ -185,14 +207,14 @@ export class LlmClient {
   }
 
   /** Try each model in turn, retrying rate limits and server errors with backoff. */
-  async chat(messages: ChatMessage[]): Promise<ChatResult> {
+  async chat(messages: ChatMessage[], options: ChatOptions = {}): Promise<ChatResult> {
     const problems: string[] = [];
     let refusals = 0;
     for (const model of this.config.models) {
       for (let attempt = 0; attempt <= this.config.maxRetries; attempt++) {
         let outcome: Awaited<ReturnType<LlmClient['once']>>;
         try {
-          outcome = await this.once(model, messages);
+          outcome = await this.once(model, messages, options);
         } catch (err) {
           if (!(err instanceof LlmError)) throw err;
           if (ABOUT_THE_REQUEST.has(err.status ?? 0)) refusals++;
