@@ -52,6 +52,36 @@ export interface LogFigure {
 }
 
 /** Counts for a run made before logs were kept, taken from its line in `data/stats.jsonl`. */
+/** Something the run read from outside that is not a feed, such as the release dates or the share price. */
+export interface LogCheck {
+  /** What was read, as it reads in "... could not be read". */
+  name: string;
+  ok: boolean;
+  /** Why it failed, when it did. */
+  says?: string;
+}
+
+/** How the release edition's own step went, the last time it ran. Kept in `data/release-edition-status.json`. */
+export interface ReleaseStatus {
+  at: string;
+  /** Nothing to do, a build, the notes not answering, or a build that failed. */
+  outcome: 'nothing-awaited' | 'nothing-owed' | 'built' | 'could-not-ask' | 'failed';
+  /** What was built, or why it could not be. */
+  says?: string;
+}
+
+/** Whatever was saved, read as a status, or nothing when it is not one. */
+export function readReleaseStatus(text: string): ReleaseStatus | undefined {
+  try {
+    const raw = JSON.parse(text) as Partial<ReleaseStatus>;
+    const known = ['nothing-awaited', 'nothing-owed', 'built', 'could-not-ask', 'failed'];
+    if (!raw || typeof raw.at !== 'string' || Number.isNaN(Date.parse(raw.at)) || !known.includes(raw.outcome ?? '')) return undefined;
+    return { at: raw.at, outcome: raw.outcome!, ...(typeof raw.says === 'string' ? { says: raw.says } : {}) };
+  } catch {
+    return undefined;
+  }
+}
+
 export interface LogTotals {
   fetched: number;
   reviewed: number;
@@ -60,7 +90,7 @@ export interface LogTotals {
 
 export interface RunLogData {
   /** Which command ran. */
-  kind: 'pipeline' | 'figures';
+  kind: 'pipeline' | 'figures' | 'release';
   /** When it started. */
   ranAt: string;
   /** The edition it wrote into; empty when it covered several. */
@@ -78,6 +108,8 @@ export interface RunLogData {
   model: { calls: number; retries: Record<string, number>; usage: Record<string, { input: number; output: number }> };
   /** Why no video's transcript could be fetched in this run, when none could. */
   transcriptsDown?: string;
+  /** What else the run read from outside, and whether each answered. */
+  checks?: LogCheck[];
   /** Present on a run from before logs were kept: only its totals are known. */
   totals?: LogTotals;
   /** With `totals`: what became of the articles, as far as the run's stats line says. */
@@ -99,7 +131,7 @@ export function readLog(text: string): RunLogData | null {
   if (!raw || typeof raw.ranAt !== 'string' || Number.isNaN(Date.parse(raw.ranAt))) return null;
   const model = record<unknown>(raw.model);
   return {
-    kind: raw.kind === 'figures' ? 'figures' : 'pipeline',
+    kind: raw.kind === 'figures' || raw.kind === 'release' ? raw.kind : 'pipeline',
     ranAt: raw.ranAt,
     day: typeof raw.day === 'string' ? raw.day : '',
     seconds: count(raw.seconds),
@@ -112,6 +144,7 @@ export function readLog(text: string): RunLogData | null {
     figures: list(raw.figures),
     model: { calls: count(model.calls), retries: record(model.retries), usage: record(model.usage) },
     ...(typeof raw.transcriptsDown === 'string' ? { transcriptsDown: raw.transcriptsDown } : {}),
+    ...(Array.isArray(raw.checks) ? { checks: list<LogCheck>(raw.checks).filter((check) => check && typeof check.name === 'string') } : {}),
   };
 }
 
@@ -178,6 +211,7 @@ export function problems(log: RunLogData): string[] {
   const say = (n: number, one: string, many: string) => n > 0 && found.push(`${n} ${n === 1 ? one : many}`);
   if (!log.finished) found.push(log.stopped ? `stopped early: ${log.stopped}` : 'stopped early');
   say(log.feeds.filter((f) => f.error).length, 'feed failed', 'feeds failed');
+  for (const check of log.checks ?? []) if (!check.ok) found.push(`${check.name} could not be read${check.says ? ` (${check.says})` : ''}`);
   say(log.articles.filter((a) => a.outcome === 'invalid-reply').length, 'unusable model reply', 'unusable model replies');
   say(log.proofread.filter((p) => p.reason).length, 'proof-read discarded', 'proof-reads discarded');
   say(log.figures.filter((f) => f.outcome === 'refused').length, 'diagram refused', 'diagrams refused');

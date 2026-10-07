@@ -15,7 +15,7 @@ import LogRun from '../../components/LogRun.astro';
 import Masthead from '../../components/Masthead.astro';
 import Layout from '../../layouts/Layout.astro';
 import { allArticles, byDay, facts, findings, glance, spending, within } from '../../lib/insights';
-import { byNewest, costsByRun, legacyRuns, problems, readLog, staleEditions, type RunLogData } from '../../lib/logs';
+import { byNewest, costsByRun, legacyRuns, problems, readLog, readReleaseStatus, staleEditions, type RunLogData } from '../../lib/logs';
 import { addTallies, RULES as SOURCE_RULES, scorecard, standings } from '../../lib/sources';
 import { formatNumber, parseRuns } from '../../lib/stats';
 import { formatDay, getEditions } from '../../lib/stories';
@@ -23,6 +23,8 @@ import { formatDay, getEditions } from '../../lib/stories';
 const data = path.join(process.cwd(), 'data');
 const read = (file: string) => (fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : '');
 const statsText = read(path.join(data, 'stats.jsonl'));
+// How the release edition's own step went, the last time it ran.
+const release = readReleaseStatus(read(path.join(data, 'release-edition-status.json')));
 
 const dir = path.join(data, 'logs');
 const logs = (fs.existsSync(dir) ? fs.readdirSync(dir) : [])
@@ -89,7 +91,7 @@ const panels = PERIODS.map((period) => {
   const days = byDay(mine).slice(-31);
   return {
     ...period,
-    findings: findings({ runs: mine, latest, stale, failingFeeds, sourcesToLook: scores.filter((row) => row.verdict.look).map((row) => row.name), spending: money, maxCalls }),
+    findings: findings({ runs: mine, latest, stale, failingFeeds, sourcesToLook: scores.filter((row) => row.verdict.look).map((row) => row.name), spending: money, release, maxCalls }),
     glance: glance(mine),
     outcomes: days.map((d) => ({
       when: dayName(d.day),

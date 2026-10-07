@@ -181,6 +181,7 @@ for (const source of SOURCES) {
 // The dates of the coming releases, for the Bulletin. Never a reason to stop.
 if (PAPER.releases && !dryRun) {
   const read = await updateReleases(PAPER.releases);
+  runLog.check({ name: 'Release dates', ok: !('error' in read), ...('error' in read ? { says: read.error } : {}) });
   if ('error' in read) console.warn(`  Release dates could not be read (${read.error}). The dates already known are kept.`);
   else console.log(`Release dates read: ${read.releases.map((release) => `${release.name} from ${release.stages[0].from}`).join('; ')}.`);
 }
@@ -188,6 +189,7 @@ if (PAPER.releases && !dryRun) {
 // The share price at the last close, for the head of the page. Never a reason to stop.
 if (PAPER.shares && !dryRun) {
   const read = await updateQuote(PAPER.shares.symbol);
+  runLog.check({ name: 'The share price', ok: !('error' in read), ...('error' in read ? { says: read.error } : {}) });
   if ('error' in read) console.warn(`  The share price could not be read (${read.error}). The last one known is kept.`);
   else console.log(`Share price read: ${read.quote.symbol} ${read.quote.close} at the close on ${read.quote.day}.`);
 }

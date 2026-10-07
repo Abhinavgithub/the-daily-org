@@ -222,3 +222,30 @@ test('a finding that comes from a run names the newest run where it happened', (
   const stopped = run({ ranAt: '2026-10-06T10:00:00Z', finished: false, stopped: 'the call cap' });
   assert.equal(findings({ runs: [stopped], latest: stopped, stale: [], failingFeeds: [], sourcesToLook: [] }).find((finding) => finding.tone === 'problem')?.run, '2026-10-06T10:00:00Z');
 });
+
+test('something read from outside that fails is said so, and is a problem once it keeps failing', () => {
+  const price = (ok: boolean) => ({ name: 'The share price', ok, ...(ok ? {} : { says: 'HTTP 429' }) });
+  const dates = { name: 'Release dates', ok: true };
+  const bad = (ranAt: string) => run({ ranAt, checks: [dates, price(false)] });
+  const once = says(findings({ ...quiet, runs: [bad('2026-10-04T10:00:00Z'), run({ ranAt: '2026-10-03T10:00:00Z', checks: [dates, price(true)] })], latest: bad('2026-10-04T10:00:00Z') }));
+  assert.match(once, /watch: The share price could not be read in the last run \(HTTP 429\)\./);
+  const thrice = [bad('2026-10-04T10:00:00Z'), bad('2026-10-03T10:00:00Z'), bad('2026-10-02T10:00:00Z')];
+  assert.match(says(findings({ ...quiet, runs: thrice, latest: thrice[0] })), /problem: The share price could not be read in the last 3 runs/);
+  const fine = run({ checks: [dates, price(true)] });
+  assert.match(says(findings({ ...quiet, runs: [fine], latest: fine })), /release dates and the share price were read/i);
+  // The advice on these is in plain words, with no command to type.
+  const told = findings({ ...quiet, runs: thrice, latest: thrice[0], release: { at: '2026-10-04T09:00:00Z', outcome: 'failed', says: 'HTTP 403' } }).filter((finding) => /share price|release edition/i.test(finding.says));
+  assert.equal(told.length, 2);
+  for (const finding of told) assert.doesNotMatch(finding.action ?? '', /npm |npx /);
+});
+
+test('how the release edition step went is said: a failure to watch, a build or nothing owed as fine', () => {
+  const good = run({});
+  const at = '2026-10-04T09:00:00Z';
+  const of = (release: Parameters<typeof findings>[0]['release']) => says(findings({ ...quiet, runs: [good], latest: good, release, now: Date.parse('2026-10-04T12:00:00Z') }));
+  assert.match(of({ at, outcome: 'failed', says: 'HTTP 403' }), /watch: The release edition could not be built .*\(HTTP 403\)\./);
+  assert.match(of({ at, outcome: 'could-not-ask', says: 'timeout' }), /watch: The release notes could not be asked/);
+  assert.match(of({ at, outcome: 'built', says: "Winter '27, 188 features" }), /the release edition was built/i);
+  assert.match(of({ at, outcome: 'nothing-owed' }), /no release edition is owed/i);
+  assert.doesNotMatch(of(undefined), /release edition/i);
+});

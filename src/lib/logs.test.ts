@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { test } from 'node:test';
 import { KEEP, RunLog } from '../../pipeline/log';
-import { byNewest, legacyRuns, problems, readLog, runId, staleEditions, summary } from './logs';
+import { byNewest, legacyRuns, problems, readLog, readReleaseStatus, runId, staleEditions, summary } from './logs';
 
 const tmp = () => fs.mkdtempSync(path.join(os.tmpdir(), 'paper-logs-'));
 
@@ -83,4 +83,14 @@ test('an illustration that could not be made is a problem of its run, and a run 
   const log = readLog('{"ranAt":"2026-10-04T10:37:30.625Z","figures":[{"title":"A","outcome":"drawn","image":"failed"},{"title":"B","outcome":"drawn","image":"made"}]}')!;
   assert.deepEqual(problems(log), ['1 illustration not made']);
   assert.equal(runId(log.ranAt), 'run-2026-10-04T10-37-30-625Z');
+});
+
+test('what a run read from outside is kept, a failure is one of its problems, and a release build is a run of its own kind', () => {
+  const log = readLog(JSON.stringify({ ranAt: '2026-10-07T06:30:00Z', kind: 'release', checks: [{ name: 'The share price', ok: false, says: 'HTTP 429' }, { name: 'Release dates', ok: true }, { nope: 1 }] }))!;
+  assert.equal(log.kind, 'release');
+  assert.equal(log.checks?.length, 2);
+  assert.deepEqual(problems(log), ['The share price could not be read (HTTP 429)']);
+  assert.deepEqual(readReleaseStatus('{"at":"2026-10-07T06:40:00Z","outcome":"built","says":"x"}'), { at: '2026-10-07T06:40:00Z', outcome: 'built', says: 'x' });
+  assert.equal(readReleaseStatus('{"at":"2026-10-07T06:40:00Z","outcome":"other"}'), undefined);
+  assert.equal(readReleaseStatus(''), undefined);
 });

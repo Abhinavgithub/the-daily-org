@@ -36,12 +36,12 @@ const drawn = log.figures.filter((figure) => figure.outcome === 'drawn').length;
 <details class="log" id={runId(log.ranAt)} open={open} data-run data-at={log.ranAt} data-problem={wrong.length > 0 ? 'yes' : 'no'}>
   <summary>
     <span class="log__when">{when}</span>
-    <span class="log__what">{log.kind === 'figures' ? 'Diagrams' : log.day ? `Edition ${log.day}` : 'Pipeline'}</span>
+    <span class="log__what">{log.kind === 'figures' ? 'Diagrams' : log.kind === 'release' ? 'Release edition' : log.day ? `Edition ${log.day}` : 'Pipeline'}</span>
     <span class="log__bar" aria-hidden="true">
       {parts.map((part) => <span class={`mark--${part.tone}`} style={`flex-grow: ${part.count}`} title={`${part.count} ${part.label}`} />)}
     </span>
     <span class="log__counts">
-      {log.kind === 'figures' ? `${drawn} drawn` : f.reviewed || f.published ? `${f.published} published of ${f.reviewed} reviewed` : 'Nothing new'}
+      {log.kind === 'figures' ? `${drawn} drawn` : log.kind === 'release' ? (log.finished ? 'Built' : 'Not built') : f.reviewed || f.published ? `${f.published} published of ${f.reviewed} reviewed` : 'Nothing new'}
     </span>
     <span class="log__cost">
       {formatNumber(f.calls)} {f.calls === 1 ? 'call' : 'calls'}

@@ -2,11 +2,11 @@
 // runs the paper; this turns its records into figures and plain findings.
 // Pure functions, so every rule here can be tested.
 
-import type { ArticleOutcome, LogArticle, RunLogData } from './logs';
+import type { ArticleOutcome, LogArticle, LogCheck, ReleaseStatus, RunLogData } from './logs';
 
 /** One run, reduced to the numbers the page reasons about. */
 export interface RunFacts {
-  kind: 'pipeline' | 'figures';
+  kind: 'pipeline' | 'figures' | 'release';
   ranAt: string;
   day: string;
   finished: boolean;
@@ -38,6 +38,8 @@ export interface RunFacts {
   tokens: number;
   cost?: number;
   feedsFailed: number;
+  /** What else the run read from outside, and whether each answered. */
+  checks: LogCheck[];
   proofs: number;
   proofsDiscarded: number;
   figures: number;
@@ -80,6 +82,7 @@ export function facts(log: RunLogData, cost?: number): RunFacts {
     tokens: Object.values(log.model.usage).reduce((sum, spent) => sum + spent.input + spent.output, 0),
     ...(cost !== undefined ? { cost } : {}),
     feedsFailed: log.feeds.filter((feed) => feed.error).length,
+    checks: log.checks ?? [],
     proofs: log.proofread.filter((proof) => proof.outcome !== 'skipped').length,
     proofsDiscarded: log.proofread.filter((proof) => proof.outcome !== 'skipped' && proof.reason).length,
     figures: log.figures.filter((figure) => figure.outcome === 'drawn' || figure.outcome === 'refused').length,
@@ -208,6 +211,8 @@ export const RULES = {
   lowYield: { share: 0.2, reviewed: 15 },
   /** Share of videos judged on a description alone above which it is said, and the videos needed before it is judged. */
   videos: { share: 0.5, videos: 4 },
+  /** Runs in a row in which something read from outside failed before it is called a problem. */
+  checkFailing: 3,
   /** Share of the monthly budget at which spending is worth a warning. */
   budget: 0.8,
 };
@@ -246,6 +251,8 @@ export interface FindingsInput {
   /** Sources the scorecard says need a look, by name. */
   sourcesToLook: string[];
   spending?: Spending;
+  /** How the release edition's own step went, the last time it ran. */
+  release?: ReleaseStatus;
   /** The call cap in force, for the advice on raising it. */
   maxCalls?: number;
   now?: number;
@@ -316,6 +323,31 @@ export function findings(input: FindingsInput): Finding[] {
   if (justFailed > input.failingFeeds.length) {
     found.push({ tone: 'watch', says: `${plural(justFailed, 'feed', 'feeds')} failed in the last run.`, action: 'One failure is often passing. It is flagged as failing after three runs in a row.', href: '#runs', run: latest!.ranAt });
   } else if (input.failingFeeds.length === 0) fine.push('every feed answered');
+
+  // What else is read from outside: the release dates, the share price. Each fails by leaving something out, never by stopping the paper.
+  const pipelineRuns = runs.filter((run) => run.kind === 'pipeline');
+  const failedNow = latest?.checks.filter((check) => !check.ok) ?? [];
+  for (const check of failedNow) {
+    const upTo = pipelineRuns.findIndex((run) => run.checks.find((other) => other.name === check.name)?.ok !== false);
+    const inARow = Math.max(1, upTo === -1 ? pipelineRuns.length : upTo);
+    const failing = inARow >= RULES.checkFailing;
+    found.push({
+      tone: failing ? 'problem' : 'watch',
+      says: failing ? `${check.name} could not be read in the last ${inARow} runs${check.says ? ` (${check.says})` : ''}.` : `${check.name} could not be read in the last run${check.says ? ` (${check.says})` : ''}.`,
+      action: failing ? 'Its source is refusing the machine the paper runs on, or has changed. The paper goes on showing what it last read.' : 'Once is often passing. The paper goes on showing what it last read.',
+      href: '#runs',
+      run: latest!.ranAt,
+    });
+  }
+  if (latest && latest.checks.length > 0 && failedNow.length === 0) fine.push(`${latest.checks.map((check) => check.name.toLowerCase()).join(' and ')} were read`);
+
+  const release = input.release;
+  if (release?.outcome === 'failed') {
+    found.push({ tone: 'watch', says: `The release edition could not be built ${ago(release.at, now)}${release.says ? ` (${release.says})` : ''}.`, action: 'The edition saved before is kept, and the build is tried again on the next run.' });
+  } else if (release?.outcome === 'could-not-ask') {
+    found.push({ tone: 'watch', says: `The release notes could not be asked ${ago(release.at, now)}${release.says ? ` (${release.says})` : ''}.`, action: 'If every run says this, the notes are refusing the machine the paper runs on, and a new release will not get its edition by itself.' });
+  } else if (release?.outcome === 'built') fine.push(`the release edition was built ${ago(release.at, now)}`);
+  else if (release) fine.push('no release edition is owed');
 
   const calls = sum((run) => run.calls);
   const retries = sum((run) => run.retries);

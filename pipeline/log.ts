@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import type { LogArticle, LogFeed, LogFigure, LogProof, RunLogData } from '../src/lib/logs';
+import type { LogArticle, LogCheck, LogFeed, LogFigure, LogProof, RunLogData } from '../src/lib/logs';
 import type { LlmClient } from './llm';
 
 // Keeps what a run did, article by article, so it can be read afterwards on
@@ -50,6 +50,11 @@ export class RunLog {
 
   figure(entry: LogFigure): void {
     this.data.figures.push(entry);
+  }
+
+  /** Something read from outside that is not a feed: whether it answered, and why not when it did not. */
+  check(entry: LogCheck): void {
+    (this.data.checks ??= []).push(entry);
   }
 
   /** No video's transcript could be fetched, so the run's videos were judged on their descriptions. */
