@@ -123,6 +123,9 @@ export async function extractContent(
     const said = await readTranscript(id);
     if (said.status === 'ok') return { text: videoText(text, said.text, said.written, VIDEO_CHARS), image, authors, basis: 'transcript' };
     return { text: text.slice(0, MAX_CHARS), image, authors, basis: 'description', transcript: said.status, ...(said.status === 'failed' ? { transcriptReason: said.reason } : {}) };
+  } else if (item.source.type === 'discussion') {
+    // A forum's feed carries the whole of each post. A short one is short, and its page has no more of it to
+    // give; asked for, the page is refused, and the post would be put down as unread and tried again for days.
   } else if (text.length < FULL_TEXT) {
     try {
       const page = await readPage(item.url);

@@ -85,3 +85,15 @@ test('a release whose entry only points at its notes is read from the notes', as
   const fallback = await extractContent(release, async () => ({ text: 'The release page. '.repeat(100), authors: [] }), none, async () => undefined);
   assert.match(fallback.text, /^The release page/);
 });
+
+test('a forum post is read from its feed alone, and a short one is not taken for an unread page', async () => {
+  const post = { ...item, source: { ...item.source, type: 'discussion' as const }, feedText: 'A one-line grumble.' };
+  let asked = 0;
+  const read = await extractContent(post, async () => {
+    asked++;
+    throw new Error('HTTP 403');
+  });
+  assert.equal(asked, 0, 'its page is not asked for');
+  assert.equal(read.text, 'A one-line grumble.');
+  assert.equal(read.pageFailed, undefined, 'so it is dropped as too short, once, and not tried again');
+});
