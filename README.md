@@ -148,7 +148,7 @@ A YouTube video is judged on its transcript, with the description its uploader w
 
 The site is static, so any static host will do: build command `npm run build`, output folder `dist`, Node 22 or newer.
 
-A sample scheduled job is in `.github/workflows/daily.yml`: it runs the pipeline once a day and commits the new edition, and the host rebuilds on each commit. Give it the same settings as `.env`, with the keys as secrets and a monthly credit limit on the model key.
+A sample scheduled job is in `.github/workflows/daily.yml`: it runs the pipeline once a day and commits the new edition, and the host rebuilds on each commit. GitHub may start a scheduled run hours late; for a paper that must come out on the hour, start the workflow from an outside scheduler, and its own schedule then acts only on a day when that was not done. Give it the same settings as `.env`, with the keys as secrets and a monthly credit limit on the model key.
 
 **Working locally once it is live.** Run `git pull` first, and avoid running the pipeline locally on the same day as the workflow: both write the same files in `data/`.
 

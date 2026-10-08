@@ -3,14 +3,18 @@ name: Daily edition
 # Writes the day's edition and commits it. The host rebuilds the site when the
 # commit lands. Secrets and settings are listed under "Going live" in the README.
 
+# The day's run is started from outside, at 06:30 UTC, which is 12:00 in India: a scheduler calls this workflow
+# with a token that may do nothing else. GitHub's own schedule starts hours late, so it is kept only as a
+# fallback, and does nothing on a day when the run from outside was made.
 on:
   schedule:
-    # 06:30 UTC is 12:00 in India. GitHub may start a scheduled run some minutes late.
-    - cron: '30 6 * * *'
+    - cron: '30 8 * * *'
   workflow_dispatch:
 
 permissions:
   contents: write
+  # To see whether the day's run was made.
+  actions: read
 
 # One edition at a time: a run started by hand waits for a scheduled one, and the other way round.
 concurrency:
@@ -18,7 +22,34 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  # Whether this run has anything to do. One started from outside or by hand always has.
+  due:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      due: ${{ steps.made.outputs.due }}
+    steps:
+      - id: made
+        env:
+          GH_TOKEN: ${{ github.token }}
+        # Counted over the last 18 hours and not the calendar day, since this run may itself start past midnight.
+        # If the question cannot be asked, the edition is written: a second pass costs little, a missed day more.
+        run: |
+          due=yes
+          if [ "$GITHUB_EVENT_NAME" = schedule ]; then
+            made=$(gh run list --repo "$GITHUB_REPOSITORY" --workflow daily.yml --event workflow_dispatch \
+              --created ">=$(date -u -d '18 hours ago' +%FT%TZ)" --json conclusion \
+              --jq '[.[] | select(.conclusion == "success")] | length' || echo 0)
+            if [ "$made" -gt 0 ]; then
+              due=no
+              echo "The day's run was already made. Nothing to do."
+            fi
+          fi
+          echo "due=$due" >> "$GITHUB_OUTPUT"
+
   edition:
+    needs: due
+    if: needs.due.outputs.due == 'yes'
     runs-on: ubuntu-latest
     timeout-minutes: 60
     env:
