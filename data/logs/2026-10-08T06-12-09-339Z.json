@@ -1,0 +1,301 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-10-08T06:12:09.339Z",
+  "day": "2026-10-08",
+  "seconds": 340,
+  "finished": true,
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 0
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 1
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 0
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 2
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 2
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 0,
+      "error": "HTTP 403 (5 attempts: HTTP 403, HTTP 403, HTTP 403, HTTP 403, HTTP 403)"
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "joys-of-apex",
+      "name": "The Joys of Apex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 0
+    },
+    {
+      "id": "unofficialsf",
+      "name": "UnofficialSF",
+      "items": 0
+    },
+    {
+      "id": "automation-champion",
+      "name": "Automation Champion",
+      "items": 0
+    },
+    {
+      "id": "sfdc-stop",
+      "name": "SFDC Stop",
+      "items": 0
+    },
+    {
+      "id": "yt-salesforce-developers",
+      "name": "Salesforce Developers on YouTube",
+      "items": 0,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-salesforce-admins",
+      "name": "Salesforce Admins on YouTube",
+      "items": 0,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-salesforce",
+      "name": "Salesforce on YouTube",
+      "items": 3,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-salesforce-ben",
+      "name": "Salesforce Ben on YouTube",
+      "items": 4,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-salesforce-hulk",
+      "name": "Salesforce Hulk on YouTube",
+      "items": 0,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-mytutorialrack",
+      "name": "MyTutorialRack on YouTube",
+      "items": 0,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "yt-apex-hours",
+      "name": "Apex Hours on YouTube",
+      "items": 0,
+      "note": "read through the YouTube API"
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 24
+    }
+  ],
+  "articles": [
+    {
+      "title": "Am i getting ghosted?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x043oy/am_i_getting_ghosted/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "its page could not be read, to be tried again next run"
+    },
+    {
+      "title": "I'm sure this will turn out great and nothing could possibly go wrong",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wzxmkp/im_sure_this_will_turn_out_great_and_nothing/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "its page could not be read, to be tried again next run"
+    },
+    {
+      "title": "Another thing Salesforce Broke - Winter '27 Release",
+      "url": "https://www.reddit.com/r/salesforce/comments/1wz91kl/another_thing_salesforce_broke_winter_27_release/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "its page could not be read, to be tried again next run"
+    },
+    {
+      "title": "Our Formstack forms feed Salesforce fine. Are they giving us ai ready data through?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x0iu5q/our_formstack_forms_feed_salesforce_fine_are_they/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Please upvote this",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x09wzd/please_upvote_this/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Should I move away from SF?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x05kgy/should_i_move_away_from_sf/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Agentforce without data cloud?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x05hvt/agentforce_without_data_cloud/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "users can't see a field in their reports and dashboards",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x0520w/users_cant_see_a_field_in_their_reports_and/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "How much do you actually pay for Salesforce backup/audit tools? The ISV program is asking me to charge at least $1,000/org/month",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x04xi9/how_much_do_you_actually_pay_for_salesforce/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Which is the most useful SF certification right now?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x04n5n/which_is_the_most_useful_sf_certification_right/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce desperate move to save their revenue by taking a slice of every AI interaction",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x04fbz/salesforce_desperate_move_to_save_their_revenue/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "How the Formula 1® Broadcast Team Stays in Sync with Slack",
+      "url": "https://www.youtube.com/watch?v=EOXz4_HFSEw",
+      "source": "Salesforce on YouTube",
+      "basis": "description",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Building interactive UI with the Headless Experience Layer for Agentforce and MCP clients",
+      "url": "https://developer.salesforce.com/blogs/2026/10/building-interactive-ui-with-hxl",
+      "source": "Salesforce Developers Blog",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Building Interactive UI with Headless Experience Layer"
+    },
+    {
+      "title": "Salesforce admin on verge of changing careers",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x00zzk/salesforce_admin_on_verge_of_changing_careers/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Architecting secure multi-agent systems with deterministic guardrails and memory isolation",
+      "url": "https://www.salesforce.com/news/stories/trust-in-multi-agent-future/",
+      "source": "Salesforce News",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: From Autonomy to Accountability: How to Think About Trust in the Multi-Agent Future"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Building interactive UI with the Headless Experience Layer for Agentforce and MCP clients",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Architecting secure multi-agent systems with deterministic guardrails and memory isolation",
+      "outcome": "unchanged"
+    }
+  ],
+  "figures": [
+    {
+      "title": "Building interactive UI with the Headless Experience Layer for Agentforce and MCP clients",
+      "outcome": "drawn",
+      "kind": "steps",
+      "image": "made"
+    }
+  ],
+  "model": {
+    "calls": 17,
+    "retries": {},
+    "usage": {
+      "qwen/qwen3.7-flash": {
+        "input": 16457,
+        "output": 25050
+      },
+      "google/gemini-3.1-flash-image": {
+        "input": 699,
+        "output": 1120
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    }
+  ],
+  "transcriptsDown": "Sign in to confirm you’re not a bot",
+  "statsAt": "2026-10-08T06:17:48.929Z"
+}
