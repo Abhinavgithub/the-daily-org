@@ -81,6 +81,51 @@ export function addAlso(file: string, also: Also): void {
 }
 
 /**
+ * A story as it stands in the day's edition: enough to ask whether a later item tells it again,
+ * and to print the two as one if it does.
+ */
+export interface Printed {
+  file: string;
+  /** The headline, as printed. */
+  title: string;
+  score: number;
+  /** The piece itself, as the line it becomes under a better telling. */
+  told: Also;
+  also: Also[];
+}
+
+/** A story just written, as it stands in the edition. */
+export function printed(file: string, { item, curated, also }: Publishable): Printed {
+  return { file, title: curated.verdict.title, score: curated.verdict.interest_score, told: { title: item.title, url: item.url, source: item.source.name }, also: also ?? [] };
+}
+
+/** The stories the day's edition already has, from earlier runs, in the order they were written. */
+export function readEdition(day: string, storiesDir = STORIES_DIR): Printed[] {
+  const dir = path.join(storiesDir, day);
+  if (!fs.existsSync(dir)) return [];
+  return fs
+    .readdirSync(dir)
+    .filter((f) => f.endsWith('.md'))
+    .sort()
+    .flatMap((f) => {
+      const file = path.join(dir, f);
+      const match = fs.readFileSync(file, 'utf8').match(/^---\n([\s\S]*?)\n---\n/);
+      const data = match ? (parseDocument(match[1]).toJS() as Record<string, unknown> | null) : null;
+      // A file that cannot be read as a story is left out: it is nothing an item can be the same as.
+      if (!data || typeof data.title !== 'string' || typeof data.url !== 'string' || typeof data.interest_score !== 'number') return [];
+      const told = { title: typeof data.original_title === 'string' ? data.original_title : data.title, url: data.url, source: String(data.source ?? '') };
+      return [{ file, title: data.title, score: data.interest_score, told, also: Array.isArray(data.also) ? (data.also as Also[]) : [] }];
+    });
+}
+
+/** Take a story out of the edition, with the illustration drawn for it, when a better telling takes its place. */
+export function removeStory(file: string, publicDir = path.join(process.cwd(), 'public')): void {
+  const picture = fs.existsSync(file) ? fs.readFileSync(file, 'utf8').match(/^figure_image: (\/figures\/\S+)$/m)?.[1] : undefined;
+  if (picture) fs.rmSync(path.join(publicDir, picture), { force: true });
+  fs.rmSync(file, { force: true });
+}
+
+/**
  * Write one file per brief into the day's folder: the headline, the one-line
  * reason to read and where it came from, with no summary. Returns the paths written.
  */

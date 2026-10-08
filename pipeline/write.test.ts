@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { test } from 'node:test';
 import { good, item } from './testing';
-import { addAlso, STORIES_DIR, writeBriefs, writeBulletin, writeStories } from './write';
+import { addAlso, printed, readEdition, removeStory, STORIES_DIR, writeBriefs, writeBulletin, writeStories } from './write';
 
 test('a brief is written as its headline and reason, with no summary', (t) => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'paper-briefs-'));
@@ -68,4 +68,34 @@ test('a story told twice is printed once, with a line for the other telling', (t
   assert.match(fs.readFileSync(second, 'utf8'), /\nalso:\n  - title: Branch line timetable, explained\n/);
   const [third] = writeStories(day, [{ item, curated }]);
   assert.equal(path.basename(third), '03-test-timing-eurostar-departures.md', 'numbered on from the highest, not from how many are left');
+});
+
+test('a later run reads what the day already has, so a story is not told again', (t) => {
+  const day = '1999-01-02';
+  const pub = fs.mkdtempSync(path.join(os.tmpdir(), 'paper-public-'));
+  t.after(() => fs.rmSync(path.join(STORIES_DIR, day), { recursive: true, force: true }));
+  t.after(() => fs.rmSync(pub, { recursive: true, force: true }));
+  assert.deepEqual(readEdition(day), [], 'a day with no edition yet');
+
+  const story = (title: string, interest_score: number) => ({ verdict: { ...good, title, interest_score, summary: 'A paragraph.' } as never, model: 'm1', inputTokens: 0, outputTokens: 0 });
+  const other = { title: 'Seen elsewhere', url: 'https://example.com/elsewhere', source: 'Elsewhere' };
+  const first = { item, curated: story('A new timetable for the branch line', 6), also: [other] };
+  const [one] = writeStories(day, [first]);
+  const [two] = writeStories(day, [{ item: { ...item, title: 'Remote panels', url: 'https://example.com/panels' }, curated: story('Signal boxes get a remote panel', 8) }]);
+  fs.writeFileSync(path.join(STORIES_DIR, day, '99-not-a-story.md'), 'no front matter here\n');
+
+  const read = readEdition(day);
+  assert.deepEqual(read.map((s) => [s.title, s.score]), [['A new timetable for the branch line', 6], ['Signal boxes get a remote panel', 8]], 'in the order written, and only what is a story');
+  assert.deepEqual(read[0], printed(one, first), 'a story read back is the story as it was written');
+  assert.deepEqual(read[0].told, { title: 'Timing Eurostar departures', url: 'https://example.com/post', source: 'Test' }, "the line it would become carries the article's own title");
+  assert.equal(read[1].file, two);
+
+  // Taken out for a better telling, its picture goes with it.
+  fs.mkdirSync(path.join(pub, 'figures', day), { recursive: true });
+  const picture = path.join(pub, 'figures', day, 'one.webp');
+  fs.writeFileSync(picture, 'x');
+  fs.writeFileSync(one, fs.readFileSync(one, 'utf8').replace('\n---\n', `\nfigure_image: /figures/${day}/one.webp\n---\n`));
+  removeStory(one, pub);
+  assert.ok(!fs.existsSync(one) && !fs.existsSync(picture));
+  assert.equal(readEdition(day).length, 1);
 });
