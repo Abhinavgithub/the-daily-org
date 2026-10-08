@@ -93,6 +93,10 @@ export default definePaper({
     { id: 'beyond-the-cloud', name: 'Beyond the Cloud', url: 'https://blog.beyondthecloud.dev/blog/rss.xml', type: 'community', personas: ['developer'] },
     { id: 'bob-buzzard', name: 'Bob Buzzard Blog', url: 'https://bobbuzzard.blogspot.com/feeds/posts/default', type: 'community', personas: ['developer'] },
     { id: 'salesforce-time', name: 'Salesforce Time', url: 'https://salesforcetime.com/feed/', type: 'community', personas: ['admin'] },
+    { id: 'cloud-odyssey', name: 'Cloud Odyssey', url: 'https://www.cloudodyssey.co/feed/', type: 'community' },
+    { id: 'infallibletechie', name: 'InfallibleTechie', url: 'https://www.infallibletechie.com/feed/', type: 'community', personas: ['developer', 'admin'] },
+    { id: 'salesforcecodex', name: 'SalesforceCodex', url: 'https://salesforcecodex.com/feed/', type: 'community', personas: ['developer', 'architect'] },
+    { id: 'salesforce-break', name: 'Salesforce Break', url: 'https://salesforcebreak.com/feed/', type: 'community', personas: ['admin', 'developer'] },
 
     // The community. A post is printed, as one line in the Bulletin, only when it reports something a
     // practitioner needs to know. Reddit refuses a reader that asks more than once or twice in a row.
