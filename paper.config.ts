@@ -1,4 +1,4 @@
-import { definePaper, youtube } from './src/paper';
+import { definePaper } from './src/paper';
 
 // This file is the paper. Change it to change what the paper is called, what it
 // covers and where it reads from; nothing else in the project names a subject.
@@ -92,21 +92,7 @@ export default definePaper({
     { id: 'andy-in-the-cloud', name: 'Andy in the Cloud', url: 'https://andyinthecloud.com/feed/', type: 'community', personas: ['developer', 'architect'] },
     { id: 'beyond-the-cloud', name: 'Beyond the Cloud', url: 'https://blog.beyondthecloud.dev/blog/rss.xml', type: 'community', personas: ['developer'] },
     { id: 'bob-buzzard', name: 'Bob Buzzard Blog', url: 'https://bobbuzzard.blogspot.com/feeds/posts/default', type: 'community', personas: ['developer'] },
-    { id: 'joys-of-apex', name: 'The Joys of Apex', url: 'https://www.jamessimone.net/rss.xml', type: 'community', personas: ['developer'] },
     { id: 'salesforce-time', name: 'Salesforce Time', url: 'https://salesforcetime.com/feed/', type: 'community', personas: ['admin'] },
-    { id: 'unofficialsf', name: 'UnofficialSF', url: 'https://unofficialsf.com/feed/', type: 'community', personas: ['admin', 'developer'] },
-    { id: 'automation-champion', name: 'Automation Champion', url: 'https://automationchampion.com/feed/', type: 'community', personas: ['admin'] },
-    { id: 'sfdc-stop', name: 'SFDC Stop', url: 'https://www.sfdcstop.com/feeds/posts/default', type: 'community', personas: ['developer'] },
-
-    // Video
-    { id: 'yt-salesforce-developers', name: 'Salesforce Developers on YouTube', ...youtube('UCKORm8sxh3cheBpqs0akkhg'), type: 'video', personas: ['developer'] },
-    { id: 'yt-salesforce-admins', name: 'Salesforce Admins on YouTube', ...youtube('UCJZ40ShB_oLStzaYT4m9WWQ'), type: 'video', personas: ['admin'] },
-    // The company's main channel: keynotes and product films, so only items that mention a keyword are reviewed.
-    { id: 'yt-salesforce', name: 'Salesforce on YouTube', ...youtube('UCUpquzY878NEaZm5bc7m2sQ'), type: 'video', noisy: true },
-    { id: 'yt-salesforce-ben', name: 'Salesforce Ben on YouTube', ...youtube('UCdPGwyD0FfM55pJIPgx1mkw'), type: 'video' },
-    { id: 'yt-salesforce-hulk', name: 'Salesforce Hulk on YouTube', ...youtube('UCTzF0VQiCXsZ_41fjVuX7UA'), type: 'video', personas: ['developer', 'admin'] },
-    { id: 'yt-mytutorialrack', name: 'MyTutorialRack on YouTube', ...youtube('UCb8Gc-Y6EnbLjRzeAvzmhVQ'), type: 'video', personas: ['developer', 'admin'] },
-    { id: 'yt-apex-hours', name: 'Apex Hours on YouTube', ...youtube('UChTdRj6YfwqhR_WEFepkcJw'), type: 'video', personas: ['developer', 'architect'] },
 
     // The community. A post is printed, as one line in the Bulletin, only when it reports something a
     // practitioner needs to know. Reddit refuses a reader that asks more than once or twice in a row.
