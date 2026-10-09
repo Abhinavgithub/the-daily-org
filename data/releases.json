@@ -5,11 +5,6 @@
     "stages": [
       {
         "place": "sandboxes",
-        "from": "2026-09-05",
-        "to": "2026-09-05"
-      },
-      {
-        "place": "production",
         "from": "2026-10-03",
         "to": "2026-10-03"
       },

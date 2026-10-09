@@ -1,0 +1,300 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-10-09T06:30:40.533Z",
+  "day": "2026-10-09",
+  "seconds": 850,
+  "finished": true,
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 0
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 1
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 0
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 1
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 1
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 2
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 3
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 0
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 1
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 3
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 3
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 23
+    }
+  ],
+  "articles": [
+    {
+      "title": "Salesforce RCA rebuilding full index",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x0ta5n/salesforce_rca_rebuilding_full_index/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Issue in Sync Email As salesforce activity",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x1dwcb/issue_in_sync_email_as_salesforce_activity/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Can't login to production because my passkey doesn't exist",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x177m0/cant_login_to_production_because_my_passkey/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "New pricing model compared to legacy licenses",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x12q3x/new_pricing_model_compared_to_legacy_licenses/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Fixing time zone mismatches in Agentforce agents with proper input types",
+      "url": "https://www.infallibletechie.com/2026/10/how-to-handle-date-time-in-salesforce-agentforce.html",
+      "source": "InfallibleTechie",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: How to Handle Date Time in Salesforce Agentforce?"
+    },
+    {
+      "title": "Salesforce in Claude (Beta): has anyone connected the plugin to a sandbox?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x11q6h/salesforce_in_claude_beta_has_anyone_connected/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Interview questions you blanked on, and they kept running in your head after",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x0xuk7/interview_questions_you_blanked_on_and_they_kept/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Marc Benioff on the AI boom, SaaSpocalypse, and future of Slack",
+      "url": "https://www.salesforce.com/news/linked-content/marc-benioff-on-the-ai-boom-saaspocalypse-and-future-of-slack/",
+      "source": "Salesforce News",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Configuring permissions and security guardrails for Agentforce and Prompt Builder",
+      "url": "https://salesforcebreak.com/2026/10/08/admin-permissions-agentforce/",
+      "source": "Salesforce Break",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Salesforce AI Guardrails: An Admin’s Guide to Permissions, FLS, & Agentforce"
+    },
+    {
+      "title": "Optimizing Apache Spark workloads at scale using telemetry and evidence-based tuning",
+      "url": "https://engineering.salesforce.com/apache-spark-resource-optimization-lessons-from-eight-million-jobs-a-day/",
+      "source": "Salesforce Engineering",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Apache Spark Resource Optimization: Lessons From Eight Million Jobs a Day"
+    },
+    {
+      "title": "Salesforce Microfrontend goes general availability in Winter '27",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x0kukz/salesforce_microfrontend_is_ga_in_winter_27/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 6,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "Decouple dynamic business rules from Salesforce Flow using reference tables",
+      "url": "https://salesforcebreak.com/2026/10/07/keep-business-logic-outside-your-flow/",
+      "source": "Salesforce Break",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Keep Business Logic Outside Your Flow"
+    },
+    {
+      "title": "Configure Prompt Builder to ground Flex templates with Salesforce Files",
+      "url": "https://www.infallibletechie.com/2026/10/use-record-related-files-in-a-salesforce-prompt-template.html",
+      "source": "InfallibleTechie",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Use Record Related Files in a Salesforce Prompt Template"
+    },
+    {
+      "title": "Managing Restricted picklists in Agentforce through dual-layer validation",
+      "url": "https://www.infallibletechie.com/2026/10/how-to-manage-restricted-picklists-in-salesforce-agentforce.html",
+      "source": "InfallibleTechie",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: How to Manage Restricted Picklists in Salesforce Agentforce?"
+    },
+    {
+      "title": "Preparing your org for the Claudeforce partnership and new billing model",
+      "url": "https://cloudodyssey.com/blog/claudeforce-by-salesforce-and-anthropic-what-ships-how-it-works-and-how-to-prepare/",
+      "source": "Cloud Odyssey",
+      "outcome": "published",
+      "score": 8,
+      "reason": "article title: Claudeforce by Salesforce and Anthropic: What Ships, How It Works, and How to Prepare"
+    },
+    {
+      "title": "Building a custom Apex tool for Lead conversion with Salesforce Model Context Protocol",
+      "url": "https://salesforcebreak.com/2026/10/02/how-to-convert-a-lead-using-salesforce-mcp/",
+      "source": "Salesforce Break",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: How to Convert a Lead Using Salesforce MCP"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Fixing time zone mismatches in Agentforce agents with proper input types",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Configuring permissions and security guardrails for Agentforce and Prompt Builder",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Optimizing Apache Spark workloads at scale using telemetry and evidence-based tuning",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Decouple dynamic business rules from Salesforce Flow using reference tables",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Configure Prompt Builder to ground Flex templates with Salesforce Files",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Managing Restricted Picklists in Agentforce through dual-layer validation",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Preparing your org for the Claudeforce partnership and new billing model",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Building a custom Apex tool for Lead conversion with Salesforce Model Context Protocol",
+      "outcome": "kept",
+      "reason": "summary: \"database\" was removed"
+    }
+  ],
+  "figures": [
+    {
+      "title": "Preparing your org for the Claudeforce partnership and new billing model",
+      "outcome": "drawn",
+      "kind": "steps",
+      "image": "made"
+    },
+    {
+      "title": "Configuring permissions and security guardrails for Agentforce and Prompt Builder",
+      "outcome": "drawn",
+      "kind": "parts"
+    }
+  ],
+  "model": {
+    "calls": 27,
+    "retries": {},
+    "usage": {
+      "qwen/qwen3.7-flash": {
+        "input": 37719,
+        "output": 71230
+      },
+      "google/gemini-3.1-flash-image": {
+        "input": 530,
+        "output": 1120
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-10-09T06:44:50.077Z"
+}
