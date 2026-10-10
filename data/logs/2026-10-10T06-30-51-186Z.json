@@ -1,0 +1,282 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-10-10T06:30:51.186Z",
+  "day": "2026-10-10",
+  "seconds": 444,
+  "finished": true,
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 0
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 1
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 0
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 1
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 1
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 3
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 7
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 0
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 0
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 3
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 2
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 23
+    }
+  ],
+  "articles": [
+    {
+      "title": "I guess am ashamed of being associated with Salesforce. Can’t wait to get away from Trumps bootlickers organisation",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x1z4hu/i_guess_am_ashamed_of_being_associated_with/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Your Customer’s Personal Agent Is Knocking. Is Your Business Ready to Answer?",
+      "url": "https://www.salesforce.com/news/stories/personal-ai-agents-evolution/",
+      "source": "Salesforce News",
+      "outcome": "dropped",
+      "reason": "none of the paper's keywords"
+    },
+    {
+      "title": "I broken agentforce. It just keeps printing the same message over and over. Great job, Salesforce.",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x1hcno/i_broken_agentforce_it_just_keeps_printing_the/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Salesforce price increase",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x1em06/salesforce_price_increase/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Marketing App on Salesforce Foundation",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x26buv/marketing_app_on_salesforce_foundation/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Don’t get left behind",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x259t8/dont_get_left_behind/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "What is the pay really like ?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x24rm3/what_is_the_pay_really_like/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce Partner SDO Org Signup: A Complete Guide for Technical Personas",
+      "url": "https://www.infallibletechie.com/2026/10/salesforce-partner-sdo-org-signup-a-complete-guide-for-technical-personas.html",
+      "source": "InfallibleTechie",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Partner Community User Not Able to See 'Add Products' On Opportunity",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x1q3mq/partner_community_user_not_able_to_see_add/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Agentforce Now Has to Prove It’s Worth the Investment",
+      "url": "https://www.salesforceben.com/agentforce-now-has-to-prove-its-worth-the-investment/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 5
+    },
+    {
+      "title": "Anthropic Launches ‘Cyber Mission’ to Protect Infrastructure From Attackers",
+      "url": "https://www.salesforceben.com/anthropic-launches-cyber-mission-to-protect-infrastructure-from-attackers/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Using Prompt Builder and Generative AI to manage requirements and prevent scope creep",
+      "url": "https://www.salesforceben.com/how-to-use-ai-to-prevent-scope-creep-in-salesforce/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: How to Use AI to Prevent Scope Creep in Salesforce"
+    },
+    {
+      "title": "Is Adobe the SaaSpocalypse’s First Victim?",
+      "url": "https://www.salesforceben.com/is-adobe-the-saaspocalypses-first-victim/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 5
+    },
+    {
+      "title": "Spring '27 restricts window open in Lightning Web Components",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x1h8ox/spring_27_breaks_windowopen_in_lwc_the_5line_lws/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 6,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "need help for (Associate proactive Monitoring Engineer at Salesforce)",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x1g7o0/need_help_for_associate_proactive_monitoring/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Seeking Free or Sponsored Salesforce Certification Opportunities to Advance My Career",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x1f0zi/seeking_free_or_sponsored_salesforce/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Update on sf-preflight: it now looks at LWC, layouts, picklists, labels and Visualforce, and it's an sf plugin",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x1ey86/update_on_sfpreflight_it_now_looks_at_lwc_layouts/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Director level roles",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x1evhc/director_level_roles/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce CLI 2.153.5 adds Apex trace flag management and updates authentication commands",
+      "url": "https://github.com/forcedotcom/cli/blob/main/releasenotes/README.md?v=2.153.5#21535-october-7-2026-stable",
+      "source": "Salesforce CLI",
+      "outcome": "published",
+      "score": 5,
+      "reason": "printed in the Bulletin; every release of a tool is"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Using Prompt Builder and generative AI to manage requirements and prevent scope creep",
+      "outcome": "corrected"
+    }
+  ],
+  "figures": [
+    {
+      "title": "Using Prompt Builder and generative AI to manage requirements and prevent scope creep",
+      "outcome": "drawn",
+      "kind": "steps",
+      "image": "made"
+    }
+  ],
+  "model": {
+    "calls": 19,
+    "retries": {},
+    "usage": {
+      "qwen/qwen3.7-flash": {
+        "input": 20649,
+        "output": 34961
+      },
+      "google/gemini-3.1-flash-image": {
+        "input": 684,
+        "output": 1120
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-10-10T06:38:14.777Z"
+}
