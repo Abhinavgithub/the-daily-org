@@ -1,0 +1,448 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-10-13T06:30:50.473Z",
+  "day": "2026-10-13",
+  "seconds": 1338,
+  "finished": true,
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 0
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 0
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 0
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 1
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 5
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 1
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 0
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 0
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 0
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 1
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 12
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 23
+    }
+  ],
+  "articles": [
+    {
+      "title": "Switch Salesforce Console Navigation Items from LWC (Winter ’27) #salesf...",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x4l1rg/switch_salesforce_console_navigation_items_from/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Experience Cloud Certification",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x4ag2c/experience_cloud_certification/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Salesforce AI Agent Training | Salesforce FDE Course",
+      "url": "https://dev.to/vamsik_u_9fbf8b8d8a2a2f3f/salesforce-ai-agent-training-salesforce-fde-course-42og",
+      "source": "dev.to",
+      "outcome": "dropped",
+      "reason": "not in English"
+    },
+    {
+      "title": "Inside My MergeTober Contribution: Integrating Salesforce with Cognee",
+      "url": "https://dev.to/darshan_rajput_3690/inside-my-mergetober-contribution-integrating-salesforce-with-cognee-1m9j",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "AI note taker integration",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x4lz6i/ai_note_taker_integration/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Duplicate leads and task management",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x4ip64/duplicate_leads_and_task_management/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Tool recommendations for unified email sending and archiving",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x4gh61/tool_recommendations_for_unified_email_sending/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Help with building a Salesforce Analytics Studio report to track record views/access",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x4emxk/help_with_building_a_salesforce_analytics_studio/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Best Sources for Salesforce Salary Data",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x4duyn/best_sources_for_salesforce_salary_data/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "How are you handling complex case assignment in Salesforce?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x4d9p4/how_are_you_handling_complex_case_assignment_in/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "is Salesforce Commerce Cloud the right move when you're leaving SAP Commerce Cloud?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x4biah/is_salesforce_commerce_cloud_the_right_move_when/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Lightning dashboard stacked charts render incorrectly after Winter '27 upgrade",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x49t9j/winter_27_broke_dashboards/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 6,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "User reports custom fonts may now render in Visualforce PDF output",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x48ofp/i_think_i_discovered_something/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 7,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "Question for Jetstream Users",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x47w0o/question_for_jetstream_users/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce Renames AIforce to ‘SIforce’ After Trump Order",
+      "url": "https://www.salesforceben.com/salesforce-renames-aiforce-to-siforce-after-trump-order/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "It’s Not a SaaSpocalypse, It’s a MetamorphoSaaS!",
+      "url": "https://www.salesforceben.com/its-not-a-saaspocalypse-its-a-metamorphosaas/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "85% of Customers Have Tried Agentforce, But Demand Hasn’t Picked Up. Why?",
+      "url": "https://www.salesforceben.com/85-of-customers-have-tried-agentforce-but-demand-hasnt-picked-up-why/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Salesforce Price Books linked to Accounts :looking for advice on Lightning compatibility and possible quick wins",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x41xqh/salesforce_price_books_linked_to_accounts_looking/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Skill to replace Salesforce renames in content",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x41mdt/skill_to_replace_salesforce_renames_in_content/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce Signs Definitive Agreement to Acquire Loops",
+      "url": "https://www.salesforce.com/news/stories/salesforce-signs-definitive-agreement-to-acquire-loops/",
+      "source": "Salesforce News",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "How to write effective Apex tests that pass deployment gates and avoid common pitfalls",
+      "url": "https://dev.to/rohanmehta/apex-test-coverage-in-2026-rules-gotchas-and-how-to-write-tests-that-actually-help-11dl",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Apex Test Coverage in 2026: Rules, Gotchas, and How to Write Tests That Actually Help"
+    },
+    {
+      "title": "Piper: The Uncanny Valley Future of Agentforce?",
+      "url": "https://www.salesforceben.com/piper-the-uncanny-valley-future-of-agentforce/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "The MRI Scan Every Salesforce Admin Toolkit Needs",
+      "url": "https://www.salesforceben.com/the-mri-scan-every-salesforce-admin-toolkit-needs/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Architecting Salesforce Marketing Cloud requires a Data foundation before campaign configuration",
+      "url": "https://dev.to/rio_albert/marketing-cloud-is-a-data-project-not-a-campaign-setup-127e",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Help me finalize a offer",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x3w8ng/help_me_finalize_a_offer/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Optimizing Salesforce Data Exports for Mailchimp Campaigns with Automated Cleaning",
+      "url": "https://dev.to/datasort/optimizing-salesforce-data-exports-for-mailchimp-campaigns-with-automated-cleaning-gcg",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Evaluating customer portal architectures by measuring ongoing admin and release overhead",
+      "url": "https://salesforcetime.com/2026/10/12/salesforce-customer-portal-build-in-house-vs-use-a-pre-built-solution-what-admins-should-know/",
+      "source": "Salesforce Time",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Salesforce Customer Portal: Build In-House vs. Use a Pre-Built Solution (What Admins Should Know)"
+    },
+    {
+      "title": "The Step-by-Step Preparation Guide for a Smooth Salesforce Marketing Cloud Implementation",
+      "url": "https://dev.to/minuscule02/the-step-by-step-preparation-guide-for-a-smooth-salesforce-marketing-cloud-implementation-1o4d",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 4,
+      "reason": "scored 4, the threshold is 6"
+    },
+    {
+      "title": "Everyone's talking about Salesforce AI, but what about the data behind it?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x3ukf6/everyones_talking_about_salesforce_ai_but_what/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Automate temporary access management with Permission Set expiration dates",
+      "url": "https://dev.to/rohanmehta/stop-manually-removing-salesforce-permissions-assign-permission-sets-that-expire-on-their-own-12db",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Stop Manually Removing Salesforce Permissions: Assign Permission Sets That Expire on Their Own"
+    },
+    {
+      "title": "Send Custom Notifications in Salesforce using Flow Builder without writing Apex",
+      "url": "https://dev.to/rohanmehta/send-custom-notifications-in-salesforce-using-flow-a-no-code-guide-1547",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Salesforce Agentforce Online Training | Agentforce Course",
+      "url": "https://dev.to/vamsik_u_9fbf8b8d8a2a2f3f/salesforce-agentforce-online-training-agentforce-course-10d4",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Mastering CRM Data Hygiene: A Technical Guide to Cleaning HubSpot and Salesforce Exports",
+      "url": "https://dev.to/datasort/mastering-crm-data-hygiene-a-technical-guide-to-cleaning-hubspot-and-salesforce-exports-54i9",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Using the json path function in AgentScript to extract and filter data",
+      "url": "https://dev.to/exploring_agentforce/agentscript-built-in-functions-jsonpath-cap",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Connecting Slack to Salesforce for record context and automated alerts",
+      "url": "https://dev.to/rohanmehta/setting-up-slack-with-salesforce-a-practical-admin-walkthrough-51n3",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Salesforce announces Agentic Identity and flex credit adjustments for Model Context Protocol servers",
+      "url": "https://nebulaconsulting.co.uk/insights/mcp-servers/",
+      "source": "Nebula Consulting",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: MCP Servers"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "How to write effective Apex tests that pass deployment gates and avoid common pitfalls",
+      "outcome": "kept",
+      "reason": "summary: \"system\" was removed"
+    },
+    {
+      "title": "Architecting Salesforce Marketing Cloud requires a data foundation before campaign configuration",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Evaluating customer portal architectures by measuring ongoing admin and release overhead",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Automate temporary access management with Permission Set expiration dates",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Send Custom Notifications in Salesforce using Flow Builder without writing Apex",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Using the JSON Path function in AgentScript to extract and filter data",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Connecting Slack to Salesforce for record context and automated alerts",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Salesforce announces Agentic Identity and flex credit adjustments for Model Context Protocol servers",
+      "outcome": "unchanged"
+    }
+  ],
+  "figures": [
+    {
+      "title": "Automate temporary access management with Permission Set expiration dates",
+      "outcome": "drawn",
+      "kind": "compare",
+      "image": "made"
+    }
+  ],
+  "model": {
+    "calls": 45,
+    "retries": {},
+    "usage": {
+      "qwen/qwen3.7-flash": {
+        "input": 58247,
+        "output": 108901
+      },
+      "google/gemini-3.1-flash-image": {
+        "input": 794,
+        "output": 1120
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-10-13T06:53:08.934Z"
+}
