@@ -157,6 +157,7 @@ If the repository is public, so is `data/logs/`, with what each run rejected and
 ## Good to know
 
 - If new stories do not appear in `npm run dev` after a pipeline run, restart it (`npx astro dev stop`, then `npm run dev`).
+- A day prints four stories at most while there are others to keep (`holdOver` in `paper.config.ts`). What a full day has over that is held in `data/held/`, the lowest scored first, and printed on a day with room, or after three days whatever the day holds. News of a release is never held. Leave `holdOver` out and every story is printed the day it is found.
 - An article that scores one point under the threshold is printed as a one-line brief at the foot of the edition, and a day with only briefs is still an edition. Briefs can be searched, and the Stats page counts them apart from stories. They are files in `src/content/briefs/`.
 - To remove a story, delete its file; it will not come back. To have it assessed again, also delete its entry in `data/seen.json`.
 - With `shares` set in `paper.config.ts`, the top of the page prints that company's share price at the last close, read once a day from Yahoo Finance. It is not a live price. The source asks for no key but is not a published service: if it stops answering, the last price is kept, and a price more than six days old is not printed.

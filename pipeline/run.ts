@@ -19,6 +19,7 @@ import { PAPER } from '../src/config';
 import { addTallies, emptyTally, scorecard, type SourceTally } from '../src/lib/sources';
 import { parseRuns } from '../src/lib/stats';
 import { SOURCES } from './sources';
+import { DATA_DIR, HELD, holdOver, dueToday, release } from './hold';
 import { failingSources, loadState, lookBackDays, recordComplete, recordFailure, recordFetched, recordNewest, saveState } from './state';
 import { addAlso, printed, readEdition, removeStory, STORIES_DIR, writeBriefs, writeBulletin, writeStories, type Printed, type Publishable } from './write';
 
@@ -288,7 +289,8 @@ if (dryRun) {
   process.exit(0);
 }
 
-if (candidates.length === 0) {
+// A day with nothing to assess still prints what was held for it, so it is not left here when something is owed.
+if (candidates.length === 0 && !(PAPER.holdOver && dueToday(day, PAPER.holdOver).length)) {
   saveProgress();
   saveSourceState(true);
   // Logged like any other run, so a quiet day can be told apart from a run that never happened.
@@ -329,13 +331,13 @@ console.log(`Assessing with ${models.join(', then ')}${config.imageModel ? `, il
 const written: string[] = [];
 // The day's stories, those of earlier runs first and then this run's in the order they were accepted, which is how
 // the editor is shown them: it is asked of each later item whether it tells one of them again. A story keeps its
-// place when a better telling takes it over.
-const edition: Printed[] = readEdition(day);
+// place when a better telling takes it over. Stories held for a quieter day are asked about too, after the day's own.
+const edition: Printed[] = [...readEdition(day), ...(PAPER.holdOver ? readEdition(HELD, DATA_DIR) : [])];
 const briefs: string[] = [];
 // What went to the Bulletin, apart from the stories: alerts and tools' releases.
 const bulletin: string[] = [];
 let figures = { made: 0, illustrated: 0, none: 0, rejected: 0, skipped: 0 };
-const counts = { rejected: 0, belowThreshold: 0, invalid: 0, deferred: 0, repeats: 0 };
+const counts = { rejected: 0, belowThreshold: 0, invalid: 0, deferred: 0, repeats: 0, held: 0, released: 0 };
 const proofs = { corrected: 0, unchanged: 0, kept: 0, skipped: 0 };
 const modelsUsed = new Set<string>();
 let stopped = false;
@@ -392,6 +394,9 @@ function record(cutShort?: string): string {
     briefs: briefs.length,
     // Alerts and tools' releases, which are printed in the Bulletin and not among the stories.
     bulletin: bulletin.length,
+    // Stories kept for a quieter day, which are not among those published, and stories held earlier and printed now, which are.
+    held: counts.held,
+    released: counts.released,
     invalidReplies: counts.invalid,
     deferred: cutShort ? candidates.length - tallied((tally) => tally.reviewed) - counts.invalid : counts.deferred,
     llmCalls: llm.calls,
@@ -600,7 +605,25 @@ for (const [i, { item, key, text, image, basis }] of candidates.entries()) {
 saveProgress();
 saveSourceState(!stopped && counts.deferred === 0);
 
-// 7. A diagram for each must-read story of the edition that has none
+// 7. Even the days out: print what was held if the day has room, and hold what it has over its number.
+// A run that was cut short leaves this to the next, which knows what the day holds.
+if (PAPER.holdOver && !stopped) {
+  for (const story of release(day, PAPER.holdOver)) {
+    written.push(story.file);
+    counts.released++;
+    console.log(`  Held since ${story.from}, printed today: ${story.title}`);
+    runLog.article({ title: story.title, url: story.url, source: story.source, outcome: 'published', score: story.score, reason: `held since ${story.from} for a quieter day, and printed today` });
+  }
+  for (const story of holdOver(day, PAPER.holdOver)) {
+    const at = written.findIndex((file) => path.basename(file) === path.basename(story.file).slice(12));
+    if (at >= 0) written.splice(at, 1);
+    counts.held++;
+    console.log(`  Held for a quieter day: ${story.title}`);
+    runLog.amend(story.url, { reason: `the day had its ${PAPER.holdOver.stories} stories; held for a quieter day` });
+  }
+}
+
+// 8. A diagram for each must-read story of the edition that has none
 // It is drawn from the article's own text: what this run read, or the page again for a story from an earlier run.
 const read = new Map(candidates.map(({ item, text }) => [item.url, text]));
 const readArticle = async (url: string) => read.get(url) || articleText(url);
@@ -617,7 +640,7 @@ record();
 console.log(
   `\nPublished ${written.length} to ${path.relative(process.cwd(), path.join(STORIES_DIR, day))}. ` +
     `${counts.rejected} not relevant, ${counts.belowThreshold} below threshold, ${counts.invalid} unusable replies, ` +
-    `${counts.deferred} left for the next run.${counts.repeats ? ` ${counts.repeats} told twice, printed once.` : ''}${briefs.length ? ` ${briefs.length} printed in brief.` : ''}${bulletin.length ? ` ${bulletin.length} printed in the Bulletin.` : ''} ${llm.calls} model calls${llm.cost ? `, $${llm.cost.toFixed(4)}` : ''}.`,
+    `${counts.deferred} left for the next run.${counts.held ? ` ${counts.held} held for a quieter day.` : ''}${counts.released ? ` ${counts.released} of those were held from an earlier day.` : ''}${counts.repeats ? ` ${counts.repeats} told twice, printed once.` : ''}${briefs.length ? ` ${briefs.length} printed in brief.` : ''}${bulletin.length ? ` ${bulletin.length} printed in the Bulletin.` : ''} ${llm.calls} model calls${llm.cost ? `, $${llm.cost.toFixed(4)}` : ''}.`,
 );
 if (written.length) {
   console.log(

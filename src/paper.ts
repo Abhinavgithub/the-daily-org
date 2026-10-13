@@ -121,6 +121,12 @@ export interface Paper<Section extends string = string, Persona extends string =
    * security advisories, and failures that reach many users at once. They are shown in the Bulletin.
    */
   alerts?: AlertFeed;
+  /**
+   * Optional. The most stories a day prints while there are others to keep for a quiet day: what a full day has
+   * over this number is held, the lowest scored first, and printed on a day with room, or after three days whatever
+   * the day holds. `never` names sections whose stories are news of the day and are never held.
+   */
+  holdOver?: { stories: number; never?: readonly string[] };
   /** Optional. Where the paper's code is kept, such as a GitHub repository. Linked from the footer of every page. */
   repository?: string;
   /** How the pipeline names itself to the sites it reads. `contact` is a web address where its owner can be reached. */
@@ -177,6 +183,10 @@ export function problemsWith(paper: Paper): string[] {
   if (!paper.sections?.length) problems.push('"sections" needs at least one section.');
   ids(paper.sections ?? [], 'section');
   const personas = ids(paper.personas ?? [], 'persona');
+  if (paper.holdOver && !(Number.isInteger(paper.holdOver.stories) && paper.holdOver.stories >= 1)) problems.push(`"holdOver.stories" is ${paper.holdOver.stories}; give a whole number of at least 1, or leave "holdOver" out.`);
+  for (const section of paper.holdOver?.never ?? []) {
+    if (!paper.sections?.some(({ id }) => id === section)) problems.push(`"holdOver.never" names the section "${section}", which is not in "sections".`);
+  }
   if (!paper.sources?.length) problems.push('"sources" needs at least one source.');
   ids(paper.sources ?? [], 'source');
   if (paper.releaseNotes && !RELEASE_NOTES.includes(paper.releaseNotes.from)) problems.push(`"releaseNotes.from" is "${paper.releaseNotes.from}"; use one of ${RELEASE_NOTES.join(', ')}, or leave "releaseNotes" out.`);

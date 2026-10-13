@@ -36,6 +36,10 @@ export default definePaper({
   // Security advisories and wide incidents, also from Trust. They are printed in the Bulletin whatever they score.
   alerts: 'salesforce-trust',
 
+  // A day prints four stories at most while there are others to keep: sources post on weekdays and hardly at all
+  // at the weekend, and what a full day has over four fills the quiet ones. News of a release is never kept back.
+  holdOver: { stories: 4, never: ['releases'] },
+
   sections: [
     { id: 'apex-and-platform', label: 'Apex and platform' },
     { id: 'lwc-and-ui', label: 'LWC and UI' },
@@ -97,6 +101,9 @@ export default definePaper({
     { id: 'infallibletechie', name: 'InfallibleTechie', url: 'https://www.infallibletechie.com/feed/', type: 'community', personas: ['developer', 'admin'] },
     { id: 'salesforcecodex', name: 'SalesforceCodex', url: 'https://salesforcecodex.com/feed/', type: 'community', personas: ['developer', 'architect'] },
     { id: 'salesforce-break', name: 'Salesforce Break', url: 'https://salesforcebreak.com/feed/', type: 'community', personas: ['admin', 'developer'] },
+    { id: 'nebula-consulting', name: 'Nebula Consulting', url: 'https://nebulaconsulting.co.uk/feed/', type: 'community' },
+    // Anyone may post under the tag, at the weekend too, when the blogs above are silent.
+    { id: 'dev-to', name: 'dev.to', url: 'https://dev.to/feed/tag/salesforce', type: 'community' },
 
     // The community. A post is printed, as one line in the Bulletin, only when it reports something a
     // practitioner needs to know. Reddit refuses a reader that asks more than once or twice in a row.
