@@ -1,0 +1,356 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-10-14T06:30:50.268Z",
+  "day": "2026-10-14",
+  "seconds": 921,
+  "finished": true,
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 0
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 0
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 0
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 1
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 1
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 3
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 6
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 1
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 1
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 0
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 0
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 9
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 23
+    }
+  ],
+  "articles": [
+    {
+      "title": "Apex Integration Tests: real callouts in scratch orgs, step by step #sal...",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x5gxju/apex_integration_tests_real_callouts_in_scratch/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Testing ListEmail behaviour",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x5joys/testing_listemail_behaviour/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce Community Conferences - Honest opinions wanted",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x5de8w/salesforce_community_conferences_honest_opinions/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Pluto 2.0: an open-source AI agent engine for Salesforce that runs without Agentforce or Data Cloud licenses",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x5bne0/pluto_20_an_opensource_ai_agent_engine_for/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Anyone do side work?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x5b5cy/anyone_do_side_work/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce toxic culture?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x570bk/salesforce_toxic_culture/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce updates idle token rules for Connected Apps and External Client Applications",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x56xb7/new_email_on_connected_apps_external_client_app/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 6,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "Should I decline an accepted Salesforce offer after my current company made a better counteroffer?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x53m4p/should_i_decline_an_accepted_salesforce_offer/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce introduces Deep Insights and Moirai for real-time operational intelligence",
+      "url": "https://www.salesforce.com/news/stories/operational-intelligence-ai-radar/",
+      "source": "Salesforce News",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: From Radar to Reasoning: Why Enterprise AI Finally Watches Your Business in Real Time"
+    },
+    {
+      "title": "Architecting Salesforce orgs for user adoption and phased rollouts",
+      "url": "https://www.salesforce.com/blog/drive-user-adoption-through-architecture/",
+      "source": "Salesforce Architects",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Drive User Adoption Through Architecture Decisions"
+    },
+    {
+      "title": "Winter '27 release notes cover OAuth enforcement, flow updates, and Agentforce metering",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x4zvw0/summer27_release_notes_abridged_edition_by_sfxd/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 7,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "AI dev from stakeholders",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x4zdsr/ai_dev_from_stakeholders/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Using microfrontends and UI Embedding to integrate external web apps into Lightning",
+      "url": "https://developer.salesforce.com/blogs/2026/10/salesforce-microfrontends-embed-web-apps-in-lightning",
+      "source": "Salesforce Developers Blog",
+      "outcome": "published",
+      "score": 8,
+      "reason": "article title: Salesforce Microfrontends: Embed Web Apps in Lightning"
+    },
+    {
+      "title": "Why Salesforce Lets You Pick the Right AI Model for the Job",
+      "url": "https://www.salesforce.com/news/stories/ai-model-choice/",
+      "source": "Salesforce News",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "an AI said nothing writes to Contact date of birth in our test org. 2 flows do :)",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x4wtvm/an_ai_said_nothing_writes_to_contact_date_of/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Agentforce Service offerings explained for configuration and rollout planning",
+      "url": "https://cloudodyssey.com/blog/agentforce-service-offerings-a-guide-to-salesforces-ai-customer-service-platform/",
+      "source": "Cloud Odyssey",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Agentforce Service Offerings: A Guide to Salesforce’s AI Customer Service Platform"
+    },
+    {
+      "title": "Discover tools that help businesses work smarter and embrace digital transformation.",
+      "url": "https://dev.to/ayan_softwarers/discover-tools-that-help-businesses-work-smarter-and-embrace-digital-transformation-3m7j",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "How are you guys setting up your passkeys for your organization?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x4vfh1/how_are_you_guys_setting_up_your_passkeys_for/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "A practical workflow for cleaning Salesforce data before implementing AI",
+      "url": "https://dev.to/rohanmehta/why-every-ai-strategy-needs-data-cleaning-first-20c2",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Top Salesforce AI Voice Assistants to Convert Voice to Text",
+      "url": "https://dev.to/mykhailoradchenko/top-salesforce-ai-voice-assistants-to-convert-voice-to-text-3e4o",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Salesforce developer available",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x4scad/salesforce_developer_available/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce Outlook Integration: How to Connect Your Inbox to Your CRM",
+      "url": "https://dev.to/sivadevaki121212/salesforce-outlook-integration-how-to-connect-your-inbox-to-your-crm-4ebh",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Salesforce Acquires Analytics Platform Loops to Boost Tableau",
+      "url": "https://www.salesforceben.com/salesforce-acquires-analytics-platform-loops-to-boost-tableau/",
+      "source": "Salesforce Ben",
+      "outcome": "below-threshold",
+      "score": 4,
+      "reason": "scored 4, the threshold is 6"
+    },
+    {
+      "title": "Data360 Identity Resolution triggers full recalculation when accounts are updated",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x4qkz9/marketing_cloud_advanced_and_data360/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 6,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "Leadership wants an Agentforce pilot on data we all know is messy",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x4pl6u/leadership_wants_an_agentforce_pilot_on_data_we/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Salesforce introduces Deep Insights and Moirai for real-time operational intelligence",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Architecting Salesforce orgs for user adoption and phased rollouts",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Using Microfrontends and UI Embedding to integrate external web apps into Lightning",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Agentforce Service offerings explained for configuration and rollout planning",
+      "outcome": "corrected"
+    },
+    {
+      "title": "A practical workflow for cleaning Salesforce data before implementing AI",
+      "outcome": "corrected"
+    }
+  ],
+  "figures": [
+    {
+      "title": "Using Microfrontends and UI Embedding to integrate external web apps into Lightning",
+      "outcome": "drawn",
+      "kind": "parts",
+      "image": "made"
+    }
+  ],
+  "model": {
+    "calls": 34,
+    "retries": {},
+    "usage": {
+      "qwen/qwen3.7-flash": {
+        "input": 43363,
+        "output": 70747
+      },
+      "google/gemini-3.1-flash-image": {
+        "input": 520,
+        "output": 1120
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-10-14T06:46:11.665Z"
+}
