@@ -24,6 +24,8 @@ const FIGURE = { drawn: 'Drawn', none: 'Nothing to draw', refused: 'Refused', sk
 // What became of the run's articles, as the parts of a small bar.
 const parts = [
   { label: 'published', count: f.published, tone: 'main' },
+  { label: 'in the Bulletin', count: f.bulletin, tone: 'light' },
+  { label: 'held for a quieter day', count: f.held, tone: 'light' },
   { label: 'below the bar', count: f.below, tone: 'rest' },
   { label: 'not relevant', count: f.notRelevant, tone: 'faint' },
   { label: 'dropped before review', count: f.dropped, tone: 'unknown' },
@@ -41,7 +43,7 @@ const drawn = log.figures.filter((figure) => figure.outcome === 'drawn').length;
       {parts.map((part) => <span class={`mark--${part.tone}`} style={`flex-grow: ${part.count}`} title={`${part.count} ${part.label}`} />)}
     </span>
     <span class="log__counts">
-      {log.kind === 'figures' ? `${drawn} drawn` : log.kind === 'release' ? (log.finished ? 'Built' : 'Not built') : f.reviewed || f.published ? `${f.published} published of ${f.reviewed} reviewed` : 'Nothing new'}
+      {log.kind === 'figures' ? `${drawn} drawn` : log.kind === 'release' ? (log.finished ? 'Built' : 'Not built') : f.reviewed || f.published ? `${f.published} published${f.bulletin ? `, ${f.bulletin} in the Bulletin` : ''}${f.held ? `, ${f.held} held` : ''} of ${f.reviewed} reviewed` : 'Nothing new'}
     </span>
     <span class="log__cost">
       {formatNumber(f.calls)} {f.calls === 1 ? 'call' : 'calls'}

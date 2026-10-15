@@ -2,10 +2,11 @@
 // whoever runs the paper and exists only on their machine. Pure functions: the
 // pipeline writes these, the page reads them.
 
-export type ArticleOutcome = 'published' | 'below-threshold' | 'not-relevant' | 'dropped' | 'invalid-reply' | 'deferred';
+export type ArticleOutcome = 'published' | 'held' | 'below-threshold' | 'not-relevant' | 'dropped' | 'invalid-reply' | 'deferred';
 
 export const OUTCOME_LABELS: Record<ArticleOutcome, string> = {
   published: 'Published',
+  held: 'Held for a quieter day',
   'below-threshold': 'Below the score threshold',
   'not-relevant': 'Not relevant',
   dropped: 'Dropped before review',

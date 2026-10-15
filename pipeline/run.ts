@@ -605,21 +605,22 @@ for (const [i, { item, key, text, image, basis }] of candidates.entries()) {
 saveProgress();
 saveSourceState(!stopped && counts.deferred === 0);
 
-// 7. Even the days out: print what was held if the day has room, and hold what it has over its number.
+// 7. Even the days out: the day's own stories first, then what was held if the day has room, and what has waited its
+// days whatever the day holds; what the day has over its number is held.
 // A run that was cut short leaves this to the next, which knows what the day holds.
 if (PAPER.holdOver && !stopped) {
   for (const story of release(day, PAPER.holdOver)) {
     written.push(story.file);
     counts.released++;
-    console.log(`  Held since ${story.from}, printed today: ${story.title}`);
-    runLog.article({ title: story.title, url: story.url, source: story.source, outcome: 'published', score: story.score, reason: `held since ${story.from} for a quieter day, and printed today` });
+    console.log(`  Held since ${story.from}, printed today${story.late ? ', its days of waiting done' : ''}: ${story.title}`);
+    runLog.article({ title: story.title, url: story.url, source: story.source, outcome: 'published', score: story.score, reason: story.late ? `held since ${story.from}; printed today, having waited its days for room` : `held since ${story.from} for a quieter day, and printed today` });
   }
   for (const story of holdOver(day, PAPER.holdOver)) {
     const at = written.findIndex((file) => path.basename(file) === path.basename(story.file).slice(12));
     if (at >= 0) written.splice(at, 1);
     counts.held++;
     console.log(`  Held for a quieter day: ${story.title}`);
-    runLog.amend(story.url, { reason: `the day had its ${PAPER.holdOver.stories} stories; held for a quieter day` });
+    runLog.amend(story.url, { outcome: 'held', reason: `the day had its ${PAPER.holdOver.stories} stories; held for a quieter day` });
   }
 }
 

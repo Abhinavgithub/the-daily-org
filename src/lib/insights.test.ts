@@ -184,8 +184,8 @@ test('runs are added up by day for the charts, and empty days are left out', () 
     run({ ranAt: '2026-10-02T09:00:00Z' }),
   ]);
   assert.deepEqual(days, [
-    { day: '2026-10-03', published: 0, below: 0, notRelevant: 0, lost: 0, calls: 1, retries: 0 },
-    { day: '2026-10-04', published: 3, below: 1, notRelevant: 1, lost: 3, calls: 45, retries: 25 },
+    { day: '2026-10-03', published: 0, held: 0, below: 0, notRelevant: 0, lost: 0, calls: 1, retries: 0 },
+    { day: '2026-10-04', published: 3, held: 0, below: 1, notRelevant: 1, lost: 3, calls: 45, retries: 25 },
   ]);
 });
 
@@ -247,4 +247,13 @@ test('how the release edition step went is said: a failure to watch, a build or 
   assert.match(of({ at, outcome: 'built', says: "Winter '27, 188 features" }), /the release edition was built/i);
   assert.match(of({ at, outcome: 'nothing-owed' }), /no release edition is owed/i);
   assert.doesNotMatch(of(undefined), /release edition/i);
+});
+
+test('a story held for a quieter day is counted as reviewed, and apart from those published', () => {
+  const held = facts(readLog('{"ranAt":"2026-10-13T06:30:00Z","day":"2026-10-13","articles":[{"title":"Printed","url":"https://x/1","source":"B","outcome":"published","score":7},{"title":"Kept","url":"https://x/2","source":"B","outcome":"held","score":6}]}') as RunLogData);
+  assert.deepEqual([held.published, held.held, held.reviewed], [1, 1, 2]);
+  // A line in the Bulletin is counted apart from the stories.
+  const lines = facts(readLog('{"ranAt":"2026-10-13T06:30:00Z","day":"2026-10-13","articles":[{"title":"Printed","url":"https://x/1","source":"B","outcome":"published"},{"title":"A post","url":"https://x/3","source":"R","outcome":"published","reason":"printed in the Bulletin, as a line from the community"}]}') as RunLogData);
+  assert.deepEqual([lines.published, lines.bulletin, lines.reviewed], [1, 1, 2]);
+  assert.equal(byDay([held])[0].held, 1);
 });

@@ -39,6 +39,7 @@ const rows = articles.map((article) => {
 const day = (iso: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }).format(new Date(iso));
 const SHORT: Record<ArticleOutcome, string> = {
   published: 'Published',
+  held: 'Held',
   'below-threshold': 'Below the bar',
   'not-relevant': 'Not relevant',
   dropped: 'Dropped',

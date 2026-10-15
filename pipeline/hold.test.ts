@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { test } from 'node:test';
-import { HELD, holdOver, dueToday, release } from './hold';
+import { dueToday, HELD, holdOver, release } from './hold';
 import { readEdition } from './write';
 
 /** A folder to work in, with a way to write a story of a given score into a day. */
@@ -48,7 +48,7 @@ test('what a day has over its number is held, the lowest scored first, and print
   assert.deepEqual(holdOver('2026-10-10', options).map(({ title }) => title), ['Story 3']);
 });
 
-test('a story held three days is printed whatever the day holds, and news of the day is never held', (t) => {
+test('a held story fills room the longest held first, and one held three days is printed in full on top of the day', (t) => {
   const { options, write, day, held } = paper(t);
   write('2026-10-09', 1, 9);
   write('2026-10-09', 2, 8);
@@ -59,13 +59,33 @@ test('a story held three days is printed whatever the day holds, and news of the
   assert.deepEqual(holdOver('2026-10-09', options).map(({ title }) => title), ['Story 4', 'Story 2', 'Story 1']);
   assert.deepEqual(day('2026-10-09'), ['03-test-story-3.md', '05-test-story-5.md']);
 
+  // A later story, better than those already waiting, is held the next day.
+  write('2026-10-10', 1, 9);
+  write('2026-10-10', 2, 9);
+  write('2026-10-10', 3, 10);
+  assert.deepEqual(holdOver('2026-10-10', options).map(({ title }) => title), ['Story 2']);
+
+  // A full day prints its own stories, and nothing is owed to it until a story has waited three days.
   write('2026-10-11', 1, 7);
   write('2026-10-11', 2, 7);
-  assert.deepEqual(release('2026-10-11', options), []);
+  assert.deepEqual(dueToday('2026-10-11', options), []);
+
+  // A day with room for one: the three held since the 9th have waited their days and are printed in full whatever
+  // the day holds, and the room left goes to the one held since the 10th.
   write('2026-10-12', 1, 7);
-  write('2026-10-12', 2, 7);
-  // The longest held go first, and of one day's the best.
-  assert.deepEqual(release('2026-10-12', options).map(({ title }) => title), ['Story 1', 'Story 2', 'Story 4']);
-  assert.deepEqual(day('2026-10-12'), ['01-test-story-1.md', '02-test-story-2.md', '03-test-story-1.md', '04-test-story-2.md', '05-test-story-4.md']);
+  const out = release('2026-10-12', options);
+  assert.deepEqual(out.map(({ title, from, late }) => [title, from, late]), [
+    ['Story 1', '2026-10-09', true],
+    ['Story 2', '2026-10-09', true],
+    ['Story 4', '2026-10-09', true],
+    ['Story 2', '2026-10-10', false],
+  ]);
   assert.deepEqual(held(), []);
+  // Those printed for their wait do not count against the day: its own story and the one that filled the room are
+  // its number, and nothing is put by for the other three.
+  assert.deepEqual(holdOver('2026-10-12', options), []);
+  assert.equal(day('2026-10-12').length, 5);
+  // A later story of its own is one over the number, and is held.
+  write('2026-10-12', 7, 5);
+  assert.deepEqual(holdOver('2026-10-12', options).map(({ title }) => title), ['Story 7']);
 });

@@ -2549,6 +2549,13 @@ span.dateline__step {
   color: var(--ink);
 }
 
+// Good enough to print, and kept for another day.
+.tag--held {
+  border-color: var(--mark);
+  border-style: dashed;
+  color: var(--muted);
+}
+
 .tag--invalid-reply,
 .tag--failing,
 .tag--unreadable,

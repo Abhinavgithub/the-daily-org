@@ -14,7 +14,12 @@ export interface RunFacts {
   seconds: number;
   /** True when only totals are known, as for a run from before logs were kept. */
   totalsOnly: boolean;
+  /** Stories printed. */
   published: number;
+  /** Lines printed in the Bulletin. */
+  bulletin: number;
+  /** Good enough to print, and kept for a quieter day because the day had its number of stories. */
+  held: number;
   below: number;
   notRelevant: number;
   /** Turned away before review. */
@@ -48,12 +53,17 @@ export interface RunFacts {
 }
 
 const outcomeCount = (log: RunLogData, outcome: ArticleOutcome) => log.articles.filter((article) => article.outcome === outcome).length;
+/** Printed as a line in the Bulletin (an alert, a tool's release, a forum post), not as a story. The pipeline's reason says so. */
+export const inBulletin = (article: LogArticle) => article.outcome === 'published' && /^printed in the Bulletin/.test(article.reason ?? '');
 
 /** A run's log as facts. `cost` is what its stats line recorded, when it recorded one. */
 export function facts(log: RunLogData, cost?: number): RunFacts {
   const retries = Object.values(log.model.retries).reduce((sum, n) => sum + n, 0);
   const totalsOnly = log.totals !== undefined;
-  const published = log.totals?.published ?? outcomeCount(log, 'published');
+  // Stories only, as data/stats.jsonl counts them: a Bulletin line is counted apart.
+  const bulletin = log.articles.filter(inBulletin).length;
+  const published = log.totals?.published ?? outcomeCount(log, 'published') - bulletin;
+  const held = outcomeCount(log, 'held');
   const below = log.outcomes?.below ?? outcomeCount(log, 'below-threshold');
   const notRelevant = log.outcomes?.notRelevant ?? outcomeCount(log, 'not-relevant');
   const invalid = log.outcomes?.invalid ?? outcomeCount(log, 'invalid-reply');
@@ -66,6 +76,8 @@ export function facts(log: RunLogData, cost?: number): RunFacts {
     seconds: log.seconds,
     totalsOnly,
     published,
+    bulletin,
+    held,
     below,
     notRelevant,
     dropped: log.outcomes?.dropped ?? outcomeCount(log, 'dropped'),
@@ -75,7 +87,7 @@ export function facts(log: RunLogData, cost?: number): RunFacts {
     videosDescribed: log.articles.filter((article) => article.basis === 'description').length,
     ...(log.transcriptsDown ? { transcriptsDown: log.transcriptsDown } : {}),
     invalid,
-    reviewed: log.totals?.reviewed ?? published + below + notRelevant + invalid,
+    reviewed: log.totals?.reviewed ?? published + bulletin + held + below + notRelevant + invalid,
     calls: log.model.calls,
     retries,
     rateLimited: log.model.retries['HTTP 429'] ?? 0,
@@ -170,6 +182,7 @@ export function glance(runs: RunFacts[], now = Date.now()): Glance {
 export interface DayFacts {
   day: string;
   published: number;
+  held: number;
   below: number;
   notRelevant: number;
   /** Dropped before review, left for the next run, or lost to an unusable reply. */
@@ -183,8 +196,9 @@ export function byDay(runs: RunFacts[]): DayFacts[] {
   const days = new Map<string, DayFacts>();
   for (const run of runs) {
     const day = run.ranAt.slice(0, 10);
-    const sum = days.get(day) ?? { day, published: 0, below: 0, notRelevant: 0, lost: 0, calls: 0, retries: 0 };
+    const sum = days.get(day) ?? { day, published: 0, held: 0, below: 0, notRelevant: 0, lost: 0, calls: 0, retries: 0 };
     sum.published += run.published;
+    sum.held += run.held;
     sum.below += run.below;
     sum.notRelevant += run.notRelevant;
     sum.lost += run.dropped + run.deferred + run.awaitingTranscript + run.invalid;
@@ -192,7 +206,7 @@ export function byDay(runs: RunFacts[]): DayFacts[] {
     sum.retries += run.retries;
     days.set(day, sum);
   }
-  return [...days.values()].filter((d) => d.published + d.below + d.notRelevant + d.lost + d.calls > 0).sort((a, b) => a.day.localeCompare(b.day));
+  return [...days.values()].filter((d) => d.published + d.held + d.below + d.notRelevant + d.lost + d.calls > 0).sort((a, b) => a.day.localeCompare(b.day));
 }
 
 // The thresholds, in one place so they can be tuned.

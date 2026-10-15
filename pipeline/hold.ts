@@ -6,12 +6,14 @@ import { STORIES_DIR } from './write';
 
 // A full day's surplus is kept for a quiet one. Sources post on weekdays and hardly at all at the weekend, so
 // without this a day of eight stories is followed by days of none. A held story is a story file as it was
-// written, kept out of the paper in data/held/ until there is room for it.
+// written, kept out of the paper in data/held/ until there is room for it. A day's own stories come first: a held
+// story fills the room a day has, and one that has waited its days is printed then whatever the day holds, on top of
+// the day's own, so a busy week neither loses a story nor makes the rest late.
 
 /** Read with `readEdition('held', DATA_DIR)`, so a held story can be told again like any printed one. */
 export const DATA_DIR = path.join(process.cwd(), 'data');
 export const HELD = 'held';
-/** Days a story may be held. After that it is printed whether or not the day has room. */
+/** Days a story may be held. One that has found no room by then is printed that day, in full, whatever the day holds. */
 export const HOLD_DAYS = 3;
 
 export interface HoldOptions {
@@ -46,22 +48,28 @@ const score = (story: Story) => (typeof story.data.interest_score === 'number' ?
 /** The day a held story was put by, which its file is named for. */
 const heldOn = (file: string) => path.basename(file).slice(0, 10);
 
-/** The held stories, the longest held first and the best of a day before the rest of it. */
-function held(dataDir: string): Story[] {
-  return read(path.join(dataDir, HELD)).sort((a, b) => heldOn(a.file).localeCompare(heldOn(b.file)) || score(b) - score(a));
-}
+/** Whether a story in the day's folder was printed there for having waited its days, and so is not counted against the day's number. */
+const late = (story: Story, day: string) => typeof story.data.held_from === 'string' && daysBetween(story.data.held_from, day) >= HOLD_DAYS;
+
+/** The day's own stories, as counted against its number: not those printed for having waited their days. */
+const counted = (day: string, storiesDir: string) => read(path.join(storiesDir, day)).filter((story) => !late(story, day));
 
 /**
- * The held stories that would be printed today: those held long enough, and as many more as the day has room for.
- * One held today is not printed today.
+ * What the day owes the held stories: those that have waited their days, printed whatever the day holds, and as many
+ * of the others as it has room for, the longest held first and then the best. One held that day is not printed that day.
  */
-export function dueToday(day: string, options: HoldOptions): string[] {
+function owing(day: string, options: HoldOptions): Story[] {
   const { stories, storiesDir = STORIES_DIR, dataDir = DATA_DIR } = options;
-  const waiting = held(dataDir).filter((story) => heldOn(story.file) !== day);
-  const overdue = waiting.filter((story) => daysBetween(heldOn(story.file), day) >= HOLD_DAYS).length;
-  const room = stories - read(path.join(storiesDir, day)).length;
-  return waiting.slice(0, Math.max(overdue, room, 0)).map((story) => story.file);
+  const waiting = read(path.join(dataDir, HELD))
+    .filter((story) => heldOn(story.file) !== day)
+    .sort((a, b) => heldOn(a.file).localeCompare(heldOn(b.file)) || score(b) - score(a));
+  const due = waiting.filter((story) => daysBetween(heldOn(story.file), day) >= HOLD_DAYS);
+  const room = Math.max(0, stories - counted(day, storiesDir).length);
+  return [...due, ...waiting.filter((story) => !due.includes(story)).slice(0, room)];
 }
+
+/** The held stories the day would print. */
+export const dueToday = (day: string, options: HoldOptions): string[] => owing(day, options).map((story) => story.file);
 
 export interface Moved {
   /** Where the story is now. */
@@ -72,15 +80,17 @@ export interface Moved {
   score: number;
   /** The day it was first written for. */
   from: string;
+  /** Printed for having waited its days, not because the day had room. */
+  late?: boolean;
 }
 
 const moved = (file: string, story: Story, from: string): Moved => ({ file, title: String(story.data.title ?? ''), url: String(story.data.url ?? ''), source: String(story.data.source ?? ''), score: score(story), from });
 
-/** Print the held stories the day is owed, in its folder and under its date. Returns them as they now stand. */
+/** Print the held stories the day owes, in its folder and under its date. Returns them as they now stand. */
 export function release(day: string, options: HoldOptions): Moved[] {
   const { storiesDir = STORIES_DIR } = options;
   const dir = path.join(storiesDir, day);
-  return dueToday(day, options).map((file) => {
+  return owing(day, options).map(({ file }) => {
     fs.mkdirSync(dir, { recursive: true });
     const match = fs.readFileSync(file, 'utf8').match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/)!;
     const doc = parseDocument(match[1]);
@@ -92,17 +102,18 @@ export function release(day: string, options: HoldOptions): Moved[] {
     const to = path.join(dir, `${String(number).padStart(2, '0')}${path.basename(file).slice(14)}`);
     fs.writeFileSync(to, `---\n${doc.toString({ lineWidth: 0 }).trimEnd()}\n---\n${match[2]}`);
     fs.rmSync(file);
-    return moved(to, { file: to, data: doc.toJS() as Record<string, unknown> }, from);
+    return { ...moved(to, { file: to, data: doc.toJS() as Record<string, unknown> }, from), late: daysBetween(from, day) >= HOLD_DAYS };
   });
 }
 
 /**
  * Put by what the day has over its number of stories, the lowest scored first. A story is never put by when it is
- * news of the day, has been held once already, or has had its picture drawn. Returns the stories put by.
+ * news of the day, has been held once already, or has had its picture drawn; one printed for having waited its days
+ * does not count against the number. Returns the stories put by.
  */
 export function holdOver(day: string, options: HoldOptions): Moved[] {
   const { stories, never = [], storiesDir = STORIES_DIR, dataDir = DATA_DIR } = options;
-  const today = read(path.join(storiesDir, day));
+  const today = counted(day, storiesDir);
   const may = today
     .filter(({ data }) => !never.includes(String(data.section)) && data.held_from === undefined && data.figure_image === undefined)
     // The lowest scored goes first, and of two alike the one written later.
