@@ -1,0 +1,333 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-10-15T06:30:47.261Z",
+  "day": "2026-10-15",
+  "seconds": 815,
+  "finished": true,
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 0
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 1
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 1
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 2
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 1
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 2
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 4
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 0
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 1
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 1
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 1
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 5
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 23
+    }
+  ],
+  "articles": [
+    {
+      "title": "Salesforce error (Opportunity)",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x5rvp5/salesforce_error_opportunity/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "does CDC works on ListEmail?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x5n1jt/does_cdc_works_on_listemail/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "URL REDACTED in agent response",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x5mmg8/url_redacted_in_agent_response/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Salesforce AIforce is now SIforce. Same tech, new acronym?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x6d1gh/salesforce_aiforce_is_now_siforce_same_tech_new/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Question: Partial Sandboxes - Enterprise Edition",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x64s41/question_partial_sandboxes_enterprise_edition/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Anyone have a good solution to Caller ID for incoming calls?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x60mw6/anyone_have_a_good_solution_to_caller_id_for/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "How Agentforce Coworker delegates requests to employee agents",
+      "url": "https://www.infallibletechie.com/2026/10/agentforce-coworker-invoking-employee-agent.html",
+      "source": "InfallibleTechie",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Salesforce Agentforce Coworker Invoking Employee Agent"
+    },
+    {
+      "title": "Lightning Web Components 9.5.1 patches server side rendering and shadow root issues",
+      "url": "https://github.com/salesforce/lwc/releases/tag/v9.5.1",
+      "source": "Lightning Web Components",
+      "outcome": "published",
+      "score": 3,
+      "reason": "printed in the Bulletin; every release of a tool is"
+    },
+    {
+      "title": "Guidance Required",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x5xf0y/guidance_required/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Error CANNOT_EXECUTE_FLOW_TRIGGER on Screen Flow Record Creation when triggering Record-Triggered Flow Approval Orchestration",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x5x9kr/error_cannot_execute_flow_trigger_on_screen_flow/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Winter '27 release brings user history tracking and manual share retention",
+      "url": "https://salesforcebreak.com/2026/10/14/winter-27-release-updates-admin/",
+      "source": "Salesforce Break",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Salesforce Winter ’27 Admin Highlights: Top Data, Security and UX Gems"
+    },
+    {
+      "title": "Tired of decomposing 10,000-line Profile XMLs manually? I built PermForge — an open-source toolkit (CLI, VS Code Studio & GitHub Action) to do it automatically.",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x5uah5/tired_of_decomposing_10000line_profile_xmls/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "B2C Commerce release 26.9 introduces edge credential detection and SFRA password warnings",
+      "url": "https://developer.salesforce.com/blogs/2026/10/stop-credential-stuffing-with-b2c-commerce-ecdn",
+      "source": "Salesforce Developers Blog",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Stop Credential Stuffing with B2C Commerce eCDN"
+    },
+    {
+      "title": "Salesforce updates architecture diagram templates to reflect Agentforce and Data 360",
+      "url": "https://www.salesforceben.com/ultimate-guide-to-salesforce-architecture-diagrams/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Business or Technical Skills: Which Should You Improve in the AI Era?",
+      "url": "https://www.salesforceben.com/business-or-technical-skills-which-should-you-improve-in-the-ai-era/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Architecting customer portals beyond Experience Cloud licensing and API limits",
+      "url": "https://dev.to/rohanmehta/building-customer-portals-without-experience-cloud-four-alternatives-worth-knowing-4k4i",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Building Customer Portals Without Experience Cloud: Four Alternatives Worth Knowing"
+    },
+    {
+      "title": "Salesforce CLI 2.154.4 adds Apex compile status Command",
+      "url": "https://github.com/forcedotcom/cli/blob/main/releasenotes/README.md?v=2.154.4#21544-october-14-2026-stable",
+      "source": "Salesforce CLI",
+      "outcome": "published",
+      "score": 5,
+      "reason": "printed in the Bulletin; every release of a tool is"
+    },
+    {
+      "title": "Is Headless Salesforce the Answer?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x5p5cj/is_headless_salesforce_the_answer/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Conga Template Extra slide Removal Issue!",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x5me9j/conga_template_extra_slide_removal_issue/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce and Pearson offer a free retake for failed certification exams this fall",
+      "url": "https://www.salesforceben.com/salesforce-exam-retake-policy-is-it-really-free/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Pointing Agentforce at bad intake data, which part breaks first?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x5k3f0/pointing_agentforce_at_bad_intake_data_which_part/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "How Agentforce Coworker delegates requests to Employee Agents",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Winter '27 release brings user history tracking and manual share retention",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "B2C Commerce release 26.9 introduces edge credential detection and SFRA password warnings",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Salesforce updates architecture diagram templates to reflect Agentforce and Data 360",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Architecting customer portals beyond Experience Cloud licensing and API limits",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Salesforce and Pearson offer a free retake for failed certification exams this fall",
+      "outcome": "unchanged"
+    }
+  ],
+  "figures": [
+    {
+      "title": "How Agentforce Coworker delegates requests to Employee Agents",
+      "outcome": "drawn",
+      "kind": "steps",
+      "image": "made"
+    }
+  ],
+  "model": {
+    "calls": 28,
+    "retries": {
+      "invalid reply": 1,
+      "invalid diagram": 1
+    },
+    "usage": {
+      "qwen/qwen3.7-flash": {
+        "input": 35308,
+        "output": 62436
+      },
+      "google/gemini-3.1-flash-image": {
+        "input": 722,
+        "output": 1120
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-10-15T06:44:22.589Z"
+}
