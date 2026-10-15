@@ -33,6 +33,12 @@ export interface Run {
   briefs: number;
   notRelevant: number;
   invalid: number;
+  /** Printed as lines in the Bulletin (alerts, tools' releases, forum posts), not as stories. */
+  bulletin: number;
+  /** Good enough to print, and kept for a quieter day. */
+  held: number;
+  /** Held by an earlier run and printed by this one: counted among its published, though reviewed before. */
+  released: number;
   tokens: ModelTokens[];
   /** What the provider said the run cost, in US dollars. Left out when it did not say. */
   cost?: number;
@@ -81,6 +87,9 @@ export function parseRuns(text: string): Run[] {
       briefs: Math.min(number(raw.briefs), number(raw.belowThreshold)),
       notRelevant: number(raw.notRelevant),
       invalid: number(raw.invalidReplies),
+      bulletin: number(raw.bulletin),
+      held: number(raw.held),
+      released: number(raw.released),
       tokens: tokensOf(raw),
       sources: readTallies(raw.sources),
       // Nought is a cost too: a run on a free model. Only a run that was told nothing has none.
@@ -109,6 +118,9 @@ export interface Totals {
   briefs: number;
   notRelevant: number;
   invalid: number;
+  bulletin: number;
+  held: number;
+  released: number;
   /** In US dollars, or undefined unless every run that used tokens recorded its cost. */
   cost?: number;
   inputTokens: number;
@@ -139,6 +151,9 @@ export function totalRuns(runs: Run[]): Totals {
     briefs: sum((run) => run.briefs),
     notRelevant: sum((run) => run.notRelevant),
     invalid: sum((run) => run.invalid),
+    bulletin: sum((run) => run.bulletin),
+    held: sum((run) => run.held),
+    released: sum((run) => run.released),
     ...(costed ? { cost: sum((run) => run.cost ?? 0) } : {}),
     inputTokens: tokens.reduce((total, row) => total + row.input, 0),
     outputTokens: tokens.reduce((total, row) => total + row.output, 0),
@@ -148,7 +163,7 @@ export function totalRuns(runs: Run[]): Totals {
 
 /** One part of a divided bar. `tone` picks its shade: the part the bar is about, or one of the rest. */
 export interface Part extends Count {
-  tone: 'main' | 'light' | 'rest' | 'faint' | 'unknown';
+  tone: 'main' | 'waiting' | 'aside' | 'light' | 'rest' | 'faint' | 'unknown';
 }
 
 /**
@@ -157,9 +172,13 @@ export interface Part extends Count {
  * is its own part, so the bar always adds up to the articles reviewed.
  */
 export function outcomes(totals: Totals): Part[] {
-  const known = totals.published + totals.belowThreshold + totals.notRelevant + totals.invalid;
+  // A held story is counted where it ends up: among the published once it is printed, and until then as waiting.
+  const waiting = Math.max(0, totals.held - totals.released);
+  const known = totals.published + waiting + totals.bulletin + totals.belowThreshold + totals.notRelevant + totals.invalid;
   const parts: Part[] = [
     { label: 'Published', count: totals.published, tone: 'main' },
+    { label: 'Held for a quieter day', count: waiting, tone: 'waiting' },
+    { label: 'In the Bulletin', count: totals.bulletin, tone: 'aside' },
     // A close call that was printed in brief is shown as that, and not with the rest that fell short.
     { label: 'Printed in brief', count: totals.briefs, tone: 'light' },
     { label: 'Below the score bar', count: totals.belowThreshold - totals.briefs, tone: 'rest' },

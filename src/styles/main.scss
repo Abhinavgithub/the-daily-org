@@ -2888,6 +2888,8 @@ span.dateline__step {
   --mark-light: #5d9bcb;
   --mark-rest: #9a917e;
   --mark-faint: #c4baa3;
+  // Apart from the blues and beiges, for what is printed but is not a story: the Bulletin's lines.
+  --mark-aside: #5e8a2e;
 
   max-width: 62rem;
   margin: 0 auto;
@@ -2907,6 +2909,7 @@ span.dateline__step {
     --mark-light: #a9d0ee;
     --mark-rest: #8a8272;
     --mark-faint: #5c5647;
+    --mark-aside: #7fbf6a;
   }
 }
 
@@ -2934,6 +2937,18 @@ span.dateline__step {
 
 .mark--faint {
   background: var(--mark-faint);
+}
+
+// Printed, but not as a story.
+.mark--aside {
+  background: var(--mark-aside);
+}
+
+// Good enough to print and not printed yet: the published colour in stripes, the other way from the hatch below.
+.mark--waiting {
+  background: repeating-linear-gradient(45deg, var(--mark) 0 3px, transparent 3px 6px);
+  outline: 1px solid var(--mark);
+  outline-offset: -1px;
 }
 
 // Not known, or not usable: hatched, so it is not read as a count of something.

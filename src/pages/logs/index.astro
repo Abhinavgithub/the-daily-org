@@ -98,7 +98,7 @@ const panels = PERIODS.map((period) => {
       foot: String(Number(d.day.slice(8))),
       parts: [
         { label: 'Published', tone: 'main' as const, count: d.published },
-        { label: 'Held for a quieter day', tone: 'light' as const, count: d.held },
+        { label: 'Held for a quieter day', tone: 'waiting' as const, count: d.held },
         { label: 'Below the bar', tone: 'rest' as const, count: d.below },
         { label: 'Not relevant', tone: 'faint' as const, count: d.notRelevant },
         { label: 'Dropped or left over', tone: 'unknown' as const, count: d.lost },
