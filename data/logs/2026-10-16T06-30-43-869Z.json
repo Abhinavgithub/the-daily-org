@@ -1,0 +1,391 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-10-16T06:30:43.869Z",
+  "day": "2026-10-16",
+  "seconds": 1021,
+  "finished": true,
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 0
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 1
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 1
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 2
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 2
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 3
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 4
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 1
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 0
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 2
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 1
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 4
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 20
+    }
+  ],
+  "articles": [
+    {
+      "title": "Cluadeforce for Territory Planning",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x6rusb/cluadeforce_for_territory_planning/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "How hard is salesforce data cloud consultant certification?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x6la0q/how_hard_is_salesforce_data_cloud_consultant/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Easiest Way to migrate CPQ Quote templates to RC Templates?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x6k9jn/easiest_way_to_migrate_cpq_quote_templates_to_rc/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "I was attempting sales admin certification onsite and when I went to onsite testing centre they asked for physical ID's which I didn't have and then I pointed them out that in the mails they sent me there was no word mentioned to get physical ID's will I be able to write the test again?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x6iypb/i_was_attempting_sales_admin_certification_onsite/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Could you kindly advise me on a suitable tool for Salesforce testing like copado ,prover, Tosca or any other",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x6ee3z/could_you_kindly_advise_me_on_a_suitable_tool_for/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Salesforce Business Analyst at a Partner vs Customer Success Manager (CSM) at Salesforce — Is the switch worth it?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x77jy6/salesforce_business_analyst_at_a_partner_vs/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Seeking Salesforce Revenue Cloud Study Resources",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x76qic/seeking_salesforce_revenue_cloud_study_resources/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "How to invoke a Salesforce Screen Flow directly from a Slack workspace",
+      "url": "https://www.infallibletechie.com/2026/10/invoke-salesforce-screen-flow-from-slack.html",
+      "source": "InfallibleTechie",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Inspired by Dave of Portwood: Rowhouse, a free, open-source data grid for Salesforce",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x6z1hn/inspired_by_dave_of_portwood_rowhouse_a_free/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "How to stream Salesforce Platform Events to AWS using Event Relay and EventBridge",
+      "url": "https://dev.to/aws-builders/streaming-salesforce-events-to-aws-with-event-relay-and-eventbridge-4ac2",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Streaming Salesforce Events to AWS with Event Relay and EventBridge"
+    },
+    {
+      "title": "UPDATE: 1 Year of Building Cert++",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x6sra6/update_1_year_of_building_cert/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Sales Cloud for Claude - but in MS Copilot",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x6pvub/sales_cloud_for_claude_but_in_ms_copilot/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Solution Engineer Salesforce US / Canada",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x6po9b/solution_engineer_salesforce_us_canada/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "A practical framework for managing sandbox previews and testing quarterly Salesforce releases",
+      "url": "https://admin.salesforce.com/blog/2026/be-release-ready-the-admin-habit-that-saves-you-every-time",
+      "source": "Salesforce Admins Blog",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Be Release Ready: The Admin Habit That Saves You Every Time"
+    },
+    {
+      "title": "Salesforce confirms MFA enforcement timelines and extension options for administrators",
+      "url": "https://www.salesforceben.com/salesforce-confirms-new-mfa-updates-what-you-should-expect/",
+      "source": "Salesforce Ben",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Salesforce Multi-Framework now supports Angular, microfrontends, and managed packages",
+      "url": "https://developer.salesforce.com/blogs/2026/10/whats-new-in-salesforce-multi-framework-angular-is-now-ga",
+      "source": "Salesforce Developers Blog",
+      "outcome": "published",
+      "score": 8,
+      "reason": "article title: What’s New in Salesforce Multi-Framework: Angular Is Now GA"
+    },
+    {
+      "title": "Salesforce Pledges Free Slack Enterprise Access to Millions of Higher and Further Education Students in the UK",
+      "url": "https://www.salesforce.com/news/linked-content/salesforce-pledges-free-slack-enterprise-access-to-millions-of-higher-and-further-education-students-in-the-uk/",
+      "source": "Salesforce News",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Salesforce Selected by HMRC to Modernise Tax Services for UK Citizens and Businesses",
+      "url": "https://www.salesforce.com/news/linked-content/salesforce-selected-by-hmrc-to-modernise-tax-services-for-uk-citizens-and-businesses/",
+      "source": "Salesforce News",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Salesforce retires the OAuth username password flow and guides migration to client credentials",
+      "url": "https://salesforcetime.com/2026/10/15/salesforce-oauth-username-password-flow-retirement/",
+      "source": "Salesforce Time",
+      "outcome": "published",
+      "score": 8,
+      "reason": "article title: Salesforce OAuth Username-Password Flow Retirement"
+    },
+    {
+      "title": "Winter 27 release features for admins and Flow Builders",
+      "url": "https://admin.salesforce.com/blog/2026/winter-27-what-admins-should-check-before-their-org-upgrades-podcast",
+      "source": "Salesforce Admins Blog",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "5 Websites Every Salesforce Professional Should Bookmark in 2026",
+      "url": "https://dev.to/rohanmehta/5-websites-every-salesforce-professional-should-bookmark-in-2026-12gi",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Top Salesforce Tools for Bulk Files Actions (Bulk Delete, Move, Rename & More)",
+      "url": "https://dev.to/ayaninsights/top-salesforce-tools-for-bulk-files-actions-bulk-delete-move-rename-more-785",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Tottenham Hotspur Launches Ask Spurs on Agentforce",
+      "url": "https://www.salesforce.com/news/press-releases/2026/10/15/tottenham-hotspur-becomes-agentic-enterprise-with-agentforce/",
+      "source": "Salesforce News",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Architecting Salesforce Marketing Cloud requires a data foundation before campaign configuration",
+      "url": "https://dev.to/rio_albert/marketing-cloud-is-a-data-project-not-a-campaign-setup-127e",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-10-13; printed today, having waited its days for room"
+    },
+    {
+      "title": "Send Custom Notifications in Salesforce using Flow Builder without writing Apex",
+      "url": "https://dev.to/rohanmehta/send-custom-notifications-in-salesforce-using-flow-a-no-code-guide-1547",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-10-13; printed today, having waited its days for room"
+    },
+    {
+      "title": "Using the JSON Path function in AgentScript to extract and filter data",
+      "url": "https://dev.to/exploring_agentforce/agentscript-built-in-functions-jsonpath-cap",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-10-13; printed today, having waited its days for room"
+    },
+    {
+      "title": "Connecting Slack to Salesforce for record context and automated alerts",
+      "url": "https://dev.to/rohanmehta/setting-up-slack-with-salesforce-a-practical-admin-walkthrough-51n3",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-10-13; printed today, having waited its days for room"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "How to invoke a Salesforce Screen Flow directly from a Slack workspace",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "How to stream Salesforce Platform Events to AWS using Event Relay and EventBridge",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "A practical framework for managing sandbox previews and testing quarterly Salesforce releases",
+      "outcome": "kept",
+      "reason": "summary: 20 words differ (at most 6 allowed)"
+    },
+    {
+      "title": "Salesforce confirms MFA enforcement timelines and extension options for administrators",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Salesforce Multi-Framework now supports Angular, microfrontends, and Managed Packages",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Salesforce retires the OAuth username password flow and guides migration to client credentials",
+      "outcome": "corrected",
+      "reason": "summary: 7 words differ (at most 5 allowed)"
+    },
+    {
+      "title": "Winter 27 release features for admins and Flow Builders",
+      "outcome": "kept",
+      "reason": "headline: \"builders\" was removed"
+    }
+  ],
+  "figures": [
+    {
+      "title": "Salesforce Multi-Framework now supports Angular, microfrontends, and Managed Packages",
+      "outcome": "drawn",
+      "kind": "parts",
+      "image": "made"
+    },
+    {
+      "title": "Salesforce retires the OAuth username password flow and guides migration to client credentials",
+      "outcome": "drawn",
+      "kind": "steps"
+    }
+  ],
+  "model": {
+    "calls": 30,
+    "retries": {
+      "empty response": 1,
+      "invalid reply": 1
+    },
+    "usage": {
+      "qwen/qwen3.7-flash": {
+        "input": 46290,
+        "output": 80410
+      },
+      "google/gemini-3.1-flash-image": {
+        "input": 736,
+        "output": 1120
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-10-16T06:47:45.000Z"
+}

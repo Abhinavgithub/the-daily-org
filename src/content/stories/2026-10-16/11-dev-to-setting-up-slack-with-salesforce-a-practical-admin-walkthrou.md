@@ -4,7 +4,7 @@ original_title: "Setting Up Slack with Salesforce: A Practical Admin Walkthrough
 url: https://dev.to/rohanmehta/setting-up-slack-with-salesforce-a-practical-admin-walkthrough-51n3
 source: dev.to
 source_type: community
-date: 2026-10-13
+date: 2026-10-16
 section: integration
 personas:
   - admin
@@ -22,6 +22,7 @@ depth_score: 4
 novelty_score: 3
 utility_score: 7
 model: qwen/qwen3.7-flash
+held_from: 2026-10-13
 ---
 
 The article outlines the steps for linking a Slack workspace to a Salesforce org using the native Guided Slack Setup flow. Administrators verify the connection status, authenticate with Slack, and mark each configuration step as complete to maintain a clear rollout trail.

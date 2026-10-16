@@ -4,7 +4,7 @@ original_title: "AgentScript built-in functions: json_path()"
 url: https://dev.to/exploring_agentforce/agentscript-built-in-functions-jsonpath-cap
 source: dev.to
 source_type: community
-date: 2026-10-13
+date: 2026-10-16
 section: agentforce-and-ai
 personas:
   - developer
@@ -23,6 +23,7 @@ depth_score: 7
 novelty_score: 7
 utility_score: 8
 model: qwen/qwen3.7-flash
+held_from: 2026-10-13
 ---
 
 The article introduces the JSON Path function available in AgentScript, explaining how it extracts data from objects and lists using standard expressions. The function takes three arguments: the source variable, the query path, and an optional default value to return when no match is found. All queries return results as a list.

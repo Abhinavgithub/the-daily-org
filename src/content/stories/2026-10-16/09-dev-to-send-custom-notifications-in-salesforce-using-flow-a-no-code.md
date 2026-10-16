@@ -4,7 +4,7 @@ original_title: "Send Custom Notifications in Salesforce Using Flow: A No-Code G
 url: https://dev.to/rohanmehta/send-custom-notifications-in-salesforce-using-flow-a-no-code-guide-1547
 source: dev.to
 source_type: community
-date: 2026-10-13
+date: 2026-10-16
 section: flow-and-admin
 personas:
   - admin
@@ -23,6 +23,7 @@ depth_score: 6
 novelty_score: 3
 utility_score: 8
 model: qwen/qwen3.7-flash
+held_from: 2026-10-13
 ---
 
 The article explains how to implement Custom Notifications in Salesforce using Flow Builder instead of Apex. It begins by outlining the prerequisite setup in Notification Builder, where administrators define a notification type and select delivery channels such as desktop or mobile.

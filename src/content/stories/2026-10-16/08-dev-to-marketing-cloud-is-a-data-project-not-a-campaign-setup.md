@@ -4,7 +4,7 @@ original_title: Marketing Cloud Is a Data Project, Not a Campaign Setup
 url: https://dev.to/rio_albert/marketing-cloud-is-a-data-project-not-a-campaign-setup-127e
 source: dev.to
 source_type: community
-date: 2026-10-13
+date: 2026-10-16
 section: architecture
 personas:
   - architect
@@ -25,6 +25,7 @@ depth_score: 5
 novelty_score: 3
 utility_score: 6
 model: qwen/qwen3.7-flash
+held_from: 2026-10-13
 ---
 
 The article argues that Salesforce Marketing Cloud implementations often fail when treated as simple campaign setups rather than comprehensive data projects. It emphasizes that reliable personalization depends on a foundational layer that handles data trust, identity mapping, consent tracking, and system integration before any journeys are built.
