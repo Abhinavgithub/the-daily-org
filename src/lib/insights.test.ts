@@ -290,3 +290,29 @@ test('a paper that reads no videos says nothing of them, and forum posts are lef
   );
   assert.deepEqual([forum.ownReviewed, forum.ownPrinted], [3, 2]);
 });
+
+test('a day the paper ran and printed nothing is said, the earliest first', () => {
+  const day = (d: string) => run({ ranAt: `${d}T06:30:00Z`, day: d });
+  const runs = [day('2026-10-13'), day('2026-10-12'), day('2026-10-11'), day('2026-10-10')];
+  const found = findings({ ...quiet, runs, latest: runs[0], editionDays: new Set(['2026-10-10', '2026-10-13']) });
+  const empty = found.find((finding) => finding.says.startsWith('No edition'));
+  assert.equal(empty?.says, 'No edition on 11 Oct and 12 Oct: the paper ran and printed nothing.');
+  assert.equal(empty?.run, '2026-10-12T06:30:00Z');
+  const full = findings({ ...quiet, runs, latest: runs[0], editionDays: new Set(['2026-10-10', '2026-10-11', '2026-10-12', '2026-10-13']) });
+  assert.ok(full.find((finding) => finding.tone === 'fine')?.items?.includes('An edition every day the paper ran'));
+});
+
+test('readers counted days ago are said, and a day or two behind is not', () => {
+  const said = (readersUpTo: string) => findings({ ...quiet, runs: [], readersUpTo, today: '2026-10-17' });
+  assert.equal(said('2026-10-12').find((finding) => finding.tone === 'watch' && finding.says.startsWith('Readers'))?.says, 'Readers were last counted for 12 Oct, 5 days ago.');
+  assert.ok(said('2026-10-15').find((finding) => finding.tone === 'fine')?.items?.includes('Readers counted to 15 Oct'));
+});
+
+test('stories held for a quieter day are counted, and one held past its days is a problem', () => {
+  const said = (days: string[]) => findings({ ...quiet, runs: [], held: { days, wait: 3 }, today: '2026-10-17' });
+  assert.ok(said(['2026-10-16', '2026-10-15']).find((finding) => finding.tone === 'fine')?.items?.includes('2 stories held for a quieter day, the oldest from 15 Oct'));
+  // Held on the 14th, it is printed on the 17th: until that run has been, it is not late.
+  assert.equal(said(['2026-10-14']).some((finding) => finding.tone === 'problem'), false);
+  assert.equal(said(['2026-10-13', '2026-10-16']).find((finding) => finding.tone === 'problem')?.says, 'A story has been held since 13 Oct, past its 3 days of waiting.');
+  assert.equal(said([]).some((finding) => /held/.test(finding.says)), false);
+});

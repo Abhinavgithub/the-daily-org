@@ -260,6 +260,8 @@ export interface Finding {
   href?: string;
   /** What the link to it says, when "See the articles" and the like would not do. */
   link?: string;
+  /** The finding names its own days, so the day of its run is not added after it. */
+  undated?: boolean;
   /** For what is fine: each thing checked, one to a line. */
   items?: string[];
   /**
@@ -289,6 +291,14 @@ export interface FindingsInput {
   videoSources?: boolean;
   /** Headlines of the stories that have their illustration now, so one drawn by a later run is not reported. */
   pictured?: ReadonlySet<string>;
+  /** The edition days that have an edition, stories or briefs. A run's day missing from it printed nothing. */
+  editionDays?: ReadonlySet<string>;
+  /** The newest day whose readers are saved, when readers are counted at all. */
+  readersUpTo?: string;
+  /** The stories held for a quieter day: the days they were held on, and how many days one may wait. */
+  held?: { days: string[]; wait: number };
+  /** Today, as the paper dates its editions. */
+  today?: string;
   spending?: Spending;
   /** How the release edition's own step went, the last time it ran. */
   release?: ReleaseStatus;
@@ -297,6 +307,12 @@ export interface FindingsInput {
   now?: number;
 }
 
+/** Whole days from one day to another, both written 2026-10-16. */
+const daysApart = (from: string, to: string) => Math.round((Date.parse(`${to}T12:00:00Z`) - Date.parse(`${from}T12:00:00Z`)) / 86_400_000);
+/** A day as a finding says it: "16 Oct". */
+const shortDay = (day: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${day}T12:00:00Z`));
+/** "a", "a and b", "a, b and c". */
+const listed = (items: string[]) => (items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`);
 const percent = (part: number, whole: number) => `${Math.round((part / whole) * 100)}%`;
 const plural = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`;
 
@@ -446,6 +462,39 @@ export function findings(input: FindingsInput): Finding[] {
     const named = input.sourcesToLook.map(({ name, why }) => (why ? `${name} (${why})` : name)).join('; ');
     found.push({ tone: 'watch', says: `${plural(input.sourcesToLook.length, 'source needs', 'sources need')} a look: ${named}.`, action: 'Keep it, or take it out of the paper.', href: '#sources' });
   } else fine.push('no source needs a look');
+
+  // A day the paper ran and printed no story or brief: what started this page's held stories. The latest first.
+  if (input.editionDays) {
+    const ranOn = [...new Set(runs.filter((run) => run.kind === 'pipeline' && run.day).map((run) => run.day))].sort().reverse();
+    const empty = ranOn.filter((day) => !input.editionDays!.has(day));
+    if (empty.length > 0) {
+      found.push({
+        tone: 'watch',
+        says: `No edition on ${listed(empty.slice().reverse().map(shortDay))}: the paper ran and printed nothing.`,
+        action: 'Nothing new was good enough, and nothing was held to fill the day. If it keeps happening, the paper needs more sources.',
+        href: '#sources',
+        run: runs.find((run) => run.kind === 'pipeline' && run.day === empty[0])?.ranAt,
+        undated: true,
+      });
+    } else if (ranOn.length > 0) fine.push('an edition every day the paper ran');
+  }
+
+  // Readers are saved a whole day at a time, the day after. Two days behind is a run not yet made; more is a fault.
+  if (input.readersUpTo && input.today) {
+    const behind = daysApart(input.readersUpTo, input.today);
+    if (behind > 2) {
+      found.push({ tone: 'watch', says: `Readers were last counted for ${shortDay(input.readersUpTo)}, ${behind} days ago.`, action: 'The daily run counts each day once it is over. When it says nothing new for days on end, its readership step is failing or being given no figures.' });
+    } else fine.push(`readers counted to ${shortDay(input.readersUpTo)}`);
+  }
+
+  // Stories held for a quieter day. One is printed once it has waited its days, so one older than that was missed.
+  if (input.held && input.today) {
+    const { days, wait } = input.held;
+    const oldest = days.slice().sort()[0];
+    if (oldest && daysApart(oldest, input.today) > wait) {
+      found.push({ tone: 'problem', says: `A story has been held since ${shortDay(oldest)}, past its ${wait} days of waiting.`, action: 'It should have been printed by now. The step that prints held stories may have failed: the latest run says why.', href: '#runs', ...(latest ? { run: latest.ranAt } : {}) });
+    } else if (oldest) fine.push(`${plural(days.length, 'story', 'stories')} held for a quieter day, the oldest from ${shortDay(oldest)}`);
+  }
 
   const money = input.spending;
   if (money?.budget && money.costed > 0) {

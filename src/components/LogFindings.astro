@@ -53,7 +53,7 @@ const clock = (iso: string) => `on ${new Intl.DateTimeFormat('en-GB', { weekday:
             ) : (
               <>
                 {!finding.items && finding.says}
-                {finding.run && <span class="finding__when">{day(finding.run)}</span>}
+                {finding.run && !finding.undated && <span class="finding__when">{day(finding.run)}</span>}
               </>
             )}
           </p>

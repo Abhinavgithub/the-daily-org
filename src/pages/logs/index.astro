@@ -17,7 +17,9 @@ import Layout from '../../layouts/Layout.astro';
 import { allArticles, byDay, facts, findings, glance, spending, within } from '../../lib/insights';
 import { byNewest, costsByRun, legacyRuns, problems, readLog, readReleaseStatus, staleEditions, type RunLogData } from '../../lib/logs';
 import { addTallies, RULES as SOURCE_RULES, scorecard, standings } from '../../lib/sources';
+import { parseReadership } from '../../lib/readership';
 import { formatNumber, parseRuns } from '../../lib/stats';
+import { HELD, HOLD_DAYS } from '../../../pipeline/hold';
 import { formatDay, getEditions } from '../../lib/stories';
 
 const data = path.join(process.cwd(), 'data');
@@ -89,6 +91,12 @@ const PERIODS = [
   { id: 'all', label: 'All', days: undefined },
 ] as const;
 const latest = allFacts.find((run) => run.kind === 'pipeline');
+// Today as the paper dates its editions, and what the checks of every period share.
+const today = new Intl.DateTimeFormat('en-CA', { timeZone: PAPER.timezone, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
+const editionDays = new Set(editions.map((edition) => edition.day));
+const readers = parseReadership(read(path.join(data, 'readership.jsonl')));
+const heldDir = path.join(data, HELD);
+const held = { days: (fs.existsSync(heldDir) ? fs.readdirSync(heldDir) : []).filter((file) => file.endsWith('.md')).map((file) => file.slice(0, 10)), wait: HOLD_DAYS };
 const dayName = (day: string) => new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${day}T12:00:00Z`));
 const panels = PERIODS.map((period) => {
   const mine = within(allFacts, period.days);
@@ -96,7 +104,7 @@ const panels = PERIODS.map((period) => {
   const days = byDay(mine).slice(-31);
   return {
     ...period,
-    findings: findings({ runs: mine, latest, stale, failingFeeds, sourcesToLook: scores.filter((row) => row.verdict.look).map((row) => ({ name: row.name, why: row.verdict.says.replace(/^Watch: /, '').toLowerCase() })), videoSources: SOURCES.some((source) => source.type === 'video'), pictured, spending: money, release, maxCalls }),
+    findings: findings({ runs: mine, latest, stale, failingFeeds, sourcesToLook: scores.filter((row) => row.verdict.look).map((row) => ({ name: row.name, why: row.verdict.says.replace(/^Watch: /, '').toLowerCase() })), videoSources: SOURCES.some((source) => source.type === 'video'), pictured, editionDays, readersUpTo: readers.at(-1)?.date, held, today, spending: money, release, maxCalls }),
     glance: glance(mine),
     outcomes: days.map((d) => ({
       when: dayName(d.day),
