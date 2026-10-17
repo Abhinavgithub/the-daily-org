@@ -110,11 +110,11 @@ test('a healthy paper says what is fine, so a short list is not mistaken for not
 test('each finding has its rule, and problems come before things to watch', () => {
   const bad = facts(log);
   const found = findings({
-    runs: [bad, run({ reviewed: 16, published: 1, calls: 0 })],
+    runs: [bad, run({ reviewed: 16, published: 1, ownReviewed: 16, ownPrinted: 1, calls: 0 })],
     latest: bad,
     stale: [{ day: '2026-10-04', onDisk: 21, served: 19 }],
     failingFeeds: [{ name: 'Feed B', failures: 3 }],
-    sourcesToLook: ['Source A', 'Source B'],
+    sourcesToLook: [{ name: 'Source A', why: 'low yield, 1 of 9 printed' }, { name: 'Source B' }],
     spending: { spent: 1.7, pace: 2.6, runs: 3, costed: 3, budget: 2 },
     maxCalls: 60,
     now: NOW,
@@ -127,9 +127,9 @@ test('each finding has its rule, and problems come before things to watch', () =
   ]) assert.match(text, expected);
   assert.match(text, /watch: 1 article was left for the next run\./);
   assert.match(text, /watch: 24 of 40 model calls \(60%\) were repeats, 20 of them for rate limits\./);
-  assert.match(text, /watch: 1 illustration could not be made\./);
-  assert.match(text, /watch: Only 2 of 20 articles reviewed \(10%\) were published\./);
-  assert.match(text, /watch: 2 sources need a look: Source A, Source B\./);
+  assert.match(text, /watch: A story has no illustration: \S/);
+  assert.match(text, /watch: Only \d+ of \d+ articles reviewed \(\d+%\) were printed, forum posts aside\./);
+  assert.match(text, /watch: 2 sources need a look: Source A \(low yield, 1 of 9 printed\); Source B\./);
   assert.match(text, /watch: This month has cost \$1\.70 and is on pace for \$2\.60, against a budget of \$2\.00\./);
   assert.doesNotMatch(text, /reviews .* came back unusable/, '1 unusable reply in 20 is under the bar');
   assert.equal(found.find((f) => /left for the next run/.test(f.says))?.action, 'If this keeps happening, raise the limit on model calls for a run, now 60 (the setting LLM_MAX_CALLS).');
@@ -213,10 +213,16 @@ test('videos judged without their transcripts are said so, and a video waiting f
 });
 
 test('a finding that comes from a run names the newest run where it happened', () => {
-  const runs = [run({ ranAt: '2026-10-06T10:00:00Z' }), run({ ranAt: '2026-10-05T10:00:00Z', picturesFailed: 1 }), run({ ranAt: '2026-10-04T10:00:00Z', picturesFailed: 2 })];
+  const runs = [run({ ranAt: '2026-10-06T10:00:00Z' }), run({ ranAt: '2026-10-05T10:00:00Z', picturesMissing: ['Drawn later'] }), run({ ranAt: '2026-10-04T10:00:00Z', picturesMissing: ['Still bare', 'Also bare'] })];
   const found = findings({ runs, latest: runs[0], stale: [], failingFeeds: [], sourcesToLook: [], now: Date.parse('2026-10-06T11:00:00Z') });
-  const pictures = found.find((finding) => finding.says.includes('illustrations could not be made'));
+  const pictures = found.find((finding) => finding.says.includes('no illustration'));
+  assert.equal(pictures?.says, '3 stories have no illustration, the latest "Drawn later".');
   assert.equal(pictures?.run, '2026-10-05T10:00:00Z');
+  // A picture a later run drew is not missing, and the run named is the newest still without one.
+  const later = findings({ runs, latest: runs[0], stale: [], failingFeeds: [], sourcesToLook: [], pictured: new Set(['Drawn later']), now: Date.parse('2026-10-06T11:00:00Z') }).find((finding) => finding.says.includes('no illustration'));
+  assert.deepEqual([later?.says, later?.run], ['2 stories have no illustration, the latest "Still bare".', '2026-10-04T10:00:00Z']);
+  const none = findings({ runs, latest: runs[0], stale: [], failingFeeds: [], sourcesToLook: [], pictured: new Set(['Drawn later', 'Still bare', 'Also bare']) });
+  assert.equal(none.some((finding) => finding.says.includes('no illustration')), false);
   assert.doesNotMatch(pictures?.action ?? '', /npm|LLM_/, 'the advice is in plain words');
 
   const stopped = run({ ranAt: '2026-10-06T10:00:00Z', finished: false, stopped: 'the call cap' });
@@ -256,4 +262,31 @@ test('a story held for a quieter day is counted as reviewed, and apart from thos
   const lines = facts(readLog('{"ranAt":"2026-10-13T06:30:00Z","day":"2026-10-13","articles":[{"title":"Printed","url":"https://x/1","source":"B","outcome":"published"},{"title":"A post","url":"https://x/3","source":"R","outcome":"published","reason":"printed in the Bulletin, as a line from the community"}]}') as RunLogData);
   assert.deepEqual([lines.published, lines.bulletin, lines.reviewed], [1, 1, 2]);
   assert.equal(byDay([held])[0].held, 1);
+});
+
+test('a paper that reads no videos says nothing of them, and forum posts are left out of the yield', () => {
+  const at = { ranAt: '2026-10-06T10:00:00Z' };
+  const old = run({ ...at, videosHeard: 0, videosDescribed: 4 });
+  const text = (videoSources?: boolean) => findings({ ...quiet, runs: [old], latest: old, videoSources }).map((finding) => finding.says).join(' | ');
+  assert.match(text(), /4 of 4 videos/);
+  assert.doesNotMatch(text(false), /videos/);
+
+  const forum = facts(
+    readLog(
+      JSON.stringify({
+        ranAt: '2026-10-06T10:00:00Z',
+        articles: [
+          { title: 'A', url: 'https://x/a', source: 'Blog', outcome: 'published' },
+          { title: 'B', url: 'https://x/b', source: 'Blog', outcome: 'held' },
+          { title: 'C', url: 'https://x/c', source: 'Blog', outcome: 'not-relevant' },
+          { title: 'D', url: 'https://x/d', source: 'Forum', outcome: 'not-relevant' },
+          { title: 'E', url: 'https://x/e', source: 'Forum', outcome: 'published', reason: 'printed in the Bulletin, as a line from the community' },
+          { title: 'F', url: 'https://x/f', source: 'Blog', outcome: 'dropped' },
+        ],
+      }),
+    ) as RunLogData,
+    undefined,
+    new Set(['Forum']),
+  );
+  assert.deepEqual([forum.ownReviewed, forum.ownPrinted], [3, 2]);
 });

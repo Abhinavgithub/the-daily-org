@@ -10,6 +10,11 @@ interface Props {
 
 const { findings } = Astro.props;
 const WORD = { problem: 'Problem', watch: 'Watch', fine: 'Fine' };
+// The day of the run a finding comes from, as a finding is dated.
+const day = (iso: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short' }).format(new Date(iso));
+// What a link says, by where it goes, so it can be told where it leads.
+const LINK: Record<string, string> = { '#articles': 'See the articles', '#sources': 'See the scorecard', '#runs': 'See the runs' };
+const linkText = (finding: Finding) => finding.link ?? (finding.run ? `See the ${day(finding.run)} run` : LINK[finding.href ?? ''] ?? 'See it');
 // A time said outright, for a reader without the script that turns it into "2 hours ago".
 const clock = (iso: string) => `on ${new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }).format(new Date(iso))}`;
 ---
@@ -35,7 +40,7 @@ const clock = (iso: string) => `on ${new Intl.DateTimeFormat('en-GB', { weekday:
                   </time>
                   .{' '}
                 </span>
-                {finding.says}
+                {!finding.items && finding.says}
               </>
             ) : finding.lastRunAt ? (
               <>
@@ -46,9 +51,19 @@ const clock = (iso: string) => `on ${new Intl.DateTimeFormat('en-GB', { weekday:
                 .
               </>
             ) : (
-              finding.says
+              <>
+                {!finding.items && finding.says}
+                {finding.run && <span class="finding__when">{day(finding.run)}</span>}
+              </>
             )}
           </p>
+          {finding.items && (
+            <ul class="finding__items">
+              {finding.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          )}
           {finding.action && (
             <p class="finding__action">
               {finding.action}
@@ -57,10 +72,10 @@ const clock = (iso: string) => `on ${new Intl.DateTimeFormat('en-GB', { weekday:
                   {' '}
                   {finding.run ? (
                     <a href={`#${runId(finding.run)}`} data-run-link>
-                      See&nbsp;the&nbsp;run
+                      {linkText(finding)}
                     </a>
                   ) : (
-                    <a href={finding.href}>See&nbsp;it</a>
+                    <a href={finding.href}>{linkText(finding)}</a>
                   )}
                 </>
               )}

@@ -37,7 +37,9 @@ const older = legacyRuns(statsText, known).sort(byNewest);
 const costs = costsByRun(statsText);
 const costOf = (log: RunLogData) => costs[log.statsAt ?? log.ranAt];
 const runs = [...logs, ...older].sort(byNewest);
-const allFacts = runs.map((log) => facts(log, costOf(log)));
+// Forum posts are mostly turned away by design, so they are left out of a run's yield.
+const forums = new Set(SOURCES.filter((source) => source.type === 'discussion').map((source) => source.name));
+const allFacts = runs.map((log) => facts(log, costOf(log), forums));
 
 let state: Record<string, { failures?: number; lastSuccessAt?: string; lastError?: string; lastPostAt?: string }> = {};
 try {
@@ -65,7 +67,10 @@ for (const kind of ['stories', 'briefs']) {
     if (count > 0) onDisk[day] = (onDisk[day] ?? 0) + count;
   }
 }
-const served = Object.fromEntries((await getEditions()).map((edition) => [edition.day, edition.stories.length + edition.briefs.length]));
+const editions = await getEditions();
+const served = Object.fromEntries(editions.map((edition) => [edition.day, edition.stories.length + edition.briefs.length]));
+// Stories with their illustration, so one drawn by a later run is not reported as missing.
+const pictured = new Set(editions.flatMap((edition) => edition.stories.filter((story) => story.data.figure_image).map((story) => story.data.title)));
 // Only a dev server can fall behind the files; a built site shows exactly what was on disk.
 const stale = import.meta.env.DEV ? staleEditions(onDisk, served).map((edition) => ({ ...edition, day: formatDay(edition.day, 'short') })) : [];
 const builtAt = new Date().toISOString();
@@ -91,7 +96,7 @@ const panels = PERIODS.map((period) => {
   const days = byDay(mine).slice(-31);
   return {
     ...period,
-    findings: findings({ runs: mine, latest, stale, failingFeeds, sourcesToLook: scores.filter((row) => row.verdict.look).map((row) => row.name), spending: money, release, maxCalls }),
+    findings: findings({ runs: mine, latest, stale, failingFeeds, sourcesToLook: scores.filter((row) => row.verdict.look).map((row) => ({ name: row.name, why: row.verdict.says.replace(/^Watch: /, '').toLowerCase() })), videoSources: SOURCES.some((source) => source.type === 'video'), pictured, spending: money, release, maxCalls }),
     glance: glance(mine),
     outcomes: days.map((d) => ({
       when: dayName(d.day),

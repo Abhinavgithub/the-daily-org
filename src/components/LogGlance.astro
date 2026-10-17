@@ -10,7 +10,8 @@ interface Props {
 }
 
 const { glance, spending } = Astro.props;
-const yieldShare = glance.reviewed ? Math.round((glance.published / glance.reviewed) * 100) : undefined;
+// Counted as Needs attention counts it: forum posts aside, and a Bulletin line or a held story as printed.
+const yieldShare = glance.ownReviewed ? Math.round((glance.ownPrinted / glance.ownReviewed) * 100) : undefined;
 ---
 
 <dl class="glance">
@@ -35,7 +36,7 @@ const yieldShare = glance.reviewed ? Math.round((glance.published / glance.revie
   <div>
     <dt>Reviewed</dt>
     <dd>{formatNumber(glance.reviewed)}</dd>
-    <dd class="glance__note">{yieldShare === undefined ? 'by the model' : `${yieldShare}% published`}</dd>
+    <dd class="glance__note">{yieldShare === undefined ? 'by the model' : `${yieldShare}% printed, forum posts aside`}</dd>
   </div>
   <div>
     <dt>Model calls</dt>

@@ -50,14 +50,22 @@ export interface RunFacts {
   figures: number;
   figuresRefused: number;
   picturesFailed: number;
+  /** The headlines of the stories whose illustration could not be made. */
+  picturesMissing: string[];
+  /** Articles reviewed, and of them printed (as a story, a Bulletin line, or held to print later), leaving out forum posts. */
+  ownReviewed: number;
+  ownPrinted: number;
 }
 
 const outcomeCount = (log: RunLogData, outcome: ArticleOutcome) => log.articles.filter((article) => article.outcome === outcome).length;
 /** Printed as a line in the Bulletin (an alert, a tool's release, a forum post), not as a story. The pipeline's reason says so. */
 export const inBulletin = (article: LogArticle) => article.outcome === 'published' && /^printed in the Bulletin/.test(article.reason ?? '');
 
-/** A run's log as facts. `cost` is what its stats line recorded, when it recorded one. */
-export function facts(log: RunLogData, cost?: number): RunFacts {
+/**
+ * A run's log as facts. `cost` is what its stats line recorded, when it recorded one. `forums` are the names of the
+ * sources whose posts are mostly turned away by design, left out of the run's yield.
+ */
+export function facts(log: RunLogData, cost?: number, forums: ReadonlySet<string> = new Set()): RunFacts {
   const retries = Object.values(log.model.retries).reduce((sum, n) => sum + n, 0);
   const totalsOnly = log.totals !== undefined;
   // Stories only, as data/stats.jsonl counts them: a Bulletin line is counted apart.
@@ -67,6 +75,7 @@ export function facts(log: RunLogData, cost?: number): RunFacts {
   const below = log.outcomes?.below ?? outcomeCount(log, 'below-threshold');
   const notRelevant = log.outcomes?.notRelevant ?? outcomeCount(log, 'not-relevant');
   const invalid = log.outcomes?.invalid ?? outcomeCount(log, 'invalid-reply');
+  const own = log.articles.filter((article) => article.outcome !== 'dropped' && article.outcome !== 'deferred' && !forums.has(article.source));
   return {
     kind: log.kind,
     ranAt: log.ranAt,
@@ -100,6 +109,9 @@ export function facts(log: RunLogData, cost?: number): RunFacts {
     figures: log.figures.filter((figure) => figure.outcome === 'drawn' || figure.outcome === 'refused').length,
     figuresRefused: log.figures.filter((figure) => figure.outcome === 'refused').length,
     picturesFailed: log.figures.filter((figure) => figure.image === 'failed').length,
+    picturesMissing: log.figures.filter((figure) => figure.image === 'failed').map((figure) => figure.title),
+    ownReviewed: log.totals ? log.totals.reviewed : own.length,
+    ownPrinted: log.totals ? log.totals.published : own.filter((article) => article.outcome === 'published' || article.outcome === 'held').length,
   };
 }
 
@@ -157,6 +169,9 @@ export interface Glance {
   runs: number;
   published: number;
   reviewed: number;
+  /** Articles reviewed and of them printed, forum posts aside, as the yield is judged under Needs attention. */
+  ownReviewed: number;
+  ownPrinted: number;
   calls: number;
   retries: number;
   tokens: number;
@@ -172,6 +187,8 @@ export function glance(runs: RunFacts[], now = Date.now()): Glance {
     runs: pipeline.length,
     published: sum((run) => run.published),
     reviewed: sum((run) => run.reviewed),
+    ownReviewed: sum((run) => run.ownReviewed),
+    ownPrinted: sum((run) => run.ownPrinted),
     calls: sum((run) => run.calls),
     retries: sum((run) => run.retries),
     tokens: sum((run) => run.tokens),
@@ -241,6 +258,10 @@ export interface Finding {
   action?: string;
   /** Where on the page the detail is. */
   href?: string;
+  /** What the link to it says, when "See the articles" and the like would not do. */
+  link?: string;
+  /** For what is fine: each thing checked, one to a line. */
+  items?: string[];
   /**
    * When the last run was, on the two findings that depend on how long ago
    * that is. A page built once and read later decides them again as it loads:
@@ -262,8 +283,12 @@ export interface FindingsInput {
   stale: { day: string; onDisk: number; served: number }[];
   /** Feeds that have failed several runs in a row, by name. */
   failingFeeds: { name: string; failures: number }[];
-  /** Sources the scorecard says need a look, by name. */
-  sourcesToLook: string[];
+  /** Sources the scorecard says need a look, by name, with what it says of each. */
+  sourcesToLook: { name: string; why?: string }[];
+  /** Whether the paper reads any videos now. Without them, nothing is said of how videos were judged. */
+  videoSources?: boolean;
+  /** Headlines of the stories that have their illustration now, so one drawn by a later run is not reported. */
+  pictured?: ReadonlySet<string>;
   spending?: Spending;
   /** How the release edition's own step went, the last time it ran. */
   release?: ReleaseStatus;
@@ -305,7 +330,8 @@ export function findings(input: FindingsInput): Finding[] {
         tone: 'watch',
         says: `${plural(latest.deferred, 'article was', 'articles were')} left for the next run.`,
         action: `If this keeps happening, raise the limit on model calls for a run${input.maxCalls ? `, now ${input.maxCalls}` : ''} (the setting LLM_MAX_CALLS).`,
-        href: '#articles',
+        href: '#runs',
+        run: latest.ranAt,
       });
     }
   }
@@ -313,7 +339,9 @@ export function findings(input: FindingsInput): Finding[] {
   // Videos are meant to be judged on what is said in them. The way to transcripts is unofficial and can shut.
   const heard = sum((run) => run.videosHeard);
   const described = sum((run) => run.videosDescribed);
-  if (latest?.transcriptsDown) {
+  if (input.videoSources === false) {
+    // The paper reads no videos now: what was said of them before is history.
+  } else if (latest?.transcriptsDown) {
     found.push({
       tone: 'watch',
       says: `No video transcript could be fetched in the last run (${latest.transcriptsDown}), so its videos were judged on their descriptions.`,
@@ -393,16 +421,30 @@ export function findings(input: FindingsInput): Finding[] {
   if (figures >= RULES.figures.figures && refused / figures >= RULES.figures.share) {
     found.push({ tone: 'watch', says: `${refused} of ${figures} diagrams (${percent(refused, figures)}) were refused.`, action: 'They stated something the article did not, or were the wrong shape.', href: '#runs', ...where((run) => run.figuresRefused) });
   }
-  const pictures = sum((run) => run.picturesFailed);
-  if (pictures > 0) found.push({ tone: 'watch', says: `${plural(pictures, 'illustration', 'illustrations')} could not be made.`, action: 'The run says why. If the story now has its picture, a later run drew it and nothing needs doing.', href: '#runs', ...where((run) => run.picturesFailed) });
-
-  const published = sum((run) => run.published);
-  if (reviewed >= RULES.lowYield.reviewed && published / reviewed < RULES.lowYield.share) {
-    found.push({ tone: 'watch', says: `Only ${published} of ${reviewed} articles reviewed (${percent(published, reviewed)}) were published.`, action: 'The sources, or the paper\'s description of what is relevant, need a look.', href: '#sources' });
+  // A picture a later run drew is not missing: only the stories still without one are said.
+  const stillMissing = (run: RunFacts) => run.picturesMissing.filter((title) => !input.pictured?.has(title));
+  const missing = runs.flatMap(stillMissing);
+  if (missing.length > 0) {
+    found.push({
+      tone: 'watch',
+      says: missing.length === 1 ? `A story has no illustration: ${missing[0]}.` : `${missing.length} stories have no illustration, the latest "${missing[0]}".`,
+      action: 'It could not be drawn, and no later run has drawn it. The run says why.',
+      href: '#runs',
+      ...where((run) => stillMissing(run).length),
+    });
   }
 
+  // Forum posts are left out: most are turned away by design, and they would hide how the sources of articles are doing.
+  // A Bulletin line, or a story held to print later, counts as printed.
+  const ownReviewed = sum((run) => run.ownReviewed);
+  const ownPrinted = sum((run) => run.ownPrinted);
+  if (ownReviewed >= RULES.lowYield.reviewed && ownPrinted / ownReviewed < RULES.lowYield.share) {
+    found.push({ tone: 'watch', says: `Only ${ownPrinted} of ${ownReviewed} articles reviewed (${percent(ownPrinted, ownReviewed)}) were printed, forum posts aside.`, action: 'The sources, or the paper\'s description of what is relevant, need a look.', href: '#sources' });
+  } else if (ownReviewed >= RULES.lowYield.reviewed) fine.push(`${percent(ownPrinted, ownReviewed)} of articles reviewed were printed`);
+
   if (input.sourcesToLook.length) {
-    found.push({ tone: 'watch', says: `${plural(input.sourcesToLook.length, 'source needs', 'sources need')} a look: ${input.sourcesToLook.join(', ')}.`, action: 'See what the scorecard says of each.', href: '#sources' });
+    const named = input.sourcesToLook.map(({ name, why }) => (why ? `${name} (${why})` : name)).join('; ');
+    found.push({ tone: 'watch', says: `${plural(input.sourcesToLook.length, 'source needs', 'sources need')} a look: ${named}.`, action: 'Keep it, or take it out of the paper.', href: '#sources' });
   } else fine.push('no source needs a look');
 
   const money = input.spending;
@@ -421,7 +463,7 @@ export function findings(input: FindingsInput): Finding[] {
 
   const order: Tone[] = ['problem', 'watch'];
   found.sort((a, b) => order.indexOf(a.tone) - order.indexOf(b.tone));
-  if (fine.length) found.push({ tone: 'fine', says: `${fine.join(', ').replace(/^./, (first) => first.toUpperCase())}.`, ...(latest ? { lastRunAt: latest.ranAt } : {}) });
+  if (fine.length) found.push({ tone: 'fine', says: `${fine.join(', ').replace(/^./, (first) => first.toUpperCase())}.`, items: fine.map((item) => item.replace(/^./, (first) => first.toUpperCase())), ...(latest ? { lastRunAt: latest.ranAt } : {}) });
   return found;
 }
 

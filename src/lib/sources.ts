@@ -109,8 +109,11 @@ function ago(days: number): string {
   return 'over a year';
 }
 
-/** What to make of a source, most pressing reason first. A verdict prompts a decision; it never makes one. */
-export function verdict(tally: SourceTally, feed: FeedState = {}, now = Date.now()): Verdict {
+/**
+ * What to make of a source. A forum is not judged on its yield: most of its posts are questions, turned away by
+ * design, and the few that print are lines in the Bulletin.
+ */
+export function verdict(tally: SourceTally, feed: FeedState = {}, now = Date.now(), forum = false): Verdict {
   if ((feed.failures ?? 0) >= RULES.failing) return { standing: 'failing', says: `Failing: ${feed.failures} runs in a row`, look: true };
 
   const lost = tally.dropped + tally.unread;
@@ -121,8 +124,10 @@ export function verdict(tally: SourceTally, feed: FeedState = {}, now = Date.now
   const last = Date.parse(feed.lastPostAt ?? '');
   if (!Number.isNaN(last) && now - last > RULES.quietDays * DAY) return { standing: 'quiet', says: `Quiet for ${ago((now - last) / DAY)}`, look: true };
 
+  if (forum) return tally.reviewed < RULES.strong.reviewed ? { standing: 'new', says: 'Too new to say', look: false } : { standing: 'keep', says: 'Keep: a forum, most posts turned away by design', look: false };
+
   const share = tally.reviewed ? tally.published / tally.reviewed : 0;
-  if (tally.reviewed >= RULES.low.reviewed && share < RULES.low.share) return { standing: 'low', says: 'Watch: low yield', look: true };
+  if (tally.reviewed >= RULES.low.reviewed && share < RULES.low.share) return { standing: 'low', says: `Watch: low yield, ${tally.published} of ${tally.reviewed} printed`, look: true };
   if (tally.reviewed >= RULES.strong.reviewed && share >= RULES.strong.share) return { standing: 'strong', says: 'Keep: strong', look: false };
   if (tally.reviewed < RULES.strong.reviewed) return { standing: 'new', says: 'Too new to say', look: false };
   return { standing: 'keep', says: 'Keep', look: false };
@@ -157,7 +162,7 @@ const ORDER: Standing[] = ['strong', 'keep', 'new', 'low', 'quiet', 'unreadable'
 
 /** One row per source of the paper, the strongest first and the ones needing a look last. */
 export function scorecard(
-  sources: { id: string; name: string }[],
+  sources: { id: string; name: string; type?: string }[],
   tallies: Record<string, SourceTally>,
   feeds: Record<string, FeedState>,
   now = Date.now(),
@@ -174,7 +179,7 @@ export function scorecard(
         averageScore: scores.length ? Math.round((scores.reduce((sum, score) => sum + score, 0) / scores.length) * 10) / 10 : undefined,
         tokensPerStory: tally.published ? Math.round(tally.tokens / tally.published) : undefined,
         lastPostAt: feeds[source.id]?.lastPostAt,
-        verdict: verdict(tally, feeds[source.id], now),
+        verdict: verdict(tally, feeds[source.id], now, source.type === 'discussion'),
       };
     })
     .sort((a, b) => ORDER.indexOf(a.verdict.standing) - ORDER.indexOf(b.verdict.standing) || b.tally.published - a.tally.published || a.name.localeCompare(b.name));

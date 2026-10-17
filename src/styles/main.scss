@@ -2464,6 +2464,36 @@ span.dateline__step {
   color: var(--muted);
 }
 
+// The day of the run a finding comes from, after what it says.
+.finding__when {
+  margin-left: 0.5rem;
+  color: var(--muted);
+  font-weight: 400;
+  font-size: 0.85em;
+  white-space: nowrap;
+}
+
+// What is fine, one thing checked to a line, each ticked.
+.finding__items {
+  margin: 0.2rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: var(--muted);
+
+  li {
+    position: relative;
+    padding-left: 1.2rem;
+    line-height: 1.5;
+  }
+
+  li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: var(--ink);
+  }
+}
+
 .finding__action {
   margin-top: 0.15rem !important;
   line-height: 1.45;
@@ -2792,6 +2822,41 @@ span.dateline__step {
 
   li:last-child {
     border-bottom: 0;
+  }
+}
+
+// A run's figures as label and value, side by side, wrapping on a narrow screen.
+.log__facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 2.25rem;
+  margin: 0 0 0.9rem;
+
+  dt {
+    color: var(--muted);
+    font-size: 0.72rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  dd {
+    margin: 0.1rem 0 0;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+// Numbers line up on the right, under their headings.
+.log__tokens {
+  th:not(:first-child),
+  td:not(:first-child) {
+    text-align: right;
+  }
+
+  tfoot th,
+  tfoot td {
+    border-top: 1px solid var(--ink);
+    border-bottom: 0;
+    font-weight: 600;
   }
 }
 

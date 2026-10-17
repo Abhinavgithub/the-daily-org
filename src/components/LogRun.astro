@@ -18,7 +18,9 @@ const f = facts(log, cost);
 const when = new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }).format(new Date(log.ranAt));
 const failedFeeds = log.feeds.filter((feed) => feed.error);
 const retries = Object.entries(log.model.retries).filter(([, n]) => n > 0);
-const usage = Object.entries(log.model.usage);
+const retried = retries.reduce((sum, [, n]) => sum + n, 0);
+// Heaviest first.
+const usage = Object.entries(log.model.usage).sort(([, a], [, b]) => b.input + b.output - (a.input + a.output));
 const PROOF = { corrected: 'Corrected', unchanged: 'Needed nothing', kept: 'Kept as written', skipped: 'Not proof-read' };
 const FIGURE = { drawn: 'Drawn', none: 'Nothing to draw', refused: 'Refused', skipped: 'Skipped' };
 // What became of the run's articles, as the parts of a small bar.
@@ -130,12 +132,74 @@ const drawn = log.figures.filter((figure) => figure.outcome === 'drawn').length;
 
     <section>
       <h3>Model</h3>
-      <p class="log__line">
-        {formatNumber(log.model.calls)} {log.model.calls === 1 ? 'call' : 'calls'}
-        {log.seconds > 0 && `, ${Math.round(log.seconds / 60) || '<1'} min`}
-        {retries.length > 0 && `. Extra calls: ${retries.map(([cause, n]) => `${cause} (${n})`).join(', ')}`}
-        {usage.length > 0 && `. Tokens: ${usage.map(([model, spent]) => `${model} ${formatNumber(spent.input)} in, ${formatNumber(spent.output)} out`).join('; ')}`}
-      </p>
+      <dl class="log__facts">
+        <div>
+          <dt>Calls</dt>
+          <dd>{formatNumber(log.model.calls)}</dd>
+        </div>
+        {
+          retries.length > 0 && (
+            <div>
+              <dt>Made again</dt>
+              <dd>
+                {formatNumber(retried)}
+                <span class="log__reason">{retries.map(([cause, n]) => `${n} ${cause}`).join(', ')}</span>
+              </dd>
+            </div>
+          )
+        }
+        {
+          log.seconds > 0 && (
+            <div>
+              <dt>Time</dt>
+              <dd>{Math.round(log.seconds / 60) || '<1'} min</dd>
+            </div>
+          )
+        }
+        {
+          cost !== undefined && (
+            <div>
+              <dt>Cost</dt>
+              <dd>{dollars(cost)}</dd>
+            </div>
+          )
+        }
+      </dl>
+      {
+        usage.length > 0 && (
+          <div class="log__scroll">
+            <table class="log__table log__tokens">
+              <thead>
+                <tr>
+                  <th scope="col">Model</th>
+                  <th scope="col">Tokens in</th>
+                  <th scope="col">Tokens out</th>
+                </tr>
+              </thead>
+              <tbody>
+                {usage.map(([model, spent]) => (
+                  <tr>
+                    <td>{model}</td>
+                    <td>{formatNumber(spent.input)}</td>
+                    <td>{formatNumber(spent.output)}</td>
+                  </tr>
+                ))}
+              </tbody>
+              {
+                usage.length > 1 && (
+                  <tfoot>
+                    <tr>
+                      <th scope="row">All</th>
+                      <td>{formatNumber(usage.reduce((sum, [, spent]) => sum + spent.input, 0))}</td>
+                      <td>{formatNumber(usage.reduce((sum, [, spent]) => sum + spent.output, 0))}</td>
+                    </tr>
+                  </tfoot>
+                )
+              }
+            </table>
+          </div>
+        )
+      }
     </section>
   </div>
 </details>

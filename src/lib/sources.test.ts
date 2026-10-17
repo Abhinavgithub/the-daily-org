@@ -67,3 +67,12 @@ test('the scorecard has every source of the paper, the strongest first', () => {
   assert.equal(standings(rows), '4 sources: 2 need a look, 1 strong, 1 too new to say.');
   assert.equal(standings(rows.slice(0, 1)), '1 source: none needs a look, 1 strong.');
 });
+
+test('a forum is not judged on its yield, as most of its posts are turned away by design', () => {
+  const quiet = { ...emptyTally(), new: 140, reviewed: 140, published: 3 };
+  assert.equal(verdict(quiet).standing, 'low');
+  assert.equal(verdict(quiet).says, 'Watch: low yield, 3 of 140 printed');
+  assert.deepEqual(verdict(quiet, {}, Date.now(), true), { standing: 'keep', says: 'Keep: a forum, most posts turned away by design', look: false });
+  // A forum that keeps failing is still said to be failing.
+  assert.equal(verdict(quiet, { failures: 3 }, Date.now(), true).standing, 'failing');
+});
