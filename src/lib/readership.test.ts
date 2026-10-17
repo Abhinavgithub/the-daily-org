@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { countryName, pageName, parseReadership, referrerName, scaleSteps, topWithOthers, totalReadership } from './readership';
+import { countryName, missingDays, pageName, parseReadership, referrerName, scaleSteps, topWithOthers, totalReadership } from './readership';
 
 const lines = [
   '{"date":"2026-10-05","views":6,"visits":6,"countries":{"IN":4,"US":2},"pages":{"/":6},"referrers":{"":6},"devices":{"mobile":4,"desktop":2}}',
@@ -65,4 +65,10 @@ test("a chart's scale steps in round numbers", () => {
     const steps = scaleSteps(most);
     assert.ok(steps[4] >= most && steps.every(Number.isInteger), `${most}: ${steps}`);
   }
+});
+
+test('the days not saved yet are found, oldest first, across the end of a month', () => {
+  assert.deepEqual(missingDays(['2026-09-30', '2026-10-02'], '2026-09-29', '2026-10-03'), ['2026-09-29', '2026-10-01', '2026-10-03']);
+  assert.deepEqual(missingDays([], '2026-10-16', '2026-10-16'), ['2026-10-16']);
+  assert.deepEqual(missingDays(['2026-10-16'], '2026-10-16', '2026-10-16'), []);
 });

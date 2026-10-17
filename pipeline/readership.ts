@@ -1,7 +1,7 @@
 import 'dotenv/config';
 import fs from 'node:fs';
 import path from 'node:path';
-import { parseReadership, type ReadershipDay } from '../src/lib/readership';
+import { missingDays, parseReadership, type ReadershipDay } from '../src/lib/readership';
 
 // Saves who read the paper, one line a day, to data/readership.jsonl, from
 // which the Stats page is drawn. The figures come from a web analytics
@@ -12,7 +12,8 @@ import { parseReadership, type ReadershipDay } from '../src/lib/readership';
 //
 // Needs READERSHIP_API_TOKEN (a token that can only read analytics),
 // READERSHIP_ACCOUNT_ID and READERSHIP_SITE_ID. Without them it does nothing.
-// Only whole days are saved: a day is asked for once it is over, in UTC.
+// Only whole days are saved: a day is asked for once it is over, in UTC. A day with no readers is saved as nought,
+// so it is not asked for again.
 
 const FILE = path.join(process.cwd(), 'data', 'readership.jsonl');
 const ENDPOINT = 'https://api.cloudflare.com/client/v4/graphql';
@@ -31,7 +32,6 @@ const day = (date: Date) => date.toISOString().slice(0, 10);
 const daysAgo = (n: number) => day(new Date(Date.now() - n * 24 * 60 * 60 * 1000));
 
 const saved = fs.existsSync(FILE) ? parseReadership(fs.readFileSync(FILE, 'utf8')) : [];
-const have = new Set(saved.map((d) => d.date));
 // Yesterday is the latest whole day.
 const until = daysAgo(1);
 const since = daysAgo(LOOK_BACK_DAYS);
@@ -73,22 +73,25 @@ function split(found: Row[], dimension: string, measure: (row: Row) => number): 
 }
 
 try {
-  // The service answers a long span from a thinner sample of its records, so its
-  // figures for a month are rough. The month is asked for only to find which days
-  // have readers; each of those days is then asked for alone, which is as exact as it gets.
-  const wanted = [...new Set((await rows(since, until)).filter((row) => row.count > 0).map((row) => row.dimensions.date))].filter((date) => !have.has(date)).sort();
-
+  // Each day is asked for alone. The service answers a longer span from a sample of its records, which leaves out
+  // a quiet day altogether: asked for the month, it had no 10 Oct or 13 to 16 Oct, days of 2 to 5 views. A day
+  // alone is counted exactly. The breakdowns are asked for only on a day that had readers.
   const fresh: ReadershipDay[] = [];
-  for (const date of wanted) {
-    const [totals, byCountry, byPage, byReferrer, byDevice] = await Promise.all([
-      rows(date, date),
+  // Days before the first reader are not the paper's: they are not saved, so the record starts with its first reader.
+  let first = saved.find((d) => d.views > 0)?.date;
+  for (const date of missingDays(saved.map((d) => d.date), since, until)) {
+    const total = (await rows(date, date)).find((row) => row.dimensions.date === date);
+    if (!total || total.count <= 0) {
+      if (first !== undefined && date > first) fresh.push({ date, views: 0, visits: 0, countries: {}, pages: {}, referrers: {}, devices: {} });
+      continue;
+    }
+    if (first === undefined || date < first) first = date;
+    const [byCountry, byPage, byReferrer, byDevice] = await Promise.all([
       rows(date, date, 'countryName'),
       rows(date, date, 'requestPath'),
       rows(date, date, 'refererHost'),
       rows(date, date, 'deviceType'),
     ]);
-    const total = totals.find((row) => row.dimensions.date === date);
-    if (!total || total.count <= 0) continue;
     fresh.push({
       date,
       views: total.count,

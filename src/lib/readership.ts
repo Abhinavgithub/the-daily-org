@@ -52,6 +52,17 @@ export function parseReadership(text: string): ReadershipDay[] {
   return [...days.values()].sort((a, b) => a.date.localeCompare(b.date));
 }
 
+/** The days from `since` to `until`, both whole UTC days, that are not saved yet, oldest first. */
+export function missingDays(saved: Iterable<string>, since: string, until: string): string[] {
+  const have = new Set(saved);
+  const days: string[] = [];
+  for (let at = Date.parse(`${since}T00:00:00Z`); at <= Date.parse(`${until}T00:00:00Z`); at += 86_400_000) {
+    const date = new Date(at).toISOString().slice(0, 10);
+    if (!have.has(date)) days.push(date);
+  }
+  return days;
+}
+
 const ranked = (totals: Map<string, number>): Count[] =>
   [...totals.entries()].map(([label, n]) => ({ label, count: n })).sort((a, b) => b.count - a.count || a.label.localeCompare(b.label));
 
