@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
 import { PAPER } from '../src/config';
-import { addTallies, scorecard } from '../src/lib/sources';
+import { addedOn, addTallies, scorecard } from '../src/lib/sources';
 import { formatNumber, parseRuns } from '../src/lib/stats';
 import { SOURCES } from './sources';
 import { loadState } from './state';
@@ -10,10 +10,10 @@ import { loadState } from './state';
 // How each source has done, from what the runs recorded about it, with a
 // verdict on each. It reads files only: no feeds are fetched and no model is called.
 //
-//   npm run sources                 the last 60 days
+//   npm run sources                 the last 30 days
 //   npm run sources -- --days 90
 
-const { values: args } = parseArgs({ options: { days: { type: 'string', default: '60' } } });
+const { values: args } = parseArgs({ options: { days: { type: 'string', default: '30' } } });
 const days = Number(args.days);
 if (!Number.isFinite(days) || days < 1) {
   console.error(`--days must be a number of at least 1, got "${args.days}".`);
@@ -22,9 +22,11 @@ if (!Number.isFinite(days) || days < 1) {
 
 const file = path.join(process.cwd(), 'data', 'stats.jsonl');
 const since = new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
-const runs = (fs.existsSync(file) ? parseRuns(fs.readFileSync(file, 'utf8')) : []).filter((run) => run.date >= since);
+const all = fs.existsSync(file) ? parseRuns(fs.readFileSync(file, 'utf8')) : [];
+const runs = all.filter((run) => run.date >= since);
 const recorded = runs.filter((run) => Object.keys(run.sources).length > 0);
-const rows = scorecard(SOURCES, addTallies(recorded.map((run) => run.sources)), loadState());
+// A source added lately is new, as on the Logs page, and is not yet judged.
+const rows = scorecard(SOURCES, addTallies(recorded.map((run) => run.sources)), loadState(), Date.now(), addedOn(all));
 
 const day = (iso?: string) => (iso ? new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(iso)) : 'not known');
 const table = [

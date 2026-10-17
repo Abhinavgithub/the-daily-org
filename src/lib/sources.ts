@@ -90,8 +90,10 @@ export interface Verdict {
 export const RULES = {
   /** Failed runs in a row before a feed counts as failing. */
   failing: 3,
-  /** Days without a post before a source counts as quiet. */
-  quietDays: 60,
+  /** Days without a post before a source counts as quiet. A daily paper notices a month's silence. */
+  quietDays: 30,
+  /** Days a source added to the paper is called new, before it is judged. */
+  newDays: 14,
   /** New items needed before "unreadable" can be said, and the share of them that never reached review. */
   unreadable: { items: 3, share: 0.8 },
   /** Reviewed articles needed before yield is judged, and the share published below which it is low. */
@@ -109,11 +111,27 @@ function ago(days: number): string {
   return 'over a year';
 }
 
+/** What a source gives the paper: stories, or lines in the Bulletin from a forum or a tool's releases. */
+export type SourceKind = 'story' | 'forum' | 'tool';
+
+/** The kind of a source of the paper, by its type. */
+export const kindOf = (type?: string): SourceKind => (type === 'discussion' ? 'forum' : type === 'code' ? 'tool' : 'story');
+
+export interface VerdictOptions {
+  kind?: SourceKind;
+  /** The day the source was added to the paper, when that is after the record begins. */
+  since?: string;
+}
+
+const shortDay = (day: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${day}T12:00:00Z`));
+
 /**
- * What to make of a source. A forum is not judged on its yield: most of its posts are questions, turned away by
- * design, and the few that print are lines in the Bulletin.
+ * What to make of a source, most pressing reason first. A verdict prompts a decision; it never makes one. A source
+ * of Bulletin lines is not judged on its yield: a forum's posts are mostly questions, turned away by design, and every
+ * release of a tool is printed.
  */
-export function verdict(tally: SourceTally, feed: FeedState = {}, now = Date.now(), forum = false): Verdict {
+export function verdict(tally: SourceTally, feed: FeedState = {}, now = Date.now(), options: VerdictOptions = {}): Verdict {
+  const { kind = 'story', since } = options;
   if ((feed.failures ?? 0) >= RULES.failing) return { standing: 'failing', says: `Failing: ${feed.failures} runs in a row`, look: true };
 
   const lost = tally.dropped + tally.unread;
@@ -121,19 +139,25 @@ export function verdict(tally: SourceTally, feed: FeedState = {}, now = Date.now
     return { standing: 'unreadable', says: `Unreadable: ${lost} of ${tally.new} never reached review`, look: true };
   }
 
+  const added = since ? Date.parse(`${since}T00:00:00Z`) : NaN;
+  const isNew = !Number.isNaN(added) && now - added < RULES.newDays * DAY;
   const last = Date.parse(feed.lastPostAt ?? '');
-  if (!Number.isNaN(last) && now - last > RULES.quietDays * DAY) return { standing: 'quiet', says: `Quiet for ${ago((now - last) / DAY)}`, look: true };
+  // A source just added has not had the time to be quiet in the paper.
+  if (!isNew && !Number.isNaN(last) && now - last > RULES.quietDays * DAY) return { standing: 'quiet', says: `Quiet for ${ago((now - last) / DAY)}`, look: true };
+  if (isNew) return { standing: 'new', says: `New since ${shortDay(since!)}${tally.new === 0 ? ', no post yet' : ''}`, look: false };
 
-  if (forum) return tally.reviewed < RULES.strong.reviewed ? { standing: 'new', says: 'Too new to say', look: false } : { standing: 'keep', says: 'Keep: a forum, most posts turned away by design', look: false };
+  if (kind === 'forum') return { standing: 'keep', says: `Answers · ${tally.published} Bulletin ${tally.published === 1 ? 'line' : 'lines'}`, look: false };
+  if (kind === 'tool') return { standing: 'keep', says: 'Answers · every release printed', look: false };
 
   const share = tally.reviewed ? tally.published / tally.reviewed : 0;
-  if (tally.reviewed >= RULES.low.reviewed && share < RULES.low.share) return { standing: 'low', says: `Watch: low yield, ${tally.published} of ${tally.reviewed} printed`, look: true };
-  if (tally.reviewed >= RULES.strong.reviewed && share >= RULES.strong.share) return { standing: 'strong', says: 'Keep: strong', look: false };
-  if (tally.reviewed < RULES.strong.reviewed) return { standing: 'new', says: 'Too new to say', look: false };
-  return { standing: 'keep', says: 'Keep', look: false };
+  const printed = `${tally.published} of ${tally.reviewed} printed`;
+  if (tally.reviewed >= RULES.low.reviewed && share < RULES.low.share) return { standing: 'low', says: `Low yield · ${printed}`, look: true };
+  if (tally.reviewed >= RULES.strong.reviewed && share >= RULES.strong.share) return { standing: 'strong', says: 'Strong', look: false };
+  if (tally.reviewed < RULES.strong.reviewed) return { standing: 'new', says: 'Too few to say', look: false };
+  return { standing: 'keep', says: `Keep · ${Math.round(share * 100)}% printed`, look: false };
 }
 
-/** The scorecard in a sentence: "21 sources: 4 need a look, 2 strong, 15 too new to say." */
+/** The scorecard in a sentence: "21 sources: 4 need a look, 2 strong, 15 new or too few to say." */
 export function standings(rows: { verdict: Verdict }[]): string {
   const count = (test: (verdict: Verdict) => boolean) => rows.filter((row) => test(row.verdict)).length;
   const look = count((v) => v.look);
@@ -141,7 +165,7 @@ export function standings(rows: { verdict: Verdict }[]): string {
     look ? `${look} ${look === 1 ? 'needs' : 'need'} a look` : 'none needs a look',
     [count((v) => v.standing === 'strong'), 'strong'],
     [count((v) => v.standing === 'keep'), 'doing fine'],
-    [count((v) => v.standing === 'new'), 'too new to say'],
+    [count((v) => v.standing === 'new'), 'new or too few to say'],
   ].flatMap((part) => (typeof part === 'string' ? [part] : part[0] ? [`${part[0]} ${part[1]}`] : []));
   return `${rows.length} ${rows.length === 1 ? 'source' : 'sources'}: ${parts.join(', ')}.`;
 }
@@ -155,6 +179,7 @@ export interface ScoreRow {
   averageScore?: number;
   tokensPerStory?: number;
   lastPostAt?: string;
+  kind: SourceKind;
   verdict: Verdict;
 }
 
@@ -166,6 +191,8 @@ export function scorecard(
   tallies: Record<string, SourceTally>,
   feeds: Record<string, FeedState>,
   now = Date.now(),
+  /** The day each source was added to the paper, for those added after the record begins. */
+  added: Record<string, string> = {},
 ): ScoreRow[] {
   return sources
     .map((source) => {
@@ -179,8 +206,39 @@ export function scorecard(
         averageScore: scores.length ? Math.round((scores.reduce((sum, score) => sum + score, 0) / scores.length) * 10) / 10 : undefined,
         tokensPerStory: tally.published ? Math.round(tally.tokens / tally.published) : undefined,
         lastPostAt: feeds[source.id]?.lastPostAt,
-        verdict: verdict(tally, feeds[source.id], now, source.type === 'discussion'),
+        kind: kindOf(source.type),
+        verdict: verdict(tally, feeds[source.id], now, { kind: kindOf(source.type), since: added[source.id] }),
       };
     })
     .sort((a, b) => ORDER.indexOf(a.verdict.standing) - ORDER.indexOf(b.verdict.standing) || b.tally.published - a.tally.published || a.name.localeCompare(b.name));
+}
+
+/** A run's date and what it recorded of each source, as `parseRuns` in src/lib/stats.ts gives them. */
+interface Recorded {
+  date: string;
+  sources: Record<string, SourceTally>;
+}
+
+/**
+ * The day each source was added to the paper: the first run that recorded it. A source recorded by the first run of
+ * all was there from the start, and is left out.
+ */
+export function addedOn(runs: Recorded[]): Record<string, string> {
+  const dated = runs.filter((run) => Object.keys(run.sources).length > 0).sort((a, b) => a.date.localeCompare(b.date));
+  const first: Record<string, string> = {};
+  for (const run of dated) for (const id of Object.keys(run.sources)) first[id] ??= run.date;
+  const start = dated[0]?.date;
+  return Object.fromEntries(Object.entries(first).filter(([, date]) => date !== start));
+}
+
+/** The new posts each source brought to each of `days`, by the edition day of the run that met them. */
+export function postsByDay(runs: Recorded[], days: string[]): Record<string, number[]> {
+  const at = new Map(days.map((day, i) => [day, i]));
+  const posts: Record<string, number[]> = {};
+  for (const run of runs) {
+    const i = at.get(run.date);
+    if (i === undefined) continue;
+    for (const [id, tally] of Object.entries(run.sources)) (posts[id] ??= days.map(() => 0))[i] += tally.new;
+  }
+  return posts;
 }

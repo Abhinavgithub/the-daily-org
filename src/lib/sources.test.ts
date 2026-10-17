@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { addTallies, emptyTally, readTallies, scorecard, standings, verdict } from './sources';
+import { addedOn, addTallies, emptyTally, postsByDay, readTallies, scorecard, standings, verdict, type SourceTally } from './sources';
 
 const NOW = Date.parse('2026-10-04T12:00:00Z');
 const tally = (over: Partial<ReturnType<typeof emptyTally>>) => ({ ...emptyTally(), ...over });
@@ -37,6 +37,7 @@ test('each verdict has its rule, and the most pressing comes first', () => {
   const quiet = says({}, { lastPostAt: '2025-11-09T00:00:00Z' });
   assert.deepEqual([quiet.standing, quiet.says, quiet.look], ['quiet', 'Quiet for 11 months', true]);
   assert.equal(says({}, { lastPostAt: '2026-09-20T00:00:00Z' }).standing, 'new', 'two weeks is not quiet');
+  assert.equal(says({}, { lastPostAt: '2026-08-26T12:00:00Z' }).says, 'Quiet for 39 days', 'a month is, in a daily paper');
   assert.equal(says({}, { lastPostAt: '2024-01-01T00:00:00Z' }).says, 'Quiet for over a year');
 
   // A failing feed is said to be failing, whatever else is true of it.
@@ -64,15 +65,38 @@ test('the scorecard has every source of the paper, the strongest first', () => {
   assert.deepEqual([rows[0].yield, rows[0].averageScore, rows[0].tokensPerStory], [80, 7.3, 10000]);
   assert.deepEqual([rows[1].yield, rows[1].averageScore, rows[1].tokensPerStory], [undefined, undefined, undefined]);
   assert.equal(rows.filter((row) => row.verdict.look).length, 2);
-  assert.equal(standings(rows), '4 sources: 2 need a look, 1 strong, 1 too new to say.');
+  assert.equal(standings(rows), '4 sources: 2 need a look, 1 strong, 1 new or too few to say.');
   assert.equal(standings(rows.slice(0, 1)), '1 source: none needs a look, 1 strong.');
 });
 
 test('a forum is not judged on its yield, as most of its posts are turned away by design', () => {
   const quiet = { ...emptyTally(), new: 140, reviewed: 140, published: 3 };
   assert.equal(verdict(quiet).standing, 'low');
-  assert.equal(verdict(quiet).says, 'Watch: low yield, 3 of 140 printed');
-  assert.deepEqual(verdict(quiet, {}, Date.now(), true), { standing: 'keep', says: 'Keep: a forum, most posts turned away by design', look: false });
+  assert.equal(verdict(quiet).says, 'Low yield · 3 of 140 printed');
+  assert.deepEqual(verdict(quiet, {}, Date.now(), { kind: 'forum' }), { standing: 'keep', says: 'Answers · 3 Bulletin lines', look: false });
+  assert.deepEqual(verdict(quiet, {}, Date.now(), { kind: 'tool' }), { standing: 'keep', says: 'Answers · every release printed', look: false });
   // A forum that keeps failing is still said to be failing.
-  assert.equal(verdict(quiet, { failures: 3 }, Date.now(), true).standing, 'failing');
+  assert.equal(verdict(quiet, { failures: 3 }, Date.now(), { kind: 'forum' }).standing, 'failing');
+});
+
+test('a source just added is new, and is not called quiet before it has had the time', () => {
+  const now = Date.parse('2026-10-17T12:00:00Z');
+  assert.deepEqual(verdict(emptyTally(), { lastPostAt: '2026-09-24T00:00:00Z' }, now, { since: '2026-10-08' }), { standing: 'new', says: 'New since 8 Oct, no post yet', look: false });
+  assert.equal(verdict({ ...emptyTally(), new: 4, reviewed: 4, published: 4 }, {}, now, { since: '2026-10-08' }).says, 'New since 8 Oct');
+  // Two weeks on, it is judged like any other.
+  assert.equal(verdict({ ...emptyTally(), new: 4, reviewed: 4, published: 4 }, {}, now, { since: '2026-10-01' }).says, 'Too few to say');
+  assert.equal(verdict({ ...emptyTally(), new: 10, reviewed: 10, published: 4 }, {}, now).says, 'Keep · 40% printed');
+});
+
+test('the day each source was added, and its new posts by day, are read from the runs', () => {
+  const tally = (n: number) => ({ ...emptyTally(), new: n });
+  const runs: { date: string; sources: Record<string, SourceTally> }[] = [
+    { date: '2026-10-04', sources: { a: tally(2), b: tally(0) } },
+    { date: '2026-10-08', sources: { a: tally(1), b: tally(3), c: tally(1) } },
+    { date: '2026-10-08', sources: { a: tally(1) } },
+    { date: '2026-10-09', sources: { a: tally(0), b: tally(0), c: tally(2) } },
+    { date: '2026-10-01', sources: {} },
+  ];
+  assert.deepEqual(addedOn(runs), { c: '2026-10-08' }, 'those of the first run were there from the start');
+  assert.deepEqual(postsByDay(runs, ['2026-10-07', '2026-10-08', '2026-10-09']), { a: [0, 2, 0], b: [0, 3, 0], c: [0, 1, 2] });
 });

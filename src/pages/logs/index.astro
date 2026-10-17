@@ -16,7 +16,7 @@ import Masthead from '../../components/Masthead.astro';
 import Layout from '../../layouts/Layout.astro';
 import { allArticles, byDay, facts, findings, glance, spending, within } from '../../lib/insights';
 import { byNewest, costsByRun, legacyRuns, problems, readLog, readReleaseStatus, staleEditions, type RunLogData } from '../../lib/logs';
-import { addTallies, RULES as SOURCE_RULES, scorecard, standings } from '../../lib/sources';
+import { addedOn, addTallies, postsByDay, RULES as SOURCE_RULES, scorecard, standings, type ScoreRow } from '../../lib/sources';
 import { parseReadership } from '../../lib/readership';
 import { formatNumber, parseRuns } from '../../lib/stats';
 import { HELD, HOLD_DAYS } from '../../../pipeline/hold';
@@ -52,11 +52,11 @@ try {
 const failingFeeds = SOURCES.map((source) => ({ name: source.name, failures: state[source.id]?.failures ?? 0 })).filter((feed) => feed.failures >= SOURCE_RULES.failing);
 
 // How each source has done lately, with a verdict on each (see src/lib/sources.ts).
-const SCORE_DAYS = 60;
+const SCORE_DAYS = 30;
 const since = new Date(Date.now() - SCORE_DAYS * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
 const statRuns = parseRuns(statsText);
 const recorded = statRuns.filter((run) => run.date >= since && Object.keys(run.sources).length > 0);
-const scores = scorecard(SOURCES, addTallies(recorded.map((run) => run.sources)), state);
+const scores = scorecard(SOURCES, addTallies(recorded.map((run) => run.sources)), state, Date.now(), addedOn(statRuns));
 const date = (iso?: string) => (iso ? new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric' }).format(new Date(iso)) : 'Not known');
 
 // Story and brief files on disk against what the site is serving. They differ when the dev server has stopped noticing new files.
@@ -94,6 +94,38 @@ const latest = allFacts.find((run) => run.kind === 'pipeline');
 // Today as the paper dates its editions, and what the checks of every period share.
 const today = new Intl.DateTimeFormat('en-CA', { timeZone: PAPER.timezone, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
 const editionDays = new Set(editions.map((edition) => edition.day));
+// The Sources section. Each source's new posts on each of the last two weeks' edition days, as a strip.
+const STRIP_DAYS = 14;
+const dayBefore = (day: string, n: number) => new Date(Date.parse(`${day}T12:00:00Z`) - n * 86_400_000).toISOString().slice(0, 10);
+const stripDays = Array.from({ length: STRIP_DAYS }, (_, i) => dayBefore(today, STRIP_DAYS - 1 - i));
+const posts = postsByDay(statRuns, stripDays);
+// An edition is of the day before's posts: a Sunday or Monday edition is the weekend's.
+const weekend = (day: string) => [0, 6].includes(new Date(Date.parse(`${dayBefore(day, 1)}T12:00:00Z`)).getUTCDay());
+const storyRows = scores.filter((row) => row.kind === 'story');
+const bulletinRows = scores.filter((row) => row.kind !== 'story');
+const printed = storyRows.reduce((sum, row) => sum + row.tally.published, 0);
+// New posts from the sources of stories, by whether they came on a weekday or at the weekend.
+const storyIds = new Set(storyRows.map((row) => row.id));
+const perDay = new Map<string, number>();
+for (const run of recorded) perDay.set(run.date, (perDay.get(run.date) ?? 0) + Object.entries(run.sources).reduce((sum, [id, tally]) => sum + (storyIds.has(id) ? tally.new : 0), 0));
+const average = (days: string[]) => (days.length ? Math.round((days.reduce((sum, day) => sum + perDay.get(day)!, 0) / days.length) * 10) / 10 : 0);
+const runDays = [...perDay.keys()];
+const rhythm = { weekday: average(runDays.filter((day) => !weekend(day))), weekend: average(runDays.filter(weekend)) };
+const needing = scores.filter((row) => row.verdict.look);
+// Where the stories printed came from: the five that gave most, and the rest together.
+const givers = storyRows.filter((row) => row.tally.published > 0).sort((a, b) => b.tally.published - a.tally.published);
+const share = [...givers.slice(0, 5).map((row) => ({ name: row.name, count: row.tally.published })), ...(givers.length > 5 ? [{ name: 'Others', count: givers.slice(5).reduce((sum, row) => sum + row.tally.published, 0) }] : [])];
+// In each group, the ones needing a look first, then the most printed.
+const ordered = (rows: ScoreRow[]) => [...rows].sort((a, b) => Number(b.verdict.look) - Number(a.verdict.look) || b.tally.published - a.tally.published || a.name.localeCompare(b.name));
+const most = Math.max(1, ...Object.values(posts).flat());
+const shortDate = (day: string) => new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${day}T12:00:00Z`));
+const lastPost = (iso?: string) => {
+  if (!iso) return 'Not known';
+  // Rounded as the verdict rounds it, so "Quiet for 39 days" and "39 d" agree.
+  const days = Math.round((Date.now() - Date.parse(iso)) / 86_400_000);
+  return days < 1 ? 'today' : `${days} d`;
+};
+
 // Whether any run has been started from outside, so that GitHub's own schedule is only the backup.
 const startedOutside = logs.some((log) => log.trigger === 'workflow_dispatch');
 const readers = parseReadership(read(path.join(data, 'readership.jsonl')));
@@ -129,7 +161,6 @@ const panels = PERIODS.map((period) => {
     })),
   };
 });
-const toLook = scores.filter((row) => row.verdict.look).length;
 const articles = allArticles(logs);
 // What the reader has flagged as wrong. It can be added to from this page only where the page can save it.
 let feedback: ReturnType<typeof loadFeedback> = [];
@@ -197,49 +228,89 @@ try {
 
       <section class="ledger__row" id="sources">
         <h3>Sources</h3>
-        <div>
-          <p class="ledger__sum">
-            <span>{standings(scores)}</span>
-            <button type="button" class="chip" data-sources-toggle aria-pressed="false" hidden={toLook === scores.length}>
-              Show all {scores.length}
-            </button>
+        <div class="sources">
+          <p class="ledger__sum">{standings(scores)} Over the last {SCORE_DAYS} days.</p>
+          <dl class="glance sources__figures">
+            <div>
+              <dt>Stories printed</dt>
+              <dd>{formatNumber(printed)}</dd>
+              <dd class="glance__note">from {givers.length} of {storyRows.length} sources of stories</dd>
+            </div>
+            <div>
+              <dt>Posts a day</dt>
+              <dd>{rhythm.weekday} / {rhythm.weekend}</dd>
+              <dd class="glance__note">new posts on a weekday / a weekend day, from the sources of stories</dd>
+            </div>
+            <div>
+              <dt>Needs a look</dt>
+              <dd>{needing.length}</dd>
+              <dd class="glance__note">{needing.length ? needing.map((row) => row.name).join(', ') : 'none'}</dd>
+            </div>
+          </dl>
+          {
+            share.length > 0 && (
+              <div class="sources__share">
+                <p class="sources__label">Where the printed stories came from</p>
+                <div class="sources__share-bar" role="img" aria-label={share.map((part) => `${part.name} ${part.count}`).join(', ')}>
+                  {share.map((part, i) => (
+                    <span style={`flex-grow: ${part.count}; --step: ${i}`} class:list={[part.name === 'Others' && 'sources__share--rest']} title={`${part.name}: ${part.count}`} />
+                  ))}
+                </div>
+                <p class="sources__key">{share.map((part) => `${part.name} ${part.count}`).join(' · ')}</p>
+              </div>
+            )
+          }
+          {
+            [
+              { name: 'Sources of stories', note: `last ${STRIP_DAYS} days · printed of reviewed · last post`, rows: ordered(storyRows) },
+              { name: 'Sources of the Bulletin', note: 'judged on whether they answer, not on what they print', rows: ordered(bulletinRows) },
+            ]
+              .filter((group) => group.rows.length > 0)
+              .map((group) => (
+                <div class="sources__group">
+                  <p class="sources__head">
+                    <span>{group.name}</span>
+                    <span>{group.note}</span>
+                  </p>
+                  <ul class="sources__list">
+                    {group.rows.map((row) => {
+                      const daily = posts[row.id] ?? stripDays.map(() => 0);
+                      const { published, below, notRelevant, reviewed } = row.tally;
+                      const judged = Math.max(1, published + below + notRelevant);
+                      return (
+                        <li class="source" data-look={row.verdict.look ? 'yes' : 'no'}>
+                          <div class="source__name">
+                            <span>{row.name}</span>
+                            <span class:list={['tag', `tag--${row.verdict.standing}`, 'source__verdict']}>{row.verdict.says}</span>
+                          </div>
+                          <div class="source__strip" role="img" aria-label={`New posts on each of the last ${STRIP_DAYS} days: ${daily.join(', ')}`}>
+                            {daily.map((n, i) => (
+                              <span class:list={[n > 0 && 'source__day--posted', weekend(stripDays[i]) && 'source__day--weekend']} style={n > 0 ? `--amount: ${Math.min(1, 0.35 + n / most)}` : undefined} title={`${shortDate(stripDays[i])}: ${n} new`} />
+                            ))}
+                          </div>
+                          <div class="source__yield">
+                            <span class="source__bar" aria-hidden="true">
+                              <span class="mark--main" style={`flex-grow: ${published}`} />
+                              <span class="mark--light" style={`flex-grow: ${below}`} />
+                              <span class="mark--faint" style={`flex-grow: ${notRelevant}`} />
+                              {published + below + notRelevant === 0 && <span style={`flex-grow: ${judged}`} />}
+                            </span>
+                            <span class="source__count">{reviewed ? `${published} of ${reviewed} printed` : 'Nothing reviewed'}</span>
+                          </div>
+                          <span class="source__last" title={row.lastPostAt ? date(row.lastPostAt) : undefined}>{lastPost(row.lastPostAt)}</span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              ))
+          }
+          <p class="sources__key">
+            <span><span class="key__swatch mark--main" aria-hidden="true" /> printed</span>
+            <span><span class="key__swatch mark--light" aria-hidden="true" /> below the bar</span>
+            <span><span class="key__swatch mark--faint" aria-hidden="true" /> not relevant</span>
+            <span>The strip has one bar a day, darker with more posts; the weekend's are fainter.</span>
           </p>
-          <div class="log__scroll">
-            <table class="log__table">
-              <thead>
-                <tr>
-                  <th scope="col">Source</th>
-                  <th scope="col">Posts</th>
-                  <th scope="col">Reviewed</th>
-                  <th scope="col">Published</th>
-                  <th scope="col">Yield</th>
-                  <th scope="col">Avg score</th>
-                  <th scope="col">Tokens/story</th>
-                  <th scope="col">Last post</th>
-                  <th scope="col">Verdict</th>
-                </tr>
-              </thead>
-              <tbody>
-                {scores.map((row) => (
-                  <tr data-source-row data-look={row.verdict.look ? 'yes' : 'no'}>
-                    <td>{row.name}</td>
-                    <td>{row.tally.new}</td>
-                    <td>{row.tally.reviewed}</td>
-                    <td>{row.tally.published}</td>
-                    <td>{row.yield === undefined ? '-' : `${row.yield}%`}</td>
-                    <td>{row.averageScore?.toFixed(1) ?? '-'}</td>
-                    <td>{row.tokensPerStory === undefined ? '-' : formatNumber(row.tokensPerStory)}</td>
-                    <td>{date(row.lastPostAt)}</td>
-                    <td>
-                      <span class:list={['tag', `tag--${row.verdict.standing}`]}>{row.verdict.says}</span>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-          <p class="ledger__note" data-sources-none hidden>No source needs a look.</p>
-<p class="ledger__note">Over the last {SCORE_DAYS} days.</p>
         </div>
       </section>
 
@@ -292,9 +363,6 @@ try {
   const runChip = document.querySelector<HTMLButtonElement>('[data-run-chip]');
   const runChipName = document.querySelector<HTMLElement>('[data-run-chip-name]');
   const runsMore = document.querySelector<HTMLButtonElement>('[data-runs-more]')!;
-  const sourceRows = [...document.querySelectorAll<HTMLElement>('[data-source-row]')];
-  const sourcesToggle = document.querySelector<HTMLButtonElement>('[data-sources-toggle]')!;
-  const sourcesNone = document.querySelector<HTMLElement>('[data-sources-none]')!;
   const navCount = (name: string) => document.querySelector<HTMLElement>(`[data-nav-count="${name}"]`);
   const DAYS: Record<string, number | undefined> = { '7': 7, '30': 30, all: undefined };
 
@@ -309,7 +377,6 @@ try {
     runName: '',
     shown: PAGE,
     allRuns: false,
-    allSources: params.get('sources') === 'all',
   };
 
   const press = (group: Element[], value: string, key: string) => {
@@ -343,14 +410,6 @@ try {
     runsMore.textContent = `Show all ${listed.length} runs`;
     const runsCount = navCount('runs');
     if (runsCount) runsCount.textContent = String(matching.length);
-
-    // Sources: the ones needing a look, until all are asked for.
-    for (const row of sourceRows) row.hidden = !state.allSources && row.dataset.look !== 'yes';
-    const visibleSources = sourceRows.filter((row) => !row.hidden).length;
-    sourcesNone.hidden = visibleSources > 0;
-    sourceRows[0]?.closest<HTMLElement>('.log__scroll')?.toggleAttribute('hidden', visibleSources === 0);
-    sourcesToggle.setAttribute('aria-pressed', String(state.allSources));
-    sourcesToggle.textContent = state.allSources ? 'Show only those needing a look' : `Show all ${sourceRows.length}`;
 
     const attention = navCount('attention');
     const pressing = document.querySelectorAll('[data-period]:not([hidden]) .finding--problem:not([hidden]), [data-period]:not([hidden]) .finding--watch:not([hidden])').length;
@@ -401,7 +460,6 @@ try {
     if (state.outcome) next.set('outcome', state.outcome);
     if (state.q) next.set('q', state.q);
     if (state.flagged) next.set('flagged', '1');
-    if (state.allSources) next.set('sources', 'all');
     const query = next.toString();
     history.replaceState(null, '', location.pathname + (query ? `?${query}` : '') + location.hash);
   }
@@ -512,10 +570,6 @@ try {
   });
   runsMore.addEventListener('click', () => {
     state.allRuns = true;
-    apply();
-  });
-  sourcesToggle.addEventListener('click', () => {
-    state.allSources = !state.allSources;
     apply();
   });
   runChip?.addEventListener('click', () => {

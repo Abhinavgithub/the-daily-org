@@ -2596,6 +2596,160 @@ span.dateline__step {
   font-weight: 600;
 }
 
+// A source that is new, or has given too little to judge: said plainly, apart from those doing well.
+.tag--new {
+  border-style: dashed;
+}
+
+// The sources: three figures, where the stories came from, then a row a source in two groups.
+.sources__label,
+.sources__head {
+  margin: 0 0 0.35rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.sources__share {
+  margin: 0.25rem 0 1.25rem;
+}
+
+// One bar of the printed stories, the source that gave most in the darkest blue, the rest lighter in turn.
+.sources__share-bar {
+  display: flex;
+  gap: 2px;
+  height: 1.1rem;
+
+  span {
+    min-width: 3px;
+    border-radius: 2px;
+    background: color-mix(in srgb, var(--mark) calc(100% - var(--step) * 16%), transparent);
+  }
+
+  .sources__share--rest {
+    background: var(--mark-faint);
+  }
+}
+
+.sources__key {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1rem;
+  margin: 0.35rem 0 0;
+  color: var(--muted);
+
+  > span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+  }
+}
+
+.sources__group {
+  margin-top: 1.1rem;
+}
+
+.sources__head {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--ink);
+
+  span:last-child {
+    text-transform: none;
+    letter-spacing: 0;
+  }
+}
+
+.sources__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.source {
+  display: grid;
+  grid-template-columns: minmax(0, 1.7fr) auto minmax(0, 1.2fr) 2.75rem;
+  gap: 0.4rem 1.25rem;
+  align-items: center;
+  padding: 0.45rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+
+.source__name {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.2rem 0.5rem;
+  min-width: 0;
+}
+
+.source__verdict {
+  font-size: 0.78rem;
+}
+
+// One bar a day: empty with no post, deeper with more, and the weekend's paler, so a source's rhythm shows.
+.source__strip {
+  display: flex;
+  gap: 2px;
+
+  span {
+    width: 0.4rem;
+    height: 1rem;
+    border-radius: 2px;
+    background: var(--rule);
+  }
+
+  .source__day--posted {
+    background: color-mix(in srgb, var(--mark) calc(var(--amount) * 100%), transparent);
+  }
+
+  .source__day--weekend:not(.source__day--posted) {
+    opacity: 0.45;
+  }
+}
+
+.source__yield {
+  display: grid;
+  gap: 0.15rem;
+  min-width: 0;
+}
+
+.source__bar {
+  display: flex;
+  gap: 2px;
+  height: 0.5rem;
+  border-radius: 2px;
+  background: var(--rule);
+  overflow: hidden;
+}
+
+.source__count {
+  color: var(--muted);
+  font-size: 0.8rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.source__last {
+  color: var(--muted);
+  text-align: right;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+// On a phone: the name and its strip on one line, how it fared and its last post under them.
+@media (max-width: 40rem) {
+  .source {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .sources__head span:last-child {
+    display: none;
+  }
+}
+
 // Every article in one table, with a search box and a chip for each outcome.
 .articles__controls {
   display: flex;

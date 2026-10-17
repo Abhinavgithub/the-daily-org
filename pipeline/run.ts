@@ -16,7 +16,7 @@ import { configFromEnv, keepFreeModels, LlmClient, LlmError } from './llm';
 import { isBrief } from '../src/lib/editions';
 import { RunLog } from './log';
 import { PAPER } from '../src/config';
-import { addTallies, emptyTally, scorecard, type SourceTally } from '../src/lib/sources';
+import { addedOn, addTallies, emptyTally, scorecard, type SourceTally } from '../src/lib/sources';
 import { parseRuns } from '../src/lib/stats';
 import { SOURCES } from './sources';
 import { DATA_DIR, HELD, holdOver, dueToday, release } from './hold';
@@ -136,11 +136,12 @@ function saveSourceState(complete: boolean) {
   saveState(state);
 }
 
-/** Says which sources have earned a second look, going by the last 60 days of runs. */
+/** Says which sources have earned a second look, going by the last 30 days of runs, as the Logs page does. */
 function noteSourcesToLookAt() {
-  const since = new Date(startedAt.getTime() - 60 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
-  const history = parseRuns(fs.readFileSync(statsPath, 'utf8')).filter((run) => run.date >= since);
-  const look = scorecard(SOURCES, addTallies(history.map((run) => run.sources)), state, startedAt.getTime()).filter((row) => row.verdict.look);
+  const since = new Date(startedAt.getTime() - 30 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10);
+  const all = parseRuns(fs.readFileSync(statsPath, 'utf8'));
+  const history = all.filter((run) => run.date >= since);
+  const look = scorecard(SOURCES, addTallies(history.map((run) => run.sources)), state, startedAt.getTime(), addedOn(all)).filter((row) => row.verdict.look);
   if (look.length) console.log(`\n${look.length} source${look.length === 1 ? ' needs' : 's need'} a look (${look.map((row) => row.name).join(', ')}): npm run sources`);
 }
 
