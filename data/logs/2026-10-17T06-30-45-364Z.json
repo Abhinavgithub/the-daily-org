@@ -1,0 +1,335 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-10-17T06:30:45.364Z",
+  "day": "2026-10-17",
+  "seconds": 923,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 0
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 1
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 1
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 2
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 2
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 3
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 7
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 1
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 0
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 3
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 2
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 9
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 23
+    }
+  ],
+  "articles": [
+    {
+      "title": "Joining as a Manager in a Strategy role in SFO soon, any tips?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x7mwth/joining_as_a_manager_in_a_strategy_role_in_sfo/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Has anyone here been through an acquisition from Salesforce?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x7gosh/has_anyone_here_been_through_an_acquisition_from/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Upcoming Salesforce In Person interview - PLEASE HELP!!!",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x7f0sy/upcoming_salesforce_in_person_interview_please/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Workaround for forced email login in Salesforce sandboxes on mobile",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x7zfz6/logging_in_by_username_in_sandboxes/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 5,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "Block unwanted outbound emails in Email-to-Case using Custom Metadata and Apex",
+      "url": "https://dev.to/rohanmehta/stop-unwanted-emails-from-leaving-salesforce-blocking-addresses-in-email-to-case-2m6b",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Stop Unwanted Emails from Leaving Salesforce: Blocking Addresses in Email-to-Case"
+    },
+    {
+      "title": "Sync Email as Salesforce Activity and EAC... what the heck is happening?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x7nf24/sync_email_as_salesforce_activity_and_eac_what/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Fix access_token_exchange_failed: Slack Sandbox & Salesforce",
+      "url": "https://www.infallibletechie.com/2026/10/fix-access_token_exchange_failed-slack-sandbox-salesforce.html",
+      "source": "InfallibleTechie",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "New Collection Filter Criteria Resource simplifies Flow Builder data manipulation",
+      "url": "https://salesforcebreak.com/2026/10/16/collection-filter-criteria-resource-flow/",
+      "source": "Salesforce Break",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Collection Filter Criteria Resource in Salesforce Flow"
+    },
+    {
+      "title": "Usage-based deals: six terms that need a field in CPQ and a line on the quote template. I checked 64 pricing pages and most leave them unwritten.",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x7h7u4/usagebased_deals_six_terms_that_need_a_field_in/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Connecting ChatGPT and Codex to Salesforce through plugins and the DX MCP",
+      "url": "https://www.salesforceben.com/ultimate-guide-to-chatgpt-and-codex-for-salesforce-professionals/",
+      "source": "Salesforce Ben",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Salesforce CLI now manages Apex trace flags directly from the terminal",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x7gtm5/stop_opening_setup_to_make_a_trace_flag_sf_apex/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 6,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "I am speaking next Tuesday for the virtual Salesforce Business Analyst Group & giving away cert vouchers!",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x7g548/i_am_speaking_next_tuesday_for_the_virtual/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce Job Demand Is Down 13%: Should You Still Bother in 2027?",
+      "url": "https://www.salesforceben.com/salesforce-job-demand-is-down-13-should-you-still-bother-in-2027/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "How to Manage Mass Email Campaigns in Salesforce More Efficiently",
+      "url": "https://dev.to/manya_goswami_e4ffce330ba/how-to-manage-mass-email-campaigns-in-salesforce-more-efficiently-2fn1",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Implementing email verification workflows in Salesforce beyond standard Validation Rules",
+      "url": "https://dev.to/manya_goswami_e4ffce330ba/salesforce-email-verification-why-format-checks-arent-enough-3nil",
+      "source": "dev.to",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Block salesforce mobile app access when location are disabled.",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x7d75y/block_salesforce_mobile_app_access_when_location/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce delivers long-awaited flow actions, List View permissions, and user history tracking",
+      "url": "https://www.salesforceben.com/salesforce-just-delivered-5-long-awaited-ideaexchange-features/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Salesforce Just Delivered 5 Long-Awaited IdeaExchange Features"
+    },
+    {
+      "title": "Securing Agentforce against prompt injection and data exfiltration",
+      "url": "https://dev.to/vendortrustindex/salesforce-agentforce-salesbleed-what-the-einstein-trust-layer-does-and-does-not-do-19e7",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Salesforce Agentforce & SalesBleed: What the Einstein Trust Layer Does - and Does Not Do"
+    },
+    {
+      "title": "Salesforce phone usage",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x79oj5/salesforce_phone_usage/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "How Salesforce Is Redefining Customer Relationships and Digital Careers",
+      "url": "https://dev.to/nikhil_saxena_daaef5b50ba/how-salesforce-is-redefining-customer-relationships-and-digital-careers-2nnm",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "A practical workflow for cleaning Salesforce data before implementing AI",
+      "url": "https://dev.to/rohanmehta/why-every-ai-strategy-needs-data-cleaning-first-20c2",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-10-14; printed today, having waited its days for room"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Block unwanted outbound emails in Email-to-Case using Custom Metadata and Apex",
+      "outcome": "kept",
+      "reason": "summary: \"500\" was added"
+    },
+    {
+      "title": "New Collection Filter Criteria Resource simplifies Flow Builder data manipulation",
+      "outcome": "kept",
+      "reason": "summary: \"apex\" was removed"
+    },
+    {
+      "title": "Connecting ChatGPT and Codex to Salesforce through plugins and the DX MCP",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Implementing email verification workflows in Salesforce beyond standard Validation Rules",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Salesforce delivers long-awaited Flow actions, List View permissions, and User history tracking",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Securing Agentforce against prompt injection and data exfiltration",
+      "outcome": "unchanged"
+    }
+  ],
+  "figures": [
+    {
+      "title": "Salesforce delivers long-awaited Flow actions, List View permissions, and User history tracking",
+      "outcome": "drawn",
+      "kind": "parts",
+      "image": "made"
+    }
+  ],
+  "model": {
+    "calls": 28,
+    "retries": {},
+    "usage": {
+      "qwen/qwen3.7-flash": {
+        "input": 40985,
+        "output": 75885
+      },
+      "google/gemini-3.1-flash-image": {
+        "input": 659,
+        "output": 1120
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-10-17T06:46:08.418Z"
+}

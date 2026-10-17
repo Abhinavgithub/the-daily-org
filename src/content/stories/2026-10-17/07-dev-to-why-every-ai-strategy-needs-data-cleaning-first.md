@@ -4,7 +4,7 @@ original_title: Why Every AI Strategy Needs Data Cleaning First
 url: https://dev.to/rohanmehta/why-every-ai-strategy-needs-data-cleaning-first-20c2
 source: dev.to
 source_type: community
-date: 2026-10-14
+date: 2026-10-17
 section: agentforce-and-ai
 personas:
   - admin
@@ -23,6 +23,7 @@ depth_score: 4
 novelty_score: 4
 utility_score: 7
 model: qwen/qwen3.7-flash
+held_from: 2026-10-14
 ---
 
 The article argues that artificial intelligence initiatives in Salesforce consistently fail when trained on unclean data, emphasizing that pattern matching models amplify existing record errors rather than masking them. Common issues include duplicate contacts and leads, incomplete required fields, inconsistent Picklist values, and stale records that cause Agentforce assistants to route cases incorrectly or generate inaccurate summaries.
