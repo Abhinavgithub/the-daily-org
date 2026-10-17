@@ -22,6 +22,8 @@ export class RunLog {
       day,
       seconds: 0,
       finished: true,
+      // GitHub says what started the run; a run on a machine of one's own leaves it out.
+      ...(process.env.GITHUB_EVENT_NAME ? { trigger: process.env.GITHUB_EVENT_NAME } : {}),
       feeds: [],
       articles: [],
       proofread: [],

@@ -94,3 +94,13 @@ test('what a run read from outside is kept, a failure is one of its problems, an
   assert.equal(readReleaseStatus('{"at":"2026-10-07T06:40:00Z","outcome":"other"}'), undefined);
   assert.equal(readReleaseStatus(''), undefined);
 });
+
+test('a run says what started it on GitHub, and a run elsewhere says nothing of it', (t) => {
+  const was = process.env.GITHUB_EVENT_NAME;
+  t.after(() => (was === undefined ? delete process.env.GITHUB_EVENT_NAME : (process.env.GITHUB_EVENT_NAME = was)));
+  const dir = tmp();
+  process.env.GITHUB_EVENT_NAME = 'schedule';
+  assert.equal(readLog(fs.readFileSync(sample().save({ dir }), 'utf8'))!.trigger, 'schedule');
+  delete process.env.GITHUB_EVENT_NAME;
+  assert.equal(readLog(fs.readFileSync(sample(new Date('2026-10-06T06:00:00Z')).save({ dir }), 'utf8'))!.trigger, undefined);
+});

@@ -100,6 +100,11 @@ export interface RunLogData {
   /** False when it stopped before getting through everything. */
   finished: boolean;
   stopped?: string;
+  /**
+   * What started it, on GitHub: "workflow_dispatch" for a run started from outside (the scheduler, or by hand) and
+   * "schedule" for GitHub's own schedule, which is the backup. Absent for a run on a machine of one's own.
+   */
+  trigger?: string;
   /** The `ranAt` of this run's line in `data/stats.jsonl`, so the two are not shown twice. */
   statsAt?: string;
   feeds: LogFeed[];
@@ -138,6 +143,7 @@ export function readLog(text: string): RunLogData | null {
     seconds: count(raw.seconds),
     finished: raw.finished !== false,
     stopped: typeof raw.stopped === 'string' ? raw.stopped : undefined,
+    ...(typeof raw.trigger === 'string' ? { trigger: raw.trigger } : {}),
     statsAt: typeof raw.statsAt === 'string' ? raw.statsAt : undefined,
     feeds: list(raw.feeds),
     articles: list(raw.articles),

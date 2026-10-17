@@ -316,3 +316,16 @@ test('stories held for a quieter day are counted, and one held past its days is 
   assert.equal(said(['2026-10-13', '2026-10-16']).find((finding) => finding.tone === 'problem')?.says, 'A story has been held since 13 Oct, past its 3 days of waiting.');
   assert.equal(said([]).some((finding) => /held/.test(finding.says)), false);
 });
+
+test("a run made by GitHub's backup schedule is said, once runs are started from outside", () => {
+  const made = (d: string, trigger: string) => run({ ranAt: `${d}T08:30:00Z`, day: d, trigger });
+  const runs = [made('2026-10-19', 'workflow_dispatch'), made('2026-10-18', 'schedule'), made('2026-10-17', 'workflow_dispatch')];
+  const backup = findings({ ...quiet, runs, latest: runs[0], startedOutside: true }).find((finding) => finding.says.startsWith("GitHub's backup"));
+  assert.equal(backup?.says, "GitHub's backup schedule made the edition on 18 Oct, not the outside scheduler.");
+  assert.equal(backup?.run, '2026-10-18T08:30:00Z');
+  assert.match(backup?.action ?? '', /token .* has not expired/);
+  // A paper run only by GitHub's schedule is not warned about it.
+  assert.equal(findings({ ...quiet, runs, latest: runs[0] }).some((finding) => finding.says.startsWith("GitHub's backup")), false);
+  const onTime = [made('2026-10-19', 'workflow_dispatch')];
+  assert.ok(findings({ ...quiet, runs: onTime, latest: onTime[0], startedOutside: true }).find((finding) => finding.tone === 'fine')?.items?.includes('Every run was started on time from outside'));
+});

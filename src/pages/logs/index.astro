@@ -94,6 +94,8 @@ const latest = allFacts.find((run) => run.kind === 'pipeline');
 // Today as the paper dates its editions, and what the checks of every period share.
 const today = new Intl.DateTimeFormat('en-CA', { timeZone: PAPER.timezone, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
 const editionDays = new Set(editions.map((edition) => edition.day));
+// Whether any run has been started from outside, so that GitHub's own schedule is only the backup.
+const startedOutside = logs.some((log) => log.trigger === 'workflow_dispatch');
 const readers = parseReadership(read(path.join(data, 'readership.jsonl')));
 const heldDir = path.join(data, HELD);
 const held = { days: (fs.existsSync(heldDir) ? fs.readdirSync(heldDir) : []).filter((file) => file.endsWith('.md')).map((file) => file.slice(0, 10)), wait: HOLD_DAYS };
@@ -104,7 +106,7 @@ const panels = PERIODS.map((period) => {
   const days = byDay(mine).slice(-31);
   return {
     ...period,
-    findings: findings({ runs: mine, latest, stale, failingFeeds, sourcesToLook: scores.filter((row) => row.verdict.look).map((row) => ({ name: row.name, why: row.verdict.says.replace(/^Watch: /, '').toLowerCase() })), videoSources: SOURCES.some((source) => source.type === 'video'), pictured, editionDays, readersUpTo: readers.at(-1)?.date, held, today, spending: money, release, maxCalls }),
+    findings: findings({ runs: mine, latest, stale, failingFeeds, sourcesToLook: scores.filter((row) => row.verdict.look).map((row) => ({ name: row.name, why: row.verdict.says.replace(/^Watch: /, '').toLowerCase() })), videoSources: SOURCES.some((source) => source.type === 'video'), pictured, editionDays, readersUpTo: readers.at(-1)?.date, held, today, startedOutside, spending: money, release, maxCalls }),
     glance: glance(mine),
     outcomes: days.map((d) => ({
       when: dayName(d.day),

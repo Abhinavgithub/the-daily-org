@@ -12,6 +12,8 @@ export interface RunFacts {
   finished: boolean;
   stopped?: string;
   seconds: number;
+  /** What started it on GitHub, when it ran there. */
+  trigger?: string;
   /** True when only totals are known, as for a run from before logs were kept. */
   totalsOnly: boolean;
   /** Stories printed. */
@@ -82,6 +84,7 @@ export function facts(log: RunLogData, cost?: number, forums: ReadonlySet<string
     day: log.day,
     finished: log.finished,
     stopped: log.stopped,
+    ...(log.trigger ? { trigger: log.trigger } : {}),
     seconds: log.seconds,
     totalsOnly,
     published,
@@ -299,6 +302,8 @@ export interface FindingsInput {
   held?: { days: string[]; wait: number };
   /** Today, as the paper dates its editions. */
   today?: string;
+  /** Whether runs are started from outside at all, so that GitHub's own schedule is the backup and not the way it runs. */
+  startedOutside?: boolean;
   spending?: Spending;
   /** How the release edition's own step went, the last time it ran. */
   release?: ReleaseStatus;
@@ -462,6 +467,22 @@ export function findings(input: FindingsInput): Finding[] {
     const named = input.sourcesToLook.map(({ name, why }) => (why ? `${name} (${why})` : name)).join('; ');
     found.push({ tone: 'watch', says: `${plural(input.sourcesToLook.length, 'source needs', 'sources need')} a look: ${named}.`, action: 'Keep it, or take it out of the paper.', href: '#sources' });
   } else fine.push('no source needs a look');
+
+  // The run is started from outside, and GitHub's own schedule stands in only on a day that was not done. When it had
+  // to, the outside start failed: most often because the token it starts runs with has expired.
+  if (input.startedOutside) {
+    const backup = runs.filter((run) => run.kind === 'pipeline' && run.trigger === 'schedule');
+    if (backup.length > 0) {
+      found.push({
+        tone: 'watch',
+        says: `GitHub's backup schedule made the edition on ${listed(backup.map((run) => run.day || run.ranAt.slice(0, 10)).reverse().map(shortDay))}, not the outside scheduler.`,
+        action: 'The outside scheduler did not start the run, so the edition came out later. Check that it is still switched on, and that the GitHub token it uses has not expired.',
+        href: '#runs',
+        run: backup[0].ranAt,
+        undated: true,
+      });
+    } else if (runs.some((run) => run.trigger === 'workflow_dispatch')) fine.push('every run was started on time from outside');
+  }
 
   // A day the paper ran and printed no story or brief: what started this page's held stories. The latest first.
   if (input.editionDays) {
