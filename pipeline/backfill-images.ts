@@ -1,8 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { parse } from 'yaml';
 import { extractImage } from './extract';
-import { STORIES_DIR } from './write';
+import { openStory, STORIES_DIR, storyText } from './write';
 
 // Adds an `image` line to stories that have none. Makes no model calls.
 const files = fs
@@ -14,9 +13,9 @@ let added = 0;
 let missing = 0;
 for (const file of files) {
   const raw = fs.readFileSync(file, 'utf8');
-  const match = raw.match(/^---\n([\s\S]*?)\n---\n/);
-  if (!match) continue;
-  const data = parse(match[1]) as { url?: string; image?: string; title?: string };
+  const story = openStory(raw);
+  if (!story) continue;
+  const data = story.doc.toJS() as { url?: string; image?: string; title?: string };
   if (data.image || !data.url) continue;
 
   const image = await extractImage(data.url);
@@ -25,7 +24,8 @@ for (const file of files) {
     console.log(`  No image found: ${data.title}`);
     continue;
   }
-  fs.writeFileSync(file, raw.replace(match[0], () => `---\n${match[1]}\nimage: ${JSON.stringify(image)}\n---\n`));
+  story.doc.set('image', image);
+  fs.writeFileSync(file, storyText(story.doc, story.body));
   added++;
   console.log(`  Added image: ${data.title}`);
 }

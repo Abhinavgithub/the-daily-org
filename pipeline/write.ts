@@ -1,12 +1,21 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { parseDocument, stringify } from 'yaml';
+import { parseDocument, stringify, type Document } from 'yaml';
 import type { Curated } from './curate';
 import type { FeedItem } from './fetch';
 
 export const STORIES_DIR = path.join(process.cwd(), 'src', 'content', 'stories');
 export const BRIEFS_DIR = path.join(process.cwd(), 'src', 'content', 'briefs');
 export const BULLETIN_DIR = path.join(process.cwd(), 'src', 'content', 'bulletin');
+
+/** A story file's front matter, as a YAML document that can be changed, and the text under it exactly as it stands. */
+export function openStory(text: string): { doc: Document; body: string } | null {
+  const match = text.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  return match ? { doc: parseDocument(match[1]), body: match[2] } : null;
+}
+
+/** A story file again, from its front matter and the text under it. */
+export const storyText = (doc: Document, body: string) => `---\n${doc.toString({ lineWidth: 0 }).trimEnd()}\n---\n${body}`;
 
 function slugify(title: string): string {
   return title
@@ -72,12 +81,11 @@ export function writeStories(day: string, stories: Publishable[]): string[] {
 
 /** Add a line under a story already written: another source that tells the same story. */
 export function addAlso(file: string, also: Also): void {
-  const match = fs.readFileSync(file, 'utf8').match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
-  if (!match) return;
-  const doc = parseDocument(match[1]);
-  const listed = (doc.toJS().also ?? []) as Also[];
-  doc.set('also', [...listed, also]);
-  fs.writeFileSync(file, `---\n${doc.toString({ lineWidth: 0 }).trimEnd()}\n---\n${match[2]}`);
+  const story = openStory(fs.readFileSync(file, 'utf8'));
+  if (!story) return;
+  const listed = (story.doc.toJS().also ?? []) as Also[];
+  story.doc.set('also', [...listed, also]);
+  fs.writeFileSync(file, storyText(story.doc, story.body));
 }
 
 /**
@@ -108,8 +116,7 @@ export function readStories(dir: string): { file: string; data: Record<string, u
     .sort()
     .flatMap((f) => {
       const file = path.join(dir, f);
-      const match = fs.readFileSync(file, 'utf8').match(/^---\n([\s\S]*?)\n---\n/);
-      const data = match ? (parseDocument(match[1]).toJS() as Record<string, unknown> | null) : null;
+      const data = openStory(fs.readFileSync(file, 'utf8'))?.doc.toJS() as Record<string, unknown> | null | undefined;
       return data ? [{ file, data }] : [];
     });
 }

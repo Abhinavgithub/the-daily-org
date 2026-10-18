@@ -2,11 +2,10 @@ import 'dotenv/config';
 import fs from 'node:fs';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
-import { parseDocument } from 'yaml';
 import { proofread, type Copy } from './curate';
 import { configFromEnv, LlmClient, modelsOrStop } from './llm';
 import { applyGlossary, sentenceCase } from './style';
-import { STORIES_DIR } from './write';
+import { openStory, STORIES_DIR, storyText } from './write';
 
 // Brings already-published stories up to the current standard: a headline
 // written for the paper, proof-read text, and house-style capitalisation.
@@ -51,11 +50,11 @@ function show(label: string, before: string, after: string) {
 let changed = 0;
 for (const file of files) {
   const raw = fs.readFileSync(file, 'utf8');
-  const match = raw.match(/^---\n([\s\S]*?)\n---\n\n?([\s\S]*)$/);
-  if (!match) continue;
-  const doc = parseDocument(match[1]);
+  const story = openStory(raw);
+  if (!story) continue;
+  const { doc } = story;
   const data = doc.toJS() as { title: string; original_title?: string; why_read: string };
-  const before: Copy = { title: data.title, why_read: data.why_read, summary: match[2].trim() };
+  const before: Copy = { title: data.title, why_read: data.why_read, summary: story.body.trim() };
 
   let after: Copy;
   let note = '';
@@ -90,7 +89,7 @@ for (const file of files) {
 
   doc.set('title', after.title);
   doc.set('why_read', after.why_read);
-  fs.writeFileSync(file, `---\n${doc.toString({ lineWidth: 0 }).trimEnd()}\n---\n\n${after.summary}\n`);
+  fs.writeFileSync(file, storyText(doc, `\n${after.summary}\n`));
   changed++;
   console.log(`\n  ${path.basename(file)}${note}`);
   show('headline', before.title, after.title);

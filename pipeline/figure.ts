@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import sharp from 'sharp';
-import { parseDocument } from 'yaml';
 import { z } from 'zod';
 import { PAPER } from '../src/config';
 import { figureSchema, LIMITS, type Figure } from '../src/lib/figure';
@@ -13,7 +12,7 @@ import type { Paper } from '../src/paper';
 import { parseJsonLoosely, plainText } from './curate';
 import { LlmError, type ChatMessage, type LlmClient } from './llm';
 import { applyGlossary } from './style';
-import { STORIES_DIR } from './write';
+import { openStory, STORIES_DIR, storyText } from './write';
 
 // A small diagram for each must-read story: the model reads the article and
 // picks out its key idea as a few short labels, which the page draws. For the
@@ -324,15 +323,14 @@ export async function addFigures(
     .filter((f) => f.endsWith('.md'))
     .flatMap((f) => {
       const file = path.join(dir, f);
-      const match = fs.readFileSync(file, 'utf8').match(/^---\n([\s\S]*?)\n---\n\n?([\s\S]*)$/);
-      if (!match) return [];
-      const doc = parseDocument(match[1]);
-      return [{ file, doc, data: doc.toJS() as Ranked, summary: match[2].trim() }];
+      const story = openStory(fs.readFileSync(file, 'utf8'));
+      if (!story) return [];
+      return [{ file, doc: story.doc, data: story.doc.toJS() as Ranked, summary: story.body.trim() }];
     })
     .sort((a, b) => byRank(a.data, b.data));
 
   const capped = () => llm.limitReached(options.maxCalls);
-  const save = (story: (typeof stories)[number]) => fs.writeFileSync(story.file, `---\n${story.doc.toString({ lineWidth: 0 }).trimEnd()}\n---\n\n${story.summary}\n`);
+  const save = (story: (typeof stories)[number]) => fs.writeFileSync(story.file, storyText(story.doc, `\n${story.summary}\n`));
 
   for (const [rank, story] of stories.slice(0, signalsFor(stories.length).must).entries()) {
     const title = story.data.title;
