@@ -36,6 +36,8 @@ if (Math.abs(ends.views - ends.visits) < 24) {
   ends.views = middle + (viewsOnTop ? -12 : 12);
   ends.visits = middle + (viewsOnTop ? 12 : -12);
 }
+// A dot for each day, while there are few enough days for dots to be told apart.
+const dotted = days.length <= 31;
 ---
 
 <figure class="reads">
@@ -59,7 +61,7 @@ if (Math.abs(ends.views - ends.visits) < 24) {
     <text class="reads__end reads__end--views" x={x(days.length - 1) + 8} y={ends.views} dominant-baseline="middle">{compact(last.views)}</text>
     <text class="reads__end" x={x(days.length - 1) + 8} y={ends.visits} dominant-baseline="middle">{compact(last.visits)}</text>
     {
-      days.length <= 31 &&
+      dotted &&
         days.map((d, i) => (
           <>
             <circle class="reads__dot reads__dot--views" cx={x(i)} cy={y(d.views)} r="3.5">

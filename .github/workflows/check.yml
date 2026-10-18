@@ -1,6 +1,6 @@
 name: Check
 
-# Tests, types and a build on every pull request, so a change that breaks the paper is found before it is merged
+# Tests, types, lint and a build on every pull request, so a change that breaks the paper is found before it is merged
 # and not at the next day's run, which runs the tests too but only after the change is on main.
 
 on:
@@ -23,5 +23,7 @@ jobs:
       - run: npm test
 
       - run: npm run check
+
+      - run: npm run lint
 
       - run: npm run build

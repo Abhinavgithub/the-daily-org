@@ -2,6 +2,10 @@
 
 import { PAPER } from '../src/config';
 
+// A node of a page's structured data. JSON-LD has no fixed shape, so its fields are read as they come.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any -- see above
+type JsonLdNode = Record<string, any>;
+
 const MAX_AUTHORS = 3;
 
 const NOT_A_PERSON = /\b(team|staff|editor(ial|s)?|admin(istrator)?|guest|contributor|author|news|blog|media|inc|ltd|llc)\b/i;
@@ -60,12 +64,12 @@ function jsonLdAuthors(document: Document): string[] {
     } catch {
       continue;
     }
-    const nodes: Record<string, any>[] = [];
+    const nodes: JsonLdNode[] = [];
     const collect = (value: unknown) => {
       if (Array.isArray(value)) value.forEach(collect);
       else if (value && typeof value === 'object') {
-        nodes.push(value as Record<string, any>);
-        collect((value as Record<string, any>)['@graph']);
+        nodes.push(value as JsonLdNode);
+        collect((value as JsonLdNode)['@graph']);
       }
     };
     collect(data);

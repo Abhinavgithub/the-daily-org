@@ -49,7 +49,7 @@ const personas = PERSONAS.filter((p) => stories.some((s) => s.data.personas.incl
   const briefs = [...document.querySelectorAll<HTMLElement>('[data-brief]')];
   // A page that does not offer Recommended and Must-read is not narrowed by them, whatever its address says.
   const offersMarks = Boolean(root.querySelector('[data-group="show"]'));
-  const KEYS = ['for', 'show'] as const;
+  type Key = 'for' | 'show';
   // Each mark on a story, and the Show choices it appears under. Must-read stories are also Recommended.
   const SHOWN_UNDER: Record<string, string[]> = { must: ['must', 'recommended'], recommended: ['recommended'], other: [] };
 
@@ -81,7 +81,7 @@ const personas = PERSONAS.filter((p) => stories.some((s) => s.data.personas.incl
       if (match) shown++;
     }
     for (const group of groups) {
-      const selected = state[group.dataset.group as (typeof KEYS)[number]];
+      const selected = state[group.dataset.group as Key];
       for (const pill of group.querySelectorAll<HTMLElement>('button')) {
         pill.setAttribute('aria-pressed', String((pill.dataset.value ?? '') === selected));
       }

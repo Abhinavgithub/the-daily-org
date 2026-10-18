@@ -65,6 +65,7 @@ export async function fetchTranscript(id: string, request: typeof fetch = fetch)
     });
     if (!res.ok) return { status: 'failed', reason: `HTTP ${res.status}` };
     // The reply can carry raw control characters inside its strings, which JSON does not allow.
+    // eslint-disable-next-line no-control-regex -- matching them is the point
     const player = JSON.parse((await res.text()).replace(/[\u0000-\u001f]/g, ' ')) as {
       playabilityStatus?: { status?: string; reason?: string };
       videoDetails?: { isUpcoming?: boolean };
