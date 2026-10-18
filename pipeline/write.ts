@@ -99,9 +99,8 @@ export function printed(file: string, { item, curated, also }: Publishable): Pri
   return { file, title: curated.verdict.title, score: curated.verdict.interest_score, told: { title: item.title, url: item.url, source: item.source.name }, also: also ?? [] };
 }
 
-/** The stories the day's edition already has, from earlier runs, in the order they were written. */
-export function readEdition(day: string, storiesDir = STORIES_DIR): Printed[] {
-  const dir = path.join(storiesDir, day);
+/** The story files in a folder, by name, each with its front matter. A file with none that can be read is left out. */
+export function readStories(dir: string): { file: string; data: Record<string, unknown> }[] {
   if (!fs.existsSync(dir)) return [];
   return fs
     .readdirSync(dir)
@@ -111,11 +110,18 @@ export function readEdition(day: string, storiesDir = STORIES_DIR): Printed[] {
       const file = path.join(dir, f);
       const match = fs.readFileSync(file, 'utf8').match(/^---\n([\s\S]*?)\n---\n/);
       const data = match ? (parseDocument(match[1]).toJS() as Record<string, unknown> | null) : null;
-      // A file that cannot be read as a story is left out: it is nothing an item can be the same as.
-      if (!data || typeof data.title !== 'string' || typeof data.url !== 'string' || typeof data.interest_score !== 'number') return [];
-      const told = { title: typeof data.original_title === 'string' ? data.original_title : data.title, url: data.url, source: String(data.source ?? '') };
-      return [{ file, title: data.title, score: data.interest_score, told, also: Array.isArray(data.also) ? (data.also as Also[]) : [] }];
+      return data ? [{ file, data }] : [];
     });
+}
+
+/** The stories the day's edition already has, from earlier runs, in the order they were written. */
+export function readEdition(day: string, storiesDir = STORIES_DIR): Printed[] {
+  return readStories(path.join(storiesDir, day)).flatMap(({ file, data }) => {
+    // A file that cannot be read as a story is left out: it is nothing an item can be the same as.
+    if (typeof data.title !== 'string' || typeof data.url !== 'string' || typeof data.interest_score !== 'number') return [];
+    const told = { title: typeof data.original_title === 'string' ? data.original_title : data.title, url: data.url, source: String(data.source ?? '') };
+    return [{ file, title: data.title, score: data.interest_score, told, also: Array.isArray(data.also) ? (data.also as Also[]) : [] }];
+  });
 }
 
 /** Take a story out of the edition, with the illustration drawn for it, when a better telling takes its place. */

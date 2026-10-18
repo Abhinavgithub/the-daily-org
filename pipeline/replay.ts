@@ -10,7 +10,7 @@ import { curate, prefilter } from './curate';
 import { extractContent } from './extract';
 import { loadFeedback, normalizeUrl } from './feedback';
 import { fetchFeeds, type FeedItem } from './fetch';
-import { configFromEnv, keepFreeModels, LlmClient } from './llm';
+import { configFromEnv, LlmClient, modelsOrStop } from './llm';
 import { buildCases, compare, judgement, mark, sentence, tally, type Case, type Judgement, type Result } from './replay-lib';
 import { SOURCES } from './sources';
 
@@ -115,16 +115,10 @@ if (toRead.length) {
 let llm: LlmClient | undefined;
 if (!prefilterOnly) {
   const config = configFromEnv({ model: args.model });
-  if (!config.apiKey) {
-    console.error('LLM_API_KEY is not set, so the articles cannot be reviewed. Use --prefilter-only to check the cheap rules alone.');
-    process.exit(1);
-  }
-  const { models, notes } = await keepFreeModels(config, process.env.LLM_ALLOW_PAID === '1');
-  for (const note of notes) console.warn(`  ${note}`);
-  if (models.length === 0) {
-    console.error('No usable model left. Run `npm run models`.');
-    process.exit(1);
-  }
+  const models = await modelsOrStop(config, {
+    noKey: 'LLM_API_KEY is not set, so the articles cannot be reviewed. Use --prefilter-only to check the cheap rules alone.',
+    noModel: 'No usable model left. Run `npm run models`.',
+  });
   llm = new LlmClient({ ...config, models });
   console.log(`Judging with ${models.join(', then ')}${runs > 1 ? `, ${runs} times each` : ''}. Cap: ${maxCalls} calls${config.maxCostUsd ? `, $${config.maxCostUsd}` : ''}.`);
 }

@@ -2,6 +2,7 @@
 // data/readership.jsonl; these functions add the days up for the Stats page.
 // Pure: the page reads the file, this makes sense of it.
 
+import { jsonLines } from './jsonl';
 import type { Count } from './stats';
 
 /** One day's readership as saved, counted by the analytics service. Days are UTC. */
@@ -30,15 +31,8 @@ const counts = (value: unknown): Record<string, number> =>
 /** The lines of `data/readership.jsonl`, oldest first. A line that is not a day is skipped; a day saved twice keeps its last line. */
 export function parseReadership(text: string): ReadershipDay[] {
   const days = new Map<string, ReadershipDay>();
-  for (const line of text.split('\n')) {
-    if (!line.trim()) continue;
-    let raw: Record<string, unknown>;
-    try {
-      raw = JSON.parse(line);
-    } catch {
-      continue;
-    }
-    if (!raw || typeof raw.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(raw.date)) continue;
+  for (const raw of jsonLines(text)) {
+    if (typeof raw.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(raw.date)) continue;
     days.set(raw.date, {
       date: raw.date,
       views: count(raw.views),

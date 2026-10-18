@@ -2,6 +2,8 @@
 // whoever runs the paper and exists only on their machine. Pure functions: the
 // pipeline writes these, the page reads them.
 
+import { jsonLines } from './jsonl';
+
 export type ArticleOutcome = 'published' | 'held' | 'below-threshold' | 'not-relevant' | 'dropped' | 'invalid-reply' | 'deferred';
 
 export const OUTCOME_LABELS: Record<ArticleOutcome, string> = {
@@ -161,15 +163,8 @@ export function readLog(text: string): RunLogData | null {
  */
 export function legacyRuns(statsText: string, known: Set<string>): RunLogData[] {
   const runs: RunLogData[] = [];
-  for (const line of statsText.split('\n')) {
-    if (!line.trim()) continue;
-    let raw: Record<string, unknown>;
-    try {
-      raw = JSON.parse(line);
-    } catch {
-      continue;
-    }
-    if (!raw || typeof raw.ranAt !== 'string' || Number.isNaN(Date.parse(raw.ranAt)) || known.has(raw.ranAt)) continue;
+  for (const raw of jsonLines(statsText)) {
+    if (typeof raw.ranAt !== 'string' || Number.isNaN(Date.parse(raw.ranAt)) || known.has(raw.ranAt)) continue;
     // Early runs listed failed feeds; later ones record each with its count of failures.
     const failed = Array.isArray(raw.failedFeeds) ? (raw.failedFeeds as string[]) : Object.keys(record(raw.failedFeeds));
     const usage = record<{ input: number; output: number }>(raw.tokensByModel);
@@ -195,13 +190,8 @@ export function legacyRuns(statsText: string, known: Set<string>): RunLogData[] 
 /** What each run cost in US dollars, by the `ranAt` of its line in `data/stats.jsonl`, for the runs that recorded it. */
 export function costsByRun(statsText: string): Record<string, number> {
   const costs: Record<string, number> = {};
-  for (const line of statsText.split('\n')) {
-    try {
-      const raw = JSON.parse(line) as Record<string, unknown>;
-      if (typeof raw.ranAt === 'string' && typeof raw.costUsd === 'number' && raw.costUsd >= 0) costs[raw.ranAt] = raw.costUsd;
-    } catch {
-      // Not a run.
-    }
+  for (const raw of jsonLines(statsText)) {
+    if (typeof raw.ranAt === 'string' && typeof raw.costUsd === 'number' && raw.costUsd >= 0) costs[raw.ranAt] = raw.costUsd;
   }
   return costs;
 }

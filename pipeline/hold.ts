@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { parseDocument } from 'yaml';
 import { daysBetween } from './dedupe';
-import { STORIES_DIR } from './write';
+import { readStories, STORIES_DIR } from './write';
 
 // A full day's surplus is kept for a quiet one. Sources post on weekdays and hardly at all at the weekend, so
 // without this a day of eight stories is followed by days of none. A held story is a story file as it was
@@ -25,24 +25,7 @@ export interface HoldOptions {
   dataDir?: string;
 }
 
-interface Story {
-  file: string;
-  data: Record<string, unknown>;
-}
-
-function read(dir: string): Story[] {
-  if (!fs.existsSync(dir)) return [];
-  return fs
-    .readdirSync(dir)
-    .filter((f) => f.endsWith('.md'))
-    .sort()
-    .flatMap((f) => {
-      const file = path.join(dir, f);
-      const match = fs.readFileSync(file, 'utf8').match(/^---\n([\s\S]*?)\n---\n/);
-      const data = match ? (parseDocument(match[1]).toJS() as Record<string, unknown> | null) : null;
-      return data ? [{ file, data }] : [];
-    });
-}
+type Story = ReturnType<typeof readStories>[number];
 
 const score = (story: Story) => (typeof story.data.interest_score === 'number' ? story.data.interest_score : 0);
 /** The day a held story was put by, which its file is named for. */
@@ -52,7 +35,7 @@ const heldOn = (file: string) => path.basename(file).slice(0, 10);
 const late = (story: Story, day: string) => typeof story.data.held_from === 'string' && daysBetween(story.data.held_from, day) >= HOLD_DAYS;
 
 /** The day's own stories, as counted against its number: not those printed for having waited their days. */
-const counted = (day: string, storiesDir: string) => read(path.join(storiesDir, day)).filter((story) => !late(story, day));
+const counted = (day: string, storiesDir: string) => readStories(path.join(storiesDir, day)).filter((story) => !late(story, day));
 
 /**
  * What the day owes the held stories: those that have waited their days, printed whatever the day holds, and as many
@@ -60,7 +43,7 @@ const counted = (day: string, storiesDir: string) => read(path.join(storiesDir, 
  */
 function owing(day: string, options: HoldOptions): Story[] {
   const { stories, storiesDir = STORIES_DIR, dataDir = DATA_DIR } = options;
-  const waiting = read(path.join(dataDir, HELD))
+  const waiting = readStories(path.join(dataDir, HELD))
     .filter((story) => heldOn(story.file) !== day)
     .sort((a, b) => heldOn(a.file).localeCompare(heldOn(b.file)) || score(b) - score(a));
   const due = waiting.filter((story) => daysBetween(heldOn(story.file), day) >= HOLD_DAYS);

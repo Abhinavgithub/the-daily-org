@@ -7,7 +7,7 @@ import { BAR, getReleaseEditions } from '../src/lib/release-store';
 import { HEADLINES, headlines, printed } from '../src/lib/release-edition';
 import type { ReleaseStatus } from '../src/lib/logs';
 import { readReleases } from '../src/lib/releases';
-import { configFromEnv, keepFreeModels, LlmClient } from './llm';
+import { configFromEnv, LlmClient, modelsOrStop } from './llm';
 import { RunLog } from './log';
 import { buildEdition, pickHeadlines } from './release-edition';
 import { due, waiting, type Due } from './release-due';
@@ -89,18 +89,11 @@ for (const one of owed) console.log(`Release edition: ${one.number} is to be bui
 if (args['dry-run']) process.exit(0);
 
 const config = configFromEnv({ model: args.model });
-if (!config.apiKey) {
-  console.error('LLM_API_KEY is not set, so no release edition can be built.');
-  report('failed', 'no key for the model is set');
-  process.exit(1);
-}
-const { models, notes: modelNotes } = await keepFreeModels(config, process.env.LLM_ALLOW_PAID === '1');
-for (const note of modelNotes) console.warn(`  ${note}`);
-if (models.length === 0) {
-  console.error('No usable model left, so no release edition can be built.');
-  report('failed', 'no usable model is left');
-  process.exit(1);
-}
+const models = await modelsOrStop(
+  config,
+  { noKey: 'LLM_API_KEY is not set, so no release edition can be built.', noModel: 'No usable model left, so no release edition can be built.' },
+  (why) => report('failed', why === 'no key' ? 'no key for the model is set' : 'no usable model is left'),
+);
 
 /** What a build or a choice of headlines spent goes among the runs, so that it is counted with the rest of the paper's costs. */
 function spent(llm: LlmClient, at: string): void {

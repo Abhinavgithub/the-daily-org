@@ -12,7 +12,7 @@ import { updateQuote } from './quote';
 import { ALERT_FEEDS, readAlerts } from './alerts';
 import { NEW_SOURCE_DAYS } from './state';
 import { fetchFeeds, type FeedItem } from './fetch';
-import { configFromEnv, keepFreeModels, LlmClient, LlmError } from './llm';
+import { configFromEnv, LlmClient, LlmError, modelsOrStop } from './llm';
 import { isBrief } from '../src/lib/editions';
 import { RunLog } from './log';
 import { PAPER } from '../src/config';
@@ -314,16 +314,10 @@ if (candidates.length === 0 && !(PAPER.holdOver && dueToday(day, PAPER.holdOver)
 
 // 4. Curate
 const config = configFromEnv({ model: args.model });
-if (!config.apiKey) {
-  console.error('LLM_API_KEY is not set. Copy .env.example to .env and add a key (for OpenRouter, from https://openrouter.ai/keys).');
-  process.exit(1);
-}
-const { models, notes } = await keepFreeModels(config, process.env.LLM_ALLOW_PAID === '1');
-for (const note of notes) console.warn(`  ${note}`);
-if (models.length === 0) {
-  console.error('No usable model left. Run `npm run models` to pick a free one, then set LLM_MODELS or pass --model.');
-  process.exit(1);
-}
+const models = await modelsOrStop(config, {
+  noKey: 'LLM_API_KEY is not set. Copy .env.example to .env and add a key (for OpenRouter, from https://openrouter.ai/keys).',
+  noModel: 'No usable model left. Run `npm run models` to pick a free one, then set LLM_MODELS or pass --model.',
+});
 const llm = new LlmClient({ ...config, models, log: (message) => console.warn(`      extra call, ${message}`) });
 console.log(`Assessing with ${models.join(', then ')}${config.imageModel ? `, illustrating with ${config.imageModel}` : ''}. Cap: ${maxCalls} calls${config.maxCostUsd ? `, $${config.maxCostUsd}` : ''}.`);
 

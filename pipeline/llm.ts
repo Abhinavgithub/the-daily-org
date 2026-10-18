@@ -321,3 +321,27 @@ export async function keepFreeModels(config: LlmConfig, allowPaid: boolean): Pro
   }
   return { models, notes };
 }
+
+/**
+ * The models a command run from the terminal may use: the free ones of those configured, with a word on each left
+ * out. Without a key or a usable model the command says why, in its own words, and stops; `onStop` hears first.
+ */
+export async function modelsOrStop(
+  config: LlmConfig,
+  say: { noKey: string; noModel: string },
+  onStop?: (why: 'no key' | 'no model') => void,
+): Promise<string[]> {
+  if (!config.apiKey) {
+    console.error(say.noKey);
+    onStop?.('no key');
+    process.exit(1);
+  }
+  const { models, notes } = await keepFreeModels(config, process.env.LLM_ALLOW_PAID === '1');
+  for (const note of notes) console.warn(`  ${note}`);
+  if (models.length === 0) {
+    console.error(say.noModel);
+    onStop?.('no model');
+    process.exit(1);
+  }
+  return models;
+}

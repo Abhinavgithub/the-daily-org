@@ -4,7 +4,7 @@ import path from 'node:path';
 import { parseArgs } from 'node:util';
 import { parseDocument } from 'yaml';
 import { proofread, type Copy } from './curate';
-import { configFromEnv, keepFreeModels, LlmClient } from './llm';
+import { configFromEnv, LlmClient, modelsOrStop } from './llm';
 import { applyGlossary, sentenceCase } from './style';
 import { STORIES_DIR } from './write';
 
@@ -28,16 +28,10 @@ const files = fs
 let llm: LlmClient | undefined;
 if (!glossaryOnly) {
   const config = configFromEnv({ model: args.model });
-  if (!config.apiKey) {
-    console.error('LLM_API_KEY is not set. Use --glossary-only to fix capitalisation without the model.');
-    process.exit(1);
-  }
-  const { models, notes } = await keepFreeModels(config, process.env.LLM_ALLOW_PAID === '1');
-  for (const note of notes) console.warn(`  ${note}`);
-  if (models.length === 0) {
-    console.error('No usable model left. Run `npm run models` to pick a free one.');
-    process.exit(1);
-  }
+  const models = await modelsOrStop(config, {
+    noKey: 'LLM_API_KEY is not set. Use --glossary-only to fix capitalisation without the model.',
+    noModel: 'No usable model left. Run `npm run models` to pick a free one.',
+  });
   llm = new LlmClient({ ...config, models, log: (message) => console.warn(`      extra call, ${message}`) });
 }
 
