@@ -1,37 +1,37 @@
 {
   "sf-developers": {
     "failures": 0,
-    "lastSuccessAt": "2026-10-17T06:30:45.364Z",
+    "lastSuccessAt": "2026-10-18T06:30:47.484Z",
     "lastPostAt": "2026-10-15T15:00:43.000Z"
   },
   "sf-admins": {
     "failures": 0,
-    "lastSuccessAt": "2026-10-17T06:30:45.364Z",
+    "lastSuccessAt": "2026-10-18T06:30:47.484Z",
     "lastPostAt": "2026-10-15T15:30:18.000Z"
   },
   "sf-engineering": {
     "failures": 0,
-    "lastSuccessAt": "2026-10-17T06:30:45.364Z",
+    "lastSuccessAt": "2026-10-18T06:30:47.484Z",
     "lastPostAt": "2026-10-08T15:15:37.000Z"
   },
   "sf-architects": {
     "failures": 0,
-    "lastSuccessAt": "2026-10-17T06:30:45.364Z",
+    "lastSuccessAt": "2026-10-18T06:30:47.484Z",
     "lastPostAt": "2026-10-13T16:29:01.000Z"
   },
   "salesforce-ben": {
     "failures": 0,
-    "lastSuccessAt": "2026-10-17T06:30:45.364Z",
+    "lastSuccessAt": "2026-10-18T06:30:47.484Z",
     "lastPostAt": "2026-10-16T13:57:27.000Z"
   },
   "andy-in-the-cloud": {
     "failures": 0,
-    "lastSuccessAt": "2026-10-17T06:30:45.364Z",
+    "lastSuccessAt": "2026-10-18T06:30:47.484Z",
     "lastPostAt": "2026-09-30T23:18:42.000Z"
   },
   "bob-buzzard": {
     "failures": 0,
-    "lastSuccessAt": "2026-10-17T06:30:45.364Z",
+    "lastSuccessAt": "2026-10-18T06:30:47.484Z",
     "lastPostAt": "2026-09-08T16:54:52.410Z"
   },
   "joys-of-apex": {
@@ -41,8 +41,8 @@
   },
   "salesforce-time": {
     "failures": 0,
-    "lastSuccessAt": "2026-10-17T06:30:45.364Z",
-    "lastPostAt": "2026-10-15T13:20:32.000Z"
+    "lastSuccessAt": "2026-10-18T06:30:47.484Z",
+    "lastPostAt": "2026-10-18T05:55:04.000Z"
   },
   "unofficialsf": {
     "failures": 0,
@@ -67,12 +67,12 @@
   "sf-news": {
     "failures": 0,
     "lastPostAt": "2026-10-15T15:00:31.000Z",
-    "lastSuccessAt": "2026-10-17T06:30:45.364Z"
+    "lastSuccessAt": "2026-10-18T06:30:47.484Z"
   },
   "beyond-the-cloud": {
     "failures": 0,
     "lastPostAt": "2026-09-28T13:28:36.000Z",
-    "lastSuccessAt": "2026-10-17T06:30:45.364Z"
+    "lastSuccessAt": "2026-10-18T06:30:47.484Z"
   },
   "yt-salesforce-admins": {
     "failures": 0,
@@ -107,51 +107,51 @@
   "sf-cli": {
     "failures": 0,
     "lastPostAt": "2026-10-14T12:00:00.000Z",
-    "lastSuccessAt": "2026-10-17T06:30:45.364Z"
+    "lastSuccessAt": "2026-10-18T06:30:47.484Z"
   },
   "sf-code-analyzer": {
     "failures": 0,
     "lastPostAt": "2026-08-26T04:25:02.000Z",
-    "lastSuccessAt": "2026-10-17T06:30:45.364Z"
+    "lastSuccessAt": "2026-10-18T06:30:47.484Z"
   },
   "lwc": {
     "failures": 0,
     "lastPostAt": "2026-10-14T18:57:12.000Z",
-    "lastSuccessAt": "2026-10-17T06:30:45.364Z"
+    "lastSuccessAt": "2026-10-18T06:30:47.484Z"
   },
   "reddit-salesforce": {
     "failures": 0,
-    "lastPostAt": "2026-10-17T03:00:19.000Z",
-    "lastSuccessAt": "2026-10-17T06:30:45.364Z"
+    "lastPostAt": "2026-10-17T20:11:14.000Z",
+    "lastSuccessAt": "2026-10-18T06:30:47.484Z"
   },
   "cloud-odyssey": {
     "failures": 0,
     "lastPostAt": "2026-10-13T12:53:54.000Z",
-    "lastSuccessAt": "2026-10-17T06:30:45.364Z"
+    "lastSuccessAt": "2026-10-18T06:30:47.484Z"
   },
   "infallibletechie": {
     "failures": 0,
     "lastPostAt": "2026-10-16T17:43:42.000Z",
-    "lastSuccessAt": "2026-10-17T06:30:45.364Z"
+    "lastSuccessAt": "2026-10-18T06:30:47.484Z"
   },
   "salesforcecodex": {
     "failures": 0,
     "lastPostAt": "2026-09-23T18:56:39.000Z",
-    "lastSuccessAt": "2026-10-17T06:30:45.364Z"
+    "lastSuccessAt": "2026-10-18T06:30:47.484Z"
   },
   "salesforce-break": {
     "failures": 0,
     "lastPostAt": "2026-10-16T15:14:04.000Z",
-    "lastSuccessAt": "2026-10-17T06:30:45.364Z"
+    "lastSuccessAt": "2026-10-18T06:30:47.484Z"
   },
   "nebula-consulting": {
     "failures": 0,
     "lastPostAt": "2026-10-08T12:16:16.000Z",
-    "lastSuccessAt": "2026-10-17T06:30:45.364Z"
+    "lastSuccessAt": "2026-10-18T06:30:47.484Z"
   },
   "dev-to": {
     "failures": 0,
-    "lastPostAt": "2026-10-17T02:33:37.000Z",
-    "lastSuccessAt": "2026-10-17T06:30:45.364Z"
+    "lastPostAt": "2026-10-17T13:21:17.000Z",
+    "lastSuccessAt": "2026-10-18T06:30:47.484Z"
   }
 }

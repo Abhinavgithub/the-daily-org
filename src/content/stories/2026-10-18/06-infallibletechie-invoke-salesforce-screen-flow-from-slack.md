@@ -4,7 +4,7 @@ original_title: Invoke Salesforce Screen Flow from Slack
 url: https://www.infallibletechie.com/2026/10/invoke-salesforce-screen-flow-from-slack.html
 source: InfallibleTechie
 source_type: community
-date: 2026-10-16
+date: 2026-10-18
 section: flow-and-admin
 personas:
   - admin
@@ -24,6 +24,7 @@ novelty_score: 4
 utility_score: 8
 model: qwen/qwen3.7-flash
 image: https://www.infallibletechie.com/wp-content/uploads/2026/10/Enable-Slack-Apps-Salesforce--841x1024.png
+held_from: 2026-10-16
 ---
 
 The article outlines a method for running a Salesforce Screen Flow inside Slack by leveraging the Sales Cloud for Slack application. It begins with the prerequisite one-time connection between the Salesforce org and a Slack workspace, followed by assigning a Permission Set that includes system permissions for managing Slack app organization connections and user mappings.

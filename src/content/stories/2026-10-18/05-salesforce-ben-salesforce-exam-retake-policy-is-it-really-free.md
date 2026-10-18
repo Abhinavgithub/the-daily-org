@@ -4,7 +4,7 @@ original_title: "Salesforce Exam Retake Policy: Is It Really Free?"
 url: https://www.salesforceben.com/salesforce-exam-retake-policy-is-it-really-free/
 source: Salesforce Ben
 source_type: community
-date: 2026-10-15
+date: 2026-10-18
 section: career-and-certs
 personas:
   - developer
@@ -24,6 +24,7 @@ novelty_score: 7
 utility_score: 8
 model: qwen/qwen3.7-flash
 image: https://www.salesforceben.com/wp-content/uploads/2026/10/image-11.png
+held_from: 2026-10-15
 ---
 
 Salesforce and Pearson VUE are running a global promotion that waives the fee for one failed certification exam retake. To qualify, candidates must schedule, pay for, and complete their first attempt between September 29 and November 17, 2026. The promotion excludes Accredited Professional and CTA exams.
