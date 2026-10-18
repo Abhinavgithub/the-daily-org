@@ -22,7 +22,7 @@ if (!fs.existsSync(at('templates', 'paper.config.ts')) || !fs.existsSync(at('src
 }
 
 // Everything removed here is gone unless git has it, so insist that it does.
-let uncommitted = '';
+let uncommitted: string;
 try {
   uncommitted = execFileSync('git', ['status', '--porcelain', '--', 'paper.config.ts', 'src/content/stories', 'public/figures', 'data'], { cwd: root, encoding: 'utf8' }).trim();
 } catch {

@@ -51,7 +51,7 @@ const listed = [
   const incidents = tab?.querySelector<HTMLElement>('[data-bulletin-incidents]');
   const others = tab?.querySelector<HTMLElement>('[data-bulletin-others]');
   if (tab && incidents && others) {
-    let items: Listed[] = [];
+    let items: Listed[];
     let seen: string[] | null = null;
     try {
       items = JSON.parse(tab.dataset.items ?? '[]');
