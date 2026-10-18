@@ -6,6 +6,7 @@ import { curate, prefilter } from './curate';
 import { extractContent } from './extract';
 import { fetchFeeds } from './fetch';
 import { configFromEnv, LlmClient, LlmError, modelsOrStop } from './llm';
+import { scoreThreshold } from './settings';
 
 // What a source would add to the paper, before it is added. It reads the feed
 // as the pipeline would and can have the model review its latest articles.
@@ -89,7 +90,7 @@ const models = await modelsOrStop(config, {
   noModel: '\nNo usable model left. Run `npm run models`.',
 });
 const llm = new LlmClient({ ...config, models });
-const threshold = Number(process.env.SCORE_THRESHOLD) > 0 ? Number(process.env.SCORE_THRESHOLD) : 6;
+const threshold = scoreThreshold();
 
 console.log(`\nReviewing the ${Math.min(review, kept.length)} latest as the editor of ${PAPER.name} would:`);
 const scores: number[] = [];

@@ -18,6 +18,7 @@ import { RunLog } from './log';
 import { PAPER } from '../src/config';
 import { addedOn, addTallies, emptyTally, scorecard, type SourceTally } from '../src/lib/sources';
 import { parseRuns } from '../src/lib/stats';
+import { scoreThreshold, setting } from './settings';
 import { SOURCES } from './sources';
 import { DATA_DIR, HELD, holdOver, dueToday, release } from './hold';
 import { failingSources, loadState, lookBackDays, recordComplete, recordFailure, recordFetched, recordNewest, saveState } from './state';
@@ -64,16 +65,6 @@ const statsPath = path.join(process.cwd(), 'data', 'stats.jsonl');
 // Each feed is read back to its own last success; --since-days overrides that for all of them.
 const state = loadState();
 const startedAt = new Date();
-/** A number from the command line or .env, or the default when neither gives one. Anything that is not a number stops the run. */
-function setting(name: string, raw: string | undefined, fallback: number, min: number): number {
-  if (raw === undefined || raw.trim() === '') return fallback;
-  const value = Number(raw);
-  if (!Number.isFinite(value) || value < min) {
-    console.error(`${name} must be a number of at least ${min}, got "${raw}".`);
-    process.exit(1);
-  }
-  return value;
-}
 const override = args['since-days'] === undefined ? undefined : setting('--since-days', args['since-days'], 0, 1);
 /** How far back a feed has to be read for nothing to be missed. */
 const owed = (source: (typeof SOURCES)[number]) => lookBackDays(state, source.id, startedAt.getTime());
@@ -81,7 +72,7 @@ const daysFor = (source: (typeof SOURCES)[number]) => override ?? owed(source);
 // Worked out before the run changes anything: the feeds --since-days reads far enough back to count as read in full.
 const coveredInFull = new Set(SOURCES.filter((source) => override === undefined || override >= owed(source)).map((source) => source.id));
 const maxCalls = setting(args['max-calls'] === undefined ? 'LLM_MAX_CALLS' : '--max-calls', args['max-calls'] ?? process.env.LLM_MAX_CALLS, 40, 1);
-const threshold = setting(args.threshold === undefined ? 'SCORE_THRESHOLD' : '--threshold', args.threshold ?? process.env.SCORE_THRESHOLD, 6, 1);
+const threshold = scoreThreshold(args.threshold);
 const dryRun = args['dry-run'];
 // Articles met by an earlier run and not yet dealt with. Anything that has waited too long is let go.
 const pending = loadPending();
