@@ -1,0 +1,127 @@
+// Base -----------------------------------------------------------------
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--desk);
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: var(--fs-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: var(--sky);
+  text-underline-offset: 0.15em;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--sky);
+  outline-offset: 2px;
+  border-radius: 3px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+code {
+  font-size: inherit;
+  background: var(--sky-wash);
+  padding: 0.1em 0.35em;
+  border-radius: 4px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip {
+  position: absolute;
+  left: -999px;
+
+  &:focus {
+    left: var(--gutter);
+    top: 0.5rem;
+    background: var(--surface);
+    padding: 0.5rem 0.75rem;
+    z-index: 10;
+  }
+}
+
+.link-button {
+  color: var(--sky);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--ink);
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0.25rem 0.5rem;
+  text-decoration: none;
+  cursor: pointer;
+
+  &:hover {
+    border-color: var(--ink);
+  }
+
+  &[aria-pressed='true'] {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+}
+
+.chip__count {
+  font-variant-numeric: tabular-nums;
+  opacity: 0.7;
+}
+
+.wrap {
+  max-width: var(--width);
+  margin: 0 auto;
+  padding: 1.25rem var(--gutter) 2.5rem;
+}
+
+.prose {
+  > * {
+    max-width: 44rem;
+  }
+}
+
+.page-sub {
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  color: var(--muted);
+  margin: 0 0 1.25rem;
+}

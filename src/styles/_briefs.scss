@@ -1,0 +1,108 @@
+// Briefs ---------------------------------------------------------------
+// The close calls, as one boxed clipping among the stories: under a ruled
+// heading, a headline that opens the original and a sentence on why it is
+// worth a look. Each is set lighter than a story.
+
+.briefs__title {
+  margin: 0 0 0.2rem;
+  padding-bottom: 0.55rem;
+  border-bottom: 2px solid var(--ink);
+  font-family: var(--headline);
+  font-weight: 700;
+  font-size: var(--fs-headline);
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+}
+
+.briefs {
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  li {
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--rule);
+
+    &:last-child {
+      padding-bottom: 0;
+      border-bottom: 0;
+    }
+
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  h3 {
+    margin: 0 0 0.3rem;
+    font-family: var(--headline);
+    font-weight: 600;
+    font-size: 1.0625rem;
+    line-height: 1.25;
+  }
+
+  h3 a {
+    color: var(--ink);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--sky);
+      text-decoration: underline;
+      text-decoration-thickness: 1px;
+    }
+  }
+
+  li.is-read h3 a {
+    color: var(--muted);
+  }
+
+  p {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.45;
+  }
+}
+
+.briefs__source {
+  margin-top: 0.35rem !important;
+  font-family: var(--display);
+  font-size: var(--fs-label) !important;
+  color: var(--muted);
+}
+
+.briefs__note {
+  margin: 0.8rem 0 0.2rem !important;
+  font-style: italic;
+  color: var(--muted);
+
+  a {
+    font-style: normal;
+  }
+}
+
+// A day with nothing but briefs: the box is the edition. Its briefs run side
+// by side, with a rule between the columns as short items are set in print.
+.briefs--alone ul {
+  columns: var(--columns, 3) 16rem;
+  column-gap: 2.5rem;
+  column-rule: 1px solid var(--rule);
+  margin-top: 0.8rem;
+}
+
+.briefs--alone li {
+  break-inside: avoid;
+  padding: 0 0 1rem;
+  border-bottom: 0;
+}
+
+.empty {
+  padding: 2rem 0;
+  font-family: var(--display);
+  text-align: center;
+
+  p {
+    margin: 0 0 0.5rem;
+  }
+}

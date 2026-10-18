@@ -1,0 +1,71 @@
+// Archive and search ---------------------------------------------------
+
+.browse {
+  max-width: 46rem;
+  margin-bottom: 2.5rem;
+  // Clear the top of the page when reached by its link.
+  scroll-margin-top: 1rem;
+
+  h2 {
+    font-family: var(--headline);
+    font-weight: 700;
+    font-size: var(--fs-headline);
+    margin: 0 0 0.75rem;
+  }
+}
+
+.browse__sections {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.results {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 46rem;
+
+  li {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.1rem 1rem;
+    padding: 0.9rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  a {
+    font-family: var(--headline);
+    font-weight: 700;
+    font-size: var(--fs-headline);
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+  }
+}
+
+.results__meta {
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+// The Archive and Search pages are set in the middle of the sheet: the line of
+// totals, the sections, and the list beneath.
+.wrap--centred {
+  .page-sub,
+  .browse h2 {
+    text-align: center;
+  }
+
+  .browse {
+    margin-inline: auto;
+  }
+
+  .browse__sections {
+    justify-content: center;
+  }
+}

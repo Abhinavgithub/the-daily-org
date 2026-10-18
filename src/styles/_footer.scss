@@ -1,0 +1,25 @@
+// Footer ---------------------------------------------------------------
+
+.site-footer {
+  // The rule stops short of the sheet's edge, like the one under the masthead.
+  margin: 0 var(--gutter);
+  padding: 1.25rem 0 1.5rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  color: var(--muted);
+  text-align: center;
+
+  // One line where there is room; evenly balanced lines where there is not.
+  p {
+    margin: 0;
+    text-wrap: balance;
+  }
+
+  .site-footer__links {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+    margin-top: 0.5rem;
+  }
+}

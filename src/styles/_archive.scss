@@ -1,0 +1,239 @@
+// The Archive ----------------------------------------------------------
+// A ledger of every edition: release editions, then daily ones a month at a
+// time, then the sections. One column, so everything on it shares its edges.
+.past {
+  margin-top: 0.5rem;
+}
+
+.past__sum {
+  text-align: center;
+}
+
+.past__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+// An edition: its number, its day, and how much is in it.
+.past__row {
+  display: grid;
+  grid-template-columns: 2.25rem minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 0.15rem 0.6rem;
+  padding: 0.7rem 0;
+
+  & + & {
+    border-top: 1px solid var(--rule);
+  }
+
+  a {
+    grid-column: 2;
+    justify-self: start;
+    font-family: var(--headline);
+    font-weight: 700;
+    font-size: var(--fs-headline);
+    line-height: 1.2;
+    letter-spacing: -0.005em;
+    color: var(--ink);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--sky);
+      text-decoration: underline;
+      text-underline-offset: 0.15em;
+    }
+  }
+}
+
+// A row with no number, which starts at the column's own edge.
+.past__row--plain {
+  grid-template-columns: minmax(0, 1fr) auto;
+
+  a {
+    grid-column: 1;
+  }
+}
+
+.past__no {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.past__count {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+// A month of daily editions, or a year of release editions: a line that opens.
+.past__month {
+  & + & {
+    border-top: 1px solid var(--rule);
+  }
+
+  > summary {
+    padding: 0.55rem 0;
+
+    h4 {
+      flex: 1;
+      margin: 0;
+      font-family: var(--headline);
+      font-weight: 700;
+      font-size: 1.125rem;
+      line-height: 1.25;
+    }
+
+    &:hover h4 {
+      color: var(--sky);
+    }
+  }
+
+  &:first-child > summary {
+    padding-top: 0;
+  }
+
+  .past__list {
+    padding: 0 0 0.75rem 1.55rem;
+  }
+}
+
+.results__meta,
+.results__why {
+  grid-column: 1 / -1;
+}
+
+// Search: the filters beside the results, the pair in the middle of the sheet.
+.search-page {
+  display: grid;
+  grid-template-columns: 12rem minmax(0, 44rem);
+  gap: 2.5rem;
+  justify-content: center;
+  align-items: start;
+}
+
+.search-page .results {
+  max-width: none;
+  border-top: 1px solid var(--rule);
+
+  li {
+    gap: 0.3rem 1rem;
+    padding: 1.1rem 0;
+  }
+}
+
+.results__section {
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-size: 0.72rem;
+}
+
+// A searched word where it was found: underlined in the accent colour, not painted over.
+.results mark {
+  color: inherit;
+  background: none;
+  text-decoration: underline;
+  text-decoration-color: var(--sun);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.18em;
+}
+
+.results__more {
+  display: flex;
+  margin: 1.5rem auto 0;
+  padding: 0.45rem 0.9rem;
+}
+
+.search-filters {
+  position: sticky;
+  top: 1rem;
+  display: grid;
+  gap: 1.25rem;
+  font-family: var(--display);
+  font-size: var(--fs-label);
+
+  fieldset {
+    display: grid;
+    gap: 0.1rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+
+  legend {
+    padding: 0 0 0.4rem;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+}
+
+// One filter: the box, its name, and how many results it covers.
+.check {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 1.9rem;
+  cursor: pointer;
+
+  input {
+    width: 1rem;
+    height: 1rem;
+    margin: 0;
+    accent-color: var(--ink);
+    cursor: inherit;
+  }
+
+  &:has(input:disabled) {
+    color: var(--muted);
+    opacity: 0.6;
+    cursor: default;
+  }
+}
+
+.check__count {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.search-filters__clear {
+  justify-self: start;
+  padding: 0;
+  font: inherit;
+  color: var(--sky);
+  text-decoration: underline;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+// One column: the filters go above the results, each group's boxes in a row that wraps.
+@media (max-width: 64rem) {
+  .search-page {
+    grid-template-columns: minmax(0, 44rem);
+    gap: 1.25rem;
+  }
+
+  .search-filters {
+    position: static;
+    gap: 0.75rem;
+
+    fieldset {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0 1.5rem;
+    }
+  }
+
+  .check {
+    grid-template-columns: auto auto auto;
+    gap: 0.45rem;
+  }
+}
