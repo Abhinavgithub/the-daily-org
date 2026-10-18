@@ -2,9 +2,10 @@ import 'dotenv/config';
 import fs from 'node:fs';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
-import { curate, firstLook, InvalidVerdict, prefilter, proofread } from './curate';
+import { curate, firstLook, InvalidVerdict, proofread } from './curate';
+import { route, triage } from './decide';
 import { addFigures } from './figure';
-import { canonicalUrl, forget, GIVE_UP_DAYS, givenUp, loadPending, loadSeen, savePending, saveSeen, transcriptOverdue, waitingSources } from './dedupe';
+import { canonicalUrl, forget, loadPending, loadSeen, savePending, saveSeen, waitingSources } from './dedupe';
 import { articleText, extractContent, type Extracted } from './extract';
 import { routeDown } from './transcript';
 import { updateReleases } from './releases';
@@ -13,7 +14,6 @@ import { ALERT_FEEDS, readAlerts } from './alerts';
 import { NEW_SOURCE_DAYS } from './state';
 import { fetchFeeds, type FeedItem } from './fetch';
 import { configFromEnv, LlmClient, LlmError, modelsOrStop } from './llm';
-import { isBrief } from '../src/lib/editions';
 import { RunLog } from './log';
 import { PAPER } from '../src/config';
 import { addedOn, addTallies, emptyTally, scorecard, type SourceTally } from '../src/lib/sources';
@@ -219,26 +219,20 @@ if (transcriptsDown) {
 }
 
 for (const { item, key, content } of extracted) {
-  const { text, image, authors, pageFailed, basis } = content;
+  const { text, image, authors, basis } = content;
   // The page's own byline beats the feed's, which is often whoever published the post.
   if (authors.length) item.authors = authors;
-  // A video with no transcript yet waits for one: captions often come some hours after the upload, and one
-  // refusal among successes is passing trouble. It does not wait when every request was refused, when its
-  // captions are in another language, or once it has waited long enough.
-  // A live event that has not been held has nothing in it to judge. It is left alone until it has been.
-  if (content.transcript === 'upcoming') {
+  const verdict = triage(item, content, pending[key], day, transcriptsDown);
+  if (verdict.kind === 'upcoming') {
     videos.waiting++;
     console.log(`  Not held yet, left until it has been: ${item.title}`);
     // Said once, on the run that first met it, not on every run until the day.
-    if (pending[key]?.why !== 'upcoming') runLog.article({ title: item.title, url: item.url, source: item.source.name, outcome: 'deferred', reason: 'a live event that has not been held yet', awaiting: 'airing' });
-    if (!dryRun && pending[key]?.why !== 'upcoming') pending[key] = { source: item.source.id, since: day, why: 'upcoming' };
+    if (verdict.firstMet) runLog.article({ title: item.title, url: item.url, source: item.source.name, outcome: 'deferred', reason: 'a live event that has not been held yet', awaiting: 'airing' });
+    if (!dryRun && verdict.firstMet) pending[key] = { source: item.source.id, since: day, why: 'upcoming' };
     continue;
   }
-  // Once held, its wait for a transcript starts from now, not from when it was announced.
-  const aired = pending[key]?.why === 'upcoming';
-  const mayCome = content.transcript === 'none' || (content.transcript === 'failed' && !transcriptsDown);
-  if (mayCome && (aired || !transcriptOverdue(pending[key], day))) {
-    if (aired && !dryRun) delete pending[key];
+  if (verdict.kind === 'wait') {
+    if (verdict.aired && !dryRun) delete pending[key];
     videos.waiting++;
     if (!dryRun) pending[key] ??= { source: item.source.id, since: day, why: 'no-transcript' };
     console.log(`  Waiting for its transcript: ${item.title}`);
@@ -246,14 +240,10 @@ for (const { item, key, content } of extracted) {
     continue;
   }
   if (basis) videos[basis]++;
-  // An alert is short by nature and is not held to the rules for articles.
-  let reason = item.alert ? null : prefilter(item, text);
-  if (reason) {
+  if (verdict.kind === 'drop') {
+    const { reason, retry } = verdict;
     filtered++;
-    // Too short only because its page could not be read: leave it unseen, so the next run tries the page
-    // again, until it has been tried for long enough.
-    const retry = pageFailed && reason === 'too short' && !givenUp(pending[key], day);
-    if (pageFailed && reason === 'too short') reason = retry ? 'its page could not be read, to be tried again next run' : `its page could not be read for ${GIVE_UP_DAYS} days`;
+    // A page to be tried again is left unseen, so the next run reads it again.
     if (!dryRun) {
       if (retry) {
         if (!pending[key]) tallyOf(item).unread++;
@@ -457,38 +447,34 @@ for (const [i, { item, key, text, image, basis }] of candidates.entries()) {
     const v = curated.verdict;
     tally.reviewed++;
     tally.scores.push(v.interest_score);
-    // An alert is printed whatever it scores. One that is not about security is still left to the editor's view of whether it belongs.
-    const waived = item.alert !== undefined && (v.relevant || item.alert.always);
-    if (waived) {
+    const desk = route(item, v, edition, threshold);
+    if (desk.desk === 'alert') {
       console.log(`  [${i + 1}/${candidates.length}] ${item.alert!.label}, for the Bulletin: ${item.title}`);
       runLog.article({ ...entry, title: v.title, outcome: 'published', score: v.interest_score, reason: `printed in the Bulletin as an alert (${item.alert!.label.toLowerCase()}), whatever its score` });
       const story = { item, curated, image };
       await proofreadStory(story);
       bulletin.push(...writeBulletin(day, 'alert', [story]));
       tally.published++;
-    } else if (item.source.type === 'code') {
-      // Every release of a tool is printed, as one line in the Bulletin: a reader should not have to wonder whether there was one.
+    } else if (desk.desk === 'release') {
       console.log(`  [${i + 1}/${candidates.length}] A release, for the Bulletin: ${item.title}`);
       runLog.article({ ...entry, title: v.title, outcome: 'published', score: v.interest_score, reason: 'printed in the Bulletin; every release of a tool is' });
       bulletin.push(...writeBulletin(day, 'release', [{ item, curated }]));
       tally.published++;
-    } else if (item.source.type === 'discussion' && v.relevant) {
-      // A forum post is never a story. One the editor finds worth knowing is a line in the Bulletin, whatever it scores:
-      // a post is not written to be read as an article is, and its score says little.
+    } else if (desk.desk === 'community') {
+      // A post is not written to be read as an article is, and its score says little.
       console.log(`  [${i + 1}/${candidates.length}] From the community, for the Bulletin: ${item.title}`);
       runLog.article({ ...entry, title: v.title, outcome: 'published', score: v.interest_score, reason: 'printed in the Bulletin, as a line from the community' });
       bulletin.push(...writeBulletin(day, 'community', [{ item, curated }]));
       tally.published++;
-    } else if (!v.relevant) {
+    } else if (desk.desk === 'not-relevant') {
       counts.rejected++;
       tally.notRelevant++;
       console.log(`  [${i + 1}/${candidates.length}] Not relevant: ${item.title}`);
       runLog.article({ ...entry, outcome: 'not-relevant', score: v.interest_score });
-    } else if (v.interest_score < threshold) {
+    } else if (desk.desk === 'below') {
       counts.belowThreshold++;
       tally.below++;
-      // A close call is not thrown away: it is printed in brief, as the model wrote it, at no further cost.
-      const brief = isBrief(v, threshold);
+      const { brief } = desk;
       if (brief) briefs.push(...writeBriefs(day, [{ item, curated }]));
       console.log(`  [${i + 1}/${candidates.length}] Scored ${v.interest_score}, below ${threshold}${brief ? ', printed in brief' : ''}: ${item.title}`);
       runLog.article({
@@ -497,9 +483,9 @@ for (const [i, { item, key, text, image, basis }] of candidates.entries()) {
         score: v.interest_score,
         reason: `scored ${v.interest_score}, the threshold is ${threshold}${brief ? '; printed in brief' : ''}`,
       });
-    } else if (v.same_as && edition[v.same_as - 1].score >= v.interest_score) {
+    } else if (desk.desk === 'repeat') {
       // The paper has this story already, told at least as well. It is printed once, with a line under it for this telling.
-      const first = edition[v.same_as - 1];
+      const first = edition[desk.of];
       const line = { title: item.title, url: item.url, source: item.source.name };
       addAlso(first.file, line);
       first.also.push(line);
@@ -509,7 +495,7 @@ for (const [i, { item, key, text, image, basis }] of candidates.entries()) {
       tally.published++;
     } else {
       // A better telling of a story the paper has takes its place, and the first becomes the line under it.
-      const replaced = v.same_as ? edition[v.same_as - 1] : undefined;
+      const replaced = desk.replaces === undefined ? undefined : edition[desk.replaces];
       console.log(`  [${i + 1}/${candidates.length}] Scored ${v.interest_score}, publishing${replaced ? ' in place of an earlier telling' : ''}: ${item.title}`);
       runLog.article({ ...entry, title: v.title, outcome: 'published', score: v.interest_score, reason: v.title === item.title ? undefined : `article title: ${item.title}` });
       const story: Publishable = { item, curated, image, ...(replaced ? { also: [replaced.told, ...replaced.also] } : {}) };
@@ -524,7 +510,7 @@ for (const [i, { item, key, text, image, basis }] of candidates.entries()) {
         counts.repeats++;
         // Recorded in this run's log when the story was this run's; an earlier run's log stands as it was written.
         runLog.amend(replaced.told.url, { reason: `the same story as "${v.title}", which scored higher; printed as a line under it` });
-        edition[v.same_as! - 1] = printed(file, story);
+        edition[desk.replaces!] = printed(file, story);
       } else {
         edition.push(printed(file, story));
       }
