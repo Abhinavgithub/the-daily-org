@@ -282,10 +282,20 @@ export interface ModelInfo {
 }
 
 /** The provider's model catalogue. Returns null when the endpoint has no price data. */
+/** A model as the provider's catalogue lists it, as far as it is read here. */
+interface CatalogueModel {
+  id: string;
+  name?: string;
+  context_length?: number;
+  pricing?: { prompt?: string | number; completion?: string | number };
+  supported_parameters?: string[];
+  created?: number;
+}
+
 export async function listModels(baseUrl: string, fetchFn: typeof fetch = fetch): Promise<ModelInfo[] | null> {
   const res = await fetchFn(`${baseUrl}/models`, { signal: AbortSignal.timeout(20_000) });
   if (!res.ok) return null;
-  const body = (await res.json()) as { data?: Record<string, any>[] };
+  const body = (await res.json()) as { data?: CatalogueModel[] };
   if (!body.data?.some((m) => m.pricing)) return null;
   return body.data.map((m) => {
     const params: string[] = m.supported_parameters ?? [];

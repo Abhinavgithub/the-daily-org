@@ -48,7 +48,7 @@ It refuses to run with uncommitted changes and asks before deleting anything. Th
 | `npm run replay` | Judges the flagged articles again, with some the paper got right, under the rules as they stand, to measure a change to them. `-- --prefilter-only` makes no model calls; `-- --compare` lists what changed since the last replay; `-- --runs 2` finds unstable verdicts. Publishes nothing. |
 | `npm run release-edition` | Builds the release edition when one is owed, and does nothing otherwise. The daily run calls it. `-- --dry-run` says what is owed; `-- --release 264` builds that release's edition now. |
 | `npm run favicon` | Redraws the icons from the paper's name and colours. |
-| `npm run check` / `npm test` | Type-checks, and runs the tests. |
+| `npm run check` / `npm run lint` / `npm test` | Type-checks, lints, and runs the tests. |
 
 Pipeline options, passed after `--`:
 
