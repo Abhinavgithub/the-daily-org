@@ -9,5 +9,7 @@
     "directory": "./dist",
     // An address with no page gets the paper's own not-found page.
     "not_found_handling": "404-page"
-  }
+  },
+  // Lets a pull request's branch be built as a preview (`wrangler preview`). Empty: a preview is set up as above.
+  "previews": {}
 }

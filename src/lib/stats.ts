@@ -1,6 +1,7 @@
 // The figures behind the Stats page. Pure functions: the page reads the files,
 // this adds them up.
 
+import { jsonLines } from './jsonl';
 import { readTallies, type SourceTally } from './sources';
 
 /** Tokens spent with one model. */
@@ -68,15 +69,8 @@ function tokensOf(raw: Record<string, unknown>): ModelTokens[] {
 /** The lines of `data/stats.jsonl`. A line that is not a run is skipped. */
 export function parseRuns(text: string): Run[] {
   const runs: Run[] = [];
-  for (const line of text.split('\n')) {
-    if (!line.trim()) continue;
-    let raw: Record<string, unknown>;
-    try {
-      raw = JSON.parse(line);
-    } catch {
-      continue;
-    }
-    if (!raw || typeof raw.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(raw.date)) continue;
+  for (const raw of jsonLines(text)) {
+    if (typeof raw.date !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(raw.date)) continue;
     runs.push({
       date: raw.date,
       ranAt: typeof raw.ranAt === 'string' && !Number.isNaN(Date.parse(raw.ranAt)) ? raw.ranAt : `${raw.date}T12:00:00Z`,

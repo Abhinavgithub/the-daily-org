@@ -5,7 +5,7 @@ import { youtube, type Source } from '../src/paper';
 import { curate, prefilter } from './curate';
 import { extractContent } from './extract';
 import { fetchFeeds } from './fetch';
-import { configFromEnv, keepFreeModels, LlmClient, LlmError } from './llm';
+import { configFromEnv, LlmClient, LlmError, modelsOrStop } from './llm';
 
 // What a source would add to the paper, before it is added. It reads the feed
 // as the pipeline would and can have the model review its latest articles.
@@ -84,15 +84,10 @@ if (review === 0) {
 }
 
 const config = configFromEnv();
-if (!config.apiKey) {
-  console.error('\nLLM_API_KEY is not set, so the articles cannot be reviewed.');
-  process.exit(1);
-}
-const { models } = await keepFreeModels(config, process.env.LLM_ALLOW_PAID === '1');
-if (models.length === 0) {
-  console.error('\nNo usable model left. Run `npm run models`.');
-  process.exit(1);
-}
+const models = await modelsOrStop(config, {
+  noKey: '\nLLM_API_KEY is not set, so the articles cannot be reviewed.',
+  noModel: '\nNo usable model left. Run `npm run models`.',
+});
 const llm = new LlmClient({ ...config, models });
 const threshold = Number(process.env.SCORE_THRESHOLD) > 0 ? Number(process.env.SCORE_THRESHOLD) : 6;
 
