@@ -1,0 +1,27 @@
+name: Check
+
+# Tests, types and a build on every pull request, so a change that breaks the paper is found before it is merged
+# and not at the next day's run, which runs the tests too but only after the change is on main.
+
+on:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm test
+
+      - run: npm run check
+
+      - run: npm run build
