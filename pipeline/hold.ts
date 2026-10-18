@@ -1,8 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { parseDocument } from 'yaml';
 import { daysBetween } from './dedupe';
-import { readStories, STORIES_DIR } from './write';
+import { openStory, readStories, STORIES_DIR, storyText } from './write';
 
 // A full day's surplus is kept for a quiet one. Sources post on weekdays and hardly at all at the weekend, so
 // without this a day of eight stories is followed by days of none. A held story is a story file as it was
@@ -75,15 +74,14 @@ export function release(day: string, options: HoldOptions): Moved[] {
   const dir = path.join(storiesDir, day);
   return owing(day, options).map(({ file }) => {
     fs.mkdirSync(dir, { recursive: true });
-    const match = fs.readFileSync(file, 'utf8').match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/)!;
-    const doc = parseDocument(match[1]);
+    const { doc, body } = openStory(fs.readFileSync(file, 'utf8'))!;
     const from = heldOn(file);
     doc.set('date', day);
     // Says the story has had its wait, so a later run of the day does not put it by again.
     doc.set('held_from', from);
     const number = Math.max(0, ...fs.readdirSync(dir).filter((f) => f.endsWith('.md')).map((f) => parseInt(f, 10) || 0)) + 1;
     const to = path.join(dir, `${String(number).padStart(2, '0')}${path.basename(file).slice(14)}`);
-    fs.writeFileSync(to, `---\n${doc.toString({ lineWidth: 0 }).trimEnd()}\n---\n${match[2]}`);
+    fs.writeFileSync(to, storyText(doc, body));
     fs.rmSync(file);
     return { ...moved(to, { file: to, data: doc.toJS() as Record<string, unknown> }, from), late: daysBetween(from, day) >= HOLD_DAYS };
   });

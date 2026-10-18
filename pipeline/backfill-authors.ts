@@ -1,8 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import { parseDocument } from 'yaml';
 import { extractPage } from './extract';
-import { STORIES_DIR } from './write';
+import { openStory, STORIES_DIR, storyText } from './write';
 
 // Re-reads each story's page for its writers and updates `authors` where the
 // page names someone different from what was stored. Makes no model calls.
@@ -14,9 +13,9 @@ const files = fs
 let changed = 0;
 for (const file of files) {
   const raw = fs.readFileSync(file, 'utf8');
-  const match = raw.match(/^---\n([\s\S]*?)\n---\n/);
-  if (!match) continue;
-  const doc = parseDocument(match[1]);
+  const story = openStory(raw);
+  if (!story) continue;
+  const { doc } = story;
   const { url, title, source_type, authors: stored = [] } = doc.toJS() as {
     url?: string;
     title?: string;
@@ -35,7 +34,7 @@ for (const file of files) {
   if (found.length === 0 || found.join('|') === stored.join('|')) continue;
 
   doc.set('authors', found);
-  fs.writeFileSync(file, raw.replace(match[0], () => `---\n${doc.toString({ lineWidth: 0 }).trimEnd()}\n---\n`));
+  fs.writeFileSync(file, storyText(doc, story.body));
   changed++;
   console.log(`  ${stored.join(', ') || '(none)'} -> ${found.join(', ')}: ${title}`);
 }

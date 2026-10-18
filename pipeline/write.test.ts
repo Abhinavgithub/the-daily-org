@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { test } from 'node:test';
 import { good, item } from './testing';
-import { addAlso, printed, readEdition, removeStory, STORIES_DIR, writeBriefs, writeBulletin, writeStories } from './write';
+import { addAlso, openStory, printed, readEdition, removeStory, STORIES_DIR, storyText, writeBriefs, writeBulletin, writeStories } from './write';
 
 test('a brief is written as its headline and reason, with no summary', (t) => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'paper-briefs-'));
@@ -98,4 +98,13 @@ test('a later run reads what the day already has, so a story is not told again',
   removeStory(one, pub);
   assert.ok(!fs.existsSync(one) && !fs.existsSync(picture));
   assert.equal(readEdition(day).length, 1);
+});
+
+test('a story file opened and written again is the same file, and a change to its front matter leaves the text alone', () => {
+  const text = '---\ntitle: "A story"\ninterest_score: 7\n---\n\nThe summary.\n';
+  const story = openStory(text)!;
+  assert.equal(storyText(story.doc, story.body), text);
+  story.doc.set('held_from', '2026-10-17');
+  assert.equal(storyText(story.doc, story.body), '---\ntitle: "A story"\ninterest_score: 7\nheld_from: 2026-10-17\n---\n\nThe summary.\n');
+  assert.equal(openStory('no front matter'), null);
 });

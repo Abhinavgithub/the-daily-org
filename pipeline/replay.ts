@@ -12,6 +12,7 @@ import { loadFeedback, normalizeUrl } from './feedback';
 import { fetchFeeds, type FeedItem } from './fetch';
 import { configFromEnv, LlmClient, modelsOrStop } from './llm';
 import { buildCases, compare, judgement, mark, sentence, tally, type Case, type Judgement, type Result } from './replay-lib';
+import { scoreThreshold } from './settings';
 import { SOURCES } from './sources';
 
 // Judges again the articles the reader flagged, and some the paper got right,
@@ -45,7 +46,7 @@ const runs = whole('runs', 1);
 const controls = whole('controls', 0);
 const maxCalls = whole('max-calls', 1);
 const prefilterOnly = args['prefilter-only'];
-const threshold = Number(process.env.SCORE_THRESHOLD) > 0 ? Number(process.env.SCORE_THRESHOLD) : 6;
+const threshold = scoreThreshold();
 
 const data = path.join(process.cwd(), 'data');
 const out = path.join(data, 'replay');
