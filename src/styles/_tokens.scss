@@ -1,0 +1,175 @@
+// Tokens ---------------------------------------------------------------
+
+// The paper's three colours, set in src/lib/theme.ts. astro.config.mjs hands them to main.scss, which passes them on.
+$paper: null !default;
+$ink: null !default;
+$accent: null !default;
+
+:root {
+  // Three layers: a desk behind everything, the newsprint sheet lying on it,
+  // and a lighter paper for the story blocks on the sheet. Ink tones are warm
+  // so nothing looks cold against any of them.
+  --desk: #c8bda6;
+  --paper: #{$paper};
+  --surface: #faf6ec;
+  --ink: #{$ink};
+  --muted: #5a5346;
+  --rule: #cdc4ae;
+  --sky: #2c5878;
+  // The word of the nameplate printed in colour: the blue of the paper's subject. The site's icon is drawn in the same (NAMEPLATE_ACCENT in src/lib/theme.ts).
+  --nameplate-accent: #00a1e0;
+  // A share price that rose. One that fell takes the alarm red.
+  --rise: #1f7a3d;
+  --sky-wash: #e8e0cd;
+  --sun: #{$accent};
+  // For a failure of the service, and nothing else: the one red on the page.
+  --alarm: #b3261e;
+  --backdrop: rgb(28 26 22 / 0.55);
+
+  // The box rule around a story: ink, thinned so it reads as printed, not framed.
+  --edge: color-mix(in srgb, var(--ink) 38%, transparent);
+
+  // One shadow scale for the whole site: a story lying on the page, and a
+  // note raised above it. Warm brown-black, to suit the paper.
+  --shadow-1: 0 1px 2px rgb(60 45 20 / 0.16), 0 6px 14px rgb(60 45 20 / 0.17);
+  --shadow-2: 0 2px 4px rgb(60 45 20 / 0.18), 0 16px 30px rgb(60 45 20 / 0.26);
+  // The whole newspaper on the desk. The first four layers draw the edges of
+  // two more pages beneath the front one, each a little narrower; the rest is
+  // the shadow the stack casts.
+  --shadow-sheet:
+    0 7px 0 -3px var(--paper), 0 8px 0 -3px var(--edge-solid), 0 15px 0 -7px var(--paper),
+    0 16px 0 -7px var(--edge-solid), 0 3px 6px rgb(60 45 20 / 0.2), 0 22px 48px rgb(60 45 20 / 0.34);
+  // The page edges need an opaque line, since they sit over the desk rather than over paper.
+  --edge-solid: color-mix(in srgb, var(--ink) 38%, var(--desk));
+
+  // Open-licensed faces in the manner of a broadsheet: Chomsky for the
+  // nameplate, Newsreader for headlines and reading text (it was drawn for
+  // news, and picks a sharper cut at headline sizes and a sturdier one at text
+  // sizes by itself), and Libre Franklin for labels.
+  --nameplate: 'Chomsky', 'Old English Text MT', 'UnifrakturCook', Georgia, serif;
+  --headline: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --text: 'Newsreader', Georgia, 'Times New Roman', serif;
+  --display: 'Libre Franklin', 'Franklin Gothic Medium', 'Helvetica Neue', Arial, sans-serif;
+
+  // The whole type scale. Every font-size on the site is one of these.
+  --fs-nameplate: clamp(2.6rem, 8vw, 4.75rem);
+  --fs-title: 2rem;
+  --fs-headline: 1.25rem;
+  --fs-body: 1rem;
+  --fs-label: 0.8125rem;
+
+  // Space between the sheet's edge and its content, and between the sheet and the window.
+  --gutter: clamp(1rem, 2.4vw, 1.5rem);
+  --desk-gap: clamp(0.5rem, 2vw, 1.5rem);
+  --width: 78rem;
+  // Height of the header's search box and theme button.
+  --tool: 2.5rem;
+  color-scheme: light;
+}
+
+@mixin dark {
+  --desk: #0d0c0a;
+  --paper: #191713;
+  --surface: #24211b;
+  --ink: #ebe5d6;
+  --muted: #b0a896;
+  --rule: #3e392f;
+  --sky: #9cc3e0;
+  --nameplate-accent: #00a1e0;
+  --rise: #5fc27e;
+  --sky-wash: #2e2a22;
+  --sun: #f0a85a;
+  --alarm: #ff6b5e;
+  --backdrop: rgb(0 0 0 / 0.7);
+
+  // Soft shadows barely show on a dark page, so they are stronger here and
+  // paired with a faint light along the top edge.
+  --shadow-1: inset 0 1px 0 rgb(255 255 255 / 0.05), 0 1px 2px rgb(0 0 0 / 0.5), 0 4px 10px rgb(0 0 0 / 0.4);
+  --shadow-2: inset 0 1px 0 rgb(255 255 255 / 0.07), 0 2px 4px rgb(0 0 0 / 0.55), 0 14px 28px rgb(0 0 0 / 0.55);
+  --shadow-sheet:
+    0 7px 0 -3px var(--paper), 0 8px 0 -3px var(--edge-solid), 0 15px 0 -7px var(--paper),
+    0 16px 0 -7px var(--edge-solid), 0 4px 8px rgb(0 0 0 / 0.6), 0 24px 56px rgb(0 0 0 / 0.75);
+  color-scheme: dark;
+
+  // The theme button shows the mode it switches to.
+  .icon-moon {
+    display: none;
+  }
+
+  .icon-sun {
+    display: block;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    @include dark;
+  }
+}
+
+:root[data-theme='dark'] {
+  @include dark;
+}
+
+@font-face {
+  font-family: 'Chomsky';
+  src: url('/fonts/Chomsky.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+// Newsreader and Libre Franklin, served from this site so that reading the
+// paper asks nothing of anyone else's servers. Latin and extended Latin only.
+@font-face {
+  font-family: 'Libre Franklin';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/LibreFranklin-normal-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Libre Franklin';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('/fonts/LibreFranklin-normal-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Newsreader';
+  font-style: italic;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/Newsreader-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Newsreader';
+  font-style: italic;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/Newsreader-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/Newsreader-normal-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Newsreader';
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+  src: url('/fonts/Newsreader-normal-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}

@@ -1,0 +1,399 @@
+// Figure --------------------------------------------------------------
+// The diagram on a must-read story: line art in the paper's own ink and rules,
+// drawn from a few labels. It lays itself out by the width of its box, across
+// in a wide story and stacked in a single column.
+
+.fig {
+  container-type: inline-size;
+  margin: 0 0 0.9rem;
+  padding: 0.85rem 0 0.6rem;
+  border-top: 2px solid var(--ink);
+  border-bottom: 1px solid var(--rule);
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  line-height: 1.3;
+
+  ol,
+  ul,
+  dl,
+  dd,
+  p {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  figcaption {
+    margin-top: 0.75rem;
+    font-family: var(--text);
+    font-style: italic;
+    font-size: var(--fs-label);
+    line-height: 1.35;
+    color: var(--muted);
+  }
+}
+
+// The illustration, when the story has one, in place of the drawn diagram.
+.fig--image {
+  padding-top: 0.6rem;
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--rule);
+  }
+}
+
+// The picture is a button: it opens large over the page.
+.fig__zoom {
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: zoom-in;
+}
+
+.zoom {
+  width: min(72rem, 100vw - 2rem);
+  max-height: calc(100dvh - 2rem);
+  padding: 1rem 1rem 0.9rem;
+  overflow: auto;
+  border: 1px solid var(--edge-solid);
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow-sheet);
+
+  &::backdrop {
+    background: rgb(0 0 0 / 0.62);
+  }
+
+  img {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-height: calc(100dvh - 9rem);
+    object-fit: contain;
+    border: 1px solid var(--rule);
+  }
+
+  p {
+    margin: 0.7rem 2.5rem 0 0;
+    font-family: var(--text);
+    font-style: italic;
+    font-size: var(--fs-body);
+    line-height: 1.4;
+    color: var(--muted);
+  }
+}
+
+.zoom__close {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.4rem;
+  display: grid;
+  place-items: center;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: 1px solid var(--edge-solid);
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+
+  svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  &:hover {
+    background: var(--paper);
+  }
+}
+
+.fig__heading {
+  font-weight: 700;
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+// Steps: numbered boxes joined by arrows.
+.fig__steps {
+  counter-reset: step;
+  display: grid;
+  gap: 1.1rem;
+
+  li {
+    counter-increment: step;
+    position: relative;
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    padding: 0.5rem 0.65rem;
+    border: 1px solid var(--edge-solid);
+    background: var(--paper);
+
+    &::before {
+      content: counter(step);
+      font-family: var(--headline);
+      font-weight: 700;
+      font-size: 1.05rem;
+      line-height: 1;
+    }
+  }
+
+  // The arrow to the next step: a short stem with a head.
+  li:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: calc(100% + 0.2rem);
+    width: 0.45rem;
+    height: 0.45rem;
+    border-right: 1.5px solid var(--ink);
+    border-bottom: 1.5px solid var(--ink);
+    transform: translateX(-50%) rotate(45deg);
+  }
+}
+
+@container (min-width: 30rem) {
+  .fig__steps {
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    gap: 1.4rem;
+
+    li {
+      flex-direction: column;
+      gap: 0.3rem;
+    }
+
+    li:not(:last-child)::after {
+      left: calc(100% + 0.35rem);
+      top: 50%;
+      transform: translateY(-50%) rotate(-45deg);
+    }
+  }
+}
+
+// Compare: two headed lists with a rule between them.
+.fig__compare {
+  display: grid;
+  gap: 0.8rem;
+}
+
+.fig__side {
+  .fig__heading {
+    padding-bottom: 0.3rem;
+    border-bottom: 1px solid var(--ink);
+  }
+
+  li {
+    padding: 0.35rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  li:last-child {
+    border-bottom: 0;
+  }
+}
+
+@container (min-width: 19rem) {
+  .fig__compare {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0;
+  }
+
+  .fig__side + .fig__side {
+    margin-left: 0.75rem;
+    padding-left: 0.75rem;
+    border-left: 1px solid var(--rule);
+  }
+
+  .fig__side:first-child {
+    padding-right: 0;
+  }
+}
+
+// Numbers: the figures a story turns on, set large.
+.fig__numbers {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem 0;
+
+  > div {
+    flex: 1 1 7rem;
+    padding: 0 0.75rem;
+    border-left: 1px solid var(--rule);
+  }
+
+  > div:first-child {
+    padding-left: 0;
+    border-left: 0;
+  }
+
+  dt {
+    font-family: var(--headline);
+    font-weight: 700;
+    font-size: 1.75rem;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    font-variant-numeric: lining-nums;
+  }
+
+  dd {
+    margin-top: 0.2rem;
+    color: var(--muted);
+  }
+}
+
+// Parts: one thing, and beneath it what it is made of.
+.fig__parts {
+  .fig__heading {
+    padding: 0.45rem 0.65rem;
+    border: 1px solid var(--ink);
+    background: var(--paper);
+    text-align: center;
+  }
+
+  ul {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(7.5rem, 1fr));
+    gap: 0.4rem;
+    // The stem from the whole down to its parts.
+    margin-top: 0.7rem;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: -0.7rem;
+      height: 0.7rem;
+      border-left: 1px solid var(--ink);
+    }
+  }
+
+  li {
+    padding: 0.4rem 0.55rem;
+    border: 1px solid var(--edge-solid);
+  }
+}
+
+.story__meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0.8rem;
+  margin: 0.9rem 0 0;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  color: var(--muted);
+
+  a {
+    color: inherit;
+  }
+}
+
+// Other sources that told the same story: one quiet line under the text.
+.story__also {
+  margin: 0.7rem 0 0;
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  color: var(--muted);
+
+  a {
+    color: inherit;
+
+    &:hover {
+      color: var(--sky);
+    }
+  }
+}
+
+.story__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.15rem 0.7rem;
+  list-style: none;
+  margin: 0.45rem 0 0;
+  padding: 0;
+  font-family: var(--display);
+  font-size: var(--fs-label);
+
+  a {
+    color: var(--muted);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--sky);
+      text-decoration: underline;
+    }
+  }
+}
+
+// When there is no source line above them, the tags carry the dividing rule.
+.story__text + .story__tags {
+  margin-top: 0.9rem;
+  padding-top: 0.7rem;
+  border-top: 1px solid var(--rule);
+}
+
+// "Why read this": an info button after the writer's name, and its note.
+.why__button {
+  display: grid;
+  place-items: center;
+  // A comfortable target around a small icon.
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: -0.25rem 0;
+  padding: 0;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  border-radius: 50%;
+  cursor: help;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--sky);
+  }
+
+  svg {
+    width: 1rem;
+    height: 1rem;
+  }
+}
+
+// Placed against the byline, so it stays within the story's own column and is
+// never cut off at the edge of the page.
+.why__pop {
+  display: none;
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + 0.35rem);
+  left: 0;
+  width: min(22rem, 100%);
+  padding: 0.7rem 0.85rem;
+  font-family: var(--text);
+  font-size: var(--fs-body);
+  font-style: italic;
+  line-height: 1.4;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--edge);
+  border-radius: 3px;
+  box-shadow: var(--shadow-2);
+}
+
+.why.is-open .why__pop {
+  display: block;
+}
+
+@media (hover: hover) {
+  .why:hover .why__pop {
+    display: block;
+  }
+}

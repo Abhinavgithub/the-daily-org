@@ -1,0 +1,41 @@
+// Narrower screens -----------------------------------------------------
+
+@media (max-width: 64rem) {
+  // Two columns: a wide story takes both.
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .story--w2,
+  .story--w3 {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 44rem) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .story--w2 .story__title,
+  .story--w3 .story__title {
+    font-size: var(--fs-headline);
+  }
+
+  // The search gives way so Archive and the theme button keep their size.
+  .masthead__bar {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .filters__group + .filters__group {
+    border-left: 0;
+  }
+
+  .dateline__long {
+    display: none;
+  }
+
+  .dateline__short {
+    display: inline;
+  }
+}

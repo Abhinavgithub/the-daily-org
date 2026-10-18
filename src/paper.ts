@@ -93,7 +93,7 @@ export interface Paper<Section extends string = string, Persona extends string =
   /**
    * The three colours the paper is printed in, as hex colours: the sheet, the
    * ink, and one accent. They set the light theme and the colours illustrations
-   * are asked for in; the dark theme's shades are in src/styles/main.scss.
+   * are asked for in; the dark theme's shades are in src/styles/_tokens.scss.
    */
   colours?: { paper?: string; ink?: string; accent?: string };
   /** Where the paper is published, such as "https://example.com". Used for links in the RSS feed, sitemap and link previews. */

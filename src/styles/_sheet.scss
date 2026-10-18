@@ -1,0 +1,23 @@
+// The sheet -----------------------------------------------------------
+
+// The whole newspaper: bordered, and raised off the desk by its shadow.
+.sheet {
+  width: min(var(--width), 100% - 2 * var(--desk-gap));
+  // Extra room below for the page edges and the shadow.
+  margin: var(--desk-gap) auto calc(var(--desk-gap) + 1.5rem);
+  background: var(--paper);
+  border: 1px solid var(--edge);
+  box-shadow: var(--shadow-sheet);
+  // The part that turns when moving between editions.
+  view-transition-name: sheet;
+  position: relative;
+}
+
+// An empty layer over the sheet on which the curl of a turning page is drawn.
+.sheet::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  view-transition-name: turn-fold;
+}

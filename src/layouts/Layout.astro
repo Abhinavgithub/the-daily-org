@@ -44,7 +44,7 @@ const preview = new URL(image ?? '/icon-512.png', Astro.site);
     <link rel="preload" href="/fonts/Chomsky.woff2" as="font" type="font/woff2" crossorigin />
     <script is:inline>
       // Turning the page between editions. The browser animates between the old
-      // page and this one (see "Page turn" in main.scss); this decides which way.
+      // page and this one (see src/styles/_page-turn.scss); this decides which way.
       // Each page notes its edition as it is left, and the next one compares.
       (() => {
         const KEY = 'last-edition';

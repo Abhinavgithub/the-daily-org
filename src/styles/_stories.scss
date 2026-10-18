@@ -1,0 +1,106 @@
+// Stories --------------------------------------------------------------
+
+// Three newspaper columns. A story is one, two or three wide and as tall as
+// its own text, so the boxes differ in size as they do on a printed page.
+.grid {
+  --gap: 1.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: var(--gap);
+  align-items: start;
+}
+
+// Set by the arranging script once it has decided where each box goes: rows
+// become one pixel tall, so a box can be put at exactly the place chosen for it.
+.grid.is-packed {
+  grid-auto-rows: 1px;
+  row-gap: 0;
+}
+
+// Each story is a boxed clipping lying on the page.
+.story {
+  position: relative;
+  grid-column: span 1;
+  padding: 1.1rem 1.25rem 1.2rem;
+  background: var(--surface);
+  border: 1px solid var(--edge);
+  box-shadow: var(--shadow-1);
+  // Room above the box when the page scrolls to it from a link.
+  scroll-margin-top: 1rem;
+}
+
+.story--w2 {
+  grid-column: span 2;
+}
+
+.story--w3 {
+  grid-column: 1 / -1;
+}
+
+// A one-column story set across two columns to close a gap at the foot of the
+// page. Its headline stays the ordinary size.
+.story--stretch {
+  grid-column: span 2;
+}
+
+// The story a link pointed at.
+.story:target {
+  outline: 2px solid var(--sky);
+  outline-offset: 3px;
+}
+
+.story__byline {
+  // The "why read this" note is placed against this line.
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin: 0 0 0.3rem;
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  color: var(--muted);
+}
+
+.story__title {
+  font-family: var(--headline);
+  font-weight: 700;
+  font-size: var(--fs-headline);
+  line-height: 1.2;
+  letter-spacing: -0.005em;
+  margin: 0 0 0.55rem;
+}
+
+.story--w2 .story__title,
+.story--w3 .story__title {
+  font-size: var(--fs-title);
+  line-height: 1.15;
+  margin-bottom: 0.7rem;
+}
+
+// Opens the original article.
+.story__link {
+  color: var(--ink);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--sky);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+  }
+}
+
+.story.is-read .story__link {
+  color: var(--muted);
+}
+
+.story__text {
+  line-height: 1.5;
+
+  p {
+    margin: 0 0 0.7rem;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+}

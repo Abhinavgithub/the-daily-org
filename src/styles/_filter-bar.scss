@@ -1,0 +1,54 @@
+// Filter bar -----------------------------------------------------------
+
+// A navigation row under the masthead, closed by a double rule.
+.wrap:has(.filters) {
+  padding-top: 0;
+}
+
+.filters {
+  margin-bottom: 1.5rem;
+  border-bottom: 3px double var(--ink);
+  font-family: var(--display);
+  font-size: var(--fs-label);
+}
+
+.filters__line {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 0.55rem 0;
+}
+
+.filters__group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.1rem 1.4rem;
+  padding: 0.15rem 1.4rem;
+
+  // A rule between Show and For.
+  & + & {
+    border-left: 1px solid var(--rule);
+  }
+
+  // Plain words rather than pills; the chosen one is bold and underlined.
+  .chip {
+    padding: 0.2rem 0;
+    border: 0;
+    border-bottom: 2px solid transparent;
+    border-radius: 0;
+    background: none;
+    color: var(--ink);
+    font-weight: 500;
+
+    &:hover {
+      border-bottom-color: var(--rule);
+    }
+
+    &[aria-pressed='true'] {
+      font-weight: 700;
+      border-bottom-color: var(--ink);
+    }
+  }
+}
