@@ -4,7 +4,7 @@ original_title: Ultimate Guide to ChatGPT and Codex for Salesforce Professionals
 url: https://www.salesforceben.com/ultimate-guide-to-chatgpt-and-codex-for-salesforce-professionals/
 source: Salesforce Ben
 source_type: community
-date: 2026-10-17
+date: 2026-10-19
 section: agentforce-and-ai
 personas:
   - developer
@@ -26,6 +26,17 @@ novelty_score: 7
 utility_score: 7
 model: qwen/qwen3.7-flash
 image: https://www.salesforceben.com/wp-content/uploads/2026/10/image4.png
+held_from: 2026-10-17
+figure:
+  kind: parts
+  caption: Key plugins and connectors linking OpenAI tools to Salesforce workflows
+  whole: OpenAI Salesforce Integrations
+  parts:
+    - External data plugins
+    - Agentforce Sales app plugin
+    - Tableau plugin
+    - Salesforce DX MCP connector
+figure_image: /figures/2026-10-19/02-salesforce-ben-ultimate-guide-to-chatgpt-and-codex-for-salesforce-professio.webp
 ---
 
 The article surveys OpenAI tools that can support Salesforce workflows, including ChatGPT Work, Codex, Dots, and collaboration features in Slack and Teams. The author stresses that AI outputs require human verification because the models frequently make mistakes when missing context.

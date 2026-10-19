@@ -1,0 +1,226 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-10-19T06:30:48.258Z",
+  "day": "2026-10-19",
+  "seconds": 129,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 0
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 0
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 0
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 0
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 0,
+      "error": "HTTP 403 (5 attempts: HTTP 403, HTTP 403, HTTP 403, HTTP 403, HTTP 403)"
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 1
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 0
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 1
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 1
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 8
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 19
+    }
+  ],
+  "articles": [
+    {
+      "title": "Salesforce Device Flow: Only Local ECAs With localhost Survive Nov 30 #s...",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x9obzp/salesforce_device_flow_only_local_ecas_with/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "AE final - feedback turnaround?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x93qyk/ae_final_feedback_turnaround/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Anyone joining Salesforce on October 26th for STC role ?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x8zc7a/anyone_joining_salesforce_on_october_26th_for_stc/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Complex template expressions reach general availability in Lightning Web Components",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x9ok7h/complex_template_expressions_are_ga_what_compiles/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 7,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "Is SFMC hard for email marketing (ad hoc dem & auto)",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x9ga0u/is_sfmc_hard_for_email_marketing_ad_hoc_dem_auto/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Exam booking problems Salesforce-Pearson",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x8z5rp/exam_booking_problems_salesforcepearson/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Prenotazione problematica esame Salesforce su Pearson",
+      "url": "https://www.reddit.com/r/salesforce/comments/1x8yek8/prenotazione_problematica_esame_salesforce_su/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce confirms MFA enforcement timelines and extension options for administrators",
+      "url": "https://www.salesforceben.com/salesforce-confirms-new-mfa-updates-what-you-should-expect/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-10-16; printed today, having waited its days for room"
+    },
+    {
+      "title": "Connecting ChatGPT and Codex to Salesforce through plugins and the DX MCP",
+      "url": "https://www.salesforceben.com/ultimate-guide-to-chatgpt-and-codex-for-salesforce-professionals/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-10-17 for a quieter day, and printed today"
+    },
+    {
+      "title": "Implementing email verification workflows in Salesforce beyond standard Validation Rules",
+      "url": "https://dev.to/manya_goswami_e4ffce330ba/salesforce-email-verification-why-format-checks-arent-enough-3nil",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-10-17 for a quieter day, and printed today"
+    }
+  ],
+  "proofread": [],
+  "figures": [
+    {
+      "title": "Connecting ChatGPT and Codex to Salesforce through plugins and the DX MCP",
+      "outcome": "drawn",
+      "kind": "parts",
+      "image": "made"
+    }
+  ],
+  "model": {
+    "calls": 7,
+    "retries": {},
+    "usage": {
+      "qwen/qwen3.7-flash": {
+        "input": 3673,
+        "output": 6406
+      },
+      "google/gemini-3.1-flash-image": {
+        "input": 556,
+        "output": 1120
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-10-19T06:32:57.133Z"
+}

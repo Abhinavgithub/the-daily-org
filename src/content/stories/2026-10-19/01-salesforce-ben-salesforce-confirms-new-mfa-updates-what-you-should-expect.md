@@ -4,7 +4,7 @@ original_title: "Salesforce Confirms New MFA Updates: What You Should Expect"
 url: https://www.salesforceben.com/salesforce-confirms-new-mfa-updates-what-you-should-expect/
 source: Salesforce Ben
 source_type: community
-date: 2026-10-16
+date: 2026-10-19
 section: flow-and-admin
 personas:
   - admin
@@ -23,6 +23,7 @@ depth_score: 3
 novelty_score: 5
 utility_score: 7
 model: qwen/qwen3.7-flash
+held_from: 2026-10-16
 ---
 
 Salesforce has clarified its ongoing multi-factor authentication rollout after conflicting messages caused confusion among customers. The company reaffirmed that mandatory multi-factor authentication remains required for all users by June 2026, with production enforcement beginning on July 20. Administrators and users with elevated permissions must use phishing-resistant methods.
