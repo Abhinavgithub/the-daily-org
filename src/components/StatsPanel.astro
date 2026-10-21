@@ -3,6 +3,7 @@ import { PAPER, PERSONAS, sectionLabel } from '../config';
 import { topWithOthers, totalReadership, type ReadershipDay } from '../lib/readership';
 import { formatCost, formatNumber, outcomes, share, tally, tokensByDay, totalRuns, type Part, type Run } from '../lib/stats';
 import type { Story } from '../lib/stories';
+import { onDays } from '../lib/trend';
 import ReadershipTrend from './ReadershipTrend.astro';
 import StatBars from './StatBars.astro';
 import StatColumns from './StatColumns.astro';
@@ -22,9 +23,6 @@ interface Props {
   /** One column per edition. Left out for a single day. */
   trend?: boolean;
 }
-
-/** The most editions the trend shows, so its columns stay wide enough to read. */
-const TREND_DAYS = 31;
 
 /** Countries and referrers named before the rest are added together, and pages listed. */
 const TOP_COUNTRIES = 5;
@@ -49,8 +47,10 @@ const sources = tally(stories.map((s) => s.data.source));
 const audience = PERSONAS.map((p) => ({ label: p.label, count: stories.filter((s) => s.data.personas.includes(p.id)).length }))
   .filter((row) => row.count > 0)
   .sort((a, b) => b.count - a.count);
-const perDay = tally(stories.map((s) => s.data.date)).sort((a, b) => a.label.localeCompare(b.label));
+// Both trends run over the same editions, so their columns line up: a day with a run or a story.
+const perDay = tally(stories.map((s) => s.data.date));
 const spentPerDay = tokensByDay(runs);
+const editions = [...stories.map((s) => s.data.date), ...runs.map((run) => run.date)];
 const plural = (n: number, one: string, many: string) => (n === 1 ? one : many);
 ---
 
@@ -189,10 +189,10 @@ const plural = (n: number, one: string, many: string) => (n === 1 ? one : many);
   {
     trend && (
       <section class="ledger__row">
-        <h3>Over time</h3>
+        <h3>Edition trends</h3>
         <div class="ledger__charts">
-          <StatColumns title="Stories per edition" rows={perDay.slice(-TREND_DAYS)} unit="stories" of={perDay.length} />
-          <StatColumns title="Tokens per edition" rows={spentPerDay.slice(-TREND_DAYS)} unit="tokens" of={spentPerDay.length} />
+          <StatColumns title="Stories" days={onDays(perDay, editions)} unit="stories" />
+          <StatColumns title="Tokens" days={onDays(spentPerDay, editions)} unit="tokens" />
         </div>
       </section>
     )

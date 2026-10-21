@@ -1,45 +1,78 @@
 ---
 import { compact, formatNumber, type Count } from '../lib/stats';
 import { formatDay } from '../lib/stories';
+import { axisLabels, group, scale, type Bucket } from '../lib/trend';
 
-// One slim column per edition, oldest first. Each row's label is its day.
+// A column a day, oldest first, or a column a week or month when there are too
+// many editions for one each. Gridlines give the scale, so only some columns
+// carry their figure; every column gives its exact figure on hover and focus.
 
 interface Props {
+  /** What is counted, for the title and tooltip: "Stories", "Tokens". */
   title: string;
-  rows: Count[];
-  /** What is counted, for the tooltip: "stories", "tokens". */
+  /** A figure for every day with an edition or a run, oldest first, nought for a day without one. */
+  days: Count[];
+  /** What is counted, in the tooltip: "stories", "tokens". */
   unit: string;
-  /** Editions there are in all, when only the latest are shown. */
-  of?: number;
 }
 
-const { title, rows, unit, of = rows.length } = Astro.props;
-const tallest = Math.max(1, ...rows.map((row) => row.count));
+/** With this many columns or fewer, every column carries its figure. */
+const ALL_FIGURES = 12;
+
+const { title, days, unit } = Astro.props;
+const { unit: per, buckets } = group(days);
+const { ticks, ceiling } = scale(buckets.map((b) => b.value));
+const labels = axisLabels(buckets, per);
+const peak = Math.max(...buckets.map((b) => b.value));
+// The figures printed over columns: all of them while there is room, otherwise the peak, any cut short, and the
+// latest, unless the column beside it already carries one.
+const marked = (b: Bucket) => b.value === peak || b.value > ceiling;
+const figured = buckets.map((b, i) => buckets.length <= ALL_FIGURES || marked(b) || (i === buckets.length - 1 && !marked(buckets[i - 1] ?? b)));
+const total = days.reduce((sum, d) => sum + d.count, 0);
+// A week's or month's average can be a fraction; a day's figure never is.
+const figure = (n: number) => (n < 10 && !Number.isInteger(n) ? n.toFixed(1) : compact(Math.round(n)));
+const short = (day: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${day}T12:00:00Z`));
+const tipLabel = (b: Bucket) =>
+  per === 'day'
+    ? formatDay(b.start)
+    : `${per === 'week' ? `Week of ${short(b.start)}` : new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${b.start}T12:00:00Z`))}: ${formatNumber(b.total)} ${unit} over ${formatNumber(b.editions)} ${b.editions === 1 ? 'day' : 'days'}`;
+const heading = per === 'day' ? `${title} per day` : `${title} per day, ${per === 'week' ? 'weekly' : 'monthly'} average`;
 ---
 
 <figure class="columns">
-  <figcaption>{title}</figcaption>
+  <figcaption>{heading}</figcaption>
   {
-    rows.length === 0 ? (
+    days.length === 0 || total === 0 ? (
       <p class="ledger__none">Nothing recorded.</p>
     ) : (
       <>
-        <ol class="columns__plot">
-          {rows.map((row) => (
-            <li tabindex="0" data-tip={`${formatNumber(row.count)} ${unit}`} data-tip-label={formatDay(row.label)}>
-              <span class="columns__value">{compact(row.count)}</span>
-              <span class="columns__bar mark--main" style={`height: ${(row.count / tallest) * 100}%`} aria-hidden="true" />
-              <span class="columns__day">
-                <span class="visually-hidden">{formatDay(row.label)}</span>
-                <span aria-hidden="true">{Number(row.label.slice(8))}</span>
-              </span>
-            </li>
-          ))}
-        </ol>
-        <p class="ledger__note">
-          {rows.length === 1 ? formatDay(rows[0].label) : `${formatDay(rows[0].label, 'short')} to ${formatDay(rows.at(-1)!.label, 'short')}`}
-          {of > rows.length && `, the latest ${rows.length} of ${of} editions`}
-        </p>
+        <div class="columns__chart">
+          <div class="columns__grid" aria-hidden="true">
+            {ticks.slice(1).filter((_, i) => i % 2 === 1).map((tick) => (
+              <span style={`bottom: ${(tick / ceiling) * 100}%`}>{compact(tick)}</span>
+            ))}
+          </div>
+          <ol class="columns__plot" style={`--columns: ${buckets.length}`}>
+            {buckets.map((b, i) => {
+              const over = b.value > ceiling;
+              const height = Math.min(1, b.value / ceiling) * 100;
+              return (
+                <li tabindex="0" data-tip={per === 'day' ? `${formatNumber(b.value)} ${unit}` : `${figure(b.value)} ${unit} a day`} data-tip-label={tipLabel(b)}>
+                  {figured[i] && (
+                    <span class:list={['columns__value', { 'columns__value--peak': b.value === peak, 'columns__value--last': i === buckets.length - 1 && buckets.length > 1 }]} style={`bottom: calc(${height}% + 0.25rem)`} aria-hidden="true">
+                      {figure(b.value)}
+                    </span>
+                  )}
+                  <span class:list={['columns__bar mark--main', { 'columns__bar--cut': over }]} style={`height: ${height}%`} aria-hidden="true" />
+                  <span class="columns__day">
+                    <span class="visually-hidden">{tipLabel(b)}: {per === 'day' ? formatNumber(b.value) : figure(b.value)}</span>
+                    <span aria-hidden="true">{labels[i]}</span>
+                  </span>
+                </li>
+              );
+            })}
+          </ol>
+        </div>
       </>
     )
   }

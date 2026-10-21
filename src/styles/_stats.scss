@@ -510,6 +510,73 @@
   margin-top: 1.6rem;
 }
 
+// An edition trend: columns on a scale of gridlines, its figures in the margin
+// to the left. Only some columns carry their figure, so they sit over their
+// columns rather than taking room above every one.
+.columns__chart {
+  position: relative;
+  margin-top: 1.4rem;
+  // Room for the dates, which hang below the columns.
+  padding: 0 0 1.4rem 2.4rem;
+
+  .columns__plot {
+    position: relative;
+    gap: 3px;
+
+    li {
+      max-width: none;
+    }
+  }
+
+  .columns__value {
+    position: absolute;
+    margin: 0;
+    white-space: nowrap;
+  }
+
+  // The latest column is the last, so its figure ends at the chart's edge rather than past it.
+  .columns__value--last {
+    right: 0;
+  }
+
+  .columns__value--peak {
+    font-weight: 700;
+    color: var(--ink);
+  }
+
+  .columns__bar {
+    width: min(100%, 26px);
+  }
+
+  .columns__day {
+    white-space: nowrap;
+  }
+}
+
+.columns__grid {
+  position: absolute;
+  inset: 0 0 0 2.4rem;
+  height: 9rem;
+  pointer-events: none;
+
+  span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-top: 1px dashed var(--rule);
+    font-size: 0.68rem;
+    line-height: 0;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    text-indent: -2.4rem;
+  }
+}
+
+// Taller than the scale: drawn to the top and broken near it, so it is not read at its height.
+.columns__bar--cut.mark--main {
+  background: linear-gradient(160deg, var(--mark) 0 9px, var(--paper) 9px 13px, var(--mark) 13px);
+}
+
 // The exact figure behind a bar, shown beside it.
 .tip {
   position: absolute;
