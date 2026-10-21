@@ -12,3 +12,5 @@ marketing/
 data/logs/rejected/
 # What `npm run replay` reads and finds. It is rebuilt when needed.
 data/replay/
+# Diagrams being drawn with Archify. The finished ones are in docs/.
+.archify/
