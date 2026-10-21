@@ -4,6 +4,12 @@ This project publishes a daily newspaper about one subject. A pipeline reads RSS
 
 The paper in this repository is **The Daily Org**. Everything that makes it that paper is in one file, `paper.config.ts`, so the same code can publish a paper about anything else.
 
+## How it works
+
+![How The Daily Org is made: a daily GitHub Actions run fetches feeds, has a language model judge each new article, writes the stories into src/content, and the Astro site is built from them and served by a static host](docs/architecture.png)
+
+Once a day the pipeline reads every source, sets aside what it has seen before, has the model judge the rest, and writes what it keeps as Markdown. The workflow commits that, and the host builds the site from it. `docs/architecture.html` is the same diagram to explore: download it and open it in a browser.
+
 ## Quick start
 
 Requires Node 22.12 or newer.
