@@ -50,7 +50,7 @@ const audience = PERSONAS.map((p) => ({ label: p.label, count: stories.filter((s
 // Both trends run over the same editions, so their columns line up: a day with a run or a story.
 const perDay = tally(stories.map((s) => s.data.date));
 const spentPerDay = tokensByDay(runs);
-const editions = [...perDay, ...spentPerDay].map((row) => row.label);
+const editions = [...stories.map((s) => s.data.date), ...runs.map((run) => run.date)];
 const plural = (n: number, one: string, many: string) => (n === 1 ? one : many);
 ---
 

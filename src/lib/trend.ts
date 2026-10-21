@@ -40,7 +40,8 @@ function startOf(day: string, unit: Unit): string {
 
 /**
  * Days, oldest first, as columns: one a day while they fit in `most`, then one
- * a week, then one a month. A week or month shows its average a day, so a
+ * a week, then one a month, and the latest months when even those do not fit.
+ * A week or month shows its average a day, so a
  * week only begun is not read as a quiet one.
  */
 export function group(days: Count[], most = MOST_COLUMNS): { unit: Unit; buckets: Bucket[] } {
@@ -60,7 +61,8 @@ export function group(days: Count[], most = MOST_COLUMNS): { unit: Unit; buckets
     result = { unit, buckets: [...buckets.values()] };
     if (result.buckets.length <= most) break;
   }
-  return result;
+  // Too many months even so: the latest of them.
+  return { unit: result.unit, buckets: result.buckets.slice(-most) };
 }
 
 /**

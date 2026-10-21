@@ -516,7 +516,8 @@
 .columns__chart {
   position: relative;
   margin-top: 1.4rem;
-  padding-left: 2.4rem;
+  // Room for the dates, which hang below the columns.
+  padding: 0 0 1.4rem 2.4rem;
 
   .columns__plot {
     position: relative;

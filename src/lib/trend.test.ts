@@ -29,6 +29,9 @@ test('a column a day while they fit, then a week, then a month', () => {
   assert.equal(months.unit, 'month');
   assert.equal(months.buckets[0].start, '2026-01-01');
   assert.equal(months.buckets.length, 14);
+  const latest = group(run('2023-01-01', 1200));
+  assert.equal(latest.buckets.length, 31, 'only the latest months, when even months are too many');
+  assert.equal(latest.buckets.at(-1)!.start, '2026-04-01');
 });
 
 test('one busy day does not set the scale', () => {
@@ -41,6 +44,6 @@ test('dates under the columns name the month where it starts and always the late
   const days = group(run('2026-10-28', 6)).buckets;
   assert.deepEqual(axisLabels(days, 'day', 8), ['28 Oct', '29', '30', '31', '1 Nov', '2']);
   assert.deepEqual(axisLabels(days, 'day', 3), ['', '29 Oct', '', '31', '', '2 Nov']);
-  const months = group(run('2025-11-01', 400), 10).buckets;
+  const months = group(run('2025-11-01', 400), 20).buckets;
   assert.deepEqual(axisLabels(months, 'month', 20).slice(0, 3), ['Nov 2025', 'Dec', 'Jan 2026']);
 });

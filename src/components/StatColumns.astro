@@ -29,21 +29,14 @@ const peak = Math.max(...buckets.map((b) => b.value));
 const marked = (b: Bucket) => b.value === peak || b.value > ceiling;
 const figured = buckets.map((b, i) => buckets.length <= ALL_FIGURES || marked(b) || (i === buckets.length - 1 && !marked(buckets[i - 1] ?? b)));
 const total = days.reduce((sum, d) => sum + d.count, 0);
-const average = days.length ? total / days.length : 0;
 // A week's or month's average can be a fraction; a day's figure never is.
 const figure = (n: number) => (n < 10 && !Number.isInteger(n) ? n.toFixed(1) : compact(Math.round(n)));
 const short = (day: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${day}T12:00:00Z`));
-// "3 to 21 Oct 2026", "28 Sept to 2 Oct 2026", "4 Dec 2025 to 2 Jan 2026".
-const range = (from: string, to: string) =>
-  from.slice(0, 4) !== to.slice(0, 4)
-    ? `${short(from)} to ${short(to)}`
-    : `${new Intl.DateTimeFormat('en-GB', { day: 'numeric', ...(from.slice(0, 7) === to.slice(0, 7) ? {} : { month: 'short' }), timeZone: 'UTC' }).format(new Date(`${from}T12:00:00Z`))} to ${short(to)}`;
 const tipLabel = (b: Bucket) =>
   per === 'day'
     ? formatDay(b.start)
     : `${per === 'week' ? `Week of ${short(b.start)}` : new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${b.start}T12:00:00Z`))}: ${formatNumber(b.total)} ${unit} over ${formatNumber(b.editions)} ${b.editions === 1 ? 'day' : 'days'}`;
 const heading = per === 'day' ? `${title} per day` : `${title} per day, ${per === 'week' ? 'weekly' : 'monthly'} average`;
-const cutDays = buckets.filter((b) => b.value > ceiling);
 ---
 
 <figure class="columns">
@@ -80,10 +73,6 @@ const cutDays = buckets.filter((b) => b.value > ceiling);
             })}
           </ol>
         </div>
-        <p class="ledger__note">
-          {days.length === 1 ? formatDay(days[0].label, 'short') : `${range(days[0].label, days.at(-1)!.label)}, ${figure(average)} a day on average`}.
-          {cutDays.length > 0 && ` ${cutDays.length === 1 ? 'The tallest column is' : 'The tallest columns are'} cut short to fit.`}
-        </p>
       </>
     )
   }
