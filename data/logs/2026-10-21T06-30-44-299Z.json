@@ -1,0 +1,353 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-10-21T06:30:44.299Z",
+  "day": "2026-10-21",
+  "seconds": 902,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 2
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 0
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 0
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 2
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 4
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 5
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 1
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 0
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 1
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 0
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 1
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 0
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 7
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 20
+    }
+  ],
+  "articles": [
+    {
+      "title": "Braze Acquisition",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xbf8d3/braze_acquisition/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Salesforce acquires Braze. Thoughts?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xaqr4b/salesforce_acquires_braze_thoughts/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Anyone else suddenly getting replies on really old posts/comments in this sub?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xaowfq/anyone_else_suddenly_getting_replies_on_really/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Now that Agentforce Coworker is out for everyone, is anyone using it on real, messy data?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xbf2wf/now_that_agentforce_coworker_is_out_for_everyone/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce Developer (6 yrs, PD1 certified) open to direct contract/freelance work, no agencies please",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xbesjg/salesforce_developer_6_yrs_pd1_certified_open_to/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "App vendor creates a user without permission",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xba9ez/app_vendor_creates_a_user_without_permission/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "How do you track agency-funded deals in your CRM?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xb7ojk/how_do_you_track_agencyfunded_deals_in_your_crm/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Building an open source clone of Salesforce's core (Object Manager, records, list views) to learn how it works under the hood",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xb43et/building_an_open_source_clone_of_salesforces_core/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Is D2X by MuseLabs Still Being Maintained?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xaxnet/is_d2x_by_muselabs_still_being_maintained/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Opensource Gearset / Copado?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xav99b/opensource_gearset_copado/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Custom sharing reasons now roll out for standard objects alongside a setting to preserve manual shares",
+      "url": "https://developer.salesforce.com/blogs/2026/10/protect-apex-shares-custom-row-causes-on-standard-objects",
+      "source": "Salesforce Developers Blog",
+      "outcome": "published",
+      "score": 8,
+      "reason": "article title: Protect Apex Shares: Custom Row Causes on Standard Objects"
+    },
+    {
+      "title": "Salesforce Acquires AI Marketing Giant Braze for $5.66B",
+      "url": "https://www.salesforceben.com/salesforce-acquires-ai-marketing-giant-braze-for-5-66b/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Reported known issue blocks email address changes for thousands of users",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xaup0t/sf_support_is_apparently_a_popularity_contest_so/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 4,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "Salesforce unveils an interface layer to connect platform data and permissions to AI tools",
+      "url": "https://cloudodyssey.com/blog/salesforce-aiforce-explained-what-it-is-how-it-works-and-where-it-fits-in-your-business/",
+      "source": "Cloud Odyssey",
+      "outcome": "published",
+      "score": 8,
+      "reason": "article title: Salesforce AIforce Explained: What It Is, How It Works, and Where It Fits in Your Business"
+    },
+    {
+      "title": "Salesforce inspector update is garbage",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xarmqy/salesforce_inspector_update_is_garbage/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "admin cert help",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xaqt6h/admin_cert_help/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce Signs Definitive Agreement to Acquire Braze",
+      "url": "https://www.salesforce.com/news/press-releases/2026/10/20/salesforce-signs-definitive-agreement-to-acquire-braze/",
+      "source": "Salesforce News",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Salesforce Data Migration: A Practical Checklist Before You Hit Import",
+      "url": "https://dev.to/rohanmehta/salesforce-data-migration-a-practical-checklist-before-you-hit-import-1p6l",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "How elastic limits extend Async Apex capacity and throttle processing in Winter '27",
+      "url": "https://bobbuzzard.blogspot.com/2026/10/elastic-limits-for-async-apex-jobs-in.html",
+      "source": "Bob Buzzard Blog",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Elastic Limits for Async Apex Jobs in Winter '27"
+    },
+    {
+      "title": "Queue as recipient in Custom Notificiation in Flow Approval Process",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xan2be/queue_as_recipient_in_custom_notificiation_in/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "A VS Code extension runs anonymous Apex and SOQL with a single keyboard shortcut",
+      "url": "https://dev.to/wiktormalyska/virga-run-anonymous-apex-and-soql-from-a-vs-code-tab-with-ctrls-2ih6",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Virga: run anonymous Apex and SOQL from a VS Code tab with Ctrl+S"
+    },
+    {
+      "title": "Any Referrals please",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xalegc/any_referrals_please/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce alerts on third-party certificate compromise and possible proactive maintenance",
+      "url": "https://status.salesforce.com/generalmessages/20000266",
+      "source": "Salesforce Trust",
+      "outcome": "published",
+      "score": 5,
+      "reason": "printed in the Bulletin as an alert (service notice), whatever its score"
+    },
+    {
+      "title": "Marketing Cloud Core Service and Login experience temporary instance disruption",
+      "url": "https://status.salesforce.com/incidents/20004504",
+      "source": "Salesforce Trust",
+      "outcome": "published",
+      "score": 2,
+      "reason": "printed in the Bulletin as an alert (incident), whatever its score"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Custom sharing reasons now roll out for standard objects alongside a setting to preserve manual shares",
+      "outcome": "corrected",
+      "reason": "summary: 8 words differ (at most 6 allowed)"
+    },
+    {
+      "title": "Salesforce unveils an interface layer to connect platform data and permissions to AI tools",
+      "outcome": "corrected"
+    },
+    {
+      "title": "How elastic limits extend Async Apex capacity and throttle processing in Winter '27",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "A VS Code extension runs anonymous Apex and SOQL with a single keyboard shortcut",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Salesforce alerts on third-party certificate compromise and possible proactive maintenance",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Marketing Cloud Core Service and login experience temporary instance disruption",
+      "outcome": "corrected"
+    }
+  ],
+  "figures": [
+    {
+      "title": "Custom sharing reasons now roll out for standard objects alongside a setting to preserve manual shares",
+      "outcome": "drawn",
+      "kind": "compare",
+      "image": "made"
+    }
+  ],
+  "model": {
+    "calls": 31,
+    "retries": {},
+    "usage": {
+      "qwen/qwen3.7-flash": {
+        "input": 32845,
+        "output": 75138
+      },
+      "google/gemini-3.1-flash-image": {
+        "input": 814,
+        "output": 1120
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-10-21T06:45:46.710Z"
+}
