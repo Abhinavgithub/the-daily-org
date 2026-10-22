@@ -1,0 +1,373 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-10-22T06:30:51.081Z",
+  "day": "2026-10-22",
+  "seconds": 919,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 3
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 1
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 1
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 3
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 4
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 8
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 1
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 1
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 1
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 0
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 1
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 0
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 12
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 23
+    }
+  ],
+  "articles": [
+    {
+      "title": "Org charts for customers",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xc8h9k/org_charts_for_customers/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Salesforce GDC joining reg",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xbnntj/salesforce_gdc_joining_reg/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "From spam that looks like real people wrecking our lead scoring",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xc9w6j/from_spam_that_looks_like_real_people_wrecking/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Experience Cloud login overages may be miscounted due to double counting metrics",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xc6tuz/heads_up_experience_cloud_login_overages_might_be/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 7,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "Account Engagement/Pardot Engagement Studio Question",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xc0jzf/account_engagementpardot_engagement_studio/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce Admins, Devs & QA: How do you handle repetitive test data setup? I built a tool for it.",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xbumol/salesforce_admins_devs_qa_how_do_you_handle/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Lightning Web Components 9.5.2 clarifies compiler errors and updates dependencies",
+      "url": "https://github.com/salesforce/lwc/releases/tag/v9.5.2",
+      "source": "Lightning Web Components",
+      "outcome": "published",
+      "score": 3,
+      "reason": "printed in the Bulletin; every release of a tool is"
+    },
+    {
+      "title": "Different Sales Force Automation Systems in the same company",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xbqv93/different_sales_force_automation_systems_in_the/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Securing Salesforce to LLM integrations with Apex and scoped permissions",
+      "url": "https://dev.to/arthur_doss/building-a-salesforce-to-llm-integration-with-scoped-api-permissions-16k2",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Building a Salesforce-to-LLM Integration With Scoped API Permissions"
+    },
+    {
+      "title": "Route real phone calls to your Agentforce Voice agent using Salesforce CLI and Omni-Channel flows",
+      "url": "https://developer.salesforce.com/blogs/2026/10/agentforce-voice-for-agent-script-route-real-phone-calls-to-your-agent",
+      "source": "Salesforce Developers Blog",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Agentforce Voice for Agent Script: Route Real Phone Calls to Your Agent"
+    },
+    {
+      "title": "Hill I'll die on: I'd take 10 years of hands-on Salesforce over 30 certifications (from a former anti-cert guy who now has 13)",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xbo678/hill_ill_die_on_id_take_10_years_of_handson/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Apex workaround lets Agentforce read record attachments without Data Cloud",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xbn45j/built_free_100_native_agentforce_solution_to_chat/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 6,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "Salesforce discusses partner concerns over new AI agent billing Model",
+      "url": "https://www.salesforceben.com/salesforce-opens-talks-with-partners-over-ai-agent-billing-concerns/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Salesforce Opens Talks With Partners Over AI Agent Billing Concerns"
+    },
+    {
+      "title": "Salesforce CLI 2.155.7 resolves source tracking and packaging errors",
+      "url": "https://github.com/forcedotcom/cli/blob/main/releasenotes/README.md?v=2.155.7#21557-october-21-2026-stable",
+      "source": "Salesforce CLI",
+      "outcome": "published",
+      "score": 3,
+      "reason": "printed in the Bulletin; every release of a tool is"
+    },
+    {
+      "title": "Master six overlooked Developer Console features to speed up debugging and querying",
+      "url": "https://dev.to/rohanmehta/salesforce-developer-console-in-2026-6-features-most-developers-ignore-2pb",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Salesforce Developer Console in 2026: 6 Features Most Developers Ignore"
+    },
+    {
+      "title": "How does the recent eMudhra CA compromise affect Salesforce?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xbjs3m/how_does_the_recent_emudhra_ca_compromise_affect/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "How to Choose a Scalable Salesforce Power BI Integration",
+      "url": "https://www.salesforceben.com/how-to-choose-a-scalable-salesforce-power-bi-integration/",
+      "source": "Salesforce Ben",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Salesforce REST API: 5 Things to Check When an Integration Fails",
+      "url": "https://dev.to/renuka_singh_65783f63cbba/salesforce-rest-api-5-things-to-check-when-an-integration-fails-3i83",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Salesforce Apex Testing: How to Write Tests That Catch Real Bugs",
+      "url": "https://dev.to/renuka_singh_65783f63cbba/salesforce-apex-testing-how-to-write-tests-that-catch-real-bugs-4jii",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Manually enter a default no-reply address in Salesforce Flow without changing its configuration",
+      "url": "https://salesforcetime.com/2026/10/21/how-to-use-the-default-no-reply-address-in-salesforce-flow/",
+      "source": "Salesforce Time",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "OmniStudio Clean Metadata Deployment changes how components are versioned and deployed",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xbibcz/thoughts_on_omnistudio_clean_metadata_deployment/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 7,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "What Will a Salesforce Admin Actually Do in 2027?",
+      "url": "https://www.salesforceben.com/what-will-a-salesforce-admin-actually-do-in-2027/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 5
+    },
+    {
+      "title": "Deep Dive into Unifying Salesforce Exports: Tackling Data Discrepancies for Robust Sales Forecasting",
+      "url": "https://dev.to/datasort/deep-dive-into-unifying-salesforce-exports-tackling-data-discrepancies-for-robust-sales-forecasting-2hhf",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Claude certs as a Salesforce dev, and they're $120 for individuals until Nov 27",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xbhaj8/claude_certs_as_a_salesforce_dev_and_theyre_120/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "AI Voice Agent in Salesforce – Your Next Teammate",
+      "url": "https://dev.to/vranda_singhal_99974c120f/ai-voice-agent-in-salesforce-your-next-teammate-3n7n",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Salesforce confirms PHP vulnerabilities do not affect customer data",
+      "url": "https://status.salesforce.com/generalmessages/20000267",
+      "source": "Salesforce Trust",
+      "outcome": "published",
+      "score": 2,
+      "reason": "printed in the Bulletin as an alert (security advisory), whatever its score"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Securing Salesforce to LLM integrations with Apex and scoped permissions",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Route real phone calls to your Agentforce Voice agent using Salesforce CLI and Omni-Channel flows",
+      "outcome": "kept",
+      "reason": "reason to read: 6 words differ (at most 4 allowed)"
+    },
+    {
+      "title": "Salesforce discusses partner concerns over new AI agent billing model",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Master six overlooked Developer Console features to speed up debugging and querying",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Manually enter a default no-reply address in Salesforce Flow without changing its configuration",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Salesforce confirms PHP vulnerabilities do not affect customer data",
+      "outcome": "unchanged"
+    }
+  ],
+  "figures": [
+    {
+      "title": "Route real phone calls to your Agentforce Voice agent using Salesforce CLI and Omni-Channel flows",
+      "outcome": "drawn",
+      "kind": "steps",
+      "image": "made"
+    }
+  ],
+  "model": {
+    "calls": 37,
+    "retries": {},
+    "usage": {
+      "qwen/qwen3.7-flash": {
+        "input": 50294,
+        "output": 94900
+      },
+      "google/gemini-3.1-flash-image": {
+        "input": 608,
+        "output": 1120
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-10-22T06:46:09.661Z"
+}
