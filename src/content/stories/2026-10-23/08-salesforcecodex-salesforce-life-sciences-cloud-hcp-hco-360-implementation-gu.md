@@ -4,7 +4,7 @@ original_title: "Salesforce Life Sciences Cloud: HCP & HCO 360 Implementation Gu
 url: https://salesforcecodex.com/salesforce/salesforce-life-sciences-cloud-hcp-hco-360-implementation-guide/?utm_source=rss&utm_medium=rss&utm_campaign=salesforce-life-sciences-cloud-hcp-hco-360-implementation-guide
 source: SalesforceCodex
 source_type: community
-date: 2026-10-20
+date: 2026-10-23
 section: architecture
 personas:
   - architect
@@ -24,6 +24,7 @@ novelty_score: 4
 utility_score: 8
 model: qwen/qwen3.7-flash
 image: https://res.cloudinary.com/duws9yaa5/image/upload/v1792339033/salesforce-life-sciences-cloud-hcp-hco-360-implementation-SalesforceCodex_n4pqfs.webp
+held_from: 2026-10-20
 ---
 
 The article explains how Life Sciences Cloud unifies healthcare professional and organization data across fragmented systems such as external providers, enterprise resource planning platforms, and marketing tools. It emphasizes that successful implementation requires more than basic record creation and demands careful architectural planning.

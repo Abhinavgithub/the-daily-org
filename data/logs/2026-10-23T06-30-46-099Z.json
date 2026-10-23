@@ -1,0 +1,420 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-10-23T06:30:46.099Z",
+  "day": "2026-10-23",
+  "seconds": 962,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 6
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 1
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 1
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 1
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 1
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 5
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 0,
+      "error": "HTTP 415 (5 attempts: HTTP 415, HTTP 415, HTTP 415, HTTP 415, HTTP 415)"
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 1
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 1
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 2
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 11
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 21
+    }
+  ],
+  "articles": [
+    {
+      "title": "Salesforce down",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xd3gt3/salesforce_down/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Big outage right now",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xd2jrd/big_outage_right_now/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Hii Everyone, I'm 2024 Passout with CSE I have Non Tech Experience in GlobalLogic for Training Al and Finance Experience In AML Rightsource I want to Join Salesforce As An Associate Technical Support Engineer. Can You Please Guide me Through That?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xcryec/hii_everyone_im_2024_passout_with_cse_i_have_non/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Does anyone know for integrating with Zoom Contact Center, are there any variables besides 'Phone' that can be captured via input variables in a salesforce screen flow? I am only able to find that ability to capture the phone number by creating an input variable in Salesforce named 'Phone'",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xco1gp/does_anyone_know_for_integrating_with_zoom/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Implementing Salesforce Service Cloud in 2027 the AI-Powered Way",
+      "url": "https://dev.to/ayaninsights/implementing-salesforce-service-cloud-in-2027-the-ai-powered-way-l1d",
+      "source": "dev.to",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "How hard is the Agentforce specialist exam?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xczwgz/how_hard_is_the_agentforce_specialist_exam/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "What’s the future of Salesforce Architects with AI evolving so quickly?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xczbvz/whats_the_future_of_salesforce_architects_with_ai/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "How a local Apex runtime speeds up testing without replacing your org",
+      "url": "https://dev.to/oblitus/what-a-local-apex-runtime-is-and-why-you-never-had-one-c4",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: What a local Apex runtime is, and why you never had one"
+    },
+    {
+      "title": "One sidebar for the Salesforce tasks I do every day, so I built a Chrome extension",
+      "url": "https://dev.to/patelkiran3090/one-sidebar-for-the-salesforce-tasks-i-do-every-day-so-i-built-a-chrome-extension-54jh",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Salesforce Mulesoft Integration Foundations",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xcvreh/salesforce_mulesoft_integration_foundations/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "What are Salesforce reps telling SFMC customers about Braze?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xcv6mo/what_are_salesforce_reps_telling_sfmc_customers/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Connecting Data Cloud to Agentforce Studio to build an agentic RAG pipeline",
+      "url": "https://salesforcebreak.com/2026/10/22/agentic-rag-data-cloud-agentforce-studio/",
+      "source": "Salesforce Break",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Building Agentic RAG: Connecting Data Cloud to Agentforce Studio (Part 2)"
+    },
+    {
+      "title": "Set up Data Cloud web crawlers to ingest and vectorize external pages for AI agents",
+      "url": "https://salesforcebreak.com/2026/10/22/agentic-rag-data-360-agentforce/",
+      "source": "Salesforce Break",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Building Agentic RAG: Setting Up Web Crawlers in Data Cloud (Part 1)"
+    },
+    {
+      "title": "Any interest in Koa (Salesforce's Reasoning Model)?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xcrl8z/any_interest_in_koa_salesforces_reasoning_model/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "How to enable and assign the Slackbot UI permission in Salesforce",
+      "url": "https://www.infallibletechie.com/2026/10/invoke-slackbot-in-salesforce.html",
+      "source": "InfallibleTechie",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Should I make the switch to a Salesforce BA role?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xcmo9l/should_i_make_the_switch_to_a_salesforce_ba_role/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Global PHP Vulnerabilities Prove the Seriousness of AI Threat",
+      "url": "https://www.salesforceben.com/global-php-vulnerabilities-prove-the-seriousness-of-ai-threat/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Is Anthropic’s Always-On Claude Duet the Next Frontier of AI Agents?",
+      "url": "https://www.salesforceben.com/is-anthropics-always-on-claude-duet-the-next-frontier-of-ai-agents/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Salesforce Named a Leader in 2026 Gartner® Magic Quadrant™ for Digital Commerce for the 11th Consecutive Year",
+      "url": "https://www.salesforce.com/news/stories/gartner-magic-quadrant-digital-commerce-2026/",
+      "source": "Salesforce News",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Why a client abandoned a custom Claude AI setup after burning through tokens",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xckuh6/salesforce_partner_left_us_for_a_diy_claude_setup/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 6,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "Can I use Salesforce for free?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xck20d/can_i_use_salesforce_for_free/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce Authenticator app disappeared from my Apple Watch?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xcj68v/salesforce_authenticator_app_disappeared_from_my/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Six practical Validation Rule patterns to improve data quality in Salesforce",
+      "url": "https://dev.to/rohanmehta/salesforce-validation-rules-6-patterns-every-admin-should-have-ready-2l5g",
+      "source": "dev.to",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "MuleSoft Connectors: The Complete Guide to Anypoint’s Connector Ecosystem",
+      "url": "https://cloudodyssey.com/blog/mulesoft-connectors-the-complete-guide-to-anypoints-connector-ecosystem/",
+      "source": "Cloud Odyssey",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Migrating HubSpot to Salesforce: External IDs, upsert, and load order",
+      "url": "https://dev.to/korayyalcin/hubspottan-salesforcea-veri-tasirken-external-id-upsert-ve-iliski-sirasi-gelistirici-notlari-67",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: HubSpot'tan Salesforce'a veri taşırken External ID, upsert ve ilişki sırası: Geliştirici notları"
+    },
+    {
+      "title": "Core Service outage disrupts login access across sixty-two instances",
+      "url": "https://status.salesforce.com/incidents/20004512",
+      "source": "Salesforce Trust",
+      "outcome": "published",
+      "score": 5,
+      "reason": "printed in the Bulletin as an alert (incident), whatever its score"
+    },
+    {
+      "title": "Core Service login disruption resolved after recent release issue",
+      "url": "https://status.salesforce.com/incidents/20004518",
+      "source": "Salesforce Trust",
+      "outcome": "published",
+      "score": 4,
+      "reason": "printed in the Bulletin as an alert (incident), whatever its score"
+    },
+    {
+      "title": "Core Service login disruption on eight instances resolved after release update",
+      "url": "https://status.salesforce.com/incidents/20004519",
+      "source": "Salesforce Trust",
+      "outcome": "published",
+      "score": 5,
+      "reason": "printed in the Bulletin as an alert (incident), whatever its score"
+    },
+    {
+      "title": "Agentforce Specialist exam outline updates and a four-week study plan",
+      "url": "https://dev.to/ashapurasoftechinc/agentforce-specialist-exam-in-2026-the-new-outline-and-a-4-week-hands-on-plan-42g1",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-10-20; printed today, having waited its days for room"
+    },
+    {
+      "title": "Architecting HCP and HCO 360 data models and integrations in Life Sciences Cloud",
+      "url": "https://salesforcecodex.com/salesforce/salesforce-life-sciences-cloud-hcp-hco-360-implementation-guide/?utm_source=rss&utm_medium=rss&utm_campaign=salesforce-life-sciences-cloud-hcp-hco-360-implementation-guide",
+      "source": "SalesforceCodex",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-10-20; printed today, having waited its days for room"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "How a local Apex runtime speeds up testing without replacing your org",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Connecting Data Cloud to Agentforce Studio to build an agentic RAG pipeline",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Set up Data Cloud web crawlers to ingest and vectorize external pages for AI agents",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "How to enable and assign the Slackbot UI permission in Salesforce",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Six practical Validation Rule patterns to improve data quality in Salesforce",
+      "outcome": "kept",
+      "reason": "summary: 9 words differ (at most 5 allowed)"
+    },
+    {
+      "title": "Migrating HubSpot to Salesforce: External IDs, upsert, and load order",
+      "outcome": "kept",
+      "reason": "summary: \"salesforce\" was removed"
+    },
+    {
+      "title": "Core Service outage disrupts login access across sixty-two instances",
+      "outcome": "kept",
+      "reason": "summary: \"30\" was changed or removed"
+    },
+    {
+      "title": "Core Service login disruption resolved after recent release issue",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Core Service login disruption on eight instances resolved after release update",
+      "outcome": "unchanged"
+    }
+  ],
+  "figures": [
+    {
+      "title": "How a local Apex runtime speeds up testing without replacing your org",
+      "outcome": "drawn",
+      "kind": "parts",
+      "image": "made"
+    },
+    {
+      "title": "Migrating HubSpot to Salesforce: External IDs, upsert, and load order",
+      "outcome": "drawn",
+      "kind": "steps"
+    }
+  ],
+  "model": {
+    "calls": 36,
+    "retries": {},
+    "usage": {
+      "qwen/qwen3.7-flash": {
+        "input": 51975,
+        "output": 95833
+      },
+      "google/gemini-3.1-flash-image": {
+        "input": 497,
+        "output": 1120
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-10-23T06:46:47.949Z"
+}

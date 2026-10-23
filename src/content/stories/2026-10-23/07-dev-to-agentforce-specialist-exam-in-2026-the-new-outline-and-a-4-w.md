@@ -4,7 +4,7 @@ original_title: "Agentforce Specialist Exam in 2026: The New Outline and a 4-Wee
 url: https://dev.to/ashapurasoftechinc/agentforce-specialist-exam-in-2026-the-new-outline-and-a-4-week-hands-on-plan-42g1
 source: dev.to
 source_type: community
-date: 2026-10-20
+date: 2026-10-23
 section: career-and-certs
 personas:
   - admin
@@ -22,6 +22,7 @@ depth_score: 7
 novelty_score: 8
 utility_score: 7
 model: qwen/qwen3.7-flash
+held_from: 2026-10-20
 ---
 
 The Spring 2026 Agentforce Specialist exam has been restructured, removing separate Sales Cloud and Service Cloud sections while adding Agent Script, hybrid reasoning, Testing Center workflows, governance, and multi agent orchestration. The assessment consists of 60 scored multiple choice questions plus five unscored ones, lasts 105 minutes, requires a 72 percent passing score, and costs 200 dollars to register.
