@@ -213,8 +213,9 @@
 
 // What the release enforces is on the Deadlines page: a line here leads there, under a heavy rule.
 .edition__deadlines {
-  margin: 0 0 1.75rem;
-  padding-top: 0.9rem;
+  // The same room above and below the line, between its rule and the list's.
+  margin: 0;
+  padding: 0.9rem 0;
   border-top: 3px solid var(--ink);
   font-family: var(--display);
 
