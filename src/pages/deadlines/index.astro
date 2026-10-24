@@ -45,7 +45,7 @@ const heading = (group: (typeof groups)[number]) => (group.kind === 'unknown' ? 
   <main class="wrap">
     <div class="ledger deadlines">
       <p class="ledger__note deadlines__intro">
-        What is being enforced or retired, and when, from the official release notes. Dates are the release's own; where the notes name a day, it is flagged. Lines marked <em>Our reading</em> are the paper's, not Salesforce's.
+        What is being enforced or retired, and when, from the official release notes.
       </p>
       {deadlines.length > 0 && <FilterBar stories={deadlines.map((deadline) => ({ data: { personas: rolesOf(deadline.roles) } }))} marks={false} />}
 
