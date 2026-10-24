@@ -379,7 +379,7 @@ function proofSystem(paper: Paper, newHeadline: boolean, many: boolean): string 
     ? 'You are given a JSON list of stories, each with its headline, its one-line reason to read, and its summary.'
     : "You are given a story's headline, its one-line reason to read, and its summary.";
   const reply = many
-    ? 'Reply with one JSON object and nothing else: {"stories": [...]}, holding every story you were given, in the same order, each with exactly the fields "title", "why_read" and "summary". Plain text only.'
+    ? 'Reply with one JSON object and nothing else: {"stories": [...]}, holding every story you were given, in the same order, each with exactly the fields "id" (as given), "title", "why_read" and "summary". Plain text only.'
     : 'Reply with one JSON object and nothing else, with exactly the fields "title", "why_read" and "summary". Plain text only.';
   return `You are the proof-reader of "${paper.name}", a daily newspaper for ${paper.readers}. ${given}
 
@@ -460,14 +460,23 @@ export async function proofread(llm: LlmClient, original: Copy, options: { newHe
  * judges one. A reply that does not hold every story is not trusted for any of
  * them, and each is then proof-read on its own. Never throws.
  */
-export async function proofreadAll(llm: LlmClient, originals: Copy[], options: { paper?: Paper } = {}): Promise<Proofread[]> {
+export async function proofreadAll(
+  llm: LlmClient,
+  originals: Copy[],
+  options: {
+    paper?: Paper;
+    /** Why no more calls may be made, if that is so: checked before each story proof-read on its own. */
+    limit?: () => string | null | undefined;
+  } = {},
+): Promise<Proofread[]> {
   const paper = options.paper ?? PAPER;
   if (originals.length <= 1) return Promise.all(originals.map((original) => proofread(llm, original, options)));
   let reply;
   try {
     reply = await llm.chat([
       { role: 'system', content: proofSystem(paper, false, true) },
-      { role: 'user', content: JSON.stringify(originals, null, 2) },
+      // Numbered, so that a reply that puts the stories in another order is caught rather than applied to the wrong ones.
+      { role: 'user', content: JSON.stringify(originals.map((original, i) => ({ id: i + 1, ...original })), null, 2) },
     ]);
   } catch (err) {
     if (!(err instanceof LlmError)) throw err;
@@ -476,7 +485,8 @@ export async function proofreadAll(llm: LlmClient, originals: Copy[], options: {
   const stories = (() => {
     try {
       const { stories } = parseJsonLoosely(reply.text) as { stories?: unknown };
-      return Array.isArray(stories) && stories.length === originals.length ? stories : undefined;
+      const inOrder = Array.isArray(stories) && stories.length === originals.length && stories.every((story, i) => Number((story as { id?: unknown })?.id) === i + 1);
+      return inOrder ? stories : undefined;
     } catch {
       return undefined;
     }
@@ -484,7 +494,10 @@ export async function proofreadAll(llm: LlmClient, originals: Copy[], options: {
   if (!stories) {
     llm.noteRetry('invalid proof', `${reply.model}, proof-reading each story on its own`);
     const each: Proofread[] = [];
-    for (const original of originals) each.push(await proofread(llm, original, options));
+    for (const original of originals) {
+      const limit = options.limit?.();
+      each.push(limit ? { copy: glossed(original, paper), outcome: 'skipped', reverted: [], usable: false, reason: limit } : await proofread(llm, original, options));
+    }
     return each;
   }
   return originals.map((original, i) => {

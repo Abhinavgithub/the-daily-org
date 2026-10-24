@@ -357,7 +357,7 @@ async function proofreadEdition(files: string[]) {
     proofs.skipped += stories.length;
     return;
   }
-  const results = await proofreadAll(llm, stories.map(({ copy }) => copy));
+  const results = await proofreadAll(llm, stories.map(({ copy }) => copy), { limit: () => llm.limitReached(maxCalls) });
   for (const [i, result] of results.entries()) {
     const { file, doc } = stories[i];
     proofs[result.outcome]++;
@@ -444,17 +444,9 @@ for (const signal of ['SIGINT', 'SIGTERM'] as const) {
 /** Tokens the run has used so far, for charging each article's share to its source. */
 const tokensSoFar = () => Object.values(llm.usage).reduce((sum, spent) => sum + spent.input + spent.output, 0);
 
-// The forum posts get their first look all together, in one call, before any is read in full. A post left without an
-// answer, because the limits were reached or the reply could not be read, gets its own first look as it comes.
-const posts = candidates.filter(({ item }) => item.source.type === 'discussion' && !item.alert);
-let looked = new Map<FeedItem, boolean>();
-if (posts.length > 1 && !llm.limitReached(maxCalls)) {
-  try {
-    looked = await firstLooks(llm, posts);
-  } catch (err) {
-    if (!(err instanceof LlmError)) throw err;
-  }
-}
+// The forum posts get their first look all together, in one call, made when the run reaches the first of them, so the
+// articles before them are judged first. A post left without an answer gets its own first look as it comes.
+let looked: Map<FeedItem, boolean> | undefined;
 
 try {
 for (const [i, { item, key, text, image, basis }] of candidates.entries()) {
@@ -471,7 +463,12 @@ for (const [i, { item, key, text, image, basis }] of candidates.entries()) {
   }
   try {
     // A forum post gets a first look before it is read in full: most are a question or a grumble, and are turned away here.
-    if (item.source.type === 'discussion' && !item.alert && (looked.get(item) ?? (await firstLook(llm, item, text))) === false) {
+    if (item.source.type === 'discussion' && !item.alert && !looked) {
+      looked = new Map();
+      const posts = candidates.slice(i).filter((c) => c.item.source.type === 'discussion' && !c.item.alert);
+      if (posts.length > 1) looked = await firstLooks(llm, posts);
+    }
+    if (item.source.type === 'discussion' && !item.alert && (looked?.get(item) ?? (await firstLook(llm, item, text))) === false) {
       refusedInARow = [];
       seen[key] = day;
       delete pending[key];

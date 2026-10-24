@@ -274,7 +274,7 @@ test('the diagram comes in the same reply as the verdict, and a bad one costs on
 test('an edition is proof-read in one call, and a reply short of a story is not trusted for any', async () => {
   const one = { title: 'Bulk patterns for Eurostar departures', why_read: 'You will learns how to plan a departure.', summary: 'First paragraph.\n\nSecond paragraph.' };
   const two = { title: 'Timing a goods yard shunt', why_read: 'You learn the timing.', summary: 'A paragraph with an eror.' };
-  const fixed = [{ ...one, why_read: 'You will learn how to plan a departure.' }, { ...two, summary: 'A paragraph with an error.' }];
+  const fixed = [{ id: 1, ...one, why_read: 'You will learn how to plan a departure.' }, { id: 2, ...two, summary: 'A paragraph with an error.' }];
 
   let run = client([() => ok(JSON.stringify({ stories: fixed }))]);
   const results = await proofreadAll(run.llm, [one, two], { paper: PAPER });
@@ -288,6 +288,13 @@ test('an edition is proof-read in one call, and a reply short of a story is not 
   assert.equal(run.calls.length, 3);
   assert.deepEqual(again.map((r) => r.outcome), ['corrected', 'corrected']);
   assert.equal(run.llm.retries['invalid proof'], 1);
+
+  // In another order: not applied to the wrong stories. And the fallback stops at the call cap.
+  run = client([() => ok(JSON.stringify({ stories: [fixed[1], fixed[0]] })), () => ok(JSON.stringify(fixed[0]))]);
+  let calls = 1;
+  const capped = await proofreadAll(run.llm, [one, two], { paper: PAPER, limit: () => (calls++ >= 2 ? 'the cap was reached' : null) });
+  assert.deepEqual(capped.map((r) => r.outcome), ['corrected', 'skipped']);
+  assert.equal(capped[1].copy.summary, two.summary);
 });
 
 test('forum posts get their first look together, and a muddled reply decides nothing', async () => {
