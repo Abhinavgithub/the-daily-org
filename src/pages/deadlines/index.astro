@@ -2,8 +2,8 @@
 // Deadlines: what is being enforced or retired, and when, from the release
 // notes' Release Updates. Each release is a section, named in the margin with
 // its dates beside it; what is still to come leads, what is in force follows,
-// greyed. The notes' words are printed as they are; the paper's reading of what
-// to do is marked as its own.
+// greyed. The notes' words are printed as they are; what to do about each is
+// the paper's own, and marked so. Whom each is for is left to the filter.
 import fs from 'node:fs';
 import path from 'node:path';
 import FilterBar from '../../components/FilterBar.astro';
@@ -33,7 +33,6 @@ const stories = (await getAllStories()).map((story) => ({
 }));
 const everyone = PERSONAS.map((persona) => persona.id);
 const rolesOf = (roles: string[] | undefined) => (roles && roles.length ? roles : everyone);
-const label = (id: string) => PERSONAS.find((persona) => persona.id === id)?.label ?? id;
 const heading = (group: (typeof groups)[number]) => (group.kind === 'unknown' ? 'No release named' : group.kind === 'before' ? `Before ${group.release}` : group.release);
 ---
 
@@ -71,23 +70,20 @@ const heading = (group: (typeof groups)[number]) => (group.kind === 'unknown' ? 
                     <p class="bulletin__text">{deadline.says}</p>
                     {deadline.action && (
                       <p class="bulletin__text deadlines__reading">
-                        <span class="deadlines__label">Our reading</span> {deadline.action}
+                        <span class="deadlines__label">What to do</span> {deadline.action}
                       </p>
                     )}
-                    <p class="bulletin__facts">
-                      {deadline.roles && deadline.roles.length < everyone.length ? `For ${roles.map(label).join(', ').toLowerCase()}` : 'For everyone'}
-                      {about.length > 0 && (
-                        <>
-                          {' · In the paper: '}
-                          {about.map(({ story }, i) => (
-                            <>
-                              {i > 0 && ', '}
-                              <a href={storyHref(story)}>{story.data.title}</a>
-                            </>
-                          ))}
-                        </>
-                      )}
-                    </p>
+                    {about.length > 0 && (
+                      <p class="bulletin__facts">
+                        {'In the paper: '}
+                        {about.map(({ story }, i) => (
+                          <>
+                            {i > 0 && ', '}
+                            <a href={storyHref(story)}>{story.data.title}</a>
+                          </>
+                        ))}
+                      </p>
+                    )}
                   </article>
                 );
               })}
