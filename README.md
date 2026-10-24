@@ -47,7 +47,7 @@ It refuses to run with uncommitted changes and asks before deleting anything. Th
 | `npm run check-paper` | Checks `paper.config.ts` and every source. No model calls. |
 | `npm run sources` | How each source has done (`-- --days 90` for a longer span), with a verdict on each. |
 | `npm run try-source -- <feed address>` | What a new source would add. `--review 3` has the model score its latest three; `--youtube <channel ID>` tries a channel. |
-| `npm run figures` | Adds missing diagrams to must-read stories. `-- --day YYYY-MM-DD` for one edition, `-- --redo` to draw them again. |
+| `npm run figures` | Adds missing diagrams to stories. `-- --day YYYY-MM-DD` for one edition, `-- --redo` to draw them again. |
 | `npm run readership` | Saves who read the paper, up to yesterday, for the Stats page. Needs the `READERSHIP_` settings. |
 | `npm run revise -- --glossary-only` | Re-applies the glossary to every story, with no model calls. |
 | `npm run feedback` | Records what the paper got wrong: `-- junk <address>` for a printed story that should not have run, `-- missed <address>` for one it skipped, `-- list` to review. Kept in `data/feedback.jsonl`. Under `npm run dev` the Logs page does the same with a button on each article. |
@@ -79,7 +79,6 @@ All in `.env`; `.env.example` explains each.
 | `LLM_ALLOW_PAID` | `1` allows models that cost money. Default `0`. |
 | `LLM_MAX_COST_USD` | The most one run may spend. The run stops cleanly there. |
 | `LLM_REASONING_TOKENS` | Optional. The most a model may think before each answer; `0` is none. Empty leaves it to the model. |
-| `LLM_IMAGE_MODEL` | Optional. An image model that illustrates each edition's top story. |
 | `LLM_MAX_CALLS`, `LLM_MIN_INTERVAL_MS` | Calls per run and the gap between them. |
 | `SCORE_THRESHOLD` | Stories below this score (1 to 10) are not published. |
 | `YOUTUBE_API_KEY` | Optional. Makes YouTube sources reliable; without it their feed fails at random. |
@@ -136,8 +135,7 @@ A YouTube video is judged on its transcript, with the description its uploader w
 - With free models the paper costs nothing. Free tiers limit requests per day; `LLM_MAX_CALLS` keeps a run inside yours.
 - Paid models need `LLM_ALLOW_PAID=1`. Set `LLM_MAX_COST_USD`, and a credit limit on the key as well.
 - A release edition is about $0.02 a build on a cheap paid model, and is built twice a release.
-- Pictures are the main cost: an image model is paid per picture, so check its price before setting `LLM_IMAGE_MODEL`.
-- The words inside a picture cannot be checked by the pipeline, so look at new ones.
+- Diagrams cost one model call each. The model only writes the labels; the page draws them as SVG, so there is no image model to pay for.
 
 ## Pages
 

@@ -20,8 +20,6 @@ export interface LlmConfig {
   apiKey: string;
   /** Tried in order; the next one is used when a model keeps failing. */
   models: string[];
-  /** Draws the illustrations. Unset, none are drawn. */
-  imageModel?: string;
   /** The most one run may spend, in US dollars, where the provider reports what each call cost. */
   maxCostUsd?: number;
   /** The most tokens a model may spend thinking before it answers. 0 is none at all. Unset, nothing is asked of the model. */
@@ -33,12 +31,6 @@ export interface LlmConfig {
   /** Injectable for tests. */
   fetch?: typeof fetch;
   sleep?: (ms: number) => Promise<void>;
-}
-
-export interface ImageResult {
-  bytes: Buffer;
-  mime: string;
-  model: string;
 }
 
 export class LlmError extends Error {
@@ -55,7 +47,7 @@ type Retry = { retryAfterMs: number; reason: string };
 
 interface Reply {
   model?: string;
-  choices?: { message?: { content?: string; images?: { image_url?: { url?: string } }[] } }[];
+  choices?: { message?: { content?: string } }[];
   /** `cost` is in US dollars. OpenRouter reports it; other providers may not. */
   usage?: { prompt_tokens?: number; completion_tokens?: number; cost?: number };
   error?: { message?: string; code?: number };
@@ -88,7 +80,6 @@ export function configFromEnv(overrides: { model?: string } = {}): LlmConfig {
     baseUrl: (process.env.LLM_BASE_URL ?? 'https://openrouter.ai/api/v1').replace(/\/+$/, ''),
     apiKey: process.env.LLM_API_KEY ?? '',
     models,
-    imageModel: process.env.LLM_IMAGE_MODEL?.trim() || undefined,
     maxCostUsd: Number(process.env.LLM_MAX_COST_USD) > 0 ? Number(process.env.LLM_MAX_COST_USD) : undefined,
     reasoningTokens: reasoningFromEnv(process.env.LLM_REASONING_TOKENS),
     minIntervalMs: Number(process.env.LLM_MIN_INTERVAL_MS ?? 3500),
@@ -241,34 +232,6 @@ export class LlmClient {
     const failure = new LlmError(`All models failed. ${problems.join('; ')}`);
     failure.refused = refusals === this.config.models.length;
     throw failure;
-  }
-
-  /** A picture from the image model, retrying rate limits and server errors as `chat` does. `shape` is its proportions, such as "16:9". */
-  async image(prompt: string, shape?: string): Promise<ImageResult> {
-    const model = this.config.imageModel;
-    if (!model) throw new LlmError('No image model is set (LLM_IMAGE_MODEL).');
-    let problem = '';
-    for (let attempt = 0; attempt <= this.config.maxRetries; attempt++) {
-      // The shape is a setting some image models honour and others ignore; the prompt states it in words as well.
-      const reply = await this.post(model, { messages: [{ role: 'user', content: prompt }], modalities: ['image', 'text'], ...(shape ? { image_config: { aspect_ratio: shape } } : {}) }, 180_000);
-      if (!('reason' in reply)) {
-        // The picture arrives as a data URL: data:image/png;base64,....
-        const match = reply.choices?.[0]?.message?.images?.[0]?.image_url?.url?.match(/^data:(image\/[\w.+-]+);base64,(.+)$/s);
-        this.spend(reply.model ?? model, reply);
-        if (!match) throw new LlmError(`${model}: the reply had no image in it`);
-        return { bytes: Buffer.from(match[2], 'base64'), mime: match[1], model: reply.model ?? model };
-      }
-      problem = reply.reason;
-      const cause = problem.split(':')[0];
-      if (attempt < this.config.maxRetries) {
-        const wait = reply.retryAfterMs || 5000 * 2 ** attempt;
-        this.noteRetry(cause, `${model}, retrying in ${Math.round(wait / 1000)}s`);
-        await this.sleep(wait);
-      } else {
-        this.noteRetry(cause, `${model}, giving up on the picture`);
-      }
-    }
-    throw new LlmError(`${model}: ${problem}`);
   }
 }
 

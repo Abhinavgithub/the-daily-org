@@ -300,7 +300,7 @@ const models = await modelsOrStop(config, {
   noModel: 'No usable model left. Run `npm run models` to pick a free one, then set LLM_MODELS or pass --model.',
 });
 const llm = new LlmClient({ ...config, models, log: (message) => console.warn(`      extra call, ${message}`) });
-console.log(`Assessing with ${models.join(', then ')}${config.imageModel ? `, illustrating with ${config.imageModel}` : ''}. Cap: ${maxCalls} calls${config.maxCostUsd ? `, $${config.maxCostUsd}` : ''}.`);
+console.log(`Assessing with ${models.join(', then ')}. Cap: ${maxCalls} calls${config.maxCostUsd ? `, $${config.maxCostUsd}` : ''}.`);
 
 // Each story is proof-read and written as soon as it is accepted, so a run that
 // is interrupted keeps everything it has paid for.
@@ -312,7 +312,7 @@ const edition: Printed[] = [...readEdition(day), ...(PAPER.holdOver ? readEditio
 const briefs: string[] = [];
 // What went to the Bulletin, apart from the stories: alerts and tools' releases.
 const bulletin: string[] = [];
-let figures = { made: 0, illustrated: 0, none: 0, rejected: 0, skipped: 0 };
+let figures = { made: 0, cards: 0, none: 0, rejected: 0, skipped: 0 };
 const counts = { rejected: 0, belowThreshold: 0, invalid: 0, deferred: 0, repeats: 0, held: 0, released: 0 };
 const proofs = { corrected: 0, unchanged: 0, kept: 0, skipped: 0 };
 const modelsUsed = new Set<string>();
@@ -596,7 +596,7 @@ if (PAPER.holdOver && !stopped) {
   }
 }
 
-// 8. A diagram for each must-read story of the edition that has none
+// 8. A diagram for each story of the edition that has none
 // It is drawn from the article's own text: what this run read, or the page again for a story from an earlier run.
 const read = new Map(candidates.map(({ item, text }) => [item.url, text]));
 const readArticle = async (url: string) => read.get(url) || articleText(url);
@@ -620,7 +620,7 @@ if (written.length) {
     `Proof-reading: ${proofs.corrected} corrected, ${proofs.unchanged} needed nothing, ${proofs.kept} kept as written, ` +
       `${proofs.skipped} not proof-read.`,
   );
-  console.log(`Diagrams: ${figures.made} drawn, ${figures.illustrated} illustrated, ${figures.none} with nothing to draw, ${figures.rejected} discarded, ${figures.skipped} skipped.`);
+  console.log(`Diagrams: ${figures.made} drawn, ${figures.cards} social cards, ${figures.none} with nothing to draw, ${figures.rejected} discarded, ${figures.skipped} skipped.`);
 }
 const extra = Object.entries(llm.retries);
 if (extra.length) {

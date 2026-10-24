@@ -92,7 +92,7 @@ export interface Paper<Section extends string = string, Persona extends string =
   notAuthors?: readonly string[];
   /**
    * The three colours the paper is printed in, as hex colours: the sheet, the
-   * ink, and one accent. They set the light theme and the colours illustrations
+   * ink, and one accent. They set the light theme and the colours social cards
    * are asked for in; the dark theme's shades are in src/styles/_tokens.scss.
    */
   colours?: { paper?: string; ink?: string; accent?: string };

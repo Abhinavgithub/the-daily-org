@@ -3,10 +3,11 @@ import path from 'node:path';
 import sharp from 'sharp';
 import { z } from 'zod';
 import { PAPER } from '../src/config';
+import { figureSvg, type Drawn } from '../src/lib/diagram';
 import { figureSchema, LIMITS, type Figure } from '../src/lib/figure';
-import { storySpans, type Span } from '../src/lib/layout';
+import { ICON_NAMES } from '../src/lib/icons';
 import type { LogFigure } from '../src/lib/logs';
-import { byRank, signalsFor, type Ranked } from '../src/lib/signal';
+import { byRank, type Ranked } from '../src/lib/signal';
 import { INK } from '../src/lib/theme';
 import type { Paper } from '../src/paper';
 import { parseJsonLoosely, plainText } from './curate';
@@ -14,9 +15,11 @@ import { LlmError, type ChatMessage, type LlmClient } from './llm';
 import { applyGlossary } from './style';
 import { openStory, STORIES_DIR, storyText } from './write';
 
-// A small diagram for each must-read story: the model reads the article and
-// picks out its key idea as a few short labels, which the page draws. For the
-// edition's top story the image model, when one is set, draws them instead.
+// A small diagram for each story (briefs have none): the model reads the article and
+// picks out its key idea as a few short labels, which the page draws as SVG
+// (src/lib/diagram.ts). Code does the drawing, so every label is shown exactly
+// once and spelled as checked. The top story's diagram is also saved as a PNG,
+// the edition's preview on social sites.
 
 const Schema = figureSchema(z);
 
@@ -40,6 +43,8 @@ The kinds of diagram:
 
 {"kind":"none"}
   When the story has no clear process, comparison, figures or structure.
+
+Every kind but "none" may also have "icons": a list of pictogram names, one for each step, part or number in order, or two for "compare" (the left side, then the right). Choose each from this list only, for what best stands for its label: ${ICON_NAMES.join(', ')}. Leave "icons" out rather than choose one that does not fit.
 
 Rules:
 - Use only what the article and the summary say. Every number must appear in one of them exactly as written there. Never invent a step, a part or a figure.
@@ -83,8 +88,23 @@ export interface FigureStory {
  */
 export function validateFigure(raw: string, story: FigureStory, paper: Paper = PAPER): Figure {
   const tidy = (value: unknown): unknown =>
-    typeof value === 'string' ? clean(value, paper) : Array.isArray(value) ? value.map(tidy) : value && typeof value === 'object' ? Object.fromEntries(Object.entries(value).map(([k, v]) => [k, k === 'kind' ? v : tidy(v)])) : value;
-  const figure = Schema.parse(tidy(parseJsonLoosely(raw)));
+    typeof value === 'string'
+      ? clean(value, paper)
+      : Array.isArray(value)
+        ? value.map(tidy)
+        : value && typeof value === 'object'
+          ? Object.fromEntries(Object.entries(value).map(([k, v]) => [k, k === 'kind' || k === 'icons' ? v : tidy(v)]))
+          : value;
+  const reply = tidy(parseJsonLoosely(raw));
+  // Pictograms are a nicety: a wrong name or count loses them, not the diagram.
+  if (reply && typeof reply === 'object' && 'icons' in reply) {
+    const shape = reply as Record<string, unknown>;
+    const nodes = Array.isArray(shape.steps) ? shape.steps : Array.isArray(shape.parts) ? shape.parts : Array.isArray(shape.numbers) ? shape.numbers : shape.kind === 'compare' ? [0, 0] : [];
+    const icons = shape.icons;
+    const known = Array.isArray(icons) && icons.length === nodes.length && icons.every((icon) => (ICON_NAMES as string[]).includes(String(icon)));
+    if (!known) delete shape.icons;
+  }
+  const figure = Schema.parse(reply);
 
   const known = new Set(numbersIn(`${story.title}\n${story.summary}\n${story.article ?? ''}`));
   for (const label of labels(figure)) {
@@ -119,181 +139,43 @@ export async function makeFigure(llm: LlmClient, story: FigureStory, paper: Pape
   return { rejected: problem };
 }
 
-type Drawn = Exclude<Figure, { kind: 'none' }>;
-
-const LAYOUT: Record<Drawn['kind'], string> = {
-  steps: 'a sequence read left to right, one stage per step, joined by arrows',
-  compare: 'two groups side by side with a clear divide between them, each under its heading',
-  numbers: 'each figure set large beside a simple pictogram of what it measures',
-  parts: 'one whole in the middle with its parts arranged around it and joined to it',
-};
+/** The width of the picture shared to social sites, and its shape (1200 by 630, as they ask for). */
+const CARD = { width: 1200, height: 630 };
 
 /**
- * The picture is made for the box it will sit in: a story's box is one, two or
- * three columns wide, and the picture's proportions and the size of its
- * lettering follow from that.
+ * The top story's diagram as a PNG, for the edition's preview on social sites,
+ * which cannot show SVG or the page's own drawing. Drawn in the paper's light
+ * colours and set in the middle of a card of the shape those sites use.
  */
-const BOX: Record<Span, { shape: string; words: string; lettering: number }> = {
-  1: { shape: '4:3', words: 'a little wider than it is tall', lettering: 5 },
-  2: { shape: '16:9', words: 'a wide landscape, nearly twice as wide as it is tall', lettering: 4 },
-  3: { shape: '16:9', words: 'a wide landscape, nearly twice as wide as it is tall', lettering: 4 },
-};
-
-/**
- * Image models draw letters rather than type them, and get long words wrong.
- * Spelling those out letter by letter in the brief makes that less likely.
- */
-function spelledOut(labels: string[]): string {
-  const long = [...new Set(labels.flatMap((label) => label.match(/[\p{L}]{6,}/gu) ?? []))];
-  if (long.length === 0) return '';
-  return `\nGet every letter right. The words, letter by letter: ${long.map((word) => `${word} (${[...word].join('-')})`).join(', ')}.\n`;
-}
-
-/** What the image model is asked for: the checked labels, and nothing else, as the picture's words, drawn to fit the story's box. */
-export function illustrationPrompt(figure: Drawn, paper: Paper = PAPER, span: Span = 2): string {
-  const [caption, ...words] = labels(figure);
-  const box = BOX[span];
-  return `Draw one explanatory diagram for a newspaper about ${paper.topic}.
-
-What it shows: ${caption}
-Arrangement: ${LAYOUT[figure.kind]}.
-
-Format: ${box.shape}, ${box.words}. The diagram fills the frame from side to side and from top to bottom, leaving only a thin, even margin of about 4% on every side. No empty bands above, below or beside it. Every shape and every letter is complete and inside the frame: nothing touches or runs off an edge. If the labels do not fit on one line, wrap them onto more lines rather than letting them run off.
-
-The only text in the picture is these labels, each written once and spelled exactly as given:
-${words.map((word) => `- ${word}`).join('\n')}
-${spelledOut(words)}
-Lettering: a clean medium-weight sans-serif in sentence case, not capitals and not bold. Small: one line of lettering is about ${box.lettering}% of the picture's height. The pictograms are clearly larger than the words.
-
-Style: flat editorial illustration with simple solid shapes and pictograms, like a diagram in a printed newspaper. Plain, flat, untextured background in the paper's colour (${INK.paper}) with no specks or grain, the ink colour (${INK.ink}) for shapes and lettering, and one accent colour (${INK.accent}) used sparingly for the most important element.
-
-Do not add a title, a caption, any other words or numbers, extra icons that stand for nothing in the labels, logos, people, gradients, shadows, or a border, frame or box around the whole picture.`;
-}
-
-const IMAGE_WIDTH = 1200;
-/** The even margin put back around a drawing once the blank paper is cut away, as a share of its width. */
-const MARGIN = 0.03;
-/** How far inside the edge to look for a drawing within a frame, as a share of the picture's shorter side. */
-const FRAME = 0.015;
-/** A drawing this close to the edge of the picture it came in, in pixels, was cut off by it. */
-const EDGE = 2;
-
-type Region = { left: number; top: number; width: number; height: number };
-
-/** The drawing ran off the edge of the picture. */
-export class CutOff extends LlmError {}
-
-/**
- * Fit a picture to its drawing: the blank paper around it is cut away and a
- * thin even margin put back. Throws `CutOff` when the drawing touches the edge
- * of the picture, and `LlmError` when there is no drawing or it cannot be read.
- */
-export async function fitPicture(bytes: Buffer): Promise<Buffer> {
-  try {
-    // Worked on as a PNG without transparency, so every step below reads the same pixels.
-    const picture = await sharp(bytes).removeAlpha().png().toBuffer();
-    const { width = 0, height = 0 } = await sharp(picture).metadata();
-    // The paper is whatever the lightest corner is; a drawing that has run into one corner does not change that.
-    const { data, info } = await sharp(picture).raw().toBuffer({ resolveWithObject: true });
-    const at = (x: number, y: number) => [0, 1, 2].map((c) => data[(y * info.width + x) * info.channels + c]);
-    const paper = [at(0, 0), at(width - 1, 0), at(0, height - 1), at(width - 1, height - 1)].sort((a, b) => b[0] + b[1] + b[2] - (a[0] + a[1] + a[2]))[0];
-    const background = { r: paper[0], g: paper[1], b: paper[2] };
-
-    /**
-     * Where the drawing lies within a region of the picture, or nothing when the
-     * region is blank. Found on a smoothed copy, so the specks of a textured
-     * paper do not count as drawing.
-     */
-    const drawingIn = async (region: Region): Promise<Region | undefined> => {
-      const smooth = await sharp(picture).extract(region).median(5).toBuffer();
-      const found = await sharp(smooth).trim({ background, threshold: 24 }).toBuffer({ resolveWithObject: true }).catch(() => undefined);
-      if (!found) return undefined;
-      const left = -(found.info.trimOffsetLeft ?? 0);
-      const top = -(found.info.trimOffsetTop ?? 0);
-      if (left === 0 && top === 0 && found.info.width === region.width && found.info.height === region.height) {
-        // Nothing was cut away. Either the drawing fills the region to every edge, or the region is blank paper.
-        const { channels } = await sharp(smooth).stats();
-        if (channels.every((channel) => channel.max - channel.min < 24)) return undefined;
-      }
-      return { left: region.left + left, top: region.top + top, width: found.info.width, height: found.info.height };
-    };
-
-    let drawing = await drawingIn({ left: 0, top: 0, width, height });
-    if (!drawing) throw new LlmError('the picture was blank');
-    const touches = [
-      drawing.left <= EDGE && 'left',
-      drawing.top <= EDGE && 'top',
-      drawing.left + drawing.width >= width - EDGE && 'right',
-      drawing.top + drawing.height >= height - EDGE && 'bottom',
-    ].filter(Boolean);
-    if (touches.length) throw new CutOff(`the drawing ran off the ${touches.join(' and ')} of the picture`);
-
-    // Some models rule a frame round the whole picture, which stops the cut at the frame and leaves the blank
-    // paper inside it. Step just inside the edge and look again: if the drawing then lies well in from every
-    // side, what was at the edge was a frame, and the drawing is what is left.
-    const inset = Math.max(4, Math.round(Math.min(drawing.width, drawing.height) * FRAME));
-    if (drawing.width > inset * 4 && drawing.height > inset * 4) {
-      const inner = { left: drawing.left + inset, top: drawing.top + inset, width: drawing.width - inset * 2, height: drawing.height - inset * 2 };
-      const within = await drawingIn(inner);
-      const gaps = within && [within.left - inner.left, within.top - inner.top, inner.left + inner.width - (within.left + within.width), inner.top + inner.height - (within.top + within.height)];
-      if (within && gaps!.every((gap) => gap >= inset)) drawing = within;
-    }
-
-    // Sized first, then given its margin, so the margin is the same share of every picture.
-    const sized = await sharp(picture).extract(drawing).resize({ width: IMAGE_WIDTH, withoutEnlargement: true }).toBuffer({ resolveWithObject: true });
-    const margin = Math.round(sized.info.width * MARGIN);
-    return await sharp(sized.data).extend({ top: margin, bottom: margin, left: margin, right: margin, background }).webp({ quality: 82 }).toBuffer();
-  } catch (err) {
-    if (err instanceof LlmError) throw err;
-    throw new LlmError(`the picture could not be read: ${(err as Error).message}`);
-  }
-}
-
-/**
- * The illustration as a WebP file's bytes, fitted to its drawing. A picture
- * whose drawing is cut off is asked for once more. Throws LlmError when the
- * image model gives none that can be used.
- */
-export async function makeIllustration(
-  llm: LlmClient,
-  figure: Drawn,
-  paper: Paper = PAPER,
-  span: Span = 2,
-  /** Given each picture that was turned down, so it can be kept and looked at. */
-  refused?: (bytes: Buffer, reason: string) => void,
-): Promise<Buffer> {
-  const prompt = illustrationPrompt(figure, paper, span);
-  for (let attempt = 0; ; attempt++) {
-    const { bytes } = await llm.image(prompt, BOX[span].shape);
-    try {
-      return await fitPicture(bytes);
-    } catch (err) {
-      if (err instanceof LlmError) refused?.(bytes, err.message);
-      if (!(err instanceof CutOff) || attempt === 1) throw err;
-      llm.noteRetry('picture cut off', `${err.message}, asking again`);
-    }
-  }
+export async function socialCard(figure: Drawn, paper: Paper = PAPER): Promise<Buffer> {
+  const colours = { ...INK, ...(paper.colours ?? {}) };
+  const svg = figureSvg(figure, 'wide', { surface: colours.paper, ink: colours.ink, accent: colours.accent });
+  const margin = 48;
+  const drawing = await sharp(Buffer.from(svg), { density: 216 })
+    .resize({ width: CARD.width - 2 * margin, height: CARD.height - 2 * margin, fit: 'inside' })
+    .png()
+    .toBuffer();
+  return sharp({ create: { ...CARD, channels: 3, background: colours.paper } })
+    .composite([{ input: drawing, gravity: 'centre' }])
+    .png()
+    .toBuffer();
 }
 
 export const FIGURES_DIR = path.join(process.cwd(), 'public', 'figures');
 
-/** How many of an edition's must-read stories, best first, get an illustration. Pictures are what the paper pays most for. */
-const ILLUSTRATED = 1;
-
 export interface FigureCounts {
   made: number;
-  /** Diagrams that were also drawn as an illustration. */
-  illustrated: number;
+  /** Social cards made for an edition's top story. */
+  cards: number;
   none: number;
   rejected: number;
-  /** Must-read stories left without a diagram because the call cap was reached or the provider failed. */
+  /** Stories left without a diagram because the call cap was reached or the provider failed. */
   skipped: number;
 }
 
 /**
- * Give each must-read story of an edition a diagram, if it does not have one.
- * Which stories are must-read is decided as the site decides it, from every
- * story in the edition.
+ * Give each story of an edition a diagram, if it does not have one, best story
+ * first, so a run that reaches its call cap leaves the least read without one.
  */
 export async function addFigures(
   llm: LlmClient,
@@ -311,10 +193,8 @@ export async function addFigures(
     paper?: Paper;
   } = {},
 ): Promise<FigureCounts> {
-  const counts: FigureCounts = { made: 0, illustrated: 0, none: 0, rejected: 0, skipped: 0 };
+  const counts: FigureCounts = { made: 0, cards: 0, none: 0, rejected: 0, skipped: 0 };
   const figuresDir = options.figuresDir ?? FIGURES_DIR;
-  // Only the real paper keeps turned-down pictures; tests, which point the folders elsewhere, do not.
-  const rejectedDir = options.figuresDir ? undefined : path.join(process.cwd(), 'data', 'logs', 'rejected');
   const dir = path.join(options.storiesDir ?? STORIES_DIR, day);
   if (!fs.existsSync(dir)) return counts;
 
@@ -332,7 +212,7 @@ export async function addFigures(
   const capped = () => llm.limitReached(options.maxCalls);
   const save = (story: (typeof stories)[number]) => fs.writeFileSync(story.file, storyText(story.doc, `\n${story.summary}\n`));
 
-  for (const [rank, story] of stories.slice(0, signalsFor(stories.length).must).entries()) {
+  for (const [rank, story] of stories.entries()) {
     const title = story.data.title;
     let entry: LogFigure | undefined;
 
@@ -362,7 +242,7 @@ export async function addFigures(
         continue;
       }
       story.doc.set('figure', outcome.figure);
-      // An illustration of the diagram this one replaces no longer matches.
+      // A card drawn from the diagram this one replaces no longer matches.
       const stale = story.doc.get('figure_image');
       if (typeof stale === 'string') fs.rmSync(path.join(figuresDir, '..', stale), { force: true });
       story.doc.delete('figure_image');
@@ -378,37 +258,18 @@ export async function addFigures(
       entry = { title, outcome: 'drawn', kind: outcome.figure.kind };
     }
 
+    // The top story's diagram is also the edition's preview on social sites. A card that is not a PNG is a
+    // painted illustration from before diagrams were drawn by code, and is drawn again.
     const figure = Schema.safeParse(story.doc.toJS().figure).data;
-    if (llm.config.imageModel && rank < ILLUSTRATED && figure && figure.kind !== 'none' && !story.doc.has('figure_image')) {
-      entry ??= { title, outcome: 'drawn', kind: figure.kind };
-      if (capped()) {
-        entry = { ...entry, image: 'failed', reason: capped()! };
-      } else {
-        try {
-          const name = `${path.basename(story.file, '.md')}.webp`;
-          // The picture is drawn for the width of the box this story has on the page.
-          const span = storySpans(stories.map((s) => s.data.interest_score))[rank];
-          const picture = await makeIllustration(llm, figure, options.paper, span, (bytes, reason) => {
-            // A picture that was paid for and turned down is kept, so the reason can be checked by eye.
-            if (!rejectedDir) return;
-            fs.mkdirSync(rejectedDir, { recursive: true });
-            const kept = path.join(rejectedDir, `${day}-${path.basename(story.file, '.md').slice(0, 40)}-${Date.now()}.png`);
-            fs.writeFileSync(kept, bytes);
-            options.log?.(`  Picture turned down (${reason}), kept at ${path.relative(process.cwd(), kept)}`);
-          });
-          fs.mkdirSync(path.join(figuresDir, day), { recursive: true });
-          fs.writeFileSync(path.join(figuresDir, day, name), picture);
-          story.doc.set('figure_image', `/figures/${day}/${name}`);
-          save(story);
-          counts.illustrated++;
-          options.log?.(`  Illustration: ${title}`);
-          entry = { ...entry, image: 'made' };
-        } catch (err) {
-          if (!(err instanceof LlmError)) throw err;
-          options.log?.(`  No illustration, the drawn diagram stays (${err.message.slice(0, 120)}): ${title}`);
-          entry = { ...entry, image: 'failed', reason: err.message.slice(0, 200) };
-        }
-      }
+    const card = story.doc.get('figure_image');
+    if (rank === 0 && figure && figure.kind !== 'none' && !(typeof card === 'string' && card.endsWith('.png'))) {
+      if (typeof card === 'string') fs.rmSync(path.join(figuresDir, '..', card), { force: true });
+      const name = `${path.basename(story.file, '.md')}.png`;
+      fs.mkdirSync(path.join(figuresDir, day), { recursive: true });
+      fs.writeFileSync(path.join(figuresDir, day, name), await socialCard(figure, options.paper));
+      story.doc.set('figure_image', `/figures/${day}/${name}`);
+      save(story);
+      counts.cards++;
     }
     if (entry) options.record?.(entry);
   }

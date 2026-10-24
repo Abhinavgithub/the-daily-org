@@ -7,9 +7,9 @@ import { configFromEnv, LlmClient, modelsOrStop } from './llm';
 import { RunLog } from './log';
 import { STORIES_DIR } from './write';
 
-// Adds a diagram to must-read stories that have none, and an illustration of it
-// when LLM_IMAGE_MODEL is set. The pipeline does this for each new edition;
-// this command does it for editions already published.
+// Adds a diagram to stories that have none, and the social card for
+// each edition's top story. The pipeline does this for each new edition; this
+// command does it for editions already published.
 //
 //   npm run figures                       every edition
 //   npm run figures -- --day 2026-10-04   one edition
@@ -25,10 +25,9 @@ const models = await modelsOrStop(config, {
   noModel: 'No usable model left. Run `npm run models` to pick a free one.',
 });
 const llm = new LlmClient({ ...config, models, log: (message) => console.warn(`      extra call, ${message}`) });
-if (config.imageModel) console.log(`Illustrating with ${config.imageModel}.`);
 
 const days = args.day ? [args.day] : fs.readdirSync(STORIES_DIR).filter((d) => /^\d{4}-\d{2}-\d{2}$/.test(d)).sort();
-const total = { made: 0, illustrated: 0, none: 0, rejected: 0, skipped: 0 };
+const total = { made: 0, cards: 0, none: 0, rejected: 0, skipped: 0 };
 const runLog = new RunLog('figures', args.day ?? '');
 for (const day of days) {
   console.log(day);
@@ -37,5 +36,5 @@ for (const day of days) {
 }
 runLog.save({ llm });
 console.log(
-  `\nDiagrams: ${total.made} drawn, ${total.illustrated} illustrated, ${total.none} stories with nothing to draw, ${total.rejected} discarded, ${total.skipped} skipped. ${llm.calls} model calls.`,
+  `\nDiagrams: ${total.made} drawn, ${total.cards} social cards, ${total.none} stories with nothing to draw, ${total.rejected} discarded, ${total.skipped} skipped. ${llm.calls} model calls.`,
 );
