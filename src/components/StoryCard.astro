@@ -24,8 +24,7 @@ const source = data.source_type === 'video' ? `${data.source}, video` : data.sou
 // The writer goes above the headline and the blog below the story. With no known writer, the blog takes the top line.
 const writer = formatAuthors(data.authors);
 const footer = Boolean(writer) || showDay;
-// A diagram is drawn only while the story is a must-read.
-const figure = signal === 'must' && data.figure && data.figure.kind !== 'none' ? data.figure : undefined;
+const figure = data.figure && data.figure.kind !== 'none' ? data.figure : undefined;
 ---
 
 <article

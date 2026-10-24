@@ -119,7 +119,7 @@ test('the social card is a PNG of the shape social sites ask for', async () => {
   assert.deepEqual([card.format, card.width, card.height], ['png', 1200, 630]);
 });
 
-test('a must-read story gets its diagram drawn from the article, and the top story a social card', async (t) => {
+test('a story gets its diagram drawn from the article, and the top story a social card', async (t) => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'paper-'));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
   const places = { storiesDir: path.join(root, 'stories'), figuresDir: path.join(root, 'public', 'figures'), paper: PAPER };
@@ -158,16 +158,21 @@ test('a must-read story gets its diagram drawn from the article, and the top sto
   assert.equal((await addFigures(client(['{"kind":"none"}']), '2026-10-04', options)).cards, 0);
 });
 
-test('only the top story of an edition gets a social card', async (t) => {
+test('every story gets a diagram, best first, and only the top one a social card', async (t) => {
   const root = fs.mkdtempSync(path.join(os.tmpdir(), 'paper-'));
   t.after(() => fs.rmSync(root, { recursive: true, force: true }));
   const places = { storiesDir: path.join(root, 'stories'), figuresDir: path.join(root, 'public', 'figures'), paper: PAPER };
   const dir = path.join(places.storiesDir, '2026-10-04');
   fs.mkdirSync(dir, { recursive: true });
-  // Six stories make two must-reads.
   for (let i = 1; i <= 6; i++) fs.writeFileSync(path.join(dir, `0${i}-story.md`), `---\ntitle: Story ${i}\nurl: https://example.com/${i}\ninterest_score: ${10 - i}\n---\n\nA summary.\n`);
   const diagram = '{"kind":"steps","caption":"How it works","steps":["Model the data","Query the graph"]}';
-  const counts = await addFigures(client([diagram, diagram]), '2026-10-04', places);
-  assert.deepEqual({ made: counts.made, cards: counts.cards }, { made: 2, cards: 1 });
+  const counts = await addFigures(client(Array(6).fill(diagram)), '2026-10-04', places);
+  assert.deepEqual({ made: counts.made, cards: counts.cards }, { made: 6, cards: 1 });
+  // A run at its call cap leaves the least read stories for later.
+  for (let i = 1; i <= 6; i++) fs.writeFileSync(path.join(dir, `0${i}-story.md`), `---\ntitle: Story ${i}\nurl: https://example.com/${i}\ninterest_score: ${10 - i}\n---\n\nA summary.\n`);
+  const capped = await addFigures(client(Array(6).fill(diagram)), '2026-10-04', { ...places, maxCalls: 4 });
+  assert.deepEqual({ made: capped.made, skipped: capped.skipped }, { made: 4, skipped: 2 });
+  assert.match(fs.readFileSync(path.join(dir, '01-story.md'), 'utf8'), /kind: steps/);
+  assert.doesNotMatch(fs.readFileSync(path.join(dir, '06-story.md'), 'utf8'), /kind: steps/);
   assert.deepEqual(fs.readdirSync(path.join(places.figuresDir, '2026-10-04')), ['01-story.png']);
 });

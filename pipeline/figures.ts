@@ -7,7 +7,7 @@ import { configFromEnv, LlmClient, modelsOrStop } from './llm';
 import { RunLog } from './log';
 import { STORIES_DIR } from './write';
 
-// Adds a diagram to must-read stories that have none, and the social card for
+// Adds a diagram to stories that have none, and the social card for
 // each edition's top story. The pipeline does this for each new edition; this
 // command does it for editions already published.
 //

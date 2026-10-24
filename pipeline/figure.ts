@@ -7,7 +7,7 @@ import { figureSvg, type Drawn } from '../src/lib/diagram';
 import { figureSchema, LIMITS, type Figure } from '../src/lib/figure';
 import { ICON_NAMES } from '../src/lib/icons';
 import type { LogFigure } from '../src/lib/logs';
-import { byRank, signalsFor, type Ranked } from '../src/lib/signal';
+import { byRank, type Ranked } from '../src/lib/signal';
 import { INK } from '../src/lib/theme';
 import type { Paper } from '../src/paper';
 import { parseJsonLoosely, plainText } from './curate';
@@ -15,7 +15,7 @@ import { LlmError, type ChatMessage, type LlmClient } from './llm';
 import { applyGlossary } from './style';
 import { openStory, STORIES_DIR, storyText } from './write';
 
-// A small diagram for each must-read story: the model reads the article and
+// A small diagram for each story (briefs have none): the model reads the article and
 // picks out its key idea as a few short labels, which the page draws as SVG
 // (src/lib/diagram.ts). Code does the drawing, so every label is shown exactly
 // once and spelled as checked. The top story's diagram is also saved as a PNG,
@@ -169,14 +169,13 @@ export interface FigureCounts {
   cards: number;
   none: number;
   rejected: number;
-  /** Must-read stories left without a diagram because the call cap was reached or the provider failed. */
+  /** Stories left without a diagram because the call cap was reached or the provider failed. */
   skipped: number;
 }
 
 /**
- * Give each must-read story of an edition a diagram, if it does not have one.
- * Which stories are must-read is decided as the site decides it, from every
- * story in the edition.
+ * Give each story of an edition a diagram, if it does not have one, best story
+ * first, so a run that reaches its call cap leaves the least read without one.
  */
 export async function addFigures(
   llm: LlmClient,
@@ -213,7 +212,7 @@ export async function addFigures(
   const capped = () => llm.limitReached(options.maxCalls);
   const save = (story: (typeof stories)[number]) => fs.writeFileSync(story.file, storyText(story.doc, `\n${story.summary}\n`));
 
-  for (const [rank, story] of stories.slice(0, signalsFor(stories.length).must).entries()) {
+  for (const [rank, story] of stories.entries()) {
     const title = story.data.title;
     let entry: LogFigure | undefined;
 

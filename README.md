@@ -47,7 +47,7 @@ It refuses to run with uncommitted changes and asks before deleting anything. Th
 | `npm run check-paper` | Checks `paper.config.ts` and every source. No model calls. |
 | `npm run sources` | How each source has done (`-- --days 90` for a longer span), with a verdict on each. |
 | `npm run try-source -- <feed address>` | What a new source would add. `--review 3` has the model score its latest three; `--youtube <channel ID>` tries a channel. |
-| `npm run figures` | Adds missing diagrams to must-read stories. `-- --day YYYY-MM-DD` for one edition, `-- --redo` to draw them again. |
+| `npm run figures` | Adds missing diagrams to stories. `-- --day YYYY-MM-DD` for one edition, `-- --redo` to draw them again. |
 | `npm run readership` | Saves who read the paper, up to yesterday, for the Stats page. Needs the `READERSHIP_` settings. |
 | `npm run revise -- --glossary-only` | Re-applies the glossary to every story, with no model calls. |
 | `npm run feedback` | Records what the paper got wrong: `-- junk <address>` for a printed story that should not have run, `-- missed <address>` for one it skipped, `-- list` to review. Kept in `data/feedback.jsonl`. Under `npm run dev` the Logs page does the same with a button on each article. |

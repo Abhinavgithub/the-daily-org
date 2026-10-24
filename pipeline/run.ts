@@ -596,7 +596,7 @@ if (PAPER.holdOver && !stopped) {
   }
 }
 
-// 8. A diagram for each must-read story of the edition that has none
+// 8. A diagram for each story of the edition that has none
 // It is drawn from the article's own text: what this run read, or the page again for a story from an earlier run.
 const read = new Map(candidates.map(({ item, text }) => [item.url, text]));
 const readArticle = async (url: string) => read.get(url) || articleText(url);
