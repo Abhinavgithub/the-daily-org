@@ -52,36 +52,64 @@ const said = (date: Date) => `${date.getUTCDate()} ${MONTHS[date.getUTCMonth()]}
 const words = (text: string) => text.replace(/([a-z])([A-Z])/g, '$1 $2').replace(/\s+/g, ' ').trim();
 const newestFirst = (a: { createdAt?: string }, b: { createdAt?: string }) => (b.createdAt ?? '').localeCompare(a.createdAt ?? '');
 
-/** Whether an incident is one the whole paper should hear of: serious, and wide. */
-export function isWide(incident: TrustIncident): boolean {
-  const serious = (incident.IncidentImpacts ?? []).some((impact) => SERIOUS.has(impact.severity ?? ''));
-  return serious && (incident.affectsAll === true || (incident.instanceKeys ?? []).length >= WIDE);
+const isSerious = (incident: TrustIncident) => (incident.IncidentImpacts ?? []).some((impact) => SERIOUS.has(impact.severity ?? ''));
+
+/** Whether a failure, reported as one incident or several, is one the whole paper should hear of: serious, and wide. */
+export function isWide(...pieces: TrustIncident[]): boolean {
+  const instances = new Set(pieces.flatMap((incident) => incident.instanceKeys ?? [])).size;
+  return pieces.some(isSerious) && (pieces.some((incident) => incident.affectsAll === true) || instances >= WIDE);
 }
 
-/** The incidents worth an alert, as articles. `since` is the earliest start that still counts as new. */
+/** How far apart two incidents may begin and still be the same failure, reported in pieces. */
+const SAME_FAILURE_HOURS = 6;
+
+/** How far before a day to read incidents, so that every piece of a failure that began after it is read. */
+export const reachBack = (since: Date) => new Date(since.getTime() - SAME_FAILURE_HOURS * 3_600_000);
+
+const startOf = (incident: TrustIncident) => new Date((incident.IncidentImpacts ?? []).map((impact) => impact.startTime).filter(Boolean).sort()[0] ?? incident.createdAt ?? '');
+
+/**
+ * Trust often reports one failure as several incidents, a few instances each.
+ * Incidents of the same services and the same kind that began within a few
+ * hours of each other are taken to be one, and are printed as one.
+ */
+export function sameFailures(incidents: TrustIncident[]): TrustIncident[][] {
+  const kindOf = (incident: TrustIncident) => [[...(incident.serviceKeys ?? [])].sort().join(','), incident.IncidentImpacts?.[0]?.type ?? ''].join(' ');
+  const groups: TrustIncident[][] = [];
+  for (const incident of [...incidents].sort((a, b) => startOf(a).getTime() - startOf(b).getTime())) {
+    const group = groups.find((one) => kindOf(one[0]) === kindOf(incident) && startOf(incident).getTime() - startOf(one[0]).getTime() <= SAME_FAILURE_HOURS * 3_600_000);
+    if (group) group.push(incident);
+    else groups.push([incident]);
+  }
+  return groups;
+}
+
+/** The incidents worth an alert, as articles, one for each failure. `since` is the earliest start that still counts as new. */
 export function incidentAlerts(incidents: TrustIncident[], since: Date): FeedItem[] {
-  return incidents.flatMap((incident) => {
-    const impacts = incident.IncidentImpacts ?? [];
-    const began = new Date(impacts.map((impact) => impact.startTime).filter(Boolean).sort()[0] ?? incident.createdAt ?? '');
-    if (!incident.id || Number.isNaN(began.getTime()) || began < since || !isWide(incident)) return [];
-    const instances = (incident.instanceKeys ?? []).length;
-    const reach = incident.affectsAll ? 'all instances' : `${instances} instances`;
-    const service = words((incident.serviceKeys ?? []).join(', ')).replace(/^./, (first) => first.toUpperCase());
-    const kind = words(impacts[0]?.type ?? 'disruption').toLowerCase();
-    const resolved = incident.status === 'Resolved';
-    // What Salesforce said, newest first, since the latest word is what matters most.
-    const updates = [...(incident.IncidentEvents ?? [])].sort(newestFirst).map((event) => event.message?.trim()).filter(Boolean);
-    return [
-      {
-        source: TRUST,
-        title: `${service || 'Salesforce'}: ${kind} on ${reach}`,
-        url: `https://status.salesforce.com/incidents/${incident.id}`,
-        published: began,
-        authors: [],
-        feedText: [`A ${kind} affecting ${reach}${service ? ` of ${service}` : ''}, which began on ${said(began)}. It is ${resolved ? 'resolved' : 'not yet resolved'}.`, ...updates].join('\n\n'),
-        alert: { label: 'Incident', facts: [resolved ? 'Resolved' : 'Ongoing when this edition was written', `began ${said(began)}`, reach].join(' · '), always: true },
-      },
-    ];
+  // Pieces that began a little before `since` are read too, so a failure printed before keeps its first piece, and with it its address, and is not printed again.
+  const serious = incidents.filter((incident) => incident.id && !Number.isNaN(startOf(incident).getTime()) && startOf(incident) >= reachBack(since) && isSerious(incident));
+  // Pieces too narrow alone may be wide together.
+  return sameFailures(serious).filter((group) => startOf(group[0]) >= since && isWide(...group)).map((group) => {
+    // The first incident reported stands for the failure: its page is linked, so the failure keeps one address however many pieces join it later.
+    const [first] = [...group].sort((a, b) => (a.id ?? 0) - (b.id ?? 0));
+    const began = startOf(group[0]);
+    const instances = new Set(group.flatMap((incident) => incident.instanceKeys ?? [])).size;
+    const reach = group.some((incident) => incident.affectsAll) ? 'all instances' : `${instances} instances`;
+    const service = words((first.serviceKeys ?? []).join(', ')).replace(/^./, (letter) => letter.toUpperCase());
+    const kind = words(first.IncidentImpacts?.[0]?.type ?? 'disruption').toLowerCase();
+    const resolved = group.every((incident) => incident.status === 'Resolved');
+    // What Salesforce said, newest first, since the latest word is what matters most. The same words posted to each piece are said once.
+    const updates = [...new Set(group.flatMap((incident) => incident.IncidentEvents ?? []).sort(newestFirst).map((event) => event.message?.trim()).filter(Boolean))];
+    const pieces = group.length > 1 ? ` Salesforce reported it as ${group.length} incidents.` : '';
+    return {
+      source: TRUST,
+      title: `${service || 'Salesforce'}: ${kind} on ${reach}`,
+      url: `https://status.salesforce.com/incidents/${first.id}`,
+      published: began,
+      authors: [],
+      feedText: [`A ${kind} affecting ${reach}${service ? ` of ${service}` : ''}, which began on ${said(began)}. It is ${resolved ? 'resolved' : 'not yet resolved'}.${pieces}`, ...updates].join('\n\n'),
+      alert: { label: 'Incident', facts: [resolved ? 'Resolved' : 'Ongoing when this edition was written', `began ${said(began)}`, reach].join(' · '), always: true },
+    };
   });
 }
 
@@ -121,7 +149,7 @@ export const ALERT_FEEDS: Record<AlertFeed, { source: Source; read: (since: Date
     source: TRUST,
     read: async (since, request) => {
       const [incidents, messages] = await Promise.all([
-        json<TrustIncident[]>(request, `https://api.status.salesforce.com/v1/incidents?limit=500&startTime=${encodeURIComponent(since.toISOString())}`),
+        json<TrustIncident[]>(request, `https://api.status.salesforce.com/v1/incidents?limit=500&startTime=${encodeURIComponent(reachBack(since).toISOString())}`),
         json<TrustMessage[]>(request, 'https://api.status.salesforce.com/v1/generalMessages'),
       ]);
       return [...messageAlerts(messages, since), ...incidentAlerts(incidents, since)];
