@@ -56,7 +56,6 @@ jobs:
       LLM_API_KEY: ${{ secrets.LLM_API_KEY }}
       YOUTUBE_API_KEY: ${{ secrets.YOUTUBE_API_KEY }}
       LLM_MODELS: ${{ vars.LLM_MODELS }}
-      LLM_IMAGE_MODEL: ${{ vars.LLM_IMAGE_MODEL }}
       LLM_ALLOW_PAID: ${{ vars.LLM_ALLOW_PAID }}
       LLM_MAX_CALLS: ${{ vars.LLM_MAX_CALLS }}
       # The most one run may spend. The pipeline stops cleanly when it is reached.

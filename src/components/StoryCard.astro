@@ -52,7 +52,7 @@ const figure = signal === 'must' && data.figure && data.figure.kind !== 'none' ?
   <h2 class="story__title">
     <a class="story__link" href={data.url} target="_blank" rel="noopener" data-original>{data.title}</a>
   </h2>
-  {figure && <StoryFigure figure={figure} image={data.figure_image} />}
+  {figure && <StoryFigure figure={figure} />}
   <div class="story__text"><Content /></div>
   {
     data.also.length > 0 && (
