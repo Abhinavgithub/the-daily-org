@@ -4,7 +4,7 @@ original_title: Invoke Slackbot in Salesforce
 url: https://www.infallibletechie.com/2026/10/invoke-slackbot-in-salesforce.html
 source: InfallibleTechie
 source_type: community
-date: 2026-10-23
+date: 2026-10-24
 section: flow-and-admin
 personas:
   - admin
@@ -24,6 +24,20 @@ novelty_score: 7
 utility_score: 8
 model: qwen/qwen3.7-flash
 image: https://www.infallibletechie.com/wp-content/uploads/2026/10/Salesforce-Lightning-Experience-Slackbot-UI.png
+held_from: 2026-10-23
+figure:
+  kind: steps
+  caption: The setup sequence for giving users access to Slackbot in Salesforce Lightning
+  steps:
+    - Connect Salesforce org to Slack workspace
+    - Create a Permission Set for Slackbot
+    - Enable the Slackbot UI system permission
+    - Assign the Permission Set to users
+  icons:
+    - flow
+    - shield
+    - gear
+    - people
 ---
 
 The article outlines the configuration steps required to make Slackbot available inside Salesforce Lightning Experience. Before any user-facing features can be enabled, administrators must link their Salesforce org to a Slack workspace through the Manage Slack Connection setting and accept the pending request.
