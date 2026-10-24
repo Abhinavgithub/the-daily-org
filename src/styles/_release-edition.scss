@@ -381,7 +381,7 @@
   color: var(--ink);
   background: var(--surface);
   border: 1px solid var(--rule);
-  border-radius: 3px;
+  border-radius: 0;
   cursor: pointer;
 
   &:hover {
@@ -405,7 +405,7 @@
   height: var(--tool);
   background: var(--surface);
   border: 1px solid var(--rule);
-  border-radius: 3px;
+  border-radius: 0;
 
   &:focus-within {
     border-color: var(--sky);
@@ -432,7 +432,7 @@
     color: var(--muted);
     background: none;
     border: 0;
-    border-radius: 0 7px 7px 0;
+    border-radius: 0;
     cursor: pointer;
 
     &:hover,
@@ -467,7 +467,7 @@
   line-height: 1.2;
   color: var(--paper);
   background: var(--ink);
-  border-radius: 3px;
+  border-radius: 0;
   text-decoration: none;
 
   svg {
@@ -501,7 +501,7 @@
   width: 1.75rem;
   height: 1.75rem;
   border: 1px solid var(--rule);
-  border-radius: 3px;
+  border-radius: 0;
   color: var(--ink);
 
   svg {

@@ -29,7 +29,7 @@ input {
 :focus-visible {
   outline: 2px solid var(--sky);
   outline-offset: 2px;
-  border-radius: 3px;
+  border-radius: 0;
 }
 
 [hidden] {
@@ -40,7 +40,7 @@ code {
   font-size: inherit;
   background: var(--sky-wash);
   padding: 0.1em 0.35em;
-  border-radius: 4px;
+  border-radius: 0;
 }
 
 .visually-hidden {
@@ -86,7 +86,7 @@ code {
   color: var(--ink);
   background: none;
   border: 1px solid var(--rule);
-  border-radius: 3px;
+  border-radius: 0;
   padding: 0.25rem 0.5rem;
   text-decoration: none;
   cursor: pointer;
