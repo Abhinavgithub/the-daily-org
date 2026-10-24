@@ -135,7 +135,7 @@ A YouTube video is judged on its transcript, with the description its uploader w
 - With free models the paper costs nothing. Free tiers limit requests per day; `LLM_MAX_CALLS` keeps a run inside yours.
 - Paid models need `LLM_ALLOW_PAID=1`. Set `LLM_MAX_COST_USD`, and a credit limit on the key as well.
 - A release edition is about $0.02 a build on a cheap paid model, and is built twice a release.
-- Diagrams cost one model call each. The model only writes the labels; the page draws them as SVG, so there is no image model to pay for.
+- A run makes one call for each article it judges, which also writes the story's diagram (the page draws it as SVG), one call that gives every forum post its first look, and one that proof-reads the whole edition.
 
 ## Pages
 
