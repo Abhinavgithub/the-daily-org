@@ -63,6 +63,9 @@ export function isWide(...pieces: TrustIncident[]): boolean {
 /** How far apart two incidents may begin and still be the same failure, reported in pieces. */
 const SAME_FAILURE_HOURS = 6;
 
+/** How far before a day to read incidents, so that every piece of a failure that began after it is read. */
+export const reachBack = (since: Date) => new Date(since.getTime() - SAME_FAILURE_HOURS * 3_600_000);
+
 const startOf = (incident: TrustIncident) => new Date((incident.IncidentImpacts ?? []).map((impact) => impact.startTime).filter(Boolean).sort()[0] ?? incident.createdAt ?? '');
 
 /**
@@ -83,9 +86,10 @@ export function sameFailures(incidents: TrustIncident[]): TrustIncident[][] {
 
 /** The incidents worth an alert, as articles, one for each failure. `since` is the earliest start that still counts as new. */
 export function incidentAlerts(incidents: TrustIncident[], since: Date): FeedItem[] {
-  const serious = incidents.filter((incident) => incident.id && !Number.isNaN(startOf(incident).getTime()) && startOf(incident) >= since && isSerious(incident));
+  // Pieces that began a little before `since` are read too, so a failure printed before keeps its first piece, and with it its address, and is not printed again.
+  const serious = incidents.filter((incident) => incident.id && !Number.isNaN(startOf(incident).getTime()) && startOf(incident) >= reachBack(since) && isSerious(incident));
   // Pieces too narrow alone may be wide together.
-  return sameFailures(serious).filter((group) => isWide(...group)).map((group) => {
+  return sameFailures(serious).filter((group) => startOf(group[0]) >= since && isWide(...group)).map((group) => {
     // The first incident reported stands for the failure: its page is linked, so the failure keeps one address however many pieces join it later.
     const [first] = [...group].sort((a, b) => (a.id ?? 0) - (b.id ?? 0));
     const began = startOf(group[0]);
@@ -145,7 +149,7 @@ export const ALERT_FEEDS: Record<AlertFeed, { source: Source; read: (since: Date
     source: TRUST,
     read: async (since, request) => {
       const [incidents, messages] = await Promise.all([
-        json<TrustIncident[]>(request, `https://api.status.salesforce.com/v1/incidents?limit=500&startTime=${encodeURIComponent(since.toISOString())}`),
+        json<TrustIncident[]>(request, `https://api.status.salesforce.com/v1/incidents?limit=500&startTime=${encodeURIComponent(reachBack(since).toISOString())}`),
         json<TrustMessage[]>(request, 'https://api.status.salesforce.com/v1/generalMessages'),
       ]);
       return [...messageAlerts(messages, since), ...incidentAlerts(incidents, since)];

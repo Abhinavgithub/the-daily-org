@@ -58,6 +58,13 @@ test('one failure that Trust reports as several incidents is printed once', () =
   assert.match(item.feedText, /reported it as 3 incidents/);
   assert.equal(item.feedText.split('A fix is being deployed.').length, 2, 'words posted to every piece are said once');
 
+  const later = new Date('2026-09-16T14:30:00Z');
+  assert.deepEqual(
+    incidentAlerts([piece(20004512, 'Resolved', ['NA1', 'NA2', 'NA3'], '2026-09-16T14:05:00Z', 'x'), piece(20004518, 'Resolved', ['NA4', 'NA5'], '2026-09-16T14:40:00Z', 'y')], later),
+    [],
+    'a failure that began before the day read from is not printed again from a later piece',
+  );
+
   const other = sameFailures([incident({ id: 1 }), incident({ id: 2, serviceKeys: ['marketingCloud'] }), incident({ id: 3, IncidentImpacts: [{ type: 'performanceDegradation', severity: 'major', startTime: '2026-09-16T14:05:00.000Z' }] })]);
   assert.equal(other.length, 3, 'another service, or another kind of failure, is not the same one');
 });
