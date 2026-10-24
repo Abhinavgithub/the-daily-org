@@ -2,7 +2,7 @@ import 'dotenv/config';
 import fs from 'node:fs';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
-import { curate, firstLook, InvalidVerdict, proofread } from './curate';
+import { curate, firstLook, firstLooks, InvalidVerdict, proofread, proofreadAll } from './curate';
 import { route, triage } from './decide';
 import { addFigures } from './figure';
 import { canonicalUrl, forget, loadPending, loadSeen, savePending, saveSeen, waitingSources } from './dedupe';
@@ -22,7 +22,7 @@ import { scoreThreshold, setting } from './settings';
 import { SOURCES } from './sources';
 import { DATA_DIR, HELD, holdOver, dueToday, release } from './hold';
 import { failingSources, loadState, lookBackDays, recordComplete, recordFailure, recordFetched, recordNewest, saveState } from './state';
-import { addAlso, printed, readEdition, removeStory, STORIES_DIR, writeBriefs, writeBulletin, writeStories, type Printed, type Publishable } from './write';
+import { addAlso, openStory, printed, readEdition, removeStory, STORIES_DIR, storyText, writeBriefs, writeBulletin, writeStories, type Printed, type Publishable } from './write';
 
 const { values: args } = parseArgs({
   options: {
@@ -321,7 +321,7 @@ let stopped = false;
 // account or the settings, so the run stops and both are left for next time.
 let refusedInARow: { key: string; url: string; source: string }[] = [];
 
-/** 5. Proof-read a story that is about to be published, if the limits allow. */
+/** 5. Proof-read an alert as it is printed, if the limits allow. Stories are proof-read together, by `proofreadEdition`. */
 async function proofreadStory(story: Publishable) {
   const v = story.curated.verdict;
   const limit = stopped ? 'the run had stopped' : llm.limitReached(maxCalls);
@@ -338,6 +338,39 @@ async function proofreadStory(story: Publishable) {
   if (result.outcome === 'skipped') {
     stopped = true;
     runLog.stop(result.reason ?? 'the model was unavailable during proof-reading');
+  }
+}
+
+/** 5. Proof-read the stories this run wrote, all in one call, if the limits allow, and write each back corrected. */
+async function proofreadEdition(files: string[]) {
+  const stories = files.flatMap((file) => {
+    const story = openStory(fs.readFileSync(file, 'utf8'));
+    if (!story) return [];
+    const data = story.doc.toJS() as { title: string; why_read: string };
+    return [{ file, doc: story.doc, copy: { title: data.title, why_read: data.why_read, summary: story.body.trim() } }];
+  });
+  if (stories.length === 0) return;
+  // Tried even when the run stopped early: the stories it wrote are printed, and should be printed correct.
+  const limit = llm.limitReached(maxCalls);
+  if (limit) {
+    for (const { copy } of stories) runLog.proofread({ title: copy.title, outcome: 'skipped', reason: limit });
+    proofs.skipped += stories.length;
+    return;
+  }
+  const results = await proofreadAll(llm, stories.map(({ copy }) => copy), { limit: () => llm.limitReached(maxCalls) });
+  for (const [i, result] of results.entries()) {
+    const { file, doc } = stories[i];
+    proofs[result.outcome]++;
+    if (result.reason && result.outcome !== 'skipped') console.warn(`  Proof-reading partly discarded (${result.reason}): ${result.copy.title}`);
+    runLog.proofread({ title: result.copy.title, outcome: result.outcome, reason: result.reason });
+    doc.set('title', result.copy.title);
+    doc.set('why_read', result.copy.why_read);
+    fs.writeFileSync(file, storyText(doc, `\n${result.copy.summary}\n`));
+  }
+  const skipped = results.find((result) => result.outcome === 'skipped');
+  if (skipped) {
+    stopped = true;
+    runLog.stop(skipped.reason ?? 'the model was unavailable during proof-reading');
   }
 }
 
@@ -411,6 +444,10 @@ for (const signal of ['SIGINT', 'SIGTERM'] as const) {
 /** Tokens the run has used so far, for charging each article's share to its source. */
 const tokensSoFar = () => Object.values(llm.usage).reduce((sum, spent) => sum + spent.input + spent.output, 0);
 
+// The forum posts get their first look all together, in one call, made when the run reaches the first of them, so the
+// articles before them are judged first. A post left without an answer gets its own first look as it comes.
+let looked: Map<FeedItem, boolean> | undefined;
+
 try {
 for (const [i, { item, key, text, image, basis }] of candidates.entries()) {
   const entry = { title: item.title, url: item.url, source: item.source.name, ...(basis ? { basis } : {}) };
@@ -426,7 +463,12 @@ for (const [i, { item, key, text, image, basis }] of candidates.entries()) {
   }
   try {
     // A forum post gets a first look before it is read in full: most are a question or a grumble, and are turned away here.
-    if (item.source.type === 'discussion' && !item.alert && (await firstLook(llm, item, text)) === false) {
+    if (item.source.type === 'discussion' && !item.alert && !looked) {
+      looked = new Map();
+      const posts = candidates.slice(i).filter((c) => c.item.source.type === 'discussion' && !c.item.alert);
+      if (posts.length > 1) looked = await firstLooks(llm, posts);
+    }
+    if (item.source.type === 'discussion' && !item.alert && (looked?.get(item) ?? (await firstLook(llm, item, text))) === false) {
       refusedInARow = [];
       seen[key] = day;
       delete pending[key];
@@ -499,8 +541,7 @@ for (const [i, { item, key, text, image, basis }] of candidates.entries()) {
       console.log(`  [${i + 1}/${candidates.length}] Scored ${v.interest_score}, publishing${replaced ? ' in place of an earlier telling' : ''}: ${item.title}`);
       runLog.article({ ...entry, title: v.title, outcome: 'published', score: v.interest_score, reason: v.title === item.title ? undefined : `article title: ${item.title}` });
       const story: Publishable = { item, curated, image, ...(replaced ? { also: [replaced.told, ...replaced.also] } : {}) };
-      await proofreadStory(story);
-      // 6. Write
+      // 6. Write. It is proof-read with the rest of the day's stories once all are in.
       const [file] = writeStories(day, [story]);
       written.push(file);
       if (replaced) {
@@ -576,6 +617,9 @@ for (const [i, { item, key, text, image, basis }] of candidates.entries()) {
 
 saveProgress();
 saveSourceState(!stopped && counts.deferred === 0);
+
+// 5. Proof-read the day's stories, all in one call.
+await proofreadEdition(written);
 
 // 7. Even the days out: the day's own stories first, then what was held if the day has room, and what has waited its
 // days whatever the day holds; what the day has over its number is held.

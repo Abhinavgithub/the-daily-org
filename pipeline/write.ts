@@ -69,6 +69,7 @@ export function writeStories(day: string, stories: Publishable[]): string[] {
       novelty_score: v.novelty_score,
       utility_score: v.utility_score,
       model: curated.model,
+      ...(curated.figure ? { figure: curated.figure } : {}),
       ...(image ? { image } : {}),
       ...(also?.length ? { also } : {}),
     };

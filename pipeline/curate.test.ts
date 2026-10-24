@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { cleanHeadline as cleanHeadlineFor, curate as curateFor, editorPrompt, firstLook, InvalidVerdict, parseJsonLoosely, plainText, prefilter as prefilterFor, proofread as proofreadFor, unfaithful, verdictSchema } from './curate';
+import { cleanHeadline as cleanHeadlineFor, curate as curateFor, editorPrompt, firstLook, firstLooks, InvalidVerdict, parseJsonLoosely, plainText, prefilter as prefilterFor, proofread as proofreadFor, proofreadAll, unfaithful, verdictSchema } from './curate';
 import { definePaper, problemsWith } from '../src/paper';
 import { canonicalUrl } from './dedupe';
 import { client, good, item, ok, PAPER } from './testing';
@@ -250,4 +250,64 @@ test('a forum post gets a first look, which may turn it away but not lose it', a
   assert.equal(await firstLook(replying('```json\n{"relevant": true}\n```') as never, forum, 'A post.', PAPER), true);
   assert.equal(await firstLook(replying('I am not sure.') as never, forum, 'A post.', PAPER), null, 'an unreadable reply decides nothing');
   assert.deepEqual(noted, ['unreadable first look']);
+});
+
+test('the diagram comes in the same reply as the verdict, and a bad one costs only itself', async () => {
+  const steps = { kind: 'steps', caption: 'How a departure is checked', steps: ['Check the platform', 'Run the bulk pattern'], icons: ['search', 'flow'] };
+  let run = client([() => ok(JSON.stringify({ ...good, figure: steps }))]);
+  let curated = await curate(run.llm, item, 'text');
+  assert.deepEqual(curated.figure, steps);
+  assert.equal(run.calls.length, 1);
+
+  // A diagram that states a number the article does not: the verdict stands, without one, and no call is spent on it.
+  run = client([() => ok(JSON.stringify({ ...good, figure: { kind: 'numbers', caption: 'Speed', numbers: [{ value: '99 ms', label: 'Latency' }] } }))]);
+  curated = await curate(run.llm, item, 'text');
+  assert.equal(curated.figure, undefined);
+  assert.equal(curated.verdict.depth_score, 7);
+  assert.equal(run.calls.length, 1);
+
+  run = client([() => ok(JSON.stringify({ ...good, relevant: false, figure: steps }))]);
+  assert.equal((await curate(run.llm, item, 'text')).figure, undefined, 'none for an item that is not printed');
+  assert.match(editorPrompt(PAPER), /"figure"[\s\S]*The kinds of diagram/);
+});
+
+test('an edition is proof-read in one call, and a reply short of a story is not trusted for any', async () => {
+  const one = { title: 'Bulk patterns for Eurostar departures', why_read: 'You will learns how to plan a departure.', summary: 'First paragraph.\n\nSecond paragraph.' };
+  const two = { title: 'Timing a goods yard shunt', why_read: 'You learn the timing.', summary: 'A paragraph with an eror.' };
+  const fixed = [{ id: 1, ...one, why_read: 'You will learn how to plan a departure.' }, { id: 2, ...two, summary: 'A paragraph with an error.' }];
+
+  let run = client([() => ok(JSON.stringify({ stories: fixed }))]);
+  const results = await proofreadAll(run.llm, [one, two], { paper: PAPER });
+  assert.equal(run.calls.length, 1);
+  assert.deepEqual(results.map((r) => r.outcome), ['corrected', 'corrected']);
+  assert.equal(results[1].copy.summary, 'A paragraph with an error.');
+
+  // One story missing: each is proof-read on its own instead.
+  run = client([() => ok(JSON.stringify({ stories: [fixed[0]] })), () => ok(JSON.stringify(fixed[0])), () => ok(JSON.stringify(fixed[1]))]);
+  const again = await proofreadAll(run.llm, [one, two], { paper: PAPER });
+  assert.equal(run.calls.length, 3);
+  assert.deepEqual(again.map((r) => r.outcome), ['corrected', 'corrected']);
+  assert.equal(run.llm.retries['invalid proof'], 1);
+
+  // In another order: not applied to the wrong stories. And the fallback stops at the call cap.
+  run = client([() => ok(JSON.stringify({ stories: [fixed[1], fixed[0]] })), () => ok(JSON.stringify(fixed[0]))]);
+  let calls = 1;
+  const capped = await proofreadAll(run.llm, [one, two], { paper: PAPER, limit: () => (calls++ >= 2 ? 'the cap was reached' : null) });
+  assert.deepEqual(capped.map((r) => r.outcome), ['corrected', 'skipped']);
+  assert.equal(capped[1].copy.summary, two.summary);
+});
+
+test('forum posts get their first look together, and a muddled reply decides nothing', async () => {
+  const forum = { ...item, source: { ...item.source, type: 'discussion' as const } };
+  const post = (title: string) => ({ item: { ...forum, title }, text: 'A post about a fault.' });
+  const posts = [post('Outage on EU42'), post('How do I add a field?'), post('Release broke flows')];
+  let run = client([() => ok('{"relevant": [true, false, true]}')]);
+  const answers = await firstLooks(run.llm, posts, PAPER);
+  assert.equal(run.calls.length, 1);
+  assert.deepEqual(posts.map(({ item }) => answers.get(item)), [true, false, true]);
+
+  run = client([() => ok('{"relevant": [true, false]}')]);
+  assert.equal((await firstLooks(run.llm, posts, PAPER)).size, 0, 'one answer short');
+  run = client([]);
+  assert.equal((await firstLooks(run.llm, [posts[0]], PAPER)).size, 0, 'a post alone is left to its own first look');
 });
