@@ -166,3 +166,60 @@
     margin: 0;
   }
 }
+
+// A line to the Deadlines when something falls due soon, under the release dates.
+.bulletin__due {
+  margin-top: 0.75rem !important;
+
+  a {
+    color: var(--sky);
+  }
+}
+
+// The Deadlines: one section a release, as the Bulletin sets its sections. What
+// is already in force is kept, greyed, below what is still to come.
+.deadlines .ledger__row h3 {
+  display: grid;
+  gap: 0.25rem;
+  align-content: start;
+}
+
+.deadlines__intro {
+  margin: 0 0 1rem;
+}
+
+.deadlines .filters {
+  margin-bottom: 1rem;
+}
+
+.deadlines__group[hidden] {
+  display: none;
+}
+
+.deadlines__group--past {
+  opacity: 0.6;
+}
+
+.deadlines__item .flag {
+  margin-bottom: 0.35rem;
+}
+
+.deadlines__item .bulletin__facts a {
+  color: var(--sky);
+}
+
+// The paper's own reading, told apart from the notes' words by its label.
+.deadlines__label {
+  margin-right: 0.35rem;
+  font-family: var(--display);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--sun);
+}
+
+// The filter bar's rule already heads the first section.
+.deadlines .filters + .ledger__row {
+  border-top: 0;
+}

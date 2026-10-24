@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { deadlineIn, enforcedFrom, featuresIn, KEEP_FROM, linesFor, pickHeadlines, slugOf } from './release-edition';
+import { deadlineIn, enforcedFrom, featuresIn, KEEP_FROM, linesFor, pickHeadlines, readUpdates, slugOf } from './release-edition';
 import type { Entry } from './release-notes';
 import { PAPER } from './testing';
 
@@ -81,4 +81,32 @@ test('the editor chooses the headlines from the highest scoring, no more than tw
   const few = answering([]);
   assert.deepEqual((await pickHeadlines(few.llm, [areas[1]], "Winter '27", 3, PAPER)).map((pick) => pick.name), ['P1', 'P2']);
   assert.equal(few.asked.length, 0);
+});
+
+test('the release updates are read in one call, keeping the notes’ words and only the paper’s own readers', async () => {
+  const updates = [
+    { topic: 't1', name: 'Retire the old timetable feed', says: 'The feed stops.', when: "Scheduled to Be Enforced in Spring '27" },
+    { topic: 't2', name: 'Adopt the new token', says: 'Tokens change.', when: 'Canceled Updates' },
+    { topic: 't3', name: 'Lock the signal box', says: 'Boxes lock.', when: 'Enforced with This Release' },
+  ];
+  const personas = PAPER.personas.map((persona) => persona.id);
+  const { llm, asked } = answering([
+    'not json',
+    JSON.stringify({
+      updates: [
+        { n: 1, roles: [personas[0], 'stranger'], action: 'Move every reader to the new timetable feed.', phrases: ['timetable feed'] },
+        { n: 2, roles: [], action: 'Check which boxes are locked today.', phrases: [] },
+        { n: 9, roles: [], action: 'Not an update that was asked about.', phrases: [] },
+      ],
+    }),
+  ]);
+  const read = await readUpdates(llm, updates, "Winter '27", PAPER);
+  assert.equal(asked.length, 2, 'a reply that cannot be read is asked for again');
+  assert.match(asked[0][1], /^1 \| Retire the old timetable feed \| Scheduled to Be Enforced in Spring '27 \| The feed stops\.\n2 \| Lock the signal box/, 'a called-off update is not asked about');
+  assert.deepEqual(read[0], { ...updates[0], roles: [personas[0]], action: 'Move every reader to the new timetable feed.', phrases: ['timetable feed'] });
+  assert.deepEqual(read[1], updates[1]);
+  assert.deepEqual(read[2], { ...updates[2], action: 'Check which boxes are locked today.' }, 'no roles named leaves it for everyone');
+  // A reading that never comes leaves the notes alone.
+  const none = answering(['no', 'still no']);
+  assert.deepEqual(await readUpdates(none.llm, updates, "Winter '27", PAPER), updates);
 });

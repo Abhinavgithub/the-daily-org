@@ -3,26 +3,29 @@ import { counted } from '../lib/bulletin';
 import { getReleaseEditions } from '../lib/release-store';
 import { getBulletin } from '../lib/stories';
 
-// The two parts of the paper: its stories, and the Bulletin, which holds what
-// is not a story. They are two pages, so these are links, and the one the
-// reader is on is marked. The Bulletin's link says how many of its items the
+// The parts of the paper: its stories, the Bulletin, which holds what is not
+// a story, and the Deadlines, what the release notes say is coming. They are
+// pages, so these are links, and the one the reader is on is marked. The Bulletin's link says how many of its items the
 // reader has not seen, which the browser remembers: incidents in red, since a
 // failure of the service is pressing, and other notices in the paper's accent.
 // A tool's release is not counted.
 
 interface Props {
   /** The part the reader is in. Left out on a page that is neither, such as a release edition. */
-  current?: 'news' | 'bulletin';
+  current?: 'news' | 'bulletin' | 'deadlines';
 }
 
 const { current } = Astro.props;
 const { latest, items } = await getBulletin();
+const editions = getReleaseEditions();
+// The Deadlines are offered once some edition has read its release updates.
+const hasDeadlines = editions.some((edition) => edition.enforced.length > 0);
 const listed = [
   ...items
     .filter((item) => counted(item.data.kind))
     .map((item) => ({ id: item.id, date: item.data.date, ...(item.data.kind === 'alert' && /incident/i.test(item.data.flag ?? '') ? { incident: true } : {}) })),
   // A release edition is new once, when it is first built; its later revisions are not announced.
-  ...getReleaseEditions().map((edition) => ({ id: `release-edition/${edition.release.slug}`, date: edition.builtAt.slice(0, 10) })),
+  ...editions.map((edition) => ({ id: `release-edition/${edition.release.slug}`, date: edition.builtAt.slice(0, 10) })),
 ];
 ---
 
@@ -42,6 +45,13 @@ const listed = [
     <span class="tabs__count tabs__count--incident" data-bulletin-incidents hidden></span>
     <span class="tabs__count" data-bulletin-others hidden></span>
   </a>
+  {
+    hasDeadlines && (
+      <a href="/deadlines/" aria-current={current === 'deadlines' ? 'page' : undefined}>
+        Deadlines
+      </a>
+    )
+  }
 </nav>
 
 <script>

@@ -30,6 +30,12 @@ export interface Enforced {
   when: string;
   /** The day it takes hold, when the notes name one: "1 Dec 2026". */
   deadline?: string;
+  /** Whom it touches, by the paper's personas. The editor's reading, not the notes'; left out when there is none. */
+  roles?: string[];
+  /** What to do about it, in one sentence. The editor's reading, not the notes'. */
+  action?: string;
+  /** Short phrases a story about it would use, by which the paper's own stories are found for it. */
+  phrases?: string[];
 }
 
 export interface Edition {
