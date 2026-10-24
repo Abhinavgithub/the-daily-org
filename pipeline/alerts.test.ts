@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { incidentAlerts, isWide, messageAlerts, readAlerts, type TrustIncident, type TrustMessage } from './alerts';
+import { incidentAlerts, isWide, sameFailures, messageAlerts, readAlerts, type TrustIncident, type TrustMessage } from './alerts';
 
 const since = new Date('2026-09-10T00:00:00Z');
 const incident = (over: Partial<TrustIncident> = {}): TrustIncident => ({
@@ -27,7 +27,7 @@ test('an incident is an alert only when it is serious and wide', () => {
 });
 
 test('a wide incident becomes an article with its flag, its facts and what was said, newest first', () => {
-  const [item, ...rest] = incidentAlerts([incident(), incident({ id: 2, instanceKeys: ['NA1'] }), incident({ id: 3, IncidentImpacts: [{ severity: 'major', startTime: '2026-09-01T00:00:00Z' }] })], since);
+  const [item, ...rest] = incidentAlerts([incident(), incident({ id: 2, instanceKeys: ['NA1'], serviceKeys: ['marketingCloud'] }), incident({ id: 3, IncidentImpacts: [{ severity: 'major', startTime: '2026-09-01T00:00:00Z' }] })], since);
   assert.equal(rest.length, 0, 'one too narrow, one too old');
   assert.equal(item.title, 'Core Service: service disruption on 5 instances');
   assert.equal(item.url, 'https://status.salesforce.com/incidents/20004433');
@@ -37,6 +37,29 @@ test('a wide incident becomes an article with its flag, its facts and what was s
 
   const open = incidentAlerts([incident({ status: 'Investigating', affectsAll: true })], since)[0];
   assert.equal(open.alert?.facts, 'Ongoing when this edition was written · began 16 Sep 2026 · all instances');
+});
+
+test('one failure that Trust reports as several incidents is printed once', () => {
+  const piece = (id: number, status: string, keys: string[], start: string, message: string) =>
+    incident({ id, status, instanceKeys: keys, IncidentImpacts: [{ type: 'serviceDisruption', severity: 'major', startTime: start }], IncidentEvents: [{ createdAt: start, message }, { createdAt: start, message: 'A fix is being deployed.' }] });
+  const [item, ...rest] = incidentAlerts(
+    [
+      piece(20004519, 'Resolved', ['NA6', 'NA7'], '2026-09-16T15:00:00Z', 'Logins fail on NA6 and NA7.'),
+      piece(20004512, 'Investigating', ['NA1', 'NA2', 'NA3'], '2026-09-16T14:05:00Z', 'Logins fail.'),
+      piece(20004518, 'Resolved', ['NA3', 'NA4'], '2026-09-16T14:40:00Z', 'Logins fail on NA4.'),
+      piece(20004600, 'Resolved', ['NA1', 'NA2', 'NA3', 'NA4', 'NA5'], '2026-09-17T09:00:00Z', 'Another day, another failure.'),
+    ],
+    since,
+  );
+  assert.equal(rest.length, 1, 'a failure the next day is another one');
+  assert.equal(item.url, 'https://status.salesforce.com/incidents/20004512', 'the first one reported stands for it');
+  assert.equal(item.title, 'Core Service: service disruption on 6 instances', 'an instance in two pieces is counted once, and three narrow pieces are wide together');
+  assert.equal(item.alert?.facts, 'Ongoing when this edition was written · began 16 Sep 2026 · 6 instances', 'ongoing while any piece is');
+  assert.match(item.feedText, /reported it as 3 incidents/);
+  assert.equal(item.feedText.split('A fix is being deployed.').length, 2, 'words posted to every piece are said once');
+
+  const other = sameFailures([incident({ id: 1 }), incident({ id: 2, serviceKeys: ['marketingCloud'] }), incident({ id: 3, IncidentImpacts: [{ type: 'performanceDegradation', severity: 'major', startTime: '2026-09-16T14:05:00.000Z' }] })]);
+  assert.equal(other.length, 3, 'another service, or another kind of failure, is not the same one');
 });
 
 const message = (over: Partial<TrustMessage> = {}): TrustMessage => ({
