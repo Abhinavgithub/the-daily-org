@@ -40,5 +40,6 @@ test('the drawing takes the page colours and says what it shows', () => {
 
 test('labels wrap at spaces to fit their box, and text is escaped', () => {
   assert.deepEqual(wrap('Rule engine for limits and execution', 120), ['Rule engine', 'for limits and', 'execution']);
+  assert.deepEqual(wrap('Use ExperienceCloudSiteBuilder', 80), ['Use', 'Experien-', 'ceCloudS-', 'iteBuild-', 'er'], 'no line wider than its box');
   assert.ok(figureSvg({ kind: 'steps', caption: 'A & B', steps: ['<script>', 'x & y'] }, 'narrow').includes('&lt;script&gt;'));
 });

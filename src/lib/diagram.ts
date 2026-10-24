@@ -35,11 +35,22 @@ const WIDTH: Record<Layout, number> = { wide: 720, narrow: 360 };
 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-/** Break a label into lines that fit `width` at `size`, at spaces. A word longer than a line has a line to itself. */
+/** Break a label into lines that fit `width` at `size`, at spaces. A word longer than a line is broken with a hyphen. */
 export function wrap(label: string, width: number, size = SIZE): string[] {
   const max = Math.max(4, Math.floor(width / (size * LETTER)));
   const lines: string[] = [];
-  for (const word of label.split(/\s+/).filter(Boolean)) {
+  const words = label
+    .split(/\s+/)
+    .filter(Boolean)
+    .flatMap((word) => {
+      const pieces: string[] = [];
+      while (word.length > max) {
+        pieces.push(`${word.slice(0, max - 1)}-`);
+        word = word.slice(max - 1);
+      }
+      return [...pieces, word];
+    });
+  for (const word of words) {
     const last = lines.at(-1);
     if (last !== undefined && last.length + 1 + word.length <= max) lines[lines.length - 1] = `${last} ${word}`;
     else lines.push(word);
