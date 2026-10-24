@@ -74,7 +74,7 @@ export function sentenceCase(headline: string, context = ''): string {
 export function houseStyle(paper: Paper = PAPER): string {
   const terms = paper.glossary ?? [];
   const own = paper.houseStyle ?? (terms.length ? [`Write these names exactly as shown every time they appear: ${terms.slice(0, 30).join(', ')}.`] : []);
-  return ['House style:', 'US spelling. Complete, grammatical sentences. No exclamation marks.', ...own, 'Use product names exactly as the article gives them. Do not swap one name for another.', 'Be consistent: the same term is written the same way throughout.']
+  return ['House style:', 'Write in English, whatever language the article is in. US spelling. Complete, grammatical sentences. No exclamation marks.', ...own, 'Use product names exactly as the article gives them. Do not swap one name for another.', 'Be consistent: the same term is written the same way throughout.']
     .map((line, i) => (i === 0 ? line : `- ${line}`))
     .join('\n');
 }

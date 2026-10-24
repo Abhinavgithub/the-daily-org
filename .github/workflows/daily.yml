@@ -58,6 +58,8 @@ jobs:
       LLM_MODELS: ${{ vars.LLM_MODELS }}
       LLM_ALLOW_PAID: ${{ vars.LLM_ALLOW_PAID }}
       LLM_MAX_CALLS: ${{ vars.LLM_MAX_CALLS }}
+      # 0 turns the model's thinking off; empty leaves it to the model.
+      LLM_REASONING_TOKENS: ${{ vars.LLM_REASONING_TOKENS }}
       # The most one run may spend. The pipeline stops cleanly when it is reached.
       LLM_MAX_COST_USD: ${{ vars.LLM_MAX_COST_USD }}
       SCORE_THRESHOLD: ${{ vars.SCORE_THRESHOLD }}
