@@ -1,12 +1,13 @@
 ---
 // A release edition: one release, from its own release notes. The page opens
-// short: the headlines by name, what the release enforces in every org, one
-// line each, and the notes' own areas, closed. An area opens to its products
+// short: the headlines by name, a line to the Deadlines for what the release
+// enforces, and the notes' own areas, closed. An area opens to its products
 // and features. One box searches the names of all three, and stays in view.
 import Masthead from '../../../components/Masthead.astro';
 import Tabs from '../../../components/Tabs.astro';
 import Layout from '../../../layouts/Layout.astro';
 import { enforcedNow, headlines, linkTo, printed } from '../../../lib/release-edition';
+import { timingOf } from '../../../lib/deadlines';
 import { BAR, getReleaseEditions } from '../../../lib/release-store';
 import { countLabel, formatDay } from '../../../lib/stories';
 
@@ -19,6 +20,8 @@ const { name } = edition.release;
 const areas = printed(edition, BAR);
 const lead = headlines(edition, BAR);
 const enforced = enforcedNow(edition);
+// What the release enforces is on the Deadlines page; this says how much, and leads there.
+const scheduled = edition.enforced.filter((update) => timingOf(update.when, name).kind !== 'cancelled').length - enforced.length;
 const total = areas.reduce((sum, area) => sum + area.count, 0);
 const updated = (edition.notesPublished ?? edition.builtAt).slice(0, 10);
 const anchor = (text: string) => `area-${text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
@@ -80,29 +83,12 @@ const found = (...parts: string[]) => parts.join(' ').toLowerCase();
       }
 
       {
-        enforced.length > 0 && (
-          <section class="edition__enforced" aria-labelledby="enforced-title" data-edition-block>
-            <div class="edition__title">
-              <h2 id="enforced-title">Enforced with this release</h2>
-              <span class="edition__count">{countLabel(enforced.length, 'change', 'changes')}</span>
-            </div>
-            <p class="edition__note">Changes made in every org, whether or not anything is done about them.</p>
-            {enforced.map((change) => (
-              <details data-feature data-text={found('enforced release updates', change.name)}>
-                <summary>
-                  {/* When it takes hold, in the margin: only a day that is named is flagged. */}
-                  <span class="edition__when">{change.deadline ? <span class="flag">{change.deadline}</span> : 'This release'}</span>
-                  <h3>{change.name}</h3>
-                </summary>
-                <p>
-                  {change.says}{' '}
-                  <a href={linkTo(edition, change.topic)} target="_blank" rel="noopener">
-                    Read the release note
-                  </a>
-                </p>
-              </details>
-            ))}
-          </section>
+        enforced.length + scheduled > 0 && (
+          <p class="edition__deadlines">
+            <strong>{countLabel(enforced.length, 'change', 'changes')} enforced with {name}</strong>
+            {scheduled > 0 && <>, {countLabel(scheduled, 'more', 'more')} scheduled for later releases</>}.{' '}
+            <a href="/deadlines/">See the Deadlines</a>
+          </p>
         )
       }
 

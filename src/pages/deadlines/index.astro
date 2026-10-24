@@ -1,0 +1,109 @@
+---
+// Deadlines: what is being enforced or retired, and when, from the release
+// notes' Release Updates. Each release is a section, named in the margin with
+// its dates beside it; what is still to come leads, what is in force follows,
+// greyed. The notes' words are printed as they are; what to do about each is
+// the paper's own, and marked so. Whom each is for is left to the filter.
+import fs from 'node:fs';
+import path from 'node:path';
+import FilterBar from '../../components/FilterBar.astro';
+import Masthead from '../../components/Masthead.astro';
+import Tabs from '../../components/Tabs.astro';
+import { PERSONAS } from '../../config';
+import Layout from '../../layouts/Layout.astro';
+import { deadlinesFrom, groupLine, grouped, storiesAbout } from '../../lib/deadlines';
+import { readReleases } from '../../lib/releases';
+import { getReleaseEditions } from '../../lib/release-store';
+import { getAllStories, storyHref } from '../../lib/stories';
+
+let releases = readReleases(null);
+try {
+  releases = readReleases(JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', 'releases.json'), 'utf8')));
+} catch {
+  // No dates have been read yet, or the file is unreadable.
+}
+const today = new Date().toISOString().slice(0, 10);
+const deadlines = deadlinesFrom(getReleaseEditions());
+const groups = grouped(deadlines, releases, today);
+// What a story says, for finding the stories about an update.
+const stories = (await getAllStories()).map((story) => ({
+  story,
+  date: story.data.date,
+  text: [story.data.title, story.data.original_title ?? '', story.data.why_read ?? '', story.data.tags.join(' '), story.body ?? ''].join(' '),
+}));
+const everyone = PERSONAS.map((persona) => persona.id);
+const rolesOf = (roles: string[] | undefined) => (roles && roles.length ? roles : everyone);
+const heading = (group: (typeof groups)[number]) => (group.kind === 'unknown' ? 'No release named' : group.kind === 'before' ? `Before ${group.release}` : group.release);
+---
+
+<Layout title="Deadlines" description="What Salesforce is enforcing or retiring, and when, from its release notes.">
+  <Masthead>
+    <h1 class="dateline__text">Deadlines</h1>
+  </Masthead>
+  <Tabs current="deadlines" />
+  <main class="wrap">
+    <div class="ledger deadlines">
+      <p class="ledger__note deadlines__intro">
+        What is being enforced or retired, and when, from the official release notes.
+      </p>
+      {deadlines.length > 0 && <FilterBar stories={deadlines.map((deadline) => ({ data: { personas: rolesOf(deadline.roles) } }))} marks={false} />}
+
+      {
+        groups.map((group) => (
+          <section class:list={['ledger__row', 'deadlines__group', { 'deadlines__group--past': group.past }]} data-deadline-group>
+            <h3>
+              {heading(group)}
+              <span class="bulletin__window">{groupLine(group, today)}</span>
+            </h3>
+            <div>
+              {group.items.map((deadline) => {
+                const about = storiesAbout(deadline, stories);
+                const roles = rolesOf(deadline.roles);
+                return (
+                  <article class="bulletin__item deadlines__item" data-card data-personas={roles.join(' ')}>
+                    {deadline.deadline && <p class="flag">{deadline.deadline}</p>}
+                    <h4>
+                      <a href={deadline.link} target="_blank" rel="noopener">
+                        {deadline.name}
+                      </a>
+                    </h4>
+                    <p class="bulletin__text">{deadline.says}</p>
+                    {deadline.action && (
+                      <p class="bulletin__text deadlines__reading">
+                        <span class="deadlines__label">What to do</span> {deadline.action}
+                      </p>
+                    )}
+                    {about.length > 0 && (
+                      <p class="bulletin__facts">
+                        {'In the paper: '}
+                        {about.map(({ story }, i) => (
+                          <>
+                            {i > 0 && ', '}
+                            <a href={storyHref(story)}>{story.data.title}</a>
+                          </>
+                        ))}
+                      </p>
+                    )}
+                  </article>
+                );
+              })}
+            </div>
+          </section>
+        ))
+      }
+      {groups.length === 0 && <p class="ledger__none">No release updates have been read yet.</p>}
+      <p class="ledger__none deadlines__empty" data-empty hidden>Nothing here is marked for that reader.</p>
+    </div>
+  </main>
+</Layout>
+
+<script>
+  // A release with nothing left for the reader chosen is not shown as an empty heading.
+  function tidy() {
+    for (const group of document.querySelectorAll<HTMLElement>('[data-deadline-group]')) {
+      group.hidden = !group.querySelector('[data-card]:not([hidden])');
+    }
+  }
+  document.addEventListener('stories:filtered', tidy);
+  tidy();
+</script>

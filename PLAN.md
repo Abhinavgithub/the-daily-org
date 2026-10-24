@@ -1,6 +1,6 @@
 # Plan: better quality news
 
-Goal: the paper is for one reader (the author). Fewer junk stories, fewer missed ones.
+Goal: fewer junk stories, fewer missed ones. The paper began with one reader (the author); since 24 Oct it is written for other Salesforce practitioners too, and new readers are expected to come from search.
 Budget: a few dollars a month at most; new features under about $0.25 a month unless optional.
 
 Check a box when the step is built, tested and committed.
@@ -22,6 +22,15 @@ Check a box when the step is built, tested and committed.
   - [x] 6a. **The edition and its page.** Built 7 Oct for Winter '27: 188 features that score 7 or more (the bar was 8, with 82, until the page opened closed), under the notes' own areas, with the headlines, what the release enforces, and a search. About $0.02 a build on the daily model.
   - [x] 6b. **Automatic.** Built 7 Oct. The daily run builds an edition twice a release and no more: when a new release's notes appear, and on the day the release has reached the last of production. About $0.04 a release. `npm run release-edition` does the same by hand. Still to see: the second build of Winter '27 on 10 Oct, and whether the help site answers GitHub Actions.
   - [ ] 6c. **Do it later: follow the notes' revisions.** Left on 7 Oct. After its second build an edition is never refreshed, though Salesforce goes on revising the notes. If that turns out to matter, rebuild when the notes change, at most once a week.
+- [ ] 7. **Deadlines.** A third tab, News · Bulletin · **Deadlines** (`/deadlines/`), listing what Salesforce is enforcing or retiring and when. Agreed and built 24 Oct. Winter '27's updates were read the same day with `npm run release-edition -- --deadlines`.
+  - **Source: the release notes only.** Entries come from each release edition's enforced updates, which already look ahead (Winter '27's notes list 23 items reaching into Summer '27). When two editions list the same update (matched by its release-note topic), the newest edition's timing wins, so a rescheduled update moves rather than appearing twice. A story the paper printed about an item is linked under it, but stories never add entries.
+  - **Dates as Salesforce gives them.** Grouped by release, each heading with its dates from Trust and a countdown ("Spring '27 · sandboxes 6 Feb · production 19–20 Feb 2027 · in 4 months"). Items due "before" a release sit in a band of their own above it. No exact day is ever invented. Items past their release are greyed out.
+  - **Who and what to do.** Each item carries the roles it affects, so the filter bar works on the tab, and one line marked "What to do". Both come from the release-edition call already made, at no meaningful extra cost.
+  - **No duplicates.** The release edition page loses its "Enforced with this release" section and gets one line pointing to Deadlines instead. The Bulletin gets a line when something is due within 30 days.
+
+Later, not now:
+- **Story pages.** A page of its own for each story, in the paper's style, so search has something to land on. Parked 24 Oct. If built: a summary no longer than today's, no long quotes or images from the original, the author and source at the top, "Read the original" as the main link, and a line in the footer on how to have a story removed.
+- **A paper that remembers the reader** (saved stories, the role filter kept between visits, new since the last visit) and **a hub page per release**. Discussed 24 Oct, not chosen.
 
 Out of scope for now: email, newsletters, sharing, subscriptions.
 

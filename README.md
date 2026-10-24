@@ -52,7 +52,7 @@ It refuses to run with uncommitted changes and asks before deleting anything. Th
 | `npm run revise -- --glossary-only` | Re-applies the glossary to every story, with no model calls. |
 | `npm run feedback` | Records what the paper got wrong: `-- junk <address>` for a printed story that should not have run, `-- missed <address>` for one it skipped, `-- list` to review. Kept in `data/feedback.jsonl`. Under `npm run dev` the Logs page does the same with a button on each article. |
 | `npm run replay` | Judges the flagged articles again, with some the paper got right, under the rules as they stand, to measure a change to them. `-- --prefilter-only` makes no model calls; `-- --compare` lists what changed since the last replay; `-- --runs 2` finds unstable verdicts. Publishes nothing. |
-| `npm run release-edition` | Builds the release edition when one is owed, and does nothing otherwise. The daily run calls it. `-- --dry-run` says what is owed; `-- --release 264` builds that release's edition now. |
+| `npm run release-edition` | Builds the release edition when one is owed, and does nothing otherwise. The daily run calls it. `-- --dry-run` says what is owed; `-- --release 264` builds that release's edition now; `-- --deadlines` reads the newest edition's release updates again for the Deadlines page. |
 | `npm run favicon` | Redraws the icons from the paper's name and colours. |
 | `npm run check` / `npm run lint` / `npm test` | Type-checks, lints, and runs the tests. |
 

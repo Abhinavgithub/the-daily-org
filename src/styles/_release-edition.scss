@@ -1,6 +1,6 @@
 // A release edition ----------------------------------------------------
-// One release, from its own notes: its headlines by name, what it enforces,
-// then everything printed, under the notes' own areas and products.
+// One release, from its own notes: its headlines by name, a line to the
+// Deadlines for what it enforces, then everything printed, under the notes' own areas and products.
 .edition {
   max-width: 62rem;
   margin: 0.5rem auto 0;
@@ -159,8 +159,7 @@
   }
 }
 
-.edition__facts a,
-.edition__enforced p a {
+.edition__facts a {
   color: var(--sky);
   text-decoration: underline;
   text-underline-offset: 0.15em;
@@ -212,105 +211,19 @@
   display: none;
 }
 
-// What the release enforces: under a heavy rule, a line to a change. When it
-// takes hold stands in the margin, so the names run down one edge.
-.edition__enforced {
-  --when: 8.5rem;
-
-  margin-bottom: 1.75rem;
-  padding-top: 0.9rem;
+// What the release enforces is on the Deadlines page: a line here leads there, under a heavy rule.
+.edition__deadlines {
+  // The same room above and below the line, between its rule and the list's.
+  margin: 0;
+  padding: 1.1rem 0;
   border-top: 3px solid var(--ink);
+  font-family: var(--display);
 
-  &[hidden] {
-    display: none;
+  a {
+    color: var(--sky);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
   }
-
-  details {
-    border-top: 1px solid var(--rule);
-  }
-
-  summary {
-    display: grid;
-    grid-template-columns: var(--when) auto minmax(0, 1fr);
-    gap: 0 0.5rem;
-    padding: 0.6rem 0;
-
-    // The mark that says it opens stands by the name, not out in the margin.
-    &::before {
-      grid-column: 2;
-      grid-row: 1;
-    }
-  }
-
-  .edition__when {
-    grid-column: 1;
-    grid-row: 1;
-    color: var(--muted);
-  }
-
-  .flag {
-    margin: 0;
-  }
-
-  h3 {
-    grid-column: 3;
-    font-size: 1.0625rem;
-  }
-
-  details > p {
-    // Under the name: past the margin and the mark.
-    margin: 0 0 0.8rem calc(var(--when) + 1.8rem);
-    max-width: 46rem;
-    font-family: var(--text);
-    font-size: var(--fs-body);
-    line-height: 1.5;
-  }
-
-  // On a narrow page the margin is given up: when it takes hold stands over the name.
-  @media (max-width: 40rem) {
-    summary {
-      grid-template-columns: auto minmax(0, 1fr);
-    }
-
-    .edition__when {
-      grid-column: 2;
-    }
-
-    summary::before {
-      grid-column: 1;
-      grid-row: 2;
-    }
-
-    h3 {
-      grid-column: 2;
-      grid-row: 2;
-    }
-
-    details > p {
-      margin-left: 1.3rem;
-    }
-  }
-}
-
-// The block's name, and how many changes stand under it.
-.edition__title {
-  display: flex;
-  justify-content: space-between;
-  align-items: baseline;
-  gap: 1rem;
-
-  h2 {
-    margin: 0;
-    font-family: var(--headline);
-    font-weight: 700;
-    font-size: var(--fs-headline);
-    line-height: 1.2;
-  }
-}
-
-.edition__note {
-  margin: 0.3rem 0 0.7rem;
-  color: var(--muted);
 }
 
 // Every feature printed, under the notes' own areas. An area is a line until it is opened.
@@ -468,7 +381,7 @@
   color: var(--ink);
   background: var(--surface);
   border: 1px solid var(--rule);
-  border-radius: 3px;
+  border-radius: 0;
   cursor: pointer;
 
   &:hover {
@@ -492,7 +405,7 @@
   height: var(--tool);
   background: var(--surface);
   border: 1px solid var(--rule);
-  border-radius: 3px;
+  border-radius: 0;
 
   &:focus-within {
     border-color: var(--sky);
@@ -519,7 +432,7 @@
     color: var(--muted);
     background: none;
     border: 0;
-    border-radius: 0 7px 7px 0;
+    border-radius: 0;
     cursor: pointer;
 
     &:hover,
@@ -554,7 +467,7 @@
   line-height: 1.2;
   color: var(--paper);
   background: var(--ink);
-  border-radius: 3px;
+  border-radius: 0;
   text-decoration: none;
 
   svg {
@@ -588,7 +501,7 @@
   width: 1.75rem;
   height: 1.75rem;
   border: 1px solid var(--rule);
-  border-radius: 3px;
+  border-radius: 0;
   color: var(--ink);
 
   svg {

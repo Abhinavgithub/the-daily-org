@@ -9,7 +9,7 @@ import type { ReleaseStatus } from '../src/lib/logs';
 import { readReleases } from '../src/lib/releases';
 import { configFromEnv, LlmClient, modelsOrStop } from './llm';
 import { RunLog } from './log';
-import { buildEdition, pickHeadlines } from './release-edition';
+import { buildEdition, pickHeadlines, readUpdates } from './release-edition';
 import { due, waiting, type Due } from './release-due';
 import { FRONT_PAGE, helpContext, helpTopic } from './release-notes';
 import { RELEASES_PATH } from './releases';
@@ -23,8 +23,9 @@ import { RELEASES_PATH } from './releases';
 //   npm run release-edition -- --dry-run         say what is owed, and build nothing
 //   npm run release-edition -- --release 264     build that release's edition now, owed or not
 //   npm run release-edition -- --headlines       choose the newest saved edition's headlines again, without rebuilding it
+//   npm run release-edition -- --deadlines       read the newest saved edition's Release Updates again for the Deadlines page
 
-const { values: args } = parseArgs({ options: { release: { type: 'string' }, 'dry-run': { type: 'boolean' }, headlines: { type: 'boolean' }, model: { type: 'string' } } });
+const { values: args } = parseArgs({ options: { release: { type: 'string' }, 'dry-run': { type: 'boolean' }, headlines: { type: 'boolean' }, deadlines: { type: 'boolean' }, model: { type: 'string' } } });
 const notes = PAPER.releaseNotes;
 if (!notes) {
   console.log('This paper has no release notes to read ("releaseNotes" in paper.config.ts). Nothing to do.');
@@ -50,7 +51,7 @@ const releases = fs.existsSync(RELEASES_PATH) ? readReleases(JSON.parse(fs.readF
 const total = (edition: Parameters<typeof printed>[0]) => printed(edition, BAR).reduce((sum, area) => sum + area.count, 0);
 
 let owed: Due[];
-if (args.headlines) {
+if (args.headlines || args.deadlines) {
   owed = [];
 } else if (args.release) {
   owed = [{ number: args.release.includes('.') ? args.release : `${args.release}.0.0`, reason: 'new' }];
@@ -78,12 +79,12 @@ if (args.headlines) {
 
 const why = { new: 'its notes have appeared', production: 'it has reached production' };
 const which = args.release ? editions.find((edition) => edition.release.number.split('.')[0] === args.release!.split('.')[0]) : editions[0];
-if (args.headlines) {
+if (args.headlines || args.deadlines) {
   if (!which) {
-    console.error('There is no saved edition to choose headlines for.');
+    console.error(`There is no saved edition to ${args.deadlines ? 'read the updates of' : 'choose headlines for'}.`);
     process.exit(1);
   }
-  console.log(`Release edition: the headlines of ${which.release.name} are to be chosen again.`);
+  console.log(`Release edition: ${args.deadlines ? 'the Release Updates' : 'the headlines'} of ${which.release.name} are to be ${args.deadlines ? 'read' : 'chosen'} again.`);
 }
 for (const one of owed) console.log(`Release edition: ${one.number} is to be built${args.release ? '' : `, because ${why[one.reason]}`}.`);
 if (args['dry-run']) process.exit(0);
@@ -99,6 +100,24 @@ const models = await modelsOrStop(
 function spent(llm: LlmClient, at: string): void {
   if (llm.calls === 0) return;
   fs.appendFileSync(STATS, JSON.stringify({ date: today, ranAt: at, kind: 'release', llmCalls: llm.calls, retries: llm.retries, tokensByModel: llm.usage, ...(llm.costReported ? { costUsd: Number(llm.cost.toFixed(6)) } : {}) }) + '\n');
+}
+
+if (args.deadlines && which) {
+  const llm = new LlmClient({ ...config, models });
+  const runLog = new RunLog('release', today);
+  const enforced = await readUpdates(llm, which.enforced, which.release.name);
+  const read = enforced.filter((update) => update.action).length;
+  if (read === 0) runLog.stop('no usable reading of the release updates came back');
+  const at = new Date().toISOString();
+  spent(llm, at);
+  runLog.save({ llm, ...(llm.calls > 0 ? { statsAt: at } : {}) });
+  if (read === 0) {
+    console.error('  No usable reading came back. The edition is left as it was.');
+    process.exit(1);
+  }
+  fs.writeFileSync(path.join(DIR, `${which.release.slug}.json`), JSON.stringify({ ...which, enforced }, null, 2) + '\n');
+  console.log(`  ${read} of ${which.enforced.length} updates read. ${llm.calls} model ${llm.calls === 1 ? 'call' : 'calls'}${llm.costReported ? `, $${llm.cost.toFixed(4)}` : ''}.`);
+  process.exit(0);
 }
 
 if (args.headlines && which) {

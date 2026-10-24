@@ -22,7 +22,7 @@ const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', '
 const capital = (text: string) => text.charAt(0).toUpperCase() + text.slice(1);
 
 /** "9 Jan", "19 to 20 Feb", "30 Jan to 1 Feb", with the year when it is not this one. */
-function when(stage: Stage, today: string): string {
+export function when(stage: Stage, today: string): string {
   const [fromYear, fromMonth, fromDay] = stage.from.split('-').map(Number);
   const [toYear, toMonth, toDay] = stage.to.split('-').map(Number);
   const year = toYear === Number(today.slice(0, 4)) ? '' : ` ${toYear}`;
