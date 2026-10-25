@@ -39,7 +39,7 @@ Check a box when the step is built, tested and committed.
   - **The footer** gets one line: "Feedback is anonymous. Notes are read by the editor and never published."
   - **Build in steps, each stopped for review:**
     - [x] 8a. **Yes and No.** Built 25 Oct. The line under every story (`src/components/Verdict.astro`), the Worker (`worker/index.ts`) and its D1 database, which Wrangler makes on the first deploy and whose tables the Worker makes on the first vote. The salt is not a secret to set: a random one is made each day and deleted the next, so a reader cannot be traced once the day is over. `npm run dev` takes votes too, into `data/reader-feedback.jsonl`. No "Report an error" yet. Still to see: that the Cloudflare build is allowed to make the database.
-    - [ ] 8b. Reasons after No, reports, Turnstile and the Logs section.
+    - [ ] 8b. Reasons after No, reports, Turnstile and the Logs section. Turnstile agreed 25 Oct: on reports only, loaded when the report form opens.
     - [ ] 8c. Printed corrections, and the revise and figures options.
     - [ ] 8d. Stats totals.
     - [ ] 8e. The missed-story box, if wanted.
