@@ -4,7 +4,7 @@ import astro from 'eslint-plugin-astro';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist/', '.astro/', 'node_modules/', 'public/'] },
+  { ignores: ['dist/', '.astro/', '.wrangler/', 'node_modules/', 'public/'] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   // The pages and components: their front matter and their scripts.

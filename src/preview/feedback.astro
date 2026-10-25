@@ -1,0 +1,223 @@
+---
+import FilterBar from '../components/FilterBar.astro';
+import Masthead from '../components/Masthead.astro';
+import StoryCard from '../components/StoryCard.astro';
+import Tabs from '../components/Tabs.astro';
+import Layout from '../layouts/Layout.astro';
+import { storySpans } from '../lib/layout';
+import { formatDay, getEditions, getSignals } from '../lib/stories';
+import Verdict, { type VerdictState } from './Verdict.astro';
+import './feedback.scss';
+
+// Design preview of reader feedback (PLAN.md, step 8). Served by `npm run dev` only.
+// The front page as it would look, then every state of the verdict line, then
+// what the editor would see. Nothing on this page sends anything.
+
+const editions = await getEditions();
+const [edition] = editions;
+const stories = edition?.stories.slice(0, 6) ?? [];
+const spans = storySpans(stories.map((story) => story.data.interest_score));
+const signals = await getSignals();
+// The specimens repeat one short story, so the states can be compared side by side.
+const lead = (body = '') => body.split(/\n\s*\n/).find((p) => p.trim() && !p.startsWith('#'))?.trim() ?? '';
+const specimen = [...stories].sort((a, b) => lead(a.body).length - lead(b.body).length)[0];
+const states: { state: VerdictState; label: string }[] = [
+  { state: 'open', label: 'As printed' },
+  { state: 'yes', label: 'After Yes' },
+  { state: 'no', label: 'After No: reasons, optional' },
+  { state: 'report', label: 'Report an error, open' },
+  { state: 'sending', label: 'Sending' },
+  { state: 'sent', label: 'Report sent' },
+  { state: 'failed', label: 'Could not send' },
+];
+
+// Made-up numbers for the editor's view.
+const desk = editions.flatMap((e) => e.stories).slice(0, 4).map((story, i) => ({
+  title: story.data.title,
+  section: story.data.section,
+  yes: [14, 9, 6, 2][i],
+  no: [1, 2, 0, 5][i],
+  reasons: ['', 'Old news ×2', '', 'Not about Salesforce ×3, Not for my role ×2'][i],
+  reports: [0, 1, 0, 0][i],
+}));
+---
+
+<Layout title="Preview: reader feedback" noindex>
+  <Masthead>
+    <h1 class="dateline__text">Preview: reader feedback</h1>
+  </Masthead>
+  <Tabs current="news" />
+
+  <main id="stories" class="wrap">
+    <aside class="preview-note">
+      <p>
+        <strong>Design preview.</strong> The stories below carry the real line, built in steps 8a to 8c: <em>Useful? Yes No</em>, the reasons after No and
+        <em>Report an error</em>, which save to <code>data/reader-feedback.jsonl</code> and show on the Logs page, where a correction can be printed. The theme button at the top switches light and dark.
+      </p>
+      <p class="preview-note__links">
+        <a href="#front">The front page</a>
+        <a href="#states">Every state</a>
+        <a href="#correction">A printed correction</a>
+        <a href="#desk">The editor's desk</a>
+      </p>
+    </aside>
+
+    <h2 class="preview-head" id="front">The front page{edition && `, ${formatDay(edition.day)}`}</h2>
+    <FilterBar stories={stories} marks />
+    <div class="grid">
+      {
+        stories.map((story, i) => (
+          <StoryCard story={story} span={spans[i]} signal={signals.get(story.id) ?? 'other'} />
+        ))
+      }
+    </div>
+
+    <h2 class="preview-head" id="states">Every state of the line</h2>
+    <p class="preview-sub">One story, shown as the reader would see it at each step. The vote counts the moment it is pressed; reasons and notes are extra.</p>
+    {
+      specimen && (
+        <div class="specimens">
+          {states.map(({ state, label }) => (
+            <figure class="specimen">
+              <figcaption class="specimen__label">{label}</figcaption>
+              <article class="story">
+                <p class="story__byline">{specimen.data.source}</p>
+                <h3 class="story__title">
+                  <span class="story__link">{specimen.data.title}</span>
+                </h3>
+                <div class="story__text">
+                  <p>{lead(specimen.body)}</p>
+                </div>
+                <Verdict id={`state-${state}`} state={state} />
+              </article>
+            </figure>
+          ))}
+        </div>
+      )
+    }
+
+    <h2 class="preview-head" id="correction">A printed correction</h2>
+    <p class="preview-sub">What readers send stays private. When a report is right, the story is fixed and says so, as a newspaper would.</p>
+    {
+      specimen && (
+        <div class="specimens specimens--one">
+          <article class="story">
+            <p class="story__byline">{specimen.data.source}</p>
+            <h3 class="story__title">
+              <span class="story__link">{specimen.data.title}</span>
+            </h3>
+            <div class="story__text">
+              <p>{lead(specimen.body)}</p>
+            </div>
+            <p class="correction">
+              <span class="correction__label">Correction</span>
+              {edition ? formatDay(edition.day, 'short') : 'Today'}: an earlier version of this summary gave the limit as 100 records. It is 50. Thanks to the reader who
+              wrote in.
+            </p>
+            <Verdict id="corrected" />
+          </article>
+        </div>
+      )
+    }
+
+    <h2 class="preview-head" id="desk">The editor's desk</h2>
+    <p class="preview-sub">On the Logs page, under <code>npm run dev</code> only. Numbers here are made up.</p>
+    <section class="desk" aria-label="Readers' verdicts">
+      <p class="desk__sum">
+        <strong>This week:</strong> 41 votes, 31 useful (76%) · 1 report waiting
+      </p>
+      <div class="desk__scroll">
+        <table class="desk__table">
+          <thead>
+            <tr>
+              <th scope="col">Story</th>
+              <th scope="col" class="num">Yes</th>
+              <th scope="col" class="num">No</th>
+              <th scope="col">Why not</th>
+              <th scope="col"><span class="visually-hidden">Your call</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              desk.map((row) => (
+                <tr>
+                  <td>
+                    <span class="desk__title">{row.title}</span>
+                    {row.reports > 0 && <span class="desk__flag">{row.reports} report</span>}
+                  </td>
+                  <td class="num">{row.yes}</td>
+                  <td class="num">{row.no}</td>
+                  <td class="desk__why">{row.reasons || '–'}</td>
+                  <td>{row.no >= 3 && row.no > row.yes && <button type="button" class="chip">Mark junk</button>}</td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+      </div>
+      <article class="desk__report">
+        <p class="desk__meta">Report · Summary · {desk[1]?.title}</p>
+        <blockquote>The summary says the limit is 100 records; the release note says 50.</blockquote>
+        <p class="desk__buttons">
+          <button type="button" class="chip">Print a correction</button>
+          <button type="button" class="chip">Redraw the diagram</button>
+          <button type="button" class="chip">Dismiss</button>
+        </p>
+      </article>
+    </section>
+  </main>
+</Layout>
+
+<script>
+  // Plays the verdict line through its steps. In the built feature the vote and the report go to /api/feedback.
+  const wait = (ms: number) => new Promise((done) => setTimeout(done, ms));
+
+  for (const line of document.querySelectorAll<HTMLElement>('[data-verdict][data-state="open"]')) {
+    const votes = [...line.querySelectorAll<HTMLButtonElement>('[data-vote]')];
+    const report = line.querySelector<HTMLButtonElement>('[data-report]')!;
+    const why = line.querySelector<HTMLFormElement>('[data-panel="no"]')!;
+    const form = line.querySelector<HTMLFormElement>('[data-panel="report"]')!;
+    const thanks = line.querySelector<HTMLElement>('[data-thanks]')!;
+
+    const show = (panel?: HTMLFormElement) => {
+      why.hidden = panel !== why;
+      form.hidden = panel !== form;
+      report.setAttribute('aria-expanded', String(panel === form));
+      panel?.querySelector<HTMLElement>('input, textarea')?.focus();
+    };
+
+    for (const vote of votes) {
+      vote.addEventListener('click', () => {
+        const choice = vote.dataset.vote;
+        // Pressing the same answer again takes it back.
+        const undo = vote.getAttribute('aria-pressed') === 'true';
+        for (const other of votes) other.setAttribute('aria-pressed', String(!undo && other === vote));
+        thanks.textContent = undo ? '' : choice === 'yes' ? 'Thanks. Noted.' : '';
+        show(!undo && choice === 'no' ? why : undefined);
+      });
+    }
+
+    report.addEventListener('click', () => show(form.hidden ? form : undefined));
+    for (const close of line.querySelectorAll<HTMLButtonElement>('[data-close]')) close.addEventListener('click', () => show());
+
+    why.addEventListener('submit', (event) => {
+      event.preventDefault();
+      show();
+      thanks.textContent = 'Thanks. That helps the editor choose.';
+    });
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const send = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+      send.disabled = true;
+      send.textContent = 'Sending…';
+      await wait(700);
+      send.disabled = false;
+      send.textContent = 'Send report';
+      form.reset();
+      show();
+      report.hidden = true;
+      thanks.textContent = 'Thanks. The editor reads every report, and a story found wrong is corrected with a note.';
+    });
+  }
+</script>

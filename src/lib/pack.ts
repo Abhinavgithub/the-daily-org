@@ -283,3 +283,23 @@ export function pack(boxes: Box[], columnCount: number, gap: number): Packed {
   }
   return { placements, bottoms, height: Math.max(0, ...bottoms) };
 }
+
+/**
+ * The same arrangement after some boxes changed height: every box keeps its
+ * columns and its order down them, and only moves up or down to make room. Used
+ * when a story grows on the page, as when a reader opens a box under it, so the
+ * story being read stays where it is instead of the page being arranged anew.
+ */
+export function settle(placements: Placement[], heights: number[], gap: number): Placement[] {
+  const order = placements.map((_, i) => i).sort((a, b) => placements[a].top - placements[b].top || placements[a].column - placements[b].column);
+  const columns = Math.max(0, ...placements.map((p) => p.column + p.span));
+  const cursor = new Array<number>(columns).fill(0);
+  const settled = new Array<Placement>(placements.length);
+  for (const i of order) {
+    const { column, span } = placements[i];
+    const top = Math.max(...cursor.slice(column, column + span));
+    settled[i] = { ...placements[i], top, height: heights[i] };
+    for (let c = column; c < column + span; c++) cursor[c] = top + heights[i] + gap;
+  }
+  return settled;
+}

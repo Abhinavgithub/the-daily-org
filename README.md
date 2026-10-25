@@ -158,6 +158,18 @@ A sample scheduled job is in `.github/workflows/daily.yml`: it runs the pipeline
 
 If the repository is public, so is `data/logs/`, with what each run rejected and spent.
 
+## Reader feedback
+
+With `readerFeedback: true` in `paper.config.ts`, every story ends with "Useful? Yes No" and "Report an error". A vote counts once a story, a reader and a day; pressing the same answer again takes it back, and the browser remembers what was pressed. After No the reader may give one of four reasons. A report names the part that is wrong (headline, summary, diagram, link or source, something else) and may carry a note of up to 500 characters, with links taken out; a reader can send three a day. No cookies are set and no address is kept: a reader is a hash of their address with a random salt that lasts one day.
+
+- **On Cloudflare**, `worker/index.ts` takes votes at `/api/feedback` and reports at `/api/report`, and keeps them in a D1 database bound as `FEEDBACK` in `wrangler.jsonc`. Only `/api/*` runs the Worker; every page is served as a static file as before. Wrangler makes the database on the first deploy, and the Worker makes its tables when the first vote arrives.
+- **Turnstile**, Cloudflare's check that a report comes from a person, is optional. To switch it on: in the Cloudflare dashboard, Turnstile, add a widget for the paper's domain (Managed mode), put its site key in `paper.config.ts` as `turnstileSiteKey`, and give the Worker its secret key with `npx wrangler secret put TURNSTILE_SECRET`. Its script is loaded only when a reader opens a report form. Under `npm run dev` it is not asked.
+- **Reading what readers said**: `npm run reader-feedback` brings the live votes and reports into `data/reader-feedback.jsonl` (Wrangler must be signed in: `npx wrangler login`). Then `npm run dev` and open `/logs/#readers`: each story's Yes and No with the reasons, and each report. "Mark junk" adds a story to the feedback log (`npm run feedback`, step 1 of PLAN.md); "Dealt with" sets a report aside. The section is never on the built site, since the notes are private.
+- **Correcting a story**: on the Logs page, "Correct the story" under a report prints a correction under the story, dated today ("Correction, Sun, 25 Oct 2026: an earlier version…"), after you have fixed its file; the line is kept in the story's front matter as `corrections`. Or let the model do both: `npm run revise -- --report <id>` reads the article, judges the report by it, and if it is right changes only what was wrong and adds the correction (see it with `git diff`). `npm run revise -- --story <day>/<name> --hint "…"` does the same without a report, and `npm run figures -- --story <day>/<name>` draws one story's diagram again.
+- **Totals on the Stats page**: votes, the share useful by section, and reports by the model that wrote the story, from `data/reader-totals.jsonl`, which holds only counts and is committed. `npm run reader-feedback` writes it; so does the daily job (`npm run reader-totals`) once the repository has the secret `READER_TOTALS_API_TOKEN`, a Cloudflare API token with **Account · D1 · Read** only, and the account id as `READER_TOTALS_ACCOUNT_ID` (or the `READERSHIP_ACCOUNT_ID` already there).
+- **Under `npm run dev`**, votes and reports go to `data/reader-feedback.jsonl`, which git leaves out. Pulling the live ones replaces it.
+- **On any other host**, leave `readerFeedback` out: there is nothing there to take the votes.
+
 ## Good to know
 
 - If new stories do not appear in `npm run dev` after a pipeline run, restart it (`npx astro dev stop`, then `npm run dev`).

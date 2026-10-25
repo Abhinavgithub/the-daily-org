@@ -1,0 +1,241 @@
+---
+import { normalizeUrl, type Feedback } from '../../pipeline/feedback';
+import { CORRECTION_LENGTH, reasonLine, tally, wanting, type ReportRow, type VoteRow } from '../lib/verdict';
+import { storyHref, type Story } from '../lib/stories';
+
+// What readers said (PLAN.md, step 8b): each story's Yes and No with the reasons
+// given, and each report of a mistake. Shown under `npm run dev` only, since
+// readers' notes are private and the built site is public. The live site's are
+// brought here by `npm run reader-feedback`.
+
+interface Props {
+  votes: VoteRow[];
+  reports: ReportRow[];
+  /** The ids of the reports already dealt with. */
+  handled: string[];
+  /** The editor's own flags (data/feedback.jsonl), so a story already marked junk shows so. */
+  feedback: Feedback[];
+  stories: Story[];
+  /** When the votes were last written here, if ever. */
+  updated?: Date;
+}
+
+const { votes, reports, handled, feedback, stories, updated } = Astro.props;
+const byId = new Map(stories.map((story) => [story.id, story]));
+const junk = new Set(feedback.filter((entry) => entry.kind === 'junk').map((entry) => normalizeUrl(entry.url)));
+const isJunk = (story?: Story) => story !== undefined && junk.has(normalizeUrl(story.data.url));
+const rows = tally(votes, reports).filter((row) => row.yes + row.no > 0);
+const yes = votes.filter((vote) => vote.vote === 'yes').length;
+const done = new Set(handled);
+// Reports still to deal with first, the newest first in each group.
+const listed = [...reports].sort((a, b) => Number(done.has(a.id)) - Number(done.has(b.id)) || b.at.localeCompare(a.at));
+const open = reports.filter((report) => !done.has(report.id)).length;
+const day = (iso: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }).format(new Date(iso));
+const title = (id: string) => byId.get(id)?.data.title ?? id;
+---
+
+<div class="readers">
+  <p class="ledger__note readers__sum">
+    {
+      votes.length > 0 ? (
+        <>
+          <strong>{votes.length}</strong> {votes.length === 1 ? 'vote' : 'votes'}, {yes} useful ({Math.round((yes / votes.length) * 100)}%).{' '}
+        </>
+      ) : (
+        'No votes yet. '
+      )
+    }
+    {reports.length > 0 && `${open} of ${reports.length} ${reports.length === 1 ? 'report' : 'reports'} to deal with. `}
+    {updated ? `Last written ${day(updated.toISOString())}.` : ''}
+  </p>
+
+  {
+    rows.length > 0 && (
+      <div class="readers__scroll">
+        <table class="readers__table">
+          <thead>
+            <tr>
+              <th scope="col">Story</th>
+              <th scope="col" class="num">Yes</th>
+              <th scope="col" class="num">No</th>
+              <th scope="col">Why not</th>
+              <th scope="col">Your call</th>
+            </tr>
+          </thead>
+          <tbody>
+            {rows.map((row) => {
+              const story = byId.get(row.story);
+              const flagged = isJunk(story);
+              return (
+                <tr>
+                  <td>
+                    {story ? <a class="readers__title" href={storyHref(story)}>{story.data.title}</a> : <span class="readers__title">{row.story}</span>}
+                    {row.reports > 0 && (
+                      <a class="readers__flag" href={`#report-${reports.find((report) => report.story === row.story)!.id}`}>
+                        {row.reports} {row.reports === 1 ? 'report' : 'reports'}
+                      </a>
+                    )}
+                  </td>
+                  <td class="num">{row.yes}</td>
+                  <td class="num">{row.no}</td>
+                  <td class="readers__why">{reasonLine(row.reasons) || '–'}</td>
+                  <td>
+                    {story && (wanting(row) || flagged) && (
+                      <button
+                        type="button"
+                        class="chip"
+                        data-junk
+                        aria-pressed={flagged ? 'true' : 'false'}
+                        data-url={story.data.url}
+                        data-title={story.data.title}
+                        data-source={story.data.source}
+                        data-score={story.data.interest_score}
+                        data-note={`Readers: ${row.yes} yes, ${row.no} no${reasonLine(row.reasons) ? ` (${reasonLine(row.reasons)})` : ''}`}
+                        title="Adds it to your feedback log as junk, for replay and tuning"
+                      >
+                        Mark junk
+                      </button>
+                    )}
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </div>
+    )
+  }
+
+  {
+    listed.length > 0 && (
+      <>
+        <h4 class="readers__head">Reports</h4>
+        <ol class="readers__reports">
+          {listed.map((report) => {
+            const story = byId.get(report.story);
+            return (
+              <li class:list={['readers__report', { 'is-done': done.has(report.id) }]} id={`report-${report.id}`} data-report-id={report.id}>
+                <p class="readers__meta">
+                  <strong>{report.part}</strong> · {story ? <a href={storyHref(story)}>{title(report.story)}</a> : title(report.story)} · {day(report.at)}
+                </p>
+                {report.note ? <blockquote>{report.note}</blockquote> : <p class="readers__empty">No note.</p>}
+                {story?.data.corrections.map((correction) => (
+                  <p class="readers__printed">
+                    Printed {correction.date}: {correction.text}
+                  </p>
+                ))}
+                <p class="readers__buttons">
+                  <button type="button" class="chip" data-done aria-pressed={done.has(report.id) ? 'true' : 'false'}>
+                    Dealt with
+                  </button>
+                  {story && (
+                    <a class="chip" href={story.data.url} target="_blank" rel="noopener">
+                      Read the original
+                    </a>
+                  )}
+                </p>
+                {story && (
+                  <details class="readers__fix">
+                    <summary class="chip">Correct the story</summary>
+                    <p class="ledger__note">
+                      {report.part === 'Diagram' ? (
+                        <>
+                          To draw the diagram again: <code class="readers__command">npm run figures -- --story {report.story}</code>
+                        </>
+                      ) : (
+                        <>
+                          To let the model check the report against the article, fix the text and write the correction:{' '}
+                          <code class="readers__command">npm run revise -- --report {report.id}</code>
+                        </>
+                      )}
+                    </p>
+                    <form class="readers__correct" data-correct data-story={report.story}>
+                      <label class="verdict__label" for={`correct-${report.id}`}>
+                        Or fix the story's file yourself, then print the correction here
+                      </label>
+                      <textarea
+                        class="verdict__note"
+                        id={`correct-${report.id}`}
+                        name="text"
+                        rows="2"
+                        maxlength={CORRECTION_LENGTH}
+                        required
+                        placeholder="An earlier version of this summary gave the limit as 100 records. It is 50."
+                      />
+                      <p class="readers__buttons">
+                        <button type="submit" class="verdict__send">Print the correction</button>
+                        <span class="ledger__note">Dated today, under the story. The report is then dealt with.</span>
+                      </p>
+                    </form>
+                  </details>
+                )}
+              </li>
+            );
+          })}
+        </ol>
+      </>
+    )
+  }
+  <p class="ledger__note articles__error" role="alert" data-readers-error hidden></p>
+</div>
+
+<script>
+  // Marking junk goes to the same log as the Articles section's flags; a report dealt with is noted beside the votes.
+  const error = document.querySelector<HTMLElement>('[data-readers-error]');
+  async function save(path: string, method: string, body: object): Promise<boolean> {
+    if (error) error.hidden = true;
+    try {
+      const response = await fetch(path, { method, headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      if (!response.ok) throw new Error((await response.json().catch(() => ({}))).error ?? `The server answered ${response.status}.`);
+      return true;
+    } catch (failure) {
+      if (error) {
+        error.textContent = `Not saved. ${(failure as Error).message}`;
+        error.hidden = false;
+      }
+      return false;
+    }
+  }
+
+  // A correction is written into the story's file; the dev server then prints it on the story.
+  for (const form of document.querySelectorAll<HTMLFormElement>('[data-correct]')) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const report = form.closest<HTMLElement>('[data-report-id]')!;
+      const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+      button.disabled = true;
+      const text = String(new FormData(form).get('text') ?? '');
+      const saved = await save('/__correction', 'POST', { story: form.dataset.story, text, report: report.dataset.reportId });
+      button.disabled = false;
+      if (!saved) return;
+      form.reset();
+      button.textContent = 'Printed';
+      report.classList.add('is-done');
+      report.querySelector('[data-done]')?.setAttribute('aria-pressed', 'true');
+    });
+  }
+
+  document.querySelector('.readers')?.addEventListener('click', async (event) => {
+    const target = event.target as HTMLElement;
+    const junk = target.closest<HTMLButtonElement>('[data-junk]');
+    if (junk) {
+      const on = junk.getAttribute('aria-pressed') !== 'true';
+      junk.setAttribute('aria-pressed', String(on));
+      const { url, title, source, score, note } = junk.dataset;
+      const body = on ? { url, kind: 'junk', title, source, interest: score ? Number(score) : undefined, note } : { url };
+      if (!(await save('/__feedback', on ? 'POST' : 'DELETE', body))) junk.setAttribute('aria-pressed', String(!on));
+      return;
+    }
+    const done = target.closest<HTMLButtonElement>('[data-done]');
+    const report = done?.closest<HTMLElement>('[data-report-id]');
+    if (done && report) {
+      const on = done.getAttribute('aria-pressed') !== 'true';
+      done.setAttribute('aria-pressed', String(on));
+      report.classList.toggle('is-done', on);
+      if (!(await save('/__reader-handled', 'POST', { id: report.dataset.reportId, handled: on }))) {
+        done.setAttribute('aria-pressed', String(!on));
+        report.classList.toggle('is-done', !on);
+      }
+    }
+  });
+</script>

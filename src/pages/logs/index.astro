@@ -11,6 +11,7 @@ import LogArticles from '../../components/LogArticles.astro';
 import LogColumns from '../../components/LogColumns.astro';
 import LogFindings from '../../components/LogFindings.astro';
 import LogGlance from '../../components/LogGlance.astro';
+import LogReaders from '../../components/LogReaders.astro';
 import LogRun from '../../components/LogRun.astro';
 import Masthead from '../../components/Masthead.astro';
 import Layout from '../../layouts/Layout.astro';
@@ -20,7 +21,8 @@ import { addedOn, addTallies, postsByDay, RULES as SOURCE_RULES, scorecard, stan
 import { parseReadership } from '../../lib/readership';
 import { formatNumber, parseRuns } from '../../lib/stats';
 import { HELD, HOLD_DAYS } from '../../../pipeline/hold';
-import { formatDay, getEditions } from '../../lib/stories';
+import { formatDay, getAllStories, getEditions } from '../../lib/stories';
+import { loadHandled, loadReaderFeedback, READER_FILE } from '../../../pipeline/verdict-dev';
 
 const data = path.join(process.cwd(), 'data');
 const read = (file: string) => (fs.existsSync(file) ? fs.readFileSync(file, 'utf8') : '');
@@ -169,6 +171,10 @@ try {
 } catch {
   // An unreadable file is treated as no record.
 }
+// What readers said. Their notes are private, so only the dev server shows them; the built site never has the file.
+const readerFeedback = import.meta.env.DEV ? loadReaderFeedback() : undefined;
+const readerStories = readerFeedback ? await getAllStories() : [];
+const readersUpdated = readerFeedback && fs.existsSync(READER_FILE) ? fs.statSync(READER_FILE).mtime : undefined;
 ---
 
 <Layout title="Logs" noindex>
@@ -182,6 +188,7 @@ try {
         <a href="#glance">At a glance</a>
         <a href="#how">Day by day</a>
         <a href="#sources">Sources <span class="logs-nav__count">{scores.length}</span></a>
+        {readerFeedback && <a href="#readers">Readers <span class="logs-nav__count">{readerFeedback.votes.length + readerFeedback.reports.length}</span></a>}
         <a href="#articles">Articles <span class="logs-nav__count" data-nav-count="articles" /></a>
         <a href="#runs">Runs <span class="logs-nav__count" data-nav-count="runs" /></a>
       </div>
@@ -313,6 +320,15 @@ try {
           </p>
         </div>
       </section>
+
+      {
+        readerFeedback && (
+          <section class="ledger__row" id="readers">
+            <h3>Readers</h3>
+            <LogReaders votes={readerFeedback.votes} reports={readerFeedback.reports} handled={loadHandled()} feedback={feedback} stories={readerStories} updated={readersUpdated} />
+          </section>
+        )
+      }
 
       <section class="ledger__row" id="articles">
         <h3>Articles</h3>

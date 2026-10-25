@@ -1,10 +1,11 @@
 ---
 import { render } from 'astro:content';
-import { sectionLabel } from '../config';
+import { sectionLabel, SITE } from '../config';
 import type { Span } from '../lib/layout';
 import type { Signal } from '../lib/signal';
 import { formatAuthors, formatDay, storySlug, tagSlug, type Story } from '../lib/stories';
 import StoryFigure from './StoryFigure.astro';
+import Verdict from './Verdict.astro';
 
 interface Props {
   story: Story;
@@ -54,6 +55,14 @@ const figure = data.figure && data.figure.kind !== 'none' ? data.figure : undefi
   {figure && <StoryFigure figure={figure} />}
   <div class="story__text"><Content /></div>
   {
+    data.corrections.map((correction) => (
+      <p class="correction">
+        <span class="correction__label">Correction</span>
+        <time datetime={correction.date}>{formatDay(correction.date, 'short')}</time>: {correction.text}
+      </p>
+    ))
+  }
+  {
     data.also.length > 0 && (
       <p class="story__also">
         Also told by{' '}
@@ -84,4 +93,7 @@ const figure = data.figure && data.figure.kind !== 'none' ? data.figure : undefi
       ))
     }
   </ul>
+  {SITE.readerFeedback && <Verdict story={story.id} />}
+  <!-- Anything else printed at the foot of the story. -->
+  <slot />
 </article>

@@ -1,5 +1,6 @@
 ---
 import { PAPER, PERSONAS, sectionLabel } from '../config';
+import { sumReaderTotals, type ReaderTotalsDay } from '../lib/reader-totals';
 import { topWithOthers, totalReadership, type ReadershipDay } from '../lib/readership';
 import { formatCost, formatNumber, outcomes, share, tally, tokensByDay, totalRuns, type Part, type Run } from '../lib/stats';
 import type { Story } from '../lib/stories';
@@ -20,6 +21,8 @@ interface Props {
   stories: Story[];
   /** The period's saved days of readership. Empty when readers are not counted. */
   readers?: ReadershipDay[];
+  /** Readers' votes and reports on the period's editions. Empty when there are none. */
+  verdicts?: ReaderTotalsDay[];
   /** One column per edition. Left out for a single day. */
   trend?: boolean;
 }
@@ -29,13 +32,16 @@ const TOP_COUNTRIES = 5;
 const TOP_PAGES = 5;
 const TOP_REFERRERS = 6;
 
-const { title, runs, stories, readers = [], trend = false } = Astro.props;
+const { title, runs, stories, readers = [], verdicts = [], trend = false } = Astro.props;
 // The paper's own address, so a move between its pages is not counted as somewhere readers came from.
 const own = PAPER.address ? [new URL(PAPER.address).hostname] : [];
 const read = totalReadership(readers, { sections: sectionLabel, own });
 // Phone, desktop and tablet as the parts of one bar, the largest in the strongest shade.
 const tones: Part['tone'][] = ['main', 'rest', 'faint', 'unknown'];
 const devices: Part[] = read.devices.map((row, i) => ({ ...row, tone: tones[Math.min(i, tones.length - 1)] }));
+const said = sumReaderTotals(verdicts, sectionLabel);
+// Stories by the model that wrote them, beside the reports on each model's stories.
+const written = new Map(tally(stories.map((s) => s.data.model ?? 'Not recorded')).map((row) => [row.label, row.count]));
 const totals = totalRuns(runs);
 const tokens = totals.inputTokens + totals.outputTokens;
 const parts = outcomes(totals);
@@ -108,6 +114,78 @@ const plural = (n: number, one: string, many: string) => (n === 1 ? one : many);
               <StatBars rows={topWithOthers(read.referrers, TOP_REFERRERS)} />
             </div>
           </div>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    said.votes + said.reports > 0 && (
+      <section class="ledger__row">
+        <h3>What readers said</h3>
+        <div>
+          <p class="ledger__sum">
+            <span>
+              <b>{formatNumber(said.votes)}</b> {plural(said.votes, 'vote', 'votes')}
+            </span>
+            {said.votes > 0 && (
+              <span>
+                <b>{share(said.yes, said.votes)}%</b> useful
+              </span>
+            )}
+            <span>
+              <b>{formatNumber(said.reports)}</b> {plural(said.reports, 'report', 'reports')} of a mistake
+            </span>
+          </p>
+          {trend && said.byDay.length > 1 && (
+            <div class="ledger__charts">
+              <StatColumns title="Votes" days={onDays(said.byDay, editions)} unit="votes" />
+            </div>
+          )}
+          <div class="ledger__lists">
+            <div>
+              <h4>Useful, by section</h4>
+              {said.sections.length === 0 ? (
+                <p class="ledger__none">No votes.</p>
+              ) : (
+                <ul class="bars">
+                  {said.sections.map((row) => (
+                    <li>
+                      <span class="bars__label">{row.label}</span>
+                      <span class="bars__value">
+                        {share(row.yes, row.votes)}% of {formatNumber(row.votes)}
+                      </span>
+                      <span class="bars__track" aria-hidden="true">
+                        <span class="bars__fill" style={`width: ${row.votes ? (row.yes / row.votes) * 100 : 0}%`} />
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+            <div>
+              <h4>Reports, by the model that wrote the story</h4>
+              {said.models.length === 0 ? (
+                <p class="ledger__none">No reports.</p>
+              ) : (
+                <ul class="bars">
+                  {said.models.map((row) => (
+                    <li>
+                      <span class="bars__label">{row.label}</span>
+                      <span class="bars__value">
+                        {formatNumber(row.count)}
+                        {written.get(row.label) ? ` in ${formatNumber(written.get(row.label)!)} ${plural(written.get(row.label)!, 'story', 'stories')}` : ''}
+                      </span>
+                      <span class="bars__track" aria-hidden="true">
+                        <span class="bars__fill" style={`width: ${(row.count / Math.max(1, ...said.models.map((m) => m.count))) * 100}%`} />
+                      </span>
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+          <p class="ledger__note">Votes and reports are counted by the edition the story was printed in. Readers vote anonymously; the paper keeps no more than these counts.</p>
         </div>
       </section>
     )

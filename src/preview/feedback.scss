@@ -1,0 +1,396 @@
+// Reader feedback, design preview -----------------------------------------
+// The verdict line and its panels would move to src/styles/_feedback.scss when built.
+// The rest (.preview-*, .specimen*, .desk*) is for this page only.
+
+// The verdict line: the last line of a story, under a hairline like the source line's.
+.verdict {
+  display: block;
+  margin: 0.8rem 0 0;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  color: var(--muted);
+}
+
+.verdict__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.5rem;
+}
+
+.verdict__votes {
+  display: inline-flex;
+  gap: 0.35rem;
+}
+
+.verdict__vote {
+  min-width: 2.75rem;
+  min-height: 1.75rem;
+  justify-content: center;
+  color: var(--muted);
+
+  &[aria-pressed='true'] {
+    color: var(--paper);
+  }
+}
+
+// A quiet link, pushed to the end of the line.
+.verdict__report {
+  margin-left: auto;
+  min-height: 1.75rem;
+  padding: 0 0.1rem;
+  font: inherit;
+  color: var(--muted);
+  background: none;
+  border: 0;
+  text-decoration: underline;
+  text-decoration-color: var(--rule);
+  text-underline-offset: 0.2em;
+  cursor: pointer;
+
+  &:hover,
+  &[aria-expanded='true'] {
+    color: var(--ink);
+    text-decoration-color: currentColor;
+  }
+}
+
+// Fingers need more room than a pointer.
+@media (pointer: coarse) {
+  .verdict__vote,
+  .verdict__report,
+  .verdict__choice,
+  .verdict__send {
+    min-height: 2.75rem;
+  }
+}
+
+.verdict :focus-visible {
+  outline: 2px solid var(--sky);
+  outline-offset: 2px;
+}
+
+// The panel opens inside the story's box, a shade darker, like a boxed note.
+.verdict__panel {
+  margin: 0.6rem 0 0;
+  padding: 0.75rem 0.8rem 0.8rem;
+  background: var(--paper);
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  color: var(--ink);
+
+  &[hidden] {
+    display: none;
+  }
+
+  fieldset {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    min-width: 0;
+  }
+
+  legend {
+    padding: 0;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .verdict__panel:not([hidden]) {
+    animation: verdict-open 160ms ease-out;
+  }
+}
+
+@keyframes verdict-open {
+  from {
+    opacity: 0;
+    transform: translateY(-3px);
+  }
+}
+
+.verdict__optional {
+  font-weight: 400;
+  color: var(--muted);
+}
+
+.verdict__choices {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+// A radio button set as a chip: pressed when chosen.
+.verdict__choice {
+  min-height: 1.75rem;
+  white-space: normal;
+
+  &:has(input:checked) {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: var(--paper);
+  }
+
+  &:has(input:focus-visible) {
+    outline: 2px solid var(--sky);
+    outline-offset: 2px;
+  }
+}
+
+.verdict__label {
+  display: block;
+  margin: 0.75rem 0 0.3rem;
+  font-weight: 600;
+}
+
+.verdict__note {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0.5rem 0.6rem;
+  font-family: var(--text);
+  font-size: var(--fs-body);
+  line-height: 1.4;
+  color: var(--ink);
+  background: var(--surface);
+  border: 1px solid var(--edge);
+  border-radius: 0;
+  resize: vertical;
+
+  &:focus-visible {
+    outline: 2px solid var(--sky);
+    outline-offset: 0;
+    border-color: var(--sky);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+  }
+}
+
+.verdict__help {
+  margin: 0.3rem 0 0;
+  color: var(--muted);
+}
+
+// For programs only: off the page, out of the tab order.
+.verdict__trap {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+}
+
+.verdict__failed {
+  margin: 0.6rem 0 0;
+  padding-left: 0.6rem;
+  border-left: 3px solid var(--ink);
+  color: var(--ink);
+}
+
+.verdict__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  margin-top: 0.75rem;
+}
+
+// The one solid button: ink on paper, square.
+.verdict__send {
+  min-height: 2rem;
+  padding: 0.3rem 0.9rem;
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+  color: var(--paper);
+  background: var(--ink);
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--sky);
+    border-color: var(--sky);
+  }
+
+  &:disabled {
+    opacity: 0.55;
+    cursor: progress;
+  }
+}
+
+.verdict__skip {
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  color: var(--muted);
+}
+
+.verdict__thanks {
+  margin: 0.4rem 0 0;
+  font-family: var(--text);
+  font-size: var(--fs-body);
+  font-style: italic;
+  color: var(--ink);
+
+  &:empty {
+    display: none;
+  }
+}
+
+// The page itself ---------------------------------------------------------
+
+.preview-note {
+  margin: 0 0 1.5rem;
+  padding: 0.8rem 1rem;
+  border: 1px dashed var(--edge);
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  line-height: 1.5;
+
+  p {
+    margin: 0;
+  }
+}
+
+.preview-note__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 1rem;
+  margin-top: 0.5rem !important;
+
+  a {
+    color: var(--sky);
+  }
+}
+
+.preview-head {
+  margin: 2.5rem 0 0.4rem;
+  padding-top: 0.5rem;
+  border-top: 3px double var(--ink);
+  font-family: var(--headline);
+  font-size: var(--fs-title);
+  scroll-margin-top: 1rem;
+
+  &:first-of-type {
+    margin-top: 0;
+  }
+}
+
+.preview-sub {
+  margin: 0 0 1rem;
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  color: var(--muted);
+}
+
+.specimens {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(19rem, 1fr));
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.specimens--one {
+  grid-template-columns: minmax(0, 28rem);
+}
+
+.specimen {
+  margin: 0;
+}
+
+.specimen__label {
+  margin-bottom: 0.4rem;
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.desk {
+  font-family: var(--display);
+  font-size: var(--fs-label);
+}
+
+.desk__sum {
+  margin: 0 0 0.75rem;
+}
+
+.desk__scroll {
+  overflow-x: auto;
+}
+
+.desk__table {
+  width: 100%;
+  min-width: 34rem;
+  border-collapse: collapse;
+
+  th {
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 1px solid var(--ink);
+    padding: 0.35rem 0.5rem;
+  }
+
+  td {
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+
+  .num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.desk__title {
+  font-family: var(--headline);
+  font-size: var(--fs-body);
+  font-weight: 600;
+}
+
+.desk__flag {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0 0.35rem;
+  border: 1px solid var(--ink);
+  font-weight: 600;
+}
+
+.desk__why {
+  color: var(--muted);
+}
+
+.desk__report {
+  max-width: 40rem;
+  margin-top: 1.25rem;
+  padding: 0.8rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--edge);
+
+  blockquote {
+    margin: 0.4rem 0 0.7rem;
+    font-family: var(--text);
+    font-size: var(--fs-body);
+    font-style: italic;
+  }
+}
+
+.desk__meta {
+  margin: 0;
+  color: var(--muted);
+}
+
+.desk__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+}
+

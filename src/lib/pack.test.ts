@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { pack, type Box, type Packed } from './pack';
+import { pack, type Box, type Packed, settle } from './pack';
 
 const GAP = 24;
 const single = (height: number, heightWide?: number): Box => ({ span: 1, height, heightWide });
@@ -124,4 +124,26 @@ test('many stories fall back to the fast rule and still end close together', () 
   const packed = pack(heights.map((h) => single(h)), 3, GAP);
   assertSound(packed);
   assert.ok(spreadOf(packed) <= 400, `ends ${spreadOf(packed)} px apart`);
+});
+
+test('a box that grows keeps its place, and only the boxes below it in its columns move', () => {
+  const placements = [
+    { column: 0, span: 2, top: 0, height: 100, widened: false },
+    { column: 0, span: 1, top: 110, height: 50, widened: false },
+    { column: 1, span: 1, top: 110, height: 80, widened: false },
+    { column: 0, span: 1, top: 170, height: 40, widened: false },
+    { column: 2, span: 1, top: 0, height: 60, widened: false },
+  ];
+  const settled = settle(placements, [100, 150, 80, 40, 60], 10);
+  assert.deepEqual(
+    settled.map((p) => [p.column, p.span, p.top, p.height]),
+    [
+      [0, 2, 0, 100],
+      [0, 1, 110, 150],
+      [1, 1, 110, 80],
+      [0, 1, 270, 40],
+      [2, 1, 0, 60],
+    ],
+  );
+  assert.deepEqual(settle(placements, placements.map((p) => p.height), 10), placements, 'nothing changed, nothing moves');
 });

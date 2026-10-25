@@ -6,6 +6,11 @@ import { SOURCE_TYPES } from './config';
 import { figureSchema } from './lib/figure';
 
 const score = z.number().int().min(1).max(10);
+// YAML parses an unquoted 2026-10-03 as a Date, so accept both.
+const day = z
+  .union([z.string(), z.date()])
+  .transform((d) => (typeof d === 'string' ? d : d.toISOString().slice(0, 10)))
+  .pipe(z.string().regex(/^\d{4}-\d{2}-\d{2}$/));
 
 const stories = defineCollection({
   loader: glob({ pattern: '*/*.md', base: './src/content/stories' }),
@@ -39,6 +44,8 @@ const stories = defineCollection({
     figure_image: z.string().startsWith('/figures/').optional(),
     // Other sources that told the same story on the day. The paper prints it once, with a line for each of them.
     also: z.array(z.object({ title: z.string(), url: z.url(), source: z.string() })).default([]),
+    // Corrections printed at the foot of the story, oldest first (pipeline/correct.ts).
+    corrections: z.array(z.object({ date: day, text: z.string().min(1) })).default([]),
     model: z.string().optional(),
   }),
 });

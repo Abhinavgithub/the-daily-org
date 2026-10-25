@@ -18,6 +18,8 @@ export const SITE = {
   description: PAPER.description,
   disclaimer: PAPER.disclaimer,
   repository: PAPER.repository,
+  readerFeedback: PAPER.readerFeedback ?? false,
+  turnstileSiteKey: PAPER.turnstileSiteKey,
 };
 
 export const SECTIONS = PAPER.sections;

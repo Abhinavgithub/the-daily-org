@@ -96,6 +96,16 @@ jobs:
           READERSHIP_SITE_ID: ${{ secrets.READERSHIP_SITE_ID }}
         run: npm run readership
 
+      # How readers voted, as counts only, for the Stats page. The edition is published whether or not this works.
+      - name: Count readers' votes
+        if: always()
+        continue-on-error: true
+        env:
+          READER_TOTALS_API_TOKEN: ${{ secrets.READER_TOTALS_API_TOKEN }}
+          READER_TOTALS_ACCOUNT_ID: ${{ secrets.READER_TOTALS_ACCOUNT_ID }}
+          READERSHIP_ACCOUNT_ID: ${{ secrets.READERSHIP_ACCOUNT_ID }}
+        run: npm run reader-totals
+
       # Runs even when the pipeline stopped part-way: it writes each story as it goes,
       # and what it has done is worth keeping.
       - name: Commit the edition
