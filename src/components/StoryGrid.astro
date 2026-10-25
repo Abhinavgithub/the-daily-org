@@ -30,9 +30,11 @@ const signals = await getSignals();
   // columns end as close together as possible, and the grid is given
   // one-pixel rows so each box can be put exactly there.
   // Without this script the boxes sit in ordinary rows, which still reads fine.
-  import { pack, type Box } from '../lib/pack';
+  import { pack, settle, type Box, type Placement } from '../lib/pack';
 
   const grids = [...document.querySelectorAll<HTMLElement>('[data-grid]')];
+  /** How each grid was last arranged, so a story that grows can be made room for in place. */
+  const arranged = new WeakMap<HTMLElement, { cards: HTMLElement[]; placements: Placement[]; gap: number }>();
   const spanOf = (card: HTMLElement) => (card.classList.contains('story--w3') ? 3 : card.classList.contains('story--w2') ? 2 : 1);
 
   function arrange(grid: HTMLElement) {
@@ -41,6 +43,7 @@ const signals = await getSignals();
 
     // Back to ordinary rows, so each box can be measured at its natural height.
     grid.classList.remove('is-packed');
+    arranged.delete(grid);
     for (const card of all) {
       card.style.gridColumn = '';
       card.style.gridRow = '';
@@ -64,11 +67,35 @@ const signals = await getSignals();
 
     grid.classList.add('is-packed');
     cards.forEach((card, i) => {
-      const { column, span, top, height, widened } = placements[i];
+      const { column, span, widened } = placements[i];
       card.classList.toggle('story--stretch', widened);
       card.style.gridColumn = `${column + 1} / span ${span}`;
+    });
+    place(cards, placements);
+    arranged.set(grid, { cards, placements, gap });
+  }
+
+  function place(cards: HTMLElement[], placements: Placement[]) {
+    cards.forEach((card, i) => {
+      const { top, height } = placements[i];
       card.style.gridRow = `${Math.round(top) + 1} / span ${Math.ceil(height)}`;
     });
+  }
+
+  // A story that grew or shrank keeps its place: the stories below it in its columns
+  // move to make room. Arranging the page anew could put another story under the reader's pointer.
+  function settleAll() {
+    for (const grid of grids) {
+      const last = arranged.get(grid);
+      if (!last) continue;
+      // Each box at its own height, not the height of the rows it was given.
+      for (const card of last.cards) card.style.alignSelf = 'start';
+      const heights = last.cards.map((card) => card.getBoundingClientRect().height);
+      for (const card of last.cards) card.style.alignSelf = '';
+      const placements = settle(last.placements, heights, last.gap);
+      place(last.cards, placements);
+      arranged.set(grid, { ...last, placements });
+    }
   }
 
   const arrangeAll = () => grids.forEach(arrange);
@@ -99,8 +126,8 @@ const signals = await getSignals();
   }
   document.fonts?.ready.then(packAll);
   document.addEventListener('stories:filtered', packAll);
-  // A story that grew, such as by the line under "Useful?".
-  document.addEventListener('stories:resized', packAll);
+  // A story that grew, such as by the box under "Useful?".
+  document.addEventListener('stories:resized', () => requestAnimationFrame(settleAll));
   arrangeAll();
 
   // A link to one story: packing moves things, so go to it again once the page has settled.
