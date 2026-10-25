@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 import paper from './paper.config.ts';
 import { feedbackDev } from './pipeline/feedback-dev.ts';
+import { previewDev } from './pipeline/preview-dev.ts';
 import { INK } from './src/lib/theme.ts';
 
 // The site's own address, used for absolute links in the RSS feed, the sitemap,
@@ -15,7 +16,8 @@ export default defineConfig({
   site,
   // The Logs page is for whoever runs the paper: it is built, but nothing links to it and it is left out of the sitemap.
   // feedbackDev lets the Logs page save flags under `npm run dev`; it adds nothing to the built site.
-  integrations: [sitemap({ filter: (page) => !new URL(page).pathname.startsWith('/logs') }), feedbackDev()],
+  // previewDev serves design previews under /preview/ with `npm run dev` only; they are never built.
+  integrations: [sitemap({ filter: (page) => !new URL(page).pathname.startsWith('/logs') }), feedbackDev(), previewDev()],
   vite: {
     // The paper's three colours, set in src/lib/theme.ts, reach the styles as Sass variables.
     css: { preprocessorOptions: { scss: { additionalData: `$paper: ${INK.paper}; $ink: ${INK.ink}; $accent: ${INK.accent};\n` } } },

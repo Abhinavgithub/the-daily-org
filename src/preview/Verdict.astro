@@ -1,0 +1,107 @@
+---
+// The reader's verdict on a story: one line at its foot, "Useful? Yes No" and
+// "Report an error". Answering No offers reasons; reporting asks where the
+// mistake is. Everything opens inside the story's own box, never over the page.
+// Design preview only: nothing is sent, and `state` fixes a card in one of its states to be looked at.
+
+export type VerdictState = 'open' | 'yes' | 'no' | 'report' | 'sending' | 'sent' | 'failed';
+
+interface Props {
+  /** Unique on the page, for the form's labels. */
+  id: string;
+  state?: VerdictState;
+}
+
+const { id, state = 'open' } = Astro.props;
+const voted = state === 'yes' ? 'yes' : state === 'no' ? 'no' : undefined;
+const reporting = state === 'report' || state === 'sending' || state === 'failed';
+const reasons = ['Not about Salesforce', 'Old news', 'Not for my role', 'Not worth the read'];
+const parts = ['Headline', 'Summary', 'Diagram', 'Link or source', 'Something else'];
+---
+
+<div class="verdict" data-verdict data-state={state}>
+  <div class="verdict__bar">
+    <span class="verdict__ask" id={`${id}-ask`}>Useful?</span>
+    <span class="verdict__votes" role="group" aria-labelledby={`${id}-ask`}>
+      <button type="button" class="chip verdict__vote" data-vote="yes" aria-pressed={voted === 'yes' ? 'true' : 'false'}>Yes</button>
+      <button type="button" class="chip verdict__vote" data-vote="no" aria-pressed={voted === 'no' ? 'true' : 'false'}>No</button>
+    </span>
+    <button
+      type="button"
+      class="verdict__report"
+      data-report
+      aria-expanded={reporting ? 'true' : 'false'}
+      aria-controls={`${id}-report`}
+      hidden={state === 'sent'}
+    >
+      Report an error
+    </button>
+  </div>
+
+  <!-- After No: why, if the reader cares to say. The vote has already counted. -->
+  <form class="verdict__panel" id={`${id}-why`} data-panel="no" hidden={state !== 'no'}>
+    <fieldset>
+      <legend>Noted. What was wrong with it? <span class="verdict__optional">Optional</span></legend>
+      <div class="verdict__choices">
+        {
+          reasons.map((reason, i) => (
+            <label class="chip verdict__choice">
+              <input type="radio" class="visually-hidden" name={`${id}-reason`} value={reason} checked={state === 'no' && i === 1} />
+              {reason}
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+    <div class="verdict__actions">
+      <button type="submit" class="verdict__send">Send</button>
+      <button type="button" class="link-button verdict__skip" data-close>No thanks</button>
+    </div>
+  </form>
+
+  <!-- Report an error: which part is wrong, and a note. -->
+  <form class="verdict__panel" id={`${id}-report`} data-panel="report" hidden={!reporting} aria-busy={state === 'sending' ? 'true' : undefined}>
+    <fieldset>
+      <legend>Where is the mistake?</legend>
+      <div class="verdict__choices">
+        {
+          parts.map((part, i) => (
+            <label class="chip verdict__choice">
+              <input type="radio" class="visually-hidden" name={`${id}-part`} value={part} required checked={reporting && i === 1} />
+              {part}
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+    <label class="verdict__label" for={`${id}-note`}>What is wrong? <span class="verdict__optional">Optional</span></label>
+    <textarea
+      class="verdict__note"
+      id={`${id}-note`}
+      name="note"
+      rows="3"
+      maxlength="500"
+      aria-describedby={`${id}-help`}
+      disabled={state === 'sending'}
+    >{reporting ? 'The summary says the limit is 100 records; the release note says 50.' : ''}</textarea>
+    <p class="verdict__help" id={`${id}-help`}>Only the editor reads this. Up to 500 characters; please leave out names and email addresses.</p>
+    <!-- Left empty by people. A form that fills it was filled by a program. -->
+    <input class="verdict__trap" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+    {
+      state === 'failed' && (
+        <p class="verdict__failed" role="alert">
+          <strong>Not sent.</strong> The paper could not be reached. Your note is kept here; try again in a moment.
+        </p>
+      )
+    }
+    <div class="verdict__actions">
+      <button type="submit" class="verdict__send" disabled={state === 'sending'}>{state === 'sending' ? 'Sending…' : state === 'failed' ? 'Try again' : 'Send report'}</button>
+      <button type="button" class="link-button verdict__skip" data-close>Cancel</button>
+    </div>
+  </form>
+
+  <p class="verdict__thanks" role="status" aria-live="polite" data-thanks>
+    {state === 'yes' && 'Thanks. Noted.'}
+    {state === 'sent' && 'Thanks. The editor reads every report, and a story found wrong is corrected with a note.'}
+  </p>
+</div>
