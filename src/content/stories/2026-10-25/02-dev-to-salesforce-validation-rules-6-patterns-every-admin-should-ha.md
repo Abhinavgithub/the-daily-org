@@ -4,7 +4,7 @@ original_title: "Salesforce Validation Rules: 6 Patterns Every Admin Should Have
 url: https://dev.to/rohanmehta/salesforce-validation-rules-6-patterns-every-admin-should-have-ready-2l5g
 source: dev.to
 source_type: community
-date: 2026-10-23
+date: 2026-10-25
 section: flow-and-admin
 personas:
   - admin
@@ -22,6 +22,20 @@ depth_score: 4
 novelty_score: 2
 utility_score: 8
 model: qwen/qwen3.7-flash
+held_from: 2026-10-23
+figure:
+  kind: steps
+  caption: How a Validation Rule stops bad data before it is saved, using the article's approach
+  steps:
+    - User enters or edits a record
+    - Validation Rule formula is evaluated
+    - Bad data is blocked with a clear error
+    - Error appears at the field level
+  icons:
+    - person
+    - check
+    - warning
+    - search
 ---
 
 The article outlines six Validation Rule patterns designed to catch frequent user errors without requiring Apex or Flow. These include preventing Closed Won Opportunities from missing amounts or close dates, blocking Cases with backdated open dates beyond a seven day window, and ensuring close dates never precede creation dates.

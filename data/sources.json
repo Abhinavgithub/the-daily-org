@@ -1,37 +1,37 @@
 {
   "sf-developers": {
     "failures": 0,
-    "lastSuccessAt": "2026-10-24T06:30:50.078Z",
+    "lastSuccessAt": "2026-10-25T06:30:49.425Z",
     "lastPostAt": "2026-10-21T15:00:24.000Z"
   },
   "sf-admins": {
     "failures": 0,
-    "lastSuccessAt": "2026-10-24T06:30:50.078Z",
+    "lastSuccessAt": "2026-10-25T06:30:49.425Z",
     "lastPostAt": "2026-10-15T15:30:18.000Z"
   },
   "sf-engineering": {
     "failures": 0,
-    "lastSuccessAt": "2026-10-24T06:30:50.078Z",
+    "lastSuccessAt": "2026-10-25T06:30:49.425Z",
     "lastPostAt": "2026-10-08T15:15:37.000Z"
   },
   "sf-architects": {
     "failures": 0,
-    "lastSuccessAt": "2026-10-24T06:30:50.078Z",
+    "lastSuccessAt": "2026-10-25T06:30:49.425Z",
     "lastPostAt": "2026-10-23T14:25:57.000Z"
   },
   "salesforce-ben": {
     "failures": 0,
-    "lastSuccessAt": "2026-10-24T06:30:50.078Z",
+    "lastSuccessAt": "2026-10-25T06:30:49.425Z",
     "lastPostAt": "2026-10-23T15:08:10.000Z"
   },
   "andy-in-the-cloud": {
     "failures": 0,
-    "lastSuccessAt": "2026-10-24T06:30:50.078Z",
+    "lastSuccessAt": "2026-10-25T06:30:49.425Z",
     "lastPostAt": "2026-09-30T23:18:42.000Z"
   },
   "bob-buzzard": {
     "failures": 0,
-    "lastSuccessAt": "2026-10-24T06:30:50.078Z",
+    "lastSuccessAt": "2026-10-25T06:30:49.425Z",
     "lastPostAt": "2026-10-20T10:36:05.958Z"
   },
   "joys-of-apex": {
@@ -41,7 +41,7 @@
   },
   "salesforce-time": {
     "failures": 0,
-    "lastSuccessAt": "2026-10-24T06:30:50.078Z",
+    "lastSuccessAt": "2026-10-25T06:30:49.425Z",
     "lastPostAt": "2026-10-21T09:34:38.000Z"
   },
   "unofficialsf": {
@@ -67,12 +67,12 @@
   "sf-news": {
     "failures": 0,
     "lastPostAt": "2026-10-22T15:00:00.000Z",
-    "lastSuccessAt": "2026-10-24T06:30:50.078Z"
+    "lastSuccessAt": "2026-10-25T06:30:49.425Z"
   },
   "beyond-the-cloud": {
     "failures": 0,
     "lastPostAt": "2026-09-28T13:28:36.000Z",
-    "lastSuccessAt": "2026-10-24T06:30:50.078Z"
+    "lastSuccessAt": "2026-10-25T06:30:49.425Z"
   },
   "yt-salesforce-admins": {
     "failures": 0,
@@ -107,51 +107,51 @@
   "sf-cli": {
     "failures": 0,
     "lastPostAt": "2026-10-21T12:00:00.000Z",
-    "lastSuccessAt": "2026-10-24T06:30:50.078Z"
+    "lastSuccessAt": "2026-10-25T06:30:49.425Z"
   },
   "sf-code-analyzer": {
     "failures": 0,
     "lastPostAt": "2026-08-26T04:25:02.000Z",
-    "lastSuccessAt": "2026-10-24T06:30:50.078Z"
+    "lastSuccessAt": "2026-10-25T06:30:49.425Z"
   },
   "lwc": {
     "failures": 0,
     "lastPostAt": "2026-10-21T16:31:58.000Z",
-    "lastSuccessAt": "2026-10-24T06:30:50.078Z"
+    "lastSuccessAt": "2026-10-25T06:30:49.425Z"
   },
   "reddit-salesforce": {
     "failures": 0,
-    "lastPostAt": "2026-10-24T03:46:28.000Z",
-    "lastSuccessAt": "2026-10-24T06:30:50.078Z"
+    "lastPostAt": "2026-10-25T00:14:37.000Z",
+    "lastSuccessAt": "2026-10-25T06:30:49.425Z"
   },
   "cloud-odyssey": {
     "failures": 0,
     "lastPostAt": "2026-10-22T07:32:54.000Z",
-    "lastSuccessAt": "2026-10-24T06:30:50.078Z"
+    "lastSuccessAt": "2026-10-25T06:30:49.425Z"
   },
   "infallibletechie": {
     "failures": 0,
     "lastPostAt": "2026-10-22T17:25:10.000Z",
-    "lastSuccessAt": "2026-10-24T06:30:50.078Z"
+    "lastSuccessAt": "2026-10-25T06:30:49.425Z"
   },
   "salesforcecodex": {
     "failures": 0,
     "lastPostAt": "2026-10-19T10:52:54.000Z",
-    "lastSuccessAt": "2026-10-24T06:30:50.078Z"
+    "lastSuccessAt": "2026-10-25T06:30:49.425Z"
   },
   "salesforce-break": {
     "failures": 0,
     "lastPostAt": "2026-10-22T20:43:34.000Z",
-    "lastSuccessAt": "2026-10-24T06:30:50.078Z"
+    "lastSuccessAt": "2026-10-25T06:30:49.425Z"
   },
   "nebula-consulting": {
     "failures": 0,
     "lastPostAt": "2026-10-08T12:16:16.000Z",
-    "lastSuccessAt": "2026-10-24T06:30:50.078Z"
+    "lastSuccessAt": "2026-10-25T06:30:49.425Z"
   },
   "dev-to": {
     "failures": 0,
-    "lastPostAt": "2026-10-23T21:21:08.000Z",
-    "lastSuccessAt": "2026-10-24T06:30:50.078Z"
+    "lastPostAt": "2026-10-24T18:29:17.000Z",
+    "lastSuccessAt": "2026-10-25T06:30:49.425Z"
   }
 }
