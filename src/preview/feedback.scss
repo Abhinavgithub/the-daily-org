@@ -146,8 +146,7 @@
   font-weight: 600;
 }
 
-.verdict__note,
-.tipline__input {
+.verdict__note {
   display: block;
   width: 100%;
   box-sizing: border-box;
@@ -239,32 +238,6 @@
 
   &:empty {
     display: none;
-  }
-}
-
-// A box at the foot of the edition for a story the paper missed.
-.tipline {
-  max-width: 34rem;
-  padding: 1rem 1.25rem 1.1rem;
-  background: var(--surface);
-  border: 1px solid var(--edge);
-  border-top: 3px double var(--ink);
-  font-family: var(--display);
-  font-size: var(--fs-label);
-}
-
-.tipline__head {
-  margin: 0 0 0.6rem;
-  font-family: var(--headline);
-  font-size: var(--fs-headline);
-}
-
-.tipline__row {
-  display: flex;
-  gap: 0.5rem;
-
-  .verdict__send {
-    flex: none;
   }
 }
 
@@ -421,8 +394,3 @@
   margin: 0;
 }
 
-@media (max-width: 44rem) {
-  .tipline__row {
-    flex-direction: column;
-  }
-}

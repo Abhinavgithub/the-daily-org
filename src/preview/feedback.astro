@@ -52,14 +52,12 @@ const desk = editions.flatMap((e) => e.stories).slice(0, 4).map((story, i) => ({
     <aside class="preview-note">
       <p>
         <strong>Design preview.</strong> The stories below carry the real line, built in steps 8a to 8c: <em>Useful? Yes No</em>, the reasons after No and
-        <em>Report an error</em>, which save to <code>data/reader-feedback.jsonl</code> and show on the Logs page, where a correction can be printed. The
-        missed-story box (8e) is only drawn here, and nothing it shows is sent. The theme button at the top switches light and dark.
+        <em>Report an error</em>, which save to <code>data/reader-feedback.jsonl</code> and show on the Logs page, where a correction can be printed. The theme button at the top switches light and dark.
       </p>
       <p class="preview-note__links">
         <a href="#front">The front page</a>
         <a href="#states">Every state</a>
         <a href="#correction">A printed correction</a>
-        <a href="#missed">A story we missed</a>
         <a href="#desk">The editor's desk</a>
       </p>
     </aside>
@@ -121,19 +119,6 @@ const desk = editions.flatMap((e) => e.stories).slice(0, 4).map((story, i) => ({
         </div>
       )
     }
-
-    <h2 class="preview-head" id="missed">A story we missed</h2>
-    <p class="preview-sub">Optional, at the foot of each edition. It feeds the same "missed" list the editor already keeps by hand.</p>
-    <form class="tipline" data-tipline>
-      <h3 class="tipline__head">Seen something we should have printed?</h3>
-      <div class="tipline__row">
-        <label class="visually-hidden" for="tip-url">Address of the article</label>
-        <input class="tipline__input" id="tip-url" type="url" inputmode="url" placeholder="https://" required />
-        <button type="submit" class="verdict__send">Send the link</button>
-      </div>
-      <p class="verdict__help">The editor reads each one. Only the address is kept.</p>
-      <p class="verdict__thanks" role="status" aria-live="polite" data-thanks></p>
-    </form>
 
     <h2 class="preview-head" id="desk">The editor's desk</h2>
     <p class="preview-sub">On the Logs page, under <code>npm run dev</code> only. Numbers here are made up.</p>
@@ -235,11 +220,4 @@ const desk = editions.flatMap((e) => e.stories).slice(0, 4).map((story, i) => ({
       thanks.textContent = 'Thanks. The editor reads every report, and a story found wrong is corrected with a note.';
     });
   }
-
-  const tip = document.querySelector<HTMLFormElement>('[data-tipline]');
-  tip?.addEventListener('submit', (event) => {
-    event.preventDefault();
-    tip.reset();
-    tip.querySelector<HTMLElement>('[data-thanks]')!.textContent = 'Thanks. The editor will take a look.';
-  });
 </script>
