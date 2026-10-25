@@ -129,6 +129,11 @@ export interface Paper<Section extends string = string, Persona extends string =
   holdOver?: { stories: number; never?: readonly string[] };
   /** Optional. Where the paper's code is kept, such as a GitHub repository. Linked from the footer of every page. */
   repository?: string;
+  /**
+   * Optional. Ask readers "Useful? Yes No" at the foot of every story. Votes are sent to `/api/feedback`, which
+   * the Worker in worker/ answers on Cloudflare and `npm run dev` answers on this machine. Leave it out on a host without the Worker.
+   */
+  readerFeedback?: boolean;
   /** How the pipeline names itself to the sites it reads. `contact` is a web address where its owner can be reached. */
   bot: { name: string; contact: string };
 }

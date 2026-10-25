@@ -51,8 +51,9 @@ const desk = editions.flatMap((e) => e.stories).slice(0, 4).map((story, i) => ({
   <main id="stories" class="wrap">
     <aside class="preview-note">
       <p>
-        <strong>Design preview, not built.</strong> Every story would end with one line: <em>Useful? Yes No</em> and <em>Report an error</em>. Try them on the stories
-        below; nothing is sent. The theme button at the top switches light and dark.
+        <strong>Design preview.</strong> Every story ends with one line: <em>Useful? Yes No</em>, built in step 8a and working on the stories below (votes made
+        here go to <code>data/reader-feedback.jsonl</code>). <em>Report an error</em>, the reasons after No, corrections and the editor's desk are steps 8b to 8e and
+        are only drawn here; nothing they show is sent. The theme button at the top switches light and dark.
       </p>
       <p class="preview-note__links">
         <a href="#front">The front page</a>
@@ -68,9 +69,7 @@ const desk = editions.flatMap((e) => e.stories).slice(0, 4).map((story, i) => ({
     <div class="grid">
       {
         stories.map((story, i) => (
-          <StoryCard story={story} span={spans[i]} signal={signals.get(story.id) ?? 'other'}>
-            <Verdict id={`live-${i}`} />
-          </StoryCard>
+          <StoryCard story={story} span={spans[i]} signal={signals.get(story.id) ?? 'other'} />
         ))
       }
     </div>

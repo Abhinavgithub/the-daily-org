@@ -1,0 +1,94 @@
+---
+import { verdictId } from '../lib/verdict';
+
+// "Useful? Yes No" at the foot of a story (PLAN.md, step 8a). A vote counts the
+// moment it is pressed, and pressing the same answer again takes it back. This
+// browser remembers the answer; the paper keeps only a count (worker/index.ts).
+
+interface Props {
+  /** The story's id: its file under src/content/stories. */
+  story: string;
+}
+
+const { story } = Astro.props;
+const id = verdictId(story);
+---
+
+<div class="verdict" data-verdict data-story={story}>
+  <span class="verdict__ask" id={id}>Useful?</span>
+  <span class="verdict__votes" role="group" aria-labelledby={id}>
+    <button type="button" class="chip verdict__vote" data-vote="yes" aria-pressed="false">Yes</button>
+    <button type="button" class="chip verdict__vote" data-vote="no" aria-pressed="false">No</button>
+  </span>
+  <span class="verdict__said" role="status" data-said></span>
+</div>
+
+<script>
+  import { VERDICT_PATH } from '../lib/verdict';
+
+  // The answers given in this browser, by story. Kept for 60 days, which is longer than anyone looks back.
+  const KEY = 'verdicts';
+  const KEEP_DAYS = 60;
+  const load = (): Record<string, string> => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(KEY) || '{}');
+      return saved && typeof saved === 'object' ? saved : {};
+    } catch {
+      return {};
+    }
+  };
+  const remember = (story: string, vote: string | null) => {
+    const kept = load();
+    if (vote) kept[story] = vote;
+    else delete kept[story];
+    const cutoff = new Date(Date.now() - KEEP_DAYS * 864e5).toISOString().slice(0, 10);
+    for (const key of Object.keys(kept)) if (key.slice(0, 10) < cutoff) delete kept[key];
+    try {
+      localStorage.setItem(KEY, JSON.stringify(kept));
+    } catch {}
+  };
+
+  const kept = load();
+  for (const line of document.querySelectorAll<HTMLElement>('[data-verdict][data-story]')) {
+    const story = line.dataset.story!;
+    const buttons = [...line.querySelectorAll<HTMLButtonElement>('[data-vote]')];
+    const said = line.querySelector<HTMLElement>('[data-said]')!;
+    const show = (vote: string | null | undefined, words: string) => {
+      for (const button of buttons) button.setAttribute('aria-pressed', String(button.dataset.vote === vote));
+      said.textContent = words;
+      // A line of words can make the story taller, and the front page arranges stories by their height.
+      document.dispatchEvent(new Event('stories:resized'));
+    };
+    if (kept[story]) show(kept[story], 'Thanks.');
+
+    for (const button of buttons) {
+      button.addEventListener('click', async () => {
+        if (line.hasAttribute('aria-busy')) return;
+        const before = load()[story] ?? null;
+        const vote = before === button.dataset.vote ? null : button.dataset.vote!;
+        // Shown at once; put back if the paper cannot be reached.
+        show(vote, vote ? 'Thanks. Noted.' : '');
+        line.setAttribute('aria-busy', 'true');
+        try {
+          const response = await fetch(VERDICT_PATH, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ story, vote }),
+          });
+          if (response.status === 429) {
+            const { error } = await response.json().catch(() => ({ error: '' }));
+            show(before, error || 'That is enough votes for one day.');
+          } else if (!response.ok) {
+            throw new Error(String(response.status));
+          } else {
+            remember(story, vote);
+          }
+        } catch {
+          show(before, 'Not sent. Try again.');
+        } finally {
+          line.removeAttribute('aria-busy');
+        }
+      });
+    }
+  }
+</script>

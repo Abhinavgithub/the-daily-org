@@ -92,6 +92,7 @@ const preview = new URL(image ?? '/icon-512.png', Astro.site);
           {SITE.name} is an independent project{SITE.disclaimer ? `, ${SITE.disclaimer}` : ''}. Summaries are written by AI and can be wrong,
           so check the original.
         </p>
+        {SITE.readerFeedback && <p>"Useful?" votes are anonymous: the paper keeps a count, never who voted.</p>}
         <p class="site-footer__links">
           <a href="/stats/">Stats</a>
           {

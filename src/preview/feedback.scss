@@ -4,6 +4,7 @@
 
 // The verdict line: the last line of a story, under a hairline like the source line's.
 .verdict {
+  display: block;
   margin: 0.8rem 0 0;
   padding-top: 0.6rem;
   border-top: 1px solid var(--rule);

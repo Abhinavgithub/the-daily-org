@@ -1,0 +1,55 @@
+// Reader feedback --------------------------------------------------------
+
+// "Useful? Yes No": the last line of a story, under a hairline like the source line's.
+.verdict {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.5rem;
+  margin: 0.8rem 0 0;
+  padding-top: 0.6rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  color: var(--muted);
+}
+
+.verdict__votes {
+  display: inline-flex;
+  gap: 0.35rem;
+}
+
+.verdict__vote {
+  justify-content: center;
+  min-width: 2.75rem;
+  min-height: 1.75rem;
+  color: var(--muted);
+
+  &[aria-pressed='true'] {
+    color: var(--paper);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--sky);
+    outline-offset: 2px;
+  }
+
+  [aria-busy='true'] & {
+    cursor: progress;
+  }
+}
+
+// Fingers need more room than a pointer.
+@media (pointer: coarse) {
+  .verdict__vote {
+    min-height: 2.75rem;
+  }
+}
+
+// The paper's answer, set like a line of the story.
+.verdict__said {
+  font-family: var(--text);
+  font-size: var(--fs-body);
+  font-style: italic;
+  color: var(--ink);
+}

@@ -15,6 +15,8 @@ export default definePaper({
   timezone: 'Asia/Kolkata',
   address: 'https://thedailyorg.com',
   repository: 'https://github.com/Abhinavgithub/the-daily-org',
+  // "Useful? Yes No" under every story, answered by the Worker in worker/ (see README, Reader feedback).
+  readerFeedback: true,
 
   // How the editor is told what the paper is about. Each reads as part of a sentence.
   topic: 'Salesforce technology',

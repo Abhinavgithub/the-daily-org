@@ -99,6 +99,8 @@ const signals = await getSignals();
   }
   document.fonts?.ready.then(packAll);
   document.addEventListener('stories:filtered', packAll);
+  // A story that grew, such as by the line under "Useful?".
+  document.addEventListener('stories:resized', packAll);
   arrangeAll();
 
   // A link to one story: packing moves things, so go to it again once the page has settled.

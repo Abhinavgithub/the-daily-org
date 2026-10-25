@@ -5,11 +5,19 @@
 {
   "name": "the-daily-org",
   "compatibility_date": "2026-10-01",
+  // The one address that is not a file: readers' "Useful? Yes No" votes (worker/index.ts).
+  "main": "worker/index.ts",
   "assets": {
     "directory": "./dist",
+    "binding": "ASSETS",
+    // Only the votes run the Worker. Every page and file is served as before, without it.
+    "run_worker_first": ["/api/*"],
     // An address with no page gets the paper's own not-found page.
     "not_found_handling": "404-page"
   },
+  // Where the votes are kept. With no database_id, Wrangler makes the database on the first deploy and binds it;
+  // the Worker makes its tables when the first vote arrives. A preview deploy uses the same database.
+  "d1_databases": [{ "binding": "FEEDBACK", "database_name": "the-daily-org-feedback" }],
   // Lets a pull request's branch be built as a preview (`wrangler preview`). Empty: a preview is set up as above.
   "previews": {}
 }

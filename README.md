@@ -158,6 +158,14 @@ A sample scheduled job is in `.github/workflows/daily.yml`: it runs the pipeline
 
 If the repository is public, so is `data/logs/`, with what each run rejected and spent.
 
+## Reader feedback
+
+With `readerFeedback: true` in `paper.config.ts`, every story ends with "Useful? Yes No". A vote counts once a story, a reader and a day; pressing the same answer again takes it back, and the browser remembers what was pressed. No cookies are set and no address is kept: a reader is a hash of their address with a random salt that lasts one day.
+
+- **On Cloudflare**, `worker/index.ts` takes the votes at `/api/feedback` and keeps them in a D1 database bound as `FEEDBACK` in `wrangler.jsonc`. Only `/api/*` runs the Worker; every page is served as a static file as before. Wrangler makes the database on the first deploy, and the Worker makes its tables when the first vote arrives. To read the votes: `npx wrangler d1 execute the-daily-org-feedback --remote --command "SELECT story, vote, COUNT(*) AS n FROM votes GROUP BY story, vote ORDER BY story"`.
+- **Under `npm run dev`**, votes go to `data/reader-feedback.jsonl`, which git leaves out.
+- **On any other host**, leave `readerFeedback` out: there is nothing there to take the votes.
+
 ## Good to know
 
 - If new stories do not appear in `npm run dev` after a pipeline run, restart it (`npx astro dev stop`, then `npm run dev`).

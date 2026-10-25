@@ -1,10 +1,11 @@
 ---
 import { render } from 'astro:content';
-import { sectionLabel } from '../config';
+import { sectionLabel, SITE } from '../config';
 import type { Span } from '../lib/layout';
 import type { Signal } from '../lib/signal';
 import { formatAuthors, formatDay, storySlug, tagSlug, type Story } from '../lib/stories';
 import StoryFigure from './StoryFigure.astro';
+import Verdict from './Verdict.astro';
 
 interface Props {
   story: Story;
@@ -84,6 +85,7 @@ const figure = data.figure && data.figure.kind !== 'none' ? data.figure : undefi
       ))
     }
   </ul>
-  <!-- Anything printed at the foot of the story, such as the reader's verdict line. -->
+  {SITE.readerFeedback && <Verdict story={story.id} />}
+  <!-- Anything else printed at the foot of the story. -->
   <slot />
 </article>
