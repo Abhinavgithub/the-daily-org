@@ -238,6 +238,26 @@
   margin-top: 0.75rem;
 }
 
+// A correction, printed as a paper prints one: a ruled note under the text (PLAN.md, step 8c).
+.correction {
+  margin: 0.8rem 0 0;
+  padding: 0.1rem 0 0.1rem 0.7rem;
+  border-left: 3px solid var(--ink);
+  font-family: var(--text);
+  font-style: italic;
+  line-height: 1.45;
+}
+
+.correction__label {
+  margin-right: 0.35rem;
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
 // Fingers need more room than a pointer.
 @media (pointer: coarse) {
   .verdict__vote,

@@ -242,26 +242,6 @@
   }
 }
 
-// A correction, printed as a paper prints one: a ruled note under the text.
-.correction {
-  margin: 0.8rem 0 0;
-  padding: 0.1rem 0 0.1rem 0.7rem;
-  border-left: 3px solid var(--ink);
-  font-family: var(--text);
-  font-style: italic;
-  line-height: 1.45;
-}
-
-.correction__label {
-  margin-right: 0.35rem;
-  font-family: var(--display);
-  font-size: var(--fs-label);
-  font-style: normal;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-
 // A box at the foot of the edition for a story the paper missed.
 .tipline {
   max-width: 34rem;

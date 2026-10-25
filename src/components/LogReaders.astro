@@ -1,6 +1,6 @@
 ---
 import { normalizeUrl, type Feedback } from '../../pipeline/feedback';
-import { reasonLine, tally, wanting, type ReportRow, type VoteRow } from '../lib/verdict';
+import { CORRECTION_LENGTH, reasonLine, tally, wanting, type ReportRow, type VoteRow } from '../lib/verdict';
 import { storyHref, type Story } from '../lib/stories';
 
 // What readers said (PLAN.md, step 8b): each story's Yes and No with the reasons
@@ -119,6 +119,11 @@ const title = (id: string) => byId.get(id)?.data.title ?? id;
                   <strong>{report.part}</strong> · {story ? <a href={storyHref(story)}>{title(report.story)}</a> : title(report.story)} · {day(report.at)}
                 </p>
                 {report.note ? <blockquote>{report.note}</blockquote> : <p class="readers__empty">No note.</p>}
+                {story?.data.corrections.map((correction) => (
+                  <p class="readers__printed">
+                    Printed {correction.date}: {correction.text}
+                  </p>
+                ))}
                 <p class="readers__buttons">
                   <button type="button" class="chip" data-done aria-pressed={done.has(report.id) ? 'true' : 'false'}>
                     Dealt with
@@ -129,6 +134,41 @@ const title = (id: string) => byId.get(id)?.data.title ?? id;
                     </a>
                   )}
                 </p>
+                {story && (
+                  <details class="readers__fix">
+                    <summary class="chip">Correct the story</summary>
+                    <p class="ledger__note">
+                      {report.part === 'Diagram' ? (
+                        <>
+                          To draw the diagram again: <code class="readers__command">npm run figures -- --story {report.story}</code>
+                        </>
+                      ) : (
+                        <>
+                          To let the model check the report against the article, fix the text and write the correction:{' '}
+                          <code class="readers__command">npm run revise -- --report {report.id}</code>
+                        </>
+                      )}
+                    </p>
+                    <form class="readers__correct" data-correct data-story={report.story}>
+                      <label class="verdict__label" for={`correct-${report.id}`}>
+                        Or fix the story's file yourself, then print the correction here
+                      </label>
+                      <textarea
+                        class="verdict__note"
+                        id={`correct-${report.id}`}
+                        name="text"
+                        rows="2"
+                        maxlength={CORRECTION_LENGTH}
+                        required
+                        placeholder="An earlier version of this summary gave the limit as 100 records. It is 50."
+                      />
+                      <p class="readers__buttons">
+                        <button type="submit" class="verdict__send">Print the correction</button>
+                        <span class="ledger__note">Dated today, under the story. The report is then dealt with.</span>
+                      </p>
+                    </form>
+                  </details>
+                )}
               </li>
             );
           })}
@@ -155,6 +195,24 @@ const title = (id: string) => byId.get(id)?.data.title ?? id;
       }
       return false;
     }
+  }
+
+  // A correction is written into the story's file; the dev server then prints it on the story.
+  for (const form of document.querySelectorAll<HTMLFormElement>('[data-correct]')) {
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const report = form.closest<HTMLElement>('[data-report-id]')!;
+      const button = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+      button.disabled = true;
+      const text = String(new FormData(form).get('text') ?? '');
+      const saved = await save('/__correction', 'POST', { story: form.dataset.story, text, report: report.dataset.reportId });
+      button.disabled = false;
+      if (!saved) return;
+      form.reset();
+      button.textContent = 'Printed';
+      report.classList.add('is-done');
+      report.querySelector('[data-done]')?.setAttribute('aria-pressed', 'true');
+    });
   }
 
   document.querySelector('.readers')?.addEventListener('click', async (event) => {

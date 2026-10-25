@@ -23,6 +23,8 @@ export const MAX_REPORTS_A_DAY = 3;
 
 /** The longest note a report can carry. */
 export const NOTE_LENGTH = 500;
+/** The longest correction printed under a story (pipeline/correct.ts). */
+export const CORRECTION_LENGTH = 400;
 
 /** The most stories one reader can vote on in a day. Far above what a person reads; a program finds it soon. */
 export const MAX_VOTES_A_DAY = 20;

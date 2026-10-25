@@ -902,3 +902,53 @@
   gap: 0.4rem;
   margin: 0;
 }
+
+.readers__printed {
+  margin: 0 0 0.6rem;
+  padding-left: 0.6rem;
+  border-left: 3px solid var(--ink);
+  font-style: italic;
+}
+
+// Correcting a story from its report: a command for the model, or the editor's own line.
+.readers__fix {
+  margin-top: 0.6rem;
+
+  > summary {
+    display: inline-flex;
+    list-style: none;
+    cursor: pointer;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+  }
+
+  &[open] > summary {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  .ledger__note {
+    margin: 0.6rem 0;
+  }
+}
+
+.readers__command {
+  display: inline-block;
+  max-width: 100%;
+  overflow-x: auto;
+  vertical-align: bottom;
+  white-space: nowrap;
+  user-select: all;
+}
+
+.readers__correct {
+  .verdict__note {
+    margin-bottom: 0.5rem;
+  }
+
+  .readers__buttons {
+    align-items: center;
+  }
+}

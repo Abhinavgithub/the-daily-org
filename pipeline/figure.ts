@@ -199,6 +199,8 @@ export async function addFigures(
     storiesDir?: string;
     figuresDir?: string;
     paper?: Paper;
+    /** Draw for these stories only (file names without .md); the others are left as they are. */
+    only?: string[];
   } = {},
 ): Promise<FigureCounts> {
   const counts: FigureCounts = { made: 0, cards: 0, none: 0, rejected: 0, skipped: 0 };
@@ -221,6 +223,8 @@ export async function addFigures(
   const save = (story: (typeof stories)[number]) => fs.writeFileSync(story.file, storyText(story.doc, `\n${story.summary}\n`));
 
   for (const [rank, story] of stories.entries()) {
+    // The others are still read, so that the top story is known for the social card.
+    if (options.only && !options.only.includes(path.basename(story.file, '.md'))) continue;
     const title = story.data.title;
     let entry: LogFigure | undefined;
 

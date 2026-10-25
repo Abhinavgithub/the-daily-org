@@ -55,6 +55,14 @@ const figure = data.figure && data.figure.kind !== 'none' ? data.figure : undefi
   {figure && <StoryFigure figure={figure} />}
   <div class="story__text"><Content /></div>
   {
+    data.corrections.map((correction) => (
+      <p class="correction">
+        <span class="correction__label">Correction</span>
+        <time datetime={correction.date}>{formatDay(correction.date, 'short')}</time>: {correction.text}
+      </p>
+    ))
+  }
+  {
     data.also.length > 0 && (
       <p class="story__also">
         Also told by{' '}
