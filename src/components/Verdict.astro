@@ -1,9 +1,12 @@
 ---
-import { verdictId } from '../lib/verdict';
+import { SITE } from '../config';
+import { NOTE_LENGTH, PARTS, REASONS, verdictId } from '../lib/verdict';
 
-// "Useful? Yes No" at the foot of a story (PLAN.md, step 8a). A vote counts the
-// moment it is pressed, and pressing the same answer again takes it back. This
-// browser remembers the answer; the paper keeps only a count (worker/index.ts).
+// The reader's verdict at the foot of a story (PLAN.md, step 8). "Useful? Yes No"
+// counts the moment it is pressed, and pressing the same answer again takes it
+// back. After No the reader may say why. "Report an error" asks which part is
+// wrong and takes a note. Everything opens inside the story's own box. This
+// browser remembers the answer; the paper keeps only counts and the reports (worker/index.ts).
 
 interface Props {
   /** The story's id: its file under src/content/stories. */
@@ -14,17 +17,70 @@ const { story } = Astro.props;
 const id = verdictId(story);
 ---
 
-<div class="verdict" data-verdict data-story={story}>
-  <span class="verdict__ask" id={id}>Useful?</span>
-  <span class="verdict__votes" role="group" aria-labelledby={id}>
-    <button type="button" class="chip verdict__vote" data-vote="yes" aria-pressed="false">Yes</button>
-    <button type="button" class="chip verdict__vote" data-vote="no" aria-pressed="false">No</button>
-  </span>
-  <span class="verdict__said" role="status" data-said></span>
+<div class="verdict" data-verdict data-story={story} data-turnstile={SITE.turnstileSiteKey}>
+  <div class="verdict__bar">
+    <span class="verdict__ask" id={id}>Useful?</span>
+    <span class="verdict__votes" role="group" aria-labelledby={id}>
+      <button type="button" class="chip verdict__vote" data-vote="yes" aria-pressed="false">Yes</button>
+      <button type="button" class="chip verdict__vote" data-vote="no" aria-pressed="false">No</button>
+    </span>
+    <span class="verdict__said" role="status" data-said></span>
+    <button type="button" class="verdict__report" data-report aria-expanded="false" aria-controls={`${id}-report`}>Report an error</button>
+  </div>
+
+  <!-- After No: why, if the reader cares to say. The vote has already counted. -->
+  <form class="verdict__panel" id={`${id}-why`} data-panel="why" hidden>
+    <fieldset>
+      <legend>Noted. What was wrong with it? <span class="verdict__optional">Optional</span></legend>
+      <div class="verdict__choices">
+        {
+          REASONS.map((reason) => (
+            <label class="chip verdict__choice">
+              <input type="radio" class="visually-hidden" name="reason" value={reason} required />
+              {reason}
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+    <div class="verdict__actions">
+      <button type="submit" class="verdict__send">Send</button>
+      <button type="button" class="link-button verdict__skip" data-close>No thanks</button>
+    </div>
+  </form>
+
+  <!-- Report an error: which part is wrong, and a note. -->
+  <form class="verdict__panel" id={`${id}-report`} data-panel="report" hidden>
+    <fieldset>
+      <legend>Where is the mistake?</legend>
+      <div class="verdict__choices">
+        {
+          PARTS.map((part) => (
+            <label class="chip verdict__choice">
+              <input type="radio" class="visually-hidden" name="part" value={part} required />
+              {part}
+            </label>
+          ))
+        }
+      </div>
+    </fieldset>
+    <label class="verdict__label" for={`${id}-note`}>What is wrong? <span class="verdict__optional">Optional</span></label>
+    <textarea class="verdict__note" id={`${id}-note`} name="note" rows="3" maxlength={NOTE_LENGTH} aria-describedby={`${id}-help`}></textarea>
+    <p class="verdict__help" id={`${id}-help`}>Only the editor reads this. Up to {NOTE_LENGTH} characters; please leave out names and email addresses.</p>
+    <!-- Left empty by people. A form that fills it was filled by a program. -->
+    <input class="verdict__trap" type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" />
+    <!-- Turnstile's check goes here, when the paper has one. -->
+    <div class="verdict__check" data-check></div>
+    <p class="verdict__failed" role="alert" data-failed hidden></p>
+    <div class="verdict__actions">
+      <button type="submit" class="verdict__send">Send report</button>
+      <button type="button" class="link-button verdict__skip" data-close>Cancel</button>
+    </div>
+  </form>
 </div>
 
 <script>
-  import { VERDICT_PATH } from '../lib/verdict';
+  import { REPORT_PATH, VERDICT_PATH } from '../lib/verdict';
 
   // The answers given in this browser, by story. Kept for 60 days, which is longer than anyone looks back.
   const KEY = 'verdicts';
@@ -47,48 +103,171 @@ const id = verdictId(story);
       localStorage.setItem(KEY, JSON.stringify(kept));
     } catch {}
   };
+  // A story's box can grow or shrink, and the front page arranges stories by their height.
+  const resized = () => document.dispatchEvent(new Event('stories:resized'));
+
+  async function send(path: string, body: object): Promise<{ ok: boolean; status: number; error?: string }> {
+    try {
+      const response = await fetch(path, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const { error } = response.ok ? { error: undefined } : await response.json().catch(() => ({ error: undefined }));
+      return { ok: response.ok, status: response.status, error };
+    } catch {
+      return { ok: false, status: 0 };
+    }
+  }
+
+  // Turnstile ---------------------------------------------------------------
+  // Cloudflare's check that a report comes from a person. Its script is fetched the
+  // first time a report form opens, and not before, so reading the paper asks nothing of it.
+  interface Turnstile {
+    render(element: HTMLElement, options: Record<string, unknown>): string;
+    reset(widget: string): void;
+  }
+  let turnstile: Promise<Turnstile> | undefined;
+  const loadTurnstile = () =>
+    (turnstile ??= new Promise<Turnstile>((resolve, reject) => {
+      const script = document.createElement('script');
+      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
+      script.async = true;
+      script.onload = () => resolve((window as unknown as { turnstile: Turnstile }).turnstile);
+      script.onerror = () => {
+        turnstile = undefined;
+        reject(new Error('Turnstile could not be loaded.'));
+      };
+      document.head.append(script);
+    }));
+
+  /** A check for one form: render it once, and hand out a token when one is ready. */
+  function check(form: HTMLFormElement, siteKey: string | undefined) {
+    if (!siteKey) return { start() {}, token: async () => undefined as string | undefined, reset() {} };
+    const box = form.querySelector<HTMLElement>('[data-check]')!;
+    let widget: string | undefined;
+    let current: string | undefined;
+    let waiting: ((token: string) => void)[] = [];
+    const start = async () => {
+      if (widget !== undefined) return;
+      widget = '';
+      try {
+        const api = await loadTurnstile();
+        widget = api.render(box, {
+          sitekey: siteKey,
+          // Shown only when Cloudflare needs the reader to do something.
+          appearance: 'interaction-only',
+          theme: document.documentElement.dataset.theme ?? 'auto',
+          callback: (token: string) => {
+            current = token;
+            waiting.forEach((done) => done(token));
+            waiting = [];
+            resized();
+          },
+          'expired-callback': () => (current = undefined),
+        });
+      } catch {
+        widget = undefined;
+      }
+    };
+    return {
+      start,
+      token: () => (current ? Promise.resolve(current) : new Promise<string | undefined>((done) => (waiting.push(done), setTimeout(() => done(undefined), 15_000)))),
+      reset: () => {
+        current = undefined;
+        if (widget) turnstile?.then((api) => api.reset(widget!));
+      },
+    };
+  }
+
+  // Each story's line --------------------------------------------------------
 
   const kept = load();
   for (const line of document.querySelectorAll<HTMLElement>('[data-verdict][data-story]')) {
     const story = line.dataset.story!;
-    const buttons = [...line.querySelectorAll<HTMLButtonElement>('[data-vote]')];
+    const votes = [...line.querySelectorAll<HTMLButtonElement>('[data-vote]')];
     const said = line.querySelector<HTMLElement>('[data-said]')!;
+    const reportButton = line.querySelector<HTMLButtonElement>('[data-report]')!;
+    const why = line.querySelector<HTMLFormElement>('[data-panel="why"]')!;
+    const form = line.querySelector<HTMLFormElement>('[data-panel="report"]')!;
+    const failed = form.querySelector<HTMLElement>('[data-failed]')!;
+    const guard = check(form, line.dataset.turnstile);
+
     const show = (vote: string | null | undefined, words: string) => {
-      for (const button of buttons) button.setAttribute('aria-pressed', String(button.dataset.vote === vote));
+      for (const button of votes) button.setAttribute('aria-pressed', String(button.dataset.vote === vote));
       said.textContent = words;
-      // A line of words can make the story taller, and the front page arranges stories by their height.
-      document.dispatchEvent(new Event('stories:resized'));
+      resized();
+    };
+    const open = (panel?: HTMLFormElement) => {
+      why.hidden = panel !== why;
+      form.hidden = panel !== form;
+      reportButton.setAttribute('aria-expanded', String(panel === form));
+      if (panel === form) guard.start();
+      panel?.querySelector<HTMLElement>('input:not([tabindex="-1"]), textarea')?.focus();
+      resized();
     };
     if (kept[story]) show(kept[story], 'Thanks.');
 
-    for (const button of buttons) {
+    for (const button of votes) {
       button.addEventListener('click', async () => {
         if (line.hasAttribute('aria-busy')) return;
         const before = load()[story] ?? null;
         const vote = before === button.dataset.vote ? null : button.dataset.vote!;
         // Shown at once; put back if the paper cannot be reached.
         show(vote, vote ? 'Thanks. Noted.' : '');
+        if (vote === 'no') open(why);
+        else if (!why.hidden) open();
         line.setAttribute('aria-busy', 'true');
-        try {
-          const response = await fetch(VERDICT_PATH, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ story, vote }),
-          });
-          if (response.status === 429) {
-            const { error } = await response.json().catch(() => ({ error: '' }));
-            show(before, error || 'That is enough votes for one day.');
-          } else if (!response.ok) {
-            throw new Error(String(response.status));
-          } else {
-            remember(story, vote);
-          }
-        } catch {
-          show(before, 'Not sent. Try again.');
-        } finally {
-          line.removeAttribute('aria-busy');
-        }
+        const result = await send(VERDICT_PATH, { story, vote });
+        line.removeAttribute('aria-busy');
+        if (result.ok) return remember(story, vote);
+        if (!why.hidden) open();
+        show(before, result.status === 429 && result.error ? result.error : 'Not sent. Try again.');
       });
     }
+
+    why.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const reason = new FormData(why).get('reason');
+      open();
+      show('no', 'Thanks. That helps the editor choose.');
+      const result = await send(VERDICT_PATH, { story, vote: 'no', reason });
+      if (!result.ok) said.textContent = 'Your reason was not sent, but the No was.';
+      why.reset();
+    });
+
+    reportButton.addEventListener('click', () => open(form.hidden ? form : undefined));
+    for (const close of line.querySelectorAll<HTMLButtonElement>('[data-close]')) close.addEventListener('click', () => open());
+
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const submit = form.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+      const note = form.querySelector<HTMLTextAreaElement>('textarea')!;
+      const data = new FormData(form);
+      failed.hidden = true;
+      submit.disabled = true;
+      note.readOnly = true;
+      submit.textContent = 'Sending…';
+      form.setAttribute('aria-busy', 'true');
+      const token = await guard.token();
+      const result = await send(REPORT_PATH, { story, part: data.get('part'), note: data.get('note'), website: data.get('website'), ...(token ? { token } : {}) });
+      form.removeAttribute('aria-busy');
+      submit.disabled = false;
+      note.readOnly = false;
+      guard.reset();
+      if (result.ok) {
+        submit.textContent = 'Send report';
+        form.reset();
+        open();
+        reportButton.hidden = true;
+        said.textContent = 'Thanks. The editor reads every report, and a story found wrong is corrected with a note.';
+        resized();
+        return;
+      }
+      // The note stays where it was, to be sent again.
+      submit.textContent = 'Try again';
+      failed.innerHTML = '';
+      const strong = document.createElement('strong');
+      strong.textContent = 'Not sent. ';
+      failed.append(strong, result.error ?? 'The paper could not be reached. Your note is kept here; try again in a moment.');
+      failed.hidden = false;
+      resized();
+    });
   }
 </script>

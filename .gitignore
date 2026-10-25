@@ -17,3 +17,4 @@ data/replay/
 .archify/
 # Readers' votes taken by `npm run dev`. The live ones are in Cloudflare D1; neither belongs in a public repository.
 data/reader-feedback.jsonl
+data/reader-feedback-handled.json

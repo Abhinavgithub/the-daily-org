@@ -771,3 +771,134 @@
     border-left: 0;
   }
 }
+
+// Readers: what readers said, under `npm run dev` only (src/components/LogReaders.astro).
+.readers {
+  font-family: var(--display);
+  font-size: var(--fs-label);
+}
+
+.readers__sum {
+  margin: 0 0 0.75rem;
+}
+
+.readers__scroll {
+  overflow-x: auto;
+}
+
+.readers__table {
+  width: 100%;
+  min-width: 34rem;
+  border-collapse: collapse;
+
+  th {
+    text-align: left;
+    font-weight: 600;
+    border-bottom: 1px solid var(--ink);
+    padding: 0.35rem 0.5rem;
+  }
+
+  td {
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+
+  .num {
+    text-align: right;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.readers__title {
+  font-family: var(--headline);
+  font-size: var(--fs-body);
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--sky);
+    text-decoration: underline;
+  }
+}
+
+// How many reports a story has, linking to them.
+.readers__flag {
+  display: inline-block;
+  margin-left: 0.4rem;
+  padding: 0 0.35rem;
+  border: 1px solid var(--ink);
+  font-weight: 600;
+  color: var(--ink);
+  text-decoration: none;
+}
+
+.readers__why {
+  color: var(--muted);
+}
+
+.readers__head {
+  margin: 1.5rem 0 0.5rem;
+  font-family: var(--headline);
+  font-size: var(--fs-headline);
+}
+
+.readers__reports {
+  display: grid;
+  gap: 0.75rem;
+  max-width: 44rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.readers__report {
+  padding: 0.8rem 1rem;
+  background: var(--surface);
+  border: 1px solid var(--edge);
+  scroll-margin-top: 4rem;
+
+  blockquote {
+    margin: 0.4rem 0 0.7rem;
+    font-family: var(--text);
+    font-size: var(--fs-body);
+    font-style: italic;
+    white-space: pre-line;
+  }
+
+  // Dealt with: kept, but out of the way.
+  &.is-done {
+    opacity: 0.6;
+  }
+
+  &:target {
+    outline: 2px solid var(--sky);
+    outline-offset: 3px;
+  }
+}
+
+.readers__meta {
+  margin: 0;
+  color: var(--muted);
+
+  strong {
+    color: var(--ink);
+  }
+
+  a {
+    color: inherit;
+  }
+}
+
+.readers__empty {
+  margin: 0.4rem 0 0.7rem;
+  color: var(--muted);
+}
+
+.readers__buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0;
+}
