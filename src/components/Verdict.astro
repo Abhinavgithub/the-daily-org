@@ -15,9 +15,11 @@ interface Props {
 
 const { story } = Astro.props;
 const id = verdictId(story);
+// Turnstile answers only on the paper's own address, so `npm run dev` goes without it, as the dev server goes without the check.
+const turnstile = import.meta.env.DEV ? undefined : SITE.turnstileSiteKey;
 ---
 
-<div class="verdict" data-verdict data-story={story} data-turnstile={SITE.turnstileSiteKey}>
+<div class="verdict" data-verdict data-story={story} data-turnstile={turnstile}>
   <div class="verdict__bar">
     <span class="verdict__ask" id={id}>Useful?</span>
     <span class="verdict__votes" role="group" aria-labelledby={id}>
@@ -143,7 +145,7 @@ const id = verdictId(story);
     const box = form.querySelector<HTMLElement>('[data-check]')!;
     let widget: string | undefined;
     let current: string | undefined;
-    let waiting: ((token: string) => void)[] = [];
+    let waiting: ((token: string | undefined) => void)[] = [];
     const start = async () => {
       if (widget !== undefined) return;
       widget = '';
@@ -163,12 +165,16 @@ const id = verdictId(story);
           'expired-callback': () => (current = undefined),
         });
       } catch {
+        // Blocked or unreachable: the report goes without a token, and the paper says if that is not enough.
         widget = undefined;
+        waiting.forEach((done) => done(undefined));
+        waiting = [];
       }
     };
     return {
       start,
-      token: () => (current ? Promise.resolve(current) : new Promise<string | undefined>((done) => (waiting.push(done), setTimeout(() => done(undefined), 15_000)))),
+      token: () =>
+        current || widget === undefined ? Promise.resolve(current) : new Promise<string | undefined>((done) => (waiting.push(done), setTimeout(() => done(undefined), 15_000))),
       reset: () => {
         current = undefined;
         if (widget) turnstile?.then((api) => api.reset(widget!));

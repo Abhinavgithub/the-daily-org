@@ -17,6 +17,8 @@ export default definePaper({
   repository: 'https://github.com/Abhinavgithub/the-daily-org',
   // "Useful? Yes No" under every story, answered by the Worker in worker/ (see README, Reader feedback).
   readerFeedback: true,
+  // The Turnstile widget's site key, which is public. Its secret key is set on the Worker as TURNSTILE_SECRET.
+  turnstileSiteKey: '0x4AAAAAAFk_p9kQFZVZI1rC',
 
   // How the editor is told what the paper is about. Each reads as part of a sentence.
   topic: 'Salesforce technology',
