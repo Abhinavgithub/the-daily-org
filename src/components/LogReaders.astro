@@ -46,7 +46,7 @@ const title = (id: string) => byId.get(id)?.data.title ?? id;
       )
     }
     {reports.length > 0 && `${open} of ${reports.length} ${reports.length === 1 ? 'report' : 'reports'} to deal with. `}
-    {updated ? `Last written ${day(updated.toISOString())}.` : ''} Run <code>npm run reader-feedback</code> to bring in the live site's.
+    {updated ? `Last written ${day(updated.toISOString())}.` : ''}
   </p>
 
   {
