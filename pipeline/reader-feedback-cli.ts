@@ -1,5 +1,6 @@
 import { execFileSync } from 'node:child_process';
 import { parseArgs } from 'node:util';
+import { saveReaderTotals, TOTALS_FILE } from './reader-totals';
 import { loadReaderFeedback, READER_FILE, saveReaderFeedback } from './verdict-dev';
 import type { ReportRow, VoteRow } from '../src/lib/verdict';
 
@@ -13,6 +14,8 @@ import type { ReportRow, VoteRow } from '../src/lib/verdict';
 // must be signed in to the paper's Cloudflare account (`npx wrangler login`).
 // What is read replaces data/reader-feedback.jsonl, so votes made under
 // `npm run dev` go; which reports were dealt with is kept apart and stays.
+// It also writes the totals for the Stats page, data/reader-totals.jsonl, which
+// holds only counts and is committed (the daily job writes them too, when it can).
 
 const DATABASE = 'the-daily-org-feedback';
 const { values: args } = parseArgs({ options: { local: { type: 'boolean', default: false } } });
@@ -39,7 +42,10 @@ const before = loadReaderFeedback();
 const votes = query<VoteRow & { reason: VoteRow['reason'] | null }>('SELECT story, day, who, vote, reason, at FROM votes ORDER BY at').map(({ reason, ...vote }) => (reason ? { ...vote, reason } : vote));
 const reports = query<ReportRow>('SELECT id, story, part, note, day, who, at FROM reports ORDER BY at');
 saveReaderFeedback(votes, reports);
+// The totals of `wrangler dev`'s database are not the paper's.
+const editions = args.local ? 0 : saveReaderTotals(votes, reports);
 
 const fresh = reports.filter((report) => !before.reports.some((old) => old.id === report.id)).length;
 console.log(`${votes.length} votes and ${reports.length} reports from ${args.local ? 'wrangler dev' : 'the live site'} (${fresh} new) are in ${READER_FILE}.`);
 console.log('See them on the Logs page under `npm run dev`: /logs/#readers');
+if (!args.local) console.log(`Totals for ${editions} ${editions === 1 ? 'edition' : 'editions'} are in ${TOTALS_FILE}, for the Stats page; commit it to publish them.`);
