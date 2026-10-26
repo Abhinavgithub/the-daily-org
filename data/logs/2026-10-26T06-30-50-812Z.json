@@ -1,0 +1,211 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-10-26T06:30:50.812Z",
+  "day": "2026-10-26",
+  "seconds": 49,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 4
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 0
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 0
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 1
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 0
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 0,
+      "error": "HTTP 403 (5 attempts: HTTP 403, HTTP 403, HTTP 403, HTTP 403, HTTP 403)"
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 0
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 0
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 0
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 0
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 8
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 16
+    }
+  ],
+  "articles": [
+    {
+      "title": "Trailhead Milestones!",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xfm27x/trailhead_milestones/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Running Apex tests locally so AI coding agents can iterate on them",
+      "url": "https://dev.to/oblitus/let-your-ai-agent-run-apex-tests-mcp-for-salesforce-9f",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Let your AI agent run Apex tests: MCP for Salesforce"
+    },
+    {
+      "title": "Four rules for constraining an AI agent that deploys to Salesforce",
+      "url": "https://dev.to/madebyasking/four-rules-for-letting-an-ai-agent-deploy-to-salesforce-bh7",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Four rules for letting an AI agent deploy to Salesforce"
+    },
+    {
+      "title": "Offering hands-on help with Salesforce Admin & Core Customization projects (Objects, Flows, Layouts, Rules)",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xf2gcf/offering_handson_help_with_salesforce_admin_core/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Handling Flow errors with Fault Paths, logging and notifications",
+      "url": "https://dev.to/rohanmehta/salesforce-fault-paths-how-to-stop-flow-errors-from-silently-failing-19j5",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Salesforce Fault Paths: How to Stop Flow Errors From Silently Failing"
+    },
+    {
+      "title": "I got tired of retyping my resume into every application form, so I built a free Chrome extension that does it locally (no account, no data leaves your browser)",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xewwe9/i_got_tired_of_retyping_my_resume_into_every/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Running Apex tests on a local runtime, without an org round trip",
+      "url": "https://dev.to/oblitus/renmy-runtime-explained-apex-tests-flows-and-deploys-2ff1",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: renmy runtime explained: Apex tests, flows and deploys"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Running Apex tests locally so AI coding agents can iterate on them",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Four rules for constraining an AI agent that deploys to Salesforce",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Handling Flow errors with Fault paths, logging and notifications",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Running Apex tests on a local runtime, without an Org round trip",
+      "outcome": "corrected"
+    }
+  ],
+  "figures": [],
+  "model": {
+    "calls": 6,
+    "retries": {},
+    "usage": {
+      "anthropic/claude-haiku-5.5": {
+        "input": 23644,
+        "output": 5328
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-10-26T06:31:39.568Z"
+}
