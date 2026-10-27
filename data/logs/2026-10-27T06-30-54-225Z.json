@@ -1,0 +1,315 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-10-27T06:30:54.225Z",
+  "day": "2026-10-27",
+  "seconds": 56,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 4
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 0
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 0
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 1
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 0
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 6
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 0
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 0
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 0
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 0
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 10
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 19
+    }
+  ],
+  "articles": [
+    {
+      "title": "NED 10.29-30",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xggugx/ned_102930/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Help documentation complete ghost town?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xg8rkz/help_documentation_complete_ghost_town/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "How are you getting Stripe subscription/payment data into Salesforce?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xgeu4h/how_are_you_getting_stripe_subscriptionpayment/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Checking Contact parent Accounts after a Salesforce data migration",
+      "url": "https://dev.to/richardc_ailstudio/how-to-catch-wrong-parent-contacts-after-a-salesforce-migration-o65",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: How to catch wrong-parent Contacts after a Salesforce migration"
+    },
+    {
+      "title": "Salesforce plans agent identities and metered billing for agentic API calls",
+      "url": "https://dev.to/juanma_garrido_1974/salesforce-is-changing-the-rules-for-ai-agents-and-many-people-havent-realized-it-yet-2o4d",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Salesforce Is Changing the Rules for AI Agents [And Many People Haven't Realized It Yet]"
+    },
+    {
+      "title": "Salesforce Developer Career Roadmap. What Should I Learn Next for Long-Term Growth?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xg4ti3/salesforce_developer_career_roadmap_what_should_i/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Live Developer Courses",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xg3yze/live_developer_courses/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "How Does Your Salesforce Salary Stack Up? Take Our 2026-27 Survey",
+      "url": "https://www.salesforceben.com/how-does-your-salesforce-salary-stack-up-take-our-2026-27-survey/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Aiforce/ Siforce/ World Tour Essentials in Philly?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xg0dje/aiforce_siforce_world_tour_essentials_in_philly/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Third-party file exporter reportedly fails to export non-file data, with fix delayed",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xg0705/dont_use_sfdc_file_exporter/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 5,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "Flowverload Flow Search Chrome Extension",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xfzve8/flowverload_flow_search_chrome_extension/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce users: What sales work do you still have to do manually?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xfzndo/salesforce_users_what_sales_work_do_you_still/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Moving display logic from Apex into HXL widget formulas",
+      "url": "https://developer.salesforce.com/blogs/2026/10/headless-experience-layer-widget-formulas-math-and-logic-with-json",
+      "source": "Salesforce Developers Blog",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Headless Experience Layer Widget Formulas: Math and Logic with JSON"
+    },
+    {
+      "title": "Which Salesforce Cert Next for an Admin Role?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xfy3qo/which_salesforce_cert_next_for_an_admin_role/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Streamline Your Document Lifecycle With Salesforce Integration and AI",
+      "url": "https://www.salesforceben.com/streamline-your-document-lifecycle-with-salesforce-integration-and-ai/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Hey Salesforce, Do We Really Need AI for That?",
+      "url": "https://www.salesforceben.com/hey-salesforce-do-we-really-need-ai-for-that/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Five timing decisions that determine whether a Scheduled Flow runs reliably",
+      "url": "https://dev.to/rohanmehta/salesforce-scheduled-flows-5-timing-decisions-that-make-or-break-your-automation-1l7e",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Salesforce Scheduled Flows: 5 Timing Decisions That Make or Break Your Automation"
+    },
+    {
+      "title": "Salesforce ecosystem grows at the top while Salesforce talent demand contracts",
+      "url": "https://www.salesforceben.com/the-salesforce-ecosystem-boom-bust-or-somewhere-in-between/",
+      "source": "Salesforce Ben",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Deep Dive: Automating Salesforce Data Consolidation and Enrichment for Unified Reporting",
+      "url": "https://dev.to/datasort/deep-dive-automating-salesforce-data-consolidation-and-enrichment-for-unified-reporting-goa",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Winter '27 lets user-context flows enforce the running user's permissions",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xfqzok/flow_run_context_user_contextenforces_user/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 7,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "Failed Salesforce Admin Certification in my first attempt",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xfpy1m/failed_salesforce_admin_certification_in_my_first/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Checking Contact parent accounts after a Salesforce data migration",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Salesforce plans agent identities and metered billing for Agentic API calls",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Moving display logic from Apex into HXL widget formulas",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Five timing decisions that determine whether a Scheduled Flow runs reliably",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Salesforce Ecosystem grows at the top while Salesforce talent demand contracts",
+      "outcome": "corrected"
+    }
+  ],
+  "figures": [],
+  "model": {
+    "calls": 13,
+    "retries": {},
+    "usage": {
+      "anthropic/claude-haiku-5.5": {
+        "input": 55002,
+        "output": 8756
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-10-27T06:31:50.484Z"
+}
