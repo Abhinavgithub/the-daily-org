@@ -94,6 +94,9 @@ export default definePaper({
     { id: 'sf-architects', name: 'Salesforce Architects', url: 'https://www.salesforce.com/blog/category/architects/feed/', type: 'official', personas: ['architect'] },
     // The newsroom: mostly announcements, so only items that mention a keyword are reviewed.
     { id: 'sf-news', name: 'Salesforce News', url: 'https://www.salesforce.com/news/feed/', type: 'official', noisy: true },
+    // The main blog: several posts a day, most technical, but Slack and sales pieces too. It also carries the
+    // Architects posts above; the same article through two feeds is seen once.
+    { id: 'sf-blog', name: 'Salesforce Blog', url: 'https://www.salesforce.com/blog/feed/', type: 'official', noisy: true },
 
     // Community
     { id: 'salesforce-ben', name: 'Salesforce Ben', url: 'https://www.salesforceben.com/feed/', type: 'community' },
@@ -106,6 +109,10 @@ export default definePaper({
     { id: 'salesforcecodex', name: 'SalesforceCodex', url: 'https://salesforcecodex.com/feed/', type: 'community', personas: ['developer', 'architect'] },
     { id: 'salesforce-break', name: 'Salesforce Break', url: 'https://salesforcebreak.com/feed/', type: 'community', personas: ['admin', 'developer'] },
     { id: 'nebula-consulting', name: 'Nebula Consulting', url: 'https://nebulaconsulting.co.uk/feed/', type: 'community' },
+    // Added 2026-10-27, checked with a web reader (not yet with try-source). Jitendra Zaa posts rarely.
+    { id: 'jitendra-zaa', name: 'Jitendra Zaa', url: 'https://www.jitendrazaa.com/blog/feed/', type: 'community', personas: ['developer', 'architect'] },
+    { id: 'simplysfdc', name: 'SimplySfdc', url: 'https://www.simplysfdc.com/feeds/posts/default', type: 'community', personas: ['admin', 'architect'] },
+    { id: 'salesforcedevops-net', name: 'SalesforceDevOps.net', url: 'https://salesforcedevops.net/index.php/feed/', type: 'community', personas: ['developer', 'architect'] },
     // Anyone may post under the tag, at the weekend too, when the blogs above are silent.
     { id: 'dev-to', name: 'dev.to', url: 'https://dev.to/feed/tag/salesforce', type: 'community' },
 
