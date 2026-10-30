@@ -4,7 +4,7 @@ original_title: "The Salesforce Ecosystem: Boom, Bust, or Somewhere in Between?"
 url: https://www.salesforceben.com/the-salesforce-ecosystem-boom-bust-or-somewhere-in-between/
 source: Salesforce Ben
 source_type: community
-date: 2026-10-27
+date: 2026-10-30
 section: career-and-certs
 personas:
   - admin
@@ -35,6 +35,7 @@ figure:
     - value: $3.9B
       label: Agentforce and Data 360 annual recurring revenue
 image: https://www.salesforceben.com/wp-content/uploads/2026/10/image-21.png
+held_from: 2026-10-27
 ---
 
 Salesforce itself continues to grow. Its Q2 FY27 revenue reached $11.3B, up 11% year on year, with a $456M Informatica contribution, and Agentforce and Data 360 annual recurring revenue approached $3.9B. Even so, IDC shows Salesforce's CRM market share slipping to 20% in 2025 from 20.7% in 2024.
