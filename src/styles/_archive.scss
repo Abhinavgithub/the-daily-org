@@ -1,6 +1,6 @@
 // The Archive ----------------------------------------------------------
-// A ledger of every edition: release editions, then daily ones a month at a
-// time, then the sections. One column, so everything on it shares its edges.
+// A ledger of every edition: release editions, then daily ones on a calendar,
+// then the sections. One column, so everything on it shares its edges.
 .past {
   margin-top: 0.5rem;
 }
@@ -55,20 +55,13 @@
   }
 }
 
-.past__no {
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--muted);
-  font-variant-numeric: tabular-nums;
-}
-
 .past__count {
   color: var(--muted);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
-// A month of daily editions, or a year of release editions: a line that opens.
+// A year of release editions: a line that opens.
 .past__month {
   & + & {
     border-top: 1px solid var(--rule);
@@ -235,5 +228,140 @@
   .check {
     grid-template-columns: auto auto auto;
     gap: 0.45rem;
+  }
+}
+
+// The calendar of daily editions --------------------------------------
+// A month to a sheet, Monday first. A day with an edition is a link; the rest
+// are only there to keep the shape of the month. Without scripts every month is
+// shown, one under the other; with them, one at a time.
+.cal {
+  max-width: 26rem;
+}
+
+.cal__month + .cal__month {
+  margin-top: 1.75rem;
+}
+
+.cal__head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.5rem;
+
+  h4 {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0 0.75rem;
+    margin: 0;
+    font-family: var(--headline);
+    font-size: 1.125rem;
+    line-height: 1.25;
+  }
+}
+
+// With the arrows on either side, the month's name sits between them.
+.cal--paged .cal__head h4 {
+  justify-content: center;
+  text-align: center;
+}
+
+.cal__count {
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  font-weight: 400;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.cal__step {
+  display: inline-grid;
+  place-items: center;
+  width: var(--tool);
+  height: var(--tool);
+  padding: 0 0 0.15rem;
+  font: 400 1.6rem/1 var(--headline);
+  color: var(--ink);
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  cursor: pointer;
+
+  &:hover:not(:disabled) {
+    border-color: var(--ink);
+  }
+
+  &:disabled {
+    color: var(--rule);
+    cursor: default;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.cal__grid {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+
+  th {
+    padding: 0.35rem 0;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    border-bottom: 1px solid var(--rule);
+
+    abbr {
+      text-decoration: none;
+    }
+  }
+
+  td {
+    padding: 2px;
+    text-align: center;
+  }
+}
+
+.cal__day {
+  display: grid;
+  place-items: center;
+  aspect-ratio: 1;
+  min-height: 2.25rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+  opacity: 0.55;
+}
+
+// A day the paper came out: set in ink, on a wash, with a stroke of the accent under it.
+.cal__day--edition {
+  position: relative;
+  font-weight: 700;
+  color: var(--ink);
+  opacity: 1;
+  text-decoration: none;
+  background: var(--sky-wash);
+  border: 1px solid transparent;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 18%;
+    left: 50%;
+    width: 0.9rem;
+    height: 2px;
+    background: var(--sun);
+    transform: translateX(-50%);
+  }
+
+  &:hover {
+    color: var(--paper);
+    background: var(--ink);
   }
 }

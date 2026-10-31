@@ -1,11 +1,12 @@
 ---
 // The Archive: every edition there has been. It is set as a ledger, like the
-// Bulletin: release editions, a year at a time; daily editions, a month at a
-// time; and the sections the stories fall under. Only the newest month of daily
-// editions is open when the page is.
+// Bulletin: release editions, a year at a time; daily editions on a calendar, a
+// month at a time; and the sections the stories fall under. The calendar opens
+// on the newest month; a month is on it once it has its first edition.
 import Masthead from '../../components/Masthead.astro';
 import { SECTIONS } from '../../config';
 import Layout from '../../layouts/Layout.astro';
+import { WEEKDAYS, calendarMonths } from '../../lib/calendar';
 import { printed } from '../../lib/release-edition';
 import { BAR, getReleaseEditions } from '../../lib/release-store';
 import { countLabel, getEditions } from '../../lib/stories';
@@ -31,13 +32,11 @@ const numbered = editions.map((edition, index) => ({
   ...edition,
   no: String(editions.length - index).padStart(digits, '0'),
 }));
-// A month to a group, newest first, as the editions already are.
-const months = [...new Set(numbered.map((edition) => edition.day.slice(0, 7)))].map((month) => ({
-  name: new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${month}-01T12:00:00Z`)),
-  editions: numbered.filter((edition) => edition.day.startsWith(month)),
-}));
-// The month and year stand over the group, so a row gives the day alone.
-const dayOf = (day: string) => new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric', month: 'long', timeZone: 'UTC' }).format(new Date(`${day}T12:00:00Z`));
+// A month to a sheet of the calendar, newest first, made from the editions themselves.
+const months = calendarMonths(numbered);
+const dayOf = (day: string) => new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${day}T12:00:00Z`));
+const holds = (edition: (typeof numbered)[number]) =>
+  edition.stories.length > 0 ? countLabel(edition.stories.length, 'story', 'stories') : countLabel(edition.briefs.length, 'brief', 'briefs');
 ---
 
 <Layout title="Archive">
@@ -81,28 +80,58 @@ const dayOf = (day: string) => new Intl.DateTimeFormat('en-GB', { weekday: 'long
             </section>
           )}
           {months.length > 0 && (
-            <section class="ledger__row" aria-labelledby="editions-title">
+            <section class="ledger__row" id="daily-editions" aria-labelledby="editions-title">
               <h3 id="editions-title">Daily editions</h3>
-              <div>
+              <div class="cal" data-calendar>
+                <p class="visually-hidden" aria-live="polite" data-calendar-said></p>
                 {months.map((month, index) => (
-                  <details class="past__month" open={index === 0}>
-                    <summary>
-                      <h4>{month.name}</h4>
-                      <span class="past__count">{countLabel(month.editions.length, 'edition', 'editions')}</span>
-                    </summary>
-                    <ol class="past__list" reversed start={Number(month.editions[0].no)}>
-                      {month.editions.map((edition) => (
-                        <li class="past__row">
-                          <!-- The list itself gives the position to a screen reader. -->
-                          <span class="past__no" aria-hidden="true">{edition.no}</span>
-                          <a href={`/${edition.day}/`}>{dayOf(edition.day)}</a>
-                          <span class="past__count">
-                            {edition.stories.length > 0 ? countLabel(edition.stories.length, 'story', 'stories') : countLabel(edition.briefs.length, 'brief', 'briefs')}
-                          </span>
-                        </li>
-                      ))}
-                    </ol>
-                  </details>
+                  <section class="cal__month" id={`month-${month.key}`} data-month={month.key} data-said={`${month.name}, ${countLabel(month.editions.length, 'edition', 'editions')}`} aria-labelledby={`month-${month.key}-title`}>
+                    <header class="cal__head">
+                      <button type="button" class="cal__step" data-step="1" aria-label="Older month" disabled={index === months.length - 1} hidden>
+                        <span aria-hidden="true">‹</span>
+                      </button>
+                      <h4 id={`month-${month.key}-title`}>
+                        {month.name}
+                        <span class="cal__count">{countLabel(month.editions.length, 'edition', 'editions')}</span>
+                      </h4>
+                      <button type="button" class="cal__step" data-step="-1" aria-label="Newer month" disabled={index === 0} hidden>
+                        <span aria-hidden="true">›</span>
+                      </button>
+                    </header>
+                    <table class="cal__grid">
+                      <thead>
+                        <tr>
+                          {WEEKDAYS.map(([short, full]) => (
+                            <th scope="col">
+                              <abbr title={full}>{short}</abbr>
+                            </th>
+                          ))}
+                        </tr>
+                      </thead>
+                      <tbody>
+                        {month.weeks.map((week) => (
+                          <tr>
+                            {week.map((cell) => (
+                              <td>
+                                {cell?.edition ? (
+                                  <a
+                                    class="cal__day cal__day--edition"
+                                    href={`/${cell.day}/`}
+                                    aria-label={`${dayOf(cell.day)}: edition ${Number(cell.edition.no)}, ${holds(cell.edition)}`}
+                                    title={`No. ${cell.edition.no} · ${holds(cell.edition)}`}
+                                  >
+                                    {cell.date}
+                                  </a>
+                                ) : cell ? (
+                                  <span class="cal__day">{cell.date}</span>
+                                ) : null}
+                              </td>
+                            ))}
+                          </tr>
+                        ))}
+                      </tbody>
+                    </table>
+                  </section>
                 ))}
               </div>
             </section>
@@ -126,3 +155,32 @@ const dayOf = (day: string) => new Intl.DateTimeFormat('en-GB', { weekday: 'long
     }
   </main>
 </Layout>
+
+<script>
+  // Without this, every month is shown, one under the other. With it, one month
+  // at a time, the newest first, stepped through with the arrows beside its name.
+  const calendar = document.querySelector<HTMLElement>('[data-calendar]');
+  const months = [...(calendar?.querySelectorAll<HTMLElement>('[data-month]') ?? [])];
+  const said = calendar?.querySelector<HTMLElement>('[data-calendar-said]');
+  if (calendar && months.length > 1) {
+    const show = (index: number, focus?: string) => {
+      months.forEach((month, i) => (month.hidden = i !== index));
+      if (!focus) return;
+      if (said) said.textContent = months[index].dataset.said ?? '';
+      // Keep the reader on the arrow they pressed; at the end of the months, on the other one.
+      const step = months[index].querySelector<HTMLButtonElement>(`[data-step="${focus}"]`);
+      (step && !step.disabled ? step : months[index].querySelector<HTMLButtonElement>('[data-step]:not(:disabled)'))?.focus();
+    };
+    calendar.classList.add('cal--paged');
+    for (const step of calendar.querySelectorAll<HTMLButtonElement>('[data-step]')) {
+      step.hidden = false;
+      step.addEventListener('click', () => {
+        const from = months.indexOf(step.closest<HTMLElement>('[data-month]')!);
+        show(Math.min(months.length - 1, Math.max(0, from + Number(step.dataset.step))), step.dataset.step);
+      });
+    }
+    // A link to a month (#month-2026-10) opens the calendar on it.
+    const wanted = months.findIndex((month) => `#${month.id}` === location.hash);
+    show(Math.max(0, wanted));
+  }
+</script>
