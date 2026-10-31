@@ -14,6 +14,8 @@ export interface CalendarMonth<E> {
   key: string;
   /** "October 2026". */
   name: string;
+  /** "2026". */
+  year: string;
   /** Rows of seven, Monday first; `null` where a week runs into the month before or after. */
   weeks: (CalendarDay<E> | null)[][];
   /** The editions of the month, in the order they were given. */
@@ -22,39 +24,74 @@ export interface CalendarMonth<E> {
 
 /** The days of the week, Monday first, short and in full. */
 export const WEEKDAYS = [
-  ['Mon', 'Monday'],
-  ['Tue', 'Tuesday'],
-  ['Wed', 'Wednesday'],
-  ['Thu', 'Thursday'],
-  ['Fri', 'Friday'],
-  ['Sat', 'Saturday'],
-  ['Sun', 'Sunday'],
+  ["Mon", "Monday"],
+  ["Tue", "Tuesday"],
+  ["Wed", "Wednesday"],
+  ["Thu", "Thursday"],
+  ["Fri", "Friday"],
+  ["Sat", "Saturday"],
+  ["Sun", "Sunday"],
 ] as const;
 
-const monthName = new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+const monthName = new Intl.DateTimeFormat("en-GB", {
+  month: "long",
+  year: "numeric",
+  timeZone: "UTC",
+});
 
 /**
  * The months that have editions, newest first, each laid out as weeks. An
  * edition is anything with a `day` (`YYYY-MM-DD`); days without one are left
  * in the grid but carry no edition.
  */
-export function calendarMonths<E extends { day: string }>(editions: E[]): CalendarMonth<E>[] {
+export function calendarMonths<E extends { day: string }>(
+  editions: E[],
+): CalendarMonth<E>[] {
   const byDay = new Map(editions.map((edition) => [edition.day, edition]));
-  const keys = [...new Set(editions.map((edition) => edition.day.slice(0, 7)))].sort().reverse();
+  const keys = [...new Set(editions.map((edition) => edition.day.slice(0, 7)))]
+    .sort()
+    .reverse();
   return keys.map((key) => {
-    const [year, month] = key.split('-').map(Number);
+    const [year, month] = key.split("-").map(Number);
     const first = new Date(Date.UTC(year, month - 1, 1));
     const length = new Date(Date.UTC(year, month, 0)).getUTCDate();
     // Monday is 0, so the blanks before the first are its place in the week.
     const lead = (first.getUTCDay() + 6) % 7;
-    const cells: (CalendarDay<E> | null)[] = Array.from({ length: lead }, () => null);
+    const cells: (CalendarDay<E> | null)[] = Array.from(
+      { length: lead },
+      () => null,
+    );
     for (let date = 1; date <= length; date++) {
-      const day = `${key}-${String(date).padStart(2, '0')}`;
+      const day = `${key}-${String(date).padStart(2, "0")}`;
       const edition = byDay.get(day);
       cells.push(edition ? { day, date, edition } : { day, date });
     }
     while (cells.length % 7 !== 0) cells.push(null);
-    const weeks = Array.from({ length: cells.length / 7 }, (_, i) => cells.slice(i * 7, i * 7 + 7));
-    return { key, name: monthName.format(first), weeks, editions: editions.filter((edition) => edition.day.startsWith(key)) };
+    const weeks = Array.from({ length: cells.length / 7 }, (_, i) =>
+      cells.slice(i * 7, i * 7 + 7),
+    );
+    return {
+      key,
+      name: monthName.format(first),
+      year: String(year),
+      weeks,
+      editions: editions.filter((edition) => edition.day.startsWith(key)),
+    };
   });
+}
+
+/**
+ * The months grouped by year, newest year first, for the calendar's month
+ * menu. The months keep the order they were given in.
+ */
+export function calendarYears<M extends { year: string }>(
+  months: M[],
+): { year: string; months: M[] }[] {
+  const years = [...new Set(months.map((month) => month.year))]
+    .sort()
+    .reverse();
+  return years.map((year) => ({
+    year,
+    months: months.filter((month) => month.year === year),
+  }));
 }
