@@ -27,12 +27,13 @@ const SEASON = /(Spring|Summer|Winter) '\d\d/;
  * product and instance, hundreds of times over, on a handful of weekends. The
  * first is the sandbox preview and the rest are production, in waves. Days next
  * to each other are one wave: the same night falls on two dates across the world.
- * Trust stops listing a window some while after it, so the days of a release
- * still listed are added to those already `known`: otherwise, once the preview
- * had gone, the first production wave would be taken for it, and the paper
- * would never learn that the release had reached all of production.
+ * Trust stops listing a window some while after it, so the past days of a
+ * release still listed are added from those already `known`: otherwise, once
+ * the preview had gone, the first production wave would be taken for it, and
+ * the paper would never learn that the release had reached all of production.
+ * Days still to come are Trust's alone, so a wave moved or called off goes.
  */
-export function releasesFromTrust(entries: TrustMaintenance[], known: Release[] = []): Release[] {
+export function releasesFromTrust(entries: TrustMaintenance[], known: Release[] = [], today = ''): Release[] {
   const days = new Map<string, Set<string>>();
   for (const entry of entries) {
     const name = entry.name?.match(SEASON)?.[0];
@@ -46,7 +47,10 @@ export function releasesFromTrust(entries: TrustMaintenance[], known: Release[] 
     const found = days.get(release.name);
     if (!found) continue;
     for (const stage of release.stages) {
-      for (let at = Date.parse(stage.from); at <= Date.parse(stage.to); at += DAY) found.add(new Date(at).toISOString().slice(0, 10));
+      for (let at = Date.parse(stage.from); at <= Date.parse(stage.to); at += DAY) {
+        const day = new Date(at).toISOString().slice(0, 10);
+        if (day < today) found.add(day);
+      }
     }
   }
   return [...days.entries()]
@@ -72,7 +76,7 @@ export const CALENDARS: Record<Calendar, (request: typeof fetch, now: Date, know
       signal: AbortSignal.timeout(40_000),
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return releasesFromTrust((await res.json()) as TrustMaintenance[], known);
+    return releasesFromTrust((await res.json()) as TrustMaintenance[], known, now.toISOString().slice(0, 10));
   },
 };
 

@@ -63,7 +63,10 @@ test('a calendar that cannot be read leaves the dates already known', async () =
 test('days Trust no longer lists are kept, so the preview is not taken for a wave', () => {
   const known = releasesFromTrust(listed);
   const later = listed.filter((entry) => entry.name?.includes("Spring '27") || (entry.plannedStartTime ?? '') >= '2026-10-10');
-  assert.deepEqual(releasesFromTrust(later, known), known);
+  assert.deepEqual(releasesFromTrust(later, known, '2026-10-31'), known);
+  // Days still to come are Trust's: a wave it no longer lists has been moved or called off.
+  const moved = releasesFromTrust(listed.filter((entry) => !entry.plannedStartTime?.startsWith('2027-02-06')), known, '2026-10-31');
+  assert.deepEqual(moved[1].stages.map((stage) => stage.from), ['2027-01-09', '2027-02-19']);
   // A release Trust no longer lists at all is let go.
-  assert.deepEqual(releasesFromTrust(later.filter((entry) => entry.name?.includes("Spring '27")), known).map((release) => release.name), ["Spring '27"]);
+  assert.deepEqual(releasesFromTrust(later.filter((entry) => entry.name?.includes("Spring '27")), known, '2026-10-31').map((release) => release.name), ["Spring '27"]);
 });
