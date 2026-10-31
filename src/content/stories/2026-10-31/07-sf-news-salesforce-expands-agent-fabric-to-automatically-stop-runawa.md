@@ -4,7 +4,7 @@ original_title: Salesforce Expands Agent Fabric to Automatically Stop Runaway Co
 url: https://www.salesforce.com/news/stories/agent-fabric-catch-failures-control-ai-costs/
 source: Salesforce News
 source_type: official
-date: 2026-10-28
+date: 2026-10-31
 section: agentforce-and-ai
 personas:
   - architect
@@ -32,6 +32,7 @@ figure:
     - Quarantine requested for approval
     - Instructions refined and rerun
 image: https://www.salesforce.com/news/wp-content/uploads/sites/3/2026/10/Screenshot-2026-10-15-at-4.11.38-PM.png?w=1024
+held_from: 2026-10-28
 ---
 
 Salesforce has announced Agent Evals, API Evals and advanced cost controls for Agent Fabric, its control plane for managing and governing agents across platforms. Agent Evals generates tests before deployment and then evaluates agents, LLMs and MCP servers in production against quality thresholds. When results fall short, it triggers predefined interventions, including the Agent Kill Switch, with approval where policy requires it. API Evals generates functional and performance tests from API specifications to catch breaking changes before they reach production.

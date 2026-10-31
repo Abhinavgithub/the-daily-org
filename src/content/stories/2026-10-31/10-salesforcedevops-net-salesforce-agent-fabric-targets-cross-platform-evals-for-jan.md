@@ -4,7 +4,7 @@ original_title: Salesforce Agent Fabric Targets Cross-Platform Evals for January
 url: https://salesforcedevops.net/index.php/2026/10/27/salesforce-agent-fabric-evals-2027/
 source: SalesforceDevOps.net
 source_type: community
-date: 2026-10-28
+date: 2026-10-31
 section: agentforce-and-ai
 personas:
   - architect
@@ -38,6 +38,7 @@ figure:
     - search
     - shield
 image: https://salesforcedevops.net/wp-content/uploads/2026/10/image-5-1024x590.png
+held_from: 2026-10-28
 ---
 
 Salesforce is extending Agent Fabric, its agent control plane, with Agent Evals, API Evals and cost controls. The cost and kill-switch layer is generally available now. The evals, which are meant to cover agents, LLMs and MCP servers on any platform, target beta in November 2026 and general availability in January 2027. Agent Evals generates tests from requirements, runs them before deployment, and grades production agents against quality thresholds, with a predefined response up to quarantining an agent. API Evals generates functional and performance tests from API specifications to catch breaking changes early.

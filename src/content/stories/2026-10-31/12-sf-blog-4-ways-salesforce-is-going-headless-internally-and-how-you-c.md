@@ -4,7 +4,7 @@ original_title: 4 Ways Salesforce is Going Headless Internally (and How You Can 
 url: https://www.salesforce.com/blog/salesforce-headless-use-cases/
 source: Salesforce Blog
 source_type: official
-date: 2026-10-28
+date: 2026-10-31
 section: architecture
 personas:
   - architect
@@ -37,6 +37,7 @@ figure:
     - robot
     - shield
 image: https://www.salesforce.com/blog/wp-content/themes/salesforce-blog/dist/images/offer-block/offer-illustration-layout-one.png
+held_from: 2026-10-28
 ---
 
 Salesforce presents its Headless Toolkit and AIforce as a way to bring platform capabilities, security and business context to any surface where work happens, rather than confining them to a single standard UI. The post follows its "Customer Zero" principle and describes four internal uses: an IT support agent that runs in Slack and a self-service portal on the same Flows and governance, a security and access agent that calls tools exposed by the Salesforce MCP server, a Headless Experience Layer playground for building widgets with mock data, and a React app that monitors a 15,000-engineer internal org.

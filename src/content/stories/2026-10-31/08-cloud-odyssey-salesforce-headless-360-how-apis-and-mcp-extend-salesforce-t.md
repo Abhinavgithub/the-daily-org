@@ -4,7 +4,7 @@ original_title: "Salesforce Headless 360: How APIs and MCP Extend Salesforce to 
 url: https://cloudodyssey.com/blog/salesforce-headless-360-how-apis-and-mcp-extend-salesforce-to-ai-applications-and-reshape-enterprise-architecture/
 source: Cloud Odyssey
 source_type: community
-date: 2026-10-28
+date: 2026-10-31
 section: architecture
 personas:
   - architect
@@ -35,6 +35,7 @@ figure:
     - Define agent identity and limits
     - Test, trace and measure
 image: https://cloudodyssey.com/wp-content/uploads/2026/10/Salesforce-AIforce-Explained_-What-It-Is-How-It-Works-and-Where-It-Fits-in-Your-Business.png
+held_from: 2026-10-28
 ---
 
 Salesforce Headless 360, announced at TDX 2026, exposes Salesforce capabilities as APIs, Model Context Protocol tools and CLI commands, so AI agents, apps and developer tools can use the platform without a browser. The Lightning interface remains available, and the data, workflows and business logic built up over the years stay in place. The article describes three access paths: APIs for apps and middleware, MCP tools for AI agents, and CLI commands for developers and coding agents. It also separates MCP tools for coding agents from those for business agents, and notes that Hosted MCP Servers run as the authenticated user through an External Client App with the mcp_api scope.

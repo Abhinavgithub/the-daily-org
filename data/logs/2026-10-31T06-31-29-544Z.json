@@ -1,0 +1,426 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-10-31T06:31:29.544Z",
+  "day": "2026-10-31",
+  "seconds": 84,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 3
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 2
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 1
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 3
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 3
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 2
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 4
+    },
+    {
+      "id": "sf-blog",
+      "name": "Salesforce Blog",
+      "items": 10
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 9
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 2
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 0
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 1
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 0
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "jitendra-zaa",
+      "name": "Jitendra Zaa",
+      "items": 0
+    },
+    {
+      "id": "simplysfdc",
+      "name": "SimplySfdc",
+      "items": 3
+    },
+    {
+      "id": "salesforcedevops-net",
+      "name": "SalesforceDevOps.net",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 12
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 22
+    }
+  ],
+  "articles": [
+    {
+      "title": "Salesforce application",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xjzm4a/salesforce_application/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Salesforce Signs Definitive Agreement to Acquire Rune Technologies 🤭",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xjzjp1/salesforce_signs_definitive_agreement_to_acquire/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Customised application (Vibe coded)",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xj8ofu/customised_application_vibe_coded/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Salesforce acquires military AI company Rune for $375 million",
+      "url": "https://dev.to/hacksgr/salesforce-acquires-military-ai-company-rune-for-375-million-1g54",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Need some guidance on voice notes",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xjqce5/need_some_guidance_on_voice_notes/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "The Humane Agentic Enterprise: How To Thrive with AI at Work",
+      "url": "https://www.salesforce.com/blog/the-humane-agentic-enterprise/",
+      "source": "Salesforce Blog",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Forward Deployed Engineer at Salesforce",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xjmqil/forward_deployed_engineer_at_salesforce/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Data 360 connects to Snowflake through Zero Copy without moving data",
+      "url": "https://www.salesforce.com/blog/data360-snowflake/",
+      "source": "Salesforce Blog",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Data 360 × Snowflake: Powering the Agentic Enterprise with Zero Copy"
+    },
+    {
+      "title": "Salesforce docs offer a Markdown view and llms.txt index, which one agent exploits",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xji8hg/salesforce_docs_have_a_view_as_markdown_button/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 5,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "Is Salesforce destroying the ecosystem on purpose?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xjf3d1/is_salesforce_destroying_the_ecosystem_on_purpose/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "5 Salesforce Career Lessons from the 2026 10K Report",
+      "url": "https://www.salesforceben.com/5-salesforce-career-lessons-from-the-2026-10k-report/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Datablazer Roundup: October",
+      "url": "https://www.salesforce.com/blog/datablazer-monthly-roundup/",
+      "source": "Salesforce Blog",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "7 Agentic Service Strategies For Startups",
+      "url": "https://www.salesforce.com/blog/small-business/agentic-service-tips-for-startups/",
+      "source": "Salesforce Blog",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "ZoomInfo pricing for anyone evaluating alongside Salesforce",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xjeh23/zoominfo_pricing_for_anyone_evaluating_alongside/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce Acquires Rune Technologies in Biggest National Security Buy to Date",
+      "url": "https://www.salesforceben.com/salesforce-acquires-rune-technologies-in-biggest-national-security-buy-to-date/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Salesforce List Views: 6 Filters and Tricks That Save Admins Hours Every Week",
+      "url": "https://dev.to/rohanmehta/salesforce-list-views-6-filters-and-tricks-that-save-admins-hours-every-week-2ihp",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 4,
+      "reason": "scored 4, the threshold is 6"
+    },
+    {
+      "title": "Salesforce's Braze acquisition raises questions for Marketing Cloud teams",
+      "url": "https://www.salesforceben.com/what-happens-to-salesforce-marketing-cloud-after-the-braze-acquisition/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: What Happens to Salesforce Marketing Cloud After the Braze Acquisition?"
+    },
+    {
+      "title": "Prototyping Screen Flows and record pages before building in a sandbox",
+      "url": "https://salesforcetime.com/2026/10/30/how-to-prototype-salesforce-screen-flows-and-lightning-record-pages-before-opening-a-sandbox/",
+      "source": "Salesforce Time",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "CF7 to Salesforce Custom Object Not Created: A Complete Troubleshooting Guide",
+      "url": "https://dev.to/rahul_sharma_15bd129bc69e/cf7-to-salesforce-custom-object-not-created-a-complete-troubleshooting-guide-4hl2",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 4,
+      "reason": "scored 4, the threshold is 6"
+    },
+    {
+      "title": "Poor agent context inflates token use and Flex Credit spend",
+      "url": "https://www.salesforceben.com/accidental-tokenmaxxing-is-draining-your-salesforce-ai-budget/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Accidental Tokenmaxxing Is Draining Your Salesforce AI Budget"
+    },
+    {
+      "title": "A raw List in an @InvocableMethod stops Apex completion across the whole file",
+      "url": "https://dev.to/wiktormalyska/how-a-raw-list-in-an-invocablemethod-breaks-apex-completion-measured-on-274-signatures-1df7",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: How a raw List in an @InvocableMethod breaks Apex completion, measured on 274 signatures"
+    },
+    {
+      "title": "Agentforce customers using third-party LLMs hit errors, now resolved",
+      "url": "https://status.salesforce.com/generalmessages/20000269",
+      "source": "Salesforce Trust",
+      "outcome": "published",
+      "score": 5,
+      "reason": "printed in the Bulletin as an alert (service notice), whatever its score"
+    },
+    {
+      "title": "Sharding Apex tests across CI jobs with renmy runtime",
+      "url": "https://dev.to/oblitus/apex-test-sharding-split-one-suite-across-ci-jobs-18la",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "held since 2026-10-28; printed today, having waited its days for room"
+    },
+    {
+      "title": "Agent Fabric adds automated evals, kill switch and spending limits for agents",
+      "url": "https://www.salesforce.com/news/stories/agent-fabric-catch-failures-control-ai-costs/",
+      "source": "Salesforce News",
+      "outcome": "published",
+      "score": 7,
+      "reason": "held since 2026-10-28; printed today, having waited its days for room"
+    },
+    {
+      "title": "Salesforce Headless 360 exposes the platform to agents through APIs and MCP",
+      "url": "https://cloudodyssey.com/blog/salesforce-headless-360-how-apis-and-mcp-extend-salesforce-to-ai-applications-and-reshape-enterprise-architecture/",
+      "source": "Cloud Odyssey",
+      "outcome": "published",
+      "score": 7,
+      "reason": "held since 2026-10-28; printed today, having waited its days for room"
+    },
+    {
+      "title": "Trigger Lib: a role-based Apex trigger framework built around governor limits",
+      "url": "https://blog.beyondthecloud.dev/blog/trigger-lib",
+      "source": "Beyond the Cloud",
+      "outcome": "published",
+      "score": 7,
+      "reason": "held since 2026-10-28; printed today, having waited its days for room"
+    },
+    {
+      "title": "Salesforce Agent Fabric adds cross-platform evals, due January 2027",
+      "url": "https://salesforcedevops.net/index.php/2026/10/27/salesforce-agent-fabric-evals-2027/",
+      "source": "SalesforceDevOps.net",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-10-28; printed today, having waited its days for room"
+    },
+    {
+      "title": "Choosing between roll-up summaries and Formula Fields in Salesforce",
+      "url": "https://dev.to/rohanmehta/salesforce-roll-up-summaries-vs-formula-fields-when-to-use-each-f3i",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-10-28; printed today, having waited its days for room"
+    },
+    {
+      "title": "How Salesforce uses headless patterns internally, and how to apply them",
+      "url": "https://www.salesforce.com/blog/salesforce-headless-use-cases/",
+      "source": "Salesforce Blog",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-10-28; printed today, having waited its days for room"
+    },
+    {
+      "title": "Eight practices for building a performant Tableau Semantics model",
+      "url": "https://www.salesforce.com/blog/tableau-semantics-best-practices-performant-semantic-model/",
+      "source": "Salesforce Blog",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-10-28; printed today, having waited its days for room"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Agentforce customers using third-party LLMs hit errors, now resolved",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Data 360 connects to Snowflake through Zero Copy without moving data",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Salesforce's Braze acquisition raises questions for Marketing Cloud teams",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Prototyping Screen Flows and record pages before building in a sandbox",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Poor agent context inflates token use and Flex Credit spend",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "A raw List in an @InvocableMethod stops Apex completion across the whole file",
+      "outcome": "unchanged"
+    }
+  ],
+  "figures": [
+    {
+      "title": "Trigger Lib: a role-based Apex trigger framework built around governor limits",
+      "outcome": "drawn",
+      "kind": "parts"
+    },
+    {
+      "title": "Eight practices for building a performant Tableau Semantics model",
+      "outcome": "drawn",
+      "kind": "steps"
+    }
+  ],
+  "model": {
+    "calls": 21,
+    "retries": {
+      "invalid diagram": 1
+    },
+    "usage": {
+      "anthropic/claude-haiku-5.5": {
+        "input": 91649,
+        "output": 13257
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-10-31T06:32:53.627Z"
+}

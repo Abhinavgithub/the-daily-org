@@ -4,7 +4,7 @@ original_title: Best Practices for Creating a Performant Semantic Model in Table
 url: https://www.salesforce.com/blog/tableau-semantics-best-practices-performant-semantic-model/
 source: Salesforce Blog
 source_type: official
-date: 2026-10-28
+date: 2026-10-31
 section: data-cloud
 personas:
   - architect
@@ -25,6 +25,22 @@ novelty_score: 5
 utility_score: 7
 model: anthropic/claude-haiku-5.5
 image: https://www.salesforce.com/blog/wp-content/uploads/sites/2/2026/10/1_Tableau-Agent_Semantic-Modeling_Creation_GIF.gif?strip=all&#038;quality=95
+held_from: 2026-10-28
+figure:
+  kind: steps
+  caption: Five groups of practices for building a performant semantic model, in the order the article presents them
+  steps:
+    - Business-driven design and conceptual modeling
+    - Choose a build path
+    - Implement and test iteratively
+    - Design for query performance
+    - Centralize security and standardize
+  icons:
+    - flow
+    - layers
+    - gear
+    - check
+    - bolt
 ---
 
 The article argues that a semantic model should reflect business concepts rather than database schemas, and that conceptual modeling and stakeholder review should come before joins are configured. It describes three build paths: generating a model from natural language with Tableau Agent, generating one from existing CRM Analytics or Tableau Cloud data, and extending a verified model through composable modeling. It recommends starting from the Salesforce Customer 360 Semantic Model where applicable.

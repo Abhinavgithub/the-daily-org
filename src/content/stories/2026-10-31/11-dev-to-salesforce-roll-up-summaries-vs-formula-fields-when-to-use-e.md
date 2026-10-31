@@ -4,7 +4,7 @@ original_title: "Salesforce Roll-Up Summaries vs Formula Fields: When to Use Eac
 url: https://dev.to/rohanmehta/salesforce-roll-up-summaries-vs-formula-fields-when-to-use-each-f3i
 source: dev.to
 source_type: community
-date: 2026-10-28
+date: 2026-10-31
 section: flow-and-admin
 personas:
   - admin
@@ -43,6 +43,7 @@ figure:
   icons:
     - layers
     - flow
+held_from: 2026-10-28
 ---
 
 The article distinguishes roll-up summary fields from Formula Fields. A roll-up summary sits on a parent record and aggregates its child records through count, sum, min or max. It works only on master-detail relationships and recalculates when a child changes. A Formula Field calculates from a single record's own fields and related parent fields, recalculating each time the record is viewed, and works on both lookup and master-detail relationships.

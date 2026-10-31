@@ -4,7 +4,7 @@ original_title: "Apex test sharding: split one suite across CI jobs"
 url: https://dev.to/oblitus/apex-test-sharding-split-one-suite-across-ci-jobs-18la
 source: dev.to
 source_type: community
-date: 2026-10-28
+date: 2026-10-31
 section: devops
 personas:
   - developer
@@ -30,6 +30,7 @@ figure:
     - Balance classes by recorded duration
     - Run each slice on its own CI job
     - Merge the shard JUnit XML results
+held_from: 2026-10-28
 ---
 
 Test sharding splits one test suite into slices that run at the same time in separate CI jobs, so a suite that takes twelve minutes on one runner can finish in about three, plus setup, on four. The article presents renmy runtime, a local Apex runtime that executes tests on the CI runner against an embedded PostgreSQL with no org. That removes the constraint that made Apex tests impossible to shard, because adding runners previously meant adding orgs and deploys. The command renmy test --shard 2/4 runs the second of four slices.

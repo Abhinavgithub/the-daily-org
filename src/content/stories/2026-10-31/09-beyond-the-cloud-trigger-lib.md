@@ -4,7 +4,7 @@ original_title: Trigger Lib
 url: https://blog.beyondthecloud.dev/blog/trigger-lib
 source: Beyond the Cloud
 source_type: community
-date: 2026-10-28
+date: 2026-10-31
 section: architecture
 personas:
   - developer
@@ -24,6 +24,21 @@ novelty_score: 6
 utility_score: 8
 model: anthropic/claude-haiku-5.5
 image: https://wordpress.beyondthecloud.dev/wp-content/uploads/2026/10/Copy-of-Copy-of-Apex-Character-Limit.png
+held_from: 2026-10-28
+figure:
+  kind: parts
+  caption: Trigger Lib has four handler roles, each with one job in a trigger context
+  whole: Trigger Lib handler roles
+  parts:
+    - Populator
+    - Validator
+    - Writer
+    - Dispatcher
+  icons:
+    - code
+    - shield
+    - database
+    - rocket
 ---
 
 The author argues that Flows are a poor fit for automation in the AI era, leaving Apex Triggers as the better choice, but that triggers become messy and hit limits such as too many SOQL queries or DML statements when several teams and AI agents add logic to the same transaction. Existing trigger frameworks did not, in his view, give tools to protect transaction limits, so he built Trigger Lib as part of the open-source Apex Fluently collection.
