@@ -34,6 +34,7 @@ const numbered = editions.map((edition, index) => ({
 }));
 // A month to a sheet of the calendar, newest first, made from the editions themselves.
 const months = calendarMonths(numbered);
+const latest = numbered[0]?.day;
 const dayOf = (day: string) => new Intl.DateTimeFormat('en-GB', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${day}T12:00:00Z`));
 const holds = (edition: (typeof numbered)[number]) =>
   edition.stories.length > 0 ? countLabel(edition.stories.length, 'story', 'stories') : countLabel(edition.briefs.length, 'brief', 'briefs');
@@ -88,14 +89,14 @@ const holds = (edition: (typeof numbered)[number]) =>
                   <section class="cal__month" id={`month-${month.key}`} data-month={month.key} data-said={`${month.name}, ${countLabel(month.editions.length, 'edition', 'editions')}`} aria-labelledby={`month-${month.key}-title`}>
                     <header class="cal__head">
                       <button type="button" class="cal__step" data-step="1" aria-label="Older month" disabled={index === months.length - 1} hidden>
-                        <span aria-hidden="true">‹</span>
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
                       </button>
                       <h4 id={`month-${month.key}-title`}>
                         {month.name}
                         <span class="cal__count">{countLabel(month.editions.length, 'edition', 'editions')}</span>
                       </h4>
                       <button type="button" class="cal__step" data-step="-1" aria-label="Newer month" disabled={index === 0} hidden>
-                        <span aria-hidden="true">›</span>
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
                       </button>
                     </header>
                     <table class="cal__grid">
@@ -115,15 +116,20 @@ const holds = (edition: (typeof numbered)[number]) =>
                               <td>
                                 {cell?.edition ? (
                                   <a
-                                    class="cal__day cal__day--edition"
+                                    class:list={['cal__day', 'cal__day--edition', { 'cal__day--latest': cell.edition.day === latest }]}
                                     href={`/${cell.day}/`}
-                                    aria-label={`${dayOf(cell.day)}: edition ${Number(cell.edition.no)}, ${holds(cell.edition)}`}
+                                    aria-label={`${dayOf(cell.day)}: edition ${Number(cell.edition.no)}, ${holds(cell.edition)}${cell.edition.day === latest ? ', the latest' : ''}`}
                                     title={`No. ${cell.edition.no} · ${holds(cell.edition)}`}
                                   >
-                                    {cell.date}
+                                    <span class="cal__date">{cell.date}</span>
+                                    <span class="cal__stories" aria-hidden="true">
+                                      {cell.edition.stories.length > 0 ? cell.edition.stories.length : '–'}
+                                    </span>
                                   </a>
                                 ) : cell ? (
-                                  <span class="cal__day">{cell.date}</span>
+                                  <span class="cal__day">
+                                    <span class="cal__date">{cell.date}</span>
+                                  </span>
                                 ) : null}
                               </td>
                             ))}
@@ -133,6 +139,13 @@ const holds = (edition: (typeof numbered)[number]) =>
                     </table>
                   </section>
                 ))}
+                <p class="cal__key">
+                  <span class="cal__key-swatch" aria-hidden="true">
+                    <span class="cal__date">31</span>
+                    <span class="cal__stories">12</span>
+                  </span>
+                  Shaded days have an edition, with its number of stories under the date. The outlined day is the latest.
+                </p>
               </div>
             </section>
           )}

@@ -232,47 +232,51 @@
 }
 
 // The calendar of daily editions --------------------------------------
-// A month to a sheet, Monday first. A day with an edition is a link; the rest
-// are only there to keep the shape of the month. Without scripts every month is
-// shown, one under the other; with them, one at a time.
+// A month to a sheet, Monday first, set like a page of a printed almanac. A day
+// with an edition is a link carrying the date and, under it, its count of
+// stories; the rest are only there to keep the shape of the month. Without
+// scripts every month is shown, one under the other; with them, one at a time.
 .cal {
-  max-width: 26rem;
+  max-width: 30rem;
 }
 
 .cal__month + .cal__month {
-  margin-top: 1.75rem;
+  margin-top: 2rem;
 }
 
+// The month's name and how many editions it holds, between the arrows.
 .cal__head {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-bottom: 0.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--ink);
 
   h4 {
     flex: 1;
     display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 0 0.75rem;
+    flex-direction: column;
+    gap: 0.1rem;
     margin: 0;
     font-family: var(--headline);
-    font-size: 1.125rem;
-    line-height: 1.25;
+    font-size: 1.375rem;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.005em;
   }
 }
 
-// With the arrows on either side, the month's name sits between them.
 .cal--paged .cal__head h4 {
-  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
 .cal__count {
   font-family: var(--display);
-  font-size: var(--fs-label);
-  font-weight: 400;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
 }
@@ -280,22 +284,24 @@
 .cal__step {
   display: inline-grid;
   place-items: center;
-  width: var(--tool);
-  height: var(--tool);
-  padding: 0 0 0.15rem;
-  font: 400 1.6rem/1 var(--headline);
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
   color: var(--ink);
   background: none;
   border: 1px solid var(--rule);
   border-radius: 0;
   cursor: pointer;
+  touch-action: manipulation;
 
   &:hover:not(:disabled) {
     border-color: var(--ink);
+    background: var(--sky-wash);
   }
 
   &:disabled {
-    color: var(--rule);
+    opacity: 0.4;
     cursor: default;
   }
 
@@ -305,18 +311,19 @@
 }
 
 .cal__grid {
-  width: 100%;
-  border-collapse: collapse;
+  margin-top: 0.25rem;
+  border-collapse: separate;
+  border-spacing: 0.25rem;
   table-layout: fixed;
+  width: 100%;
 
   th {
-    padding: 0.35rem 0;
-    font-size: 0.72rem;
+    padding: 0.4rem 0 0.15rem;
+    font-size: 0.68rem;
     font-weight: 700;
-    letter-spacing: 0.06em;
+    letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--muted);
-    border-bottom: 1px solid var(--rule);
 
     abbr {
       text-decoration: none;
@@ -324,44 +331,110 @@
   }
 
   td {
-    padding: 2px;
+    padding: 0;
     text-align: center;
   }
 }
 
+// A day: its date, and on an edition's day, the stories under it.
 .cal__day {
-  display: grid;
-  place-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
   aspect-ratio: 1;
-  min-height: 2.25rem;
-  font-variant-numeric: tabular-nums;
-  color: var(--muted);
-  opacity: 0.55;
+  min-height: 2.75rem;
+  border: 1px solid transparent;
 }
 
-// A day the paper came out: set in ink, on a wash, with a stroke of the accent under it.
+.cal__date {
+  font-family: var(--headline);
+  font-size: 1.0625rem;
+  line-height: 1;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.cal__stories {
+  font-family: var(--display);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+// No edition: the date in a quiet grey, not a link.
+.cal__day:not(.cal__day--edition) .cal__date {
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+// A day the paper came out: on a wash, the date set bold in ink.
 .cal__day--edition {
-  position: relative;
-  font-weight: 700;
   color: var(--ink);
-  opacity: 1;
   text-decoration: none;
   background: var(--sky-wash);
-  border: 1px solid transparent;
+  border-color: var(--rule);
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 18%;
-    left: 50%;
-    width: 0.9rem;
-    height: 2px;
-    background: var(--sun);
-    transform: translateX(-50%);
+  .cal__date {
+    font-weight: 700;
   }
 
   &:hover {
     color: var(--paper);
     background: var(--ink);
+    border-color: var(--ink);
+
+    .cal__stories {
+      color: inherit;
+    }
+  }
+
+  &:active {
+    transform: scale(0.96);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition:
+      background-color 120ms ease-out,
+      color 120ms ease-out,
+      transform 80ms ease-out;
+  }
+}
+
+// The newest edition, outlined in ink.
+.cal__day--latest {
+  border: 2px solid var(--ink);
+}
+
+// What the shading and the numbers mean, under the month.
+.cal__key {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin: 0.9rem 0 0;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--rule);
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+.cal__key-swatch {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  flex: none;
+  width: 2.5rem;
+  height: 2.5rem;
+  color: var(--ink);
+  background: var(--sky-wash);
+  border: 1px solid var(--rule);
+
+  .cal__date {
+    font-weight: 700;
+    font-size: 0.95rem;
   }
 }
