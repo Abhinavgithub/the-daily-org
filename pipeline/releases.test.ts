@@ -59,3 +59,11 @@ test('a calendar that cannot be read leaves the dates already known', async () =
   assert.deepEqual(await updateReleases('salesforce-trust', { request: answer([]), file }), { error: 'the calendar listed no release' });
   assert.equal(fs.readFileSync(file, 'utf8'), saved);
 });
+
+test('days Trust no longer lists are kept, so the preview is not taken for a wave', () => {
+  const known = releasesFromTrust(listed);
+  const later = listed.filter((entry) => entry.name?.includes("Spring '27") || (entry.plannedStartTime ?? '') >= '2026-10-10');
+  assert.deepEqual(releasesFromTrust(later, known), known);
+  // A release Trust no longer lists at all is let go.
+  assert.deepEqual(releasesFromTrust(later.filter((entry) => entry.name?.includes("Spring '27")), known).map((release) => release.name), ["Spring '27"]);
+});

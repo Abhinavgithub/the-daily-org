@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
-import type { Release, Stage } from '../src/lib/releases';
+import { readReleases, type Release, type Stage } from '../src/lib/releases';
 import type { Calendar } from '../src/paper';
 import { USER_AGENT } from './http';
 
@@ -27,8 +27,12 @@ const SEASON = /(Spring|Summer|Winter) '\d\d/;
  * product and instance, hundreds of times over, on a handful of weekends. The
  * first is the sandbox preview and the rest are production, in waves. Days next
  * to each other are one wave: the same night falls on two dates across the world.
+ * Trust stops listing a window some while after it, so the days of a release
+ * still listed are added to those already `known`: otherwise, once the preview
+ * had gone, the first production wave would be taken for it, and the paper
+ * would never learn that the release had reached all of production.
  */
-export function releasesFromTrust(entries: TrustMaintenance[]): Release[] {
+export function releasesFromTrust(entries: TrustMaintenance[], known: Release[] = []): Release[] {
   const days = new Map<string, Set<string>>();
   for (const entry of entries) {
     const name = entry.name?.match(SEASON)?.[0];
@@ -37,6 +41,13 @@ export function releasesFromTrust(entries: TrustMaintenance[]): Release[] {
     if (entry.message?.maintenanceType !== 'release' || entry.status === 'Canceled') continue;
     if (!days.has(name)) days.set(name, new Set());
     days.get(name)!.add(day);
+  }
+  for (const release of known) {
+    const found = days.get(release.name);
+    if (!found) continue;
+    for (const stage of release.stages) {
+      for (let at = Date.parse(stage.from); at <= Date.parse(stage.to); at += DAY) found.add(new Date(at).toISOString().slice(0, 10));
+    }
   }
   return [...days.entries()]
     .map(([name, found]) => {
@@ -52,8 +63,8 @@ export function releasesFromTrust(entries: TrustMaintenance[]): Release[] {
 }
 
 /** The calendars a paper can name, each a way of reading releases from somewhere. */
-export const CALENDARS: Record<Calendar, (request: typeof fetch, now: Date) => Promise<Release[]>> = {
-  'salesforce-trust': async (request: typeof fetch, now: Date): Promise<Release[]> => {
+export const CALENDARS: Record<Calendar, (request: typeof fetch, now: Date, known: Release[]) => Promise<Release[]>> = {
+  'salesforce-trust': async (request: typeof fetch, now: Date, known: Release[]): Promise<Release[]> => {
     // From a while back, so a release part-way through still has its earlier dates.
     const since = new Date(now.getTime() - 60 * DAY).toISOString();
     const res = await request(`https://api.status.salesforce.com/v1/maintenances?limit=1000&startTime=${encodeURIComponent(since)}`, {
@@ -61,7 +72,7 @@ export const CALENDARS: Record<Calendar, (request: typeof fetch, now: Date) => P
       signal: AbortSignal.timeout(40_000),
     });
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    return releasesFromTrust((await res.json()) as TrustMaintenance[]);
+    return releasesFromTrust((await res.json()) as TrustMaintenance[], known);
   },
 };
 
@@ -72,9 +83,10 @@ export const CALENDARS: Record<Calendar, (request: typeof fetch, now: Date) => P
  */
 export async function updateReleases(calendar: Calendar, options: { request?: typeof fetch; now?: Date; file?: string } = {}): Promise<{ releases: Release[] } | { error: string }> {
   try {
-    const releases = await CALENDARS[calendar](options.request ?? fetch, options.now ?? new Date());
-    if (releases.length === 0) return { error: 'the calendar listed no release' };
     const file = options.file ?? RELEASES_PATH;
+    const known = fs.existsSync(file) ? readReleases(JSON.parse(fs.readFileSync(file, 'utf8'))) : [];
+    const releases = await CALENDARS[calendar](options.request ?? fetch, options.now ?? new Date(), known);
+    if (releases.length === 0) return { error: 'the calendar listed no release' };
     fs.mkdirSync(path.dirname(file), { recursive: true });
     fs.writeFileSync(file, JSON.stringify(releases, null, 2) + '\n');
     return { releases };
