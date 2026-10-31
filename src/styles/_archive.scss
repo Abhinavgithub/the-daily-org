@@ -407,34 +407,3 @@
 .cal__day--latest {
   border: 2px solid var(--ink);
 }
-
-// What the shading and the numbers mean, under the month.
-.cal__key {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  margin: 0.9rem 0 0;
-  padding-top: 0.75rem;
-  border-top: 1px solid var(--rule);
-  color: var(--muted);
-  line-height: 1.4;
-}
-
-.cal__key-swatch {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0.1rem;
-  flex: none;
-  width: 2.5rem;
-  height: 2.5rem;
-  color: var(--ink);
-  background: var(--sky-wash);
-  border: 1px solid var(--rule);
-
-  .cal__date {
-    font-weight: 700;
-    font-size: 0.95rem;
-  }
-}
