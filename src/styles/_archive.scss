@@ -1,6 +1,6 @@
 // The Archive ----------------------------------------------------------
-// A ledger of every edition: release editions, then daily ones a month at a
-// time, then the sections. One column, so everything on it shares its edges.
+// A ledger of every edition: release editions, then daily ones on a calendar,
+// then the sections. One column, so everything on it shares its edges.
 .past {
   margin-top: 0.5rem;
 }
@@ -55,20 +55,13 @@
   }
 }
 
-.past__no {
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--muted);
-  font-variant-numeric: tabular-nums;
-}
-
 .past__count {
   color: var(--muted);
   font-variant-numeric: tabular-nums;
   white-space: nowrap;
 }
 
-// A month of daily editions, or a year of release editions: a line that opens.
+// A year of release editions: a line that opens.
 .past__month {
   & + & {
     border-top: 1px solid var(--rule);
@@ -236,4 +229,181 @@
     grid-template-columns: auto auto auto;
     gap: 0.45rem;
   }
+}
+
+// The calendar of daily editions --------------------------------------
+// A month to a sheet, Monday first, set like a page of a printed almanac. A day
+// with an edition is a link carrying the date and, under it, its count of
+// stories; the rest are only there to keep the shape of the month. Without
+// scripts every month is shown, one under the other; with them, one at a time.
+.cal {
+  max-width: 30rem;
+}
+
+.cal__month + .cal__month {
+  margin-top: 2rem;
+}
+
+// The month's name and how many editions it holds, between the arrows.
+.cal__head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--ink);
+
+  h4 {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    margin: 0;
+    font-family: var(--headline);
+    font-size: 1.375rem;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+  }
+}
+
+.cal--paged .cal__head h4 {
+  align-items: center;
+  text-align: center;
+}
+
+.cal__count {
+  font-family: var(--display);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.cal__step {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  color: var(--ink);
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: 0;
+  cursor: pointer;
+  touch-action: manipulation;
+
+  &:hover:not(:disabled) {
+    border-color: var(--ink);
+    background: var(--sky-wash);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: default;
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+.cal__grid {
+  margin-top: 0.25rem;
+  border-collapse: separate;
+  border-spacing: 0.25rem;
+  table-layout: fixed;
+  width: 100%;
+
+  th {
+    padding: 0.4rem 0 0.15rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+
+    abbr {
+      text-decoration: none;
+    }
+  }
+
+  td {
+    padding: 0;
+    text-align: center;
+  }
+}
+
+// A day: its date, and on an edition's day, the stories under it.
+.cal__day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.1rem;
+  aspect-ratio: 1;
+  min-height: 2.75rem;
+  border: 1px solid transparent;
+}
+
+.cal__date {
+  font-family: var(--headline);
+  font-size: 1.0625rem;
+  line-height: 1;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+
+.cal__stories {
+  font-family: var(--display);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  line-height: 1;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+// No edition: the date in a quiet grey, not a link.
+.cal__day:not(.cal__day--edition) .cal__date {
+  color: var(--muted);
+  opacity: 0.6;
+}
+
+// A day the paper came out: on a wash, the date set bold in ink.
+.cal__day--edition {
+  color: var(--ink);
+  text-decoration: none;
+  background: var(--sky-wash);
+  border-color: var(--rule);
+
+  .cal__date {
+    font-weight: 700;
+  }
+
+  &:hover {
+    color: var(--paper);
+    background: var(--ink);
+    border-color: var(--ink);
+
+    .cal__stories {
+      color: inherit;
+    }
+  }
+
+  &:active {
+    transform: scale(0.96);
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    transition:
+      background-color 120ms ease-out,
+      color 120ms ease-out,
+      transform 80ms ease-out;
+  }
+}
+
+// The newest edition, outlined in ink.
+.cal__day--latest {
+  border: 2px solid var(--ink);
 }
