@@ -63,8 +63,8 @@ export function releasesFromTrust(entries: TrustMaintenance[], known: Release[] 
 }
 
 /** The calendars a paper can name, each a way of reading releases from somewhere. */
-export const CALENDARS: Record<Calendar, (request: typeof fetch, now: Date, known: Release[]) => Promise<Release[]>> = {
-  'salesforce-trust': async (request: typeof fetch, now: Date, known: Release[]): Promise<Release[]> => {
+export const CALENDARS: Record<Calendar, (request: typeof fetch, now: Date, known?: Release[]) => Promise<Release[]>> = {
+  'salesforce-trust': async (request: typeof fetch, now: Date, known: Release[] = []): Promise<Release[]> => {
     // From a while back, so a release part-way through still has its earlier dates.
     const since = new Date(now.getTime() - 60 * DAY).toISOString();
     const res = await request(`https://api.status.salesforce.com/v1/maintenances?limit=1000&startTime=${encodeURIComponent(since)}`, {
