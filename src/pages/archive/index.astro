@@ -6,7 +6,7 @@
 import Masthead from '../../components/Masthead.astro';
 import { SECTIONS } from '../../config';
 import Layout from '../../layouts/Layout.astro';
-import { WEEKDAYS, calendarMonths } from '../../lib/calendar';
+import { WEEKDAYS, calendarMonths, calendarYears } from '../../lib/calendar';
 import { printed } from '../../lib/release-edition';
 import { BAR, getReleaseEditions } from '../../lib/release-store';
 import { countLabel, getEditions } from '../../lib/stories';
@@ -85,19 +85,37 @@ const holds = (edition: (typeof numbered)[number]) =>
               <h3 id="editions-title">Daily editions</h3>
               <div class="cal" data-calendar>
                 <p class="visually-hidden" aria-live="polite" data-calendar-said></p>
-                {months.map((month, index) => (
+                {/* One bar for every month, shown only with scripts: an arrow each way and a menu of the months by year, so a month years back is one choice away. */}
+                <nav class="cal__nav" aria-label="Months" data-calendar-nav hidden>
+                  <button type="button" class="cal__step" data-step="1" aria-label="Older month">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
+                  </button>
+                  <label class="cal__jump">
+                    <span class="visually-hidden">Month</span>
+                    <span class="cal__menu">
+                    <select data-calendar-jump>
+                      {calendarYears(months).map((group) => (
+                        <optgroup label={group.year}>
+                          {group.months.map((month) => (
+                            <option value={month.key}>{month.name}</option>
+                          ))}
+                        </optgroup>
+                      ))}
+                    </select>
+                    <svg class="cal__caret" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
+                    </span>
+                  </label>
+                  <button type="button" class="cal__step" data-step="-1" aria-label="Newer month">
+                    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
+                  </button>
+                </nav>
+                {months.map((month) => (
                   <section class="cal__month" id={`month-${month.key}`} data-month={month.key} data-said={`${month.name}, ${countLabel(month.editions.length, 'edition', 'editions')}`} aria-labelledby={`month-${month.key}-title`}>
                     <header class="cal__head">
-                      <button type="button" class="cal__step" data-step="1" aria-label="Older month" disabled={index === months.length - 1} hidden>
-                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg>
-                      </button>
                       <h4 id={`month-${month.key}-title`}>
-                        {month.name}
+                        <span class="cal__name">{month.name}</span>
                         <span class="cal__count">{countLabel(month.editions.length, 'edition', 'editions')}</span>
                       </h4>
-                      <button type="button" class="cal__step" data-step="-1" aria-label="Newer month" disabled={index === 0} hidden>
-                        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg>
-                      </button>
                     </header>
                     <table class="cal__grid">
                       <thead>
@@ -164,29 +182,45 @@ const holds = (edition: (typeof numbered)[number]) =>
 
 <script>
   // Without this, every month is shown, one under the other. With it, one month
-  // at a time, the newest first, stepped through with the arrows beside its name.
+  // at a time, the newest first, chosen with the arrows or the month menu. The
+  // bar is the same with one month as with fifty: with one, the arrows are off
+  // and the menu reads as the month's name, so nothing moves when the next
+  // month arrives.
   const calendar = document.querySelector<HTMLElement>('[data-calendar]');
+  const nav = calendar?.querySelector<HTMLElement>('[data-calendar-nav]');
+  const jump = nav?.querySelector<HTMLSelectElement>('[data-calendar-jump]');
   const months = [...(calendar?.querySelectorAll<HTMLElement>('[data-month]') ?? [])];
   const said = calendar?.querySelector<HTMLElement>('[data-calendar-said]');
-  if (calendar && months.length > 1) {
-    const show = (index: number, focus?: string) => {
+  if (calendar && nav && jump && months.length > 0) {
+    const steps = [...nav.querySelectorAll<HTMLButtonElement>('[data-step]')];
+    let current = 0;
+    const show = (index: number, announce = false) => {
+      current = index;
       months.forEach((month, i) => (month.hidden = i !== index));
-      if (!focus) return;
-      if (said) said.textContent = months[index].dataset.said ?? '';
-      // Keep the reader on the arrow they pressed; at the end of the months, on the other one.
-      const step = months[index].querySelector<HTMLButtonElement>(`[data-step="${focus}"]`);
-      (step && !step.disabled ? step : months[index].querySelector<HTMLButtonElement>('[data-step]:not(:disabled)'))?.focus();
+      jump.value = months[index].dataset.month ?? '';
+      for (const step of steps) {
+        const to = index + Number(step.dataset.step);
+        step.disabled = to < 0 || to > months.length - 1;
+        step.title = step.disabled ? (step.dataset.step === '1' ? 'No older editions' : 'This is the newest month') : '';
+      }
+      if (announce && said) said.textContent = months[index].dataset.said ?? '';
+      // The month is in the address, so it can be shared and survives a reload.
+      if (announce) history.replaceState(null, '', index === 0 ? location.pathname + location.search : `#${months[index].id}`);
     };
     calendar.classList.add('cal--paged');
-    for (const step of calendar.querySelectorAll<HTMLButtonElement>('[data-step]')) {
-      step.hidden = false;
+    nav.hidden = false;
+    jump.disabled = months.length < 2;
+    for (const step of steps) {
       step.addEventListener('click', () => {
-        const from = months.indexOf(step.closest<HTMLElement>('[data-month]')!);
-        show(Math.min(months.length - 1, Math.max(0, from + Number(step.dataset.step))), step.dataset.step);
+        show(Math.min(months.length - 1, Math.max(0, current + Number(step.dataset.step))), true);
+        // At the end of the months the arrow pressed is off, so keep the reader on the other one.
+        if (step.disabled) steps.find((other) => !other.disabled)?.focus();
       });
     }
+    jump.addEventListener('change', () => show(Math.max(0, months.findIndex((month) => month.dataset.month === jump.value)), true));
     // A link to a month (#month-2026-10) opens the calendar on it.
-    const wanted = months.findIndex((month) => `#${month.id}` === location.hash);
-    show(Math.max(0, wanted));
+    const open = () => show(Math.max(0, months.findIndex((month) => `#${month.id}` === location.hash)));
+    window.addEventListener('hashchange', open);
+    open();
   }
 </script>

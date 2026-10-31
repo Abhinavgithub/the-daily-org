@@ -244,16 +244,100 @@
   margin-top: 2rem;
 }
 
-// The month's name and how many editions it holds, between the arrows.
-.cal__head {
+// Paged, the month shown sits right under the bar, whichever it is.
+.cal--paged .cal__month {
+  margin-top: 0;
+}
+
+// The bar over the months: an arrow each way, and between them the month's
+// name, which is also the menu of every month. Shown only with scripts.
+.cal__nav {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+// The menu wears the month's name as a heading, with a caret to say it opens.
+.cal__jump {
+  position: relative;
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  justify-content: center;
+
+  select {
+    // As wide as the month shown, where browsers can, so the caret sits by it.
+    field-sizing: content;
+    appearance: none;
+    max-width: 100%;
+    min-height: 2.75rem;
+    padding: 0 1.75rem 0 0.5rem;
+    font-family: var(--headline);
+    font-size: 1.375rem;
+    font-weight: 700;
+    line-height: 1.15;
+    letter-spacing: -0.005em;
+    text-align: center;
+    text-overflow: ellipsis;
+    color: var(--ink);
+    background: none;
+    border: 1px solid transparent;
+    border-radius: 0;
+    cursor: pointer;
+    touch-action: manipulation;
+
+    &:hover:not(:disabled) {
+      border-color: var(--rule);
+      background: var(--sky-wash);
+    }
+
+    // One month so far: the menu has nothing to offer, so it reads as the name.
+    &:disabled {
+      padding-right: 0.5rem;
+      opacity: 1;
+      cursor: default;
+    }
+  }
+
+  option,
+  optgroup {
+    font-family: var(--text);
+    font-size: 1rem;
+    color: CanvasText;
+    background: Canvas;
+  }
+}
+
+// Holds the menu and its caret together, as wide as the month's name.
+.cal__menu {
+  position: relative;
+  display: inline-flex;
+  max-width: 100%;
+}
+
+.cal__caret {
+  position: absolute;
+  top: 50%;
+  right: 0.5rem;
+  translate: 0 -50%;
+  pointer-events: none;
+
+  select:disabled + & {
+    display: none;
+  }
+}
+
+// The month's name and how many editions it holds. Paged, the name is in the
+// menu above, so only the count shows here, under it.
+.cal__head {
   padding-bottom: 0.75rem;
   border-bottom: 2px solid var(--ink);
 
   h4 {
-    flex: 1;
     display: flex;
     flex-direction: column;
     gap: 0.1rem;
@@ -266,9 +350,22 @@
   }
 }
 
-.cal--paged .cal__head h4 {
-  align-items: center;
-  text-align: center;
+.cal--paged .cal__head {
+  padding-top: 0.1rem;
+
+  h4 {
+    align-items: center;
+    text-align: center;
+  }
+
+  .cal__name {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
 }
 
 .cal__count {
@@ -303,10 +400,6 @@
   &:disabled {
     opacity: 0.4;
     cursor: default;
-  }
-
-  &[hidden] {
-    display: none;
   }
 }
 
