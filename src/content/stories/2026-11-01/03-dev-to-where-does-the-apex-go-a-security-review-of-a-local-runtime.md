@@ -4,7 +4,7 @@ original_title: Where does the Apex go? A security review of a local runtime
 url: https://dev.to/oblitus/where-does-the-apex-go-a-security-review-of-a-local-runtime-ilc
 source: dev.to
 source_type: community
-date: 2026-10-30
+date: 2026-11-01
 section: devops
 personas:
   - architect
@@ -42,6 +42,7 @@ figure:
   icons:
     - cloud
     - shield
+held_from: 2026-10-30
 ---
 
 renmy runtime is a local Apex runtime and developer toolchain that executes Apex, SOQL, DML and Flows on a developer's machine against an embedded PostgreSQL, without an org, Docker or a JVM. The article presents it as a security review. Apex source is read from the working tree and sent nowhere, and the schema comes from project metadata, so a test run needs no connected org, JWT certificate or sandbox. Test data stays in an in-process database with no open network port and is rolled back after each test.

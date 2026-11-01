@@ -1,0 +1,236 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-11-01T06:31:07.684Z",
+  "day": "2026-11-01",
+  "seconds": 23,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 3
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 0
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 0
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 0
+    },
+    {
+      "id": "sf-blog",
+      "name": "Salesforce Blog",
+      "items": 4
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 4
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 1
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 0
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 0
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 1
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 0
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "jitendra-zaa",
+      "name": "Jitendra Zaa",
+      "items": 0
+    },
+    {
+      "id": "simplysfdc",
+      "name": "SimplySfdc",
+      "items": 0
+    },
+    {
+      "id": "salesforcedevops-net",
+      "name": "SalesforceDevOps.net",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 7
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 9
+    }
+  ],
+  "articles": [
+    {
+      "title": "I built a free SOQL formatter for Salesforce developers",
+      "url": "https://dev.to/nichetechspace/i-built-a-free-soql-formatter-for-salesforce-developers-5254",
+      "source": "dev.to",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Salesforce unveils AIforce apps linking platform data to Claude and Slack",
+      "url": "https://dev.to/hacksgr/salesforce-introduces-aiforce-for-tasks-within-slack-and-claude-3hi4",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Salesforce introduces AIforce for tasks within Slack and Claude"
+    },
+    {
+      "title": "Salesforce Administrator Exam – Tips for First-Time Test Takers",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xkeequ/salesforce_administrator_exam_tips_for_firsttime/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce Partner ROI",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xkayy0/salesforce_partner_roi/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Scaling Experience Cloud Person Accounts past the 50,000 ownership limit",
+      "url": "https://salesforcecodex.com/salesforce/salesforce-experience-cloud-50k-user-limit/",
+      "source": "SalesforceCodex",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Salesforce Experience Cloud 50K User Limit: Architecture Lessons from a 200K E-Commerce Portal"
+    },
+    {
+      "title": "Salesforce Approval Processes: Designing Approvals That Don't Stall Deals",
+      "url": "https://dev.to/rohanmehta/salesforce-approval-processes-designing-approvals-that-dont-stall-deals-105l",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "What a local Apex runtime sends off the machine, and what it keeps",
+      "url": "https://dev.to/oblitus/where-does-the-apex-go-a-security-review-of-a-local-runtime-ilc",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-10-30 for a quieter day, and printed today"
+    },
+    {
+      "title": "Prototyping Screen Flows and record pages before building in a sandbox",
+      "url": "https://salesforcetime.com/2026/10/30/how-to-prototype-salesforce-screen-flows-and-lightning-record-pages-before-opening-a-sandbox/",
+      "source": "Salesforce Time",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-10-31 for a quieter day, and printed today"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Salesforce unveils AIforce apps linking platform data to Claude and Slack",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Scaling Experience Cloud Person Accounts past the 50,000 ownership limit",
+      "outcome": "unchanged"
+    }
+  ],
+  "figures": [
+    {
+      "title": "Scaling Experience Cloud Person Accounts past the 50,000 ownership limit",
+      "outcome": "drawn",
+      "kind": "compare"
+    }
+  ],
+  "model": {
+    "calls": 6,
+    "retries": {},
+    "usage": {
+      "anthropic/claude-haiku-5.5": {
+        "input": 19731,
+        "output": 3136
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-11-01T06:31:31.025Z"
+}

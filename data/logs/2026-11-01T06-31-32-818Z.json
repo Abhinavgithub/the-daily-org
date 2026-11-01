@@ -1,0 +1,23 @@
+{
+  "kind": "release",
+  "ranAt": "2026-11-01T06:31:32.818Z",
+  "day": "2026-11-01",
+  "seconds": 250,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [],
+  "articles": [],
+  "proofread": [],
+  "figures": [],
+  "model": {
+    "calls": 21,
+    "retries": {},
+    "usage": {
+      "anthropic/claude-haiku-5.5": {
+        "input": 75000,
+        "output": 46776
+      }
+    }
+  },
+  "statsAt": "2026-11-01T06:35:43.082Z"
+}

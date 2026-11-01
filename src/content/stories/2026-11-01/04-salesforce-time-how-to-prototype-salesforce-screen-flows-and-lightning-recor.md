@@ -4,7 +4,7 @@ original_title: How to Prototype Salesforce Screen Flows and Lightning Record Pa
 url: https://salesforcetime.com/2026/10/30/how-to-prototype-salesforce-screen-flows-and-lightning-record-pages-before-opening-a-sandbox/
 source: Salesforce Time
 source_type: community
-date: 2026-10-31
+date: 2026-11-01
 section: flow-and-admin
 personas:
   - admin
@@ -37,6 +37,7 @@ figure:
     - search
     - doc
 image: https://salesforcetime.com/wp-content/uploads/2026/10/Screen-Flow-prototyped-as-the-actual-screens-users-will-see-1024x534.png
+held_from: 2026-10-31
 ---
 
 The author opens with a familiar failure: a discovery workshop produces a requirement that is then built in a Developer Sandbox over two days, only to be reworked after a playback call. He argues that the gap is stakeholders not being able to picture how a written user story becomes a real Lightning page or Screen Flow until they see it, and that generic tools fall short. Written stories, Figma or Miro canvases, and prototyping in a sandbox each fail for Salesforce in different ways, so the prototype should stay within SLDS constraints.
