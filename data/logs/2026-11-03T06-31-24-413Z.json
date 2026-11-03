@@ -1,0 +1,425 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-11-03T06:31:24.413Z",
+  "day": "2026-11-03",
+  "seconds": 95,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 3
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 0
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 0
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 1
+    },
+    {
+      "id": "sf-blog",
+      "name": "Salesforce Blog",
+      "items": 3
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 4
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 1
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 0
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 0
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 1
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 0
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "jitendra-zaa",
+      "name": "Jitendra Zaa",
+      "items": 0
+    },
+    {
+      "id": "simplysfdc",
+      "name": "SimplySfdc",
+      "items": 0
+    },
+    {
+      "id": "salesforcedevops-net",
+      "name": "SalesforceDevOps.net",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 12
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 22
+    }
+  ],
+  "articles": [
+    {
+      "title": "Salesforce Signs Definitive Agreement to Acquire Cresta",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xma06d/salesforce_signs_definitive_agreement_to_acquire/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Financial Institutions: What vehicle valuation integration do you use?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xm919t/financial_institutions_what_vehicle_valuation/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "How do you say no to admin requests politely?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xlqupk/how_do_you_say_no_to_admin_requests_politely/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Do you have a no-change-Friday rule?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xlqawf/do_you_have_a_nochangefriday_rule/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "What's your approach to API rate limits?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xlpzun/whats_your_approach_to_api_rate_limits/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Success Manager / Success Architect at Salesforce",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xml9ir/success_manager_success_architect_at_salesforce/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Detecting wrong-parent Contacts after a migration using External IDs and SOQL",
+      "url": "https://dev.to/richardc_ailstudio/how-to-audit-contact-account-parents-after-a-salesforce-migration-with-soql-18g8",
+      "source": "dev.to",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Salesforce agrees to acquire Cresta, a voice customer service platform",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xma1j8/salesforce_signs_definitive_agreement_to_acquire/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 5,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "Salesforce Signs Definitive Agreement to Acquire Cresta",
+      "url": "https://www.salesforce.com/news/stories/salesforce-signs-definitive-agreement-to-acquire-cresta/",
+      "source": "Salesforce News",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Salesforce Health Insights scans an org and ranks what to fix first",
+      "url": "https://www.salesforce.com/blog/salesforce-health-insights/",
+      "source": "Salesforce Blog",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Mentorship",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xm6cok/mentorship/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Stop CTRL+F-ing Salesforce Debug Logs: I Built a 100% Client-Side Analyzer",
+      "url": "https://dev.to/nikhar_minds/stop-ctrlf-ing-salesforce-debug-logs-i-built-a-100-client-side-analyzer-5ga3",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Is Agentforce Operations Fake or Real?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xm4dy7/is_agentforce_operations_fake_or_real/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Showing an Apex collection in a Screen Flow Data Table without a Custom Object",
+      "url": "https://dev.to/juanma_garrido_1974/how-do-you-show-an-apex-collection-in-a-screen-flow-data-table-without-a-custom-object-4eeg",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: How do you show an Apex collection in a Screen Flow Data Table without a custom object?"
+    },
+    {
+      "title": "Pricing Help",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xm2k66/pricing_help/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Setting up proactive Intelligence in Tableau Next with Slack and MCP",
+      "url": "https://www.salesforce.com/blog/how-to-set-up-proactive-intelligence-tableau-next/",
+      "source": "Salesforce Blog",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "How do you audit a messy Salesforce org you just inherited? Validating a tool idea",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xm1608/how_do_you_audit_a_messy_salesforce_org_you_just/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Is a Salesforce certification enough to hire someone? Five signals I look for instead",
+      "url": "https://dev.to/juanma_garrido_1974/is-a-salesforce-certification-enough-to-hire-someone-five-signals-i-look-for-instead-3n5n",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Making Salesforce API Integrations Safe to Retry",
+      "url": "https://dev.to/sanya_mittal_a509a2c50a2d/making-salesforce-api-integrations-safe-to-retry-18ne",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Salesforce vs. ActiveCampaign: Which CRM Fits Your Growing Business?",
+      "url": "https://www.salesforce.com/blog/salesforce-vs-activcampaign/",
+      "source": "Salesforce Blog",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "We Counted Every Time Salesforce Said ‘CRM’ at Dreamforce, From 2022 to 2026",
+      "url": "https://www.salesforceben.com/we-counted-every-time-salesforce-said-crm-at-dreamforce-from-2022-to-2026/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Salesforce CPQ Consulting Services for Migration and Modernization",
+      "url": "https://dev.to/kerrymillarausa/salesforce-cpq-consulting-services-for-migration-and-modernization-1phe",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Platform App Builder exam refresh puts more weight on Flow and Agentforce",
+      "url": "https://www.salesforceben.com/the-salesforce-platform-app-builder-exam-just-got-harder/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: The Salesforce Platform App Builder Exam Just Got Harder"
+    },
+    {
+      "title": "What almost made you NOT hire your RevOps agency?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xlwbbj/what_almost_made_you_not_hire_your_revops_agency/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Is Salesforce certification really necessary to get a job, especially for experienced QA professionals?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xlvayj/is_salesforce_certification_really_necessary_to/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce Marketing Cloud: Campaigns, Journeys, and First Steps for New Teams",
+      "url": "https://dev.to/rohanmehta/salesforce-marketing-cloud-campaigns-journeys-and-first-steps-for-new-teams-cko",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "7 HTML Message Templates to Improve Your Screen Flows",
+      "url": "https://salesforcetime.com/2026/11/02/7-html-message-templates-to-improve-your-screen-flows/",
+      "source": "Salesforce Time",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Which Salesforce certificate changes actually affect your org",
+      "url": "https://www.salesforceben.com/salesforce-certificate-changes-does-your-org-actually-need-to-act/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Salesforce Certificate Changes: Does Your Org Actually Need to Act?"
+    },
+    {
+      "title": "A small owned trigger framework built around an explicit handler contract",
+      "url": "https://dev.to/aamirahkhan/rebuilding-the-salesforce-trigger-framework-as-a-baseline-2jhi",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Rebuilding the Salesforce trigger framework as a baseline"
+    },
+    {
+      "title": "Should You Be Vibe Coding as a Salesforce Admin in 2027?",
+      "url": "https://www.salesforceben.com/should-you-be-vibe-coding-as-a-salesforce-admin-in-2027/",
+      "source": "Salesforce Ben",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Detecting wrong-parent Contacts after a migration using External IDs and SOQL",
+      "outcome": "kept",
+      "reason": "summary: \"account\" was removed"
+    },
+    {
+      "title": "Salesforce Health Insights scans an org and ranks what to fix first",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Showing an Apex Collection in a Screen Flow Data Table without a Custom Object",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Setting up proactive Intelligence in Tableau Next with Slack and MCP",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Platform App Builder exam refresh puts more weight on Flow and Agentforce",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Which Salesforce Certificate changes actually affect your org",
+      "outcome": "corrected"
+    },
+    {
+      "title": "A small owned trigger framework built around an explicit handler contract",
+      "outcome": "unchanged"
+    }
+  ],
+  "figures": [
+    {
+      "title": "Which Salesforce Certificate changes actually affect your org",
+      "outcome": "drawn",
+      "kind": "steps"
+    },
+    {
+      "title": "A small owned trigger framework built around an explicit handler contract",
+      "outcome": "drawn",
+      "kind": "steps"
+    }
+  ],
+  "model": {
+    "calls": 23,
+    "retries": {
+      "invalid diagram": 1
+    },
+    "usage": {
+      "anthropic/claude-haiku-5.5": {
+        "input": 105481,
+        "output": 15684
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-11-03T06:32:58.915Z"
+}
