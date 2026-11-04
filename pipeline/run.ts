@@ -10,6 +10,7 @@ import { articleText, extractContent, type Extracted } from './extract';
 import { routeDown } from './transcript';
 import { updateReleases } from './releases';
 import { updateQuote } from './quote';
+import { updateKnownIssues } from './known-issues';
 import { ALERT_FEEDS, readAlerts } from './alerts';
 import { NEW_SOURCE_DAYS } from './state';
 import { fetchFeeds, type FeedItem } from './fetch';
@@ -185,6 +186,14 @@ if (PAPER.shares && !dryRun) {
   runLog.check({ name: 'The share price', ok: !('error' in read), ...('error' in read ? { says: read.error } : {}) });
   if ('error' in read) console.warn(`  The share price could not be read (${read.error}). The last one known is kept.`);
   else console.log(`Share price read: ${read.quote.symbol} ${read.quote.close} at the close on ${read.quote.day}.`);
+}
+
+// Known Issues, recorded for now and not printed (PLAN.md, 9c). Never a reason to stop.
+if (PAPER.knownIssues && !dryRun) {
+  const read = await updateKnownIssues(PAPER.knownIssues, day);
+  runLog.check({ name: 'Known Issues', ok: !('error' in read), ...('error' in read ? { says: read.error } : {}) });
+  if ('error' in read) console.warn(`  Known Issues could not be read (${read.error}). What was recorded before is kept.`);
+  else console.log(`Known Issues read: ${read.read}, of which ${read.added} newly watched.`);
 }
 
 // 2. Deduplicate, within this run and against earlier runs

@@ -14,7 +14,7 @@ Which file does what. Every source file opens with a comment saying what it is f
 | Step | File | What it does |
 |---|---|---|
 | 1. Read the feeds | `fetch.ts`, `sources.ts`, `youtube.ts`, `notes.ts`, `http.ts` | Every source in the config, back to its last success (`state.ts`). |
-| 2. Side feeds | `alerts.ts`, `releases.ts`, `quote.ts` | Trust alerts, release dates, the share price. |
+| 2. Side feeds | `alerts.ts`, `releases.ts`, `quote.ts`, `known-issues.ts` | Trust alerts, release dates, the share price, Known Issues (recorded, not printed yet). `release-notes.ts` has `apexAction`, the help site's request, shared with Known Issues. |
 | 3. Set aside what was seen | `dedupe.ts` | `data/seen.json`, and `data/pending.json` for videos waiting on captions. |
 | 4. Read the article | `extract.ts`, `authors.ts`, `transcript.ts` | The article's text, its writers, a video's transcript. |
 | 5. Cheap rules, then the model | `curate.ts` | Keyword rules, then the model scores and writes the story. Forum posts get `firstLook` first. |

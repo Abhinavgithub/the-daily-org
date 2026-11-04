@@ -49,29 +49,19 @@ export async function helpContext(request: typeof fetch = fetch): Promise<HelpCo
   return context;
 }
 
-/** One topic of one release's notes. `release` is Salesforce's number for it, such as "264.0.0". */
-export async function helpTopic(name: string, release: string, context: HelpContext, request: typeof fetch = fetch): Promise<Topic> {
+/**
+ * Asks the help site's server for what one of its pages would: `method` of the
+ * Apex class `classname`, as the page at `page` calls it. What it returns, or
+ * an error when the site refuses.
+ */
+export async function apexAction<T>(classname: string, method: string, params: Record<string, unknown>, page: string, context: HelpContext, request: typeof fetch = fetch): Promise<T> {
   const message = {
-    actions: [
-      {
-        id: '1;a',
-        descriptor: 'aura://ApexActionController/ACTION$execute',
-        callingDescriptor: 'UNKNOWN',
-        params: {
-          namespace: '',
-          classname: 'Help_ArticleDataController',
-          method: 'getData',
-          params: { articleParameters: { urlName: name, language: 'en_US', release, requestedArticleType: 'HelpDocs', requestedArticleTypeNumber: '5' } },
-          cacheable: false,
-          isContinuation: false,
-        },
-      },
-    ],
+    actions: [{ id: '1;a', descriptor: 'aura://ApexActionController/ACTION$execute', callingDescriptor: 'UNKNOWN', params: { namespace: '', classname, method, params, cacheable: false, isContinuation: false } }],
   };
   const body = new URLSearchParams({
     message: JSON.stringify(message),
     'aura.context': JSON.stringify({ mode: 'PROD', fwuid: context.fwuid, app: 'siteforce:communityApp', loaded: { 'APPLICATION@markup://siteforce:communityApp': context.app }, dn: [], globals: {}, uad: true }),
-    'aura.pageURI': `/s/articleView?id=${name}&type=5`,
+    'aura.pageURI': page,
     'aura.token': 'null',
   });
   const res = await request(`${HELP}/s/sfsites/aura?r=1&aura.ApexAction.execute=1`, {
@@ -81,10 +71,16 @@ export async function helpTopic(name: string, release: string, context: HelpCont
     signal: AbortSignal.timeout(TIMEOUT_MS),
   });
   if (!res.ok) throw new Error(`HTTP ${res.status}`);
-  const reply = (await res.json()) as { actions?: { state?: string; returnValue?: { returnValue?: Reply } & Reply; error?: unknown[] }[] };
+  const reply = (await res.json()) as { actions?: { state?: string; returnValue?: { returnValue?: T } & T }[] };
   const action = reply.actions?.[0];
   if (action?.state !== 'SUCCESS') throw new Error(`the help site refused the request (${action?.state ?? 'no answer'})`);
-  const value: Reply = action.returnValue?.returnValue ?? action.returnValue ?? {};
+  return (action.returnValue?.returnValue ?? action.returnValue ?? {}) as T;
+}
+
+/** One topic of one release's notes. `release` is Salesforce's number for it, such as "264.0.0". */
+export async function helpTopic(name: string, release: string, context: HelpContext, request: typeof fetch = fetch): Promise<Topic> {
+  const params = { articleParameters: { urlName: name, language: 'en_US', release, requestedArticleType: 'HelpDocs', requestedArticleTypeNumber: '5' } };
+  const value = await apexAction<Reply>('Help_ArticleDataController', 'getData', params, `/s/articleView?id=${name}&type=5`, context, request);
   const record = value.record;
   const html = record?.Content__c ?? '';
   // A topic too long for the site to hand over comes back as one line saying so.

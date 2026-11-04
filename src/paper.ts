@@ -19,6 +19,10 @@ export type ReleaseNotes = (typeof RELEASE_NOTES)[number];
 export const ALERT_FEEDS = ['salesforce-trust'] as const;
 export type AlertFeed = (typeof ALERT_FEEDS)[number];
 
+/** Where a list of confirmed bugs can be read, with how many people each affects. */
+export const KNOWN_ISSUE_LISTS = ['salesforce-help'] as const;
+export type KnownIssueList = (typeof KNOWN_ISSUE_LISTS)[number];
+
 export interface Source<Persona extends string = string> {
   /** Short and unique, in lower case with hyphens. It names the feed in files and logs. */
   id: string;
@@ -122,6 +126,11 @@ export interface Paper<Section extends string = string, Persona extends string =
    */
   alerts?: AlertFeed;
   /**
+   * Optional. Where the subject's confirmed bugs are read from, with how many people each affects. For now each run
+   * only records them (data/known-issues.json); the Bulletin does not print them yet.
+   */
+  knownIssues?: KnownIssueList;
+  /**
    * Optional. The most stories a day prints while there are others to keep for a quiet day: what a full day has
    * over this number is held, the lowest scored first, and printed on a day with room, or after three days whatever
    * the day holds. `never` names sections whose stories are news of the day and are never held.
@@ -202,6 +211,7 @@ export function problemsWith(paper: Paper): string[] {
   if (paper.releaseNotes && !RELEASE_NOTES.includes(paper.releaseNotes.from)) problems.push(`"releaseNotes.from" is "${paper.releaseNotes.from}"; use one of ${RELEASE_NOTES.join(', ')}, or leave "releaseNotes" out.`);
   if (paper.releaseNotes && paper.releaseNotes.areas.length === 0) problems.push('"releaseNotes.areas" is empty: name the areas of the notes the paper covers.');
   if (paper.alerts !== undefined && !ALERT_FEEDS.includes(paper.alerts)) problems.push(`"alerts" names the feed "${paper.alerts}"; use one of ${ALERT_FEEDS.join(', ')}, or leave it out.`);
+  if (paper.knownIssues !== undefined && !KNOWN_ISSUE_LISTS.includes(paper.knownIssues)) problems.push(`"knownIssues" names the list "${paper.knownIssues}"; use one of ${KNOWN_ISSUE_LISTS.join(', ')}, or leave it out.`);
   if (paper.releases !== undefined && !CALENDARS.includes(paper.releases)) problems.push(`"releases" names the calendar "${paper.releases}"; use one of ${CALENDARS.join(', ')}, or leave it out.`);
 
   for (const source of paper.sources ?? []) {

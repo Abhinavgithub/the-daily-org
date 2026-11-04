@@ -13,6 +13,7 @@ What is in `data/` and `src/content/`, what writes each file, and the type that 
 | `data/releases.json` | release dates from Trust (`pipeline/releases.ts`) | `Release` in `src/lib/releases.ts` | committed |
 | `data/release-editions/<release>.json` | `npm run release-edition` (`pipeline/release-edition.ts`) | `Edition` in `src/lib/release-edition.ts` | committed |
 | `data/release-edition-status.json` | the last release-edition check (`pipeline/release-edition-cli.ts`) | `ReleaseStatus` in `src/lib/logs.ts` | committed |
+| `data/known-issues.json` | every run (`pipeline/known-issues.ts`): each issue's status and affected count by day, a day only when it changed | `Watch` in `pipeline/known-issues.ts` | committed |
 | `data/quote.json` | the share price at the last close (`pipeline/quote.ts`) | `Quote` in `src/lib/quote.ts` | committed |
 | `data/readership.jsonl` | `npm run readership`, one line a day | `ReadershipDay` in `src/lib/readership.ts` | committed |
 | `data/reader-totals.jsonl` | `npm run reader-totals` / `reader-feedback`: counts only | `ReaderTotalsDay` in `src/lib/reader-totals.ts` | committed |

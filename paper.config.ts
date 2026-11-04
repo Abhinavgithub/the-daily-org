@@ -39,6 +39,8 @@ export default definePaper({
   },
   // Security advisories and wide incidents, also from Trust. They are printed in the Bulletin whatever they score.
   alerts: 'salesforce-trust',
+  // Salesforce's Known Issues, from its help site. Recorded each run in data/known-issues.json; not printed yet (PLAN.md, 9c).
+  knownIssues: 'salesforce-help',
 
   // A day prints four stories at most while there are others to keep: sources post on weekdays and hardly at all
   // at the weekend, and what a full day has over four fills the quiet ones. News of a release is never kept back.
