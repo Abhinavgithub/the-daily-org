@@ -73,6 +73,14 @@ export default definePaper({
   // nothing from it could ever be reviewed.
   // Candidates: note feeds worth trying here, and what `npm run try-source -- <address>` said of them.
   //   Salesforce Geek, Salesforce Emily, Coding With The Force (YouTube): channel IDs not known; none uploaded in late Sept 2026.
+  //   Tried 2026-11-04 for weekend posts (PLAN.md, 9a); none adds a weekend story:
+  //   - dev.to/feed/tag/apex: posts at the weekend, but every post in it is also under the salesforce tag below.
+  //   - news.google.com search for Salesforce: every day, but company and market news, and links that go through Google.
+  //   - forcetalks.com/feed: weekdays only; the 3 latest were all not relevant (CRM comparisons, ERP, market reports).
+  //   - salesforceblogger.com, pantherschools.com, dev.to tag salesforcedevelopment: weekdays only, a few posts a month.
+  //   - Quiet: salesforcediaries.com, sfdclesson.com, dev.to tags lwc and salesforcedeveloper, salesforcehacker.com.
+  //   - Not readable: apexhours.com (no feed), sfdcpoint.com (expired certificate), sfdc99.com (no answer),
+  //     hashnode.com/n/salesforce/rss (404), asagarwal.com/feed (malformed), hnrss.org (refused).
   sources: [
     // Tools. Every release is printed, as a line in the Bulletin. The CLI's feed is empty nightly builds, so its notes file is read;
     // Code Analyzer's entries only say "see release notes", so the notes page is read for each.
@@ -115,6 +123,8 @@ export default definePaper({
     { id: 'salesforcedevops-net', name: 'SalesforceDevOps.net', url: 'https://salesforcedevops.net/index.php/feed/', type: 'community', personas: ['developer', 'architect'] },
     // Anyone may post under the tag, at the weekend too, when the blogs above are silent.
     { id: 'dev-to', name: 'dev.to', url: 'https://dev.to/feed/tag/salesforce', type: 'community' },
+    // Posts under the agentforce tag that are not also tagged salesforce. Added 2026-11-04: of the 3 latest, 2 would have run.
+    { id: 'dev-to-agentforce', name: 'dev.to', url: 'https://dev.to/feed/tag/agentforce', type: 'community' },
 
     // The community. A post is printed, as one line in the Bulletin, only when it reports something a
     // practitioner needs to know. Reddit refuses a reader that asks more than once or twice in a row.
