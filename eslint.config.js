@@ -4,7 +4,8 @@ import astro from 'eslint-plugin-astro';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist/', '.astro/', '.wrangler/', 'node_modules/', 'public/'] },
+  // .claude/, .agents/ and marketing/ are kept out of git, so they are not this project's code.
+  { ignores: ['dist/', '.astro/', '.wrangler/', 'node_modules/', 'public/', '.claude/', '.agents/', 'marketing/', '.scratch/'] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   // The pages and components: their front matter and their scripts.
