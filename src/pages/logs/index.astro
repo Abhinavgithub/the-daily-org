@@ -114,12 +114,13 @@ const average = (days: string[]) => (days.length ? Math.round((days.reduce((sum,
 const runDays = [...perDay.keys()];
 const rhythm = { weekday: average(runDays.filter((day) => !weekend(day))), weekend: average(runDays.filter(weekend)) };
 const needing = scores.filter((row) => row.verdict.look);
-// Where the stories printed came from: the five that gave most, and the rest together.
-const givers = storyRows.filter((row) => row.tally.published > 0).sort((a, b) => b.tally.published - a.tally.published);
-const share = [...givers.slice(0, 5).map((row) => ({ name: row.name, count: row.tally.published })), ...(givers.length > 5 ? [{ name: 'Others', count: givers.slice(5).reduce((sum, row) => sum + row.tally.published, 0) }] : [])];
+// The sources that printed anything.
+const givers = storyRows.filter((row) => row.tally.published > 0);
 // In each group, the ones needing a look first, then the most printed.
 const ordered = (rows: ScoreRow[]) => [...rows].sort((a, b) => Number(b.verdict.look) - Number(a.verdict.look) || b.tally.published - a.tally.published || a.name.localeCompare(b.name));
 const most = Math.max(1, ...Object.values(posts).flat());
+// A day's posts as the height of its column. On a square-root scale, so a source with one or two posts a day still shows its rhythm beside one with fifteen.
+const postHeight = (n: number) => (n > 0 ? Math.max(15, Math.sqrt(n / most) * 100) : 0);
 const shortDate = (day: string) => new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${day}T12:00:00Z`));
 const lastPost = (iso?: string) => {
   if (!iso) return 'Not known';
@@ -253,36 +254,35 @@ const readersUpdated = readerFeedback && fs.existsSync(READER_FILE) ? fs.statSyn
               <dd class="glance__note">{needing.length ? needing.map((row) => row.name).join(', ') : 'none'}</dd>
             </div>
           </dl>
-          {
-            share.length > 0 && (
-              <div class="sources__share">
-                <p class="sources__label">Where the printed stories came from</p>
-                <div class="sources__share-bar" role="img" aria-label={share.map((part) => `${part.name} ${part.count}`).join(', ')}>
-                  {share.map((part, i) => (
-                    <span style={`flex-grow: ${part.count}; --step: ${i}`} class:list={[part.name === 'Others' && 'sources__share--rest']} title={`${part.name}: ${part.count}`} />
-                  ))}
-                </div>
-                <p class="sources__key">{share.map((part) => `${part.name} ${part.count}`).join(' · ')}</p>
-              </div>
-            )
-          }
+          <p class="sources__key">
+            <span><span class="key__swatch mark--main" aria-hidden="true" /> printed</span>
+            <span><span class="key__swatch mark--rest" aria-hidden="true" /> below the bar</span>
+            <span><span class="key__swatch mark--faint" aria-hidden="true" /> not relevant</span>
+            <span>Bars share one scale in each group, so a longer bar is a source that gave more to read.</span>
+          </p>
           {
             [
-              { name: 'Sources of stories', note: `last ${STRIP_DAYS} days · printed of reviewed · last post`, rows: ordered(storyRows) },
-              { name: 'Sources of the Bulletin', note: 'judged on whether they answer, not on what they print', rows: ordered(bulletinRows) },
+              { name: 'Sources of stories', note: undefined, rows: ordered(storyRows) },
+              { name: 'Sources of the Bulletin', note: 'Judged on whether they answer, not on what they print.', rows: ordered(bulletinRows) },
             ]
               .filter((group) => group.rows.length > 0)
-              .map((group) => (
+              .map((group) => {
+                // The longest bar in the group is the source with most reviewed; the rest are measured against it.
+                const widest = Math.max(1, ...group.rows.map((row) => row.tally.published + row.tally.below + row.tally.notRelevant));
+                return (
                 <div class="sources__group">
-                  <p class="sources__head">
+                  <p class="sources__head" aria-hidden="true">
                     <span>{group.name}</span>
-                    <span>{group.note}</span>
+                    <span>New posts, last {STRIP_DAYS} days</span>
+                    <span>Printed of reviewed</span>
+                    <span>Last post</span>
                   </p>
-                  <ul class="sources__list">
+                  {group.note && <p class="sources__note">{group.note}</p>}
+                  <ul class="sources__list" aria-label={group.name}>
                     {group.rows.map((row) => {
                       const daily = posts[row.id] ?? stripDays.map(() => 0);
                       const { published, below, notRelevant, reviewed } = row.tally;
-                      const judged = Math.max(1, published + below + notRelevant);
+                      const judged = published + below + notRelevant;
                       return (
                         <li class="source" data-look={row.verdict.look ? 'yes' : 'no'}>
                           <div class="source__name">
@@ -291,15 +291,16 @@ const readersUpdated = readerFeedback && fs.existsSync(READER_FILE) ? fs.statSyn
                           </div>
                           <div class="source__strip" role="img" aria-label={`New posts on each of the last ${STRIP_DAYS} days: ${daily.join(', ')}`}>
                             {daily.map((n, i) => (
-                              <span class:list={[n > 0 && 'source__day--posted', weekend(stripDays[i]) && 'source__day--weekend']} style={n > 0 ? `--amount: ${Math.min(1, 0.35 + n / most)}` : undefined} title={`${shortDate(stripDays[i])}: ${n} new`} />
+                              <span class:list={[weekend(stripDays[i]) && 'source__day--weekend']} title={`${shortDate(stripDays[i])}: ${n} new`}>
+                                {n > 0 && <span style={`height: ${postHeight(n)}%`} />}
+                              </span>
                             ))}
                           </div>
                           <div class="source__yield">
-                            <span class="source__bar" aria-hidden="true">
-                              <span class="mark--main" style={`flex-grow: ${published}`} />
-                              <span class="mark--light" style={`flex-grow: ${below}`} />
-                              <span class="mark--faint" style={`flex-grow: ${notRelevant}`} />
-                              {published + below + notRelevant === 0 && <span style={`flex-grow: ${judged}`} />}
+                            <span class="source__bar" style={`width: ${(judged / widest) * 100}%`} title={`${published} printed, ${below} below the bar, ${notRelevant} not relevant`} aria-hidden="true">
+                              {published > 0 && <span class="mark--main" style={`flex-grow: ${published}`} />}
+                              {below > 0 && <span class="mark--rest" style={`flex-grow: ${below}`} />}
+                              {notRelevant > 0 && <span class="mark--faint" style={`flex-grow: ${notRelevant}`} />}
                             </span>
                             <span class="source__count">{reviewed ? `${published} of ${reviewed} printed` : 'Nothing reviewed'}</span>
                           </div>
@@ -309,14 +310,10 @@ const readersUpdated = readerFeedback && fs.existsSync(READER_FILE) ? fs.statSyn
                     })}
                   </ul>
                 </div>
-              ))
+                );
+              })
           }
-          <p class="sources__key">
-            <span><span class="key__swatch mark--main" aria-hidden="true" /> printed</span>
-            <span><span class="key__swatch mark--light" aria-hidden="true" /> below the bar</span>
-            <span><span class="key__swatch mark--faint" aria-hidden="true" /> not relevant</span>
-            <span>The strip has one bar a day, darker with more posts; the weekend's are fainter.</span>
-          </p>
+          <p class="sources__note">Each day's column is taller with more posts; weekend days are shaded.</p>
         </div>
       </section>
 
