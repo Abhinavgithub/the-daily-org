@@ -123,6 +123,8 @@ The notes are read the way Salesforce's help site reads them, which is not a pub
 
 ## Videos
 
+The Daily Org reads no YouTube channels at present: they were dropped on 8 October, since their transcripts cannot be read from GitHub Actions. The code stays, for a paper that adds a channel.
+
 A YouTube video is judged on its transcript, with the description its uploader wrote placed before it. English captions written by a person are used when the video has them, otherwise the generated ones.
 
 - YouTube offers no official way to read another channel's captions. The pipeline asks as YouTube's own app does, with no key. This can stop working without notice, and may be refused on a hosted runner while it works on your machine.

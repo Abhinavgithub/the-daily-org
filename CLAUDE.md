@@ -1,0 +1,7 @@
+- Which file does what, and where each model prompt is: docs/code-map.md
+- What each data file holds, what writes it, its type, and how to review a daily run: docs/data.md
+- What is planned and pending: PLAN.md. How to run the paper: README.md
+- Dev server: `npx astro dev status` before starting one; restart it after `npm run pipeline` or a `.env` change, or it serves old stories.
+- Throwaway scripts: `.scratch/*.mts` (git-ignored, inside the project so imports resolve), run with `npx tsx`. `tsx -e` refuses top-level `await`.
+- macOS `sed`: `sed -i ''`.
+- Before pushing: `npm test && npm run check && npm run lint`. CI runs the same on pull requests and on pushes to main.
