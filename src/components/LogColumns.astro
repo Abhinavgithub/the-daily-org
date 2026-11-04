@@ -59,11 +59,21 @@ const labels = axisLabels(
 const figured = buckets.map((_, i) => buckets.length <= ALL_FIGURES || ups[i] === peakUp || i === buckets.length - 1);
 const figure = (n: number) => (n < 10 && !Number.isInteger(n) ? n.toFixed(1) : compact(Math.round(n)));
 const short = (day: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${day}T12:00:00Z`));
-const when = (b: (typeof buckets)[number]) =>
-  per === 'day' ? formatDay(b.start) : per === 'week' ? `Week of ${short(b.start)}, ${b.editions} ${b.editions === 1 ? 'day' : 'days'}` : new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${b.start}T12:00:00Z`));
-const tip = (values: number[]) => {
-  const parts = series.flatMap((s, i) => (values[i] > 0 ? [`${figure(values[i])} ${s.label.toLowerCase()}`] : []));
-  return parts.length ? `${parts.join(', ')}${per === 'day' ? '' : ' a day'}` : `No ${unit}`;
+type Column = (typeof buckets)[number];
+// A week's or month's column stands at its average a day, so its tooltip names that average beside the dates.
+const when = (b: Column) => {
+  if (per === 'day') return formatDay(b.start);
+  const span = per === 'week' ? `Week of ${short(b.start)}` : new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${b.start}T12:00:00Z`));
+  const total = upAt.reduce((sum, i) => sum + b.values[i], 0);
+  return `${span}, ${b.editions} ${b.editions === 1 ? 'day' : 'days'}. The column is the average a day${upAt.length && downAt.length ? `: ${figure(total)} kept` : ''}.`;
+};
+// What a column stands for, in whole articles or calls: the day's, or the week's or month's added up.
+const tip = (b: Column) => {
+  const parts = series.flatMap((s, i) => {
+    const count = Math.round(b.values[i] * b.editions);
+    return count > 0 ? [`${count} ${s.label.toLowerCase()}`] : [];
+  });
+  return parts.length ? parts.join(', ') : `No ${unit}`;
 };
 const heading = per === 'day' ? title : `${title}, ${per === 'week' ? 'weekly' : 'monthly'} average a day`;
 const keyed = (down: boolean) => series.filter((s, i) => Boolean(s.down) === down && buckets.some((b) => b.values[i] > 0));
@@ -85,7 +95,7 @@ const keyed = (down: boolean) => series.filter((s, i) => Boolean(s.down) === dow
           </div>
           <ol class="logcols__plot">
             {buckets.map((b, i) => (
-              <li tabindex="0" data-tip={tip(b.values)} data-tip-label={when(b)}>
+              <li tabindex="0" data-tip={tip(b)} data-tip-label={when(b)}>
                 <span class="logcols__up" style={`bottom: ${base}%; height: ${pct(ups[i])}%`} aria-hidden="true">
                   {upAt.filter((at) => b.values[at] > 0).map((at) => <span class={`mark--${series[at].tone}`} style={`flex-grow: ${b.values[at]}`} />)}
                 </span>
@@ -101,7 +111,7 @@ const keyed = (down: boolean) => series.filter((s, i) => Boolean(s.down) === dow
                 )}
                 <span class="logcols__day">
                   <span class="visually-hidden">
-                    {when(b)}: {tip(b.values)}
+                    {when(b)}{per === 'day' ? ':' : ''} {tip(b)}
                   </span>
                   <span aria-hidden="true">{labels[i]}</span>
                 </span>
