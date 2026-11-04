@@ -554,7 +554,7 @@
 
   summary {
     display: grid;
-    grid-template-columns: 9.5rem 9rem minmax(4rem, 9rem) minmax(0, 1.3fr) minmax(0, 1fr) auto;
+    grid-template-columns: 9.5rem 9rem minmax(6rem, 11rem) minmax(0, 1.3fr) minmax(0, 1fr) auto;
     align-items: center;
     gap: 0.25rem 1rem;
     padding: 0.65rem 0;
@@ -581,15 +581,56 @@
   font-variant-numeric: tabular-nums lining-nums;
 }
 
-// What became of the run's articles, as a small bar.
+// What became of the run's articles: kept to the left of a line, turned away to the right, on one scale for every run.
 .log__bar {
-  display: flex;
-  gap: 2px;
-  height: 8px;
+  display: grid;
+  height: 10px;
+}
 
-  span {
-    min-width: 3px;
+.log__kept,
+.log__away {
+  display: flex;
+  min-width: 0;
+
+  > span {
+    display: flex;
+    gap: 1px;
   }
+
+  > span > span {
+    min-width: 2px;
+  }
+}
+
+// Published nearest the line.
+.log__kept {
+  justify-content: flex-end;
+  padding-right: 2px;
+
+  > span {
+    flex-direction: row-reverse;
+  }
+}
+
+.log__away {
+  padding-left: 2px;
+  border-left: 1px solid var(--ink);
+  margin-block: -3px;
+  align-items: center;
+
+  > span {
+    height: 10px;
+  }
+}
+
+.runs__key {
+  margin: 0.2rem 0 0.4rem;
+  font-size: 0.85rem;
+}
+
+.runs__side {
+  font-weight: 700;
+  color: var(--ink);
 }
 
 .log__counts,

@@ -44,6 +44,14 @@ const runs = [...logs, ...older].sort(byNewest);
 // Forum posts are mostly turned away by design, so they are left out of a run's yield.
 const forums = new Set(SOURCES.filter((source) => source.type === 'discussion').map((source) => source.name));
 const allFacts = runs.map((log) => facts(log, costOf(log), forums));
+// One scale for every run's bar: the most kept and the most turned away by any run, so lengths compare down the list.
+const runScale = logs.reduce(
+  (most, log) => {
+    const f = facts(log);
+    return { kept: Math.max(most.kept, f.published + f.bulletin + f.held), away: Math.max(most.away, f.below + f.notRelevant + f.dropped + f.deferred + f.awaitingTranscript) };
+  },
+  { kept: 1, away: 1 },
+);
 
 let state: Record<string, { failures?: number; lastSuccessAt?: string; lastError?: string; lastPostAt?: string }> = {};
 try {
@@ -340,8 +348,22 @@ const readersUpdated = readerFeedback && fs.existsSync(READER_FILE) ? fs.statSyn
               <button type="button" class="chip" data-value="problems" aria-pressed="false">Problems only</button>
             </div>
           </div>
+          {
+            runs.length > 0 && (
+              <p class="sources__key runs__key">
+                <span class="runs__side">Kept ←</span>
+                <span><span class="key__swatch mark--main" aria-hidden="true" /> published</span>
+                <span><span class="key__swatch mark--aside" aria-hidden="true" /> in the Bulletin</span>
+                <span><span class="key__swatch mark--waiting" aria-hidden="true" /> held</span>
+                <span class="runs__side">→ Turned away</span>
+                <span><span class="key__swatch mark--rest" aria-hidden="true" /> below the bar</span>
+                <span><span class="key__swatch mark--faint" aria-hidden="true" /> not relevant</span>
+                <span><span class="key__swatch mark--unknown" aria-hidden="true" /> dropped or left over</span>
+              </p>
+            )
+          }
           {runs.length === 0 && <p class="ledger__none">No run is recorded yet. The paper's first run will show here.</p>}
-          {logs.map((run, i) => <LogRun log={run} open={i === 0 && problems(run).length > 0} cost={costOf(run)} />)}
+          {logs.map((run, i) => <LogRun log={run} open={i === 0 && problems(run).length > 0} cost={costOf(run)} scale={runScale} />)}
           <p class="ledger__none" data-runs-empty hidden>No run in this period matches.</p>
           <button type="button" class="chip results__more" data-runs-more hidden>Show all runs</button>
         </div>

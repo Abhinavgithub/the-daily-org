@@ -10,9 +10,11 @@ interface Props {
   open?: boolean;
   /** What the run cost in US dollars, when its stats line recorded it. */
   cost?: number;
+  /** The most kept and the most turned away by any run on the page, so every run's bar is on one scale. */
+  scale?: { kept: number; away: number };
 }
 
-const { log, open = false, cost } = Astro.props;
+const { log, open = false, cost, scale } = Astro.props;
 const wrong = problems(log);
 const f = facts(log, cost);
 const when = new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }).format(new Date(log.ranAt));
@@ -25,15 +27,20 @@ const PROOF = { corrected: 'Corrected', unchanged: 'Needed nothing', kept: 'Kept
 const FIGURE = { drawn: 'Drawn', none: 'Nothing to draw', refused: 'Refused', skipped: 'Skipped' };
 // What became of the run's articles, as the parts of a small bar.
 const parts = [
-  { label: 'published', count: f.published, tone: 'main' },
-  { label: 'in the Bulletin', count: f.bulletin, tone: 'aside' },
-  { label: 'held for a quieter day', count: f.held, tone: 'waiting' },
-  { label: 'below the bar', count: f.below, tone: 'rest' },
-  { label: 'not relevant', count: f.notRelevant, tone: 'faint' },
-  { label: 'dropped before review', count: f.dropped, tone: 'unknown' },
-  { label: 'left for the next run', count: f.deferred, tone: 'unknown' },
-  { label: 'waiting for a transcript', count: f.awaitingTranscript, tone: 'unknown' },
+  { label: 'published', count: f.published, tone: 'main', kept: true },
+  { label: 'in the Bulletin', count: f.bulletin, tone: 'aside', kept: true },
+  { label: 'held for a quieter day', count: f.held, tone: 'waiting', kept: true },
+  { label: 'below the bar', count: f.below, tone: 'rest', kept: false },
+  { label: 'not relevant', count: f.notRelevant, tone: 'faint', kept: false },
+  { label: 'dropped before review', count: f.dropped, tone: 'unknown', kept: false },
+  { label: 'left for the next run', count: f.deferred, tone: 'unknown', kept: false },
+  { label: 'waiting for a transcript', count: f.awaitingTranscript, tone: 'unknown', kept: false },
 ].filter((part) => part.count > 0);
+// The bar stands on a line: what was kept runs left from it, published nearest, and what was turned away runs right.
+const kept = parts.filter((part) => part.kept);
+const away = parts.filter((part) => !part.kept);
+const sum = (list: typeof parts) => list.reduce((total, part) => total + part.count, 0);
+const sides = scale ?? { kept: Math.max(1, sum(kept)), away: Math.max(1, sum(away)) };
 const drawn = log.figures.filter((figure) => figure.outcome === 'drawn').length;
 ---
 
@@ -41,8 +48,23 @@ const drawn = log.figures.filter((figure) => figure.outcome === 'drawn').length;
   <summary>
     <span class="log__when">{when}</span>
     <span class="log__what">{log.kind === 'figures' ? 'Diagrams' : log.kind === 'release' ? 'Release edition' : log.day ? `Edition ${log.day}` : 'Pipeline'}</span>
-    <span class="log__bar" aria-hidden="true">
-      {parts.map((part) => <span class={`mark--${part.tone}`} style={`flex-grow: ${part.count}`} title={`${part.count} ${part.label}`} />)}
+    <span class="log__bar" style={`grid-template-columns: ${sides.kept}fr ${sides.away}fr`} aria-hidden="true">
+      {
+        parts.length > 0 && (
+          <>
+            <span class="log__kept">
+              <span style={`width: ${(sum(kept) / sides.kept) * 100}%`}>
+                {kept.map((part) => <span class={`mark--${part.tone}`} style={`flex-grow: ${part.count}`} title={`${part.count} ${part.label}`} />)}
+              </span>
+            </span>
+            <span class="log__away">
+              <span style={`width: ${(sum(away) / sides.away) * 100}%`}>
+                {away.map((part) => <span class={`mark--${part.tone}`} style={`flex-grow: ${part.count}`} title={`${part.count} ${part.label}`} />)}
+              </span>
+            </span>
+          </>
+        )
+      }
     </span>
     <span class="log__counts">
       {log.kind === 'figures' ? `${drawn} drawn` : log.kind === 'release' ? (log.finished ? 'Built' : 'Not built') : f.reviewed || f.published ? `${f.published} published${f.bulletin ? `, ${f.bulletin} in the Bulletin` : ''}${f.held ? `, ${f.held} held` : ''} of ${f.reviewed} reviewed` : 'Nothing new'}
