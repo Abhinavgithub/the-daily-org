@@ -210,10 +210,17 @@ export function problems(log: RunLogData): string[] {
   say(log.feeds.filter((f) => f.error).length, 'feed failed', 'feeds failed');
   for (const check of log.checks ?? []) if (!check.ok) found.push(`${check.name} could not be read${check.says ? ` (${check.says})` : ''}`);
   say(log.articles.filter((a) => a.outcome === 'invalid-reply').length, 'unusable model reply', 'unusable model replies');
-  say(log.proofread.filter((p) => p.reason).length, 'proof-read discarded', 'proof-reads discarded');
+  // A story the proof-reader never saw. One whose corrections were refused is a note, not a problem: its original text was printed.
+  say(log.proofread.filter((p) => p.outcome === 'skipped' && p.reason).length, 'story not proof-read', 'stories not proof-read');
   say(log.figures.filter((f) => f.outcome === 'refused').length, 'diagram refused', 'diagrams refused');
   say(log.figures.filter((f) => f.image === 'failed').length, 'illustration not made', 'illustrations not made');
   return found;
+}
+
+/** What is worth knowing about a run but did no harm. Empty when there is nothing. */
+export function notes(log: RunLogData): string[] {
+  const refused = log.proofread.filter((p) => p.outcome !== 'skipped' && p.reason).length;
+  return refused > 0 ? [`${refused} ${refused === 1 ? 'proof-read' : 'proof-reads'} not used, the original text kept`] : [];
 }
 
 /** The counts for a run's summary line. */

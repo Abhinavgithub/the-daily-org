@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { test } from 'node:test';
 import { KEEP, RunLog } from '../../pipeline/log';
-import { byNewest, legacyRuns, problems, readLog, readReleaseStatus, runId, staleEditions, summary } from './logs';
+import { byNewest, legacyRuns, notes, problems, readLog, readReleaseStatus, runId, staleEditions, summary } from './logs';
 
 const tmp = () => fs.mkdtempSync(path.join(os.tmpdir(), 'paper-logs-'));
 
@@ -37,10 +37,13 @@ test('a run is written, read back and summarised', () => {
     'stopped early: the cap of 40 model calls was reached',
     '1 feed failed',
     '1 unusable model reply',
-    '1 proof-read discarded',
     '1 diagram refused',
   ]);
+  assert.deepEqual(notes(log), ['1 proof-read not used, the original text kept'], 'a refused proof-read did no harm');
   assert.deepEqual(problems(readLog('{"ranAt":"2026-10-05T06:00:00Z"}')!), [], 'missing parts are read as empty');
+  const capped = readLog('{"ranAt":"2026-10-05T06:00:00Z","finished":true,"proofread":[{"title":"A","outcome":"skipped","reason":"the cap was reached"}]}')!;
+  assert.deepEqual(problems(capped), ['1 story not proof-read'], 'a story never proof-read is a problem');
+  assert.deepEqual(notes(capped), []);
   assert.equal(readLog('not json'), null);
   assert.equal(readLog('{"ranAt":"never"}'), null);
 });
