@@ -126,7 +126,7 @@ export default definePaper({
     // Anyone may post under the tag, at the weekend too, when the blogs above are silent.
     { id: 'dev-to', name: 'dev.to', url: 'https://dev.to/feed/tag/salesforce', type: 'community' },
     // Posts under the agentforce tag that are not also tagged salesforce. Added 2026-11-04: of the 3 latest, 2 would have run.
-    { id: 'dev-to-agentforce', name: 'dev.to', url: 'https://dev.to/feed/tag/agentforce', type: 'community' },
+    { id: 'dev-to-agentforce', name: 'dev.to (Agentforce)', url: 'https://dev.to/feed/tag/agentforce', type: 'community' },
 
     // The community. A post is printed, as one line in the Bulletin, only when it reports something a
     // practitioner needs to know. Reddit refuses a reader that asks more than once or twice in a row.
