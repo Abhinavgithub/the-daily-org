@@ -619,3 +619,124 @@
 .ledger__charts + .ledger__lists {
   margin-top: 1.75rem;
 }
+
+// The Logs page's day-by-day charts: columns standing on a baseline, and the
+// parts turned away hanging below it, on gridlines with their figures in the margin.
+.logcols__chart {
+  position: relative;
+  margin-top: 1.2rem;
+  padding: 0 0 1.4rem 2.2rem;
+}
+
+.logcols__grid {
+  position: absolute;
+  inset: 0 0 1.4rem 2.2rem;
+  pointer-events: none;
+
+  span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    border-top: 1px dashed var(--rule);
+    font-size: 0.68rem;
+    line-height: 0;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    text-indent: -2.2rem;
+  }
+}
+
+.logcols__base {
+  border-top: 1px solid var(--muted) !important;
+  z-index: 1;
+}
+
+.logcols__plot {
+  position: relative;
+  display: flex;
+  gap: 3px;
+  height: 11rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    position: relative;
+    flex: 1 1 0;
+    min-width: 0;
+    height: 100%;
+    cursor: default;
+
+    &:hover,
+    &:focus-visible {
+      background: color-mix(in srgb, var(--ink) 6%, transparent);
+      outline: none;
+    }
+  }
+}
+
+.logcols__up,
+.logcols__down {
+  position: absolute;
+  left: 50%;
+  display: flex;
+  gap: 1px;
+  width: min(100%, 22px);
+  transform: translateX(-50%);
+}
+
+// The first part given stands on the baseline.
+.logcols__up {
+  flex-direction: column-reverse;
+}
+
+.logcols__down {
+  flex-direction: column;
+}
+
+.logcols__value {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.logcols__value--peak {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.logcols__day {
+  position: absolute;
+  top: calc(100% + 0.35rem);
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.72rem;
+  color: var(--muted);
+  white-space: nowrap;
+}
+
+.logcols__keys {
+  display: grid;
+  gap: 0.4rem;
+  margin-top: 0.7rem;
+}
+
+// A side's name, then what it is made of.
+.logcols__keyrow {
+  display: grid;
+  grid-template-columns: 7.5rem minmax(0, 1fr);
+  align-items: baseline;
+
+  .key {
+    margin: 0;
+  }
+}
+
+.logcols__side {
+  font-weight: 700;
+  color: var(--ink);
+}

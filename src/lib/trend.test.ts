@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { axisLabels, group, onDays, scale } from './trend';
+import { axisLabels, group, groupParts, onDays, scale } from './trend';
 
 /** `n` days in a row from `from`, each with figure `count`. */
 const run = (from: string, n: number, count = 1) =>
@@ -46,4 +46,19 @@ test('dates under the columns name the month where it starts and always the late
   assert.deepEqual(axisLabels(days, 'day', 3), ['', '29 Oct', '', '31', '', '2 Nov']);
   const months = group(run('2025-11-01', 400), 20).buckets;
   assert.deepEqual(axisLabels(months, 'month', 20).slice(0, 3), ['Nov 2025', 'Dec', 'Jan 2026']);
+});
+
+test('groupParts groups every series the same way, as an average a day', () => {
+  const days = Array.from({ length: 40 }, (_, i) => ({ label: new Date(Date.UTC(2026, 8, 1 + i)).toISOString().slice(0, 10), counts: [2, i % 7 === 6 ? 14 : 0] }));
+  const { unit, buckets } = groupParts(days);
+  assert.equal(unit, 'week');
+  assert.equal(buckets.length, group(days.map((d) => ({ label: d.label, count: 0 }))).buckets.length);
+  assert.deepEqual(buckets[1].values, [2, 2]);
+  assert.equal(buckets[1].editions, 7);
+});
+
+test('groupParts keeps one column a day while they fit', () => {
+  const { unit, buckets } = groupParts([{ label: '2026-10-01', counts: [1, 3] }, { label: '2026-10-02', counts: [0, 5] }]);
+  assert.equal(unit, 'day');
+  assert.deepEqual(buckets.map((b) => b.values), [[1, 3], [0, 5]]);
 });

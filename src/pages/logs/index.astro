@@ -133,34 +133,27 @@ const startedOutside = logs.some((log) => log.trigger === 'workflow_dispatch');
 const readers = parseReadership(read(path.join(data, 'readership.jsonl')));
 const heldDir = path.join(data, HELD);
 const held = { days: (fs.existsSync(heldDir) ? fs.readdirSync(heldDir) : []).filter((file) => file.endsWith('.md')).map((file) => file.slice(0, 10)), wait: HOLD_DAYS };
-const dayName = (day: string) => new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${day}T12:00:00Z`));
+// The parts of the day-by-day charts, in the order of each day's figures. Kept stands on the baseline, turned away hangs below it.
+const OUTCOME_SERIES = [
+  { label: 'Published', tone: 'main' as const },
+  { label: 'Held for a quieter day', tone: 'waiting' as const },
+  { label: 'Below the bar', tone: 'rest' as const, down: true },
+  { label: 'Not relevant', tone: 'faint' as const, down: true },
+  { label: 'Dropped or left over', tone: 'unknown' as const, down: true },
+];
+const CALL_SERIES = [
+  { label: 'Calls that answered', tone: 'main' as const },
+  { label: 'Repeats', tone: 'light' as const },
+];
 const panels = PERIODS.map((period) => {
   const mine = within(allFacts, period.days);
-  // One column a day, and no more of them than can be read.
-  const days = byDay(mine).slice(-31);
+  // A column a day; the chart turns them into weeks or months once there are too many to read.
+  const days = byDay(mine);
   return {
     ...period,
     findings: findings({ runs: mine, latest, stale, failingFeeds, sourcesToLook: scores.filter((row) => row.verdict.look).map((row) => ({ name: row.name, why: row.verdict.says.replace(/^Watch: /, '').toLowerCase() })), videoSources: SOURCES.some((source) => source.type === 'video'), pictured, editionDays, readersUpTo: readers.at(-1)?.date, held, today, startedOutside, spending: money, release, maxCalls }),
     glance: glance(mine),
-    outcomes: days.map((d) => ({
-      when: dayName(d.day),
-      foot: String(Number(d.day.slice(8))),
-      parts: [
-        { label: 'Published', tone: 'main' as const, count: d.published },
-        { label: 'Held for a quieter day', tone: 'waiting' as const, count: d.held },
-        { label: 'Below the bar', tone: 'rest' as const, count: d.below },
-        { label: 'Not relevant', tone: 'faint' as const, count: d.notRelevant },
-        { label: 'Dropped or left over', tone: 'unknown' as const, count: d.lost },
-      ],
-    })),
-    calls: days.map((d) => ({
-      when: dayName(d.day),
-      foot: String(Number(d.day.slice(8))),
-      parts: [
-        { label: 'Calls that answered', tone: 'main' as const, count: Math.max(0, d.calls - d.retries) },
-        { label: 'Repeats', tone: 'light' as const, count: Math.min(d.calls, d.retries) },
-      ],
-    })),
+    days: days.map((d) => ({ day: d.day, outcomes: [d.published, d.held, d.below, d.notRelevant, d.lost], calls: [Math.max(0, d.calls - d.retries), Math.min(d.calls, d.retries)] })),
   };
 });
 const articles = allArticles(logs);
@@ -225,8 +218,14 @@ const readersUpdated = readerFeedback && fs.existsSync(READER_FILE) ? fs.statSyn
             <section class="ledger__row" id={panel.id === 'all' ? 'how' : undefined}>
               <h3>Day by day</h3>
               <div class="ledger__charts">
-                <LogColumns title="What became of each day's articles" columns={panel.outcomes} />
-                <LogColumns title="Model calls each day" columns={panel.calls} />
+                <LogColumns
+                  title="What became of each day's articles"
+                  unit="articles"
+                  sides={{ up: 'Kept', down: 'Turned away' }}
+                  series={OUTCOME_SERIES}
+                  days={panel.days.map((d) => ({ day: d.day, counts: d.outcomes }))}
+                />
+                <LogColumns title="Model calls each day" unit="calls" series={CALL_SERIES} days={panel.days.map((d) => ({ day: d.day, counts: d.calls }))} />
               </div>
             </section>
           </div>

@@ -101,3 +101,20 @@ export function axisLabels(buckets: Bucket[], unit: Unit, room = 8): string[] {
     return newMonth || unit === 'week' ? format(bucket.start, { day: 'numeric', month: 'short' }) : String(Number(bucket.start.slice(8)));
   });
 }
+
+/** A column made of several figures, each the average a day over the days it covers. */
+export interface PartsBucket {
+  start: string;
+  end: string;
+  editions: number;
+  /** One figure for each series, in the order the days give them. */
+  values: number[];
+}
+
+/** As `group`, for days that each carry several figures: every series is grouped the same way. */
+export function groupParts(days: { label: string; counts: number[] }[], most = MOST_COLUMNS): { unit: Unit; buckets: PartsBucket[] } {
+  const width = days[0]?.counts.length ?? 0;
+  const series = Array.from({ length: width }, (_, i) => group(days.map((day) => ({ label: day.label, count: day.counts[i] ?? 0 })), most).buckets);
+  const { unit, buckets } = group(days.map((day) => ({ label: day.label, count: 0 })), most);
+  return { unit, buckets: buckets.map((bucket, j) => ({ start: bucket.start, end: bucket.end, editions: bucket.editions, values: series.map((one) => one[j]?.value ?? 0) })) };
+}

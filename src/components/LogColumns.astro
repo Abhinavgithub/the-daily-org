@@ -1,55 +1,140 @@
 ---
-// One column per run, oldest at the left, each divided into parts.
+import { compact } from '../lib/stats';
+import { formatDay } from '../lib/stories';
+import { axisLabels, groupParts } from '../lib/trend';
+import { scaleSteps } from '../lib/readership';
 
-interface Part {
+// A column a day, oldest at the left, or a column a week or month once there
+// are too many days for one each. Each column is divided into parts. Parts on
+// the `down` side hang below a baseline and the rest stand on it, so what was
+// kept can be read against one line however much was turned away. Gridlines
+// give the scale; only the peak and the latest column carry their figure, and
+// every column gives its parts on hover and focus.
+
+interface Series {
   label: string;
   tone: 'main' | 'waiting' | 'aside' | 'light' | 'rest' | 'faint' | 'unknown';
-  count: number;
+  /** Below the baseline. Parts stack outwards from it, in the order given. */
+  down?: boolean;
 }
 
 interface Props {
   title: string;
-  /** Each column's parts, in the order they stack from the bottom. `when` names the run in its tooltip. */
-  columns: { when: string; parts: Part[]; foot?: string }[];
+  /** What is counted, in the tooltip: "articles", "calls". */
+  unit: string;
+  series: Series[];
+  /** One entry a day with anything to show, oldest first: a figure for each series. */
+  days: { day: string; counts: number[] }[];
+  /** Names for the two sides, shown in the key when there is a `down` side. */
+  sides?: { up: string; down: string };
 }
 
-const { title, columns } = Astro.props;
-const total = (parts: Part[]) => parts.reduce((sum, part) => sum + part.count, 0);
-const tallest = Math.max(1, ...columns.map((column) => total(column.parts)));
-// The key names every part that occurs somewhere, in the order they stack.
-const key = (columns[0]?.parts ?? []).filter((part) => columns.some((column) => column.parts.some((other) => other.label === part.label && other.count > 0)));
+/** With this many columns or fewer, every column carries its figure. */
+const ALL_FIGURES = 12;
+
+const { title, unit, series, days, sides } = Astro.props;
+const { unit: per, buckets } = groupParts(days.map((d) => ({ label: d.day, counts: d.counts })));
+const upAt = series.flatMap((s, i) => (s.down ? [] : [i]));
+const downAt = series.flatMap((s, i) => (s.down ? [i] : []));
+const sum = (values: number[], at: number[]) => at.reduce((total, i) => total + values[i], 0);
+const ups = buckets.map((b) => sum(b.values, upAt));
+const downs = buckets.map((b) => sum(b.values, downAt));
+const peakUp = Math.max(0, ...ups);
+const peakDown = Math.max(0, ...downs);
+// One step for both sides, so a gridline means the same count above and below.
+const step = scaleSteps(Math.max(peakUp, peakDown))[1] || 1;
+const upCeil = Math.max(step, Math.ceil(peakUp / step) * step);
+const downCeil = downAt.length ? Math.max(step, Math.ceil(peakDown / step) * step) : 0;
+const range = upCeil + downCeil;
+const base = (downCeil / range) * 100;
+const pct = (n: number) => (n / range) * 100;
+const grid = [...Array.from({ length: upCeil / step }, (_, i) => (i + 1) * step), ...Array.from({ length: downCeil / step }, (_, i) => -(i + 1) * step)];
+// Every other gridline is named when there are many of them.
+const named = (tick: number) => grid.length <= 5 || (Math.abs(tick) / step) % 2 === 0;
+
+const labels = axisLabels(
+  buckets.map((b) => ({ ...b, total: 0, value: 0 })),
+  per,
+);
+const figured = buckets.map((_, i) => buckets.length <= ALL_FIGURES || ups[i] === peakUp || i === buckets.length - 1);
+const figure = (n: number) => (n < 10 && !Number.isInteger(n) ? n.toFixed(1) : compact(Math.round(n)));
+const short = (day: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${day}T12:00:00Z`));
+const when = (b: (typeof buckets)[number]) =>
+  per === 'day' ? formatDay(b.start) : per === 'week' ? `Week of ${short(b.start)}, ${b.editions} ${b.editions === 1 ? 'day' : 'days'}` : new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numeric', timeZone: 'UTC' }).format(new Date(`${b.start}T12:00:00Z`));
+const tip = (values: number[]) => {
+  const parts = series.flatMap((s, i) => (values[i] > 0 ? [`${figure(values[i])} ${s.label.toLowerCase()}`] : []));
+  return parts.length ? `${parts.join(', ')}${per === 'day' ? '' : ' a day'}` : `No ${unit}`;
+};
+const heading = per === 'day' ? title : `${title}, ${per === 'week' ? 'weekly' : 'monthly'} average a day`;
+const keyed = (down: boolean) => series.filter((s, i) => Boolean(s.down) === down && buckets.some((b) => b.values[i] > 0));
 ---
 
-<figure class="columns columns--stacked">
-  <figcaption>{title}</figcaption>
+<figure class="columns logcols">
+  <figcaption>{heading}</figcaption>
   {
-    columns.length === 0 ? (
+    buckets.length === 0 ? (
       <p class="ledger__none">Nothing in this period.</p>
     ) : (
       <>
-        <ol class="columns__plot">
-          {columns.map((column) => (
-            <li
-              tabindex="0"
-              data-tip={column.parts.filter((part) => part.count > 0).map((part) => `${part.count} ${part.label.toLowerCase()}`).join(', ') || 'Nothing'}
-              data-tip-label={column.when}
-            >
-              <span class="columns__value">{total(column.parts)}</span>
-              <span class="columns__stack" style={`height: ${(total(column.parts) / tallest) * 100}%`} aria-hidden="true">
-                {column.parts.filter((part) => part.count > 0).map((part) => <span class={`mark--${part.tone}`} style={`flex-grow: ${part.count}`} />)}
-              </span>
-              {column.foot && <span class="columns__day" aria-hidden="true">{column.foot}</span>}
-            </li>
-          ))}
-        </ol>
-        <ul class="key">
-          {key.map((part) => (
-            <li>
-              <span class:list={['key__swatch', `mark--${part.tone}`]} aria-hidden="true" />
-              {part.label}
-            </li>
-          ))}
-        </ul>
+        <div class="logcols__chart" style={`--base: ${base}%`}>
+          <div class="logcols__grid" aria-hidden="true">
+            {grid.map((tick) => (
+              <span style={`bottom: ${base + pct(tick)}%`}>{named(tick) ? compact(Math.abs(tick)) : ''}</span>
+            ))}
+            <span class="logcols__base" style={`bottom: ${base}%`}>0</span>
+          </div>
+          <ol class="logcols__plot">
+            {buckets.map((b, i) => (
+              <li tabindex="0" data-tip={tip(b.values)} data-tip-label={when(b)}>
+                <span class="logcols__up" style={`bottom: ${base}%; height: ${pct(ups[i])}%`} aria-hidden="true">
+                  {upAt.filter((at) => b.values[at] > 0).map((at) => <span class={`mark--${series[at].tone}`} style={`flex-grow: ${b.values[at]}`} />)}
+                </span>
+                {downAt.length > 0 && (
+                  <span class="logcols__down" style={`top: ${100 - base}%; height: ${pct(downs[i])}%`} aria-hidden="true">
+                    {downAt.filter((at) => b.values[at] > 0).map((at) => <span class={`mark--${series[at].tone}`} style={`flex-grow: ${b.values[at]}`} />)}
+                  </span>
+                )}
+                {figured[i] && ups[i] > 0 && (
+                  <span class:list={['logcols__value', { 'logcols__value--peak': ups[i] === peakUp, 'logcols__value--last': i === buckets.length - 1 && buckets.length > 1 }]} style={`bottom: calc(${base + pct(ups[i])}% + 0.2rem)`} aria-hidden="true">
+                    {figure(ups[i])}
+                  </span>
+                )}
+                <span class="logcols__day">
+                  <span class="visually-hidden">
+                    {when(b)}: {tip(b.values)}
+                  </span>
+                  <span aria-hidden="true">{labels[i]}</span>
+                </span>
+              </li>
+            ))}
+          </ol>
+        </div>
+        {sides && downAt.length > 0 ? (
+          <div class="logcols__keys">
+            {[false, true].map((down) => (
+              <div class="logcols__keyrow">
+                <span class="logcols__side">{down ? `↓ ${sides.down}` : `↑ ${sides.up}`}</span>
+                <ul class="key">
+                  {keyed(down).map((s) => (
+                    <li>
+                      <span class:list={['key__swatch', `mark--${s.tone}`]} aria-hidden="true" />
+                      {s.label}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <ul class="key">
+            {keyed(false).map((s) => (
+              <li>
+                <span class:list={['key__swatch', `mark--${s.tone}`]} aria-hidden="true" />
+                {s.label}
+              </li>
+            ))}
+          </ul>
+        )}
       </>
     )
   }
