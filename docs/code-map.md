@@ -54,7 +54,7 @@ Each `npm run` script in package.json maps to one file in `pipeline/` (e.g. `rep
 | Diagram | `figure.ts`, `diagram.ts`, `icons.ts` | `StoryFigure` | `_figure` |
 | Masthead | `quote.ts`, `quote-store.ts`, `releases.ts`, `theme.ts` | `Masthead`, `Tabs`, `FilterBar` | `_masthead`, `_filter-bar` |
 | Bulletin | `bulletin.ts` | `pages/bulletin/` | `_masthead` (the `bulletin__` rules), `_release-edition` |
-| Deadlines | `deadlines.ts` | `pages/deadlines/` | `_masthead` (reuses `bulletin__`), `_release-edition` |
+| Deadlines | `deadlines.ts`, `ics.ts` (the calendar) | `pages/deadlines/`, `pages/deadlines.ics.ts` | `_masthead` (reuses `bulletin__`), `_release-edition` |
 | Release edition | `release-edition.ts`, `release-store.ts` | `pages/releases/[slug]/` | `_release-edition` |
 | Archive, search | `calendar.ts` | `pages/archive/`, `pages/search/` | `_archive`, `_archive-and-search` |
 | Stats | `stats.ts`, `trend.ts`, `readership.ts`, `reader-totals.ts` | `pages/stats/`, `Stat*`, `TokenBars`, `ReadershipTrend` | `_stats` |

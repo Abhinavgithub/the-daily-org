@@ -145,6 +145,7 @@ A YouTube video is judged on its transcript, with the description its uploader w
 |---|---|
 | `/` and `/YYYY-MM-DD/` | The latest edition, and any edition by date. |
 | `/archive/`, `/search/` | Every edition, and search across them. |
+| `/deadlines/`, `/deadlines.ics` | What a release enforces or retires, and when; the same as a calendar to subscribe to. |
 | `/stats/` | For readers: who read the paper, stories published, articles reviewed, tokens by model. |
 | `/logs/` | For whoever runs the paper: what needs attention, every run, and why each article was or was not published. |
 

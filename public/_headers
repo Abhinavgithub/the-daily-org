@@ -6,6 +6,11 @@
 /_astro/*
   Cache-Control: public, max-age=31536000, immutable
 
+# The Deadlines calendar: asked for again by calendar programs, so kept for an hour only.
+/deadlines.ics
+  Content-Type: text/calendar; charset=utf-8
+  Cache-Control: public, max-age=3600
+
 # A story's picture can be redrawn under the same name, so it is kept for a day.
 /figures/*
   Cache-Control: public, max-age=86400

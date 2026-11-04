@@ -33,6 +33,9 @@ const stories = (await getAllStories()).map((story) => ({
 }));
 const everyone = PERSONAS.map((persona) => persona.id);
 const rolesOf = (roles: string[] | undefined) => (roles && roles.length ? roles : everyone);
+// The same dates as a calendar to subscribe to (src/pages/deadlines.ics.ts); webcal: opens it in the reader's calendar program.
+const ics = new URL('/deadlines.ics', Astro.site);
+const subscribe = `webcal://${ics.host}${ics.pathname}`;
 const heading = (group: (typeof groups)[number]) => (group.kind === 'unknown' ? 'No release named' : group.kind === 'before' ? `Before ${group.release}` : group.release);
 ---
 
@@ -45,6 +48,9 @@ const heading = (group: (typeof groups)[number]) => (group.kind === 'unknown' ? 
     <div class="ledger deadlines">
       <p class="ledger__note deadlines__intro">
         What is being enforced or retired, and when, from the official release notes.
+      </p>
+      <p class="ledger__note deadlines__calendar">
+        In your calendar: <a href={subscribe}>subscribe</a>, or <a href={ics.pathname} download>download the file</a>. Each update falls on its day and each release on its dates; a date that moves here moves there.
       </p>
       {deadlines.length > 0 && <FilterBar stories={deadlines.map((deadline) => ({ data: { personas: rolesOf(deadline.roles) } }))} marks={false} />}
 

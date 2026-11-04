@@ -77,7 +77,7 @@ export interface Group {
 }
 
 /** The day a group falls due: the first day of the release for updates due before it, the first day of production for those that come with it. */
-function dueOf(kind: 'before' | 'in', dates: Release | undefined): string | undefined {
+export function dueOf(kind: 'before' | 'in', dates: Release | undefined): string | undefined {
   if (!dates) return undefined;
   if (kind === 'before') return dates.stages[0]?.from;
   return (dates.stages.find((stage) => stage.place === 'production') ?? dates.stages[0])?.from;
