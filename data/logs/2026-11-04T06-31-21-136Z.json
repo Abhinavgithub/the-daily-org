@@ -1,0 +1,414 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-11-04T06:31:21.136Z",
+  "day": "2026-11-04",
+  "seconds": 82,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 3
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 0
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 0
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 1
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 1
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 2
+    },
+    {
+      "id": "sf-blog",
+      "name": "Salesforce Blog",
+      "items": 7
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 5
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 1
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 0
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 0
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 0
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "jitendra-zaa",
+      "name": "Jitendra Zaa",
+      "items": 0
+    },
+    {
+      "id": "simplysfdc",
+      "name": "SimplySfdc",
+      "items": 0
+    },
+    {
+      "id": "salesforcedevops-net",
+      "name": "SalesforceDevOps.net",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 12
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 23
+    }
+  ],
+  "articles": [
+    {
+      "title": "Acquired companies salary by location/remote",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xngc0k/acquired_companies_salary_by_locationremote/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Salesforce Senior Product Security Engineer role",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xnevw0/salesforce_senior_product_security_engineer_role/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Salesforce Security Center",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xnd8wd/salesforce_security_center/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "B2B Commerce cloud",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xn72r7/b2b_commerce_cloud/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Beyond Conversations: Understanding Long-Horizon Agents in Salesforce Agentforce",
+      "url": "https://dev.to/ayaninsights/beyond-conversations-understanding-long-horizon-agents-in-salesforce-agentforce-1mfo",
+      "source": "dev.to",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Business productivity",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xmocny/business_productivity/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Salesforce Internship Referral — Should I Apply or Wait?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xnd9lt/salesforce_internship_referral_should_i_apply_or/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Agentforce Memory policy update roughly doubles recall of stated and changing facts",
+      "url": "https://www.salesforce.com/blog/agentforce-memory-update/",
+      "source": "Salesforce Blog",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Double recall: Inside the Agentforce Memory update"
+    },
+    {
+      "title": "Half of Slack Messages Are No Longer From People. Here’s Slack by the Numbers.",
+      "url": "https://www.salesforce.com/news/stories/slack-stats/",
+      "source": "Salesforce News",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Finding missing and duplicate records after a migration by matching external keys",
+      "url": "https://dev.to/richardc_ailstudio/how-to-find-missing-and-duplicate-records-after-a-salesforce-migration-match-on-an-external-key-mbf",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: How to find missing and duplicate records after a Salesforce migration (match on an external key)"
+    },
+    {
+      "title": "5 Things Your Medical Affairs Team Needs To Deliver Answers HCPs Can Trust",
+      "url": "https://www.salesforce.com/blog/5-things-your-medical-affairs-team-needs-to-deliver-answers-hcps-can-trust/",
+      "source": "Salesforce Blog",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Skills admins need to build with AIforce's MCPs, Skills and Plugins",
+      "url": "https://admin.salesforce.com/blog/2026/admins-aiforce-new-skills-to-build",
+      "source": "Salesforce Admins Blog",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Admins & AIforce: New Skills to Build"
+    },
+    {
+      "title": "Offer from Startup, been acquired by Salesforce",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xn1ufv/offer_from_startup_been_acquired_by_salesforce/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Tableau Data Apps bring governed agentic analytics to vibe-coded apps",
+      "url": "https://www.salesforce.com/blog/tableau-data-apps-from-prompt-to-trusted-agentic-analytics/",
+      "source": "Salesforce Blog",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Starting your own consulting practice",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xmz82b/starting_your_own_consulting_practice/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Who approves a discount when the sales manager is on vacation? A test for your Salesforce approval process",
+      "url": "https://dev.to/juanma_garrido_1974/who-approves-a-discount-when-the-sales-manager-is-on-vacation-a-test-for-your-salesforce-approval-5h42",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Sales reps refusing to log calls is going to be my villain origin story",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xmyfpm/sales_reps_refusing_to_log_calls_is_going_to_be/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Pluto 2.0: an open-source AI agent engine for Salesforce that runs without Agentforce or Data Cloud licenses",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xmx93w/pluto_20_an_opensource_ai_agent_engine_for/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Restricting Shopper API traffic to Managed Runtime with eCDN rules",
+      "url": "https://developer.salesforce.com/blogs/2026/11/protect-your-salesforce-commerce-api-scapi-from-bots-and-ai-agents-with-ecdn",
+      "source": "Salesforce Developers Blog",
+      "outcome": "published",
+      "score": 8,
+      "reason": "article title: Protect Your Salesforce Commerce API (SCAPI) from Bots and AI Agents with eCDN"
+    },
+    {
+      "title": "5 years of experience as an Admin, became somewhat senior, reasonably technical, working as a business analyst, data governance, emergency triage, and not sure where to go next. Burning out and just need to know what I can expect with my skillset and experience.",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xmwtnb/5_years_of_experience_as_an_admin_became_somewhat/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Email Content Builder Not Loading Templates/Content",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xmwnp5/email_content_builder_not_loading_templatescontent/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Salesforce B2B Commerce: pricing, ordering and ERP integration",
+      "url": "https://dev.to/salesforcedorian/salesforce-b2b-commerce-pricing-ordering-and-erp-integration-39o4",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "West Africa Dreamin' - Giving Away 5 Tickets",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xmtv9h/west_africa_dreamin_giving_away_5_tickets/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Time-Saving Tools For Boutique Agencies (The A-Z List)",
+      "url": "https://www.salesforce.com/blog/small-business/tools-for-boutique-agencies/",
+      "source": "Salesforce Blog",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Salesforce Acquires Cresta: Buying Spree Continues With Voice Agent Company",
+      "url": "https://www.salesforceben.com/salesforce-acquires-cresta-buying-spree-continues-with-voice-agent-company/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Salesforce Apex Callout Mocking: How to Test REST API Integrations",
+      "url": "https://dev.to/neha_6ddfbf87f8ffe5f87b89/salesforce-apex-callout-mocking-how-to-test-rest-api-integrations-4k4n",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Apex gains multiline string literals and template() in Summer '26",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xmrl5p/stop_chaining_and_n_apex_multiline_strings/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 6,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "Finished final HM round at Salesforce on Friday — typical wait time for recruiter update?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xmqvn0/finished_final_hm_round_at_salesforce_on_friday/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce Omni-Channel Routing: Getting Cases to the Right Agent Faster",
+      "url": "https://dev.to/rohanmehta/salesforce-omni-channel-routing-getting-cases-to-the-right-agent-faster-kfh",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Workflow Automation. Three Builds That Show the Limits",
+      "url": "https://dev.to/cortance/workflow-automation-three-builds-that-show-the-limits-459c",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "I built a free, open-source Chrome extension for the boring 80% of admin work (flows, field cleanup, data between orgs). Looking for feedback.",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xmoatb/i_built_a_free_opensource_chrome_extension_for/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 3
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Agentforce Memory policy update roughly doubles recall of stated and changing facts",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Finding missing and duplicate records after a migration by matching external keys",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Skills admins need to build with AIforce's MCPs, Skills and Plugins",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Tableau Data Apps bring governed agentic analytics to vibe-coded apps",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Restricting Shopper API traffic to Managed Runtime with eCDN rules",
+      "outcome": "unchanged"
+    }
+  ],
+  "figures": [
+    {
+      "title": "Restricting Shopper API traffic to Managed Runtime with eCDN rules",
+      "outcome": "drawn",
+      "kind": "steps"
+    }
+  ],
+  "model": {
+    "calls": 20,
+    "retries": {},
+    "usage": {
+      "anthropic/claude-haiku-5.5": {
+        "input": 87288,
+        "output": 13140
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-11-04T06:32:42.703Z"
+}
