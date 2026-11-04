@@ -44,7 +44,6 @@
   // Apart from the blues and beiges, for what is printed but is not a story: the Bulletin's lines.
   --mark-aside: #5e8a2e;
   // Behind a weekend day, in a chart a day.
-  --mark-weekend: color-mix(in srgb, #c4baa3 35%, transparent);
 
   max-width: 62rem;
   margin: 0 auto;
@@ -65,7 +64,6 @@
     --mark-rest: #8a8272;
     --mark-faint: #5c5647;
     --mark-aside: #7fbf6a;
-    --mark-weekend: color-mix(in srgb, #8a8272 16%, transparent);
   }
 }
 

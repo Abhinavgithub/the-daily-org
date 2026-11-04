@@ -15,8 +15,8 @@ import LogReaders from '../../components/LogReaders.astro';
 import LogRun from '../../components/LogRun.astro';
 import Masthead from '../../components/Masthead.astro';
 import Layout from '../../layouts/Layout.astro';
-import { allArticles, byDay, facts, findings, glance, spending, within } from '../../lib/insights';
-import { byNewest, costsByRun, legacyRuns, problems, readLog, readReleaseStatus, staleEditions, type RunLogData } from '../../lib/logs';
+import { allArticles, byDay, dollars, facts, findings, glance, spending, within } from '../../lib/insights';
+import { byNewest, costsByRun, legacyRuns, problems, readLog, readReleaseStatus, runId, staleEditions, type RunLogData } from '../../lib/logs';
 import { addedOn, addTallies, postsByDay, RULES as SOURCE_RULES, scorecard, standings, type ScoreRow } from '../../lib/sources';
 import { parseReadership } from '../../lib/readership';
 import { formatNumber, parseRuns } from '../../lib/stats';
@@ -44,14 +44,9 @@ const runs = [...logs, ...older].sort(byNewest);
 // Forum posts are mostly turned away by design, so they are left out of a run's yield.
 const forums = new Set(SOURCES.filter((source) => source.type === 'discussion').map((source) => source.name));
 const allFacts = runs.map((log) => facts(log, costOf(log), forums));
-// One scale for every run's bar: the most kept and the most turned away by any run, so lengths compare down the list.
-const runScale = logs.reduce(
-  (most, log) => {
-    const f = facts(log);
-    return { kept: Math.max(most.kept, f.published + f.bulletin + f.held), away: Math.max(most.away, f.below + f.notRelevant + f.dropped + f.deferred + f.awaitingTranscript) };
-  },
-  { kept: 1, away: 1 },
-);
+// The Runs section's timeline: a column a day for the last RUN_DAYS days, as tall as what that day's runs cost, marked when one had problems. A day with no run is left as a gap.
+const RUN_DAYS = 42;
+const paperDay = (iso: string) => new Intl.DateTimeFormat('en-CA', { timeZone: PAPER.timezone, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date(iso));
 
 let state: Record<string, { failures?: number; lastSuccessAt?: string; lastError?: string; lastPostAt?: string }> = {};
 try {
@@ -104,6 +99,23 @@ const latest = allFacts.find((run) => run.kind === 'pipeline');
 // Today as the paper dates its editions, and what the checks of every period share.
 const today = new Intl.DateTimeFormat('en-CA', { timeZone: PAPER.timezone, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
 const editionDays = new Set(editions.map((edition) => edition.day));
+const runDays = Array.from({ length: RUN_DAYS }, (_, i) => new Date(Date.parse(`${today}T12:00:00Z`) - (RUN_DAYS - 1 - i) * 86_400_000).toISOString().slice(0, 10)).filter((day) => logs.some((log) => paperDay(log.ranAt) <= day));
+const runTimeline = runDays.map((day) => {
+  const those = logs.filter((log) => paperDay(log.ranAt) === day);
+  const priced = those.filter((log) => costOf(log) !== undefined);
+  return {
+    day,
+    runs: those,
+    cost: priced.reduce((sum, log) => sum + costOf(log)!, 0),
+    unpriced: those.length > 0 && priced.length === 0,
+    calls: those.reduce((sum, log) => sum + log.model.calls, 0),
+    problems: those.filter((log) => problems(log).length > 0).length,
+    // The column opens the day's latest run.
+    latest: those.toSorted(byNewest)[0],
+  };
+});
+const runPeak = Math.max(0, ...runTimeline.map((slot) => slot.cost));
+const runDay = (day: string) => new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${day}T12:00:00Z`));
 // The Sources section. Each source's new posts on each of the last two weeks' edition days, as a strip.
 const STRIP_DAYS = 14;
 const dayBefore = (day: string, n: number) => new Date(Date.parse(`${day}T12:00:00Z`) - n * 86_400_000).toISOString().slice(0, 10);
@@ -119,16 +131,16 @@ const storyIds = new Set(storyRows.map((row) => row.id));
 const perDay = new Map<string, number>();
 for (const run of recorded) perDay.set(run.date, (perDay.get(run.date) ?? 0) + Object.entries(run.sources).reduce((sum, [id, tally]) => sum + (storyIds.has(id) ? tally.new : 0), 0));
 const average = (days: string[]) => (days.length ? Math.round((days.reduce((sum, day) => sum + perDay.get(day)!, 0) / days.length) * 10) / 10 : 0);
-const runDays = [...perDay.keys()];
-const rhythm = { weekday: average(runDays.filter((day) => !weekend(day))), weekend: average(runDays.filter(weekend)) };
+const postDays = [...perDay.keys()];
+const rhythm = { weekday: average(postDays.filter((day) => !weekend(day))), weekend: average(postDays.filter(weekend)) };
 const needing = scores.filter((row) => row.verdict.look);
 // The sources that printed anything.
 const givers = storyRows.filter((row) => row.tally.published > 0);
 // In each group, the ones needing a look first, then the most printed.
 const ordered = (rows: ScoreRow[]) => [...rows].sort((a, b) => Number(b.verdict.look) - Number(a.verdict.look) || b.tally.published - a.tally.published || a.name.localeCompare(b.name));
 const most = Math.max(1, ...Object.values(posts).flat());
-// A day's posts as the height of its column. On a square-root scale, so a source with one or two posts a day still shows its rhythm beside one with fifteen.
-const postHeight = (n: number) => (n > 0 ? Math.max(15, Math.sqrt(n / most) * 100) : 0);
+// A day's posts as one of four shades, darker with more. On a square-root scale, so a source with one or two posts a day still shows its rhythm beside one with fifteen.
+const heat = (n: number) => (n > 0 ? Math.min(4, Math.ceil(Math.sqrt(n / most) * 4)) : 0);
 const shortDate = (day: string) => new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${day}T12:00:00Z`));
 const lastPost = (iso?: string) => {
   if (!iso) return 'Not known';
@@ -262,22 +274,27 @@ const readersUpdated = readerFeedback && fs.existsSync(READER_FILE) ? fs.statSyn
               <dd class="glance__note">{needing.length ? needing.map((row) => row.name).join(', ') : 'none'}</dd>
             </div>
           </dl>
-          <p class="sources__key">
-            <span><span class="key__swatch mark--main" aria-hidden="true" /> printed</span>
-            <span><span class="key__swatch mark--rest" aria-hidden="true" /> below the bar</span>
-            <span><span class="key__swatch mark--faint" aria-hidden="true" /> not relevant</span>
-            <span>Bars share one scale in each group, so a longer bar is a source that gave more to read.</span>
-          </p>
+          <div class="sources__key">
+            <span class="sources__keypart">
+              <span class="source__heat" aria-hidden="true">
+                {[0, 1, 2, 3, 4].map((level) => <span data-heat={level} />)}
+              </span>
+              New posts a day, none to most; weekend days underlined
+            </span>
+            <span class="sources__keypart">
+              <span><span class="key__swatch mark--main" aria-hidden="true" /> printed</span>
+              <span><span class="key__swatch mark--rest" aria-hidden="true" /> below the bar</span>
+              <span><span class="key__swatch mark--faint" aria-hidden="true" /> not relevant</span>
+              <span>as a share of what was reviewed</span>
+            </span>
+          </div>
           {
             [
               { name: 'Sources of stories', note: undefined, rows: ordered(storyRows) },
               { name: 'Sources of the Bulletin', note: 'Judged on whether they answer, not on what they print.', rows: ordered(bulletinRows) },
             ]
               .filter((group) => group.rows.length > 0)
-              .map((group) => {
-                // The longest bar in the group is the source with most reviewed; the rest are measured against it.
-                const widest = Math.max(1, ...group.rows.map((row) => row.tally.published + row.tally.below + row.tally.notRelevant));
-                return (
+              .map((group) => (
                 <div class="sources__group">
                   <p class="sources__head" aria-hidden="true">
                     <span>{group.name}</span>
@@ -297,20 +314,22 @@ const readersUpdated = readerFeedback && fs.existsSync(READER_FILE) ? fs.statSyn
                             <span>{row.name}</span>
                             <span class:list={['tag', `tag--${row.verdict.standing}`, 'source__verdict']}>{row.verdict.says}</span>
                           </div>
-                          <div class="source__strip" role="img" aria-label={`New posts on each of the last ${STRIP_DAYS} days: ${daily.join(', ')}`}>
+                          <div class="source__heat" role="img" aria-label={`New posts on each of the last ${STRIP_DAYS} days: ${daily.join(', ')}`}>
                             {daily.map((n, i) => (
-                              <span class:list={[weekend(stripDays[i]) && 'source__day--weekend']} title={`${shortDate(stripDays[i])}: ${n} new`}>
-                                {n > 0 && <span style={`height: ${postHeight(n)}%`} />}
-                              </span>
+                              <span data-heat={heat(n)} class:list={[weekend(stripDays[i]) && 'source__day--weekend']} title={`${shortDate(stripDays[i])}: ${n} new`} />
                             ))}
                           </div>
                           <div class="source__yield">
-                            <span class="source__bar" style={`width: ${(judged / widest) * 100}%`} title={`${published} printed, ${below} below the bar, ${notRelevant} not relevant`} aria-hidden="true">
-                              {published > 0 && <span class="mark--main" style={`flex-grow: ${published}`} />}
-                              {below > 0 && <span class="mark--rest" style={`flex-grow: ${below}`} />}
-                              {notRelevant > 0 && <span class="mark--faint" style={`flex-grow: ${notRelevant}`} />}
-                            </span>
-                            <span class="source__count">{reviewed ? `${published} of ${reviewed} printed` : 'Nothing reviewed'}</span>
+                            {judged > 0 ? (
+                              <span class="source__bar" title={`${published} printed, ${below} below the bar, ${notRelevant} not relevant`} aria-hidden="true">
+                                {published > 0 && <span class="mark--main" style={`flex-grow: ${published}`} />}
+                                {below > 0 && <span class="mark--rest" style={`flex-grow: ${below}`} />}
+                                {notRelevant > 0 && <span class="mark--faint" style={`flex-grow: ${notRelevant}`} />}
+                              </span>
+                            ) : (
+                              <span class="source__bar source__bar--none" aria-hidden="true" />
+                            )}
+                            <span class="source__count">{reviewed ? `${published} of ${reviewed}` : 'None yet'}</span>
                           </div>
                           <span class="source__last" title={row.lastPostAt ? date(row.lastPostAt) : undefined}>{lastPost(row.lastPostAt)}</span>
                         </li>
@@ -318,10 +337,8 @@ const readersUpdated = readerFeedback && fs.existsSync(READER_FILE) ? fs.statSyn
                     })}
                   </ul>
                 </div>
-                );
-              })
+              ))
           }
-          <p class="sources__note">Each day's column is taller with more posts; weekend days are shaded.</p>
         </div>
       </section>
 
@@ -349,21 +366,51 @@ const readersUpdated = readerFeedback && fs.existsSync(READER_FILE) ? fs.statSyn
             </div>
           </div>
           {
-            runs.length > 0 && (
-              <p class="sources__key runs__key">
-                <span class="runs__side">Kept ←</span>
-                <span><span class="key__swatch mark--main" aria-hidden="true" /> published</span>
-                <span><span class="key__swatch mark--aside" aria-hidden="true" /> in the Bulletin</span>
-                <span><span class="key__swatch mark--waiting" aria-hidden="true" /> held</span>
-                <span class="runs__side">→ Turned away</span>
-                <span><span class="key__swatch mark--rest" aria-hidden="true" /> below the bar</span>
-                <span><span class="key__swatch mark--faint" aria-hidden="true" /> not relevant</span>
-                <span><span class="key__swatch mark--unknown" aria-hidden="true" /> dropped or left over</span>
-              </p>
+            runTimeline.length > 1 && (
+              <figure class="runline">
+                <figcaption>
+                  What each day's runs cost, last {runTimeline.length} days
+                  <span class="runline__key">
+                    <span><span class="key__swatch mark--main" aria-hidden="true" /> fine</span>
+                    <span><span class="key__swatch runline__bad" aria-hidden="true" /> had problems</span>
+                    <span><span class="key__swatch mark--unknown" aria-hidden="true" /> cost not recorded</span>
+                    <span><span class="runline__none" aria-hidden="true" /> no run</span>
+                  </span>
+                </figcaption>
+                <div class="runline__chart">
+                  <span class="runline__peak" aria-hidden="true">{dollars(runPeak)}</span>
+                  <ol class="runline__plot">
+                    {runTimeline.map((slot) => (
+                      <li>
+                        {slot.latest ? (
+                          <a
+                            href={`#${runId(slot.latest.ranAt)}`}
+                            data-run-link
+                            data-tip={`${slot.unpriced ? 'Cost not recorded' : dollars(slot.cost)}, ${slot.calls} ${slot.calls === 1 ? 'call' : 'calls'}`}
+                            data-tip-label={`${runDay(slot.day)}: ${slot.runs.length} ${slot.runs.length === 1 ? 'run' : 'runs'}${slot.problems ? `, ${slot.problems} with problems` : ''}`}
+                          >
+                            <span class:list={['runline__col', slot.unpriced ? 'mark--unknown' : slot.problems ? 'runline__bad' : 'mark--main']} style={`height: ${slot.unpriced ? 12 : Math.max(4, runPeak ? (slot.cost / runPeak) * 100 : 4)}%`} />
+                            <span class="visually-hidden">
+                              {runDay(slot.day)}: {slot.runs.length} {slot.runs.length === 1 ? 'run' : 'runs'}, {slot.unpriced ? 'cost not recorded' : dollars(slot.cost)}
+                              {slot.problems ? `, ${slot.problems} with problems` : ''}
+                            </span>
+                          </a>
+                        ) : (
+                          <span class="runline__none" title={`${runDay(slot.day)}: no run`} />
+                        )}
+                      </li>
+                    ))}
+                  </ol>
+                  <p class="runline__axis" aria-hidden="true">
+                    <span>{runDay(runTimeline[0].day)}</span>
+                    <span>{runDay(runTimeline.at(-1)!.day)}</span>
+                  </p>
+                </div>
+              </figure>
             )
           }
           {runs.length === 0 && <p class="ledger__none">No run is recorded yet. The paper's first run will show here.</p>}
-          {logs.map((run, i) => <LogRun log={run} open={i === 0 && problems(run).length > 0} cost={costOf(run)} scale={runScale} />)}
+          {logs.map((run, i) => <LogRun log={run} open={i === 0 && problems(run).length > 0} cost={costOf(run)} />)}
           <p class="ledger__none" data-runs-empty hidden>No run in this period matches.</p>
           <button type="button" class="chip results__more" data-runs-more hidden>Show all runs</button>
         </div>
