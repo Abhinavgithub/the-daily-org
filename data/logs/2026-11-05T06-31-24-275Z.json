@@ -1,0 +1,399 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-11-05T06:31:24.275Z",
+  "day": "2026-11-05",
+  "seconds": 110,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 3
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 2
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 0
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 2
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 1
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 5
+    },
+    {
+      "id": "sf-blog",
+      "name": "Salesforce Blog",
+      "items": 10
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 9
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 1
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 0
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 0
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 0
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "jitendra-zaa",
+      "name": "Jitendra Zaa",
+      "items": 0
+    },
+    {
+      "id": "simplysfdc",
+      "name": "SimplySfdc",
+      "items": 0
+    },
+    {
+      "id": "salesforcedevops-net",
+      "name": "SalesforceDevOps.net",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 12
+    },
+    {
+      "id": "dev-to-agentforce",
+      "name": "dev.to (Agentforce)",
+      "items": 0
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 23
+    }
+  ],
+  "articles": [
+    {
+      "title": "Your AI Agents Are Fast. Your Process Isn’t. Here’s How to Fix It.",
+      "url": "https://www.salesforce.com/news/stories/ai-agents-fast-how-to-fix-process/",
+      "source": "Salesforce News",
+      "outcome": "dropped",
+      "reason": "none of the paper's keywords"
+    },
+    {
+      "title": "Reaching the Inbox Is the Win. Standing Out Is the Next Challenge.",
+      "url": "https://www.salesforce.com/blog/reaching-the-inbox-is-the-win-standing-out-is-the-next-challenge/",
+      "source": "Salesforce Blog",
+      "outcome": "dropped",
+      "reason": "none of the paper's keywords"
+    },
+    {
+      "title": "Job Search Salesforce",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xnnxja/job_search_salesforce/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Need Career Advice: Early-Career Salesforce Developer Facing Uncertainty",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xoba4w/need_career_advice_earlycareer_salesforce/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce QA Automation – Selenium vs Playwright vs Other Tools?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xo52bf/salesforce_qa_automation_selenium_vs_playwright/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Has anyone ever bought or sold a one-person Salesforce consulting business?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xo2n0r/has_anyone_ever_bought_or_sold_a_oneperson/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Testing product knowledge grounding for Agentforce with Data 360",
+      "url": "https://www.salesforce.com/blog/data-360-product-knowledge-ai/",
+      "source": "Salesforce Blog",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: 4 Data 360 Lessons for Connecting Product Knowledge to AI"
+    },
+    {
+      "title": "Occupy SaaS, what do you think?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xo0cgd/occupy_saas_what_do_you_think/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "How Salesforce cut lead assignment to 20 seconds using Data 360 scoring",
+      "url": "https://www.salesforce.com/blog/data-360-lead-scoring/",
+      "source": "Salesforce Blog",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Data 360: How We Cut Lead Assignment From 20 Minutes to 20 Seconds"
+    },
+    {
+      "title": "Updated Agentforce Memory policy roughly doubles recall of changing facts",
+      "url": "https://www.salesforce.com/news/linked-content/double-recall-inside-the-agentforce-memory-update/",
+      "source": "Salesforce News",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Recover Deleted Sandbox",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xnuhac/recover_deleted_sandbox/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Why Salesforce and ERP implementations fail: it's rarely the software",
+      "url": "https://dev.to/juanma_garrido_1974/why-salesforce-and-erp-implementations-fail-its-rarely-the-software-l58",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Building an e-invoicing process in Salesforce across German, Belgian and French rules",
+      "url": "https://www.salesforceben.com/how-to-build-a-compliant-e-invoicing-process-in-salesforce/",
+      "source": "Salesforce Ben",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Avoiding runtime anti-patterns in Lightning Web Components",
+      "url": "https://developer.salesforce.com/blogs/2026/11/runtime-behavior-anti-patterns-in-lightning-web-components",
+      "source": "Salesforce Developers Blog",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Runtime Behavior Anti-Patterns in Lightning Web Components"
+    },
+    {
+      "title": "Ten Flow design mistakes that break Salesforce orgs as they scale",
+      "url": "https://www.salesforceben.com/10-mistakes-salesforce-architects-make-when-scaling-flow/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: 10 Mistakes Salesforce Architects Make When Scaling Flow"
+    },
+    {
+      "title": "How Salesforce Go organises feature setup for admins",
+      "url": "https://www.salesforceben.com/complete-guide-to-salesforce-go-the-future-of-salesforce-setup/",
+      "source": "Salesforce Ben",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Community site slowdown tied to Lightning runtime, reported as lasting a week",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xnqli4/another_feature_degradation_going_on_for_more/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 5,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "How LWR differs from Aura for Experience Cloud sites and what migration involves",
+      "url": "https://dev.to/salesforcedorian/salesforce-lwr-vs-aura-what-changes-for-experience-cloud-sites-p86",
+      "source": "dev.to",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Agentforce Coworker adds Teams, mobile and desktop access and a $50 per-user price",
+      "url": "https://www.salesforce.com/news/stories/agentforce-coworker-surpasses-185k-users/",
+      "source": "Salesforce News",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "7 Best Website Builders for Small Business",
+      "url": "https://www.salesforce.com/blog/small-business/best-website-builders-for-smb/",
+      "source": "Salesforce Blog",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Salesforce CLI 2.158.7 deprecates force user commands and adds two metadata types",
+      "url": "https://github.com/forcedotcom/cli/blob/main/releasenotes/README.md?v=2.158.7#21587-november-4-2026-stable-rc",
+      "source": "Salesforce CLI",
+      "outcome": "published",
+      "score": 6,
+      "reason": "printed in the Bulletin; every release of a tool is"
+    },
+    {
+      "title": "Salesforce CLI 2.157.8 fixes profile deploys, namespace retrieves and token saving",
+      "url": "https://github.com/forcedotcom/cli/blob/main/releasenotes/README.md?v=2.157.8#21578-november-4-2026-stable",
+      "source": "Salesforce CLI",
+      "outcome": "published",
+      "score": 4,
+      "reason": "printed in the Bulletin; every release of a tool is"
+    },
+    {
+      "title": "Salesforce Data Security: Field-Level Security, Profiles, and Shield Basics",
+      "url": "https://dev.to/rohanmehta/salesforce-data-security-field-level-security-profiles-and-shield-basics-39db",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Community Reacts to SIforce Renaming: What on Earth Is ‘Super Intelligence’?",
+      "url": "https://www.salesforceben.com/community-reacts-to-siforce-renaming-what-on-earth-is-super-intelligence/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Data Cloud Scratch Org creation failing with INVALID_INPUT error",
+      "url": "https://status.salesforce.com/generalmessages/20000270",
+      "source": "Salesforce Trust",
+      "outcome": "published",
+      "score": 7,
+      "reason": "printed in the Bulletin as an alert (service notice), whatever its score"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Data Cloud Scratch Org creation failing with INVALID_INPUT error",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Testing product knowledge grounding for Agentforce with Data 360",
+      "outcome": "corrected"
+    },
+    {
+      "title": "How Salesforce cut lead assignment to 20 seconds using Data 360 scoring",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Updated Agentforce Memory policy roughly doubles recall of changing facts",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Building an e-invoicing process in Salesforce across german, belgian and french Rules",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Avoiding runtime anti-patterns in Lightning Web Components",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Ten Flow design mistakes that break Salesforce orgs as they scale",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "How Salesforce Go organizes Feature Setup for admins",
+      "outcome": "corrected"
+    },
+    {
+      "title": "How LWR differs from Aura for Experience Cloud sites and what migration involves",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Agentforce Coworker adds Teams, mobile and desktop access and a $50 per-user price",
+      "outcome": "unchanged"
+    }
+  ],
+  "figures": [],
+  "model": {
+    "calls": 20,
+    "retries": {},
+    "usage": {
+      "anthropic/claude-haiku-5.5": {
+        "input": 86332,
+        "output": 16399
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    },
+    {
+      "name": "Known Issues",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-11-05T06:33:14.084Z"
+}

@@ -1,0 +1,5837 @@
+{
+ "KI-77471": {
+  "key": "a02g700000DRJLdAAP",
+  "subject": "Life Sciences Cloud – Managed Event Workflow Checklist and Validations Not Working as Expected on iPad",
+  "product": "Public Sector Health",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-11-05",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77470": {
+  "key": "a02g700000DR0AwAAL",
+  "subject": "iPad app throws \"Default Event Management Participant Role for Participant Type Colleague is not configured\" when Primary Owner is selected",
+  "product": "Public Sector Health",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-11-05",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77469": {
+  "key": "a02g700000DRFZlAAP",
+  "subject": "Standard Cart API is failing when \"Product Relationship\" Message__c field contains the special characters",
+  "product": "Industries CPQ",
+  "cloud": "Communications",
+  "created": "2026-11-05",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77468": {
+  "key": "a02g700000DQrqnAAD",
+  "subject": "Builder Central fails with \"We couldn't finish setting up your workspace\" when sessions are locked to the originating IP",
+  "product": "AgentForce",
+  "cloud": "Service",
+  "created": "2026-11-05",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77467": {
+  "key": "a02g700000DQht3AAD",
+  "subject": "Ended messaging session stays active in Command Center for Service V2 Service Reps component",
+  "product": "Omni-Channel",
+  "cloud": "Service",
+  "created": "2026-11-05",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77466": {
+  "key": "a02g700000DQgtlAAD",
+  "subject": "Unable to select a value for a Lookup field on Visualforce Pages when [Cross-Origin Opener Policy (COOP)] is enabled in [Session Settings]",
+  "product": "Development (Apex, LWC & VF)",
+  "cloud": "Platform",
+  "created": "2026-11-05",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77465": {
+  "key": "a02g700000DQgH3AAL",
+  "subject": "Record banner text renders smaller on Aura Experience Cloud record detail pages after Winter '27",
+  "product": "Experience Builder",
+  "cloud": "Experience",
+  "created": "2026-11-05",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77464": {
+  "key": "a02g700000DQevBAAT",
+  "subject": "Unable to insert images into Rich Text Area fields on Visualforce Pages when [Cross-Origin Embedder Policy (COEP)] is enabled in [Session Settings]",
+  "product": "Development (Apex, LWC & VF)",
+  "cloud": "Platform",
+  "created": "2026-11-05",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77463": {
+  "key": "a02g700000DQOVRAA5",
+  "subject": "EngagementSignalException while deploying the Engagement Signals using Data Kit",
+  "product": "Data Kits",
+  "cloud": "Data Cloud",
+  "created": "2026-11-05",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77461": {
+  "key": "a02g700000DQFS9AAP",
+  "subject": "Entire Flow Fails Due to a Specific Input Error in a Flow with Multiple Inputs and Outputs in Tableau Prep Conductor",
+  "product": "Tableau Server",
+  "cloud": "Tableau",
+  "created": "2026-11-05",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77458": {
+  "key": "a02g700000DQ677AAD",
+  "subject": "Wait Until Event does not evaluate engagement events for non-Individual/Unified Individual DMOs.",
+  "product": "Content",
+  "cloud": "Marketing App",
+  "created": "2026-11-05",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77453": {
+  "key": "a02g700000DPiCrAAL",
+  "subject": "Rounded Border Radius Not Displaying in Rendered Email Content",
+  "product": "Account Based Marketing",
+  "cloud": "Marketing Cloud Account Engagement (Pardot)",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77452": {
+  "key": "a02g700000DPdMtAAL",
+  "subject": "Field Service iOS app shows a blank screen after Next on a long native mobile flow screen",
+  "product": "Field Service Mobile App",
+  "cloud": "Field Service",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77451": {
+  "key": "a02g700000DPfA9AAL",
+  "subject": "Deployment Failure When Deploying a Flow Between Orgs",
+  "product": "Marketing Cloud Platform",
+  "cloud": "Marketing",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77450": {
+  "key": "a02g700000DPdptAAD",
+  "subject": "Field Service mobile app: Product lookup search on Work Order Line Item fails offline (no results on iOS, endless loading on Android)",
+  "product": "Field Service Mobile App",
+  "cloud": "Field Service",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77449": {
+  "key": "a02g700000DPdmfAAD",
+  "subject": "Service Console freezes for 15–40 seconds when switching back to an open Messaging Session tab in Winter '27 (264)",
+  "product": "Messaging",
+  "cloud": "Service",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77448": {
+  "key": "a02g700000DOgUsAAL",
+  "subject": "[SF Maps][Enhanced Mobile User Experience] ClusterZoomLevel setting issue, clusters break at hardcoded zoom",
+  "product": "Salesforce Maps",
+  "cloud": "Sales",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77447": {
+  "key": "a02g700000DPbUjAAL",
+  "subject": "Agentforce Sessions is intermittently returning LLM errors.",
+  "product": "AgentForce",
+  "cloud": "Service",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77445": {
+  "key": "a02g700000DOx97AAD",
+  "subject": "Momentum insights are not populating right away on related records",
+  "product": "Sales Cloud Einstein",
+  "cloud": "Sales",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77444": {
+  "key": "a02g700000DOupZAAT",
+  "subject": "Service Rep's owned work items display as plain text, not clickable links in Command Center for Service V2",
+  "product": "Omni-Channel",
+  "cloud": "Service",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77443": {
+  "key": "a02g700000DOk2DAAT",
+  "subject": "Patch organization creation failure",
+  "product": "AppExchange",
+  "cloud": "AppExchange",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77442": {
+  "key": "a02g700000DOPB1AAP",
+  "subject": "OTT Transactional API - WhatsApp message send fails with 410 InvalidSubscriber due to contactKey capitalization mismatch in Marketing Cloud",
+  "product": "Mobile Studio",
+  "cloud": "Marketing",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77440": {
+  "key": "a02g700000DOPozAAH",
+  "subject": "Page picker attribute value not shown after switching editor locale (26.10) for Page Designer on B2C Commerce",
+  "product": "B2C Commerce",
+  "cloud": "Commerce",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77439": {
+  "key": "a02g700000DOFrFAAX",
+  "subject": "Agents are unable to hold/switch between calls after transfer",
+  "product": "Service Cloud Voice",
+  "cloud": "Service",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 6
+  }
+ },
+ "KI-77438": {
+  "key": "a02g700000DODB7AAP",
+  "subject": "TUA Reuse of Semantic Data Models Fails When Unmapped Semantic Data Objects Are Present",
+  "product": "Tableau Next",
+  "cloud": "Tableau",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77437": {
+  "key": "a02g700000DNzukAAD",
+  "subject": "X12 Write Connector: Concurrent schema load on pod cold-start causes silent truncated EDI 271 responses",
+  "product": "Anypoint Connectors",
+  "cloud": "MuleSoft",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77436": {
+  "key": "a02g700000DO1MrAAL",
+  "subject": "Attempts to create a Party Relationship Group from New Group modal fails due to the State value set for the record",
+  "product": "Public Sector Solutions",
+  "cloud": "Public Sector",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77435": {
+  "key": "a02g700000DNyQbAAL",
+  "subject": "Dynamic Revenue Orchestrator : DRO Time-Aware: Undated One-Time Products create unbounded FASPs instead of starting on the resolved EffectiveDate",
+  "product": "Revenue Lifecycle Management",
+  "cloud": "Revenue",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77434": {
+  "key": "a02g700000DNKOLAA5",
+  "subject": "Archive- Unarchiving a Loyalty Program Member creates duplicate Loyalty Member Currency and Loyalty Member Tier records",
+  "product": "Salesforce Archive",
+  "cloud": "Platform",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77433": {
+  "key": "a02g700000DNIxdAAH",
+  "subject": "POS - Product color and size choices do not appear in the point-of-sale app for additional-language stores",
+  "product": "POS",
+  "cloud": "Commerce",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77432": {
+  "key": "a02g700000DN4cwAAD",
+  "subject": "Assigning a partner certificate leads to hung deployment state",
+  "product": "Partner Manager",
+  "cloud": "MuleSoft",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77431": {
+  "key": "a02g700000DNFmrAAH",
+  "subject": "Recipe to Tableau output logic breaks the relationship between published data sources in Tableau",
+  "product": "Tableau Cloud",
+  "cloud": "Tableau",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77429": {
+  "key": "a02g700000DMwCLAA1",
+  "subject": "State/country dropdown value is submitted as its ISO code, not its name, so a flow creating a Lead fails with FIELD_INTEGRITY_EXCEPTION",
+  "product": "Marketing Cloud Platform",
+  "cloud": "Marketing",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 7
+  }
+ },
+ "KI-77428": {
+  "key": "a02g700000DMvszAAD",
+  "subject": "Azure Service Bus Connector fails to receive messages with an AMQP Value body: \"This body type not is supported: VALUE\"",
+  "product": "Anypoint Connectors",
+  "cloud": "MuleSoft",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77426": {
+  "key": "a02g700000DMooIAAT",
+  "subject": "Desktop Account Filter: Product Condition in the PAPI Filter Shows Product ID Instead of Product Name",
+  "product": "Public Sector Health",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77425": {
+  "key": "a02g700000DMpyrAAD",
+  "subject": "A client-credentials access token generated while the org is in read-only mode is rejected with INVALID_SESSION_ID",
+  "product": "Authorization & Permissions",
+  "cloud": "Platform",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77424": {
+  "key": "a02g700000DMl2PAAT",
+  "subject": "Deprecation of $A.get() container, force:* events are now automatically discovered in Lightning Out and standalone apps.",
+  "product": "Lightning Framework",
+  "cloud": "Platform",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77423": {
+  "key": "a02g700000DLvqEAAT",
+  "subject": "Voice-transcribed messages should not display the Feedback button.",
+  "product": "AgentForce",
+  "cloud": "Service",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77422": {
+  "key": "a02g700000DMhLNAA1",
+  "subject": "Agentforce Vibes web IDE: models intermittently fail to load (infinite spinner)",
+  "product": "Development (Apex, LWC & VF)",
+  "cloud": "Platform",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77421": {
+  "key": "a02g700000DMg2jAAD",
+  "subject": "Managed package install fails \"no CustomObject named X found\" for View All Data permission set when subscriber org lacks a standard object",
+  "product": "Grants Management (GMS) - Managed Package",
+  "cloud": "Nonprofit",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77420": {
+  "key": "a02g700000DLTZKAA5",
+  "subject": "iPad Defaults Participant Invitation Response to \"Accepted\" Instead of Configured \"No Response\"",
+  "product": "Public Sector Health",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77419": {
+  "key": "a02g700000DLuZBAA1",
+  "subject": "Classic HTML Email Template editor: 10pt font size option applies no size (renders at inherited 12pt)",
+  "product": "Email & Email Templates",
+  "cloud": "Sales",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77418": {
+  "key": "a02g700000DLnizAAD",
+  "subject": "[Resize][Reflow][Accessibility][MCN] 'Edit Template' Canvas Iframe Completely Cut Off and Content Overlaps at 200% and 400% Zoom",
+  "product": "Disability and Product Accessibility",
+  "cloud": "Marketing",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77417": {
+  "key": "a02g700000DLlndAAD",
+  "subject": "Partner Messaging- Non-Latin Language text messages changing to \"?????\" when sent along Attachments.",
+  "product": "Messaging",
+  "cloud": "Service",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Closed"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77416": {
+  "key": "a02g700000DLhk1AAD",
+  "subject": "Total Header Background and Shading Color for [Measure Names] is Lost in Tableau Cloud and Tableau Server",
+  "product": "Tableau Cloud",
+  "cloud": "Tableau",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77415": {
+  "key": "a02g700000DLdEzAAL",
+  "subject": "Field Service mobile app (iOS) drains battery faster when a GIS (Esri) map is left open and the app is backgrounded or the device is locked",
+  "product": "Field Service Mobile App",
+  "cloud": "Field Service",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77414": {
+  "key": "a02g700000DLbzZAAT",
+  "subject": "MobileConnect SMS Campaign Stuck in Sending Status later updated as 'Failed'",
+  "product": "Mobile Studio",
+  "cloud": "Marketing",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77413": {
+  "key": "a02g700000DLbbNAAT",
+  "subject": "Scheduler - Operating Hours component header shows the object label and record name with no space when the Cosmos theme is enabled",
+  "product": "Lightning Scheduler",
+  "cloud": "Cross-Platform Features",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 2
+  }
+ },
+ "KI-77412": {
+  "key": "a02g700000DLNADAA5",
+  "subject": "Health Cloud Video Call Feature Fails to Load on Salesforce Experience Cloud Sites on iOS 27 and Later.",
+  "product": "Public Sector Health",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77411": {
+  "key": "a02g700000DKcPpAAL",
+  "subject": "LWR sites failing to render inline CMS images within a custom HTML Editor component.",
+  "product": "Experience Builder",
+  "cloud": "Experience",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 13
+  }
+ },
+ "KI-77410": {
+  "key": "a02g700000DKZwbAAH",
+  "subject": "Extract Refresh Fails for a Data Source with Cloud and On-Premises Multi-Connection Due to Missing Drivers",
+  "product": "Tableau Cloud",
+  "cloud": "Tableau",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77408": {
+  "key": "a02g700000DJdqzAAD",
+  "subject": "\"Open in Slack\" button unexpectedly appears on Approval Request record pages",
+  "product": "Using Slack with Salesforce",
+  "cloud": "Slack",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77407": {
+  "key": "a02g700000DJLIzAAP",
+  "subject": "Knowledge Advanced Lookup Search displays \"Sorted by Relevance\" but sorts results by Last Modified Date descending",
+  "product": "Knowledge Search Component",
+  "cloud": "Search",
+  "created": "2026-11-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77406": {
+  "key": "a02g700000DJ5uDAAT",
+  "subject": "[SF Maps][Territory Planning] \"Select a Parent\" popover opens against the wrong root territory once at least one root already has a parent assigned",
+  "product": "Salesforce Maps Territory Planning",
+  "cloud": "Sales",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77405": {
+  "key": "a02g700000DJ2t3AAD",
+  "subject": "PricingCategory not updated when duplicate status events arrive, causing N/A value",
+  "product": "Mobile Studio",
+  "cloud": "Marketing",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77403": {
+  "key": "a02g700000DIup3AAD",
+  "subject": "When sending using the Account-Level RMM Email Display Name with an '@' the Reply email will not forward.",
+  "product": "Marketing Cloud Platform",
+  "cloud": "Marketing",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77402": {
+  "key": "a02g700000DItg5AAD",
+  "subject": "While sending Initial Outreach/Nudge Emails, the task is created with an error \"Something went wrong. Ask your Salesforce admin for help.\"",
+  "product": "Agentforce",
+  "cloud": "Sales",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77401": {
+  "key": "a02g700000DIruPAAT",
+  "subject": "Databricks text fields longer than 255 characters are truncated when Tableau Cloud refreshes extracts and Tableau Prep flows",
+  "product": "Tableau Cloud",
+  "cloud": "Tableau",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 2
+  }
+ },
+ "KI-77400": {
+  "key": "a02g700000DIC1tAAH",
+  "subject": "Attribute names in the Media Line Item Configurator (LIC) fail to display translated values",
+  "product": "Media Accelerators",
+  "cloud": "Media",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 2
+  }
+ },
+ "KI-77399": {
+  "key": "a02g700000DIdZhAAL",
+  "subject": "Sandbox Custom Report Deployment to Production Failure",
+  "product": "Spiff",
+  "cloud": "Sales",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77398": {
+  "key": "a02g700000DII43AAH",
+  "subject": "Agent Script: Echo node (TASK_STATE_WORKING) before a subagent requiring user input fails with INVALID_INPUT error",
+  "product": "Agent Experience",
+  "cloud": "Service",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77396": {
+  "key": "a02g700000DITvJAAX",
+  "subject": "Error \"You don't have access to this record\" on Account Related Tab in Sales Cloud (Seller Focused) Mobile App",
+  "product": "Mobile",
+  "cloud": "Sales",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77395": {
+  "key": "a02g700000DISXpAAP",
+  "subject": "Dangling Contact Center Reference Causes BYO Messaging channel Creation to Fail",
+  "product": "Messaging",
+  "cloud": "Service",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77394": {
+  "key": "a02g700000DIPZxAAP",
+  "subject": "PDF subscription for a Custom View uses the view's default settings instead of the \"Entire Workbook\" option",
+  "product": "Tableau Cloud",
+  "cloud": "Tableau",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77393": {
+  "key": "a02g700000DIKgkAAH",
+  "subject": "Latency opening assets in Content Builder",
+  "product": "Content Builder",
+  "cloud": "Marketing",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77392": {
+  "key": "a02g700000DIKqPAAX",
+  "subject": "Agentforce Voice: Caller speech isn't recognized in Agentforce Builder Live Test  or on inbound calls",
+  "product": "Service Cloud Voice",
+  "cloud": "Service",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77391": {
+  "key": "a02g700000DIKIXAA5",
+  "subject": "Exporting a report using Salesforce Authenticator downloads a second blank file after 30 seconds.",
+  "product": "Identity & Authentication",
+  "cloud": "Platform",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 5
+  }
+ },
+ "KI-77390": {
+  "key": "a02g700000DIJxZAAX",
+  "subject": "Revenue Cloud: Asset Attribute Values Are Overwritten When Quantity Is Changed in STLE During an Amendment",
+  "product": "Revenue Lifecycle Management",
+  "cloud": "Revenue",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77389": {
+  "key": "a02g700000DIJsjAAH",
+  "subject": "Hold music continues to play even after call is connected",
+  "product": "Service Cloud Voice",
+  "cloud": "Service",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 2
+  }
+ },
+ "KI-77388": {
+  "key": "a02g700000DHzJGAA1",
+  "subject": "Column Background Does Not Extend to Fill the Entire Section",
+  "product": "Marketing Cloud Platform",
+  "cloud": "Marketing",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77387": {
+  "key": "a02g700000DI9bdAAD",
+  "subject": "Cadence Steps related list shows incorrect “All Emails Sent” counts in Sales Engagement",
+  "product": "Sales Engagement",
+  "cloud": "Sales",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77385": {
+  "key": "a02g700000DHYllAAH",
+  "subject": "\"Something went wrong\" error message is shown for Some Client Applications from an External OpenID Connect Client Provider",
+  "product": "Exchange",
+  "cloud": "MuleSoft",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77384": {
+  "key": "a02g700000DHRynAAH",
+  "subject": "CloudHub 2.0 logs missing in Runtime Manager and Anypoint Monitoring under huge logging",
+  "product": "Anypoint Monitoring",
+  "cloud": "MuleSoft",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77383": {
+  "key": "a02g700000DHRp7AAH",
+  "subject": "Duplicate outreach emails in Agentforce SDR when an email is approved more than once",
+  "product": "Agentforce",
+  "cloud": "Sales",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77382": {
+  "key": "a02g700000DHRXNAA5",
+  "subject": "Tableau Next visualization created in an org on a newer release cannot be deployed to an org on an earlier release",
+  "product": "Tableau Next",
+  "cloud": "Tableau",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deploying"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77381": {
+  "key": "a02g700000DHOknAAH",
+  "subject": "Outlook Integration - Intermittent 'Something happened when we tried to connect to the Exchange server'",
+  "product": "Email Clients & Office Suites",
+  "cloud": "Sales",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77380": {
+  "key": "a02g700000DHKhBAAX",
+  "subject": "Activity Timeline Shows \"No Items\" on Initial Load and Loads Upcoming Visits Only After Scrolling Up.",
+  "product": "Public Sector Health",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77379": {
+  "key": "a02g700000DHHBRAA5",
+  "subject": "Incorrect Geocoding on a Service Appointment Address",
+  "product": "Maps",
+  "cloud": "Consumer Goods",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77378": {
+  "key": "a02g700000DHEOrAAP",
+  "subject": "Marketing Calendar in Marketing Cloud Next shows Campaigns (and in some cases Flows) only to the record owner",
+  "product": "Marketing Cloud Platform",
+  "cloud": "Marketing",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 3
+  }
+ },
+ "KI-77377": {
+  "key": "a02g700000DGvMDAA1",
+  "subject": "[iOS 264.000 Regression] Aura and LWC components in Screen Flows don’t load for Experience Cloud partner users in the Salesforce mobile app for iOS",
+  "product": "Mobile SDK",
+  "cloud": "Mobile",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 13
+  }
+ },
+ "KI-77376": {
+  "key": "a02g700000DGtx7AAD",
+  "subject": "\"Receive Transfer\" fails with EXCEEDED_ID_LIMIT on a Product Transfer with more than 200 serialized products",
+  "product": "Assets & Inventory",
+  "cloud": "Field Service",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77375": {
+  "key": "a02g700000DGqRNAA1",
+  "subject": "[SFS] Images are not loading on the Service Document when first loaded in FSL Mobile app.",
+  "product": "Field Service Mobile App",
+  "cloud": "Field Service",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77373": {
+  "key": "a02g700000DGUNdAAP",
+  "subject": "Multilingual CMS Content in Emails Falls Back to the Default Language (English) for pt_BR(Portuguese – Brazil) or zh_CN(Chinese – Simplified)",
+  "product": "Content",
+  "cloud": "Marketing App",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 7
+  }
+ },
+ "KI-77371": {
+  "key": "a02g700000DGCwzAAH",
+  "subject": "Expired Content Public Links display a blank page instead of an \"expired\" message",
+  "product": "Chatter & Files",
+  "cloud": "Cross-Platform Features",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77370": {
+  "key": "a02g700000DGA0jAAH",
+  "subject": "LSC iPad app logs “LSCJSBridge.getMetaDataContent failed” on every app start and sync when no pricing procedure is configured",
+  "product": "Public Sector Health",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77369": {
+  "key": "a02g700000DG9flAAD",
+  "subject": "Workbooks built on a Virtual Connection show the generic \"User Specific View\" placeholder instead of a thumbnail in Tableau Cloud 2026.3.0",
+  "product": "Tableau Cloud",
+  "cloud": "Tableau",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77368": {
+  "key": "a02g700000DFx9xAAD",
+  "subject": "Map address autocomplete assigns municipality to city for Norwegian addresses",
+  "product": "Disability and Product Accessibility",
+  "cloud": "Platform",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77367": {
+  "key": "a02g700000DFdT1AAL",
+  "subject": "Parent Campaign ID relationship DLO",
+  "product": "Marketing Cloud Platform",
+  "cloud": "Marketing",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77366": {
+  "key": "a02g700000DETKcAAP",
+  "subject": "Marketing Cloud Next- Preference page merge field warning when creating email using HTML.",
+  "product": "Content",
+  "cloud": "Marketing App",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77365": {
+  "key": "a02g700000DFoEjAAL",
+  "subject": "Tableau Cloud, Searching a multi-select filter after Uncheck All shows matching values as checked",
+  "product": "Tableau Cloud",
+  "cloud": "Tableau",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 5
+  }
+ },
+ "KI-77364": {
+  "key": "a02g700000DFlyPAAT",
+  "subject": "Revenue Cloud(Comms - v264)| Add Assets on quote creates duplicate Locations (QuoteLineItemRecipient) for assets that share the same service account.",
+  "product": "Revenue Lifecycle Management",
+  "cloud": "Revenue",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77363": {
+  "key": "a02g700000DFjN7AAL",
+  "subject": "Agentforce iOS/iPad: response renders blank and session stops accepting new prompts",
+  "product": "AgentForce",
+  "cloud": "Service",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77362": {
+  "key": "a02g700000DFTqDAAX",
+  "subject": "FSC Action Plan Recurrence Scheduler: TotalRecurrencesCount not enforced, CompletedScheduleCount exceeds configured limit indefinitely.",
+  "product": "FSC Entities & Data Model",
+  "cloud": "Financial Services",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77361": {
+  "key": "a02g700000DEaowAAD",
+  "subject": "Users are seeing “Something happened when we tried to connect to the Exchange server” errror when using the Salesforce Outlook add-in.",
+  "product": "Integration",
+  "cloud": "Platform",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77360": {
+  "key": "a02g700000DEhygAAD",
+  "subject": "Managed package upgrade fails with \"An unexpected error occurred\" on ExtlClntAppCanvasSettings",
+  "product": "Identity & Authentication",
+  "cloud": "Platform",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77358": {
+  "key": "a02g700000DEWYPAA5",
+  "subject": "Tableau Cloud Bridge Extracts admin view takes Long time to load",
+  "product": "Tableau Cloud",
+  "cloud": "Tableau",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77357": {
+  "key": "a02g700000DEUd3AAH",
+  "subject": "[Accessibility] [Experience Benefit Assistance] Notification panel header (\"Notifications / Mark all as read\") shows vertical scrollbar on Mobile View",
+  "product": "Experience Builder",
+  "cloud": "Experience",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77356": {
+  "key": "a02g700000DDMrFAAX",
+  "subject": "Marketing Cloud Next: the data space drop-down is disabled on the Salesforce Go \"Marketing Initial Setup\" page",
+  "product": "Marketing Cloud Platform",
+  "cloud": "Marketing",
+  "created": "2026-11-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77355": {
+  "key": "a02g700000DDDzFAAX",
+  "subject": "[Accessibility][Related List] Tiled records have loss of content and understanding when reflowed to 400%",
+  "product": "Disability and Product Accessibility",
+  "cloud": "Platform",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77354": {
+  "key": "a02g700000DD8rVAAT",
+  "subject": "Slow order placement when redeeming case-insensitive list coupons with a large number of codes on B2C Commerce",
+  "product": "B2C Commerce",
+  "cloud": "Commerce",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77353": {
+  "key": "a02g700000DD6krAAD",
+  "subject": "Box Data Sources On Tableau Server Fail To Refresh With \"Tableau needs an unexpired OAuth refresh token\" For Approximately Two Hours",
+  "product": "Tableau Server",
+  "cloud": "Tableau",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77351": {
+  "key": "a02g700000DCLVpAAP",
+  "subject": "CloudHub 2.0 | Scheduler Can't Be Disabled from Runtime Manager After a Mule Maven Plugin Redeploy Changes It from Fixed Frequency to Cron",
+  "product": "CloudHub 2.0",
+  "cloud": "MuleSoft",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77350": {
+  "key": "a02g700000DBQSkAAP",
+  "subject": "Login History list view shows inaccurate results when filtered by Login Subtype OAuth Username-Password.",
+  "product": "Identity & Authentication",
+  "cloud": "Platform",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77349": {
+  "key": "a02g700000DBtbBAAT",
+  "subject": "Analytics Events API returns events from all environments instead of only the environment in the request path",
+  "product": "Anypoint Monitoring",
+  "cloud": "MuleSoft",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 6
+  }
+ },
+ "KI-77348": {
+  "key": "a02g700000DBnltAAD",
+  "subject": "Edit Email is not working for email contents in Account Engagement workspaces",
+  "product": "Marketing & Content Tools",
+  "cloud": "Marketing Cloud Account Engagement (Pardot)",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 3
+  }
+ },
+ "KI-77346": {
+  "key": "a02g700000DBgm1AAD",
+  "subject": "Saving MCP server tools fails with an internal error when a tool's input schema uses a list of types",
+  "product": "AgentForce",
+  "cloud": "Service",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77344": {
+  "key": "a02g700000DBaofAAD",
+  "subject": "In Enhanced Chat V2, the input footer is visible and allows sending messages before the conversation ID is generated (appears on the hello screen).",
+  "product": "AgentForce",
+  "cloud": "Service",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77343": {
+  "key": "a02g700000DBZarAAH",
+  "subject": "Segment-triggered flows are failing.",
+  "product": "Marketing Cloud Platform",
+  "cloud": "Marketing",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deploying"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77342": {
+  "key": "a02g700000DBXE5AAP",
+  "subject": "Dual vertical scroll bars appear in custom Aura quick action modals after the Winter '27 release",
+  "product": "Lightning Framework",
+  "cloud": "Platform",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77340": {
+  "key": "a02g700000DBT0nAAH",
+  "subject": "Security Dashboard incorrectly flags Audit Trail as \"Disabled / Action required\" even though it's enabled",
+  "product": "Email Studio",
+  "cloud": "Marketing",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77339": {
+  "key": "a02g700000DBSRJAA5",
+  "subject": "Gov Cloud Domain to Partner Cloudflare CDN stuck in Provisioning.",
+  "product": "Custom Domains",
+  "cloud": "Experience",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77338": {
+  "key": "a02g700000DBQ4XAAX",
+  "subject": "[UX] [Event] [Series End Date] [Help Text] Event Series Ends Date Help text is missing field label in the computed name",
+  "product": "Disability and Product Accessibility",
+  "cloud": "Platform",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77337": {
+  "key": "a02g700000DAS8QAAX",
+  "subject": "Product Catalog Management: ProductCategoryProduct Records Not Copied to Partial Copy Sandboxes Despite Selecting “Industries EPC” in Sandbox Template",
+  "product": "Revenue Lifecycle Management",
+  "cloud": "Revenue",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77336": {
+  "key": "a02g700000DBFc9AAH",
+  "subject": "Internal Server Error (611022629) when clicking on ‘Background Jobs’ in Setup",
+  "product": "Lightning Experience",
+  "cloud": "Platform",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deploying"
+  },
+  "affected": {
+   "2026-11-05": 3
+  }
+ },
+ "KI-77335": {
+  "key": "a02g700000DAFuLAAX",
+  "subject": "Insights Entity Detail Shows \"Detailed metrics are not available at this time\"",
+  "product": "Anypoint Monitoring",
+  "cloud": "MuleSoft",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77334": {
+  "key": "a02g700000DACMzAAP",
+  "subject": "Accepting an outbound call while an inbound call is ringing cancels the inbound call in Salesforce Voice with Amazon Connect (Unified Routing)",
+  "product": "Service Cloud Voice",
+  "cloud": "Service",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77333": {
+  "key": "a02g700000DACLNAA5",
+  "subject": "Topic Detail pages with Audience set to None are included in Experience Cloud sitemap",
+  "product": "Experience Builder",
+  "cloud": "Experience",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77332": {
+  "key": "a02g700000DA7iHAAT",
+  "subject": "Visibility rules on Person Account Individual fields can't be loaded or saved, but still work at runtime",
+  "product": "Lightning Framework",
+  "cloud": "Platform",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77331": {
+  "key": "a02g700000DA4UHAA1",
+  "subject": "Actual Subagent shows the first subagent on every voice turn-level test case.",
+  "product": "AgentForce",
+  "cloud": "Service",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77330": {
+  "key": "a02g700000DA3ZpAAL",
+  "subject": "Pipeline Inspection panel clips when rich text fields are added to the top of the layout",
+  "product": "Forecasting & Territory Management",
+  "cloud": "Sales",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77328": {
+  "key": "a02g700000D9yofAAB",
+  "subject": "False job failure notification and status during automated job retries",
+  "product": "Salesforce Backup - Legacy",
+  "cloud": "Platform",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77327": {
+  "key": "a02g700000D9wzlAAB",
+  "subject": "When deploying Prompt Builder Template using custom model, the template's model always reverts back to Standard Model",
+  "product": "AgentForce",
+  "cloud": "Service",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77326": {
+  "key": "a02g700000D9wq5AAB",
+  "subject": "[Accessibility] [Flow] [Screen Components ] Long Text Area: Field label is read twice by Screen readers in Browse mode",
+  "product": "Disability and Product Accessibility",
+  "cloud": "Service",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77325": {
+  "key": "a02g700000D9r7FAAR",
+  "subject": "Background Tasks for Extracts (Site Status) Shows Incorrect Created Times For Jobs That Ran Before Upgrade or Restore to Tableau Server 2026.2",
+  "product": "Tableau Server",
+  "cloud": "Tableau",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77324": {
+  "key": "a02g700000D9jPqAAJ",
+  "subject": "Unable to delete Data Graphs from UI",
+  "product": "Data Cloud Setup",
+  "cloud": "Data Cloud",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77323": {
+  "key": "a02g700000D9p0bAAB",
+  "subject": "Field History Tracking doesn’t record updates made by a Form Submission Event Triggered flow on a custom object in Marketing Cloud Next",
+  "product": "Lightning Flow",
+  "cloud": "Platform",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deploying"
+  },
+  "affected": {
+   "2026-11-05": 3
+  }
+ },
+ "KI-77322": {
+  "key": "a02g700000D9oqvAAB",
+  "subject": "BYO CCaaS Messaging: Unable to Customize Transfer Destination List — contactTypes in ContactsResult Not Honored",
+  "product": "Omni-Channel",
+  "cloud": "Service",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77321": {
+  "key": "a02g700000D9aZRAAZ",
+  "subject": "Account Plan Import Objectives fails with \"Too many SOQL queries: 101\" when one import creates ~20+ Action Plans (per-plan Connect API + synchronous r",
+  "product": "Public Sector Health",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77319": {
+  "key": "a02g700000D9Vl3AAF",
+  "subject": "CRM Analytics dashboard crashes with no error when a text box has both a page link and a component page navigation interaction",
+  "product": "CRM Analytics",
+  "cloud": "Analytics",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77318": {
+  "key": "a02g700000D8x3SAAR",
+  "subject": "LSC iPad App – Duplicate Managed Event Territory Records Created During Managed Event Sync",
+  "product": "Public Sector Health",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77317": {
+  "key": "a02g700000D9PfdAAF",
+  "subject": "Muting Permission Set deploy drops Read mute on formula / read-only fields - stored as Edit-only mute",
+  "product": "Authorization & Permissions",
+  "cloud": "Platform",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77316": {
+  "key": "a02g700000D9IpRAAV",
+  "subject": "Unable to View the Agentforce Meeting Concierge App in the Sandbox Org",
+  "product": "Financial Services Cloud for Slack",
+  "cloud": "Financial Services",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77315": {
+  "key": "a02g700000D9HBpAAN",
+  "subject": "Tableau Cloud: Duplicate failure emails sent for a failed Tableau Prep linked task",
+  "product": "Tableau Cloud",
+  "cloud": "Tableau",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77314": {
+  "key": "a02g700000D9CTuAAN",
+  "subject": "Custom Address field appears blank in Salesforce Classic when only Country or Country and State are populated.",
+  "product": "Globalization",
+  "cloud": "Platform",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77313": {
+  "key": "a02g700000D9CfBAAV",
+  "subject": "Creating 2 GP package version fails with ‘GenAiPlannerBundle’ metadata type errors 'These entities are not supported: [GenAiPlannerBundle]'",
+  "product": "AgentForce",
+  "cloud": "Service",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 4
+  }
+ },
+ "KI-77312": {
+  "key": "a02g700000D93yTAAR",
+  "subject": "LWR site displays \"Invalid Page\" after publishing when Components with mixed-case or all-caps namespaces are not properly added to the import maps.",
+  "product": "LWR Digital Experience",
+  "cloud": "Experience",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77311": {
+  "key": "a02g700000D8oo9AAB",
+  "subject": "MDAPI Deploy of Namespaced Unlocked Package Report Fails on DeveloperName Check",
+  "product": "Reports & Dashboards",
+  "cloud": "Analytics",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77310": {
+  "key": "a02g700000D8oGHAAZ",
+  "subject": "\"New\" action override falls back to default layout when used in Outlook Integration",
+  "product": "Salesforce Inbox",
+  "cloud": "Sales",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77308": {
+  "key": "a02g700000D8lS5AAJ",
+  "subject": "Product Item quantity isn't restored in Field Service Mobile when a Product Consumed upload fails on a validation rule",
+  "product": "Field Service Mobile App",
+  "cloud": "Field Service",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77307": {
+  "key": "a02g700000D8jLRAAZ",
+  "subject": "Data Model status returns PROCESSING when a mapping stays CREATING because its source DLO is INACTIVE blocks Data Kit deploy until timeout",
+  "product": "Data Cloud Setup",
+  "cloud": "Data Cloud",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77306": {
+  "key": "a02g700000D8iSbAAJ",
+  "subject": "In B2B Store on checkout page salesforce is picking wrong Delivery Charge product instead of Shipping Charge Product",
+  "product": "B2B Commerce",
+  "cloud": "Commerce",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77305": {
+  "key": "a02g700000D8ht7AAB",
+  "subject": "Knowledge article rich-text-area fields containing links/URLs render incorrectly on Aura Experience sites",
+  "product": "Knowledge (Experience Sites)",
+  "cloud": "Experience",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77304": {
+  "key": "a02g700000D8evFAAR",
+  "subject": "Roll-Up Summary Date Field Is Blank on LSC iPad Account Details Page Layout While It Displays on Web",
+  "product": "Public Sector Health",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77303": {
+  "key": "a02g700000D8byzAAB",
+  "subject": "Open a Page Flow Action in Console view throws timeout error",
+  "product": "Process Automation",
+  "cloud": "Platform",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77301": {
+  "key": "a02g700000D8QYvAAN",
+  "subject": "\"User account not found\" error when signing in to Tableau Cloud after enabling Tableau with MFA",
+  "product": "Tableau Cloud",
+  "cloud": "Tableau",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77300": {
+  "key": "a02g700000D8Lz3AAF",
+  "subject": "Archived EmailMessage Records for Contacts/Leads Do Not Reappear in Activity Timeline After Unarchive",
+  "product": "Salesforce Archive",
+  "cloud": "Platform",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77299": {
+  "key": "a02g700000D8CsXAAV",
+  "subject": "CGTPM: UNABLE_TO_LOCK_ROW on cgcloud.TacticFundTrigger when Mass Copy of ~200 promotions is run",
+  "product": "Trade Promotion Management",
+  "cloud": "Consumer Goods",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77298": {
+  "key": "a02g700000D8CZBAA3",
+  "subject": "Discrepancy in field display between ipad and web for Visit Records",
+  "product": "Public Sector Health",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77296": {
+  "key": "a02g700000D840XAAR",
+  "subject": "Integration Procedure with IP-level response caching (Org or Session) returns stale data past the configured Cache TTL",
+  "product": "OmniStudio",
+  "cloud": "Platform",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77295": {
+  "key": "a02g700000D83qrAAB",
+  "subject": "Changing the password for multiple data source connections at once in Tableau Cloud fails with \"1 of 2 connections could not be saved\"",
+  "product": "Tableau Cloud",
+  "cloud": "Tableau",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77294": {
+  "key": "a02g700000D80ubAAB",
+  "subject": "Cannot Create the Journey Folder: Insufficient SOAP API Permission.",
+  "product": "Marketing Cloud Platform",
+  "cloud": "Marketing",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Closed"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77293": {
+  "key": "a02g700000D7w6DAAR",
+  "subject": "Race condition allows simultaneous API requests to issue multiple rewards.",
+  "product": "Loyalty Management",
+  "cloud": "Loyalty Management",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77292": {
+  "key": "a02g700000D7vJpAAJ",
+  "subject": "Highlights Panel content shifts horizontally when scrolling on Lightning record pages with Vertical Navigation",
+  "product": "Lightning Experience",
+  "cloud": "Platform",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77291": {
+  "key": "a02g700000D7v6vAAB",
+  "subject": "Enhanced MuleSoft Experience | Governance Strategies JWT Validation Fails with \"Policy does not have any implementation for flexGateway\"",
+  "product": "Flex Gateway",
+  "cloud": "MuleSoft",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77290": {
+  "key": "a02g700000D7uqnAAB",
+  "subject": "Enhanced MuleSoft Experience | Governance Strategies JWT Validation Policy Does Not Show JWT Key, JWKS Settings, or Client ID Expression",
+  "product": "Flex Gateway",
+  "cloud": "MuleSoft",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77289": {
+  "key": "a02g700000D7rcnAAB",
+  "subject": "Messaging Sessions with Waiting status may be intermittently routed to the Fallback Queue",
+  "product": "Messaging",
+  "cloud": "Service",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77287": {
+  "key": "a02g700000D7lSXAAZ",
+  "subject": "Add to Actionable List Flow action leaves Member Count null or stale",
+  "product": "Content",
+  "cloud": "Marketing App",
+  "created": "2026-11-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77286": {
+  "key": "a02g700000D45b7AAB",
+  "subject": "RMT Server shows all agents/environments down after RMT Server host OS reboot – background DB consumers never connect",
+  "product": "Tableau Server",
+  "cloud": "Tableau",
+  "created": "2026-11-01",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77285": {
+  "key": "a02g700000D0t1pAAB",
+  "subject": "Agentforce Grid: linked context variables (sourced from @MessagingSession) are null when an agent runs from a Grid agent column",
+  "product": "AgentForce",
+  "cloud": "Service",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77284": {
+  "key": "a02g700000D0dJdAAJ",
+  "subject": "[Accessibility] [Dashboard] [Reflow] Horizontal Scroll bar at 400% obscured by Utility Bar",
+  "product": "Disability and Product Accessibility",
+  "cloud": "Analytics",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77283": {
+  "key": "a02g700000D0bL3AAJ",
+  "subject": "Data 360: Count discrepancy for The Trade Desk Activations",
+  "product": "Activation & Activation Targets",
+  "cloud": "Data Cloud",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77282": {
+  "key": "a02g700000D0XSjAAN",
+  "subject": "Account Engagement:MSO conditional HTML is not copied over when the email is cloned/copied thus causing it to render oddly in some versions of Outlook",
+  "product": "Content Builder",
+  "cloud": "Marketing",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 2
+  }
+ },
+ "KI-77281": {
+  "key": "a02g700000D0WGXAA3",
+  "subject": "Batch Document Generation intermittently leaves DOCX files when KeepIntermediate is false",
+  "product": "Known Issues",
+  "cloud": "Your Salesforce Experience",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77280": {
+  "key": "a02g700000D0RqLAAV",
+  "subject": "Scheduled Reports Occasionally Generates No Report on FTP Server",
+  "product": "Marketing Cloud Platform",
+  "cloud": "Marketing",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77279": {
+  "key": "a02g700000D0QELAA3",
+  "subject": "Unable to complete Backup Test connection and run Salesforce Backups",
+  "product": "Salesforce Backup and Recover",
+  "cloud": "Platform",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77278": {
+  "key": "a02g700000CzzV0AAJ",
+  "subject": "Monitoring | Custom dashboard alert for jvm metrics in a hybrid server does not get created",
+  "product": "Anypoint Monitoring",
+  "cloud": "MuleSoft",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 2
+  }
+ },
+ "KI-77277": {
+  "key": "a02g700000D0JpZAAV",
+  "subject": "New Email Experience(MCAE): Inline editor hard-codes text color to #181818, making text nearly invisible on dark backgrounds.",
+  "product": "Marketing & Content Tools",
+  "cloud": "Marketing Cloud Account Engagement (Pardot)",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77276": {
+  "key": "a02g700000D0EebAAF",
+  "subject": "Data-driven alerts are not delivered when Tableau Cloud uses a custom SMTP email configuration with OAuth 2.0",
+  "product": "Tableau Cloud",
+  "cloud": "Tableau",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77275": {
+  "key": "a02g700000D04qXAAR",
+  "subject": "Data 360 Segmentation: Segment On dropdown is empty when creating a segment with Einstein Segment Creation",
+  "product": "Data Cloud Setup",
+  "cloud": "Data Cloud",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 2
+  }
+ },
+ "KI-77274": {
+  "key": "a02g700000D04nJAAR",
+  "subject": "When trying to update the Measures in the Email Studio Error is thrown",
+  "product": "Email Studio",
+  "cloud": "Marketing",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77273": {
+  "key": "a02g700000CzyA1AAJ",
+  "subject": "[Accessibility] [List View] [Reflow] Horizontal Scroll bar at 400% obscured by Utility Bar",
+  "product": "Disability and Product Accessibility",
+  "cloud": "Platform",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77272": {
+  "key": "a02g700000CzlUYAAZ",
+  "subject": "Promotions API: updatePromotionDiscountRule returns a 400 \"unknown enum value\" error when promotionClass is included in the request body",
+  "product": "B2C Commerce",
+  "cloud": "Commerce",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77271": {
+  "key": "a02g700000Cz681AAB",
+  "subject": "Inbound DNS Verification Status May Display Incorrectly in the UI",
+  "product": "Content",
+  "cloud": "Marketing App",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 2
+  }
+ },
+ "KI-77270": {
+  "key": "a02g700000Cz19xAAB",
+  "subject": "Omnistudio Document Generation | While previewing the document users are getting, Top.Location Error.",
+  "product": "OmniStudio",
+  "cloud": "Platform",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 3
+  }
+ },
+ "KI-77267": {
+  "key": "a02g700000Cy6jZAAR",
+  "subject": "Account List Displays No Records When Sorting by a Custom Account Lookup Field on iPad",
+  "product": "Public Sector Health",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77266": {
+  "key": "a02g700000Cy6hxAAB",
+  "subject": "A NullPointerException occurs in a Commerce Configuration Rule/Constraint Model when deselecting the child product",
+  "product": "B2B Commerce",
+  "cloud": "Commerce",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77265": {
+  "key": "a02g700000Cy4rRAAR",
+  "subject": "Unable to Save Visit When Adhoc Provider Visit Is Enabled",
+  "product": "Public Sector Health",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Working as Expected"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77264": {
+  "key": "a02g700000Cy1dRAAR",
+  "subject": "Picklist and lookup menus are cut off in a Screen Flow Inline Edit Table",
+  "product": "Nonprofit Cloud: Fundraising",
+  "cloud": "Nonprofit",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77263": {
+  "key": "a02g700000Cy0sfAAB",
+  "subject": "RLM : Error post importing CSV file when logged in as a Sales Rep",
+  "product": "Revenue Lifecycle Management",
+  "cloud": "Revenue",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77262": {
+  "key": "a02g700000Cy0B7AAJ",
+  "subject": "Agentforce Coworker reads typed dates as month/day, ignoring the user's locale",
+  "product": "Agent Experience",
+  "cloud": "Service",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77261": {
+  "key": "a02g700000CxtrBAAR",
+  "subject": "Login History Shows an Incorrect Country for Certain IP Addresses",
+  "product": "Security and Privacy",
+  "cloud": "Platform",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77260": {
+  "key": "a02g700000Cxq6vAAB",
+  "subject": "Deprecated API's v40.0 is called when we click on View All link in the Activity Timeline",
+  "product": "API",
+  "cloud": "Platform",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77259": {
+  "key": "a02g700000CxnQnAAJ",
+  "subject": "Return Inventory Operation - Record Becomes Unresponsive After Validation Error",
+  "product": "Public Sector Health",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77258": {
+  "key": "a02g700000Cxn93AAB",
+  "subject": "Winter'27- \"Can't access Object\" error message for the Agent when using Conference Button on Enhanced Messaging.",
+  "product": "Messaging",
+  "cloud": "Service",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 2
+  }
+ },
+ "KI-77257": {
+  "key": "a02g700000CxmbBAAR",
+  "subject": "Flow Decision Error Due to Null Value Handling in Calculated Insight",
+  "product": "Calculated Insights",
+  "cloud": "Data Cloud",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77251": {
+  "key": "a02g700000CxlVRAAZ",
+  "subject": "Permission Set Metadata API Deployment Resets editable to false for Certain Standard Object Fields, Causing User-Mode Insert Failures",
+  "product": "Authorization & Permissions",
+  "cloud": "Platform",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77250": {
+  "key": "a02g700000CxhtFAAR",
+  "subject": "iPad  - Plan filed is not getting populated when creating Plan Objective.",
+  "product": "Public Sector Health",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77249": {
+  "key": "a02g700000Cxf53AAB",
+  "subject": "Presentation tab is empty for a Managed Event in the Life Sciences Cloud iPad app when the Subject Material Template Type picklist has no value named",
+  "product": "Industry Cloud",
+  "cloud": "MuleSoft",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77248": {
+  "key": "a02g700000Cxc0jAAB",
+  "subject": "Escalation to a live agent fails with \"The remote agent was unable to complete the request due to an unexpected error\" after deploying agent version",
+  "product": "AgentForce",
+  "cloud": "Service",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77247": {
+  "key": "a02g700000CxWJVAA3",
+  "subject": "Generative AI Summaries: Prior Authorization and Appeals & Grievances counts coming from Data Graph are inaccurate and change on regenerate.",
+  "product": "Public Sector Health",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77246": {
+  "key": "a02g700000CxV46AAF",
+  "subject": "Generative AI Summaries: Regenerated summaries ignore date-based expiration when no record is updated",
+  "product": "Public Sector Health",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77245": {
+  "key": "a02g700000CxQCUAA3",
+  "subject": "Messages Section label is not getting updated",
+  "product": "Public Sector Health",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77244": {
+  "key": "a02g700000CxSB3AAN",
+  "subject": "Fractional Quantity Rounding in OrderItemSummary Causing Cancellation Calculation Errors",
+  "product": "Order Management and Omnichannel Inventory",
+  "cloud": "Commerce",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77242": {
+  "key": "a02g700000CxAxKAAV",
+  "subject": "In ESM Group-assigned offer loses its group and reverts to a single location when it is edited after editing a single-location offer.",
+  "product": "Enterprise Sales Management",
+  "cloud": "Communications",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77241": {
+  "key": "a02g700000CxK3pAAF",
+  "subject": "Life Science Email Body Cannot Be Downloaded from the Files Related List on iPad",
+  "product": "Public Sector Health",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77240": {
+  "key": "a02g700000CwSHxAAN",
+  "subject": "The emoji picker isn't showing up in Content Builder",
+  "product": "Content Builder",
+  "cloud": "Marketing",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 2
+  }
+ },
+ "KI-77239": {
+  "key": "a02g700000Cw8EcAAJ",
+  "subject": "Paused Case Milestone Displays Incorrect “Completed” Tooltip in Lightning Experience",
+  "product": "Case Management",
+  "cloud": "Service",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77238": {
+  "key": "a02g700000Cw7JxAAJ",
+  "subject": "Enhanced Chat- When Agent or end user sends a message, auto scroll to latest message is not enabled",
+  "product": "Messaging",
+  "cloud": "Service",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77237": {
+  "key": "a02g700000Cw5ZtAAJ",
+  "subject": "Anypoint Exchange | My Applications Dashboard Returns HTTP 403 Forbidden for Non-Admin Client App Owners When the API Instance Is in a Business Group",
+  "product": "Exchange",
+  "cloud": "MuleSoft",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77236": {
+  "key": "a02g700000Cw5RpAAJ",
+  "subject": "User list view displays duplicate user records when multiple cross-platform security keys are registered",
+  "product": "Security and Privacy",
+  "cloud": "Platform",
+  "created": "2026-10-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77235": {
+  "key": "a02g700000CvoVpAAJ",
+  "subject": "Revenue Cloud Advanced:  Custom address subfields missing labels in STLE in New Record Modal",
+  "product": "Revenue Lifecycle Management",
+  "cloud": "Revenue",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77233": {
+  "key": "a02g700000CvfqjAAB",
+  "subject": "Salesforce Maps remoting authorization expires while the user is still working",
+  "product": "Salesforce Maps",
+  "cloud": "Sales",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77232": {
+  "key": "a02g700000CveppAAB",
+  "subject": "UnitPrice on Order Product temporarily shows 2 decimals after clicking away even with UnitPriceHighScale perm turned on",
+  "product": "Lightning Experience",
+  "cloud": "Platform",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77230": {
+  "key": "a02g700000CuhPyAAJ",
+  "subject": "[Accessibility][Analytics Studio][Dashboard] Non-actionable dashboard table cells announce \"Press Enter to update the below table\"",
+  "product": "Disability and Product Accessibility",
+  "cloud": "Analytics",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77229": {
+  "key": "a02g700000CuK0MAAV",
+  "subject": "Command Center for Service V2 Wallboard Live Cards Skills filter capped at first 50 options",
+  "product": "Omni-Channel",
+  "cloud": "Service",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77228": {
+  "key": "a02g700000CueyLAAR",
+  "subject": "WhatsApp template header rejects video media with \"Invalid Video URL provided\"",
+  "product": "Mobile Studio",
+  "cloud": "Marketing",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77227": {
+  "key": "a02g700000CuYMfAAN",
+  "subject": "Highscale group view drops futures (ATO falls to 0) when a location is added to a group partition",
+  "product": "Order Management and Omnichannel Inventory",
+  "cloud": "Commerce",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77226": {
+  "key": "a02g700000CuMtNAAV",
+  "subject": "Quote PDFs generated via \"GenerateQuotePdf\" Flow invocable action render with overlapping or collapsed header and footer.",
+  "product": "Lightning Flow",
+  "cloud": "Platform",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 2
+  }
+ },
+ "KI-77225": {
+  "key": "a02g700000CuMoXAAV",
+  "subject": "In Service Cloud Voice with partner telephony (BYOT), accepting an inbound call card after the caller hangs up can accept the wrong work item",
+  "product": "Service Cloud Voice",
+  "cloud": "Service",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77224": {
+  "key": "a02g700000CuK8PAAV",
+  "subject": "Pulse metric detail view shows \"page not found\" in the Tableau Cloud app for Microsoft Teams",
+  "product": "Tableau Cloud",
+  "cloud": "Tableau",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77223": {
+  "key": "a02g700000CuESoAAN",
+  "subject": "VCQueueable job is failing with For input string: \"office_XXXXXXX\" error",
+  "product": "Service Einstein",
+  "cloud": "Einstein",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77222": {
+  "key": "a02g700000CuFiDAAV",
+  "subject": "Salesforce Data Entry Event injections",
+  "product": "Marketing Cloud Connect",
+  "cloud": "Marketing",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 13
+  }
+ },
+ "KI-77221": {
+  "key": "a02g700000Cu7eDAAR",
+  "subject": "Salesforce Mobile App for iOS may close unexpectedly during Einstein Conversation Insights live recording",
+  "product": "Mobile",
+  "cloud": "Sales",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77220": {
+  "key": "a02g700000CtbHmAAJ",
+  "subject": "Gmail Integration - Side panel displays \"Sorry to interrupt\" error (-639866403)",
+  "product": "Email Clients & Office Suites",
+  "cloud": "Sales",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 246
+  }
+ },
+ "KI-77219": {
+  "key": "a02g700000CtwMDAAZ",
+  "subject": "Data 360: Filtering on Consumption by Date Breaks Other Widgets",
+  "product": "Data Cloud Setup",
+  "cloud": "Data Cloud",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 5
+  }
+ },
+ "KI-77218": {
+  "key": "a02g700000Ctvy1AAB",
+  "subject": "MuleSoft DX MCP Server: get_reuse_metrics Returns 401 Unauthorized with Connected App Token",
+  "product": "MuleSoft Connection",
+  "cloud": "Platform",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77217": {
+  "key": "a02g700000CtvWbAAJ",
+  "subject": "Nonprofit Cloud: NextGen Batch Management Definition Running as Non-Expected User",
+  "product": "Nonprofit Cloud: Fundraising",
+  "cloud": "Nonprofit",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 2
+  }
+ },
+ "KI-77216": {
+  "key": "a02g700000CtsyXAAR",
+  "subject": "Run Agent element fails with \"We couldn't extract the defined structured outputs\"",
+  "product": "AgentForce",
+  "cloud": "Service",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 5
+  }
+ },
+ "KI-77215": {
+  "key": "a02g700000CtrJJAAZ",
+  "subject": "Anypoint Connector for Snowflake does not support Snowflake JDBC driver 4.x",
+  "product": "Anypoint Connectors",
+  "cloud": "MuleSoft",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77214": {
+  "key": "a02g700000CtqGnAAJ",
+  "subject": "Salesforce Recover Data Service fails to backup (Product2DataTranslation) long description fields with error INVALID_CROSS_REFERENCE",
+  "product": "Salesforce Backup and Recover",
+  "cloud": "Platform",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77213": {
+  "key": "a02g700000CtpqzAAB",
+  "subject": "[SF Maps] [TP] Alignment shows \"Error getting fields for data source Accounts\" on Set Focus screen",
+  "product": "Salesforce Maps",
+  "cloud": "Sales",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77212": {
+  "key": "a02g700000CtixZAAR",
+  "subject": "Journey Notifications",
+  "product": "Journey Builder",
+  "cloud": "Marketing",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77211": {
+  "key": "a02g700000CtiXlAAJ",
+  "subject": "Dynamic Revenue Orchestrator: DRO Time Based Awareness - Attribute Downgrade on Renewal Cancels Current Term",
+  "product": "Revenue Lifecycle Management",
+  "cloud": "Revenue",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77210": {
+  "key": "a02g700000CthVFAAZ",
+  "subject": "Experience Cloud Users Cannot Complete Work Steps When the Action Definition Type Is set to Flow.",
+  "product": "Work Management",
+  "cloud": "Field Service",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77209": {
+  "key": "a02g700000Ctc2YAAR",
+  "subject": "SharePoint Connector 3.10.0 fails to deploy on Mule 4.6.32:2 with Java 8: \"Extension 'Sharepoint' does not support Java 1.8. Supported versions are: [",
+  "product": "Anypoint Connectors",
+  "cloud": "MuleSoft",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77208": {
+  "key": "a02g700000Ctf5FAAR",
+  "subject": "Unarchiving ContentDocument records fails with the error \"list indices must be integers or slices, not str\"",
+  "product": "Salesforce Archive",
+  "cloud": "Platform",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77207": {
+  "key": "a02g700000CtdLBAAZ",
+  "subject": "Agentforce: Email Replies Intermittently Omit The Header Image",
+  "product": "AgentForce",
+  "cloud": "Service",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 2
+  }
+ },
+ "KI-77206": {
+  "key": "a02g700000CtcnJAAR",
+  "subject": "Non-Admin Users not able to Invoke OmniScript from Record Page with Enhanced Runtime Performance Enabled",
+  "product": "OmniStudio",
+  "cloud": "Platform",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77205": {
+  "key": "a02g700000CtRqJAAV",
+  "subject": "Quick Settings Panel shows Developer Console link instead of Web Console when Web Console is enabled",
+  "product": "Platform",
+  "cloud": "Marketing",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77204": {
+  "key": "a02g700000CtXyvAAF",
+  "subject": "Metadata API PermissionSet deploy silently stores PermissionsEdit=false for never-writable and internal-only fields that the Setup UI allows Edit.",
+  "product": "Authorization & Permissions",
+  "cloud": "Platform",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77203": {
+  "key": "a02g700000CtWMvAAN",
+  "subject": "Tsm Pending-changes Apply Fails With WaitForConfigure Timeout After ZooKeeper Session loss",
+  "product": "Tableau Server",
+  "cloud": "Tableau",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77202": {
+  "key": "a02g700000CtHNuAAN",
+  "subject": "Tableau Cloud web authoring: Dragging objects/sheets on a dashboard with vertical scrolling makes the view jump to the top.",
+  "product": "Tableau Cloud",
+  "cloud": "Tableau",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 3
+  }
+ },
+ "KI-77201": {
+  "key": "a02g700000Ct7bTAAR",
+  "subject": "Performance consoldiated analysis report generation failure with high row lock events",
+  "product": "Performance & Scale",
+  "cloud": "Experience",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Closed"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77200": {
+  "key": "a02g700000Ct4thAAB",
+  "subject": "Inbound EDI transmissions intermittently fail on first receipt and succeed when replayed",
+  "product": "Flex Gateway",
+  "cloud": "MuleSoft",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77199": {
+  "key": "a02g700000Csy0HAAR",
+  "subject": "Native Button block: outer spacing (margin) not rendered in classic Outlook for Windows",
+  "product": "Marketing Cloud Platform",
+  "cloud": "Marketing",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77198": {
+  "key": "a02g700000CswePAAR",
+  "subject": "Prompt Templates created or modified with Block Editor are displayed in older interface",
+  "product": "AgentForce",
+  "cloud": "Service",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 14
+  }
+ },
+ "KI-77197": {
+  "key": "a02g700000CsviLAAR",
+  "subject": "Sorting cases in related list with case specific fields in Lightning Knowledge fails with error",
+  "product": "Knowledge",
+  "cloud": "Service",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77195": {
+  "key": "a02g700000CsnG9AAJ",
+  "subject": "Intermittently Thumbs-Down Feedback Options Do Not Appear in Einstein Work Summaries for Voice Calls",
+  "product": "Service Cloud Voice",
+  "cloud": "Service",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 5
+  }
+ },
+ "KI-77194": {
+  "key": "a02g700000CsirZAAR",
+  "subject": "“Too many SOQL queries: 101” Error When Creating Affiliation Alignment Rules for Territories with a Large Number of Child Territories",
+  "product": "Public Sector Health",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77193": {
+  "key": "a02g700000CshPFAAZ",
+  "subject": "TikTok Ads (Marketing Intelligence): Media Delivery rows are truncated or have values in the wrong columns",
+  "product": "Marketing Intelligence App (on Data Cloud)",
+  "cloud": "Marketing Intelligence App (on Data Cloud)",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77192": {
+  "key": "a02g700000CscUPAAZ",
+  "subject": "Marketing Intelligence: TikTok Ads Media Delivery data lake objects (DLOs) contain duplicate rows after an ad group's targeting changes",
+  "product": "Marketing Intelligence App (on Data Cloud)",
+  "cloud": "Marketing Intelligence App (on Data Cloud)",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77191": {
+  "key": "a02g700000CrWyvAAF",
+  "subject": "Intelligent Content PDF pages render blurry or pixelated on high-DPI displays or Windows display scaling above 100%",
+  "product": "Public Sector Health",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-74255": {
+  "key": "a02g7000006xfGbAAI",
+  "subject": "Visualforce page using Apex Continuation intermittently returns an internal server error when the callout resumes",
+  "product": "Lightning Framework",
+  "cloud": "Platform",
+  "created": "2026-08-13",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-68484": {
+  "key": "a02Ka00000mRf84IAC",
+  "subject": "Attributes are Seen as Update When an Amendment Quote is Being Configured",
+  "product": "Revenue Lifecycle Management",
+  "cloud": "Revenue",
+  "created": "2026-02-16",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Working as Expected"
+  },
+  "affected": {
+   "2026-11-05": 2
+  }
+ },
+ "KI-71398": {
+  "key": "a02Ka00000mGOebIAG",
+  "subject": "Tableau Cloud: Deleted Saved Credentials Still Used to Connect to Published Data Sources",
+  "product": "Tableau Cloud",
+  "cloud": "Tableau",
+  "created": "2026-05-21",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-73661": {
+  "key": "a02g7000006fizJAAQ",
+  "subject": "Extract refresh failing intermittently in Tableau Server \"Internal Error - An unexpected error occurred and the operation could not be completed\"",
+  "product": "Tableau Server",
+  "cloud": "Tableau",
+  "created": "2026-07-28",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-67515": {
+  "key": "a02Ka00000lmNKAIA2",
+  "subject": "Extract Refresh from Google BigQuery Fails with Timeout Error \"Task was canceled\" on Tableau Cloud",
+  "product": "Tableau Cloud",
+  "cloud": "Tableau",
+  "created": "2026-01-14",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 2
+  }
+ },
+ "KI-77024": {
+  "key": "a02g700000CX7i9AAD",
+  "subject": "NetSuite Connector | Setting sendRunServerSuiteScript to false Still Sends runServerSuiteScriptAndTriggerWorkflows in the SOAP Preferences Header",
+  "product": "Anypoint Connectors",
+  "cloud": "MuleSoft",
+  "created": "2026-10-26",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-67183": {
+  "key": "a02Ka00000llEzmIAE",
+  "subject": "Inconsistent or Incomplete Data in Tableau Cloud Admin Insights for Custom Workbooks.",
+  "product": "Tableau Cloud",
+  "cloud": "Tableau",
+  "created": "2025-12-25",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-59826": {
+  "key": "a02Ka00000eRBLCIA4",
+  "subject": "Query tagging is not available on Tableau Cloud site",
+  "product": "Tableau Cloud",
+  "cloud": "Tableau",
+  "created": "2025-05-07",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77155": {
+  "key": "a02g700000Clz9BAAR",
+  "subject": "OmniScript: Hardcoded “Error” modal heading prevents translation in both package and core runtimes",
+  "product": "OmniStudio",
+  "cloud": "Platform",
+  "created": "2026-10-28",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77019": {
+  "key": "a02g700000CWAyDAAX",
+  "subject": "Revenue Cloud Advanced: Semicolons in Text Fields Cause Blank Values in Document Generation",
+  "product": "Revenue Lifecycle Management",
+  "cloud": "Revenue",
+  "created": "2026-10-26",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-74263": {
+  "key": "a02g7000006xyr7AAA",
+  "subject": "Tableau Cloud dashboard connected to a published data source intermittently fails to load or a filter change \"hangs\" when applying",
+  "product": "Tableau Cloud",
+  "cloud": "Tableau",
+  "created": "2026-08-13",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-47750": {
+  "key": "a028c00000z0TfxAAE",
+  "subject": "Tableau Prep Flow fails grouping values from 2022.4.3",
+  "product": "Tableau Prep Builder",
+  "cloud": "Tableau",
+  "created": "2024-04-25",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 6
+  }
+ },
+ "KI-74518": {
+  "key": "a02g7000007TWzlAAG",
+  "subject": "[TP] Dataset clone fails for non-admin users when “Refresh Data Sources” is checked.",
+  "product": "Salesforce Maps Territory Planning",
+  "cloud": "Sales",
+  "created": "2026-08-21",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-64734": {
+  "key": "a02Ka00000jhn07IAA",
+  "subject": "[Accessibility] [Field Dependency] The table to select which dependant picklist values are included are not keyboard accessible",
+  "product": "Disability and Product Accessibility",
+  "cloud": "Platform",
+  "created": "2025-10-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-76519": {
+  "key": "a02g700000BgXyvAAF",
+  "subject": "Auto-contrast for mark label text in Tableau intermittently fails on dark fills",
+  "product": "Tableau Desktop",
+  "cloud": "Tableau",
+  "created": "2026-10-14",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-76201": {
+  "key": "a02g700000BARbhAAH",
+  "subject": "Agentforce/Messaging chat sessions intermittently time out (~121-122s) and transfer to a human agent without a linked Case",
+  "product": "Agentforce",
+  "cloud": "Sales",
+  "created": "2026-10-06",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 14
+  }
+ },
+ "KI-76133": {
+  "key": "a02g700000B6lAnAAJ",
+  "subject": "Tableau Server & Prep Builder stops responding when opening or running a flow with multiple Excel inputs",
+  "product": "Tableau Prep Builder",
+  "cloud": "Tableau",
+  "created": "2026-10-05",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-70809": {
+  "key": "a02Ka00000moMfYIAU",
+  "subject": "Error \"missing required code challenge (invalid_request)\" when user authorize the oAuth",
+  "product": "Salesforce Maps",
+  "cloud": "Sales",
+  "created": "2026-04-30",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 6
+  }
+ },
+ "KI-76218": {
+  "key": "a02g700000BAxLSAA1",
+  "subject": "Builder Central Fails to Load / \"Failed to Fetch\" Due to DNS Resolution Failure for api.salesforce.com",
+  "product": "Agentforce",
+  "cloud": "Sales",
+  "created": "2026-10-06",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77130": {
+  "key": "a02g700000CkhhNAAR",
+  "subject": "Messaging Session transcript doesn't scroll the page column when Enhanced Conversation height exceeds the Three Regions viewport",
+  "product": "Omni-Channel",
+  "cloud": "Service",
+  "created": "2026-10-28",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Closed"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-76479": {
+  "key": "a02g700000BZ9q5AAD",
+  "subject": "CreateMultipleFulfillmentOrder API/action in Order Management fails for non-US shipping address",
+  "product": "Order Management and Omnichannel Inventory",
+  "cloud": "Commerce",
+  "created": "2026-10-13",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-74860": {
+  "key": "a02g7000008RRE2AAO",
+  "subject": "Tableau Bridge intermittent error \"SECURITY - Protocol site-luid changed from '-' to <SITE_LUID>\"",
+  "product": "Tableau Bridge",
+  "cloud": "Tableau",
+  "created": "2026-09-01",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77023": {
+  "key": "a02g700000CX7ILAA1",
+  "subject": "Einstein Activity Capture (EAC) Recurring Events Fail to Sync in Orgs with Salesforce Maps",
+  "product": "Salesforce Maps",
+  "cloud": "Sales",
+  "created": "2026-10-26",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-71216": {
+  "key": "a02Ka00000mGFWXIA4",
+  "subject": "Error \"Invalid quantity change on Quote Line Item\" When Creating OLI Schedules on a Synced Opportunity",
+  "product": "Opportunities & Quotes",
+  "cloud": "Sales",
+  "created": "2026-05-14",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 2
+  }
+ },
+ "KI-77072": {
+  "key": "a02g700000CdOQ9AAN",
+  "subject": "[Accessibility] [Omni-Channel softphone] Keyboard Focus Moves to Page Body When Initiating a Call Transfer Using “Add Caller” During an Active Call",
+  "product": "Disability and Product Accessibility",
+  "cloud": "Service",
+  "created": "2026-10-27",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-76989": {
+  "key": "a02g700000CUV13AAH",
+  "subject": "Prechat fields value are lost if required fields are empty on submit for Enhanced Chat v2",
+  "product": "Embedded Service",
+  "cloud": "Service",
+  "created": "2026-10-26",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77178": {
+  "key": "a02g700000CpONxAAN",
+  "subject": "Data 360: Data Transform failure due to mismatch with cdp_sys_record_currency__c field",
+  "product": "Data Transforms",
+  "cloud": "Data Cloud",
+  "created": "2026-10-28",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77111": {
+  "key": "a02g700000CfhA9AAJ",
+  "subject": "Campaign Member Record Type field shows \"Status\" label on Campaign create/edit in Lightning",
+  "product": "Campaigns & Leads",
+  "cloud": "Sales",
+  "created": "2026-10-27",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 2
+  }
+ },
+ "KI-72402": {
+  "key": "a02Ka00000mHOWpIAO",
+  "subject": "[Salesforce for iOS]Inaccurate transcripts are generated on iPhone SE (2nd generation)",
+  "product": "Mobile",
+  "cloud": "Sales",
+  "created": "2026-06-22",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-65181": {
+  "key": "a02Ka00000jiK9uIAE",
+  "subject": "Tableau Next visualization shows currency sign instead of percentage.",
+  "product": "Tableau Next",
+  "cloud": "Tableau",
+  "created": "2025-10-16",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Closed"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-77183": {
+  "key": "a02g700000CpdA5AAJ",
+  "subject": "Generate Prompt Response action in a synchronous record-triggered flow intermittently fails with \"Apex CPU time limit exceeded\"",
+  "product": "Prompt Builder",
+  "cloud": "Einstein",
+  "created": "2026-10-28",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 3
+  }
+ },
+ "KI-76633": {
+  "key": "a02g700000BrayHAAR",
+  "subject": "Some non-admin users may be unable to use Passwordless login with Passkeys",
+  "product": "Identity & Authentication",
+  "cloud": "Platform",
+  "created": "2026-10-16",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 2
+  }
+ },
+ "KI-75328": {
+  "key": "a02g7000009XGtdAAG",
+  "subject": "[Accessibility] [Omnichannel] Phone Call Entries Have Incorrect Structural Markup",
+  "product": "Disability and Product Accessibility",
+  "cloud": "Platform",
+  "created": "2026-09-14",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-74262": {
+  "key": "a02g7000006xyPhAAI",
+  "subject": "Tableau Prep Flow Overview Page Shows Output Step Stuck on \"Running\" Even After a Job Failure",
+  "product": "Tableau Cloud",
+  "cloud": "Tableau",
+  "created": "2026-08-13",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-65261": {
+  "key": "a02Ka00000kThOyIAK",
+  "subject": "Unable to connect to Azure Datalake storage Gen2 connector from Tableau Online",
+  "product": "Tableau Cloud",
+  "cloud": "Tableau",
+  "created": "2025-10-17",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-76420": {
+  "key": "a02g700000BTVdBAAX",
+  "subject": "Command Center Backlog doesn't show skills-based work for supervisors whose supervisor configuration has queue(s) selected and no skills selected",
+  "product": "Omni-Channel",
+  "cloud": "Service",
+  "created": "2026-10-12",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-76835": {
+  "key": "a02g700000CAWSjAAP",
+  "subject": "Command Center for Service V2 list components show a maximum of 100 records",
+  "product": "Omni-Channel",
+  "cloud": "Service",
+  "created": "2026-10-21",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-75280": {
+  "key": "a02g7000009KREzAAO",
+  "subject": "Anypoint Monitoring Insights does not display client application data for Flex/Omni Gateway instances",
+  "product": "Anypoint Monitoring",
+  "cloud": "MuleSoft",
+  "created": "2026-09-11",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 4
+  }
+ },
+ "KI-73938": {
+  "key": "a02g7000006nbKjAAI",
+  "subject": "Inconsistent Speech-to-Text Output for Hindi Voice in Agentforce Voice Transcript",
+  "product": "AgentForce",
+  "cloud": "Service",
+  "created": "2026-08-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-76332": {
+  "key": "a02g700000BGta5AAD",
+  "subject": "Industries CME (264)| The OOTB method getItemAttributes of CpqCartDocument does not return Multi-Select Picklist Attributes values as an Array format",
+  "product": "Industries CPQ",
+  "cloud": "Communications",
+  "created": "2026-10-08",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-74955": {
+  "key": "a02g7000008aHAbAAM",
+  "subject": "Data 360 | History Tracking CI is not running as per schedule.",
+  "product": "Calculated Insights",
+  "cloud": "Data Cloud",
+  "created": "2026-09-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-77026": {
+  "key": "a02g700000CXCgDAAX",
+  "subject": "Partner search in Anypoint Partner Manager returns incorrect results when the search term contains an ampersand (&)",
+  "product": "Partner Manager",
+  "cloud": "MuleSoft",
+  "created": "2026-10-26",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 2
+  }
+ },
+ "KI-76915": {
+  "key": "a02g700000CEXYHAA5",
+  "subject": "Unable To See All Objects In Global Search Without Filtering",
+  "product": "Global Search - Desktop",
+  "cloud": "Search",
+  "created": "2026-10-22",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-76844": {
+  "key": "a02g700000CAgNFAA1",
+  "subject": "Facebook Dynamic Ads product feed: correct product eligibility for B2C Commerce",
+  "product": "B2C Commerce",
+  "cloud": "Commerce",
+  "created": "2026-10-21",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-76551": {
+  "key": "a02g700000BiICbAAN",
+  "subject": "Dynamic Revenue Orchestrator: Staggered Cancellation Dates Resulting In Premature De-Provisioning For Shared Technical Products",
+  "product": "Revenue Lifecycle Management",
+  "cloud": "Revenue",
+  "created": "2026-10-14",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-76223": {
+  "key": "a02g700000BB209AAD",
+  "subject": "Service process cards inside Category container are getting overflown.",
+  "product": "Lightning Experience",
+  "cloud": "Platform",
+  "created": "2026-10-06",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 0
+  }
+ },
+ "KI-76920": {
+  "key": "a02g700000CGQinAAH",
+  "subject": "Revenue Cloud Advanced: Error Adding a Derived Price Product to a Quote",
+  "product": "Revenue Lifecycle Management",
+  "cloud": "Revenue",
+  "created": "2026-10-22",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 1
+  }
+ },
+ "KI-18871": {
+  "key": "a028c00000qPwmvAAC",
+  "subject": "Data updates are not reflected in UI after a Visualforce+Apex update in Lightning Experience",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2017-02-17",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Closed"
+  },
+  "affected": {
+   "2026-11-05": 1464
+  }
+ },
+ "KI-28699": {
+  "key": "a028c00000qQ53kAAC",
+  "subject": "User Profiles and Permission Sets related to Pardot licensed orgs were modified by Salesforce",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2019-05-18",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 1462
+  }
+ },
+ "KI-54746": {
+  "key": "a028c00000zjGepAAE",
+  "subject": "Optimizer is not accessible or is disabled for all orgs",
+  "product": "Customization & App Building",
+  "cloud": "Platform",
+  "created": "2024-11-22",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 1398
+  }
+ },
+ "KI-11486": {
+  "key": "a028c00000gAywbAAC",
+  "subject": "Salesforce functionality impacted in Chrome 92 after recent change to cross-origin iframe JavaScript dialogs",
+  "product": "Disability and Product Accessibility",
+  "cloud": "Platform",
+  "created": "2021-07-23",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 1375
+  }
+ },
+ "KI-27500": {
+  "key": "a028c00000qQ2TlAAK",
+  "subject": "_BR_ENCODED_ markers are not replaced for text formula values used by Flow/Process when those values are populated in other text/text area fields",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2015-05-28",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 1122
+  }
+ },
+ "KI-71246": {
+  "key": "a02Ka00000mGGGyIAO",
+  "subject": "Users are not able to change and verify their emails in all Orgs after Summer 26 release",
+  "product": "Email & Email Templates",
+  "cloud": "Sales",
+  "created": "2026-05-15",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 1096
+  }
+ },
+ "KI-72317": {
+  "key": "a02Ka00000mHHF9IAO",
+  "subject": "Record Page Fails to Load with \"is not a function\" JavaScript Error: 52601705",
+  "product": "Lightning Services",
+  "cloud": "Platform",
+  "created": "2026-06-18",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deploying"
+  },
+  "affected": {
+   "2026-11-05": 1012
+  }
+ },
+ "KI-11191": {
+  "key": "a028c00000gAyrqAAC",
+  "subject": "Outlook Integration login issue on Outlook for Mac after an upgrade to Mac OS Big Sur 11x",
+  "product": "Email Clients & Office Suites",
+  "cloud": "Sales",
+  "created": "2021-01-05",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 1004
+  }
+ },
+ "KI-26883": {
+  "key": "a028c00000qQ1zoAAC",
+  "subject": "\"Invalid component [force:relatedListSingleContainer]\" error when deploying a Change Set containing a Case Lightning Page with an Email Related List",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2017-09-13",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 894
+  }
+ },
+ "KI-10955": {
+  "key": "a028c00000gAyo2AAC",
+  "subject": "Restricted Access Causing Flows to Fail in Spring 21",
+  "product": "Lightning Flow",
+  "cloud": "Platform",
+  "created": "2021-02-13",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 862
+  }
+ },
+ "KI-49639": {
+  "key": "a028c00000zJHu1AAG",
+  "subject": "Unable to access Salesforce Optimizer",
+  "product": "Customization & App Building",
+  "cloud": "Platform",
+  "created": "2024-06-21",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 784
+  }
+ },
+ "KI-02810": {
+  "key": "a028c00000gAwgfAAC",
+  "subject": "Flow error emails are sent even when using fault connectors",
+  "product": "Lightning Flow",
+  "cloud": "Platform",
+  "created": "2022-04-07",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 752
+  }
+ },
+ "KI-28493": {
+  "key": "a028c00000qQ4ucAAC",
+  "subject": "The import wizard fails with a generic error.",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2013-03-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 748
+  }
+ },
+ "KI-02667": {
+  "key": "a028c00000gAweMAAS",
+  "subject": "Unable to select an EmailMessage record as an input in debug mode in flow",
+  "product": "Lightning Flow",
+  "cloud": "Platform",
+  "created": "2020-07-27",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 743
+  }
+ },
+ "KI-15278": {
+  "key": "a028c00000j5kQDAAY",
+  "subject": "When \"Open New tab\" by right click against the record link in dashboard in LEX, it lands to incorrect URL",
+  "product": "CRM Analytics",
+  "cloud": "Analytics",
+  "created": "2022-11-11",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 693
+  }
+ },
+ "KI-18648": {
+  "key": "a028c00000prX8dAAE",
+  "subject": "Feature Degradation - File Uploads and Digital Experiences / Content Management System (CMS) Data",
+  "product": "Chatter & Files",
+  "cloud": "Cross-Platform Features",
+  "created": "2023-02-17",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 647
+  }
+ },
+ "KI-73343": {
+  "key": "a02g70000067tp7AAA",
+  "subject": "First report export after step-up auth ignores URL filter overrides and uses saved report filters",
+  "product": "Identity & Authentication",
+  "cloud": "Platform",
+  "created": "2026-07-17",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deploying"
+  },
+  "affected": {
+   "2026-11-05": 637
+  }
+ },
+ "KI-19675": {
+  "key": "a028c00000qPwztAAC",
+  "subject": "Case and Lead Notification Email is sent from Flow/Process regardless of settings",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2016-05-11",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 609
+  }
+ },
+ "KI-08659": {
+  "key": "a028c00000gAyD0AAK",
+  "subject": "Salesforce Mobile - Record pages will not load or load to Blank / White screen",
+  "product": "Mobile App Plus",
+  "cloud": "Mobile",
+  "created": "2019-06-20",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 606
+  }
+ },
+ "KI-07471": {
+  "key": "a028c00000gAxtqAAC",
+  "subject": "Performance Degradation Message Queue Processing on multiple sandbox instances",
+  "product": "ALM",
+  "cloud": "Platform",
+  "created": "2022-05-19",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 605
+  }
+ },
+ "KI-36757": {
+  "key": "a028c00000reKlTAAU",
+  "subject": "Getting Error(error ID: 3807153) while Opening any Case record",
+  "product": "Case Management",
+  "cloud": "Service",
+  "created": "2023-03-02",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 603
+  }
+ },
+ "KI-18872": {
+  "key": "a028c00000qPwmwAAC",
+  "subject": "\"This record was modified by...\" your own user message after saving record in custom object related list",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2017-06-14",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 601
+  }
+ },
+ "KI-23665": {
+  "key": "a028c00000qPzZ9AAK",
+  "subject": "Process builder cannot handle null of cross object on formula criteria",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2015-10-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Closed"
+  },
+  "affected": {
+   "2026-11-05": 585
+  }
+ },
+ "KI-23624": {
+  "key": "a028c00000qPzYUAA0",
+  "subject": "Picklist values not getting deployed during unlocked package upgrades",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2019-03-16",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Closed"
+  },
+  "affected": {
+   "2026-11-05": 580
+  }
+ },
+ "KI-18888": {
+  "key": "a028c00000qPwnCAAS",
+  "subject": "Custom Buttons for VisualForce pages set to \"Display in New Window\" should open in a New Window",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2016-05-27",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Closed"
+  },
+  "affected": {
+   "2026-11-05": 560
+  }
+ },
+ "KI-24349": {
+  "key": "a028c00000qQ0BFAA0",
+  "subject": "Clicking on ‘Help & Training' prompts login page in custom domain enabled orgs",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2013-01-17",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Closed"
+  },
+  "affected": {
+   "2026-11-05": 530
+  }
+ },
+ "KI-19464": {
+  "key": "a028c00000qPwwUAAS",
+  "subject": "Lightning: Items to Approve do not display if owner is a queue",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2017-03-14",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 525
+  }
+ },
+ "KI-27876": {
+  "key": "a028c00000qQ2gHAAS",
+  "subject": "Process builder process interferes with sending of record owner change email notifications",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2015-06-16",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 520
+  }
+ },
+ "KI-20286": {
+  "key": "a028c00000qPxCzAAK",
+  "subject": "Filtered Lookups May Not Function in Lightning Due to Search Crowding",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2017-10-24",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 512
+  }
+ },
+ "KI-24949": {
+  "key": "a028c00000qQ0dSAAS",
+  "subject": "\"Else Approve Record\" Option is Unexpectedly Rejecting Records",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2016-11-22",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 508
+  }
+ },
+ "KI-45382": {
+  "key": "a028c00000yx0wjAAA",
+  "subject": "Package version & scratch org creation is failing with the error - ‘C-9999'  after Spring'24 release",
+  "product": "ISVs",
+  "cloud": "Platform",
+  "created": "2024-02-12",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 503
+  }
+ },
+ "KI-64136": {
+  "key": "a02Ka00000jg4jCIAQ",
+  "subject": "End users observing \"Assertion Failed\" error upon logging into Sandbox Orgs",
+  "product": "Lightning Experience",
+  "cloud": "Platform",
+  "created": "2025-09-15",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 498
+  }
+ },
+ "KI-11740": {
+  "key": "a028c00000gAz0hAAC",
+  "subject": "Cannot save/deploy flows in Winter 22 release",
+  "product": "Lightning Flow",
+  "cloud": "Platform",
+  "created": "2021-08-31",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 487
+  }
+ },
+ "KI-05903": {
+  "key": "a028c00000gAxUYAA0",
+  "subject": "Lightning Report filters linked from dashboard are duplicated when report is edited",
+  "product": "Operational Dashboards",
+  "cloud": "Analytics",
+  "created": "2019-10-21",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 475
+  }
+ },
+ "KI-25694": {
+  "key": "a028c00000qQ1C3AAK",
+  "subject": "Page loading error occurs when too many formula fields with complex formulas or custom fields are on page layout",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2016-09-27",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Working as Expected"
+  },
+  "affected": {
+   "2026-11-05": 474
+  }
+ },
+ "KI-22879": {
+  "key": "a028c00000qPysmAAC",
+  "subject": "Lightning Dashboard: Standard user can see the 'Edit' button but upon clicking on save, user is getting generic error message.",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2018-01-18",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 472
+  }
+ },
+ "KI-26899": {
+  "key": "a028c00000qQ25EAAS",
+  "subject": "Deployment Error: The user license doesn't allow the permission: SubscribeToLightningReports",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2017-01-27",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 469
+  }
+ },
+ "KI-23242": {
+  "key": "a028c00000qPzG4AAK",
+  "subject": "Deployment fails with duplicate value found: <unknown> duplicates value on record with id: <unknown> error",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2014-09-25",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 468
+  }
+ },
+ "KI-18582": {
+  "key": "a028c00000pZ8BHAA0",
+  "subject": "Help Text on the fields is getting frozen even after hovering outside of the text",
+  "product": "Lightning Experience",
+  "cloud": "Platform",
+  "created": "2023-02-08",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 449
+  }
+ },
+ "KI-24071": {
+  "key": "a028c00000qPzuZAAS",
+  "subject": "Lightning: Rollup Summary fields are not updated when child record is deleted, created or updated",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2016-06-29",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 448
+  }
+ },
+ "KI-54505": {
+  "key": "a028c00000zj2bgAAA",
+  "subject": "Chrome and Edge 131: Permission Set Assignments Appear Blank on the User Assignment page and Presence Configuration page",
+  "product": "Authorization & Permissions",
+  "cloud": "Platform",
+  "created": "2024-11-15",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 444
+  }
+ },
+ "KI-27562": {
+  "key": "a028c00000qQ2UlAAK",
+  "subject": "Approval Merge Fields Have Wrong Value for Approval Related Emails",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2014-03-27",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 444
+  }
+ },
+ "KI-00793": {
+  "key": "a028c00000gAwA8AAK",
+  "subject": "Global Search shows blank screen when searching for records in Lightning Console requiring refresh to show results",
+  "product": "Federated Search",
+  "cloud": "Search",
+  "created": "2022-06-16",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 443
+  }
+ },
+ "KI-23338": {
+  "key": "a028c00000qPzNpAAK",
+  "subject": "User gets an 'insufficient access rights on object id' error when transferring a record in Lightning Experience",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2016-12-21",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 429
+  }
+ },
+ "KI-72939": {
+  "key": "a02g7000005ohtJAAQ",
+  "subject": "Employee Agent Visible in Enterprise and Unlimited Edition Orgs with Salesforce Foundations and Agentforce Enabled",
+  "product": "AgentForce",
+  "cloud": "Service",
+  "created": "2026-07-07",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 419
+  }
+ },
+ "KI-57769": {
+  "key": "a028c000010Fj0FAAS",
+  "subject": "Delay in Sandbox Refresh Process",
+  "product": "Sandbox",
+  "cloud": "Platform",
+  "created": "2025-03-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 416
+  }
+ },
+ "KI-05908": {
+  "key": "a028c00000gAxUdAAK",
+  "subject": "Live Chat Transcripts stuck in a status of 'In Progress' or 'Waiting'",
+  "product": "Agent Experience",
+  "cloud": "Service",
+  "created": "2019-08-05",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Closed"
+  },
+  "affected": {
+   "2026-11-05": 416
+  }
+ },
+ "KI-27149": {
+  "key": "a028c00000qQ2EGAA0",
+  "subject": "When performing several SOQL queries from different Apex classes, \"No such column 'LastViewedDate' on entity <entity-name>\" is thrown",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2013-10-22",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Closed"
+  },
+  "affected": {
+   "2026-11-05": 414
+  }
+ },
+ "KI-06704": {
+  "key": "a028c00000gAxhTAAS",
+  "subject": "Some icons disappear in Chrome 84",
+  "product": "Lightning Framework",
+  "cloud": "Platform",
+  "created": "2020-07-31",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 414
+  }
+ },
+ "KI-58846": {
+  "key": "a02Ka00000eNewjIAC",
+  "subject": "Rename tabs and labels throw Internal server error",
+  "product": "Sandbox",
+  "cloud": "Platform",
+  "created": "2025-04-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 411
+  }
+ },
+ "KI-23187": {
+  "key": "a028c00000qPzFBAA0",
+  "subject": "In Lightning, login-as user sometimes redirects back to login page or user page",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2018-06-26",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 407
+  }
+ },
+ "KI-26608": {
+  "key": "a028c00000qQ1qrAAC",
+  "subject": "Email Alert sending to all members of Queue and Queue email when \"Send Email to Members\" is not checked",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2015-12-18",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 406
+  }
+ },
+ "KI-02256": {
+  "key": "a028c00000gAwXjAAK",
+  "subject": "Logging into the AppExchange from your org has an infinite loading icon",
+  "product": "Marketing Cloud Platform",
+  "cloud": "Marketing",
+  "created": "2020-01-12",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Closed"
+  },
+  "affected": {
+   "2026-11-05": 394
+  }
+ },
+ "KI-25127": {
+  "key": "a028c00000qQ0mNAAS",
+  "subject": "The latest Subflow is run instead of the active Subflow",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2019-02-11",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 381
+  }
+ },
+ "KI-73568": {
+  "key": "a02g7000006Yoa1AAC",
+  "subject": "Internal server error during step-up authentication when exporting reports with over 10,000 records",
+  "product": "Reports & Dashboards",
+  "cloud": "Analytics",
+  "created": "2026-07-24",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 378
+  }
+ },
+ "KI-72147": {
+  "key": "a02Ka00000mH6QCIA0",
+  "subject": "\"step-up authentication for Report\" - When exporting to \"Details Only\" is selected, after authentication, the user is redirected to the Classic UI.",
+  "product": "Operational Reporting",
+  "cloud": "Analytics",
+  "created": "2026-06-12",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deploying"
+  },
+  "affected": {
+   "2026-11-05": 378
+  }
+ },
+ "KI-26587": {
+  "key": "a028c00000qQ1qWAAS",
+  "subject": "Case Milestone Counter doesn't stop counting down when a Case is closed",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2015-08-27",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 378
+  }
+ },
+ "KI-13447": {
+  "key": "a028c00000gAzSEAA0",
+  "subject": "Hyperlink Formula Displaying _HL_ENCODED_ When Referencing Another Formula Field",
+  "product": "Lightning Flow",
+  "cloud": "Platform",
+  "created": "2019-10-21",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 372
+  }
+ },
+ "KI-41790": {
+  "key": "a028c00000sv6ROAAY",
+  "subject": "Flow lookup component is giving warning message for OwnerId",
+  "product": "Lightning Flow",
+  "cloud": "Platform",
+  "created": "2023-10-03",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Working as Expected"
+  },
+  "affected": {
+   "2026-11-05": 369
+  }
+ },
+ "KI-30339": {
+  "key": "a028c00000qQ6FDAA0",
+  "subject": "Dark mode is disabled",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2020-04-07",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Closed"
+  },
+  "affected": {
+   "2026-11-05": 369
+  }
+ },
+ "KI-29061": {
+  "key": "a028c00000qQ5L7AAK",
+  "subject": "Unable to install package due to error - This app can't be installed.",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2015-12-15",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 369
+  }
+ },
+ "KI-73334": {
+  "key": "a02g70000067eLRAAY",
+  "subject": "Passkey (Built-In Authenticator / Physical Security Key) Not Available as MFA Option During Setup-Initiated Identity Verification",
+  "product": "Identity & Authentication",
+  "cloud": "Platform",
+  "created": "2026-07-16",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 366
+  }
+ },
+ "KI-62785": {
+  "key": "a02Ka00000hn1rBIAQ",
+  "subject": "Issues using Agentforce on Salesforce Help",
+  "product": "Help & Training",
+  "cloud": "Your Salesforce Experience",
+  "created": "2025-08-01",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 365
+  }
+ },
+ "KI-01387": {
+  "key": "a028c00000gAwJiAAK",
+  "subject": "Outlook Integration - Session logout when using SSO+MFA with High Assurance",
+  "product": "Email Clients & Office Suites",
+  "cloud": "Sales",
+  "created": "2021-10-01",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 363
+  }
+ },
+ "KI-22147": {
+  "key": "a028c00000qPyOGAA0",
+  "subject": "Task and Event subject line doesn't contain picklist \"combo box\" - only plain text field",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2016-05-27",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 362
+  }
+ },
+ "KI-00305": {
+  "key": "a028c00000gAw2GAAS",
+  "subject": "Outlook Integration displays \"Something happened when we tried to connect to the Exchange server\" when opening an occurrence of an event series",
+  "product": "Email Clients & Office Suites",
+  "cloud": "Sales",
+  "created": "2021-02-09",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Working as Expected"
+  },
+  "affected": {
+   "2026-11-05": 360
+  }
+ },
+ "KI-18907": {
+  "key": "a028c00000qPwnVAAS",
+  "subject": "DATEVALUE() formula fields are incorrect in Reports and Visualforce due to daylight savings",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2013-01-24",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 358
+  }
+ },
+ "KI-20072": {
+  "key": "a028c00000qPx9XAAS",
+  "subject": "Picklist values are NOT translated in Flows",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2017-03-07",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 355
+  }
+ },
+ "KI-14179": {
+  "key": "a028c00000j5k8EAAQ",
+  "subject": "Error on opening Update Records element which is configured on Custom Object with Lookup relationship to Standard Object",
+  "product": "Lightning Flow",
+  "cloud": "Platform",
+  "created": "2022-10-11",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 355
+  }
+ },
+ "KI-00727": {
+  "key": "a028c00000gAw94AAC",
+  "subject": "User's Locale which contains \"Euro\" giving errors \"Incorrect locale information provided\" in UI while accessing multiple entities",
+  "product": "Disability and Product Accessibility",
+  "cloud": "Platform",
+  "created": "2022-05-11",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 347
+  }
+ },
+ "KI-67465": {
+  "key": "a02Ka00000lmL6wIAE",
+  "subject": "Encountering the error “Something went wrong while fetching attachments for description. Please try again.” when opening case records after Spring 26",
+  "product": "Case Management",
+  "cloud": "Service",
+  "created": "2026-01-12",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 346
+  }
+ },
+ "KI-27276": {
+  "key": "a028c00000qQ2GJAA0",
+  "subject": "Flow/Process Builder: Updating percentage fields using value from another percent field produces incorrect result.",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2015-06-26",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 346
+  }
+ },
+ "KI-18874": {
+  "key": "a028c00000qPwmyAAC",
+  "subject": "\"Stop Automated Field Updates from Suppressing Email Notifications\" sending duplicate assignment email for Opportunity record",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2017-09-07",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 345
+  }
+ },
+ "KI-24070": {
+  "key": "a028c00000qPzuYAAS",
+  "subject": "Roll-up Summary Field Shows Incorrect Value",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2018-08-31",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "In Review"
+  },
+  "affected": {
+   "2026-11-05": 344
+  }
+ },
+ "KI-27931": {
+  "key": "a028c00000qQ2myAAC",
+  "subject": "Lightning UI, scrolling through picklist values makes the entire page scroll",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2017-03-16",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 341
+  }
+ },
+ "KI-00829": {
+  "key": "a028c00000gAwAiAAK",
+  "subject": "[Cannot read properties of null (reading 'recordTypeId')] error shows when accessing a report.",
+  "product": "Reports & Dashboards",
+  "cloud": "Analytics",
+  "created": "2022-07-12",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 335
+  }
+ },
+ "KI-00453": {
+  "key": "a028c00000gAw4eAAC",
+  "subject": "Excel Power Query Salesforce login popup is unresponsive.",
+  "product": "Chat",
+  "cloud": "Service",
+  "created": "2020-07-24",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 331
+  }
+ },
+ "KI-09350": {
+  "key": "a028c00000gAyO9AAK",
+  "subject": "Spring '20 __LABEL_ERROR__ or blank label for related list on a child object when related to a parent object",
+  "product": "Lightning Experience",
+  "cloud": "Platform",
+  "created": "2020-01-06",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 330
+  }
+ },
+ "KI-00090": {
+  "key": "a028c00000gAvynAAC",
+  "subject": "'Lightning out App error in callback function' Message Below Flows Launched From List View Multi-Select Button",
+  "product": "Lightning Flow",
+  "cloud": "Platform",
+  "created": "2019-07-23",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Closed"
+  },
+  "affected": {
+   "2026-11-05": 328
+  }
+ },
+ "KI-52129": {
+  "key": "a028c00000zLnlrAAC",
+  "subject": "Lightning-input date format text can not be hidden/removed",
+  "product": "Development (Apex, LWC & VF)",
+  "cloud": "Platform",
+  "created": "2024-09-06",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 325
+  }
+ },
+ "KI-07216": {
+  "key": "a028c00000gAxpjAAC",
+  "subject": "Salesforce Partner Community Help - Partners Unable to View/Log Partner Case Types",
+  "product": "Help & Training",
+  "cloud": "Your Salesforce Experience",
+  "created": "2021-11-20",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 325
+  }
+ },
+ "KI-53271": {
+  "key": "a028c00000zhsa3AAA",
+  "subject": "WINTER'25 Non knowledge users receiving \"Sorry to interrupt\" error on case record page in lightning",
+  "product": "Knowledge",
+  "cloud": "Service",
+  "created": "2024-10-10",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 323
+  }
+ },
+ "KI-00439": {
+  "key": "a028c00000gAw4QAAS",
+  "subject": "Spring '20 - Global search displays a blank result page in a Console app",
+  "product": "Federated Search",
+  "cloud": "Search",
+  "created": "2020-02-10",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 321
+  }
+ },
+ "KI-05697": {
+  "key": "a028c00000gAxREAA0",
+  "subject": "Multiple customers not able to login to some oAuth clients",
+  "product": "Sales Productivity",
+  "cloud": "Sales",
+  "created": "2019-08-09",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 318
+  }
+ },
+ "KI-53347": {
+  "key": "a028c00000zi0Q2AAI",
+  "subject": "The Outlook Integration side panel shows the following message: \"Hmm. It seems the email server is currently unavailable. Please try again later.\"",
+  "product": "Email Clients & Office Suites",
+  "cloud": "Sales",
+  "created": "2024-10-14",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 317
+  }
+ },
+ "KI-25302": {
+  "key": "a028c00000qQ0v0AAC",
+  "subject": "Feature Request: List View Search is not available for Lightning Knowledge list views",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2019-01-17",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 314
+  }
+ },
+ "KI-19687": {
+  "key": "a028c00000qPx05AAC",
+  "subject": "Certain global value set names are restricted",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2017-01-23",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-05": 304
+  }
+ },
+ "KI-10004": {
+  "key": "a028c00000gAyYhAAK",
+  "subject": "Lightning Console - Adding / editing a record doesn’t refresh the changes immediately in the list view filter",
+  "product": "Lightning Experience",
+  "cloud": "Platform",
+  "created": "2020-07-17",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 303
+  }
+ },
+ "KI-22740": {
+  "key": "a028c00000qPyqXAAS",
+  "subject": "invalid query locator error occurs when iterating child objects in parent-child relationship query result",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2015-03-19",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 300
+  }
+ },
+ "KI-24743": {
+  "key": "a028c00000qQ0UZAA0",
+  "subject": "Spring 19 Lightning Report [Formatted Export] Date and DateTime fields values are not consistent with the ones shown in the run page.",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2019-01-25",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 296
+  }
+ },
+ "KI-00546": {
+  "key": "a028c00000gAw69AAC",
+  "subject": "Windows Outlook 2016 MSI - Outlook Integration side panel fails to load with error \"We encountered a problem. For help, contact your administrator.\"",
+  "product": "Email Clients & Office Suites",
+  "cloud": "Sales",
+  "created": "2022-03-09",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 294
+  }
+ },
+ "KI-00304": {
+  "key": "a028c00000gAw2FAAS",
+  "subject": "Sandbox Name and Header is not shown on Hyperforce Sandboxes",
+  "product": "ALM",
+  "cloud": "Platform",
+  "created": "2021-08-26",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 291
+  }
+ },
+ "KI-50386": {
+  "key": "a028c00000zJyykAAC",
+  "subject": "The filters ‘Contains,’ ‘Does not Contain, ' and ‘Starts with’ are sometimes missing from the report.",
+  "product": "Reports & Dashboards",
+  "cloud": "Analytics",
+  "created": "2024-07-12",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 290
+  }
+ },
+ "KI-73994": {
+  "key": "a02g7000006ozpdAAA",
+  "subject": "Consistent Double Downloads After Step-Up Verification in Report Export",
+  "product": "Identity & Authentication",
+  "cloud": "Platform",
+  "created": "2026-08-05",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deploying"
+  },
+  "affected": {
+   "2026-11-05": 289
+  }
+ },
+ "KI-00038": {
+  "key": "a028c00000gAvxxAAC",
+  "subject": "Salesforce Partner Community - Partners are unable to see obtained Certifications",
+  "product": "B2C Commerce",
+  "cloud": "Commerce",
+  "created": "2022-01-04",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 289
+  }
+ },
+ "KI-23328": {
+  "key": "a028c00000qPzNfAAK",
+  "subject": "Cannot check checkbox while debugging a record-triggered flow",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2022-03-16",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Closed"
+  },
+  "affected": {
+   "2026-11-05": 287
+  }
+ },
+ "KI-11716": {
+  "key": "a028c00000gAz0JAAS",
+  "subject": "Multifactor Authentication (MFA) challenge is required when Outlook Integration w/ Inbox side panel is opened",
+  "product": "Email Clients & Office Suites",
+  "cloud": "Sales",
+  "created": "2021-01-22",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 287
+  }
+ },
+ "KI-28037": {
+  "key": "a028c00000qQ2ogAAC",
+  "subject": "Single Sign-On fails in sandboxes after the Summer ’19 upgrade",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2019-05-05",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 286
+  }
+ },
+ "KI-29883": {
+  "key": "a028c00000qQ5qWAAS",
+  "subject": "Global search result to error: Number too large. Computed a number that exceeds maximum allowed size.",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2017-01-23",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-05": 285
+  }
+ },
+ "KI-27817": {
+  "key": "a028c00000qQ2fKAAS",
+  "subject": "Developer Console jumping when using mouse scroll",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2017-03-01",
+  "firstSeen": "2026-11-05",
+  "lastSeen": "2026-11-05",
+  "status": {
+   "2026-11-05": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-05": 279
+  }
+ }
+}

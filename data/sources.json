@@ -1,37 +1,37 @@
 {
   "sf-developers": {
     "failures": 0,
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z",
-    "lastPostAt": "2026-11-03T16:00:54.000Z"
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z",
+    "lastPostAt": "2026-11-04T16:00:34.000Z"
   },
   "sf-admins": {
     "failures": 0,
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z",
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z",
     "lastPostAt": "2026-11-03T19:10:06.000Z"
   },
   "sf-engineering": {
     "failures": 0,
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z",
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z",
     "lastPostAt": "2026-10-08T15:15:37.000Z"
   },
   "sf-architects": {
     "failures": 0,
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z",
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z",
     "lastPostAt": "2026-10-29T14:17:38.000Z"
   },
   "salesforce-ben": {
     "failures": 0,
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z",
-    "lastPostAt": "2026-11-03T13:37:29.000Z"
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z",
+    "lastPostAt": "2026-11-04T16:55:05.000Z"
   },
   "andy-in-the-cloud": {
     "failures": 0,
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z",
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z",
     "lastPostAt": "2026-09-30T23:18:42.000Z"
   },
   "bob-buzzard": {
     "failures": 0,
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z",
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z",
     "lastPostAt": "2026-10-27T14:48:44.403Z"
   },
   "joys-of-apex": {
@@ -41,7 +41,7 @@
   },
   "salesforce-time": {
     "failures": 0,
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z",
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z",
     "lastPostAt": "2026-11-02T11:23:51.000Z"
   },
   "unofficialsf": {
@@ -66,13 +66,13 @@
   },
   "sf-news": {
     "failures": 0,
-    "lastPostAt": "2026-11-03T22:30:00.000Z",
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z"
+    "lastPostAt": "2026-11-04T18:00:30.000Z",
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z"
   },
   "beyond-the-cloud": {
     "failures": 0,
     "lastPostAt": "2026-10-26T22:11:57.000Z",
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z"
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z"
   },
   "yt-salesforce-admins": {
     "failures": 0,
@@ -106,72 +106,77 @@
   },
   "sf-cli": {
     "failures": 0,
-    "lastPostAt": "2026-10-28T12:00:00.000Z",
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z"
+    "lastPostAt": "2026-11-04T12:00:00.000Z",
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z"
   },
   "sf-code-analyzer": {
     "failures": 0,
     "lastPostAt": "2026-08-26T04:25:02.000Z",
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z"
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z"
   },
   "lwc": {
     "failures": 0,
     "lastPostAt": "2026-10-29T18:01:20.000Z",
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z"
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z"
   },
   "reddit-salesforce": {
     "failures": 0,
-    "lastPostAt": "2026-11-04T05:45:19.000Z",
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z"
+    "lastPostAt": "2026-11-05T06:07:45.000Z",
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z"
   },
   "cloud-odyssey": {
     "failures": 0,
     "lastPostAt": "2026-10-27T12:58:24.000Z",
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z"
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z"
   },
   "infallibletechie": {
     "failures": 0,
     "lastPostAt": "2026-10-28T20:16:10.000Z",
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z"
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z"
   },
   "salesforcecodex": {
     "failures": 0,
     "lastPostAt": "2026-10-31T13:16:45.000Z",
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z"
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z"
   },
   "salesforce-break": {
     "failures": 0,
     "lastPostAt": "2026-10-22T20:43:34.000Z",
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z"
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z"
   },
   "nebula-consulting": {
     "failures": 0,
     "lastPostAt": "2026-10-08T12:16:16.000Z",
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z"
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z"
   },
   "dev-to": {
     "failures": 0,
-    "lastPostAt": "2026-11-03T21:13:58.000Z",
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z"
+    "lastPostAt": "2026-11-04T17:06:11.000Z",
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z"
   },
   "sf-blog": {
     "failures": 0,
-    "lastPostAt": "2026-11-04T00:18:33.000Z",
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z"
+    "lastPostAt": "2026-11-04T22:37:59.000Z",
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z"
   },
   "jitendra-zaa": {
     "failures": 0,
     "lastPostAt": "2026-10-12T22:18:00.000Z",
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z"
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z"
   },
   "simplysfdc": {
     "failures": 0,
     "lastPostAt": "2026-10-30T01:43:54.724Z",
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z"
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z"
   },
   "salesforcedevops-net": {
     "failures": 0,
     "lastPostAt": "2026-10-27T19:37:31.000Z",
-    "lastSuccessAt": "2026-11-04T06:31:21.136Z"
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z"
+  },
+  "dev-to-agentforce": {
+    "failures": 0,
+    "lastPostAt": "2026-10-27T07:20:44.000Z",
+    "lastSuccessAt": "2026-11-05T06:31:24.275Z"
   }
 }
