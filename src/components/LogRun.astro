@@ -1,6 +1,6 @@
 ---
 import { dollars, facts } from '../lib/insights';
-import { notes, problems, runId, type RunLogData } from '../lib/logs';
+import { notes, problems, proofFate, runId, runMark, type RunLogData } from '../lib/logs';
 import { formatNumber } from '../lib/stats';
 
 // One run: a line that can be read without opening it, and what happened in it underneath.
@@ -15,6 +15,7 @@ interface Props {
 const { log, open = false, cost } = Astro.props;
 const wrong = problems(log);
 const noted = notes(log);
+const mark = runMark(log);
 const f = facts(log, cost);
 const when = new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }).format(new Date(log.ranAt));
 const failedFeeds = log.feeds.filter((feed) => feed.error);
@@ -38,7 +39,7 @@ const parts = [
 const drawn = log.figures.filter((figure) => figure.outcome === 'drawn').length;
 ---
 
-<details class="log" id={runId(log.ranAt)} open={open} data-run data-at={log.ranAt} data-problem={wrong.length > 0 ? 'yes' : 'no'}>
+<details class="log" id={runId(log.ranAt)} open={open} data-run data-at={log.ranAt} data-problem={mark.tone === 'bad' ? 'yes' : 'no'}>
   <summary>
     <span class="log__when">{when}</span>
     <span class="log__what">{log.kind === 'figures' ? 'Diagrams' : log.kind === 'release' ? 'Release edition' : log.day ? `Edition ${log.day}` : 'Pipeline'}</span>
@@ -50,7 +51,7 @@ const drawn = log.figures.filter((figure) => figure.outcome === 'drawn').length;
       {log.seconds > 0 && ` · ${Math.round(log.seconds / 60) || '<1'} min`}
       {cost !== undefined && ` · ${dollars(cost)}`}
     </span>
-    <span class:list={['log__mark', wrong.length > 0 && 'log__mark--bad']}>{wrong.length > 0 ? 'Problems' : noted.length > 0 ? 'Fine, a note' : 'Fine'}</span>
+    <span class:list={['log__mark', mark.tone === 'bad' && 'log__mark--bad']} data-mark={mark.tone}>{mark.label}</span>
   </summary>
 
   <div class="log__body">
@@ -108,7 +109,7 @@ const drawn = log.figures.filter((figure) => figure.outcome === 'drawn').length;
           <ul class="log__list">
             {log.proofread.map((proof) => (
               <li>
-                <span class:list={[proof.outcome === 'skipped' && proof.reason && 'log__bad']}>{PROOF[proof.outcome] ?? proof.outcome}</span>: {proof.title}
+                <span class:list={[proofFate(proof) === 'not-read' && 'log__bad']}>{PROOF[proof.outcome] ?? proof.outcome}</span>: {proof.title}
                 {proof.reason && <span class="log__reason">{proof.reason}</span>}
               </li>
             ))}

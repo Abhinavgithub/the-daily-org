@@ -4,7 +4,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { test } from 'node:test';
 import { KEEP, RunLog } from '../../pipeline/log';
-import { byNewest, legacyRuns, notes, problems, readLog, readReleaseStatus, runId, staleEditions, summary } from './logs';
+import { byNewest, legacyRuns, notes, problems, proofFate, readLog, readReleaseStatus, runDays, runId, runMark, staleEditions, summary, type RunLogData } from './logs';
 
 const tmp = () => fs.mkdtempSync(path.join(os.tmpdir(), 'paper-logs-'));
 
@@ -39,11 +39,9 @@ test('a run is written, read back and summarised', () => {
     '1 unusable model reply',
     '1 diagram refused',
   ]);
-  assert.deepEqual(notes(log), ['1 proof-read not used, the original text kept'], 'a refused proof-read did no harm');
+  assert.deepEqual(notes(log), ['1 proof-read not used: the story was printed as written'], 'a refused proof-read did no harm');
   assert.deepEqual(problems(readLog('{"ranAt":"2026-10-05T06:00:00Z"}')!), [], 'missing parts are read as empty');
-  const capped = readLog('{"ranAt":"2026-10-05T06:00:00Z","finished":true,"proofread":[{"title":"A","outcome":"skipped","reason":"the cap was reached"}]}')!;
-  assert.deepEqual(problems(capped), ['1 story not proof-read'], 'a story never proof-read is a problem');
-  assert.deepEqual(notes(capped), []);
+
   assert.equal(readLog('not json'), null);
   assert.equal(readLog('{"ranAt":"never"}'), null);
 });
@@ -106,4 +104,50 @@ test('a run says what started it on GitHub, and a run elsewhere says nothing of 
   assert.equal(readLog(fs.readFileSync(sample().save({ dir }), 'utf8'))!.trigger, 'schedule');
   delete process.env.GITHUB_EVENT_NAME;
   assert.equal(readLog(fs.readFileSync(sample(new Date('2026-10-06T06:00:00Z')).save({ dir }), 'utf8'))!.trigger, undefined);
+});
+
+/** A finished run with nothing in it but these proof-reads, as the log file records them. */
+const proofRun = (proofread: object[], ranAt = '2026-10-05T06:00:00Z') => readLog(JSON.stringify({ ranAt, finished: true, proofread, model: { calls: 3, retries: {}, usage: {} } }))!;
+
+test('each proof-read outcome the pipeline records is a problem, a note or nothing, and says what was printed', () => {
+  // One of each, with reasons as pipeline/curate.ts writes them.
+  const cases = [
+    { proof: { title: 'A', outcome: 'skipped', reason: 'the cap of 40 model calls was reached' }, fate: 'not-read', problems: ['1 story not proof-read'], notes: [], mark: 'Problems' },
+    { proof: { title: 'B', outcome: 'skipped' }, fate: 'fine', problems: [], notes: [], mark: 'Fine' },
+    { proof: { title: 'C', outcome: 'kept', reason: 'summary: "account" was removed' }, fate: 'refused', problems: [], notes: ['1 proof-read not used: the story was printed as written'], mark: 'Fine, a note' },
+    { proof: { title: 'D', outcome: 'kept', reason: 'the reply was not usable' }, fate: 'refused', problems: [], notes: ['1 proof-read not used: the story was printed as written'], mark: 'Fine, a note' },
+    { proof: { title: 'E', outcome: 'corrected', reason: 'summary: 8 words differ (at most 6 allowed)' }, fate: 'partly', problems: [], notes: ['1 proof-read partly used: a refused change was put back as written, the rest printed corrected'], mark: 'Fine, a note' },
+    { proof: { title: 'F', outcome: 'corrected' }, fate: 'fine', problems: [], notes: [], mark: 'Fine' },
+    { proof: { title: 'G', outcome: 'unchanged' }, fate: 'fine', problems: [], notes: [], mark: 'Fine' },
+  ];
+  for (const c of cases) {
+    const log = proofRun([c.proof]);
+    const name = `${c.proof.outcome}${c.proof.reason ? ` (${c.proof.reason})` : ''}`;
+    assert.equal(proofFate(log.proofread[0]), c.fate, name);
+    assert.deepEqual(problems(log), c.problems, name);
+    assert.deepEqual(notes(log), c.notes, name);
+    assert.equal(runMark(log).label, c.mark, name);
+  }
+
+  // Counted together, and a problem outranks a note.
+  const mixed = proofRun(cases.map((c) => c.proof));
+  assert.deepEqual(notes(mixed), ['2 proof-reads not used: the stories were printed as written', '1 proof-read partly used: a refused change was put back as written, the rest printed corrected']);
+  assert.deepEqual(runMark(mixed), { tone: 'bad', label: 'Problems' });
+});
+
+test('the Runs timeline has a day for each day asked, coloured by problems only', () => {
+  const noted = proofRun([{ title: 'C', outcome: 'kept', reason: 'summary: "account" was removed' }], '2026-11-03T06:31:00Z');
+  const broken = proofRun([{ title: 'A', outcome: 'skipped', reason: 'the cap was reached' }], '2026-11-04T06:31:00Z');
+  const again = proofRun([], '2026-11-04T09:00:00Z');
+  const cost: Record<string, number> = { [noted.ranAt]: 0.02, [broken.ranAt]: 0.03 };
+  const days = runDays([noted, broken, again], ['2026-11-02', '2026-11-03', '2026-11-04'], (iso) => iso.slice(0, 10), (log: RunLogData) => cost[log.ranAt]);
+
+  assert.deepEqual(days.map((d) => [d.day, d.runs.length, d.problems]), [['2026-11-02', 0, 0], ['2026-11-03', 1, 0], ['2026-11-04', 2, 1]]);
+  assert.equal(days[0].latest, undefined, 'a day with no run is a gap');
+  assert.equal(days[1].problems, 0, 'a day with only a note is not drawn as one with problems');
+  assert.equal(days[2].latest, again, "the column opens the day's latest run");
+  assert.equal(days[2].cost, 0.03, 'an unpriced run adds nothing');
+  assert.equal(days[2].unpriced, false);
+  assert.equal(days[2].calls, 6);
+  assert.equal(runDays([again], ['2026-11-04'], (iso) => iso.slice(0, 10), () => undefined)[0].unpriced, true);
 });

@@ -210,17 +210,74 @@ export function problems(log: RunLogData): string[] {
   say(log.feeds.filter((f) => f.error).length, 'feed failed', 'feeds failed');
   for (const check of log.checks ?? []) if (!check.ok) found.push(`${check.name} could not be read${check.says ? ` (${check.says})` : ''}`);
   say(log.articles.filter((a) => a.outcome === 'invalid-reply').length, 'unusable model reply', 'unusable model replies');
-  // A story the proof-reader never saw. One whose corrections were refused is a note, not a problem: its original text was printed.
-  say(log.proofread.filter((p) => p.outcome === 'skipped' && p.reason).length, 'story not proof-read', 'stories not proof-read');
+  say(log.proofread.filter((p) => proofFate(p) === 'not-read').length, 'story not proof-read', 'stories not proof-read');
   say(log.figures.filter((f) => f.outcome === 'refused').length, 'diagram refused', 'diagrams refused');
   say(log.figures.filter((f) => f.image === 'failed').length, 'illustration not made', 'illustrations not made');
   return found;
 }
 
+/**
+ * What became of one story's proof-read, as far as the page is concerned.
+ * - "not-read": the proof-reader never saw it (the call cap, or the model down). A problem.
+ * - "refused": every change was refused, so the story was printed as written. A note.
+ * - "partly": some fields were refused and put back as written; the others were printed corrected. A note.
+ * - "fine": nothing was refused.
+ * The pipeline guarantees what "refused" and "partly" claim (see pipeline/curate.ts, judgeProof, and its tests).
+ */
+export function proofFate(proof: LogProof): 'not-read' | 'refused' | 'partly' | 'fine' {
+  if (!proof.reason) return 'fine';
+  if (proof.outcome === 'skipped') return 'not-read';
+  return proof.outcome === 'kept' ? 'refused' : 'partly';
+}
+
 /** What is worth knowing about a run but did no harm. Empty when there is nothing. */
 export function notes(log: RunLogData): string[] {
-  const refused = log.proofread.filter((p) => p.outcome !== 'skipped' && p.reason).length;
-  return refused > 0 ? [`${refused} ${refused === 1 ? 'proof-read' : 'proof-reads'} not used, the original text kept`] : [];
+  const fates = log.proofread.map(proofFate);
+  const refused = fates.filter((fate) => fate === 'refused').length;
+  const partly = fates.filter((fate) => fate === 'partly').length;
+  const found: string[] = [];
+  if (refused) found.push(refused === 1 ? '1 proof-read not used: the story was printed as written' : `${refused} proof-reads not used: the stories were printed as written`);
+  if (partly) found.push(partly === 1 ? '1 proof-read partly used: a refused change was put back as written, the rest printed corrected' : `${partly} proof-reads partly used: refused changes were put back as written, the rest printed corrected`);
+  return found;
+}
+
+/** The tag on a run's line: problems first, then notes, else fine. */
+export function runMark(log: RunLogData): { tone: 'bad' | 'note' | 'fine'; label: string } {
+  if (problems(log).length) return { tone: 'bad', label: 'Problems' };
+  if (notes(log).length) return { tone: 'note', label: 'Fine, a note' };
+  return { tone: 'fine', label: 'Fine' };
+}
+
+/** One day on the Runs timeline. */
+export interface RunDay {
+  day: string;
+  runs: RunLogData[];
+  /** What the day's priced runs cost, in US dollars. */
+  cost: number;
+  /** It had runs, and none had a recorded cost. */
+  unpriced: boolean;
+  calls: number;
+  /** How many of its runs had problems: such a day is drawn as one with problems. Notes do not count. */
+  problems: number;
+  /** The run its column opens: the day's latest. */
+  latest?: RunLogData;
+}
+
+/** The Runs timeline: one entry for each of `days`, oldest first, whether or not anything ran. */
+export function runDays(logs: RunLogData[], days: string[], dayOf: (ranAt: string) => string, costOf: (log: RunLogData) => number | undefined): RunDay[] {
+  return days.map((day) => {
+    const runs = logs.filter((log) => dayOf(log.ranAt) === day).sort(byNewest);
+    const costs = runs.map(costOf).filter((cost): cost is number => cost !== undefined);
+    return {
+      day,
+      runs,
+      cost: costs.reduce((sum, cost) => sum + cost, 0),
+      unpriced: runs.length > 0 && costs.length === 0,
+      calls: runs.reduce((sum, log) => sum + log.model.calls, 0),
+      problems: runs.filter((log) => runMark(log).tone === 'bad').length,
+      latest: runs[0],
+    };
+  });
 }
 
 /** The counts for a run's summary line. */

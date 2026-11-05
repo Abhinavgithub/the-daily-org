@@ -92,6 +92,36 @@ test('proof-reading corrects text but cannot rewrite it', async () => {
   assert.equal(result.copy.title, 'Check lists keep Eurostar departures on time as passenger numbers grow');
 });
 
+test('a refused change is put back as written, and only that field: what the Logs page says of a proof-read is true', async () => {
+  // The page says "printed as written" for "kept" and "the rest printed corrected" for "corrected" with a reason (src/lib/logs.ts, proofFate).
+  const original = { title: 'How Coworker reads signals', why_read: 'You learns how it reads them.', summary: 'Each hour Coworker reads 360 signals and flags the odd one.\n\nIt then waits for a person.' };
+  const fixed = { ...original, why_read: 'You learn how it reads them.', summary: 'Each hour Coworker reads 360 signals and flags the odd one.\n\nIt then waits for a person.' };
+  const LABEL = { title: 'headline', why_read: 'reason to read', summary: 'summary' } as const;
+  const cases: { name: string; reply: object | string; refused: (keyof typeof LABEL)[] }[] = [
+    { name: 'a number changed', reply: { ...fixed, summary: fixed.summary.replace('360', '400') }, refused: ['summary'] },
+    { name: 'a name removed', reply: { ...fixed, summary: fixed.summary.replace('Coworker', 'the assistant') }, refused: ['summary'] },
+    { name: 'paragraphs re-divided', reply: { ...fixed, summary: fixed.summary.replace('\n\n', ' ') }, refused: ['summary'] },
+    { name: 'too many words changed', reply: { ...fixed, why_read: 'This piece explains the whole approach to signal triage in depth.' }, refused: ['why_read'] },
+    { name: 'the headline renamed', reply: { ...fixed, title: 'How the assistant reads signals' }, refused: ['title'] },
+    { name: 'every field refused', reply: { title: 'How the assistant reads signals', why_read: 'An essay on triage, approaches and philosophy, at length.', summary: 'It reads 400 signals.' }, refused: ['title', 'why_read', 'summary'] },
+    { name: 'a reply that is not a story', reply: 'I fixed it for you!', refused: ['title', 'why_read', 'summary'] },
+  ];
+  for (const c of cases) {
+    const run = client([() => ok(typeof c.reply === 'string' ? c.reply : JSON.stringify(c.reply))]);
+    const result = await proofread(run.llm, original);
+    const unusable = typeof c.reply === 'string';
+    assert.ok(result.reason, `${c.name}: a reason is recorded`);
+    for (const field of Object.keys(LABEL) as (keyof typeof LABEL)[]) {
+      const refused = c.refused.includes(field);
+      assert.equal(result.copy[field], refused ? original[field] : fixed[field], `${c.name}: ${field} ${refused ? 'printed as written' : 'printed corrected'}`);
+      if (!unusable) assert.equal(result.reverted.some((r) => r.startsWith(`${LABEL[field]}:`)), refused, `${c.name}: ${field} named as refused`);
+    }
+    // "kept" exactly when nothing of the model's was printed.
+    const allWritten = (Object.keys(LABEL) as (keyof typeof LABEL)[]).every((field) => result.copy[field] === original[field]);
+    assert.equal(result.outcome, allWritten ? 'kept' : 'corrected', `${c.name}: outcome`);
+  }
+});
+
 test('proof-reading may not change names, numbers or more than a few words', () => {
   const text = 'Opening requires Line 360 first, and then Coworker reads 270+ signals, a change from Winter \'27.';
   assert.equal(unfaithful(text, text), null);

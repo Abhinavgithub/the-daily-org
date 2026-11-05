@@ -16,7 +16,7 @@ import LogRun from '../../components/LogRun.astro';
 import Masthead from '../../components/Masthead.astro';
 import Layout from '../../layouts/Layout.astro';
 import { allArticles, byDay, dollars, facts, findings, glance, spending, within } from '../../lib/insights';
-import { byNewest, costsByRun, legacyRuns, problems, readLog, readReleaseStatus, runId, staleEditions, type RunLogData } from '../../lib/logs';
+import { byNewest, costsByRun, legacyRuns, problems, readLog, readReleaseStatus, runDays, runId, staleEditions, type RunLogData } from '../../lib/logs';
 import { addedOn, addTallies, postsByDay, RULES as SOURCE_RULES, scorecard, standings, type ScoreRow } from '../../lib/sources';
 import { parseReadership } from '../../lib/readership';
 import { formatNumber, parseRuns } from '../../lib/stats';
@@ -99,21 +99,12 @@ const latest = allFacts.find((run) => run.kind === 'pipeline');
 // Today as the paper dates its editions, and what the checks of every period share.
 const today = new Intl.DateTimeFormat('en-CA', { timeZone: PAPER.timezone, year: 'numeric', month: '2-digit', day: '2-digit' }).format(new Date());
 const editionDays = new Set(editions.map((edition) => edition.day));
-const runDays = Array.from({ length: RUN_DAYS }, (_, i) => new Date(Date.parse(`${today}T12:00:00Z`) - (RUN_DAYS - 1 - i) * 86_400_000).toISOString().slice(0, 10)).filter((day) => logs.some((log) => paperDay(log.ranAt) <= day));
-const runTimeline = runDays.map((day) => {
-  const those = logs.filter((log) => paperDay(log.ranAt) === day);
-  const priced = those.filter((log) => costOf(log) !== undefined);
-  return {
-    day,
-    runs: those,
-    cost: priced.reduce((sum, log) => sum + costOf(log)!, 0),
-    unpriced: those.length > 0 && priced.length === 0,
-    calls: those.reduce((sum, log) => sum + log.model.calls, 0),
-    problems: those.filter((log) => problems(log).length > 0).length,
-    // The column opens the day's latest run.
-    latest: those.toSorted(byNewest)[0],
-  };
-});
+const runTimeline = runDays(
+  logs,
+  Array.from({ length: RUN_DAYS }, (_, i) => new Date(Date.parse(`${today}T12:00:00Z`) - (RUN_DAYS - 1 - i) * 86_400_000).toISOString().slice(0, 10)).filter((day) => logs.some((log) => paperDay(log.ranAt) <= day)),
+  paperDay,
+  costOf,
+);
 const runPeak = Math.max(0, ...runTimeline.map((slot) => slot.cost));
 const runDay = (day: string) => new Intl.DateTimeFormat('en-GB', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(`${day}T12:00:00Z`));
 // The Sources section. Each source's new posts on each of the last two weeks' edition days, as a strip.
