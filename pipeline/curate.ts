@@ -339,12 +339,40 @@ function counts(tokens: string[]): Map<string, number> {
   return map;
 }
 
+const bare = (word: string) => word.replace(/['’]+$/, '').toLowerCase();
+/** Words written with a capital in the middle of a sentence: names, whatever else they are. */
+const midSentenceNames = (text: string) => [...text.matchAll(/(?<![.!?:]\s|^|\n)(?<=\s)(\p{Lu}[\p{L}\p{N}'’-]*)/gu)].map((m) => bare(m[1]));
+/** Words with a capital at the start of a sentence, after any opening quote or bracket. */
+const sentenceStarts = (text: string) => [...text.matchAll(/(?:^|[.!?:]\s+|\n\s*)["'“‘(]?(\p{Lu}[\p{L}\p{N}'’-]*)/gu)].map((m) => m[1]);
+/** Small words that are never names, though a title-case phrase may write them with a capital. */
+const NEVER_NAMES = new Set(['a', 'an', 'the', 'it', "it's", 'its', 'this', 'that', 'these', 'those', 'there', 'their', 'they', 'we', 'you', 'he', 'she', 'i', 'is', 'are', 'and', 'or', 'but', 'if', 'in', 'on', 'at', 'of', 'for', 'to', 'with']);
+/** A word that is a name wherever it stands: a second capital or a figure after its first letter, as in SOQL, MuleSoft or B2B. */
+const looksLikeName = (word: string) => /[\p{Lu}\p{N}]/u.test(word.replace(/['’]+$/, '').slice(1));
+
+/**
+ * The names a story's copy uses, for `unfaithful` to recognise at the start of
+ * a sentence: those written mid-sentence in any of its fields, and the paper's
+ * glossary.
+ */
+export function namesIn(copy: Copy, glossary: readonly string[] = []): Set<string> {
+  const names = new Set([copy.title, copy.why_read, copy.summary].flatMap(midSentenceNames));
+  for (const term of glossary) for (const word of words(term)) if (/^\p{Lu}/u.test(word)) names.add(bare(word));
+  for (const word of NEVER_NAMES) names.delete(word);
+  return names;
+}
+
 /**
  * Why a proof-read text cannot be trusted, or null when it can. Proof-reading
  * may fix a text but not rewrite it: numbers and names must survive, and only
  * a handful of words may differ.
+ *
+ * A name is a word with a capital in the middle of a sentence. At the start of
+ * a sentence every word has one, so there a word counts as a name only when it
+ * looks like one by itself (SOQL, MuleSoft) or is among `known`, the names the
+ * story uses elsewhere (see `namesIn`). An ordinary first word, "Its" or
+ * "Their", stays free to correct.
  */
-export function unfaithful(before: string, after: string): string | null {
+export function unfaithful(before: string, after: string, known: ReadonlySet<string> = new Set()): string | null {
   if (paragraphs(before) !== paragraphs(after)) return 'the paragraphs were re-divided';
 
   const was = words(before).map((w) => w.replace(/[.'’]+$/, ''));
@@ -358,7 +386,7 @@ export function unfaithful(before: string, after: string): string | null {
 
   // Names: any word written with a capital in the middle of a sentence must still be there.
   const lowerNow = counts(now.map((w) => w.toLowerCase()));
-  const names = [...before.matchAll(/(?<![.!?:]\s|^|\n)(?<=\s)(\p{Lu}[\p{L}\p{N}'’-]*)/gu)].map((m) => m[1].replace(/['’]+$/, '').toLowerCase());
+  const names = [...midSentenceNames(before), ...sentenceStarts(before).filter((word) => looksLikeName(word) || known.has(bare(word))).map(bare)];
   for (const [name, count] of counts(names)) {
     if ((lowerNow.get(name) ?? 0) < count) return `"${name}" was removed`;
   }
@@ -405,9 +433,10 @@ function judgeProof(original: Copy, value: unknown, paper: Paper, newHeadline: b
   };
 
   // Each field is judged on its own, so one bad field does not waste the others.
+  const known = namesIn(original, paper.glossary);
   const reverted: string[] = [];
   const check = (field: keyof Copy, label: string) => {
-    const problem = unfaithful(original[field], revised[field]);
+    const problem = unfaithful(original[field], revised[field], known);
     if (!problem) return;
     reverted.push(`${label}: ${problem}`);
     revised[field] = original[field];

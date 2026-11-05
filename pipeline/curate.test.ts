@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { cleanHeadline as cleanHeadlineFor, curate as curateFor, editorPrompt, firstLook, firstLooks, InvalidVerdict, parseJsonLoosely, plainText, prefilter as prefilterFor, proofread as proofreadFor, proofreadAll, unfaithful, verdictSchema } from './curate';
+import { cleanHeadline as cleanHeadlineFor, curate as curateFor, editorPrompt, firstLook, firstLooks, InvalidVerdict, namesIn, parseJsonLoosely, plainText, prefilter as prefilterFor, proofread as proofreadFor, proofreadAll, unfaithful, verdictSchema } from './curate';
 import { definePaper, problemsWith } from '../src/paper';
 import { canonicalUrl } from './dedupe';
 import { client, good, item, ok, PAPER } from './testing';
@@ -120,6 +120,14 @@ test('a refused change is put back as written, and only that field: what the Log
     const allWritten = (Object.keys(LABEL) as (keyof typeof LABEL)[]).every((field) => result.copy[field] === original[field]);
     assert.equal(result.outcome, allWritten ? 'kept' : 'corrected', `${c.name}: outcome`);
   }
+
+  // A name only at the start of a sentence is known from the headline, so dropping it is refused.
+  const opening = { ...original, summary: 'Coworker reads 360 signals.\n\nIt then waits for a person.' };
+  const run = client([() => ok(JSON.stringify({ ...fixed, summary: 'The assistant reads 360 signals.\n\nIt then waits for a person.' }))]);
+  const result = await proofread(run.llm, opening);
+  assert.equal(result.copy.summary, opening.summary, 'a name at the start of a sentence: printed as written');
+  assert.equal(result.copy.why_read, fixed.why_read, 'the rest printed corrected');
+  assert.match(result.reason!, /summary: "coworker" was removed/);
 });
 
 test('proof-reading may not change names, numbers or more than a few words', () => {
@@ -135,6 +143,28 @@ test('proof-reading may not change names, numbers or more than a few words', () 
     unfaithful('The team moved the limits into a shared service that every server reads.', 'Engineers centralised quota logic so each node consults one place.')!,
     /words differ/,
   );
+});
+
+test('a name at the start of a sentence must survive too, and an ordinary first word may still be corrected', () => {
+  const copy = { title: 'How Coworker triages signals', why_read: 'You will see what it skips.', summary: 'Coworker reads 360 signals. Its queue is short.' };
+  const known = namesIn(copy, PAPER.glossary);
+  assert.ok(known.has('coworker'), 'a name the headline writes mid-sentence');
+  assert.ok(!known.has('how') && !known.has('you'), 'not the first word of a field');
+  assert.ok(known.has('goods') && known.has('yard'), "the paper's glossary");
+  assert.ok(!namesIn({ title: 'Why It Matters To The Team', why_read: '', summary: '' }).has('it'), 'a small word in a title-case phrase is not a name');
+
+  // Known from elsewhere in the story.
+  assert.match(unfaithful(copy.summary, 'The assistant reads 360 signals. Its queue is short.', known)!, /coworker/);
+  assert.equal(unfaithful(copy.summary, 'The assistant reads 360 signals. Its queue is short.'), null, 'without the story, a first word is not taken for a name');
+  // A name by its look, wherever it stands.
+  assert.match(unfaithful('SOQL reads it. MuleSoft moves it.', 'The query reads it. MuleSoft moves it.')!, /soql/);
+  assert.match(unfaithful('Fine.\n\nB2B stores use it.', 'Fine.\n\nShops use it.')!, /b2b/i);
+  assert.match(unfaithful('He said: "Goods Yard first."', 'He said: "The yard first."', known)!, /goods/, 'after a colon and an opening quote');
+  // Ordinary first words are still corrected.
+  assert.equal(unfaithful(copy.summary, "Coworker reads 360 signals. It's queue is short.", known), null);
+  assert.equal(unfaithful('Their is a queue. Its short.', "There is a queue. It's short.", known), null);
+  // The name may move, as long as it is still there.
+  assert.equal(unfaithful('Coworker reads it.', 'Coworker reads it.', known), null);
 });
 
 test('identifiers keep their underscores', () => {
