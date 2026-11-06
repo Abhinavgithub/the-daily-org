@@ -83,10 +83,8 @@ const name = at < 0 ? [SITE.name, '', ''] : [SITE.name.slice(0, at), SITE.accent
         <p class="ear ear--right" title={shares.says}>
           <span class="visually-hidden">{shares.says}</span>
           <span aria-hidden="true">
-            <b>Shares · {quote.symbol}</b>
+            <b>{quote.symbol}</b>
             {shares.price} <span class:list={['quote__move', shares.mark && (quote.change > 0 ? 'quote__move--up' : 'quote__move--down')]}>{shares.mark} {shares.change}</span>
-            <br />
-            at the last close
           </span>
         </p>
       )
