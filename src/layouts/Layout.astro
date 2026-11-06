@@ -88,11 +88,8 @@ const preview = new URL(image ?? '/icon-512.png', Astro.site);
     <div class="sheet">
       <slot />
       <footer class="site-footer">
-        <p>
-          {SITE.name} is an independent project{SITE.disclaimer ? `, ${SITE.disclaimer}` : ''}. Summaries are written by AI and can be wrong,
-          so check the original.
-        </p>
-        {SITE.readerFeedback && <p>"Useful?" votes are anonymous: the paper keeps a count, never who voted.</p>}
+        <p>{SITE.name} is an independent paper{SITE.disclaimer ? `, ${SITE.disclaimer}` : ''}.</p>
+        <p>Each story is summarised by AI from the article its headline links to. AI can get things wrong, so read the original before you act on a story.</p>
         <p class="site-footer__links">
           <a href="/stats/">Stats</a>
           {
