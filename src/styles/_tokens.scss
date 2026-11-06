@@ -54,6 +54,8 @@ $accent: null !default;
   // The whole type scale. Every font-size on the site is one of these.
   --fs-nameplate: clamp(2.6rem, 8vw, 4.75rem);
   --fs-title: 2rem;
+  // The lead story's headline: the largest type on the page after the nameplate.
+  --fs-lead: clamp(2rem, 3.4vw, 2.75rem);
   --fs-headline: 1.25rem;
   --fs-body: 1rem;
   --fs-label: 0.8125rem;

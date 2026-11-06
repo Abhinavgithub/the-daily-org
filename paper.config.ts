@@ -7,7 +7,6 @@ import { definePaper } from './src/paper';
 export default definePaper({
   name: 'The Daily Org',
   tagline: 'The independent daily for Salesforce admins, developers and architects',
-  accent: 'Org',
   shares: { symbol: 'CRM', name: 'Salesforce' },
   description:
     'A daily newspaper of the Salesforce stories worth reading, scored and summarised for developers, admins and architects.',

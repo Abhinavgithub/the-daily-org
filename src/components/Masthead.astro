@@ -6,9 +6,15 @@ import { getQuote } from '../lib/quote-store';
 interface Props {
   /** Pre-fills the search box on the search page. */
   query?: string;
+  /**
+   * On an edition: what it holds, for the box beside the nameplate, and its
+   * volume and number, for the folio line under it. The share price then moves
+   * from the bar above into the box on the other side, as a paper's ears.
+   */
+  edition?: { holds: string; volume: string; number: number; date: string };
 }
 
-const { query = '' } = Astro.props;
+const { query = '', edition } = Astro.props;
 // The share price at the last close, when the paper prints one and has a fresh one.
 const quote = SITE.shares ? getQuote() : undefined;
 const shares = quote && quoteLine(quote, SITE.shares!.name);
@@ -40,7 +46,7 @@ const name = at < 0 ? [SITE.name, '', ''] : [SITE.name.slice(0, at), SITE.accent
     </form>
     <div class="masthead__tools">
       {
-        quote && shares && (
+        quote && shares && !edition && (
           <p class="quote" title={shares.says}>
             <span class="visually-hidden">{shares.says}</span>
             <span aria-hidden="true">
@@ -62,11 +68,49 @@ const name = at < 0 ? [SITE.name, '', ''] : [SITE.name.slice(0, at), SITE.accent
   </div>
   <!-- The line above the nameplate: the edition date, or the page's title. -->
   <div class="dateline"><slot /></div>
-  <a class="masthead__name" href="/">{name[0]}{name[1] && <span class="masthead__accent">{name[1]}</span>}{name[2]}</a>
-  <div class="masthead__motto">
-    <p class="masthead__tagline">{SITE.tagline}</p>
-    <p class="masthead__by">
-      Curated by <a href={SITE.creator.url} target="_blank" rel="noopener">{SITE.creator.name}</a>
-    </p>
+  <div class:list={['masthead__plate', edition && 'masthead__plate--ears']}>
+    {
+      edition && (
+        <p class="ear ear--left">
+          <b>Today</b>
+          {edition.holds}
+        </p>
+      )
+    }
+    <a class="masthead__name" href="/">{name[0]}{name[1] && <span class="masthead__accent">{name[1]}</span>}{name[2]}</a>
+    {
+      edition && quote && shares && (
+        <p class="ear ear--right" title={shares.says}>
+          <span class="visually-hidden">{shares.says}</span>
+          <span aria-hidden="true">
+            <b>Shares · {quote.symbol}</b>
+            {shares.price} <span class:list={['quote__move', shares.mark && (quote.change > 0 ? 'quote__move--up' : 'quote__move--down')]}>{shares.mark} {shares.change}</span>
+            <br />
+            at the last close
+          </span>
+        </p>
+      )
+    }
   </div>
+  {
+    edition ? (
+      <div class="masthead__motto masthead__motto--folio">
+        <p class="masthead__by">
+          Curated by <a href={SITE.creator.url} target="_blank" rel="noopener">{SITE.creator.name}</a>
+        </p>
+        <p class="folio">
+          <span>Vol. {edition.volume} · No. {edition.number}</span>
+          <span class="folio__tagline">{SITE.tagline}</span>
+          <span>{edition.date}</span>
+        </p>
+      </div>
+    ) : (
+      <div class="masthead__motto">
+        <p class="masthead__tagline">{SITE.tagline}</p>
+        <p class="masthead__by">
+          Curated by <a href={SITE.creator.url} target="_blank" rel="noopener">{SITE.creator.name}</a>
+        </p>
+      </div>
+    )
+  }
 </header>

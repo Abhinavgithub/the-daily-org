@@ -3,6 +3,7 @@ import { render } from 'astro:content';
 import { sectionLabel, SITE } from '../config';
 import type { Span } from '../lib/layout';
 import type { Signal } from '../lib/signal';
+import { deck } from '../lib/editions';
 import { formatAuthors, formatDay, storySlug, tagSlug, type Story } from '../lib/stories';
 import StoryFigure from './StoryFigure.astro';
 import Verdict from './Verdict.astro';
@@ -15,16 +16,19 @@ interface Props {
   signal: Signal;
   /** Show the edition date, for pages that mix editions. */
   showDay?: boolean;
+  /** List the story's section and tags under it. Left off the front page, where they crowd it. */
+  tags?: boolean;
 }
 
-const { story, span, signal, showDay = false } = Astro.props;
+const { story, span, signal, showDay = false, tags = true } = Astro.props;
 const { data } = story;
 const { Content } = await render(story);
 const slug = storySlug(story);
 const source = data.source_type === 'video' ? `${data.source}, video` : data.source;
-// The writer goes above the headline and the blog below the story. With no known writer, the blog takes the top line.
+// The line above the headline: the writer and the blog, or the blog alone when no writer is known.
 const writer = formatAuthors(data.authors);
-const footer = Boolean(writer) || showDay;
+// The reason to read: its first sentence under the headline, and any more behind the "why read this" button.
+const why = deck(data.why_read);
 const figure = data.figure && data.figure.kind !== 'none' ? data.figure : undefined;
 ---
 
@@ -37,7 +41,8 @@ const figure = data.figure && data.figure.kind !== 'none' ? data.figure : undefi
   data-signal={signal}
 >
   <p class="story__byline">
-    <span>{writer ? `By ${writer}` : source}</span>
+    <span>{writer ? `By ${writer}` : source}{writer && <span class="story__source"> · {source}</span>}</span>
+    {why.rest && (
     <span class="why" data-why>
       <button type="button" class="why__button" aria-label="Why read this" aria-describedby={`why-${slug}`}>
         <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
@@ -46,12 +51,14 @@ const figure = data.figure && data.figure.kind !== 'none' ? data.figure : undefi
           <circle cx="8" cy="4.9" r="0.4" fill="currentColor"></circle>
         </svg>
       </button>
-      <span class="why__pop" role="tooltip" id={`why-${slug}`}>{data.why_read}</span>
+      <span class="why__pop" role="tooltip" id={`why-${slug}`}>{why.rest}</span>
     </span>
+    )}
   </p>
   <h2 class="story__title">
     <a class="story__link" href={data.url} target="_blank" rel="noopener" data-original>{data.title}</a>
   </h2>
+  <p class="story__deck">{why.deck}</p>
   {figure && <StoryFigure figure={figure} />}
   <div class="story__text"><Content /></div>
   {
@@ -76,13 +83,13 @@ const figure = data.figure && data.figure.kind !== 'none' ? data.figure : undefi
     )
   }
   {
-    footer && (
+    showDay && (
       <p class="story__meta">
-        {writer && <span>{source}</span>}
-        {showDay && <a href={`/${data.date}/`}>{formatDay(data.date, 'short')}</a>}
+        <a href={`/${data.date}/`}>{formatDay(data.date, 'short')}</a>
       </p>
     )
   }
+  {tags && (
   <ul class="story__tags" aria-label="Section and tags">
     <li><a href={`/section/${data.section}/`}>{sectionLabel(data.section).toLowerCase()}</a></li>
     {
@@ -93,6 +100,7 @@ const figure = data.figure && data.figure.kind !== 'none' ? data.figure : undefi
       ))
     }
   </ul>
+  )}
   {SITE.readerFeedback && <Verdict story={story.id} />}
   <!-- Anything else printed at the foot of the story. -->
   <slot />

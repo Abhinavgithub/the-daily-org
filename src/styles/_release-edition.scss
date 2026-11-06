@@ -561,3 +561,93 @@ span.dateline__step {
   text-wrap: balance;
   color: var(--ink);
 }
+
+// On an edition, the nameplate between two ears: small ruled boxes, as a
+// printed paper carries the weather and the price in them.
+.masthead__plate--ears {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  align-items: center;
+  gap: 1.25rem;
+
+  .masthead__name {
+    grid-column: 2;
+  }
+}
+
+.ear {
+  max-width: 11.5rem;
+  margin: 0.5rem 0 0;
+  padding: 0.45rem 0.7rem;
+  border: 1px solid var(--ink);
+  font-family: var(--display);
+  font-size: 0.78rem;
+  line-height: 1.4;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+
+  b {
+    display: block;
+    margin-bottom: 0.1rem;
+    font-size: 0.68rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+}
+
+.ear--left {
+  grid-column: 1;
+  justify-self: start;
+}
+
+.ear--right {
+  grid-column: 3;
+  justify-self: end;
+}
+
+// The folio: volume and number, the motto and the date, in small capitals between two rules.
+.masthead__motto--folio {
+  gap: 0.55rem;
+  padding-top: 0.45rem;
+}
+
+.folio {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  padding: 0.35rem 0;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--ink);
+  font-size: 0.7rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink);
+
+  span {
+    white-space: nowrap;
+  }
+
+  .folio__tagline {
+    white-space: normal;
+    text-align: center;
+    text-wrap: balance;
+  }
+}
+
+// No room for the ears on a narrow page, nor for the motto between volume and date.
+@media (max-width: 46rem) {
+  .masthead__plate--ears {
+    display: block;
+  }
+
+  .ear {
+    display: none;
+  }
+
+  .folio__tagline {
+    display: none;
+  }
+}

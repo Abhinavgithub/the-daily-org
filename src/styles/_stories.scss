@@ -1,9 +1,11 @@
 // Stories --------------------------------------------------------------
 
-// Three newspaper columns. A story is one, two or three wide and as tall as
-// its own text, so the boxes differ in size as they do on a printed page.
+// Three newspaper columns on one sheet. A story is one, two or three wide and
+// as tall as its own text. Stories are parted by rules, as a printed page parts
+// them: a hairline down the gutter between columns and one across the gutter
+// between a story and the one above it.
 .grid {
-  --gap: 1.5rem;
+  --gap: 2.25rem;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--gap);
@@ -17,16 +19,48 @@
   row-gap: 0;
 }
 
-// Each story is a boxed clipping lying on the page.
 .story {
   position: relative;
   grid-column: span 1;
-  padding: 1.1rem 1.25rem 1.2rem;
-  background: var(--surface);
-  border: 1px solid var(--edge);
-  box-shadow: var(--shadow-1);
-  // Room above the box when the page scrolls to it from a link.
-  scroll-margin-top: 1rem;
+  // Room above the story when the page scrolls to it from a link.
+  scroll-margin-top: 1.5rem;
+}
+
+// The rules, drawn in the middle of each gutter. The arranging script says
+// which column a story starts in and whether another stands above it.
+.grid.is-packed > [data-card] {
+  &[data-column]:not([data-column='0'])::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--gap) / -2);
+    border-left: 1px solid var(--rule);
+  }
+
+  // A rule down the gutter runs up to the one across it, so the two meet.
+  &[data-below][data-column]:not([data-column='0'])::before {
+    top: calc(var(--gap) / -2);
+  }
+
+  &[data-below]::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(var(--gap) / -2);
+    border-top: 1px solid var(--rule);
+  }
+}
+
+// One column, or the script not run: stories follow one another under a rule.
+.grid:not(.is-packed) {
+  row-gap: 1.25rem;
+
+  > [data-card] + [data-card] {
+    padding-top: 1.25rem;
+    border-top: 1px solid var(--rule);
+  }
 }
 
 .story--w2 {
@@ -72,9 +106,31 @@
 
 .story--w2 .story__title,
 .story--w3 .story__title {
-  font-size: var(--fs-title);
-  line-height: 1.15;
-  margin-bottom: 0.7rem;
+  font-size: var(--fs-lead);
+  line-height: 1.08;
+  letter-spacing: -0.012em;
+  margin-bottom: 0.5rem;
+}
+
+// The first sentence of the reason to read, under the headline, as a paper sets its deck.
+.story__deck {
+  margin: 0 0 0.8rem;
+  font-family: var(--headline);
+  font-style: italic;
+  font-size: 1.04rem;
+  line-height: 1.4;
+  color: var(--muted);
+  text-wrap: pretty;
+}
+
+.story--w2 .story__deck,
+.story--w3 .story__deck {
+  font-size: 1.28rem;
+  margin-bottom: 1rem;
+}
+
+.story__source {
+  white-space: nowrap;
 }
 
 // Opens the original article.
@@ -103,4 +159,34 @@
   p:last-child {
     margin-bottom: 0;
   }
+}
+
+// A wide story's text in columns of its own, justified, with a drop cap: the lead, set as a front page sets it.
+.story--w2 .story__text,
+.story--w3 .story__text {
+  columns: 2;
+  column-gap: var(--gap);
+  column-rule: 1px solid var(--rule);
+
+  p {
+    text-align: justify;
+    hyphens: auto;
+    // Kept whole where it can be, so a column does not end on one line of a paragraph.
+    orphans: 2;
+    widows: 2;
+  }
+
+  > p:first-child::first-letter {
+    float: left;
+    margin: 0.06em 0.1em 0 0;
+    font-family: var(--headline);
+    font-weight: 700;
+    font-size: 3.55em;
+    line-height: 0.8;
+    color: var(--ink);
+  }
+}
+
+.story--w3 .story__text {
+  columns: 3;
 }

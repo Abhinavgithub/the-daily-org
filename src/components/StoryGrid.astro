@@ -6,9 +6,11 @@ import StoryCard from './StoryCard.astro';
 interface Props {
   stories: Story[];
   showDay?: boolean;
+  /** List each story's section and tags. */
+  tags?: boolean;
 }
 
-const { stories, showDay = false } = Astro.props;
+const { stories, showDay = false, tags = true } = Astro.props;
 const spans = storySpans(stories.map((story) => story.data.interest_score));
 const signals = await getSignals();
 ---
@@ -16,7 +18,7 @@ const signals = await getSignals();
 <div class="grid" data-grid>
   {
     stories.map((story, i) => (
-      <StoryCard story={story} span={spans[i]} signal={signals.get(story.id) ?? 'other'} showDay={showDay} />
+      <StoryCard story={story} span={spans[i]} signal={signals.get(story.id) ?? 'other'} showDay={showDay} tags={tags} />
     ))
   }
   <!-- Anything else printed among the stories, such as the briefs, is arranged with them as the last box. -->
@@ -48,6 +50,8 @@ const signals = await getSignals();
       card.style.gridColumn = '';
       card.style.gridRow = '';
       card.classList.remove('story--stretch');
+      delete card.dataset.column;
+      delete card.dataset.below;
     }
     const style = getComputedStyle(grid);
     const columns = style.gridTemplateColumns.split(' ').length;
@@ -70,6 +74,8 @@ const signals = await getSignals();
       const { column, span, widened } = placements[i];
       card.classList.toggle('story--stretch', widened);
       card.style.gridColumn = `${column + 1} / span ${span}`;
+      // For the rules between stories: one down the left of any box not in the first column, one across the top of any box with another above it.
+      card.dataset.column = String(column);
     });
     place(cards, placements);
     arranged.set(grid, { cards, placements, gap });
@@ -79,6 +85,7 @@ const signals = await getSignals();
     cards.forEach((card, i) => {
       const { top, height } = placements[i];
       card.style.gridRow = `${Math.round(top) + 1} / span ${Math.ceil(height)}`;
+      card.toggleAttribute('data-below', top > 0.5);
     });
   }
 
@@ -126,7 +133,7 @@ const signals = await getSignals();
   }
   document.fonts?.ready.then(packAll);
   document.addEventListener('stories:filtered', packAll);
-  // A story that grew, such as by the box under "Useful?".
+  // A story that grew, such as by the panel under "Worth reading?".
   document.addEventListener('stories:resized', () => requestAnimationFrame(settleAll));
   arrangeAll();
 
