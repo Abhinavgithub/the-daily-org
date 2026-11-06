@@ -1,7 +1,8 @@
 ---
 import Masthead from '../../components/Masthead.astro';
-import { PERSONAS, SECTIONS } from '../../config';
+import { PAPER, PERSONAS, SECTIONS } from '../../config';
 import Layout from '../../layouts/Layout.astro';
+import { KINDS, WHENS } from '../../lib/search';
 import { getAllStories } from '../../lib/stories';
 
 // Somewhere to start from, before a search and when one finds nothing.
@@ -10,6 +11,8 @@ const sections = SECTIONS.map((s) => ({
   ...s,
   count: all.filter((story) => story.data.section === s.id).length,
 })).filter((s) => s.count > 0);
+// The names that mean the same thing, which the search looks for together (paper.config.ts).
+const synonyms = JSON.stringify(PAPER.synonyms ?? []);
 ---
 
 <Layout title="Search">
@@ -19,9 +22,39 @@ const sections = SECTIONS.map((s) => ({
   <main id="stories" class="wrap wrap--centred">
     <p class="page-sub" data-search-status aria-live="polite">Type a word or two in the search box above.</p>
 
-    <div class="search-page" data-search-page hidden>
-      <!-- Each group's name is also its key in the page address, as on an edition. -->
-      <aside class="search-filters" aria-label="Narrow the results">
+    <div class="search-page" data-search-page data-synonyms={synonyms} hidden>
+      <!-- Each group's name is also its key in the page address. -->
+      <button type="button" class="chip search-filters__toggle" data-filters-toggle aria-expanded="false" aria-controls="search-filters">Filters</button>
+      <aside class="search-filters" id="search-filters" aria-label="Narrow the results">
+        <fieldset data-group="kind">
+          <legend>Kind</legend>
+          {
+            KINDS.map((kind) => (
+              <label class="check">
+                <input type="checkbox" value={kind.id} />
+                <span>{kind.label}</span>
+                <span class="check__count" data-count />
+              </label>
+            ))
+          }
+        </fieldset>
+        <fieldset data-when>
+          <legend>When</legend>
+          {
+            WHENS.map((when) => (
+              <label class="check check--radio">
+                <input type="radio" name="when" value={when.id} checked={when.id === 'any'} />
+                <span>{when.label}</span>
+              </label>
+            ))
+          }
+          <div class="search-filters__range">
+            <label for="search-from">From</label>
+            <input id="search-from" type="date" data-from />
+            <label for="search-to">To</label>
+            <input id="search-to" type="date" data-to />
+          </div>
+        </fieldset>
         <fieldset data-group="show">
           <legend>Show</legend>
           <label class="check">
@@ -49,9 +82,34 @@ const sections = SECTIONS.map((s) => ({
             </fieldset>
           )
         }
+        <fieldset data-group="section" data-hide-empty>
+          <legend>Section</legend>
+          {
+            sections.map((s) => (
+              <label class="check">
+                <input type="checkbox" value={s.label} />
+                <span>{s.label}</span>
+                <span class="check__count" data-count />
+              </label>
+            ))
+          }
+        </fieldset>
+        <!-- Filled from the index, most printed first; the first few are shown until the reader asks for the rest. -->
+        <fieldset data-group="source" data-hide-empty data-sources>
+          <legend>Source</legend>
+          <button type="button" class="search-filters__more" data-more-sources hidden></button>
+        </fieldset>
         <button type="button" class="search-filters__clear" data-clear hidden>Clear filters</button>
       </aside>
       <div class="search-page__results">
+        <div class="search-summary">
+          <p data-search-summary aria-live="polite"></p>
+          <div class="search-sort" role="group" aria-label="Sort the results">
+            <span aria-hidden="true">Sort</span>
+            <button type="button" class="chip" data-sort="best" aria-pressed="true">Best match</button>
+            <button type="button" class="chip" data-sort="newest" aria-pressed="false">Newest</button>
+          </div>
+        </div>
         <ol class="results" data-search-results></ol>
         <button type="button" class="chip results__more" data-more hidden>Show more</button>
       </div>
@@ -77,50 +135,91 @@ const sections = SECTIONS.map((s) => ({
 </Layout>
 
 <script>
-  interface Entry {
-    href: string;
-    title: string;
-    why: string;
-    source: string;
-    section: string;
-    day: string;
-    text: string;
-    personas: string[];
-    signal: 'must' | 'recommended' | 'other';
-    /** A one-line item from an edition's "In brief" box, not a full story. */
-    brief?: boolean;
-  }
+  import { counts, filtered, filtering, fromParams, GROUPS, markPattern, marks, noFilters, parse, search, toParams, type Entry, type Filters, type Group, type Sort, type When } from '../../lib/search';
 
   /** How many results are shown at first, and how many each press of "Show more" adds. */
   const PAGE = 20;
+  /** How many sources are listed before the reader asks for all of them. */
+  const SOURCES_SHOWN = 5;
 
   const input = document.querySelector<HTMLInputElement>('[data-site-search]')!;
   const status = document.querySelector<HTMLElement>('[data-search-status]')!;
   const page = document.querySelector<HTMLElement>('[data-search-page]')!;
+  const summary = document.querySelector<HTMLElement>('[data-search-summary]')!;
   const list = document.querySelector<HTMLElement>('[data-search-results]')!;
   const more = document.querySelector<HTMLButtonElement>('[data-more]')!;
   const clear = document.querySelector<HTMLButtonElement>('[data-clear]')!;
   const browse = document.querySelector<HTMLElement>('[data-browse]');
-  const boxes = [...page.querySelectorAll<HTMLInputElement>('input[type="checkbox"]')];
-  const groupOf = (box: HTMLInputElement) => box.closest<HTMLElement>('[data-group]')!.dataset.group as 'show' | 'for';
-  const ticked = (group: 'show' | 'for') => boxes.filter((box) => groupOf(box) === group && box.checked).map((box) => box.value);
+  const aside = page.querySelector<HTMLElement>('.search-filters')!;
+  const toggle = page.querySelector<HTMLButtonElement>('[data-filters-toggle]')!;
+  const sourceSet = page.querySelector<HTMLElement>('[data-sources]')!;
+  const moreSources = page.querySelector<HTMLButtonElement>('[data-more-sources]')!;
+  const whens = [...page.querySelectorAll<HTMLInputElement>('input[name="when"]')];
+  const from = page.querySelector<HTMLInputElement>('[data-from]')!;
+  const to = page.querySelector<HTMLInputElement>('[data-to]')!;
+  const sorts = [...page.querySelectorAll<HTMLButtonElement>('[data-sort]')];
+  const synonyms: string[][] = JSON.parse(page.dataset.synonyms ?? '[]');
+
+  const boxes = () => [...page.querySelectorAll<HTMLInputElement>('[data-group] input[type="checkbox"]')];
+  const groupOf = (box: HTMLInputElement) => box.closest<HTMLElement>('[data-group]')!.dataset.group as Group;
 
   let index: Entry[] | null = null;
   let shown = PAGE;
+  let sort: Sort = 'best';
+  let allSources = false;
 
-  // Must-read stories are recommended too, as on an edition.
-  const showsAs = (entry: Entry, value: string) => (value === 'must' ? entry.signal === 'must' : entry.signal !== 'other');
-  const passes = {
-    show: (entry: Entry, values: string[]) => values.length === 0 || values.some((value) => showsAs(entry, value)),
-    for: (entry: Entry, values: string[]) => values.length === 0 || values.some((value) => entry.personas.includes(value)),
-  };
+  // The reader's own day, which "Past week" counts back from.
+  const now = new Date();
+  const today = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+
+  /** The filters as the boxes, the dates and the sort have them. */
+  function read(): Filters {
+    const filters = noFilters();
+    for (const box of boxes()) if (box.checked) filters[groupOf(box)].push(box.value);
+    filters.when = (whens.find((radio) => radio.checked)?.value ?? 'any') as When;
+    if (filters.when === 'between') {
+      filters.from = from.value || undefined;
+      filters.to = to.value || undefined;
+    }
+    return filters;
+  }
+
+  /** The boxes, the dates and the sort set to `filters`. */
+  function write(filters: Filters, order: Sort) {
+    for (const box of boxes()) box.checked = filters[groupOf(box)].includes(box.value);
+    for (const radio of whens) radio.checked = radio.value === filters.when;
+    from.value = filters.from ?? '';
+    to.value = filters.to ?? '';
+    sort = order;
+    for (const button of sorts) button.setAttribute('aria-pressed', String(button.dataset.sort === order));
+  }
+
+  /** A box for each source in the index, most entries first. Made once, when the index arrives. */
+  function addSources(entries: Entry[], ticked: string[]) {
+    const tally = new Map<string, number>();
+    for (const entry of entries) tally.set(entry.source, (tally.get(entry.source) ?? 0) + 1);
+    const names = [...tally.keys()].sort((a, b) => tally.get(b)! - tally.get(a)! || a.localeCompare(b));
+    for (const name of names) {
+      const label = document.createElement('label');
+      label.className = 'check';
+      const box = document.createElement('input');
+      box.type = 'checkbox';
+      box.value = name;
+      box.checked = ticked.includes(name);
+      box.addEventListener('change', fresh);
+      const text = document.createElement('span');
+      text.textContent = name;
+      const count = document.createElement('span');
+      count.className = 'check__count';
+      count.dataset.count = '';
+      label.append(box, text, count);
+      sourceSet.insertBefore(label, moreSources);
+    }
+  }
 
   /** `text` as nodes, with each searched word marked. Built from text, so nothing in a story can be read as markup. */
-  function marked(text: string, terms: string[]): Node[] {
-    // A single letter is in nearly every word, and marking each one helps nobody.
-    terms = terms.filter((term) => term.length > 1);
-    if (terms.length === 0) return [document.createTextNode(text)];
-    const pattern = new RegExp(`(${terms.map((t) => t.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'gi');
+  function marked(text: string, pattern: RegExp | null): Node[] {
+    if (!pattern) return [document.createTextNode(text)];
     return text.split(pattern).map((part, i) => {
       if (i % 2 === 0) return document.createTextNode(part);
       const mark = document.createElement('mark');
@@ -129,133 +228,177 @@ const sections = SECTIONS.map((s) => ({
     });
   }
 
-  function row(entry: Entry, terms: string[]): HTMLElement {
+  const KIND_LABEL: Partial<Record<Entry['kind'], string>> = { brief: 'In brief', bulletin: 'Bulletin', release: 'Release notes' };
+
+  function row(entry: Entry, pattern: RegExp | null): HTMLElement {
     const item = document.createElement('li');
     const link = document.createElement('a');
     link.href = entry.href;
-    link.append(...marked(entry.title, terms));
+    link.append(...marked(entry.title, pattern));
     const meta = document.createElement('span');
     meta.className = 'results__meta';
-    const section = document.createElement('span');
-    section.className = 'results__section';
-    section.textContent = entry.section;
-    // A brief says so first, so it is not taken for a full story.
-    if (entry.brief) {
-      const kind = document.createElement('span');
-      kind.className = 'results__section';
-      kind.textContent = 'In brief';
-      meta.append(kind, ' · ');
-    }
-    meta.append(section, ` · ${entry.source} · ${entry.day}`);
+    const label = (text: string) => {
+      const part = document.createElement('span');
+      part.className = 'results__section';
+      part.textContent = text;
+      return part;
+    };
+    // What a result is, first, so a brief or a release note is not taken for a story.
+    const kind = KIND_LABEL[entry.kind];
+    if (kind) meta.append(label(kind), ' · ');
+    if (entry.kind === 'release') meta.append(entry.where ?? entry.source);
+    else if (entry.kind === 'bulletin') meta.append(`${entry.source} · ${entry.day}`);
+    else meta.append(label(entry.section), ` · ${entry.source} · ${entry.day}`);
     const why = document.createElement('span');
     why.className = 'results__why';
-    why.append(...marked(entry.why, terms));
+    why.append(...marked(entry.why, pattern));
     item.append(link, meta, why);
     return item;
   }
 
-  /** The address carries the search and the ticked boxes, so a search can be reloaded or shared. */
-  function remember(query: string) {
-    const params = new URLSearchParams();
-    if (query) {
-      params.set('q', query);
-      for (const group of ['for', 'show'] as const) if (ticked(group).length) params.set(group, ticked(group).join(','));
-    }
-    const search = params.toString().replace(/%2C/g, ',');
+  /** The words searched for besides what was typed: "also matching Lightning Web Component". */
+  function alsoLine(also: string[]): Node[] {
+    if (also.length === 0) return [];
+    const nodes: Node[] = [document.createTextNode(', also matching ')];
+    also.forEach((name, i) => {
+      if (i > 0) nodes.push(document.createTextNode(i === also.length - 1 ? ' and ' : ', '));
+      const mark = document.createElement('mark');
+      mark.textContent = name;
+      nodes.push(mark);
+    });
+    return nodes;
+  }
+
+  /** The address carries the search, its filters and its order, so it can be reloaded or shared. */
+  function remember(query: string, filters: Filters) {
+    const search = toParams(query, filters, sort);
     history.replaceState(null, '', location.pathname + (search ? `?${search}` : ''));
+  }
+
+  function nothing(text: string) {
+    page.hidden = true;
+    if (browse) browse.hidden = false;
+    list.replaceChildren();
+    status.hidden = false;
+    status.textContent = text;
   }
 
   async function run(focusFrom?: number) {
     const query = input.value.trim();
-    remember(query);
+    const filters = read();
+    remember(query, filters);
 
-    if (!query) {
-      page.hidden = true;
-      if (browse) browse.hidden = false;
-      list.replaceChildren();
-      status.textContent = 'Type a word or two in the search box above.';
-      return;
-    }
-    try {
-      index ??= (await (await fetch('/search.json')).json()) as Entry[];
-    } catch {
-      status.textContent = 'The search index could not be loaded. Reload the page to try again.';
-      return;
+    if (!query) return nothing('Type a word or two in the search box above.');
+    if (!index) {
+      try {
+        index = (await (await fetch('/search.json')).json()) as Entry[];
+      } catch {
+        return nothing('The search index could not be loaded. Reload the page to try again.');
+      }
+      addSources(index, filters.source);
     }
 
-    const terms = query.toLowerCase().split(/\s+/);
-    const matches = index
-      .map((entry) => {
-        const title = entry.title.toLowerCase();
-        const rest = `${entry.why} ${entry.source} ${entry.section} ${entry.text}`.toLowerCase();
-        if (!terms.every((t) => title.includes(t) || rest.includes(t))) return null;
-        // Title matches first; the index is already newest first, and sort is stable.
-        return { entry, weight: terms.filter((t) => title.includes(t)).length };
-      })
-      .filter((m) => m !== null)
-      .sort((a, b) => b.weight - a.weight)
-      .map((m) => m.entry);
+    const clauses = parse(query, synonyms);
+    const matches = search(index, clauses, sort);
+    if (matches.length === 0) return nothing(`Nothing matches “${query}”. Try a shorter or more general word${browse ? ', or browse a section' : ''}.`);
 
-    if (matches.length === 0) {
-      page.hidden = true;
-      if (browse) browse.hidden = false;
-      list.replaceChildren();
-      status.textContent = `Nothing matches “${query}”. Try a shorter or more general word${browse ? ', or browse a section' : ''}.`;
-      return;
+    // Beside each box: how many results it would show, given every other filter. A section or source
+    // with none is left out unless it is ticked; a kind, a mark or a reader with none is greyed.
+    for (const group of GROUPS) {
+      const groupBoxes = boxes().filter((box) => groupOf(box) === group);
+      const tally = counts(matches, filters, today, group, groupBoxes.map((box) => box.value));
+      for (const box of groupBoxes) {
+        const n = tally.get(box.value) ?? 0;
+        const label = box.closest('label')!;
+        label.querySelector('[data-count]')!.textContent = String(n);
+        if (box.closest('[data-hide-empty]')) label.hidden = n === 0 && !box.checked;
+        else box.disabled = n === 0 && !box.checked;
+      }
     }
-
-    // Beside each box: how many results it covers, given what is ticked in the other group.
-    const show = ticked('show');
-    const audience = ticked('for');
-    for (const box of boxes) {
-      const group = groupOf(box);
-      const others = matches.filter((entry) => (group === 'show' ? passes.for(entry, audience) : passes.show(entry, show)));
-      const count = others.filter((entry) => passes[group](entry, [box.value])).length;
-      box.closest('label')!.querySelector('[data-count]')!.textContent = String(count);
-      box.disabled = count === 0 && !box.checked;
+    // Sources with the most results first. Not while the reader is ticking one, so the box stays under the pointer.
+    const sourceLabels = [...sourceSet.querySelectorAll<HTMLLabelElement>('label')];
+    if (!sourceSet.contains(document.activeElement)) {
+      const n = (label: HTMLLabelElement) => Number(label.querySelector('[data-count]')!.textContent);
+      for (const label of [...sourceLabels].sort((a, b) => n(b) - n(a))) sourceSet.insertBefore(label, moreSources);
     }
-    clear.hidden = show.length + audience.length === 0;
+    // The first few sources with results, and any that are ticked, until the reader asks for all.
+    const listed = [...sourceSet.querySelectorAll<HTMLLabelElement>('label')].filter((label) => !label.hidden);
+    listed.forEach((label, i) => (label.hidden = !allSources && i >= SOURCES_SHOWN && !label.querySelector('input')!.checked));
+    moreSources.hidden = listed.length <= SOURCES_SHOWN;
+    moreSources.textContent = allSources ? 'Fewer sources' : `All ${listed.length} sources`;
 
-    const kept = matches.filter((entry) => passes.show(entry, show) && passes.for(entry, audience));
-    list.replaceChildren(...kept.slice(0, shown).map((entry) => row(entry, terms)));
+    const narrowed = filtering(filters);
+    clear.hidden = !narrowed;
+    const active = GROUPS.reduce((n, group) => n + filters[group].length, 0) + (filters.when === 'any' ? 0 : 1);
+    toggle.textContent = active ? `Filters (${active})` : 'Filters';
+
+    const kept = filtered(matches, filters, today);
+    const pattern = markPattern(marks(clauses));
+    list.replaceChildren(...kept.slice(0, shown).map((entry) => row(entry, pattern)));
     const left = kept.length - shown;
     more.hidden = left <= 0;
     if (left > 0) more.textContent = `Show ${Math.min(PAGE, left)} more`;
     page.hidden = false;
+    status.hidden = true;
     if (browse) browse.hidden = true;
 
-    const total = `${matches.length} ${matches.length === 1 ? 'result matches' : 'results match'} “${query}”`;
-    status.textContent = clear.hidden ? `${total}.` : kept.length === 0 ? `${total}, but none fit these filters.` : `${total}, ${kept.length} with these filters.`;
+    const total = document.createElement('b');
+    total.textContent = `${matches.length} ${matches.length === 1 ? 'result' : 'results'}`;
+    const tail = narrowed ? (kept.length === 0 ? '. None fit these filters.' : `. ${kept.length} with these filters.`) : '.';
+    summary.replaceChildren(total, ` for “${query}”`, ...alsoLine(clauses.flatMap((clause) => clause.also)), tail);
 
-    // After "Show more", the keyboard carries on from the first story it added.
+    // After "Show more", the keyboard carries on from the first result it added.
     if (focusFrom !== undefined) list.children[focusFrom]?.querySelector('a')?.focus();
   }
 
   /** A new search or a changed filter starts again from the first results. */
-  const fresh = () => {
+  function fresh() {
     shown = PAGE;
     run();
-  };
+  }
 
-  const params = new URLSearchParams(location.search);
-  input.value = params.get('q') ?? input.value;
-  for (const box of boxes) box.checked = (params.get(groupOf(box)) ?? '').split(',').includes(box.value);
+  const start = fromParams(location.search);
+  input.value = start.query || input.value;
+  write(start.filters, start.sort);
 
   input.addEventListener('input', fresh);
   input.form?.addEventListener('submit', (event) => {
     event.preventDefault();
     fresh();
   });
-  for (const box of boxes) box.addEventListener('change', fresh);
+  for (const box of boxes()) box.addEventListener('change', fresh);
+  for (const radio of whens) radio.addEventListener('change', fresh);
+  // Choosing a date chooses "Between".
+  for (const day of [from, to]) {
+    day.addEventListener('change', () => {
+      whens.find((radio) => radio.value === 'between')!.checked = true;
+      fresh();
+    });
+  }
+  for (const button of sorts) {
+    button.addEventListener('click', () => {
+      write(read(), button.dataset.sort as Sort);
+      fresh();
+    });
+  }
+  moreSources.addEventListener('click', () => {
+    allSources = !allSources;
+    run();
+  });
+  toggle.addEventListener('click', () => {
+    const open = toggle.getAttribute('aria-expanded') !== 'true';
+    toggle.setAttribute('aria-expanded', String(open));
+    aside.toggleAttribute('data-open', open);
+  });
   clear.addEventListener('click', () => {
-    for (const box of boxes) box.checked = false;
+    write(noFilters(), sort);
     fresh();
-    boxes.find((box) => !box.disabled)?.focus();
+    boxes().find((box) => !box.disabled && !box.closest('label')!.hidden)?.focus();
   });
   more.addEventListener('click', () => {
-    const from = shown;
+    const first = shown;
     shown += PAGE;
-    run(from);
+    run(first);
   });
   input.focus();
   run();

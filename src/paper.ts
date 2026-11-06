@@ -90,6 +90,8 @@ export interface Paper<Section extends string = string, Persona extends string =
   keywords?: readonly string[];
   /** Names with a fixed spelling and capitalisation, which the paper always writes this way. */
   glossary?: readonly string[];
+  /** Names that mean the same thing, for the search page: searching one finds the others. */
+  synonyms?: readonly (readonly string[])[];
   /** Extra rules for the writer, one sentence each. */
   houseStyle?: readonly string[];
   /** Words that mark a byline as not a person, such as the company the paper covers. */

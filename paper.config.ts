@@ -211,6 +211,27 @@ export default definePaper({
     'LWC',
   ],
 
+  // Names that mean the same thing, for the search page: searching any name in
+  // a group finds the others too. Old and new names of a renamed product
+  // belong here, and an abbreviation with what it stands for. Hyphens and
+  // capitals do not matter, and a plural is found by its singular.
+  synonyms: [
+    ['OAuth password flow', 'username-password flow', 'resource owner password flow'],
+    ['LWC', 'Lightning Web Component'],
+    ['SLDS', 'Lightning Design System'],
+    ['Data Cloud', 'Data 360'],
+    ['Agentforce Assistant', 'Einstein Copilot'],
+    ['CRM Analytics', 'Tableau CRM', 'Einstein Analytics'],
+    ['External Client App', 'ECA'],
+    ['Salesforce CLI', 'sf CLI', 'sfdx'],
+    ['MFA', 'multi-factor authentication', 'two-factor authentication', '2FA'],
+    ['SSO', 'single sign-on'],
+    ['MCP', 'Model Context Protocol'],
+    ['LLM', 'large language model'],
+    ['RAG', 'retrieval-augmented generation'],
+    ['SOQL', 'Salesforce Object Query Language'],
+  ],
+
   houseStyle: [
     'Capitalise Salesforce feature and product names every time they appear, for example: Custom Object, Custom Settings, Custom Metadata Types, Custom Field, Permission Set, Validation Rule, Sharing Rule, Screen Flow, Record-Triggered Flow, Flow Builder, List View, Related List, Quick Action, Lightning Web Component, Platform Event, Named Credential, Connected App, Scratch Org, Prompt Builder, Agentforce, Apex, SOQL.',
     'Ordinary words stay lower case: "a flow of data", "the trigger for the change".',

@@ -11,7 +11,7 @@ import Masthead from '../../components/Masthead.astro';
 import Tabs from '../../components/Tabs.astro';
 import { PERSONAS } from '../../config';
 import Layout from '../../layouts/Layout.astro';
-import { deadlinesFrom, groupLine, grouped, storiesAbout } from '../../lib/deadlines';
+import { deadlineId, deadlinesFrom, groupLine, grouped, storiesAbout } from '../../lib/deadlines';
 import { readReleases } from '../../lib/releases';
 import { getReleaseEditions } from '../../lib/release-store';
 import { getAllStories, storyHref } from '../../lib/stories';
@@ -66,7 +66,7 @@ const heading = (group: (typeof groups)[number]) => (group.kind === 'unknown' ? 
                 const about = storiesAbout(deadline, stories);
                 const roles = rolesOf(deadline.roles);
                 return (
-                  <article class="bulletin__item deadlines__item" data-card data-personas={roles.join(' ')}>
+                  <article class="bulletin__item deadlines__item" id={deadlineId(deadline.topic)} data-card data-personas={roles.join(' ')}>
                     {deadline.deadline && <p class="flag">{deadline.deadline}</p>}
                     <h4>
                       <a href={deadline.link} target="_blank" rel="noopener">

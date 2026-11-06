@@ -196,6 +196,98 @@
   font-variant-numeric: tabular-nums;
 }
 
+// A box the counts have left out: none of the results are in that section or from that source.
+.check[hidden] {
+  display: none;
+}
+
+// "Between" two days: under the radio it belongs to, the two dates side by side.
+.search-filters__range {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.3rem 0.5rem;
+  margin: 0.15rem 0 0 1.55rem;
+  color: var(--muted);
+
+  input {
+    min-width: 0;
+    width: 100%;
+    padding: 0.2rem 0.25rem;
+    font: inherit;
+    font-size: 0.78rem;
+    color: var(--ink);
+    background: transparent;
+    border: 1px solid var(--rule);
+    border-radius: 0;
+  }
+}
+
+// Until "Between" is chosen the dates are quieter, but still there to be picked, which chooses it.
+fieldset:has(input[value='any']:checked, input[value='week']:checked, input[value='month']:checked, input[value='quarter']:checked) .search-filters__range {
+  opacity: 0.55;
+}
+
+.search-filters__more {
+  margin: 0.2rem 0 0 1.55rem;
+
+  &[hidden] {
+    display: none;
+  }
+}
+
+// Above the results: how many, and what else was searched for; then the order they are in.
+.search-summary {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem 1rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--ink);
+  font-family: var(--display);
+  font-size: var(--fs-label);
+
+  p {
+    margin: 0;
+  }
+
+  mark {
+    color: inherit;
+    background: none;
+    text-decoration: underline;
+    text-decoration-color: var(--sun);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.18em;
+  }
+}
+
+.search-sort {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+
+  > span {
+    margin-right: 0.25rem;
+    font-weight: 700;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .chip {
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+  }
+}
+
+// The button that opens the filters, on a screen too narrow to show them beside the results.
+.search-filters__toggle {
+  display: none;
+}
+
+.search-filters__more,
 .search-filters__clear {
   justify-self: start;
   padding: 0;
@@ -214,9 +306,19 @@
     gap: 1.25rem;
   }
 
+  .search-filters__toggle {
+    display: inline-flex;
+    justify-self: start;
+  }
+
+  // The filters are folded away until asked for, so the results are what a phone shows first.
   .search-filters {
     position: static;
     gap: 0.75rem;
+
+    &:not([data-open]) {
+      display: none;
+    }
 
     fieldset {
       display: flex;

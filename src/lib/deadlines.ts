@@ -179,3 +179,6 @@ export function storiesAbout<T extends { text: string; date: string }>(deadline:
     .sort((a, b) => b.date.localeCompare(a.date))
     .slice(0, most);
 }
+
+/** A deadline's anchor on the Deadlines page, by the topic of the notes it comes from, so search can lead to it. */
+export const deadlineId = (topic: string) => `deadline-${topic.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`;
