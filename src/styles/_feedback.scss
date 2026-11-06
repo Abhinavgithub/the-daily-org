@@ -1,40 +1,74 @@
 // Reader feedback --------------------------------------------------------
 
-// "Useful? Yes No": the last line of a story, under a hairline like the source line's.
+// "Worth reading? Yes No": the last line of a story, under a hairline, so the
+// story ends on its own text and the question reads as the paper asking.
 .verdict {
-  margin: 0.8rem 0 0;
-  padding-top: 0.6rem;
+  margin: 1rem 0 0;
+  padding-top: 0.7rem;
   border-top: 1px solid var(--rule);
   font-family: var(--display);
   font-size: var(--fs-label);
   color: var(--muted);
+
+  svg {
+    flex: none;
+    width: 1em;
+    height: 1em;
+  }
 }
 
 .verdict__bar {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.4rem 0.5rem;
+  gap: 0.5rem 0.4rem;
+}
+
+// The question, set as a line of the story.
+.verdict__ask {
+  margin-right: 0.25rem;
+  font-family: var(--headline);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--ink);
 }
 
 .verdict__votes {
   display: inline-flex;
-  gap: 0.35rem;
+  gap: 0.4rem;
 }
 
+// A rounded button with its thumb. Pressed, it fills with ink and so does its thumb.
 .verdict__vote {
-  justify-content: center;
-  min-width: 2.75rem;
-  min-height: 1.75rem;
-  color: var(--muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2rem;
+  padding: 0.3rem 0.8rem;
+  font: inherit;
+  font-weight: 500;
+  color: var(--ink);
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  cursor: pointer;
+  transition:
+    background-color 120ms ease-out,
+    border-color 120ms ease-out,
+    color 120ms ease-out;
+
+  &:hover {
+    border-color: var(--ink);
+  }
 
   &[aria-pressed='true'] {
     color: var(--paper);
-  }
+    background: var(--ink);
+    border-color: var(--ink);
 
-  &:focus-visible {
-    outline: 2px solid var(--sky);
-    outline-offset: 2px;
+    svg {
+      fill: currentColor;
+    }
   }
 
   [aria-busy='true'] & {
@@ -42,32 +76,42 @@
   }
 }
 
-// The paper's answer, set like a line of the story.
+// The paper's answer, in italic. A confirmation carries a tick, drawn from the text colour.
 .verdict__said {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   font-family: var(--text);
-  font-size: var(--fs-body);
+  font-size: 0.95rem;
   font-style: italic;
-  color: var(--ink);
+  color: var(--muted);
+
+  &[data-ok]::before {
+    content: '';
+    width: 0.9em;
+    height: 0.9em;
+    background: currentColor;
+    mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23000' stroke-width='2.6' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M20 6 9 17l-5-5'/%3E%3C/svg%3E") center / contain no-repeat;
+  }
 }
 
-// A quiet link, pushed to the end of the line.
+// A quiet link with a flag, pushed to the end of the line.
 .verdict__report {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
   margin-left: auto;
-  min-height: 1.75rem;
+  min-height: 2rem;
   padding: 0 0.1rem;
   font: inherit;
   color: var(--muted);
   background: none;
   border: 0;
-  text-decoration: underline;
-  text-decoration-color: var(--rule);
-  text-underline-offset: 0.2em;
   cursor: pointer;
 
   &:hover,
   &[aria-expanded='true'] {
     color: var(--ink);
-    text-decoration-color: currentColor;
   }
 }
 
@@ -76,13 +120,11 @@
   outline-offset: 2px;
 }
 
-// The panel opens inside the story's box, a shade darker, like a boxed note.
+// After No, or for a report: a note set off by an ink rule, as a paper sets a pull quote.
 .verdict__panel {
-  margin: 0.6rem 0 0;
-  padding: 0.75rem 0.8rem 0.8rem;
-  background: var(--paper);
-  border: 1px solid var(--rule);
-  border-radius: 0;
+  margin: 0.85rem 0 0;
+  padding: 0.15rem 0 0.2rem 1rem;
+  border-left: 2px solid var(--ink);
   color: var(--ink);
 
   &[hidden] {
@@ -98,8 +140,7 @@
 
   legend {
     padding: 0;
-    margin-bottom: 0.5rem;
-    font-weight: 600;
+    margin-bottom: 0.45rem;
   }
 }
 
@@ -116,29 +157,61 @@
   }
 }
 
-.verdict__optional {
+// The panel's questions, in the story's italic.
+.verdict__panel legend,
+.verdict__label {
+  font-family: var(--headline);
+  font-style: italic;
+  font-size: 1.05rem;
   font-weight: 400;
+  color: var(--ink);
+}
+
+.verdict__optional {
+  margin-left: 0.3rem;
+  font-family: var(--display);
+  font-style: normal;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: var(--muted);
 }
 
+// The choices as a list of circles to tick, in as many columns as fit.
 .verdict__choices {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.35rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
+  gap: 0 1rem;
 }
 
-// A radio button set as a chip: pressed when chosen.
 .verdict__choice {
-  min-height: 1.75rem;
-  white-space: normal;
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 2rem;
+  font-size: 0.9rem;
+  color: var(--ink);
+  cursor: pointer;
 
-  &:has(input:checked) {
-    background: var(--ink);
-    border-color: var(--ink);
-    color: var(--paper);
+  &::before {
+    content: '';
+    flex: none;
+    box-sizing: border-box;
+    width: 0.95rem;
+    height: 0.95rem;
+    border: 1.5px solid var(--ink);
+    border-radius: 50%;
   }
 
-  &:has(input:focus-visible) {
+  &:has(input:checked) {
+    font-weight: 600;
+
+    &::before {
+      background: radial-gradient(circle, var(--ink) 0 38%, transparent 42%);
+    }
+  }
+
+  &:has(input:focus-visible)::before {
     outline: 2px solid var(--sky);
     outline-offset: 2px;
   }
@@ -146,8 +219,7 @@
 
 .verdict__label {
   display: block;
-  margin: 0.75rem 0 0.3rem;
-  font-weight: 600;
+  margin: 0.8rem 0 0.3rem;
 }
 
 .verdict__note {
@@ -156,10 +228,10 @@
   box-sizing: border-box;
   padding: 0.5rem 0.6rem;
   font-family: var(--text);
-  font-size: var(--fs-body);
+  font-size: 0.95rem;
   line-height: 1.4;
   color: var(--ink);
-  background: var(--surface);
+  background: var(--paper);
   border: 1px solid var(--edge);
   border-radius: 0;
   resize: vertical;
@@ -177,6 +249,7 @@
 
 .verdict__help {
   margin: 0.3rem 0 0;
+  font-size: 0.78rem;
   color: var(--muted);
 }
 
@@ -200,16 +273,18 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.5rem 1rem;
-  margin-top: 0.75rem;
+  margin-top: 0.85rem;
 }
 
-// The one solid button: ink on paper, square.
+// The one solid button: ink on paper, square, in small capitals.
 .verdict__send {
-  min-height: 2rem;
-  padding: 0.3rem 0.9rem;
+  min-height: 2.25rem;
+  padding: 0.4rem 1rem;
   font-family: var(--display);
-  font-size: var(--fs-label);
+  font-size: 0.78rem;
   font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
   color: var(--paper);
   background: var(--ink);
   border: 1px solid var(--ink);
@@ -229,7 +304,7 @@
 
 .verdict__skip {
   font-family: var(--display);
-  font-size: var(--fs-label);
+  font-size: 0.85rem;
   color: var(--muted);
 }
 

@@ -2,10 +2,10 @@
 import { SITE } from '../config';
 import { NOTE_LENGTH, PARTS, REASONS, verdictId } from '../lib/verdict';
 
-// The reader's verdict at the foot of a story (PLAN.md, step 8). "Useful? Yes No"
+// The reader's verdict at the foot of a story (PLAN.md, step 8). "Worth reading? Yes No"
 // counts the moment it is pressed, and pressing the same answer again takes it
 // back. After No the reader may say why. "Report an error" asks which part is
-// wrong and takes a note. Everything opens inside the story's own box. This
+// wrong and takes a note. Everything opens at the foot of the story. This
 // browser remembers the answer; the paper keeps only counts and the reports (worker/index.ts).
 
 interface Props {
@@ -21,23 +21,32 @@ const turnstile = import.meta.env.DEV ? undefined : SITE.turnstileSiteKey;
 
 <div class="verdict" data-verdict data-story={story} data-turnstile={turnstile}>
   <div class="verdict__bar">
-    <span class="verdict__ask" id={id}>Useful?</span>
+    <span class="verdict__ask" id={id}>Worth reading?</span>
     <span class="verdict__votes" role="group" aria-labelledby={id}>
-      <button type="button" class="chip verdict__vote" data-vote="yes" aria-pressed="false">Yes</button>
-      <button type="button" class="chip verdict__vote" data-vote="no" aria-pressed="false">No</button>
+      <button type="button" class="verdict__vote" data-vote="yes" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 10v12"></path><path d="M15 5.88 14 10h5.83a2 2 0 0 1 1.92 2.56l-2.33 8A2 2 0 0 1 17.5 22H4a2 2 0 0 1-2-2v-8a2 2 0 0 1 2-2h2.76a2 2 0 0 0 1.79-1.11L12 2a3.13 3.13 0 0 1 3 3.88Z"></path></svg>
+        Yes
+      </button>
+      <button type="button" class="verdict__vote" data-vote="no" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 14V2"></path><path d="M9 18.12 10 14H4.17a2 2 0 0 1-1.92-2.56l2.33-8A2 2 0 0 1 6.5 2H20a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2h-2.76a2 2 0 0 0-1.79 1.11L12 22a3.13 3.13 0 0 1-3-3.88Z"></path></svg>
+        No
+      </button>
     </span>
     <span class="verdict__said" role="status" data-said></span>
-    <button type="button" class="verdict__report" data-report aria-expanded="false" aria-controls={`${id}-report`}>Report an error</button>
+    <button type="button" class="verdict__report" data-report aria-expanded="false" aria-controls={`${id}-report`}>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><path d="M4 22v-7"></path></svg>
+      Report an error
+    </button>
   </div>
 
   <!-- After No: why, if the reader cares to say. The vote has already counted. -->
   <form class="verdict__panel" id={`${id}-why`} data-panel="why" hidden>
     <fieldset>
-      <legend>Noted. What was wrong with it? <span class="verdict__optional">Optional</span></legend>
+      <legend>Noted. What missed the mark? <span class="verdict__optional">Optional</span></legend>
       <div class="verdict__choices">
         {
           REASONS.map((reason) => (
-            <label class="chip verdict__choice">
+            <label class="verdict__choice">
               <input type="radio" class="visually-hidden" name="reason" value={reason} required />
               {reason}
             </label>
@@ -58,7 +67,7 @@ const turnstile = import.meta.env.DEV ? undefined : SITE.turnstileSiteKey;
       <div class="verdict__choices">
         {
           PARTS.map((part) => (
-            <label class="chip verdict__choice">
+            <label class="verdict__choice">
               <input type="radio" class="visually-hidden" name="part" value={part} required />
               {part}
             </label>
@@ -195,9 +204,14 @@ const turnstile = import.meta.env.DEV ? undefined : SITE.turnstileSiteKey;
     const failed = form.querySelector<HTMLElement>('[data-failed]')!;
     const guard = check(form, line.dataset.turnstile);
 
-    const show = (vote: string | null | undefined, words: string) => {
-      for (const button of votes) button.setAttribute('aria-pressed', String(button.dataset.vote === vote));
+    // What the paper says back. A confirmation carries a tick; a failure does not.
+    const say = (words: string, ok = true) => {
       said.textContent = words;
+      said.toggleAttribute('data-ok', ok && words !== '');
+    };
+    const show = (vote: string | null | undefined, words: string, ok = true) => {
+      for (const button of votes) button.setAttribute('aria-pressed', String(button.dataset.vote === vote));
+      say(words, ok);
       resized();
     };
     const open = (panel?: HTMLFormElement) => {
@@ -216,7 +230,7 @@ const turnstile = import.meta.env.DEV ? undefined : SITE.turnstileSiteKey;
         const before = load()[story] ?? null;
         const vote = before === button.dataset.vote ? null : button.dataset.vote!;
         // Shown at once; put back if the paper cannot be reached.
-        show(vote, vote ? 'Thanks. Noted.' : '');
+        show(vote, vote ? 'Thanks, noted.' : '');
         if (vote === 'no') open(why);
         else if (!why.hidden) open();
         line.setAttribute('aria-busy', 'true');
@@ -224,7 +238,7 @@ const turnstile = import.meta.env.DEV ? undefined : SITE.turnstileSiteKey;
         line.removeAttribute('aria-busy');
         if (result.ok) return remember(story, vote);
         if (!why.hidden) open();
-        show(before, result.status === 429 && result.error ? result.error : 'Not sent. Try again.');
+        show(before, result.status === 429 && result.error ? result.error : 'Not sent. Try again.', false);
       });
     }
 
@@ -234,7 +248,7 @@ const turnstile = import.meta.env.DEV ? undefined : SITE.turnstileSiteKey;
       open();
       show('no', 'Thanks. That helps the editor choose.');
       const result = await send(VERDICT_PATH, { story, vote: 'no', reason });
-      if (!result.ok) said.textContent = 'Your reason was not sent, but the No was.';
+      if (!result.ok) say('Your reason was not sent, but the No was.', false);
       why.reset();
     });
 
@@ -262,7 +276,7 @@ const turnstile = import.meta.env.DEV ? undefined : SITE.turnstileSiteKey;
         form.reset();
         open();
         reportButton.hidden = true;
-        said.textContent = 'Thanks. The editor reads every report, and a story found wrong is corrected with a note.';
+        say('Thanks. The editor reads every report, and a story found wrong is corrected with a note.');
         resized();
         return;
       }

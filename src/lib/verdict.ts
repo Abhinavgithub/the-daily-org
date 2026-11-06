@@ -1,4 +1,4 @@
-// A reader's verdict on a story: "Useful? Yes No" at its foot (PLAN.md, step 8).
+// A reader's verdict on a story: "Worth reading? Yes No" at its foot (PLAN.md, step 8).
 // The rules both places that take a vote go by: the Worker on Cloudflare
 // (worker/index.ts) and the dev server on this machine (pipeline/verdict-dev.ts).
 // Pure, apart from hashing, which both runtimes do the same way.
@@ -204,7 +204,7 @@ export function splitFeedback(records: Record<string, unknown>[]): { votes: Vote
   return { votes, reports };
 }
 
-/** The id of the "Useful?" label for a story, unique on a page that shows the story once. */
+/** The id of the "Worth reading?" label for a story, unique on a page that shows the story once. */
 export function verdictId(story: string): string {
   return `useful-${story.replace(/[^a-z0-9]+/g, '-')}`;
 }

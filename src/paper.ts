@@ -77,7 +77,7 @@ export interface Paper<Section extends string = string, Persona extends string =
   relevant: string;
   /** What is turned away, as it reads in "False for ...". */
   notRelevant: string;
-  /** Printed in the footer as "<name> is an independent project, <disclaimer>." */
+  /** Printed in the footer as "<name> is an independent paper, <disclaimer>." */
   disclaimer?: string;
 
   /** The paper's sections. Every story is filed under one. */
@@ -139,7 +139,7 @@ export interface Paper<Section extends string = string, Persona extends string =
   /** Optional. Where the paper's code is kept, such as a GitHub repository. Linked from the footer of every page. */
   repository?: string;
   /**
-   * Optional. Ask readers "Useful? Yes No" at the foot of every story. Votes are sent to `/api/feedback`, which
+   * Optional. Ask readers "Worth reading? Yes No" at the foot of every story. Votes are sent to `/api/feedback`, which
    * the Worker in worker/ answers on Cloudflare and `npm run dev` answers on this machine. Leave it out on a host without the Worker.
    */
   readerFeedback?: boolean;

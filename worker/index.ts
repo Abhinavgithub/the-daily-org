@@ -1,7 +1,7 @@
 import { applyVote, parseReport, parseVote, readerHash, REPORT_PATH, reportAllowed, VERDICT_PATH, voteDay, type ReportRow, type VoteRow } from '../src/lib/verdict';
 
 // The paper on Cloudflare: its static files, and one address that is not a file,
-// where readers' "Useful? Yes No" votes and their reports of mistakes are kept in D1 (PLAN.md, steps 8a and 8b).
+// where readers' "Worth reading? Yes No" votes and their reports of mistakes are kept in D1 (PLAN.md, steps 8a and 8b).
 // wrangler.jsonc sends only /api/* here; every other request is served from dist
 // without running this code. `npm run dev` takes votes in the same way (pipeline/verdict-dev.ts).
 
