@@ -4,7 +4,7 @@ original_title: How to Audit Contact–Account Parents After a Salesforce Migrat
 url: https://dev.to/richardc_ailstudio/how-to-audit-contact-account-parents-after-a-salesforce-migration-with-soql-18g8
 source: dev.to
 source_type: community
-date: 2026-11-03
+date: 2026-11-06
 section: devops
 personas:
   - admin
@@ -32,6 +32,7 @@ figure:
     - Export Contacts with parent key
     - Match Contacts on their key
     - Compare Account keys
+held_from: 2026-11-03
 ---
 
 Record Ids usually change between orgs, so comparing AccountId values across a migration tells you nothing. The article proposes a stable External ID on both Account and Contact, then checks that the parent Account's key is the same on each side for every Contact.

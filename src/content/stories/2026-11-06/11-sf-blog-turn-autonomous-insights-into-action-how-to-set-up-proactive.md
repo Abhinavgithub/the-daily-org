@@ -4,7 +4,7 @@ original_title: "Turn Autonomous Insights into Action: How to Set Up Proactive I
 url: https://www.salesforce.com/blog/how-to-set-up-proactive-intelligence-tableau-next/
 source: Salesforce Blog
 source_type: official
-date: 2026-11-03
+date: 2026-11-06
 section: data-cloud
 personas:
   - admin
@@ -25,6 +25,18 @@ novelty_score: 6
 utility_score: 7
 model: anthropic/claude-haiku-5.5
 image: https://www.salesforce.com/blog/wp-content/uploads/sites/2/2026/11/pro-int-1_skill.png?strip=all&#038;quality=95
+held_from: 2026-11-03
+figure:
+  kind: steps
+  caption: The one-time admin setup that connects Tableau Next to Slack and MCP
+  steps:
+    - Set up Tableau Agent in Tableau Next
+    - Connect Slack to Salesforce
+    - Enable Tableau Next MCP server for Slackbot
+  icons:
+    - robot
+    - plug
+    - server
 ---
 
 Proactive Intelligence in Tableau Next has Tableau Agent monitor business data in the background and push prioritized insights to Slack, Salesforce or any MCP-compatible client. The article describes three capabilities that work together: autonomous insights, which explore data for risks nobody thought to ask about; data alerts, which notify on conditions such as a commit drop or a large deal slipping; and intelligence briefs, which run scheduled or on-demand reviews of core KPIs. All three draw on the governed semantic model so calculations follow the organisation's definitions.
