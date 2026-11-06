@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { counted, daysApart, inWindow, unseen } from './bulletin';
+import { bulletinAsOf, counted, dateProblems, daysApart, inWindow, readSiteDates, unseen } from './bulletin';
 
 test('each kind of item stays on the page for its own number of days', () => {
   assert.equal(daysApart('2026-09-22', '2026-10-06'), 14);
@@ -32,4 +32,29 @@ test('a tool release is not counted on the tab', () => {
   assert.equal(counted('release'), false);
   assert.equal(counted('alert'), true);
   assert.equal(counted('community'), true);
+});
+
+test('the Bulletin is as of the latest edition, or its newest item when that is newer, and never older than the front page', () => {
+  assert.equal(bulletinAsOf('2026-11-06', ['2026-10-23', '2026-11-03'], '2026-11-07'), '2026-11-06', 'a quiet Bulletin still takes the edition day');
+  assert.equal(bulletinAsOf('2026-11-05', ['2026-11-06'], '2026-11-07'), '2026-11-06', 'a run that printed only to the Bulletin');
+  assert.equal(bulletinAsOf(undefined, ['2026-10-23'], '2026-11-07'), '2026-10-23');
+  assert.equal(bulletinAsOf(undefined, [], '2026-11-07'), '2026-11-07', 'nothing at all');
+});
+
+test("the site check passes a Bulletin as of the front page's day and names a stale one", () => {
+  assert.deepEqual(dateProblems({ edition: '2026-11-06', asOf: '2026-11-06', newestItem: '2026-11-03' }), []);
+  assert.deepEqual(dateProblems({ edition: '2026-11-05', asOf: '2026-11-06', newestItem: '2026-11-06' }), []);
+  // The case reported from a crawl: the front page on 6 November, the Bulletin on 23 October.
+  const [stale] = dateProblems({ edition: '2026-11-06', asOf: '2026-10-23', newestItem: '2026-10-23' });
+  assert.match(stale, /as of 2026-10-23.*edition is 2026-11-06.*should be as of 2026-11-06/);
+  assert.equal(dateProblems({ edition: '2026-11-06', asOf: '2026-11-07' }).length, 1, 'ahead of everything is wrong too');
+  assert.equal(dateProblems({ edition: '2026-11-06' }).length, 1, 'a Bulletin with no date');
+  assert.equal(dateProblems({ asOf: '2026-11-06' }).length, 1, 'a front page with no edition');
+});
+
+test('the dates are read from the pages as they are built', () => {
+  const home = '<!DOCTYPE html><html lang="en" data-edition="2026-11-06"><head>';
+  const bulletin = '<p class="ledger__note bulletin__asof">As of <time datetime="2026-11-06" data-bulletin-as-of data-newest-item="2026-11-03">Friday, 6 November 2026</time>.</p>';
+  assert.deepEqual(readSiteDates(home, bulletin), { edition: '2026-11-06', asOf: '2026-11-06', newestItem: '2026-11-03' });
+  assert.deepEqual(readSiteDates('<html lang="en">', 'As of Friday.'), { edition: undefined, asOf: undefined, newestItem: undefined });
 });

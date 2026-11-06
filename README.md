@@ -45,6 +45,7 @@ It refuses to run with uncommitted changes and asks before deleting anything. Th
 | `npm run daily` | The pipeline, then a build. |
 | `npm run models` | Lists the models that are free at your provider now. |
 | `npm run check-paper` | Checks `paper.config.ts` and every source. No model calls. |
+| `npm run check-site` | Checks that the built site in `dist/` agrees on the day: the Bulletin is as of the front page's edition. Give it an address (`npm run check-site -- https://…`) to check the live site, past any cache. CI runs it after each build. |
 | `npm run sources` | How each source has done (`-- --days 90` for a longer span), with a verdict on each. |
 | `npm run try-source -- <feed address>` | What a new source would add. `--review 3` has the model score its latest three; `--youtube <channel ID>` tries a channel. |
 | `npm run figures` | Adds missing diagrams to stories. `-- --day YYYY-MM-DD` for one edition, `-- --redo` to draw them again. |

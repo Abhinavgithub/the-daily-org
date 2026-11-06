@@ -51,7 +51,10 @@ const follows = {
   <Tabs current="bulletin" />
   <main class="wrap">
     <div class="ledger bulletin">
-      <p class="ledger__note bulletin__asof">As of {formatDay(latest)}.</p>
+      {/* Dated so a check of the built site can compare it with the front page's edition: see pipeline/check-site.ts. */}
+      <p class="ledger__note bulletin__asof">
+        As of <time datetime={latest} data-bulletin-as-of data-newest-item={items[0]?.data.date}>{formatDay(latest)}</time>.
+      </p>
 
       {
         follows.releases && (

@@ -50,3 +50,40 @@ export function unseen(items: Listed[], seen: string[] | null, latest: string): 
 
 /** Where the browser keeps what has been seen. */
 export const SEEN_KEY = 'bulletin-seen';
+
+/**
+ * The day the Bulletin is as of: the latest edition, or the newest item when a
+ * run printed to the Bulletin without making an edition. Never earlier than the
+ * latest edition, so the page cannot look older than the front page. `today`
+ * is used only when there is nothing at all.
+ */
+export function bulletinAsOf(editionDay: string | undefined, itemDays: string[], today: string): string {
+  return [editionDay, ...itemDays].filter((day): day is string => Boolean(day)).sort().at(-1) ?? today;
+}
+
+/** What a built site says of its dates: the front page's edition, the Bulletin's date, and its newest item. */
+export interface SiteDates {
+  edition?: string;
+  asOf?: string;
+  newestItem?: string;
+}
+
+/**
+ * What is wrong with the dates a built site shows, in words, or nothing. The
+ * Bulletin must be as of exactly what `bulletinAsOf` makes of the front page's
+ * edition and its own newest item: an older date means a stale page was served.
+ */
+export function dateProblems({ edition, asOf, newestItem }: SiteDates): string[] {
+  if (!asOf) return ['The Bulletin does not say what day it is as of.'];
+  if (!edition) return ['The front page does not say what edition it is.'];
+  const expected = bulletinAsOf(edition, newestItem ? [newestItem] : [], asOf);
+  return asOf === expected ? [] : [`The Bulletin is as of ${asOf}, but the front page's edition is ${edition}${newestItem ? ` and its newest item is of ${newestItem}` : ''}: it should be as of ${expected}.`];
+}
+
+/** The dates in the front page's and the Bulletin's HTML, as `dateProblems` takes them. */
+export function readSiteDates(home: string, bulletin: string): SiteDates {
+  const attr = (tag: string | undefined, name: string) => tag?.match(new RegExp(`\\s${name}="(\\d{4}-\\d{2}-\\d{2})"`))?.[1];
+  const html = home.match(/<html\b[^>]*>/)?.[0];
+  const time = bulletin.match(/<time\b[^>]*\sdata-bulletin-as-of\b[^>]*>/)?.[0];
+  return { edition: attr(html, 'data-edition'), asOf: attr(time, 'datetime'), newestItem: attr(time, 'data-newest-item') };
+}

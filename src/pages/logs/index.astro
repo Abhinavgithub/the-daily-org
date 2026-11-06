@@ -15,13 +15,13 @@ import LogReaders from '../../components/LogReaders.astro';
 import LogRun from '../../components/LogRun.astro';
 import Masthead from '../../components/Masthead.astro';
 import Layout from '../../layouts/Layout.astro';
-import { allArticles, byDay, dollars, facts, findings, glance, spending, within } from '../../lib/insights';
+import { allArticles, byDay, dollars, facts, findings, glance, inBulletin, spending, within } from '../../lib/insights';
 import { byNewest, costsByRun, legacyRuns, problems, readLog, readReleaseStatus, runDays, runId, staleEditions, type RunLogData } from '../../lib/logs';
 import { addedOn, addTallies, postsByDay, RULES as SOURCE_RULES, scorecard, standings, type ScoreRow } from '../../lib/sources';
 import { parseReadership } from '../../lib/readership';
 import { formatNumber, parseRuns } from '../../lib/stats';
 import { HELD, HOLD_DAYS } from '../../../pipeline/hold';
-import { formatDay, getAllStories, getEditions } from '../../lib/stories';
+import { formatDay, getAllStories, getBulletin, getEditions } from '../../lib/stories';
 import { loadHandled, loadReaderFeedback, READER_FILE } from '../../../pipeline/verdict-dev';
 
 const data = path.join(process.cwd(), 'data');
@@ -125,6 +125,10 @@ const average = (days: string[]) => (days.length ? Math.round((days.reduce((sum,
 const postDays = [...perDay.keys()];
 const rhythm = { weekday: average(postDays.filter((day) => !weekend(day))), weekend: average(postDays.filter(weekend)) };
 const needing = scores.filter((row) => row.verdict.look);
+// The Bulletin: the day its page is as of, as this build made it, and the last run that printed anything to it.
+const bulletinAsOf = (await getBulletin()).latest;
+const bulletinRun = logs.find((log) => log.articles.some(inBulletin));
+const bulletinAdded = bulletinRun ? bulletinRun.articles.filter(inBulletin).length : 0;
 // The sources that printed anything.
 const givers = storyRows.filter((row) => row.tally.published > 0);
 // In each group, the ones needing a look first, then the most printed.
@@ -263,6 +267,23 @@ const readersUpdated = readerFeedback && fs.existsSync(READER_FILE) ? fs.statSyn
               <dt>Needs a look</dt>
               <dd>{needing.length}</dd>
               <dd class="glance__note">{needing.length ? needing.map((row) => row.name).join(', ') : 'none'}</dd>
+            </div>
+            <div>
+              <dt>Bulletin as of</dt>
+              <dd>{shortDate(bulletinAsOf)}</dd>
+              <dd class="glance__note">
+                {bulletinRun ? (
+                  <>
+                    last added to by the{' '}
+                    <a href={`#${runId(bulletinRun.ranAt)}`} data-run-link>
+                      run {when(bulletinRun.ranAt)}
+                    </a>
+                    , {bulletinAdded} {bulletinAdded === 1 ? 'line' : 'lines'}
+                  </>
+                ) : (
+                  'no run has added to it yet'
+                )}
+              </dd>
             </div>
           </dl>
           <div class="sources__key">

@@ -1,6 +1,6 @@
 import { getCollection, type CollectionEntry } from 'astro:content';
 import { hasBriefs, hasBulletin } from '../content.config';
-import { inWindow } from './bulletin';
+import { bulletinAsOf, inWindow } from './bulletin';
 import { groupEditions } from './editions';
 import { byRank, signalOf, type Signal } from './signal';
 
@@ -28,8 +28,7 @@ export async function getEditions(): Promise<Edition[]> {
  */
 export async function getBulletin(): Promise<{ latest: string; items: BulletinItem[] }> {
   const all = hasBulletin ? await getCollection('bulletin') : [];
-  const newest = [(await getEditions())[0]?.day, ...all.map((item) => item.data.date)].filter((day): day is string => Boolean(day)).sort().at(-1);
-  const latest = newest ?? new Date().toISOString().slice(0, 10);
+  const latest = bulletinAsOf((await getEditions())[0]?.day, all.map((item) => item.data.date), new Date().toISOString().slice(0, 10));
   const items = all.filter((item) => inWindow(item.data.kind, item.data.date, latest)).sort((a, b) => b.data.date.localeCompare(a.data.date) || a.id.localeCompare(b.id));
   return { latest, items };
 }

@@ -15,6 +15,7 @@
     "pipeline": "tsx pipeline/run.ts",
     "models": "tsx pipeline/models.ts",
     "check-paper": "tsx pipeline/check-paper.ts",
+    "check-site": "tsx pipeline/check-site.ts",
     "sources": "tsx pipeline/sources-report.ts",
     "try-source": "tsx pipeline/try-source.ts",
     "new-paper": "tsx pipeline/new-paper.ts",
