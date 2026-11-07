@@ -4,7 +4,7 @@ original_title: "Tableau Data Apps: From Prompt to Trusted Agentic Analytics"
 url: https://www.salesforce.com/blog/tableau-data-apps-from-prompt-to-trusted-agentic-analytics/
 source: Salesforce Blog
 source_type: official
-date: 2026-11-04
+date: 2026-11-07
 section: agentforce-and-ai
 personas:
   - developer
@@ -40,6 +40,7 @@ figure:
     - test
     - rocket
 image: https://www.salesforce.com/blog/wp-content/uploads/sites/2/2026/11/Data-Apps_creation-paths.png?strip=all&#038;quality=95
+held_from: 2026-11-04
 ---
 
 Tableau Data Apps, now in beta, are custom interactive analytical web apps hosted and powered by the Tableau platform. They separate the visual front end from the query engine, so builders can use AI agents to produce apps quickly while the apps still draw on Tableau's semantics, connectivity and governance. The article argues that visualization was never the hard part, and that without an analytics platform agent-built apps risk guessing at business definitions, running slow and costly query loops, and leaking credentials or data.

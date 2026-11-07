@@ -1,0 +1,381 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-11-07T06:31:23.705Z",
+  "day": "2026-11-07",
+  "seconds": 85,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 1
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 0
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 0
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 1
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 1
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 1
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 2
+    },
+    {
+      "id": "sf-blog",
+      "name": "Salesforce Blog",
+      "items": 7
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 6
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 0
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 0
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 1
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 0
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "jitendra-zaa",
+      "name": "Jitendra Zaa",
+      "items": 0
+    },
+    {
+      "id": "simplysfdc",
+      "name": "SimplySfdc",
+      "items": 1
+    },
+    {
+      "id": "salesforcedevops-net",
+      "name": "SalesforceDevOps.net",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 10
+    },
+    {
+      "id": "dev-to-agentforce",
+      "name": "dev.to (Agentforce)",
+      "items": 0
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 19
+    }
+  ],
+  "articles": [
+    {
+      "title": "Hey everyone i urgently need help with something",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xpw5fg/hey_everyone_i_urgently_need_help_with_something/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Employment for Vets: Why Salesforce Champions Military Talent",
+      "url": "https://www.salesforce.com/blog/employment-for-veterans-salesforce-champions-military-talent/",
+      "source": "Salesforce Blog",
+      "outcome": "dropped",
+      "reason": "none of the paper's keywords"
+    },
+    {
+      "title": "Fixing the field-access error in Agentforce Answer Questions with Knowledge",
+      "url": "https://www.infallibletechie.com/2026/11/agentforce-answer-questions-with-knowledge-debugging.html",
+      "source": "InfallibleTechie",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "What Is Salesforce? The CRM, Its Products and Pricing",
+      "url": "https://dev.to/billionverify/what-is-salesforce-the-crm-its-products-and-pricing-nh8",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "How artificial intelligence is changing our shopping this holiday season",
+      "url": "https://dev.to/hacksgr/how-artificial-intelligence-is-changing-our-shopping-this-holiday-season-kc0",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Do you all like Salesforce?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xpjwn9/do_you_all_like_salesforce/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "restricting record views?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xpjaiv/restricting_record_views/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "In-person interview for a Technical Support Engineer",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xpj1tp/inperson_interview_for_a_technical_support/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Spring '27 release updates to test before enforcement, part two",
+      "url": "https://www.salesforceben.com/salesforce-spring-27-release-what-to-expect-and-how-to-prepare-part-2/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 8,
+      "reason": "article title: Salesforce Spring ‘27 Release: What to Expect and How to Prepare (Part 2)"
+    },
+    {
+      "title": "Spring '27 release updates that need testing before enforcement, part one",
+      "url": "https://www.salesforceben.com/salesforce-spring-27-release-what-to-expect-and-how-to-prepare-part-1/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 8,
+      "reason": "article title: Salesforce Spring ‘27 Release: What to Expect and How to Prepare (Part 1)"
+    },
+    {
+      "title": "Salesforce aquasitions",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xpi00s/salesforce_aquasitions/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Stay at a stable but miserable job, or take a senior developer role at a smaller company with no safety net?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xphnut/stay_at_a_stable_but_miserable_job_or_take_a/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Koa Decisions brings fast single-step decision models to Salesforce builders",
+      "url": "https://www.salesforce.com/news/stories/koa-decisions-salesforce-decision-models/",
+      "source": "Salesforce News",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Less Reasoning. More Doing. Meet Koa Decisions."
+    },
+    {
+      "title": "Cert Verification",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xpf58s/cert_verification/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "6 Tips to Measure AEO for SMBs",
+      "url": "https://www.salesforce.com/blog/small-business/measure-aeo-for-small-teams/",
+      "source": "Salesforce Blog",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Finding hidden duplicate Accounts after a Salesforce data migration",
+      "url": "https://dev.to/richardc_ailstudio/how-to-find-duplicate-records-after-a-salesforce-data-migration-before-users-do-25ej",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: How to find duplicate records after a Salesforce data migration (before users do)"
+    },
+    {
+      "title": "Has AI Completely Removed the Need for Trailhead?",
+      "url": "https://www.salesforceben.com/has-ai-completely-removed-the-need-for-trailhead/",
+      "source": "Salesforce Ben",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "What Does a Salesforce CRM Manager Do? (And How to Become One)",
+      "url": "https://www.salesforceben.com/what-does-a-salesforce-crm-manager-do-and-how-to-become-one/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Quick Pages lets users build their own read-only views in beta",
+      "url": "https://www.salesforceben.com/salesforce-announces-quick-pages-let-users-build-their-own-custom-pages/",
+      "source": "Salesforce Ben",
+      "outcome": "held",
+      "score": 7,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Using Flow Orchestration to coordinate multi-step business processes",
+      "url": "https://dev.to/rohanmehta/salesforce-flow-orchestration-coordinating-multi-step-automations-1l72",
+      "source": "dev.to",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "How to f create a support case now?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xpacs4/how_to_f_create_a_support_case_now/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Single sign-on for support tools: is role mapping worth the pain?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xp6qy2/single_signon_for_support_tools_is_role_mapping/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Referral please",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xp6033/referral_please/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Tableau Data Apps bring governed agentic analytics to vibe-coded apps",
+      "url": "https://www.salesforce.com/blog/tableau-data-apps-from-prompt-to-trusted-agentic-analytics/",
+      "source": "Salesforce Blog",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-11-04; printed today, having waited its days for room"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Fixing the field-access error in Agentforce Answer Questions with Knowledge",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Spring '27 release updates to Test before enforcement, part two",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Spring '27 release updates that need testing before enforcement, part one",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Koa Decisions brings fast single-step decision models to Salesforce builders",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Finding hidden duplicate accounts after a Salesforce Data migration",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Quick Pages lets users build their own read-only views in beta",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Using Flow Orchestration to coordinate multi-step business processes",
+      "outcome": "unchanged"
+    }
+  ],
+  "figures": [
+    {
+      "title": "Spring '27 release updates that need testing before enforcement, part one",
+      "outcome": "drawn",
+      "kind": "steps"
+    }
+  ],
+  "model": {
+    "calls": 16,
+    "retries": {},
+    "usage": {
+      "anthropic/claude-haiku-5.5": {
+        "input": 77490,
+        "output": 12477
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    },
+    {
+      "name": "Known Issues",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-11-07T06:32:48.876Z"
+}
