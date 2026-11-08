@@ -4,7 +4,7 @@ original_title: "Complete Guide to Salesforce Go: The Future of Salesforce Setup
 url: https://www.salesforceben.com/complete-guide-to-salesforce-go-the-future-of-salesforce-setup/
 source: Salesforce Ben
 source_type: community
-date: 2026-11-05
+date: 2026-11-08
 section: flow-and-admin
 personas:
   - admin
@@ -35,6 +35,7 @@ figure:
     - gear
     - chart
 image: https://www.salesforceben.com/wp-content/uploads/2025/02/sgo_1.webp
+held_from: 2026-11-05
 ---
 
 Salesforce Go began as Sales Cloud Go to help Sales Cloud admins enable new features, and its scope now covers all Salesforce feature setup. It is found in the Setup menu, and it is available to users with the View Setup and Configuration permission in several editions with Service Cloud. Additional permissions may still be needed depending on the feature being enabled.

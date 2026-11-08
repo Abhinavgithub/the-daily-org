@@ -4,7 +4,7 @@ original_title: Salesforce’s Agentforce Coworker Usage Soars 21x in Three Mont
 url: https://www.salesforce.com/news/stories/agentforce-coworker-surpasses-185k-users/
 source: Salesforce News
 source_type: official
-date: 2026-11-05
+date: 2026-11-08
 section: agentforce-and-ai
 personas:
   - admin
@@ -37,6 +37,7 @@ figure:
     - flow
     - check
 image: https://play.vidyard.com/FGEmowkr3LCzH5sfv7eb2j.jpg
+held_from: 2026-11-05
 ---
 
 Salesforce reports that more than 185,000 users are working with Agentforce Coworker, with usage up 21x in three months. The release adds Conversation History, reusable Skills and scheduled tasks, plus connections to Google Workspace and Microsoft 365 so that email, calendar and file data can sit alongside Salesforce records. Coworker can be used from Microsoft Teams and new iOS, Mac and Windows apps.

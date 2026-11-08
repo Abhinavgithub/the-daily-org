@@ -4,7 +4,7 @@ original_title: "Salesforce Agentforce Coworker: A $50 AI Teammate That Works In
 url: https://dev.to/neuraitool/salesforce-agentforce-coworker-a-50-ai-teammate-that-works-inside-teams-5201
 source: dev.to
 source_type: community
-date: 2026-11-06
+date: 2026-11-08
 section: agentforce-and-ai
 personas:
   - admin
@@ -34,6 +34,7 @@ figure:
       label: Users reported by Salesforce
     - value: 21x
       label: Usage growth reported over three months
+held_from: 2026-11-06
 ---
 
 Salesforce has expanded Agentforce Coworker, an AI teammate that takes delegated work, plans the steps, coordinates agents and returns results for review. The article lists the update: Microsoft Teams integration, Google Workspace and Microsoft 365 connectivity, reusable Skills, Conversation History, iOS, Mac and Windows apps, and a Coworker MCP server that lets it be used from Claude and ChatGPT.

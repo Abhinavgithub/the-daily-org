@@ -4,7 +4,7 @@ original_title: Streamline Your Path to Production with Builder Central
 url: https://admin.salesforce.com/blog/2026/streamline-your-path-to-production-with-builder-central
 source: Salesforce Admins Blog
 source_type: official
-date: 2026-11-06
+date: 2026-11-08
 section: flow-and-admin
 personas:
   - admin
@@ -37,6 +37,7 @@ figure:
     - search
     - check
     - rocket
+held_from: 2026-11-06
 ---
 
 Builder Central is a new no-code experience in beta that lets admins build and deploy apps and agents from plain-language prompts. It works as one hub for work that would otherwise be spread across Setup and several builders, and it draws on the org's existing data model, configuration, security and permissions so that what it creates fits the business and inherits access controls.

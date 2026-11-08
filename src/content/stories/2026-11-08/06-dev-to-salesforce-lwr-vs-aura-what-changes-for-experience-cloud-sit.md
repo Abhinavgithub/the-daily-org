@@ -4,7 +4,7 @@ original_title: "Salesforce LWR vs Aura: what changes for Experience Cloud sites
 url: https://dev.to/salesforcedorian/salesforce-lwr-vs-aura-what-changes-for-experience-cloud-sites-p86
 source: dev.to
 source_type: community
-date: 2026-11-05
+date: 2026-11-08
 section: lwc-and-ui
 personas:
   - developer
@@ -40,6 +40,7 @@ figure:
       - Static, cacheable resources
       - CDN can serve eligible files
       - Republish to expose component changes
+held_from: 2026-11-05
 ---
 
 Lightning Web Runtime (LWR) is the newer runtime behind Experience Cloud templates such as Build Your Own (LWR) and Microsite (LWR). Components are built with Lightning Web Components, and the site publishes prepared, cacheable resources that can be served through a content delivery network. Aura delivers components dynamically, so LWR can load faster, but the article stresses that speed is not guaranteed. Large images, unnecessary API calls and poorly designed custom components still slow pages, and integration changes may matter more than the storefront technology.

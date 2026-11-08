@@ -4,7 +4,7 @@ original_title: "Double recall: Inside the Agentforce Memory update"
 url: https://www.salesforce.com/news/linked-content/double-recall-inside-the-agentforce-memory-update/
 source: Salesforce News
 source_type: official
-date: 2026-11-05
+date: 2026-11-08
 section: agentforce-and-ai
 personas:
   - architect
@@ -41,6 +41,7 @@ figure:
       - 2.2 times as many changed facts
       - Updates treated as corrections
 image: https://www.salesforce.com/blog/wp-content/uploads/sites/2/2026/11/image-18.png
+held_from: 2026-11-05
 ---
 
 Salesforce AI Research built an evaluation framework that generates long, multi-session conversations with specific facts planted along the way, runs them through the live Agentforce system, and then asks questions that depend on those facts. Testing the full path, from the moment a customer mentions something to the moment the agent acts on it, is the basis for the results. The conversations come from ConvoMem, a public benchmark released in 2025.

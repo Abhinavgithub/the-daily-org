@@ -4,7 +4,7 @@ original_title: How to Build a Compliant E-Invoicing Process in Salesforce
 url: https://www.salesforceben.com/how-to-build-a-compliant-e-invoicing-process-in-salesforce/
 source: Salesforce Ben
 source_type: community
-date: 2026-11-05
+date: 2026-11-08
 section: flow-and-admin
 personas:
   - admin
@@ -42,6 +42,7 @@ figure:
     - doc
     - code
 image: https://www.salesforceben.com/wp-content/uploads/2026/11/Germany-E-Invoicing-Key-Dates-Timeline-1-1024x595.webp
+held_from: 2026-11-05
 ---
 
 The article argues that a Salesforce team cannot treat European e-invoicing as one rule set. Each legal entity and transaction must first be checked against the applicable country's deadlines, structured format and exchange method. Germany's ZUGFeRD and XRechnung, which have transition periods running through 2026 and 2027, are contrasted with Belgium's mandatory Peppol-based structured invoicing from January 2026 and France's phased platform-based model starting in September 2026.
