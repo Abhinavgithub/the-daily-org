@@ -1,0 +1,22 @@
+{
+  "kind": "release",
+  "ranAt": "2026-11-08T08:34:11.605Z",
+  "day": "2026-11-08",
+  "seconds": 555,
+  "finished": true,
+  "feeds": [],
+  "articles": [],
+  "proofread": [],
+  "figures": [],
+  "model": {
+    "calls": 9,
+    "retries": {},
+    "usage": {
+      "qwen/qwen3.7-flash": {
+        "input": 11571,
+        "output": 55944
+      }
+    }
+  },
+  "statsAt": "2026-11-08T08:43:26.309Z"
+}

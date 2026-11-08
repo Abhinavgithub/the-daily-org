@@ -213,6 +213,14 @@
 }
 
 // The paper's own reading, told apart from the notes' words by its label.
+// A recent change to the update in the notes, above what it says: the date moved, or its standing.
+.deadlines__changed {
+  margin: 0.2rem 0 0.4rem;
+  font-family: var(--display);
+  font-size: var(--fs-label);
+  font-weight: 600;
+}
+
 .deadlines__label {
   margin-right: 0.35rem;
   font-family: var(--display);

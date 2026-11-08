@@ -13,6 +13,8 @@ import { buildEdition, pickHeadlines, readUpdates } from './release-edition';
 import { due, waiting, type Due } from './release-due';
 import { FRONT_PAGE, helpContext, helpTopic } from './release-notes';
 import { RELEASES_PATH } from './releases';
+import { updateNotices } from './release-notices';
+import { writeNotices } from './write';
 
 // Builds the release edition, when one is owed: once when a new release's notes
 // appear, and once more when the release has reached production. On every other
@@ -21,11 +23,12 @@ import { RELEASES_PATH } from './releases';
 //
 //   npm run release-edition                      build whatever is owed today
 //   npm run release-edition -- --dry-run         say what is owed, and build nothing
-//   npm run release-edition -- --release 264     build that release's edition now, owed or not
+//   npm run release-edition -- --release 264     build that release's edition now, owed or not, keeping what has not changed
+//   npm run release-edition -- --release 264 --full   the same, reading every entry of the notes again
 //   npm run release-edition -- --headlines       choose the newest saved edition's headlines again, without rebuilding it
 //   npm run release-edition -- --deadlines       read the newest saved edition's Release Updates again for the Deadlines page
 
-const { values: args } = parseArgs({ options: { release: { type: 'string' }, 'dry-run': { type: 'boolean' }, headlines: { type: 'boolean' }, deadlines: { type: 'boolean' }, model: { type: 'string' } } });
+const { values: args } = parseArgs({ options: { release: { type: 'string' }, 'dry-run': { type: 'boolean' }, headlines: { type: 'boolean' }, deadlines: { type: 'boolean' }, full: { type: 'boolean' }, model: { type: 'string' } } });
 const notes = PAPER.releaseNotes;
 if (!notes) {
   console.log('This paper has no release notes to read ("releaseNotes" in paper.config.ts). Nothing to do.');
@@ -77,7 +80,7 @@ if (args.headlines || args.deadlines) {
   }
 }
 
-const why = { new: 'its notes have appeared', production: 'it has reached production' };
+const why = { new: 'its notes have appeared', production: 'it has reached production', refresh: 'its notes are owed their weekly check' };
 const which = args.release ? editions.find((edition) => edition.release.number.split('.')[0] === args.release!.split('.')[0]) : editions[0];
 if (args.headlines || args.deadlines) {
   if (!which) {
@@ -147,7 +150,11 @@ for (const one of owed) {
   const llm = new LlmClient({ ...config, models });
   const runLog = new RunLog('release', today);
   try {
-    const edition = await buildEdition(llm, one.number, { areas: notes.areas, log: console.log });
+    // What was built before is compared with the notes, and what has not changed in them is kept as it was.
+    const previous = args.full ? undefined : editions.find((edition) => edition.release.number === one.number);
+    const fromNotes = await buildEdition(llm, one.number, { areas: notes.areas, log: console.log, previous });
+    // A weekly check keeps the day the edition was built: only when it was checked moves.
+    const edition = one.reason === 'refresh' && previous ? { ...fromNotes, builtAt: previous.builtAt } : fromNotes;
     const features = total(edition);
     if (features === 0) {
       console.warn(`  ${edition.release.name}: nothing in its notes cleared the bar yet, so no edition is saved. It is tried again on the next run.`);
@@ -156,7 +163,13 @@ for (const one of owed) {
       fs.mkdirSync(DIR, { recursive: true });
       fs.writeFileSync(path.join(DIR, `${edition.release.slug}.json`), JSON.stringify(edition, null, 2) + '\n');
       console.log(`  ${edition.release.name}: ${features} features printed. ${llm.calls} model calls${llm.costReported ? `, $${llm.cost.toFixed(4)}` : ''}.`);
-      built.push(`${edition.release.name}, ${features} features`);
+      // A Release Update whose day or standing changed, or that is new, is told in the Bulletin's Alerts.
+      const change = edition.changes?.at(-1);
+      const fresh = change && change.at === edition.checkedAt ? change : undefined;
+      const alerts = fresh ? writeNotices(today, updateNotices(edition, fresh.updates)) : [];
+      if (alerts.length) console.log(`  ${alerts.length} ${alerts.length === 1 ? 'alert' : 'alerts'} written to the Bulletin for changed release updates.`);
+      const changed = fresh ? `: ${fresh.added.length} added, ${fresh.changed.length} changed, ${fresh.removed.length} removed, ${fresh.updates.length} release updates changed` : '';
+      built.push(`${edition.release.name}, ${features} features${one.reason === 'refresh' ? `, weekly check${changed || ', no change'}` : changed}`);
     }
   } catch (err) {
     const why = (err as Error).message.slice(0, 200);

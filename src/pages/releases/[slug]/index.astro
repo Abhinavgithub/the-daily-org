@@ -8,6 +8,7 @@ import Tabs from '../../../components/Tabs.astro';
 import Layout from '../../../layouts/Layout.astro';
 import { enforcedNow, headlines, linkTo, printed } from '../../../lib/release-edition';
 import { timingOf } from '../../../lib/deadlines';
+import { LABEL_DAYS, labelOf, removedLately } from '../../../lib/release-changes';
 import { BAR, getReleaseEditions } from '../../../lib/release-store';
 import { countLabel, formatDay } from '../../../lib/stories';
 
@@ -18,6 +19,16 @@ export function getStaticPaths() {
 const { edition } = Astro.props;
 const { name } = edition.release;
 const areas = printed(edition, BAR);
+// What the latest checks of the notes found new or changed, marked for LABEL_DAYS days, and what left the notes.
+const today = new Date().toISOString().slice(0, 10);
+const label = (topic: string) => labelOf(edition, topic, today);
+const LABEL = { added: 'New', changed: 'Changed' };
+const dayMonth = (iso: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(iso));
+const gone = removedLately(edition, today);
+const marked = areas.flatMap((area) => area.products.flatMap((product) => product.features)).map((feature) => label(feature.topic)?.kind);
+const fresh = { added: marked.filter((kind) => kind === 'added').length, changed: marked.filter((kind) => kind === 'changed').length };
+// The Release Updates new or changed in the same days, which the Deadlines page marks.
+const updatesChanged = new Set((edition.changes ?? []).filter((change) => Date.parse(`${today}T23:59:59Z`) - Date.parse(change.at) <= LABEL_DAYS * 86_400_000).flatMap((change) => change.updates.map((update) => update.topic))).size;
 const lead = headlines(edition, BAR);
 const enforced = enforcedNow(edition);
 // What the release enforces is on the Deadlines page; this says how much, and leads there.
@@ -47,6 +58,27 @@ const found = (...parts: string[]) => parts.join(' ').toLowerCase();
         )}
         , as they stood on {formatDay(updated, 'short')}.
       </p>
+      {
+        edition.checkedAt && (
+          <p class="edition__checked">
+            Checked against the notes on {formatDay(edition.checkedAt.slice(0, 10), 'short')}
+            {fresh.added + fresh.changed + gone.length + updatesChanged > 0 ? (
+              <>
+                . In the last {LABEL_DAYS} days: {[fresh.added && `${fresh.added} ${fresh.added === 1 ? 'feature' : 'features'} new`, fresh.changed && `${fresh.changed} changed`, gone.length && `${gone.length} no longer in the notes`].filter(Boolean).join(', ')}
+                {fresh.added + fresh.changed + gone.length > 0 && updatesChanged > 0 && '; '}
+                {updatesChanged > 0 && (
+                  <a href="/deadlines/">
+                    {updatesChanged} release {updatesChanged === 1 ? 'update' : 'updates'} new or changed
+                  </a>
+                )}
+                .
+              </>
+            ) : (
+              '; nothing has changed in them lately.'
+            )}
+          </p>
+        )
+      }
 
       <div class="edition__bar" data-edition-bar>
         <div class="edition__search">
@@ -74,6 +106,7 @@ const found = (...parts: string[]) => parts.join(' ').toLowerCase();
                   <a href={linkTo(edition, feature.topic)} target="_blank" rel="noopener">
                     {feature.name}
                   </a>
+                  {label(feature.topic) && <span class:list={['edition__label', `edition__label--${label(feature.topic)!.kind}`]}>{LABEL[label(feature.topic)!.kind]} {dayMonth(label(feature.topic)!.at)}</span>}
                   <span class="edition__kicker">{feature.product !== feature.area ? feature.product : feature.area}</span>
                 </li>
               ))}
@@ -113,6 +146,7 @@ const found = (...parts: string[]) => parts.join(' ').toLowerCase();
                         <a href={linkTo(edition, feature.topic)} target="_blank" rel="noopener">
                           {feature.name}
                         </a>
+                        {label(feature.topic) && <span class:list={['edition__label', `edition__label--${label(feature.topic)!.kind}`]}>{LABEL[label(feature.topic)!.kind]} {dayMonth(label(feature.topic)!.at)}</span>}
                         <p>{feature.says}</p>
                       </li>
                     ))}
@@ -123,6 +157,25 @@ const found = (...parts: string[]) => parts.join(' ').toLowerCase();
           </details>
         ))}
       </section>
+
+      {
+        gone.length > 0 && (
+          <section class="edition__gone" aria-labelledby="gone-title">
+            <h2 id="gone-title">No longer in the notes</h2>
+            <p>Printed here before, and taken out of the release notes since.</p>
+            <ul>
+              {gone.map((feature) => (
+                <li>
+                  <span class="edition__gone-name">{feature.name}</span>
+                  <span class="edition__kicker">
+                    {feature.area}, gone by {formatDay(feature.at.slice(0, 10), 'short')}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
 
       <div class="empty" data-edition-empty hidden>
         <p>Nothing in this edition matches that search.</p>

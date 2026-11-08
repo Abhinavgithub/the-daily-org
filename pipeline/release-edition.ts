@@ -1,9 +1,11 @@
+import { createHash } from 'node:crypto';
 import { z } from 'zod';
 import { PAPER } from '../src/config';
 import type { Paper } from '../src/paper';
 import { parseJsonLoosely } from './curate';
 import type { ChatMessage, LlmClient } from './llm';
-import { HEADLINES, type Area, type Edition, type Enforced, type Feature } from '../src/lib/release-edition';
+import { compareUpdates, noteChanges } from '../src/lib/release-changes';
+import { HEADLINES, type Area, type Edition, type Enforced, type Feature, type NoteEntry } from '../src/lib/release-edition';
 import { entriesIn, FRONT_PAGE, helpContext, helpTopic, introOf, releaseNamed, topicUrl, type Entry, type HelpContext } from './release-notes';
 import { applyGlossary, sentenceCase } from './style';
 
@@ -228,6 +230,46 @@ Reply with one JSON object and nothing else: {"updates": [ ... ]}, one entry for
   return updates;
 }
 
+/** A short fingerprint of an entry's text, to tell next time whether the notes changed it. */
+export const fingerprint = (entry: Pick<Entry, 'title' | 'text'>) => createHash('sha256').update(`${entry.title}\n${entry.text}`).digest('hex').slice(0, 12);
+
+/**
+ * What of the last build can stand: for each entry of the notes now, the features drawn from it before, when the
+ * entry has not changed since. An entry is read by the model again only when it is new or its text changed. Before
+ * the notes were first kept (`previous.entries` missing), an entry that gave features is taken to be as it was, and
+ * one that gave none is read, since it may be new.
+ */
+export function carryOver(previous: Edition | undefined, entries: NoteEntry[]): { kept: Map<string, Feature[]>; toRead: Set<string> } {
+  const kept = new Map<string, Feature[]>();
+  const toRead = new Set<string>();
+  // An entry is known by its area and topic: the notes can list one under two areas, and it gave features in each.
+  const key = (area: string, topic: string) => `${area}\n${topic}`;
+  const before = new Map((previous?.entries ?? []).map((entry) => [key(entry.area, entry.topic), entry]));
+  const drawn = new Map<string, Feature[]>();
+  for (const area of previous?.areas ?? []) for (const feature of area.features) drawn.set(key(area.name, feature.topic), [...(drawn.get(key(area.name, feature.topic)) ?? []), feature]);
+  for (const entry of entries) {
+    const at = key(entry.area, entry.topic);
+    const unchanged = previous?.entries ? before.get(at)?.hash === entry.hash : drawn.has(at);
+    if (previous && unchanged) kept.set(entry.topic, drawn.get(at) ?? []);
+    else toRead.add(entry.topic);
+  }
+  return { kept, toRead };
+}
+
+/** The editor's reading of a Release Update stands while what the notes say of it is the same. */
+export function keepReadings(previous: Enforced[], now: Enforced[]): { kept: Enforced[]; toRead: number[] } {
+  const was = new Map(previous.map((update) => [update.topic, update]));
+  const kept = [...now];
+  const toRead: number[] = [];
+  now.forEach((update, i) => {
+    const old = was.get(update.topic);
+    if (old?.action && old.says === update.says && old.when === update.when && old.deadline === update.deadline) {
+      kept[i] = { ...update, ...(old.roles ? { roles: old.roles } : {}), action: old.action, ...(old.phrases ? { phrases: old.phrases } : {}) };
+    } else toRead.push(i);
+  });
+  return { kept, toRead };
+}
+
 export interface BuildOptions {
   /** The areas of the notes to read, by the names the notes give them. */
   areas: readonly string[];
@@ -236,6 +278,11 @@ export interface BuildOptions {
   pace?: number;
   log?: (message: string) => void;
   now?: Date;
+  /**
+   * The edition as last built, to compare the notes with: what has not changed in them is kept as it was, and only
+   * what is new or changed is read by the model. Without it every entry is read.
+   */
+  previous?: Edition;
 }
 
 /**
@@ -255,6 +302,8 @@ export async function buildEdition(llm: LlmClient, number: string, options: Buil
   const wanted = (title: string) => listed.find((entry) => entry.title.toLowerCase() === title.toLowerCase());
 
   const areas: Area[] = [];
+  // Every entry of the notes as read today, for the next check to compare with.
+  const snapshot: NoteEntry[] = [];
   for (const title of options.areas) {
     const area = wanted(title);
     if (!area) {
@@ -286,9 +335,16 @@ export async function buildEdition(llm: LlmClient, number: string, options: Buil
       log(`  ${title}: nothing of its own (${introOf(page.html).slice(0, 80) || 'empty'})`);
       continue;
     }
-    const features: Feature[] = [];
-    for (let i = 0; i < entries.length; i += BATCH) features.push(...(await featuresIn(llm, entries.slice(i, i + BATCH), name, title, paper)));
-    log(`  ${title}: ${entries.length} entries read, ${features.length} features kept`);
+    const kept = entries.map((entry) => ({ topic: entry.topic, area: title, product: entry.product, title: entry.title, hash: fingerprint(entry) }));
+    snapshot.push(...kept);
+    const { kept: standing, toRead } = carryOver(options.previous, kept);
+    // Only what is new or changed goes to the model; the rest keeps the features it gave before.
+    const reading = entries.filter((entry) => toRead.has(entry.topic));
+    const drawn: Feature[] = [];
+    for (let i = 0; i < reading.length; i += BATCH) drawn.push(...(await featuresIn(llm, reading.slice(i, i + BATCH), name, title, paper)));
+    // In the notes' own order, whichever way each entry's features were had.
+    const features = entries.flatMap((entry) => standing.get(entry.topic) ?? drawn.filter((feature) => feature.topic === entry.topic));
+    log(`  ${title}: ${entries.length} entries, ${reading.length} read by the model, ${features.length} features kept`);
     areas.push({ name: title, topic: area.topic, features });
   }
 
@@ -299,26 +355,55 @@ export async function buildEdition(llm: LlmClient, number: string, options: Buil
     const page = await helpTopic(updates.topic, number, context, request);
     enforced = page.found ? enforcedFrom(entriesIn(page.html), paper) : [];
     log(`  ${UPDATES}: ${enforced.length} listed`);
+    // The editor's reading of an update the notes say the same of stands; the rest are read.
+    const { kept, toRead } = keepReadings(options.previous?.enforced ?? [], enforced);
+    enforced = kept;
     // A reading that cannot be had leaves the notes' words alone.
-    try {
-      enforced = await readUpdates(llm, enforced, name, paper);
-      log(`  ${UPDATES}: ${enforced.filter((update) => update.action).length} read for the deadlines page`);
-    } catch (error) {
-      log(`  ${UPDATES}: not read (${(error as Error).message.slice(0, 80)})`);
+    if (toRead.length > 0) {
+      try {
+        const read = await readUpdates(llm, toRead.map((i) => enforced[i]), name, paper);
+        toRead.forEach((i, n) => (enforced[i] = read[n]));
+        log(`  ${UPDATES}: ${toRead.length} read for the deadlines page, ${enforced.length - toRead.length} as they were`);
+      } catch (error) {
+        log(`  ${UPDATES}: not read (${(error as Error).message.slice(0, 80)})`);
+      }
     }
   }
-  // Which of them lead the edition. A choice that cannot be had leaves the page to choose by score.
-  let chosen: { topic: string; name: string }[] = [];
-  try {
-    chosen = await pickHeadlines(llm, areas, name, HEADLINES, paper);
-    log(`  Headlines: ${chosen.length} chosen`);
-  } catch (error) {
-    log(`  Headlines: not chosen (${(error as Error).message.slice(0, 80)})`);
-  }
+  // Which of them lead the edition: as chosen before while every one is still there, or chosen again.
+  // A choice that cannot be had leaves the page to choose by score.
+  const all = areas.flatMap((area) => area.features);
+  const before = options.previous?.headlines ?? [];
+  let chosen: { topic: string; name: string }[] = before.length > 0 && before.every((pick) => all.some((feature) => feature.topic === pick.topic && feature.name === pick.name)) ? before : [];
+  if (chosen.length === 0) {
+    try {
+      chosen = await pickHeadlines(llm, areas, name, HEADLINES, paper);
+      log(`  Headlines: ${chosen.length} chosen`);
+    } catch (error) {
+      log(`  Headlines: not chosen (${(error as Error).message.slice(0, 80)})`);
+    }
+  } else log('  Headlines: as chosen before');
+
+  // What changed in the notes since the last check. Before the notes were first kept, only the Release Updates,
+  // which every edition has kept, can be compared.
+  const at = (options.now ?? new Date()).toISOString();
+  const previous = options.previous;
+  const change = previous
+    ? noteChanges(
+        at,
+        previous.entries ?? snapshot,
+        snapshot,
+        previous.areas.flatMap((area) => area.features.map((feature) => ({ ...feature, area: area.name }))),
+        compareUpdates(previous.enforced, enforced),
+      )
+    : undefined;
+  if (change) log(`  Changed since the last check: ${change.added.length} added, ${change.changed.length} changed, ${change.removed.length} printed features gone, ${change.updates.length} release updates`);
   return {
     release: { name, number, slug: slugOf(name) },
     notesPublished: front.published,
-    builtAt: (options.now ?? new Date()).toISOString(),
+    builtAt: at,
+    checkedAt: at,
+    entries: snapshot,
+    ...(previous?.changes || change ? { changes: [...(previous?.changes ?? []), ...(change ? [change] : [])] } : {}),
     model: Object.keys(llm.usage)[0] ?? '',
     link: topicUrl('{topic}', number),
     notes: topicUrl(FRONT_PAGE, number),

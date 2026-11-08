@@ -4,6 +4,8 @@ import type { Pending } from '../../pipeline/dedupe';
 import type { State } from '../../pipeline/state';
 import { OUTCOME_LABELS, proofFate, runId, type ArticleOutcome, type ReleaseStatus, type RunLogData } from './logs';
 import type { Release } from './releases';
+import { updateLine } from './release-changes';
+import type { NotesChange } from './release-edition';
 import type { ReportRow } from './verdict';
 
 // The review queue (/logs/review/): what needs the editor's eye, from every place the paper keeps it, as one list.
@@ -278,6 +280,8 @@ export interface EditionFacts {
   builtAt: string;
   notesPublished?: string;
   notes?: string;
+  /** What the checks of the notes found changed, the oldest first. */
+  changes?: NotesChange[];
 }
 
 /** What is new about releases: a check that could not be made, an edition just built, and a release about to start. */
@@ -298,10 +302,32 @@ export function releasesFrom(status: ReleaseStatus | undefined, editions: Editio
       id: `release-edition:${edition.slug}:${edition.builtAt}`,
       kind: 'release',
       title: `${edition.name} release edition built`,
-      says: `Built ${dayName(edition.builtAt)} from the notes as published ${edition.notesPublished ? dayName(edition.notesPublished) : 'on an unknown day'}. Worth a read before readers see it.`,
+      says: `Built ${dayName(edition.builtAt)}${edition.notesPublished ? `; the notes were last revised ${dayName(edition.notesPublished)}` : ''}. Worth a read before readers see it.`,
       at: edition.builtAt,
       links: [{ label: 'The edition', href: `/releases/${edition.slug}/` }, ...(edition.notes ? [{ label: 'The notes', href: edition.notes, external: true }] : [])],
     });
+  }
+  // What a check of the notes found changed lately: worth a look, and a moved deadline most of all.
+  for (const edition of editions) {
+    for (const change of (edition.changes ?? []).filter((one) => one.at >= since(now, REVIEW_DAYS))) {
+      const counts = [change.added.length && `${change.added.length} new`, change.changed.length && `${change.changed.length} changed`, change.removed.length && `${change.removed.length} printed ${change.removed.length === 1 ? 'feature' : 'features'} gone`].filter(Boolean);
+      // A sentence for each kind of change to the Release Updates, the new and the gone each listed once.
+      const of = (kind: string) => change.updates.filter((update) => update.kind === kind);
+      const names = (kind: string) => of(kind).map((update) => update.name).join('; ');
+      const updates = [
+        of('new').length && `${of('new').length === 1 ? 'New release update' : 'New release updates'}: ${names('new')}.`,
+        ...[...of('date'), ...of('status')].map((update) => `${update.name}: ${updateLine(update)}.`),
+        of('removed').length && `Gone from the notes: ${names('removed')}.`,
+      ].filter((line): line is string => Boolean(line));
+      items.push({
+        id: `release-change:${edition.slug}:${change.at}`,
+        kind: 'release',
+        title: `The ${edition.name} notes changed`,
+        says: `Checked ${dayName(change.at)}. ${counts.length ? `Entries: ${counts.join(', ')}.` : ''}${updates.length ? ` ${updates.join(' ')}` : ''}`.trim(),
+        at: change.at,
+        links: [{ label: 'The edition', href: `/releases/${edition.slug}/` }, ...(updates.length ? [{ label: 'Deadlines', href: '/deadlines/' }] : [])],
+      });
+    }
   }
   for (const release of releases) {
     for (const stage of release.stages) {

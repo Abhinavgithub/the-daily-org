@@ -206,3 +206,43 @@ export function writeBulletin(day: string, kind: BulletinKind, items: Publishabl
     return file;
   });
 }
+
+/** A notice the paper writes itself, for the Bulletin's Alerts: a headline, its flag, one line, and a short account. */
+export interface Notice {
+  title: string;
+  /** Where the source says it, outside the paper. */
+  url: string;
+  source: string;
+  flag: string;
+  line: string;
+  facts?: string;
+  /** Markdown, printed under the headline. */
+  body: string;
+}
+
+/**
+ * Write notices into the day's folder of the Bulletin, as alerts. One already written that day under the same
+ * headline is not written again, so a check run twice in a day says it once. Returns the paths written.
+ */
+export function writeNotices(day: string, notices: Notice[], bulletinDir = BULLETIN_DIR): string[] {
+  const dir = path.join(bulletinDir, day);
+  fs.mkdirSync(dir, { recursive: true });
+  const names = () => fs.readdirSync(dir).filter((f) => f.endsWith('.md'));
+  // Known by the whole headline: a file's name is cut short, and two headlines can begin alike.
+  const titles = new Set(names().flatMap((name) => {
+    const title = openStory(fs.readFileSync(path.join(dir, name), 'utf8'))?.doc.get('title');
+    return typeof title === 'string' ? [title] : [];
+  }));
+  return notices.flatMap((notice) => {
+    if (titles.has(notice.title)) return [];
+    titles.add(notice.title);
+    const taken = new Set(names());
+    const number = String(names().length + 1).padStart(2, '0');
+    let name = `${number}-notice-${slugify(notice.title)}.md`;
+    for (let n = 2; taken.has(name); n++) name = `${number}-notice-${slugify(notice.title)}-${n}.md`;
+    const file = path.join(dir, name);
+    const frontmatter = { kind: 'alert', title: notice.title, url: notice.url, source: notice.source, date: day, line: notice.line, flag: notice.flag, ...(notice.facts ? { facts: notice.facts } : {}) };
+    fs.writeFileSync(file, `---\n${stringify(frontmatter, { lineWidth: 0 })}---\n\n${notice.body}\n`);
+    return [file];
+  });
+}

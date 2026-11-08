@@ -651,3 +651,73 @@ span.dateline__step {
     display: none;
   }
 }
+
+// Following the notes after the edition is built ---------------------------
+// When they were last compared with it, under the line of where the edition came from.
+.edition__checked {
+  margin: -0.6rem 0 1rem;
+  text-align: center;
+  color: var(--muted);
+}
+
+// A feature the latest checks found new or changed: a small tag after its name, in words, not colour alone.
+.edition__label {
+  display: inline-block;
+  margin-left: 0.45rem;
+  padding: 0.05rem 0.4rem;
+  font-family: var(--display);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  vertical-align: 0.12em;
+  white-space: nowrap;
+  border: 1px solid currentColor;
+}
+
+.edition__label--added {
+  color: var(--sun);
+}
+
+.edition__label--changed {
+  color: var(--muted);
+}
+
+// What was printed and has left the notes since: set apart, greyed, after the areas.
+.edition__gone {
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-family: var(--display);
+  color: var(--muted);
+
+  h2 {
+    margin: 0 0 0.3rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  p {
+    margin: 0 0 0.6rem;
+  }
+
+  ul {
+    display: grid;
+    gap: 0.5rem;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+}
+
+.edition__gone-name {
+  text-decoration: line-through;
+  text-decoration-color: var(--rule);
+}
+
+.edition__checked a {
+  color: var(--sky);
+  text-decoration: underline;
+  text-underline-offset: 0.15em;
+}

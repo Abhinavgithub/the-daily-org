@@ -11,7 +11,7 @@ What is in `data/` and `src/content/`, what writes each file, and the type that 
 | `data/sources.json` | each feed's last success and failures in a row (`pipeline/state.ts`) | `State` in `pipeline/state.ts` | committed |
 | `data/held/*.md` | a full day's surplus, as story files (`pipeline/hold.ts`) | story front matter, `src/content.config.ts` | committed |
 | `data/releases.json` | release dates from Trust (`pipeline/releases.ts`) | `Release` in `src/lib/releases.ts` | committed |
-| `data/release-editions/<release>.json` | `npm run release-edition` (`pipeline/release-edition.ts`) | `Edition` in `src/lib/release-edition.ts` | committed |
+| `data/release-editions/<release>.json` | `npm run release-edition` (`pipeline/release-edition.ts`): the edition, and since 8 Nov a fingerprint of every entry of the notes at the last check (`entries`) and what each check found changed (`changes`) | `Edition` in `src/lib/release-edition.ts` | committed |
 | `data/release-edition-status.json` | the last release-edition check (`pipeline/release-edition-cli.ts`) | `ReleaseStatus` in `src/lib/logs.ts` | committed |
 | `data/known-issues.json` | every run (`pipeline/known-issues.ts`): each issue's status and affected count by day, a day only when it changed | `Watch` in `pipeline/known-issues.ts` | committed |
 | `data/quote.json` | the share price at the last close (`pipeline/quote.ts`) | `Quote` in `src/lib/quote.ts` | committed |

@@ -58,7 +58,7 @@ export async function reviewQueue({ withReports, now = new Date() }: { withRepor
       return story ? [{ name, data: story.doc.toJS() as Record<string, unknown>, body: story.body }] : [];
     });
 
-  const editions = getReleaseEditions().map((edition) => ({ name: edition.release.name, slug: edition.release.slug, builtAt: edition.builtAt, notesPublished: edition.notesPublished, notes: edition.notes }));
+  const editions = getReleaseEditions().map((edition) => ({ name: edition.release.name, slug: edition.release.slug, builtAt: edition.builtAt, notesPublished: edition.notesPublished, notes: edition.notes, changes: edition.changes }));
   const sourceName = (id: string) => SOURCES.find((source) => source.id === id)?.name ?? id;
   const byStory = new Map(stories.map((story) => [story.id, { title: story.data.title, href: storyHref(story), url: story.data.url }]));
 

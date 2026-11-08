@@ -50,7 +50,7 @@ Check a box when the step is built, tested and committed.
 - [x] **Review queue** (built 8 Nov): `/logs/review/`, one list of what needs the editor's eye. It covers folds and proof-reads to check, reader reports, held stories, what waits to be judged, failing feeds, Known Issues the 9c rule would print, and release notes. Each item has its source, where it is printed, and its life through the runs. Done is saved in `data/review.json` under `npm run dev`. No model calls.
 
 Later, not now:
-- **Follow the release notes' revisions** (was 6c, left on 7 Oct). After its second build a release edition is never refreshed, though Salesforce goes on revising the notes. If that turns out to matter, rebuild when the notes change, at most once a week.
+- [x] **Follow the release notes' revisions** (was 6c, left on 7 Oct; built 8 Nov). After its second build the notes are checked once a week while the release is current. Each check compares a fingerprint of every entry with the last, has only what is new or changed read by the model, marks features New or Changed for 30 days, lists what left the notes, and tells a new or moved Release Update in the Bulletin and on its Deadlines card. The first check, on 8 Nov, found four MFA release updates added on 6 Nov, for $0.008.
 - **A paper that remembers the reader** (saved stories, the role filter kept between visits, new since the last visit) and **a hub page per release**. Discussed 24 Oct, not chosen; "new since the last visit" turned down again 4 Nov.
 
 Out of scope for now:

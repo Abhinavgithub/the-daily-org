@@ -14,6 +14,7 @@ import Layout from '../../layouts/Layout.astro';
 import { deadlineId, deadlinesFrom, groupLine, grouped, storiesAbout } from '../../lib/deadlines';
 import { readReleases } from '../../lib/releases';
 import { getReleaseEditions } from '../../lib/release-store';
+import { updateChangeOf, updateLine } from '../../lib/release-changes';
 import { getAllStories, storyHref } from '../../lib/stories';
 
 let releases = readReleases(null);
@@ -23,7 +24,14 @@ try {
   // No dates have been read yet, or the file is unreadable.
 }
 const today = new Date().toISOString().slice(0, 10);
-const deadlines = deadlinesFrom(getReleaseEditions());
+const editions = getReleaseEditions();
+const deadlines = deadlinesFrom(editions);
+// What a recent check of the notes found changed about an update: its day moved, its standing, or new to them.
+const changeOf = (deadline: (typeof deadlines)[number]) => {
+  const edition = editions.find((one) => one.release.name === deadline.from);
+  return edition && updateChangeOf(edition, deadline.topic, today);
+};
+const dayMonth = (iso: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(iso));
 const groups = grouped(deadlines, releases, today);
 // What a story says, for finding the stories about an update.
 const stories = (await getAllStories()).map((story) => ({
@@ -73,6 +81,11 @@ const heading = (group: (typeof groups)[number]) => (group.kind === 'unknown' ? 
                         {deadline.name}
                       </a>
                     </h4>
+                    {changeOf(deadline) && (
+                      <p class="deadlines__changed">
+                        <span class="deadlines__label">Changed {dayMonth(changeOf(deadline)!.at)}</span> {updateLine(changeOf(deadline)!).replace(/^./, (first) => first.toUpperCase())}.
+                      </p>
+                    )}
                     <p class="bulletin__text">{deadline.says}</p>
                     {deadline.action && (
                       <p class="bulletin__text deadlines__reading">

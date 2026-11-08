@@ -142,6 +142,30 @@ test('releases: a check that failed, an edition just built, and a release about 
   );
   assert.match(items[2].says, /^In 12 days/);
   assert.equal(releasesFrom({ at: NOW.toISOString(), outcome: 'nothing-owed' }, [], [], '2026-11-08', NOW).length, 0);
+  const changed = releasesFrom(
+    undefined,
+    [
+      {
+        name: "Winter '27",
+        slug: 'winter-27',
+        builtAt: '2026-10-10T06:00:00.000Z',
+        changes: [
+          { at: '2026-10-01T06:00:00Z', added: ['x'], changed: [], removed: [], updates: [] },
+          { at: '2026-11-07T06:00:00Z', added: ['a', 'b'], changed: ['c'], removed: [{ topic: 'd', name: 'D', area: 'Flow' }], updates: [{ topic: 't', name: 'Enforce TLS 1.3', kind: 'date', was: '1 Dec 2026', now: '2 Feb 2027' }] },
+        ],
+      },
+    ],
+    [],
+    '2026-11-08',
+    NOW,
+  );
+  assert.equal(changed.length, 1, 'a check older than the review window is not listed');
+  assert.equal(changed[0].title, "The Winter '27 notes changed");
+  assert.equal(changed[0].says, 'Checked Sat 7 Nov. Entries: 2 new, 1 changed, 1 printed feature gone. Enforce TLS 1.3: its day moved from 1 Dec 2026 to 2 Feb 2027.');
+  assert.deepEqual(
+    changed[0].links.map((link) => link.label),
+    ['The edition', 'Deadlines'],
+  );
 });
 
 test('reader reports not yet dealt with, with the story they are about', () => {

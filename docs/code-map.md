@@ -23,7 +23,7 @@ Which file does what. Every source file opens with a comment saying what it is f
 | 8. Write | `write.ts` | Story Markdown into `src/content/`. |
 | 9. Diagrams | `figure.ts`, `figures.ts` | One diagram per story, and the edition's social card. |
 | 10. Record | `log.ts` | One file per run in `data/logs/`, plus a line in `data/stats.jsonl`. |
-| 11. Release edition | `release-edition-cli.ts` → `release-due.ts`, `release-notes.ts`, `release-edition.ts` | Only when one is owed. |
+| 11. Release edition | `release-edition-cli.ts` → `release-due.ts`, `release-notes.ts`, `release-edition.ts`, `release-notices.ts` | Only when one is owed: a new release, its second build, or its weekly check. What changed in the notes is worked out by `src/lib/release-changes.ts`; a changed Release Update becomes a Bulletin alert. |
 
 `llm.ts` is the model client (retries, fallbacks, cost cap). `settings.ts` reads numbers from options or `.env`.
 

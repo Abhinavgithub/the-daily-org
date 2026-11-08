@@ -53,7 +53,7 @@ It refuses to run with uncommitted changes and asks before deleting anything. Th
 | `npm run revise -- --glossary-only` | Re-applies the glossary to every story, with no model calls. |
 | `npm run feedback` | Records what the paper got wrong: `-- junk <address>` for a printed story that should not have run, `-- missed <address>` for one it skipped, `-- list` to review. Kept in `data/feedback.jsonl`. Under `npm run dev` the Logs page does the same with a button on each article. |
 | `npm run replay` | Judges the flagged articles again, with some the paper got right, under the rules as they stand, to measure a change to them. `-- --prefilter-only` makes no model calls; `-- --compare` lists what changed since the last replay; `-- --runs 2` finds unstable verdicts. Publishes nothing. |
-| `npm run release-edition` | Builds the release edition when one is owed, and does nothing otherwise. The daily run calls it. `-- --dry-run` says what is owed; `-- --release 264` builds that release's edition now; `-- --deadlines` reads the newest edition's release updates again for the Deadlines page. |
+| `npm run release-edition` | Builds the release edition when one is owed, and does nothing otherwise. The daily run calls it. `-- --dry-run` says what is owed; `-- --release 264` builds that release's edition now, keeping what has not changed (`-- --full` reads every entry again); `-- --deadlines` reads the newest edition's release updates again for the Deadlines page. |
 | `npm run favicon` | Redraws the icons from the paper's name and colours. |
 | `npm run check` / `npm run lint` / `npm test` | Type-checks, lints, and runs the tests. |
 
@@ -118,7 +118,9 @@ A release of the paper's subject gets an edition of its own, made from the offic
 
 The page opens short: the headlines by name, what the release enforces in every org, and the notes' areas, closed. An area opens to its products and features, and one box searches all of it.
 
-An edition is built twice and no more. The first time is when the notes of a new release appear. The second is on the day the release has reached the last of production, by when the notes have been filled out; that date comes from `releases`. The notes are revised all through a release, and the edition does not follow them day by day. While no release is awaited and no second build is owed, the notes are not asked at all.
+An edition is built when the notes of a new release appear, and again on the day the release has reached the last of production, by when the notes have been filled out; that date comes from `releases`. After that the notes are checked once a week while the release is current: until the next release has reached production, since until then most orgs are still on it. While nothing is awaited, owed or due its check, the notes are not asked at all.
+
+Salesforce revises the notes all through a release, so each build or check keeps a fingerprint of every entry in the notes, and the next one compares the notes with it (`src/lib/release-changes.ts`). Only what is new or changed is read by the model; the rest keeps the features it gave before, word for word, so a check that finds nothing costs nothing but the requests. The page says when the notes were last checked, marks a feature New or Changed for 30 days, and lists what it printed that has since left the notes. A Release Update that is new, whose day moved, or that is filed under another heading is marked on its card on the Deadlines page and told in the Bulletin's Alerts, and the calendar follows the new day.
 
 The notes are read the way Salesforce's help site reads them, which is not a published service and can change. If it does, the day's paper is written as usual and the edition already saved stays.
 
@@ -137,7 +139,7 @@ A YouTube video is judged on its transcript, with the description its uploader w
 
 - With free models the paper costs nothing. Free tiers limit requests per day; `LLM_MAX_CALLS` keeps a run inside yours.
 - Paid models need `LLM_ALLOW_PAID=1`. Set `LLM_MAX_COST_USD`, and a credit limit on the key as well.
-- A release edition is about $0.02 a build on a cheap paid model, and is built twice a release.
+- A release edition is about $0.02 a build on a cheap paid model, and is built twice a release. Its weekly check reads only what changed: the first, which had no fingerprints to compare with, cost $0.008.
 - A run makes one call for each article it judges, which also writes the story's diagram (the page draws it as SVG), one call that gives every forum post its first look, and one that proof-reads the whole edition.
 
 ## Pages

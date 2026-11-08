@@ -53,6 +53,44 @@ export interface Edition {
   enforced: Enforced[];
   /** The features the editor chose to lead with, first to last, each known by its topic and its name. */
   headlines?: { topic: string; name: string }[];
+  /** When the edition was last compared with the notes as they stand. Missing on one never compared. */
+  checkedAt?: string;
+  /** Every entry the notes listed at that check, to compare the next one with (src/lib/release-changes.ts). */
+  entries?: NoteEntry[];
+  /** What each check found changed in the notes, the oldest first. A check that found nothing is not listed. */
+  changes?: NotesChange[];
+}
+
+/** An entry of the notes as it stood at a check: enough to tell, next time, whether it is new, changed or gone. */
+export interface NoteEntry {
+  topic: string;
+  area: string;
+  product: string;
+  title: string;
+  /** A short fingerprint of the entry's text. */
+  hash: string;
+}
+
+/** What one check of the notes found changed since the one before. */
+export interface NotesChange {
+  at: string;
+  /** Entries new to the notes, and entries whose text changed, by topic. */
+  added: string[];
+  changed: string[];
+  /** Features the edition printed whose entries left the notes, as they were printed. */
+  removed: { topic: string; name: string; area: string }[];
+  /** What changed in the Release Updates. */
+  updates: UpdateChange[];
+}
+
+/** A Release Update that is new, or whose day or standing changed, or that left the notes. */
+export interface UpdateChange {
+  topic: string;
+  name: string;
+  kind: 'new' | 'date' | 'status' | 'removed';
+  /** For a day or a standing: what it was, and what it is. */
+  was?: string;
+  now?: string;
 }
 
 /** The fewest points a feature needs to be printed, unless the paper says otherwise. */
