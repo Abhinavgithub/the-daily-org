@@ -18,7 +18,7 @@ Which file does what. Every source file opens with a comment saying what it is f
 | 3. Set aside what was seen | `dedupe.ts` | `data/seen.json`, and `data/pending.json` for videos waiting on captions. |
 | 4. Read the article | `extract.ts`, `authors.ts`, `transcript.ts` | The article's text, its writers, a video's transcript. |
 | 5. Cheap rules, then the model | `curate.ts` | Keyword rules, then the model scores and writes the story. Forum posts get `firstLook` first. |
-| 6. Decide | `decide.ts`, `hold.ts` | Published, held for a quieter day, brief, or dropped. Pure functions. |
+| 6. Decide | `decide.ts`, `hold.ts`, `same-story.ts` | Published, held for a quieter day, brief, or dropped. A story told again becomes a line under the first: the model is asked, and `same-story.ts` compares headlines behind it, on arrival and again once held stories are printed, against the day and the week before. |
 | 7. Proof-read | `curate.ts` (`proofread`, `proofreadAll`), `style.ts` | The model proof-reads; `style.ts` then applies the house style in code. |
 | 8. Write | `write.ts` | Story Markdown into `src/content/`. |
 | 9. Diagrams | `figure.ts`, `figures.ts` | One diagram per story, and the edition's social card. |

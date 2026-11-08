@@ -28,6 +28,27 @@ also:
   - title: "Winter ’27: What Admins Should Check Before Their Org Upgrades"
     url: https://admin.salesforce.com/blog/2026/winter-27-what-admins-should-check-before-their-org-upgrades-podcast
     source: Salesforce Admins Blog
+  - title: Collection Filter Criteria Resource in Flow
+    url: https://salesforcetime.com/2026/10/18/collection-filter-criteria-resource-in-flow/
+    source: Salesforce Time
+figure:
+  kind: compare
+  caption: Comparison of the new Collection Filter Criteria resource against existing Flow elements
+  left:
+    heading: Collection Filter Criteria
+    points:
+      - Configured via Manager tab
+      - Returns only first match
+      - Eliminates extra Loop steps
+      - Supports child relationships
+  right:
+    heading: Collection Filter and Sort
+    points:
+      - Placed directly on canvas
+      - Returns full record collection
+      - Requires additional Loop steps
+      - Standard element configuration
+figure_image: /figures/2026-10-18/01-salesforce-time-collection-filter-criteria-resource-in-flow.webp
 ---
 
 Introduces the Collection Filter Criteria Resource as a Winter '27 preview feature that shifts collection filtering from canvas elements to the resource manager. It replaces the traditional Collection Filter node, allowing administrators to define dynamic filter conditions and sort orders directly in memory without triggering additional SOQL queries or DML operations.

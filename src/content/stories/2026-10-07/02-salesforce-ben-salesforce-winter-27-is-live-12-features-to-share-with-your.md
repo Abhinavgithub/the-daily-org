@@ -25,6 +25,10 @@ novelty_score: 8
 utility_score: 8
 model: qwen/qwen3.7-flash
 image: https://www.salesforceben.com/wp-content/uploads/2026/08/2026-08-18-21.38.09.gif
+also:
+  - title: "Salesforce Winter ’27 Is Live: 4 Features to Share With Your Users"
+    url: https://www.youtube.com/watch?v=bVoR2CfL-lI
+    source: Salesforce Ben on YouTube
 ---
 
 The release introduces Test Mode for Flow Builder, enabling repeatable testing with assertions and mock outputs for external callouts. Screen Flows launched from List Views or Related Lists can now process multiple selected records by accepting a lowercase ids collection variable. Reactive Formulas allow Conditional Visibility to evaluate same-screen inputs instantly, while new save-time validation catches missing Required Fields and character limit breaches before runtime.

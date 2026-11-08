@@ -37,6 +37,10 @@ figure:
     - warning
     - shield
     - gear
+also:
+  - title: Salesforce Expands Agent Fabric to Automatically Stop Runaway Costs and AI Agent Failures Before They Impact Customers
+    url: https://www.salesforce.com/news/stories/agent-fabric-catch-failures-control-ai-costs/
+    source: Salesforce News
 ---
 
 Salesforce is introducing Agent Evals, API Evals and advanced cost controls for Agent Fabric, its control plane for AI agents. The company says that problems in agents, such as changes in models, APIs or costs, can surface silently, and that resolving them today means finding the owner and getting approval to restrict an agent while it keeps producing bad results and spending tokens.

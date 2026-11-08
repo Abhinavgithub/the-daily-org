@@ -97,6 +97,8 @@ export interface Printed {
   file: string;
   /** The headline, as printed. */
   title: string;
+  /** The article's own title, which a later telling's headline is compared with too. */
+  original?: string;
   score: number;
   /** The piece itself, as the line it becomes under a better telling. */
   told: Also;
@@ -105,7 +107,7 @@ export interface Printed {
 
 /** A story just written, as it stands in the edition. */
 export function printed(file: string, { item, curated, also }: Publishable): Printed {
-  return { file, title: curated.verdict.title, score: curated.verdict.interest_score, told: { title: item.title, url: item.url, source: item.source.name }, also: also ?? [] };
+  return { file, title: curated.verdict.title, original: item.title, score: curated.verdict.interest_score, told: { title: item.title, url: item.url, source: item.source.name }, also: also ?? [] };
 }
 
 /** The story files in a folder, by name, each with its front matter. A file with none that can be read is left out. */
@@ -128,7 +130,8 @@ export function readEdition(day: string, storiesDir = STORIES_DIR): Printed[] {
     // A file that cannot be read as a story is left out: it is nothing an item can be the same as.
     if (typeof data.title !== 'string' || typeof data.url !== 'string' || typeof data.interest_score !== 'number') return [];
     const told = { title: typeof data.original_title === 'string' ? data.original_title : data.title, url: data.url, source: String(data.source ?? '') };
-    return [{ file, title: data.title, score: data.interest_score, told, also: Array.isArray(data.also) ? (data.also as Also[]) : [] }];
+    const original = typeof data.original_title === 'string' ? data.original_title : undefined;
+    return [{ file, title: data.title, original, score: data.interest_score, told, also: Array.isArray(data.also) ? (data.also as Also[]) : [] }];
   });
 }
 

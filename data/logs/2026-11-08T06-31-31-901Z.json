@@ -203,7 +203,7 @@
       "source": "Salesforce News",
       "outcome": "published",
       "score": 6,
-      "reason": "held since 2026-11-05; printed today, having waited its days for room"
+      "reason": "the same story as \"Agentforce Memory policy update roughly doubles recall of stated and changing facts\", printed on 2026-11-04, found by its headline; printed as a line under it (folded on 8 Nov, after the run)"
     },
     {
       "title": "Building an e-invoicing process in Salesforce across german, belgian and french Rules",
@@ -251,7 +251,7 @@
       "source": "dev.to",
       "outcome": "published",
       "score": 6,
-      "reason": "held since 2026-11-06 for a quieter day, and printed today"
+      "reason": "the same story as \"Agentforce Coworker adds Teams, mobile and desktop access and a $50 per-user price\", found by its headline; printed as a line under it (folded on 8 Nov, after the run)"
     }
   ],
   "proofread": [

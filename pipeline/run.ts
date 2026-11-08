@@ -23,6 +23,7 @@ import { scoreThreshold, setting } from './settings';
 import { SOURCES } from './sources';
 import { DATA_DIR, HELD, holdOver, dueToday, release } from './hold';
 import { failingSources, loadState, lookBackDays, recordComplete, recordFailure, recordFetched, recordNewest, saveState } from './state';
+import { sameAs, foldRepeats } from './same-story';
 import { addAlso, openStory, printed, readEdition, removeStory, STORIES_DIR, storyText, writeBriefs, writeBulletin, writeStories, type Printed, type Publishable } from './write';
 
 const { values: args } = parseArgs({
@@ -498,7 +499,10 @@ for (const [i, { item, key, text, image, basis }] of candidates.entries()) {
     const v = curated.verdict;
     tally.reviewed++;
     tally.scores.push(v.interest_score);
-    const desk = route(item, v, edition, threshold);
+    // The editor may miss a story it was shown; one whose headline is the same story's is caught here (see same-story.ts).
+    const byHeadline = v.same_as ? undefined : sameAs({ title: v.title, original: item.title }, edition);
+    const desk = route(item, byHeadline === undefined ? v : { ...v, same_as: byHeadline + 1 }, edition, threshold);
+    const found = byHeadline === undefined ? '' : ', found by its headline';
     if (desk.desk === 'alert') {
       console.log(`  [${i + 1}/${candidates.length}] ${item.alert!.label}, for the Bulletin: ${item.title}`);
       runLog.article({ ...entry, title: v.title, outcome: 'published', score: v.interest_score, reason: `printed in the Bulletin as an alert (${item.alert!.label.toLowerCase()}), whatever its score` });
@@ -541,8 +545,8 @@ for (const [i, { item, key, text, image, basis }] of candidates.entries()) {
       addAlso(first.file, line);
       first.also.push(line);
       counts.repeats++;
-      console.log(`  [${i + 1}/${candidates.length}] Scored ${v.interest_score}, the same story as one in the edition, added under it: ${item.title}`);
-      runLog.article({ ...entry, outcome: 'published', score: v.interest_score, reason: `the same story as "${first.title}"; printed as a line under it` });
+      console.log(`  [${i + 1}/${candidates.length}] Scored ${v.interest_score}, the same story as one in the edition${found}, added under it: ${item.title}`);
+      runLog.article({ ...entry, outcome: 'published', score: v.interest_score, reason: `the same story as "${first.title}"${found}; printed as a line under it` });
       tally.published++;
     } else {
       // A better telling of a story the paper has takes its place, and the first becomes the line under it.
@@ -559,7 +563,7 @@ for (const [i, { item, key, text, image, basis }] of candidates.entries()) {
         if (written.includes(replaced.file)) written.splice(written.indexOf(replaced.file), 1);
         counts.repeats++;
         // Recorded in this run's log when the story was this run's; an earlier run's log stands as it was written.
-        runLog.amend(replaced.told.url, { reason: `the same story as "${v.title}", which scored higher; printed as a line under it` });
+        runLog.amend(replaced.told.url, { reason: `the same story as "${v.title}", which scored higher${found}; printed as a line under it` });
         edition[desk.replaces!] = printed(file, story);
       } else {
         edition.push(printed(file, story));
@@ -646,6 +650,20 @@ if (PAPER.holdOver && !stopped) {
     counts.held++;
     console.log(`  Held for a quieter day: ${story.title}`);
     runLog.amend(story.url, { outcome: 'held', reason: `the day had its ${PAPER.holdOver.stories} stories; held for a quieter day` });
+  }
+}
+
+// 7b. Each story once. What was held was judged against the edition of its own day, not this one, and nothing is
+// judged against the days before: a story told twice today, or told this week already, becomes a line under the other.
+if (!stopped) {
+  const repeats = foldRepeats(day);
+  // A folded story's file is gone: it is no longer among those this run published.
+  if (repeats.length) written.splice(0, written.length, ...written.filter((file) => fs.existsSync(file)));
+  for (const repeat of repeats) {
+    counts.repeats++;
+    const when = repeat.into.day === day ? '' : `, printed on ${repeat.into.day}`;
+    console.log(`  The same story as "${repeat.into.title}"${when}, now a line under it: ${repeat.title}`);
+    runLog.amend(repeat.url, { reason: `the same story as "${repeat.into.title}"${when}, found by its headline; printed as a line under it` });
   }
 }
 

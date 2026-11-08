@@ -38,6 +38,10 @@ figure:
     points:
       - Keeps more of what customers say
       - Treats an update as a correction
+also:
+  - title: "Double recall: Inside the Agentforce Memory update"
+    url: https://www.salesforce.com/news/linked-content/double-recall-inside-the-agentforce-memory-update/
+    source: Salesforce News
 ---
 
 Salesforce AI Research built an evaluation framework that generates long, multi-session conversations with specific facts planted along the way, runs them through the live Agentforce system, and then asks questions that depend on those facts. Testing the full path, from the moment a customer mentions something to the moment an agent acts on it, is presented as what makes the result trustworthy. The conversations come from ConvoMem, a public benchmark released in 2025.
