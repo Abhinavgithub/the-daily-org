@@ -18,6 +18,7 @@ What is in `data/` and `src/content/`, what writes each file, and the type that 
 | `data/readership.jsonl` | `npm run readership`, one line a day | `ReadershipDay` in `src/lib/readership.ts` | committed |
 | `data/reader-totals.jsonl` | `npm run reader-totals` / `reader-feedback`: counts only | `ReaderTotalsDay` in `src/lib/reader-totals.ts` | committed |
 | `data/feedback.jsonl` | the editor's flags: `npm run feedback`, or the Logs page under `npm run dev` | `Feedback` in `pipeline/feedback.ts` | tracked when present; absent now |
+| `data/review.json` | the review queue's Done (`/logs/review/` under `npm run dev`, `pipeline/review-dev.ts`): item id → when it was dealt with | `Done` in `src/lib/review.ts` | committed |
 | `data/reader-feedback.jsonl` | readers' votes and reports, from D1 (`npm run reader-feedback`) or the dev server | `VoteRow`, `ReportRow` in `src/lib/verdict.ts` | ignored: private |
 | `data/replay/` | `npm run replay` | `pipeline/replay-lib.ts` | ignored |
 | `data/logs/rejected/` | pictures the image model drew that were turned down | — | ignored |

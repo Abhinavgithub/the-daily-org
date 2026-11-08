@@ -48,14 +48,14 @@ export function loadHandled(): string[] {
   }
 }
 
-const reply = (res: ServerResponse, status: number, body: object) => {
+export const reply = (res: ServerResponse, status: number, body: object) => {
   res.statusCode = status;
   res.setHeader('Content-Type', 'application/json');
   res.end(JSON.stringify(body));
 };
 
 /** The request's JSON body, or undefined once it has been answered with what was wrong. */
-function readJson(req: IncomingMessage, res: ServerResponse): Promise<unknown> {
+export function readJson(req: IncomingMessage, res: ServerResponse): Promise<unknown> {
   return new Promise((resolve) => {
     if (req.method !== 'POST') return resolve(reply(res, 405, { error: 'Only POST is understood.' }));
     if (!String(req.headers['content-type']).startsWith('application/json')) return resolve(reply(res, 415, { error: 'Send JSON.' }));
@@ -72,7 +72,7 @@ function readJson(req: IncomingMessage, res: ServerResponse): Promise<unknown> {
 }
 
 // Only a page served from this machine may change the editor's files.
-const fromHere = (req: IncomingMessage) => {
+export const fromHere = (req: IncomingMessage) => {
   const origin = req.headers.origin;
   return !origin || /^https?:\/\/(localhost|127\.0\.0\.1|\[::1\])(:\d+)?$/.test(origin);
 };

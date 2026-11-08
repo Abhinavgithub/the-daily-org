@@ -58,8 +58,9 @@
   }
 }
 
-// Things needing attention are counted in the accent, so they are seen first.
-.logs-nav__count[data-nav-count='attention'] {
+// Things needing attention are counted in the accent, so they are seen first; so is what the review queue holds.
+.logs-nav__count[data-nav-count='attention'],
+.logs-nav__count--review {
   color: var(--sun);
   font-weight: 700;
 }

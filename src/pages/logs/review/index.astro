@@ -1,0 +1,163 @@
+---
+// The review queue: what needs the editor's eye, from every place the paper keeps it (see src/lib/review.ts). Like
+// the Logs page it is part of the site but nothing links to it from the paper. Under `npm run dev` an item can be
+// marked done, which data/review.json remembers; the built page shows what was done and when, and changes nothing.
+import Masthead from '../../../components/Masthead.astro';
+import Layout from '../../../layouts/Layout.astro';
+import { REVIEW_PATH } from '../../../../pipeline/review-dev';
+import { PAPER } from '../../../config';
+import { GROUPS } from '../../../lib/review';
+import { reviewQueue } from '../../../lib/review-store';
+
+// Readers' reports are private: only the dev server, which has them, lists them.
+const readers = import.meta.env.DEV;
+const { open, done } = await reviewQueue({ withReports: readers });
+const canMark = import.meta.env.DEV;
+const groups = GROUPS.filter((group) => group.kind !== 'report' || readers).map((group) => ({ ...group, items: open.filter((item) => item.kind === group.kind) }));
+const short = (iso: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', timeZone: PAPER.timezone }).format(new Date(iso));
+const stamp = (iso: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit', timeZone: PAPER.timezone }).format(new Date(iso));
+---
+
+<Layout title="Review" noindex>
+  <Masthead>
+    <h1 class="dateline__text">Review</h1>
+  </Masthead>
+  <main class="wrap" data-review data-path={REVIEW_PATH}>
+    <nav class="review__nav" aria-label="Review">
+      <a href="/logs/">← Logs</a>
+      <p class="review__count" aria-live="polite">
+        <b data-open-count>{open.length}</b> to review{done.length > 0 && <> · {done.length} done this week</>}
+      </p>
+      <a href="/logs/#attention">Logs: Needs attention</a>
+      <div class="review__jump">
+        {groups.filter((group) => group.items.length > 0).map((group) => <a href={`#${group.kind}`}>{group.label} <span>{group.items.length}</span></a>)}
+      </div>
+    </nav>
+
+    <div class="ledger ledger--wide review">
+      {
+        !canMark && (
+          <p class="ledger__note">
+            Read only. Items are marked done under <code>npm run dev</code>.
+          </p>
+        )
+      }
+      {
+        groups.map((group) => (
+          <section class="ledger__row" id={group.kind} data-group={group.kind}>
+            <h3>
+              {group.label} <span class="review__n">{group.items.length || ''}</span>
+            </h3>
+            <div class="review__items">
+              {group.items.length === 0 && <p class="ledger__none">{group.none}</p>}
+              {group.items.map((item) => (
+                <article class="review__item" data-item={item.id}>
+                  <div class="review__head">
+                    <h4>{item.title}</h4>
+                    {canMark && (
+                      <button type="button" class="review__done" data-done={item.id} data-report={item.kind === 'report' ? item.id.slice('report:'.length) : undefined}>
+                        Done
+                      </button>
+                    )}
+                  </div>
+                  <p class="review__says">{item.says}</p>
+                  {(item.links.length > 0 || item.text || item.history) && (
+                    <p class="review__links">
+                      {item.links.map((link) => (
+                        <a href={link.href} {...(link.external ? { target: '_blank', rel: 'noopener' } : {})}>
+                          {link.label}
+                          {link.external && <span aria-hidden="true"> ↗</span>}
+                        </a>
+                      ))}
+                    </p>
+                  )}
+                  {item.text && (
+                    <details class="review__more">
+                      <summary>{item.kind === 'report' ? "The reader's note" : 'The summary as written'}</summary>
+                      <div class="review__text">{item.text}</div>
+                    </details>
+                  )}
+                  {item.history && item.history.length > 0 && (
+                    <details class="review__more">
+                      <summary>Its life, {item.history.length} {item.history.length === 1 ? 'run' : 'runs'}</summary>
+                      <ol class="review__life">
+                        {item.history.map((stage) => (
+                          <li>
+                            <a href={stage.href}>{stamp(stage.ranAt)}</a>
+                            <span>
+                              <b>{stage.label}</b>
+                              {stage.score !== undefined && `, scored ${stage.score}`}
+                              {stage.reason && <span class="review__reason">{stage.reason}</span>}
+                            </span>
+                          </li>
+                        ))}
+                      </ol>
+                    </details>
+                  )}
+                </article>
+              ))}
+            </div>
+          </section>
+        ))
+      }
+      {
+        done.length > 0 && (
+          <section class="ledger__row" id="done">
+            <h3>Done this week</h3>
+            <ul class="review__dealt">
+              {done.map((item) => (
+                <li data-item={item.id}>
+                  <span>{item.title}</span>
+                  <span class="review__when">{short(item.doneAt)}</span>
+                  {canMark && (
+                    <button type="button" class="link-button" data-undo={item.id}>
+                      Undo
+                    </button>
+                  )}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+    </div>
+  </main>
+</Layout>
+
+<script>
+  // Done and Undo, under the dev server. The card goes at once and comes back if the save fails.
+  const root = document.querySelector<HTMLElement>('[data-review]');
+  const count = document.querySelector<HTMLElement>('[data-open-count]');
+  async function save(url: string, body: object): Promise<boolean> {
+    try {
+      const response = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      return response.ok;
+    } catch {
+      return false;
+    }
+  }
+  root?.addEventListener('click', async (event) => {
+    const button = (event.target as HTMLElement).closest<HTMLButtonElement>('[data-done], [data-undo]');
+    if (!button || !root.dataset.path) return;
+    const id = button.dataset.done ?? button.dataset.undo!;
+    const done = button.dataset.done !== undefined;
+    const card = button.closest<HTMLElement>('[data-item]')!;
+    button.disabled = true;
+    card.classList.add('review__item--going');
+    // A reader's report is dealt with where the Readers section keeps it, so the two never disagree.
+    const report = button.dataset.report;
+    const ok = report ? await save('/__reader-handled', { id: report, handled: done }) : await save(root.dataset.path, { id, done });
+    if (!ok) {
+      card.classList.remove('review__item--going');
+      button.disabled = false;
+      button.textContent = 'Not saved, try again';
+      return;
+    }
+    if (done) {
+      card.hidden = true;
+      if (count) count.textContent = String(Math.max(0, Number(count.textContent) - 1));
+    } else {
+      location.reload();
+    }
+  });
+</script>

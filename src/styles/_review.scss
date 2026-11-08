@@ -1,0 +1,214 @@
+// The review queue (/logs/review/) ------------------------------------------
+// A to-do list set as the Logs page is: one row a kind of thing, its name in the margin, and in it a card for each
+// item, with why it is there, where it came from, and its life through the runs folded away until asked for.
+
+.review__nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1.5rem;
+  max-width: 76rem;
+  margin: 0 auto 1rem;
+  font-family: var(--display);
+  font-size: var(--fs-label);
+
+  > a {
+    color: var(--sky);
+  }
+}
+
+.review__count {
+  margin: 0;
+  color: var(--muted);
+
+  b {
+    color: var(--ink);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+// The kinds that have something in them, to jump to.
+.review__jump {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.1rem;
+  margin-left: auto;
+
+  a {
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+
+    &:hover {
+      border-bottom-color: var(--ink);
+    }
+  }
+
+  span {
+    color: var(--sun);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.review__n {
+  color: var(--sun);
+  font-variant-numeric: tabular-nums;
+}
+
+.review__items {
+  display: grid;
+  gap: 0;
+}
+
+.review .review__item {
+  padding: 0.9rem 0 1rem;
+  border-top: 1px solid var(--rule);
+  transition: opacity 0.2s ease;
+
+  &:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  h4 {
+    margin: 0;
+    font-family: var(--headline);
+    font-size: 1.15rem;
+    line-height: 1.3;
+  }
+}
+
+.review__item--going {
+  opacity: 0.4;
+}
+
+.review__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+// Done: a quiet button that becomes ink when pointed at, so a page of them does not shout.
+.review__done {
+  flex: none;
+  padding: 0.3rem 0.85rem;
+  font: inherit;
+  font-weight: 600;
+  color: var(--ink);
+  background: none;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  cursor: pointer;
+
+  &:hover,
+  &:focus-visible {
+    border-color: var(--ink);
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  &:disabled {
+    cursor: progress;
+  }
+}
+
+.review__says {
+  margin: 0.35rem 0 0;
+  max-width: 62ch;
+  font-family: var(--text);
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.review__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.1rem;
+  margin: 0.45rem 0 0;
+
+  a {
+    color: var(--sky);
+  }
+}
+
+.review__more {
+  margin-top: 0.45rem;
+
+  summary {
+    cursor: pointer;
+    color: var(--muted);
+
+    &:hover {
+      color: var(--ink);
+    }
+  }
+}
+
+.review__text {
+  max-width: 62ch;
+  margin: 0.5rem 0 0;
+  padding-left: 0.9rem;
+  border-left: 2px solid var(--rule);
+  font-family: var(--text);
+  font-size: 0.98rem;
+  line-height: 1.55;
+  white-space: pre-line;
+}
+
+// An article's life: one line a run, the day a link to that run.
+.review__life {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0.5rem 0 0;
+  padding: 0 0 0 0.9rem;
+  border-left: 2px solid var(--rule);
+  list-style: none;
+
+  li {
+    display: grid;
+    grid-template-columns: 7.5rem minmax(0, 1fr);
+    gap: 0.75rem;
+  }
+
+  a {
+    color: var(--sky);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+.review__reason {
+  display: block;
+  color: var(--muted);
+}
+
+.review__dealt {
+  display: grid;
+  gap: 0.35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto auto;
+    gap: 1rem;
+    color: var(--muted);
+  }
+}
+
+.review__when {
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 46rem) {
+  .review__jump {
+    margin-left: 0;
+  }
+
+  .review__life li {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0;
+  }
+}

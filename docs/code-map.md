@@ -57,6 +57,7 @@ Each `npm run` script in package.json maps to one file in `pipeline/` (e.g. `rep
 | Deadlines | `deadlines.ts`, `ics.ts` (the calendar) | `pages/deadlines/`, `pages/deadlines.ics.ts` | `_masthead` (reuses `bulletin__`), `_release-edition` |
 | Release edition | `release-edition.ts`, `release-store.ts` | `pages/releases/[slug]/` | `_release-edition` |
 | Archive, search | `calendar.ts`, `search.ts` (matching, ranking, filters; the index is `pages/search.json.ts`) | `pages/archive/`, `pages/search/` | `_archive`, `_archive-and-search` |
+| Review queue | `review.ts` (the items and their rules), `review-store.ts` (reads the files); Done is saved by `pipeline/review-dev.ts` | `pages/logs/review/` | `_review` |
 | Stats | `stats.ts`, `trend.ts`, `readership.ts`, `reader-totals.ts` | `pages/stats/`, `Stat*`, `TokenBars`, `ReadershipTrend` | `_stats` |
 | Logs (dev only for flags and readers) | `logs.ts`, `insights.ts`, `sources.ts` | `pages/logs/`, `Log*` | `_logs` |
 | Reader votes | `verdict.ts` | `Verdict` | `_feedback` |
