@@ -4,7 +4,7 @@ original_title: "Salesforce: Lead merge with MCAE Prospect"
 url: https://www.simplysfdc.com/2026/11/salesforce-lead-merge-with-mcae-prospect.html
 source: SimplySfdc
 source_type: community
-date: 2026-11-06
+date: 2026-11-09
 section: apex-and-platform
 personas:
   - admin
@@ -39,6 +39,7 @@ figure:
     - flow
     - database
 image: https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEjkMemWUW_ZKNqkLh7T8nFCBqrb4obELM_4PownSkSJS0YmLoSN96iftncC6j8Ra5TGvJQaE7Wh4I9UR8hyphenhyphenH-pqKW3a984Kn3wwFEr6QwAO9GPwL_lNbYc4STkSjoXNekHg51xdQRH8YVu4ymoXK-6TH1eex3qCRW-iu4lUVbuKPxQH8nY4Ne82LjNkU6w/w1200-h630-p-k-no-nu/image.png
+held_from: 2026-11-06
 ---
 
 The merge() SOAP API combines up to three records of the same type into one. The caller chooses the master record and the victims, and Salesforce keeps the master, reparents related records from the victims, deletes the victims and sets MasterRecordId on them. Field values are not copied automatically; any value the caller wants from a victim must be supplied on the master record in the MergeRequest.

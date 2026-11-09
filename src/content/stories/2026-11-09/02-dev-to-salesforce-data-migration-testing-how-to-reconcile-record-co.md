@@ -4,7 +4,7 @@ original_title: "Salesforce data migration testing: how to reconcile record coun
 url: https://dev.to/richardc_ailstudio/salesforce-data-migration-testing-how-to-reconcile-record-counts-and-field-values-before-go-live-3k0b
 source: dev.to
 source_type: community
-date: 2026-11-06
+date: 2026-11-09
 section: devops
 personas:
   - admin
@@ -38,6 +38,7 @@ figure:
     - search
     - check
 image: https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2Fpmklifig343oyyvx9nzg.png
+held_from: 2026-11-06
 ---
 
 A load that finishes without errors only shows that Salesforce accepted the rows sent to it. It does not show that every source record arrived or that the values arrived unchanged. The article sets out a check per object that compares record counts with SOQL, excluding records created by hand in the sandbox and records left out on purpose, and reports the difference in a status column.

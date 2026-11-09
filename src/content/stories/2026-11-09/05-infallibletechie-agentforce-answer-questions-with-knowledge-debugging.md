@@ -4,7 +4,7 @@ original_title: Agentforce “Answer Questions with Knowledge” Debugging
 url: https://www.infallibletechie.com/2026/11/agentforce-answer-questions-with-knowledge-debugging.html
 source: InfallibleTechie
 source_type: community
-date: 2026-11-07
+date: 2026-11-09
 section: agentforce-and-ai
 personas:
   - admin
@@ -39,6 +39,7 @@ figure:
     - check
     - shield
     - search
+held_from: 2026-11-07
 ---
 
 The article covers an error that appears when the Answer Questions with Knowledge action runs against an Agentforce data library: the agent's running user cannot read one or more fields the library depends on. The usual causes are missing permissions, missing field-level security, or an incomplete Data Cloud setup. The agent runs as the user with the Einstein Agent User profile, and every object, field and Data Cloud resource the data library touches must be readable by that user.

@@ -36,6 +36,10 @@ figure:
     - search
     - people
 image: https://www.salesforce.com/blog/wp-content/uploads/sites/2/2026/11/Screenshot-2026-11-02-at-1.09.47-PM-1.png?strip=all&#038;quality=95
+also:
+  - title: Salesforce Announces Quick Pages – Let Users Build Their Own Custom Pages
+    url: https://www.salesforceben.com/salesforce-announces-quick-pages-let-users-build-their-own-custom-pages/
+    source: Salesforce Ben
 ---
 
 Quick Pages, now in beta, lets users in an org build and share their own single-page apps with charts, data tables, tabs and actions, described in natural language through Agentforce Coworker or the Quick Pages tab. The pages are grounded in the org's metadata, including Custom Objects and fields, and show a live preview while they are built.

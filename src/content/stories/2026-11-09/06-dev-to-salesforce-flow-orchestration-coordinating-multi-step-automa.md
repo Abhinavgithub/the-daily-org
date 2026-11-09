@@ -4,7 +4,7 @@ original_title: "Salesforce Flow Orchestration: Coordinating Multi-Step Automati
 url: https://dev.to/rohanmehta/salesforce-flow-orchestration-coordinating-multi-step-automations-1l72
 source: dev.to
 source_type: community
-date: 2026-11-07
+date: 2026-11-09
 section: flow-and-admin
 personas:
   - admin
@@ -35,6 +35,7 @@ figure:
     - flow
     - person
     - bolt
+held_from: 2026-11-07
 ---
 
 Most automations start as one Flow, but as a process grows, several Flows can conflict, run out of order or duplicate work. Flow Orchestration, which the article describes as generally available in recent releases, lets you build one process made of stages and steps, where each step is an automated Flow, a background Apex or invocable action, or an interactive Screen Flow or approval assigned to a user or queue with a due date.
