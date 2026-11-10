@@ -1,0 +1,437 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-11-10T06:31:30.753Z",
+  "day": "2026-11-10",
+  "seconds": 113,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 1
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 0
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 0
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 1
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 1
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 0
+    },
+    {
+      "id": "sf-blog",
+      "name": "Salesforce Blog",
+      "items": 4
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 5
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 2
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 0
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 0
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 0
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "jitendra-zaa",
+      "name": "Jitendra Zaa",
+      "items": 0
+    },
+    {
+      "id": "simplysfdc",
+      "name": "SimplySfdc",
+      "items": 0
+    },
+    {
+      "id": "salesforcedevops-net",
+      "name": "SalesforceDevOps.net",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 12
+    },
+    {
+      "id": "dev-to-agentforce",
+      "name": "dev.to (Agentforce)",
+      "items": 0
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 16
+    }
+  ],
+  "articles": [
+    {
+      "title": "Salesforce India did bad with no Diwali Holiday !",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xsfnct/salesforce_india_did_bad_with_no_diwali_holiday/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Introducing GIFT-Eval-CTX: An Open-Source Benchmark for Contextual Forecasting",
+      "url": "https://www.salesforce.com/blog/gift-eval-ctx/",
+      "source": "Salesforce Blog",
+      "outcome": "dropped",
+      "reason": "none of the paper's keywords"
+    },
+    {
+      "title": "Which paid AppExchange app do you wish had a free alternative?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xs22n2/which_paid_appexchange_app_do_you_wish_had_a_free/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Tips for setting up consumption cards for Flex Credits?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xrz4w6/tips_for_setting_up_consumption_cards_for_flex/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Anyone else have their org migrated this weekend and break their integrations?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xrz4rz/anyone_else_have_their_org_migrated_this_weekend/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Why Use Salesforce Custom Development to Design Apps for Unique Business Needs",
+      "url": "https://dev.to/minuscule02/why-use-salesforce-custom-development-to-design-apps-for-unique-business-needs-11ic",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "outgrowing jotform for program intake now that we are on Salesforce",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xsbqfg/outgrowing_jotform_for_program_intake_now_that_we/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Associating reseller emails to end customer accounts",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xs8hf8/associating_reseller_emails_to_end_customer/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "How to group Data Loader error rows after a Salesforce import",
+      "url": "https://dev.to/richardc_ailstudio/how-to-group-data-loader-error-rows-after-a-salesforce-import-4m15",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Checking a Contact export for orphans, duplicate External IDs and picklist mismatches after a load",
+      "url": "https://dev.to/richardc_ailstudio/check-a-salesforce-contact-export-after-a-load-orphans-duplicate-external-ids-and-picklist-17d6",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Check a Salesforce Contact export after a load: orphans, duplicate External IDs, and picklist mismatches"
+    },
+    {
+      "title": "Trailblazer Community is Now Live in Slack",
+      "url": "https://salesforcetime.com/2026/11/10/trailblazer-community-is-now-live-in-slack/",
+      "source": "Salesforce Time",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Preparation for Salesforce Slack Administrator Exam",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xs0jmb/preparation_for_salesforce_slack_administrator/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Using AI to Build AI: How Agentforce Engineers Scale Automation Without Sacrificing Reliability",
+      "url": "https://engineering.salesforce.com/using-ai-to-build-ai-how-agentforce-engineers-scale-automation-without-sacrificing-reliability/",
+      "source": "Salesforce Engineering",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Finding Contacts with a blank AccountId after a Salesforce migration",
+      "url": "https://dev.to/richardc_ailstudio/how-to-find-orphan-contacts-after-a-salesforce-migration-accountid-is-blank-4adn",
+      "source": "dev.to",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "solar install team, double replies to the same customer and blank opportunities in salesforce",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xrxabi/solar_install_team_double_replies_to_the_same/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Choosing between Record Types, Profiles and Permission Sets",
+      "url": "https://www.salesforceben.com/record-type-profile-or-permission-set-a-salesforce-decision-guide/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Record Type, Profile, or Permission Set? A Salesforce Decision Guide"
+    },
+    {
+      "title": "Salesforce Flow: wait for a follow-up request before creating a sales task",
+      "url": "https://dev.to/juanma_garrido_1974/salesforce-flow-wait-for-a-follow-up-request-before-creating-a-sales-task-4oop",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Keep approval policy in data and deterministic code, not in an agent's prompt",
+      "url": "https://dev.to/juanma_garrido_1974/your-ai-agent-is-a-while-loop-your-companys-approval-policy-is-not-4bba",
+      "source": "dev.to",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "ERP and CRM implementations rarely fail because of the software",
+      "url": "https://dev.to/juanma_garrido_1974/erp-and-crm-implementations-rarely-fail-because-of-the-software-1l59",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Measure AI's effect on Salesforce delivery with DORA metrics, not output counts",
+      "url": "https://www.salesforceben.com/has-ai-actually-saved-your-team-time-heres-how-to-find-out/",
+      "source": "Salesforce Ben",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "How Veteran Nonprofits Are Using AI Agents to Serve Those Who Served",
+      "url": "https://www.salesforce.com/blog/ai-agents-veteran-nonprofits/",
+      "source": "Salesforce Blog",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Flow Test Mode adds saved test scenarios, assertions and mock outputs to Flow Builder",
+      "url": "https://www.salesforceben.com/salesforce-flow-testing-just-got-easier-with-new-test-mode/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 8,
+      "reason": "article title: Salesforce Flow Testing Just Got Easier With New Test Mode"
+    },
+    {
+      "title": "Salesforce B2B Commerce promotions: when standard functionality needs extending",
+      "url": "https://dev.to/salesforcedorian/salesforce-b2b-commerce-promotions-when-standard-functionality-needs-extending-54gk",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Are Early Agentforce Adopters Still Using It?",
+      "url": "https://www.salesforceben.com/are-early-agentforce-adopters-still-using-it/",
+      "source": "Salesforce Ben",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Checks one team applies before letting AI change a Salesforce org",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xrsweu/what_ive_learned_to_check_before_letting_ai/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 5,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "Koa Decisions, a small model for fast routing decisions in Agentforce",
+      "url": "https://www.salesforceben.com/salesforce-unveils-cheaper-quicker-ai-decisions-model-koa-decisions/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Salesforce Unveils Cheaper, Quicker AI Decisions Model “Koa Decisions”"
+    },
+    {
+      "title": "Meet Fin, the Customer Agent That Delivers Perfect Experiences",
+      "url": "https://www.salesforce.com/blog/meet-fin-customer-agent/",
+      "source": "Salesforce Blog",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Application Programming Interface (API) Basics: Learn As You Grow",
+      "url": "https://www.salesforce.com/blog/small-business/application-programming-interface-basics/",
+      "source": "Salesforce Blog",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Agentforce Coworker is switched on in some orgs, so check it before users ask",
+      "url": "https://dev.to/rohanmehta/agentforce-coworker-the-ai-front-door-your-salesforce-users-actually-need-1hgl",
+      "source": "dev.to",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "volunteer signup forms creating duplicate contacts in Salesforce",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xroqy6/volunteer_signup_forms_creating_duplicate/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Fixing common Salesforce import errors and the surprises that follow a load",
+      "url": "https://dev.to/operelio/how-to-fix-salesforce-import-errors-3fig",
+      "source": "dev.to",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Checking a Contact export for orphans, duplicate External IDs and picklist mismatches after a load",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Finding Contacts with a blank AccountId after a Salesforce migration",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Choosing between Record Types, Profiles and Permission Sets",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Keep approval policy in data and deterministic code, not in an agent's prompt",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Measure AI's effect on Salesforce delivery with DORA metrics, not output counts",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Flow Test Mode adds saved Test Scenarios, assertions and mock outputs to Flow Builder",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Koa Decisions, a small model for fast routing Decisions in Agentforce",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Agentforce Coworker is switched on in some orgs, so check it before users ask",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Fixing common Salesforce Import errors and the surprises that follow a Load",
+      "outcome": "corrected"
+    }
+  ],
+  "figures": [],
+  "model": {
+    "calls": 23,
+    "retries": {},
+    "usage": {
+      "anthropic/claude-haiku-5.5": {
+        "input": 102480,
+        "output": 17431
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    },
+    {
+      "name": "Known Issues",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-11-10T06:33:23.853Z"
+}
