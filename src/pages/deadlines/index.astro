@@ -11,7 +11,7 @@ import Masthead from '../../components/Masthead.astro';
 import Tabs from '../../components/Tabs.astro';
 import { PERSONAS } from '../../config';
 import Layout from '../../layouts/Layout.astro';
-import { deadlineId, deadlinesFrom, flagLine, groupLine, grouped, storiesAbout } from '../../lib/deadlines';
+import { countdown, deadlineId, deadlinesFrom, dueSoon, flagLine, groupLine, grouped, storiesAbout } from '../../lib/deadlines';
 import { readReleases } from '../../lib/releases';
 import { getReleaseEditions } from '../../lib/release-store';
 import { updateChangeOf, updateLine } from '../../lib/release-changes';
@@ -33,6 +33,9 @@ const changeOf = (deadline: (typeof deadlines)[number]) => {
 };
 const dayMonth = (iso: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'short', timeZone: 'UTC' }).format(new Date(iso));
 const groups = grouped(deadlines, releases, today);
+// What falls due within the month, set first: the reason most readers open the page.
+const SOON_DAYS = 30;
+const soon = dueSoon(groups, today, SOON_DAYS);
 // What a story says, for finding the stories about an update.
 const stories = (await getAllStories()).map((story) => ({
   story,
@@ -61,6 +64,27 @@ const heading = (group: (typeof groups)[number]) => (group.kind === 'unknown' ? 
         In your calendar: <a href={subscribe}>subscribe</a>, or <a href={ics.pathname} download>download the file</a>. Each update falls on its day and each release on its dates; a date that moves here moves there.
       </p>
       {deadlines.length > 0 && <FilterBar stories={deadlines.map((deadline) => ({ data: { personas: rolesOf(deadline.roles) } }))} marks={false} />}
+
+      {
+        soon.length > 0 && (
+          <section class="ledger__row deadlines__group" data-deadline-group aria-labelledby="soon-title">
+            <h2 id="soon-title">
+              Due soon
+              <span class="bulletin__window">Within {SOON_DAYS} days. Each is set out in full below.</span>
+            </h2>
+            <ul class="deadlines__soon">
+              {soon.map(({ deadline, due }) => (
+                <li data-card data-personas={rolesOf(deadline.roles).join(' ')}>
+                  <a href={`#${deadlineId(deadline.topic)}`}>{deadline.name}</a>
+                  <span class="bulletin__facts">
+                    {dayMonth(due)} · {countdown(today, due)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
 
       {
         groups.map((group) => (

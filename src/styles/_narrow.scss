@@ -37,9 +37,24 @@
     }
   }
 
-  // The search gives way so Archive and the theme button keep their size.
+  // The search takes the room the theme button leaves.
   .masthead__bar {
-    grid-template-columns: auto minmax(0, 1fr) auto;
+    grid-template-columns: minmax(0, 1fr) auto;
+
+    > .search {
+      grid-column: 1;
+    }
+
+    > :last-child {
+      grid-column: 2;
+    }
+  }
+
+  // Four parts on one line of a phone: closer together, and onto a second line only if they must.
+  .tabs {
+    flex-wrap: wrap;
+    gap: 0.25rem 1.1rem;
+    letter-spacing: 0.04em;
   }
 
   // The filters on two lines, a group to each, so every choice is in view without scrolling sideways.

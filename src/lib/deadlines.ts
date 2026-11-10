@@ -161,7 +161,13 @@ export function flagLine(day: string | undefined, today: string): string | undef
  */
 export function groupLine(group: Group, today: string): string {
   if (group.kind === 'unknown') return 'The notes give no release for these.';
-  const dates = group.dates?.stages.map((stage) => `${stage.place[0].toUpperCase()}${stage.place.slice(1)} ${when(stage, today)}`).join(' · ');
+  // A release still to come is given stage by stage. One that is out everywhere, with updates of it still to
+  // fall due, needs only the day it was complete.
+  const stages = group.dates?.stages ?? [];
+  const out = !group.past && stages.length > 0 && stages.every((stage) => stage.to < today);
+  const dates = out
+    ? `Out since ${when({ ...stages.at(-1)!, from: stages.at(-1)!.to }, today)}`
+    : group.dates?.stages.map((stage) => `${stage.place[0].toUpperCase()}${stage.place.slice(1)} ${when(stage, today)}`).join(' · ');
   const lead = group.kind === 'before' ? `Any time before ${group.release} arrives` : group.past ? 'In force' : '';
   const ownDay = group.due !== dueOf(group.kind, group.dates);
   const left = !group.past && group.due ? `${ownDay ? 'first deadline ' : ''}${countdown(today, group.due)}` : '';
@@ -169,13 +175,19 @@ export function groupLine(group: Group, today: string): string {
   return parts.join(' · ');
 }
 
-/** How many updates still to come fall due within so many days: on their own day, or with their group. */
-export function dueWithin(groups: Group[], today: string, days = 30): number {
+/** The updates still to come that fall due within so many days, on their own day or with their group, soonest first. */
+export function dueSoon(groups: Group[], today: string, days = 30): { deadline: Deadline; due: string }[] {
   const until = new Date(Date.parse(today) + days * 86_400_000).toISOString().slice(0, 10);
   return groups
     .filter((group) => !group.past)
-    .flatMap((group) => group.items.map((item) => isoDay(item.deadline) ?? dueOf(group.kind === 'before' ? 'before' : 'in', group.dates)))
-    .filter((due) => due && due > today && due <= until).length;
+    .flatMap((group) => group.items.map((deadline) => ({ deadline, due: isoDay(deadline.deadline) ?? dueOf(group.kind === 'before' ? 'before' : 'in', group.dates) })))
+    .filter((item): item is { deadline: Deadline; due: string } => Boolean(item.due && item.due > today && item.due <= until))
+    .sort((a, b) => a.due.localeCompare(b.due));
+}
+
+/** How many updates still to come fall due within so many days. */
+export function dueWithin(groups: Group[], today: string, days = 30): number {
+  return dueSoon(groups, today, days).length;
 }
 
 /** The paper's stories that are about an update: those that use one of its phrases. Newest first, at most `most`. */

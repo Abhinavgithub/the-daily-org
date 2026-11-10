@@ -4,7 +4,8 @@ import { getReleaseEditions } from '../lib/release-store';
 import { getBulletin } from '../lib/stories';
 
 // The parts of the paper: its stories, the Bulletin, which holds what is not
-// a story, and the Deadlines, what the release notes say is coming. They are
+// a story, the Deadlines, what the release notes say is coming, and the
+// Archive, every edition there has been. They are
 // pages, so these are links, and the one the reader is on is marked. The Bulletin's link says how many of its items the
 // reader has not seen, which the browser remembers: incidents in red, since a
 // failure of the service is pressing, and other notices in the paper's accent.
@@ -12,7 +13,7 @@ import { getBulletin } from '../lib/stories';
 
 interface Props {
   /** The part the reader is in. Left out on a page that is neither, such as a release edition. */
-  current?: 'news' | 'bulletin' | 'deadlines';
+  current?: 'news' | 'bulletin' | 'deadlines' | 'archive';
 }
 
 const { current } = Astro.props;
@@ -53,6 +54,7 @@ const listed = [
       </a>
     )
   }
+  <a href="/archive/" aria-current={current === 'archive' ? 'page' : undefined}>Archive</a>
 </nav>
 
 <script>

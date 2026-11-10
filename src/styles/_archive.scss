@@ -560,9 +560,9 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
 }
 
 // No edition: the date in a quiet grey, not a link.
+// A day with no edition: quieter, but still to be read. The wash and the bold date tell an edition's day from it.
 .cal__day:not(.cal__day--edition) .cal__date {
   color: var(--muted);
-  opacity: 0.6;
 }
 
 // A day the paper came out: on a wash, the date set bold in ink.

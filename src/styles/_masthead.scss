@@ -167,6 +167,25 @@
   }
 }
 
+// A release update: what to do, then the notes' own words, closed until asked for, then the way to the Deadlines.
+.bulletin__notice {
+  display: grid;
+  gap: 0.4rem;
+
+  summary {
+    width: fit-content;
+    font-family: var(--display);
+    font-size: var(--fs-label);
+    color: var(--sky);
+    cursor: pointer;
+  }
+
+  details p {
+    margin-top: 0.35rem;
+    color: var(--muted);
+  }
+}
+
 // A line to the Deadlines when something falls due soon, under the release dates.
 .bulletin__due {
   margin-top: 0.75rem !important;
@@ -196,12 +215,66 @@
   margin-bottom: 1rem;
 }
 
+// What falls due soon, at the head of the page: a name that leads to the update below, and its day.
+.deadlines__soon {
+  display: grid;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  li {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.1rem 0.75rem;
+  }
+
+  a {
+    font-family: var(--headline);
+    font-weight: 700;
+    font-size: 1.0625rem;
+    line-height: 1.25;
+    color: var(--ink);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--sky);
+      text-decoration: underline;
+    }
+  }
+
+  .bulletin__facts {
+    margin: 0;
+    white-space: nowrap;
+  }
+}
+
+// The update a link on this page led to.
+.deadlines__item {
+  scroll-margin-top: 1rem;
+
+  &:target {
+    outline: 2px solid var(--sky);
+    outline-offset: 6px;
+  }
+}
+
 .deadlines__group[hidden] {
   display: none;
 }
 
+// What is already in force: set in the quieter ink, not faded, so it can still be read.
 .deadlines__group--past {
-  opacity: 0.6;
+  .bulletin__item h3 a,
+  .bulletin__text,
+  .deadlines__changed {
+    color: var(--muted);
+  }
+
+  .flag {
+    background: var(--muted);
+  }
 }
 
 .deadlines__item .flag {

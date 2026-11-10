@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { countdown, deadlinesFrom, dueWithin, flagLine, groupLine, grouped, releaseName, releaseOrder, storiesAbout, timingOf } from './deadlines';
+import { countdown, deadlinesFrom, dueSoon, dueWithin, flagLine, groupLine, grouped, releaseName, releaseOrder, storiesAbout, timingOf } from './deadlines';
 import type { Edition, Enforced } from './release-edition';
 import type { Release } from './releases';
 
@@ -107,6 +107,14 @@ test('a group whose first update falls due before its release says which the cou
   const releases: Release[] = [{ name: "Spring '27", stages: [{ place: 'sandboxes', from: '2027-02-06', to: '2027-02-06' }] }];
   const [group] = grouped(deadlinesFrom([edition("Winter '27", '258.0.0', [update('early', "Scheduled To Be Enforced Before Spring '27", { deadline: '30 Nov 2026' })])]), releases, '2026-11-10');
   assert.match(groupLine(group, '2026-11-10'), /· first deadline in 3 weeks$/);
+  assert.deepEqual(dueSoon([group], '2026-11-10').map((item) => [item.deadline.topic, item.due]), [['early', '2026-11-30']]);
+  assert.deepEqual(dueSoon([group], '2026-10-01'), [], 'more than 30 days off is not soon');
+});
+
+test('a release that is out everywhere, with an update of it still to fall due, is said to be out', () => {
+  const releases: Release[] = [{ name: "Winter '27", stages: [{ place: 'sandboxes', from: '2026-09-05', to: '2026-09-05' }, { place: 'production', from: '2026-10-09', to: '2026-10-10' }] }];
+  const [group] = grouped(deadlinesFrom([edition("Winter '27", '258.0.0', [update('late', 'Enforced with This Release', { deadline: '1 Dec 2026' })])]), releases, '2026-11-10');
+  assert.equal(groupLine(group, '2026-11-10'), 'Out since 10 Oct · first deadline in 3 weeks');
 });
 
 test('the stories about an update are those that use one of its phrases, newest first', () => {

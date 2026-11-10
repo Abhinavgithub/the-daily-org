@@ -18,7 +18,22 @@ import { formatDay, getBulletin } from '../../lib/stories';
 
 const { latest, items } = await getBulletin();
 const of = (kind: BulletinKind) => items.filter((item) => item.data.kind === kind);
-const alerts = await Promise.all(of('alert').map(async (item) => ({ item, Content: (await render(item)).Content })));
+// A notice of a release update is written in three parts (pipeline/release-notices.ts): what the notes say,
+// what to do, and where it is on the Deadlines page. Here what to do leads, and the notes' words open beneath
+// it, so a run of updates can be read down the page. Any other alert is printed as it was written.
+const notice = (body: string | undefined) => {
+  const parts = (body ?? '').trim().split(/\n{2,}/);
+  const link = parts.at(-1)?.match(/^\[([^\]]+)\]\((\/deadlines\/[^)]*)\)$/);
+  if (!link) return undefined;
+  const rest = parts.slice(0, -1);
+  const at = rest.findIndex((part) => part.startsWith('**What to do:**'));
+  return {
+    says: rest.filter((_, i) => i !== at),
+    action: at < 0 ? undefined : rest[at].replace('**What to do:**', '').trim(),
+    link: { text: link[1], href: link[2] },
+  };
+};
+const alerts = await Promise.all(of('alert').map(async (item) => ({ item, Content: (await render(item)).Content, notice: notice(item.body) })));
 const tools = of('release');
 const community = of('community');
 const slug = (id: string) => id.split('/').pop()!;
@@ -94,7 +109,7 @@ const follows = {
               Alerts <span class="bulletin__window">Last {WINDOWS.alert} days</span>
             </h2>
             <div>
-              {alerts.map(({ item, Content }) => (
+              {alerts.map(({ item, Content, notice }) => (
                 <article class="bulletin__item" id={slug(item.id)}>
                   {item.data.flag && <p class="flag">{item.data.flag}</p>}
                   <h3>
@@ -103,9 +118,33 @@ const follows = {
                     </a>
                   </h3>
                   {item.data.facts && <p class="bulletin__facts">{item.data.facts}</p>}
-                  <div class="bulletin__text">
-                    <Content />
-                  </div>
+                  {notice ? (
+                    <div class="bulletin__text bulletin__notice">
+                      {notice.action && (
+                        <p>
+                          <span class="deadlines__label">What to do</span> {notice.action}
+                        </p>
+                      )}
+                      {notice.says.length > 0 &&
+                        (notice.action ? (
+                          <details>
+                            <summary>What the notes say</summary>
+                            {notice.says.map((part) => (
+                              <p>{part}</p>
+                            ))}
+                          </details>
+                        ) : (
+                          notice.says.map((part) => <p>{part}</p>)
+                        ))}
+                      <p>
+                        <a href={notice.link.href}>{notice.link.text}</a>
+                      </p>
+                    </div>
+                  ) : (
+                    <div class="bulletin__text">
+                      <Content />
+                    </div>
+                  )}
                 </article>
               ))}
               {alerts.length === 0 && <p class="ledger__none">No alerts in the last {WINDOWS.alert} days.</p>}

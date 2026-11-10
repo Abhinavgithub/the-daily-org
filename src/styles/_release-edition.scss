@@ -311,7 +311,7 @@
   }
 }
 
-// Archive, search and the theme button on one line. Equal side columns keep the search centred.
+// The search and, at the end, the share price and the theme button. Equal side columns keep the search centred.
 .masthead__bar {
   display: grid;
   grid-template-columns: 1fr minmax(0, 28rem) 1fr;
@@ -320,11 +320,12 @@
   font-family: var(--display);
   font-size: var(--fs-body);
 
-  > :first-child {
-    justify-self: start;
+  > .search {
+    grid-column: 2;
   }
 
   > :last-child {
+    grid-column: 3;
     justify-self: end;
   }
 }
@@ -366,10 +367,6 @@
 
 .quote__move--down {
   color: var(--alarm);
-}
-
-.masthead__archive {
-  font-style: italic;
 }
 
 .tool {
