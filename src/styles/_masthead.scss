@@ -22,7 +22,7 @@
   background: var(--ink);
   color: var(--paper);
   font-family: var(--display);
-  font-size: 0.72rem;
+  font-size: var(--fs-small);
   font-weight: 700;
   letter-spacing: 0.06em;
   line-height: 1.45;
@@ -54,7 +54,7 @@
       border-bottom-color: var(--rule);
     }
 
-    &[aria-current='page'] {
+    &[aria-current] {
       color: var(--ink);
       border-bottom-color: var(--ink);
     }
@@ -83,7 +83,7 @@
 .bulletin {
   margin-top: 0.5rem;
 
-  .ledger__row h3 {
+  .ledger__row > h2 {
     display: grid;
     gap: 0.25rem;
     align-content: start;
@@ -128,7 +128,7 @@
   }
 
   // A list of notices, so a size below a story's headline.
-  h4 {
+  h3 {
     margin: 0;
     font-family: var(--headline);
     font-weight: 700;
@@ -178,7 +178,7 @@
 
 // The Deadlines: one section a release, as the Bulletin sets its sections. What
 // is already in force is kept, greyed, below what is still to come.
-.deadlines .ledger__row h3 {
+.deadlines .ledger__row > h2 {
   display: grid;
   gap: 0.25rem;
   align-content: start;
@@ -224,7 +224,7 @@
 .deadlines__label {
   margin-right: 0.35rem;
   font-family: var(--display);
-  font-size: 0.72rem;
+  font-size: var(--fs-small);
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;

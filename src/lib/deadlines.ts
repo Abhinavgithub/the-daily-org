@@ -149,12 +149,23 @@ export function countdown(today: string, due: string): string {
   return `in ${months} ${months === 1 ? 'month' : 'months'}`;
 }
 
-/** The line under a group's heading: its dates and how long until it falls due. */
+/** What an update's flag says: the day the notes name, and how far off it is while it is still to come. "1 Dec 2026 · in 3 weeks". */
+export function flagLine(day: string | undefined, today: string): string | undefined {
+  const due = isoDay(day);
+  return day && due && due > today ? `${day} · ${countdown(today, due)}` : day;
+}
+
+/**
+ * The line under a group's heading: its dates and how long until it falls due. When the first thing to fall
+ * due is an update's own day and not the release, the line says so, so it is not read as the release's date.
+ */
 export function groupLine(group: Group, today: string): string {
   if (group.kind === 'unknown') return 'The notes give no release for these.';
   const dates = group.dates?.stages.map((stage) => `${stage.place[0].toUpperCase()}${stage.place.slice(1)} ${when(stage, today)}`).join(' · ');
   const lead = group.kind === 'before' ? `Any time before ${group.release} arrives` : group.past ? 'In force' : '';
-  const parts = [lead, dates ?? 'Dates not yet announced', !group.past && group.due ? countdown(today, group.due) : ''].filter(Boolean);
+  const ownDay = group.due !== dueOf(group.kind, group.dates);
+  const left = !group.past && group.due ? `${ownDay ? 'first deadline ' : ''}${countdown(today, group.due)}` : '';
+  const parts = [lead, dates ?? 'Dates not yet announced', left].filter(Boolean);
   return parts.join(' · ');
 }
 

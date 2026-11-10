@@ -1,5 +1,6 @@
 ---
 import Masthead from '../components/Masthead.astro';
+import Tabs from '../components/Tabs.astro';
 import Layout from '../layouts/Layout.astro';
 ---
 
@@ -7,7 +8,8 @@ import Layout from '../layouts/Layout.astro';
   <Masthead>
     <h1 class="dateline__text">Page not found</h1>
   </Masthead>
-  <main id="stories" class="wrap">
+  <Tabs />
+  <main id="main" class="wrap">
     <div class="prose notfound">
       <p>This page is not in the paper. The address may be mistyped, or the story may have been removed.</p>
       <p>

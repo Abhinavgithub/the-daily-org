@@ -4,6 +4,7 @@
 // month at a time; and the sections the stories fall under. The calendar opens
 // on the newest month; a month is on it once it has its first edition.
 import Masthead from '../../components/Masthead.astro';
+import Tabs from '../../components/Tabs.astro';
 import { SECTIONS } from '../../config';
 import Layout from '../../layouts/Layout.astro';
 import { WEEKDAYS, calendarMonths, calendarYears } from '../../lib/calendar';
@@ -44,7 +45,8 @@ const holds = (edition: (typeof numbered)[number]) =>
   <Masthead>
     <h1 class="dateline__text">Archive</h1>
   </Masthead>
-  <main id="stories" class="wrap">
+  <Tabs />
+  <main id="main" class="wrap">
     {
       editions.length === 0 && releases.length === 0 ? (
         <p class="prose">
@@ -59,12 +61,12 @@ const holds = (edition: (typeof numbered)[number]) =>
           </p>
           {releases.length > 0 && (
             <section class="ledger__row" id="release-editions" aria-labelledby="releases-title">
-              <h3 id="releases-title">Release editions</h3>
+              <h2 id="releases-title">Release editions</h2>
               <div>
                 {years.map((group) => (
                   <details class="past__month">
                     <summary>
-                      <h4>{group.year}</h4>
+                      <h3>{group.year}</h3>
                       <span class="past__count">{countLabel(group.releases.length, 'edition', 'editions')}</span>
                     </summary>
                     <ul class="past__list">
@@ -82,7 +84,7 @@ const holds = (edition: (typeof numbered)[number]) =>
           )}
           {months.length > 0 && (
             <section class="ledger__row" id="daily-editions" aria-labelledby="editions-title">
-              <h3 id="editions-title">Daily editions</h3>
+              <h2 id="editions-title">Daily editions</h2>
               <div class="cal" data-calendar>
                 <p class="visually-hidden" aria-live="polite" data-calendar-said></p>
                 {/* One bar for every month, shown only with scripts: an arrow each way and a menu of the months by year, so a month years back is one choice away. */}
@@ -112,10 +114,10 @@ const holds = (edition: (typeof numbered)[number]) =>
                 {months.map((month) => (
                   <section class="cal__month" id={`month-${month.key}`} data-month={month.key} data-said={`${month.name}, ${countLabel(month.editions.length, 'edition', 'editions')}`} aria-labelledby={`month-${month.key}-title`}>
                     <header class="cal__head">
-                      <h4 id={`month-${month.key}-title`}>
+                      <h3 id={`month-${month.key}-title`}>
                         <span class="cal__name">{month.name}</span>
                         <span class="cal__count">{countLabel(month.editions.length, 'edition', 'editions')}</span>
-                      </h4>
+                      </h3>
                     </header>
                     <table class="cal__grid">
                       <thead>
@@ -162,7 +164,7 @@ const holds = (edition: (typeof numbered)[number]) =>
           )}
           {sections.length > 0 && (
             <section class="ledger__row" id="sections" aria-labelledby="sections-title">
-              <h3 id="sections-title">Sections</h3>
+              <h2 id="sections-title">Sections</h2>
               <ul class="browse__sections">
                 {sections.map((s) => (
                   <li>

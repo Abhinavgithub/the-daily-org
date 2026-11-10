@@ -49,7 +49,7 @@
 
 // How many there are of each, set small beside the word.
 .logs-nav__count {
-  font-size: 0.72rem;
+  font-size: var(--fs-small);
   color: var(--muted);
   font-variant-numeric: tabular-nums;
 
@@ -142,7 +142,7 @@
   margin-top: 0.1rem;
   padding: 0.1rem 0;
   border: 1px solid var(--rule);
-  font-size: 0.72rem;
+  font-size: var(--fs-small);
   font-weight: 700;
   letter-spacing: 0.06em;
   text-align: center;
@@ -225,7 +225,7 @@
   }
 
   dt {
-    font-size: 0.72rem;
+    font-size: var(--fs-small);
     letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--muted);
@@ -313,7 +313,7 @@
 // The sources: three figures, then a row a source in two groups.
 .sources__head {
   margin: 0 0 0.35rem;
-  font-size: 0.72rem;
+  font-size: var(--fs-small);
   letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--muted);
@@ -404,7 +404,7 @@
 }
 
 .source__verdict {
-  font-size: 0.78rem;
+  font-size: var(--fs-label);
 }
 
 // A square a day, darker with more posts. A weekend day is underlined.
@@ -728,7 +728,7 @@
   justify-content: space-between;
   margin: 0.25rem 0 0;
   color: var(--muted);
-  font-size: 0.78rem;
+  font-size: var(--fs-label);
 }
 
 .log__counts,
@@ -796,7 +796,7 @@
     border-bottom-color: var(--ink);
     color: var(--muted);
     font-weight: 400;
-    font-size: 0.72rem;
+    font-size: var(--fs-small);
     letter-spacing: 0.06em;
     text-transform: uppercase;
     white-space: nowrap;
@@ -847,7 +847,7 @@
 
   dt {
     color: var(--muted);
-    font-size: 0.72rem;
+    font-size: var(--fs-small);
     letter-spacing: 0.06em;
     text-transform: uppercase;
   }

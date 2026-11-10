@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import Masthead from '../../components/Masthead.astro';
 import StatsPanel from '../../components/StatsPanel.astro';
+import Tabs from '../../components/Tabs.astro';
 import Layout from '../../layouts/Layout.astro';
 import { parseReaderTotals } from '../../lib/reader-totals';
 import { parseReadership } from '../../lib/readership';
@@ -28,7 +29,8 @@ const monthName = new Intl.DateTimeFormat('en-GB', { month: 'long', year: 'numer
   <Masthead>
     <h1 class="dateline__text">Stats</h1>
   </Masthead>
-  <main class="wrap">
+  <Tabs />
+  <main id="main" class="wrap">
     <div class="filters" data-stats>
       <div class="filters__line">
         <div class="filters__group" role="group" aria-label="Period" data-stats-views>

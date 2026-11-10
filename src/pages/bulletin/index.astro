@@ -49,7 +49,7 @@ const follows = {
     <h1 class="dateline__text">Bulletin</h1>
   </Masthead>
   <Tabs current="bulletin" />
-  <main class="wrap">
+  <main id="main" class="wrap">
     <div class="ledger bulletin">
       {/* Dated so a check of the built site can compare it with the front page's edition: see pipeline/check-site.ts. */}
       <p class="ledger__note bulletin__asof">
@@ -59,7 +59,7 @@ const follows = {
       {
         follows.releases && (
           <section class="ledger__row" id="releases">
-            <h3>Releases</h3>
+            <h2>Releases</h2>
             <div>
             {/* The lines depend on the day they are read, so they are worked out again in the browser. */}
             <div data-releases={JSON.stringify(releases)} data-editions={JSON.stringify(Object.fromEntries(editions))}>
@@ -90,18 +90,18 @@ const follows = {
       {
         follows.alerts && (
           <section class="ledger__row" id="alerts">
-            <h3>
+            <h2>
               Alerts <span class="bulletin__window">Last {WINDOWS.alert} days</span>
-            </h3>
+            </h2>
             <div>
               {alerts.map(({ item, Content }) => (
                 <article class="bulletin__item" id={slug(item.id)}>
                   {item.data.flag && <p class="flag">{item.data.flag}</p>}
-                  <h4>
+                  <h3>
                     <a href={item.data.url} target="_blank" rel="noopener">
                       {item.data.title}
                     </a>
-                  </h4>
+                  </h3>
                   {item.data.facts && <p class="bulletin__facts">{item.data.facts}</p>}
                   <div class="bulletin__text">
                     <Content />
@@ -117,17 +117,17 @@ const follows = {
       {
         follows.tools && (
           <section class="ledger__row" id="tools">
-            <h3>
+            <h2>
               Tools <span class="bulletin__window">Last {WINDOWS.release} days</span>
-            </h3>
+            </h2>
             <div>
               {tools.map((item) => (
                 <article class="bulletin__item" id={slug(item.id)}>
-                  <h4>
+                  <h3>
                     <a href={item.data.url} target="_blank" rel="noopener">
                       {item.data.title}
                     </a>
-                  </h4>
+                  </h3>
                   <p class="bulletin__text">{item.data.line}</p>
                   <p class="bulletin__facts">{formatDay(item.data.date, 'short')}</p>
                 </article>
@@ -141,17 +141,17 @@ const follows = {
       {
         follows.community && (
           <section class="ledger__row" id="community">
-            <h3>
+            <h2>
               Community <span class="bulletin__window">Last {WINDOWS.community} days</span>
-            </h3>
+            </h2>
             <div>
               {community.map((item) => (
                 <article class="bulletin__item" id={slug(item.id)}>
-                  <h4>
+                  <h3>
                     <a href={item.data.url} target="_blank" rel="noopener">
                       {item.data.title}
                     </a>
-                  </h4>
+                  </h3>
                   <p class="bulletin__text">{item.data.line}</p>
                   <p class="bulletin__facts">
                     {item.data.source} · {formatDay(item.data.date, 'short')}

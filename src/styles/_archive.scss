@@ -70,7 +70,7 @@
   > summary {
     padding: 0.55rem 0;
 
-    h4 {
+    h3 {
       flex: 1;
       margin: 0;
       font-family: var(--headline);
@@ -79,7 +79,7 @@
       line-height: 1.25;
     }
 
-    &:hover h4 {
+    &:hover h3 {
       color: var(--sky);
     }
   }
@@ -121,7 +121,7 @@
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  font-size: 0.72rem;
+  font-size: var(--fs-small);
 }
 
 // A searched word where it was found: underlined in the accent colour, not painted over.
@@ -160,7 +160,7 @@
   legend {
     padding: 0 0 0.4rem;
     font-weight: 700;
-    font-size: 0.72rem;
+    font-size: var(--fs-small);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--muted);
@@ -215,10 +215,10 @@
     width: 100%;
     padding: 0.2rem 0.25rem;
     font: inherit;
-    font-size: 0.78rem;
+    font-size: var(--fs-label);
     color: var(--ink);
     background: transparent;
-    border: 1px solid var(--rule);
+    border: 1px solid var(--control);
     border-radius: 0;
   }
 }
@@ -270,7 +270,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
   > span {
     margin-right: 0.25rem;
     font-weight: 700;
-    font-size: 0.72rem;
+    font-size: var(--fs-small);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--muted);
@@ -439,7 +439,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
   padding-bottom: 0.75rem;
   border-bottom: 2px solid var(--ink);
 
-  h4 {
+  h3 {
     display: flex;
     flex-direction: column;
     gap: 0.1rem;
@@ -455,7 +455,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
 .cal--paged .cal__head {
   padding-top: 0.1rem;
 
-  h4 {
+  h3 {
     align-items: center;
     text-align: center;
   }
@@ -472,7 +472,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
 
 .cal__count {
   font-family: var(--display);
-  font-size: 0.72rem;
+  font-size: var(--fs-small);
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -514,7 +514,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
 
   th {
     padding: 0.4rem 0 0.15rem;
-    font-size: 0.68rem;
+    font-size: var(--fs-small);
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;

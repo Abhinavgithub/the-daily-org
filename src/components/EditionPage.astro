@@ -1,7 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import { folio, MAX_BRIEFS } from '../lib/editions';
-import { formatDay, getEditions, type Edition } from '../lib/stories';
+import { formatDay, getEditions, getSignals, storySlug, type Edition } from '../lib/stories';
 import BriefList from './BriefList.astro';
 import FilterBar from './FilterBar.astro';
 import Masthead from './Masthead.astro';
@@ -25,6 +25,9 @@ const lastFull = stories.length > 0 ? undefined : editions.find((other) => other
 const count = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`;
 const holds = [stories.length && count(stories.length, 'story', 'stories'), briefs.length && count(briefs.length, 'brief', 'briefs')].filter(Boolean).join(' · ') || 'Nothing new';
 const numbered = folio(day, editions.map((other) => other.day));
+// The marks, for the list of the edition's headlines that opens a narrow page.
+const signals = await getSignals();
+const MARK = { must: 'Must-read', recommended: 'Recommended', other: undefined };
 const steps = [
   { day: older, label: 'Older edition', path: 'M10 3 5 8l5 5' },
   { day: newer, label: 'Newer edition', path: 'm6 3 5 5-5 5' },
@@ -66,8 +69,30 @@ const steps = [
   </Masthead>
   <Tabs current="news" />
 
-  <main id="stories" class="wrap">
+  <main id="main" class="wrap">
     <FilterBar stories={[...stories, ...briefs]} marks={stories.length > 0} />
+    {/* On a narrow page the stories run in one long column, so their headlines come first, each a way to its story. They follow the filters as the stories do. */}
+    {
+      stories.length > 1 && (
+        <nav class="contents" aria-labelledby="contents-title">
+          <h2 id="contents-title">In this edition</h2>
+          <ol>
+            {stories.map((story) => (
+              <li data-card data-id={story.id} data-personas={story.data.personas.join(' ')} data-signal={signals.get(story.id) ?? 'other'}>
+                <a href={`#${storySlug(story)}`}>{story.data.title}</a>
+                {MARK[signals.get(story.id) ?? 'other'] && <span class="contents__mark">{MARK[signals.get(story.id) ?? 'other']}</span>}
+              </li>
+            ))}
+            {briefs.length > 0 && (
+              <li data-card data-id="in-brief" data-personas={[...new Set(briefs.flatMap((brief) => brief.data.personas))].join(' ')}>
+                <a href="#in-brief">In brief</a>
+                <span class="contents__mark contents__mark--count">{count(briefs.length, 'brief', 'briefs')}</span>
+              </li>
+            )}
+          </ol>
+        </nav>
+      )
+    }
     <StoryGrid stories={stories} tags={false}>
       <BriefList briefs={briefs} alone={stories.length === 0} lastFull={lastFull} />
     </StoryGrid>

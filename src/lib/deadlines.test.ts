@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { countdown, deadlinesFrom, dueWithin, groupLine, grouped, releaseName, releaseOrder, storiesAbout, timingOf } from './deadlines';
+import { countdown, deadlinesFrom, dueWithin, flagLine, groupLine, grouped, releaseName, releaseOrder, storiesAbout, timingOf } from './deadlines';
 import type { Edition, Enforced } from './release-edition';
 import type { Release } from './releases';
 
@@ -94,6 +94,19 @@ test('a countdown is said in days, weeks or months', () => {
   assert.equal(countdown('2026-10-24', '2026-10-30'), 'in 6 days');
   assert.equal(countdown('2026-10-24', '2026-11-28'), 'in 5 weeks');
   assert.equal(countdown('2026-10-24', '2027-02-19'), 'in 4 months');
+});
+
+test('a flag says how far off its day is, while it is still to come', () => {
+  assert.equal(flagLine('1 Dec 2026', '2026-11-10'), '1 Dec 2026 · in 3 weeks');
+  assert.equal(flagLine('1 Dec 2026', '2026-12-01'), '1 Dec 2026', 'a day that has come is only named');
+  assert.equal(flagLine('Early 2027', '2026-11-10'), 'Early 2027', 'what is not a day is printed as it is');
+  assert.equal(flagLine(undefined, '2026-11-10'), undefined);
+});
+
+test('a group whose first update falls due before its release says which the countdown is', () => {
+  const releases: Release[] = [{ name: "Spring '27", stages: [{ place: 'sandboxes', from: '2027-02-06', to: '2027-02-06' }] }];
+  const [group] = grouped(deadlinesFrom([edition("Winter '27", '258.0.0', [update('early', "Scheduled To Be Enforced Before Spring '27", { deadline: '30 Nov 2026' })])]), releases, '2026-11-10');
+  assert.match(groupLine(group, '2026-11-10'), /· first deadline in 3 weeks$/);
 });
 
 test('the stories about an update are those that use one of its phrases, newest first', () => {

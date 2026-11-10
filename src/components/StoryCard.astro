@@ -30,6 +30,8 @@ const writer = formatAuthors(data.authors);
 // The reason to read: its first sentence under the headline, and any more behind the "why read this" button.
 const why = deck(data.why_read);
 const figure = data.figure && data.figure.kind !== 'none' ? data.figure : undefined;
+// The story's mark in its edition, printed above it so the reader need not filter to find it.
+const mark = signal === 'must' ? 'Must-read' : signal === 'recommended' ? 'Recommended' : undefined;
 ---
 
 <article
@@ -40,6 +42,7 @@ const figure = data.figure && data.figure.kind !== 'none' ? data.figure : undefi
   data-personas={data.personas.join(' ')}
   data-signal={signal}
 >
+  {mark && <p class="flag story__mark">{mark}</p>}
   <p class="story__byline">
     <span>{writer ? `By ${writer}` : source}{writer && <span class="story__source"> · {source}</span>}</span>
     {why.rest && (
@@ -61,6 +64,13 @@ const figure = data.figure && data.figure.kind !== 'none' ? data.figure : undefi
   <p class="story__deck">{why.deck}</p>
   {figure && <StoryFigure figure={figure} />}
   <div class="story__text"><Content /></div>
+  <!-- The way to the article, said in words: the headline goes there too, but does not look like a link. -->
+  <p class="story__more">
+    <a href={data.url} target="_blank" rel="noopener" data-original>
+      {data.source_type === 'video' ? 'Watch the video at' : 'Read the original at'} {data.source}
+      <span aria-hidden="true">↗</span><span class="visually-hidden"> (opens in a new tab)</span>
+    </a>
+  </p>
   {
     data.corrections.map((correction) => (
       <p class="correction">

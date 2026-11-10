@@ -1,5 +1,6 @@
 ---
 import Masthead from '../../components/Masthead.astro';
+import Tabs from '../../components/Tabs.astro';
 import { PAPER, PERSONAS, SECTIONS } from '../../config';
 import Layout from '../../layouts/Layout.astro';
 import { KINDS, WHENS } from '../../lib/search';
@@ -19,7 +20,8 @@ const synonyms = JSON.stringify(PAPER.synonyms ?? []);
   <Masthead>
     <h1 class="dateline__text">Search</h1>
   </Masthead>
-  <main id="stories" class="wrap wrap--centred">
+  <Tabs />
+  <main id="main" class="wrap wrap--centred">
     <p class="page-sub" data-search-status aria-live="polite">Type a word or two in the search box above.</p>
 
     <div class="search-page" data-search-page data-synonyms={synonyms} hidden>

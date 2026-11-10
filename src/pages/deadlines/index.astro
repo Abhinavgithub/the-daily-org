@@ -11,7 +11,7 @@ import Masthead from '../../components/Masthead.astro';
 import Tabs from '../../components/Tabs.astro';
 import { PERSONAS } from '../../config';
 import Layout from '../../layouts/Layout.astro';
-import { deadlineId, deadlinesFrom, groupLine, grouped, storiesAbout } from '../../lib/deadlines';
+import { deadlineId, deadlinesFrom, flagLine, groupLine, grouped, storiesAbout } from '../../lib/deadlines';
 import { readReleases } from '../../lib/releases';
 import { getReleaseEditions } from '../../lib/release-store';
 import { updateChangeOf, updateLine } from '../../lib/release-changes';
@@ -52,7 +52,7 @@ const heading = (group: (typeof groups)[number]) => (group.kind === 'unknown' ? 
     <h1 class="dateline__text">Deadlines</h1>
   </Masthead>
   <Tabs current="deadlines" />
-  <main class="wrap">
+  <main id="main" class="wrap">
     <div class="ledger deadlines">
       <p class="ledger__note deadlines__intro">
         What is being enforced or retired, and when, from the official release notes.
@@ -65,22 +65,22 @@ const heading = (group: (typeof groups)[number]) => (group.kind === 'unknown' ? 
       {
         groups.map((group) => (
           <section class:list={['ledger__row', 'deadlines__group', { 'deadlines__group--past': group.past }]} data-deadline-group>
-            <h3>
+            <h2>
               {heading(group)}
               <span class="bulletin__window">{groupLine(group, today)}</span>
-            </h3>
+            </h2>
             <div>
               {group.items.map((deadline) => {
                 const about = storiesAbout(deadline, stories);
                 const roles = rolesOf(deadline.roles);
                 return (
                   <article class="bulletin__item deadlines__item" id={deadlineId(deadline.topic)} data-card data-personas={roles.join(' ')}>
-                    {deadline.deadline && <p class="flag">{deadline.deadline}</p>}
-                    <h4>
+                    {deadline.deadline && <p class="flag">{group.past ? deadline.deadline : flagLine(deadline.deadline, today)}</p>}
+                    <h3>
                       <a href={deadline.link} target="_blank" rel="noopener">
                         {deadline.name}
                       </a>
-                    </h4>
+                    </h3>
                     {changeOf(deadline) && (
                       <p class="deadlines__changed">
                         <span class="deadlines__label">Changed {dayMonth(changeOf(deadline)!.at)}</span> {updateLine(changeOf(deadline)!).replace(/^./, (first) => first.toUpperCase())}.

@@ -83,7 +83,7 @@ const preview = new URL(image ?? '/icon-512.png', Astro.site);
     </script>
   </head>
   <body>
-    <a class="skip" href="#stories">Skip to stories</a>
+    <a class="skip" href="#main">Skip to content</a>
     <!-- The newspaper itself: one sheet lying on the desk that is the window's background. -->
     <div class="sheet">
       <slot />
@@ -92,6 +92,7 @@ const preview = new URL(image ?? '/icon-512.png', Astro.site);
         <p>Each story is summarised by AI from the article its headline links to. AI can get things wrong, so read the original before you act on a story.</p>
         <p class="site-footer__links">
           <a href="/stats/">Stats</a>
+          <a href="/rss.xml">RSS</a>
           {
             SITE.repository && (
               <a href={SITE.repository} target="_blank" rel="noopener">

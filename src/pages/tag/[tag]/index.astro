@@ -2,6 +2,7 @@
 import Masthead from '../../../components/Masthead.astro';
 import SelectedFilter from '../../../components/SelectedFilter.astro';
 import StoryGrid from '../../../components/StoryGrid.astro';
+import Tabs from '../../../components/Tabs.astro';
 import Layout from '../../../layouts/Layout.astro';
 import { getAllStories, tagSlug, type Story } from '../../../lib/stories';
 
@@ -29,7 +30,8 @@ const { name, stories } = Astro.props;
   <Masthead>
     <SelectedFilter label={name} heading={`Stories tagged ${name}`} />
   </Masthead>
-  <main id="stories" class="wrap">
+  <Tabs />
+  <main id="main" class="wrap">
     <StoryGrid stories={stories} showDay />
   </main>
 </Layout>

@@ -47,7 +47,7 @@ const turnstile = import.meta.env.DEV ? undefined : SITE.turnstileSiteKey;
         {
           REASONS.map((reason) => (
             <label class="verdict__choice">
-              <input type="radio" class="visually-hidden" name="reason" value={reason} required />
+              <input type="radio" class="visually-hidden" name="reason" value={reason} />
               {reason}
             </label>
           ))
@@ -242,9 +242,17 @@ const turnstile = import.meta.env.DEV ? undefined : SITE.turnstileSiteKey;
       });
     }
 
+    // The reason is optional, so Send waits for one to be chosen and "No thanks" is the way out.
+    const sendWhy = why.querySelector<HTMLButtonElement>('button[type="submit"]')!;
+    const chosen = () => (sendWhy.disabled = !new FormData(why).get('reason'));
+    chosen();
+    why.addEventListener('change', chosen);
+    why.addEventListener('reset', () => (sendWhy.disabled = true));
+
     why.addEventListener('submit', async (event) => {
       event.preventDefault();
       const reason = new FormData(why).get('reason');
+      if (!reason) return;
       open();
       show('no', 'Thanks. That helps the editor choose.');
       const result = await send(VERDICT_PATH, { story, vote: 'no', reason });

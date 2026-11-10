@@ -30,7 +30,8 @@ const listed = [
 ---
 
 <nav class="tabs" aria-label="Parts of the paper">
-  <a href={current === 'news' ? Astro.url.pathname : '/'} aria-current={current === 'news' ? 'page' : undefined}>
+  {/* News always leads to the latest edition. On an older one the reader is in News but not on that page. */}
+  <a href="/" aria-current={current === 'news' ? (Astro.url.pathname === '/' ? 'page' : 'true') : undefined}>
     News
   </a>
   <a

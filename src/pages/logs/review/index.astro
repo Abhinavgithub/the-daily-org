@@ -22,7 +22,7 @@ const stamp = (iso: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric'
   <Masthead>
     <h1 class="dateline__text">Review</h1>
   </Masthead>
-  <main class="wrap" data-review data-path={REVIEW_PATH}>
+  <main id="main" class="wrap" data-review data-path={REVIEW_PATH}>
     <nav class="review__nav" aria-label="Review">
       <a href="/logs/">← Logs</a>
       <p class="review__count" aria-live="polite">

@@ -28,6 +28,9 @@ $accent: null !default;
 
   // The box rule around a story: ink, thinned so it reads as printed, not framed.
   --edge: color-mix(in srgb, var(--ink) 38%, transparent);
+  // The outline of something to press or type in. --rule is too faint to be the only thing that shows where
+  // a control is; this stands at least three to one against the paper and the story blocks, light and dark.
+  --control: color-mix(in srgb, var(--ink) 55%, var(--paper));
 
   // One shadow scale for the whole site: a story lying on the page, and a
   // note raised above it. Warm brown-black, to suit the paper.
@@ -59,6 +62,8 @@ $accent: null !default;
   --fs-headline: 1.25rem;
   --fs-body: 1rem;
   --fs-label: 0.8125rem;
+  // The smallest type: flags, the folio, a label in capitals. Nothing is set smaller.
+  --fs-small: 0.75rem;
 
   // Space between the sheet's edge and its content, and between the sheet and the window.
   --gutter: clamp(1rem, 2.4vw, 1.5rem);

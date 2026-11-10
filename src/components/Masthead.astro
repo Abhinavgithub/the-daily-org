@@ -35,8 +35,11 @@ const name = at < 0 ? [SITE.name, '', ''] : [SITE.name.slice(0, at), SITE.accent
         value={query}
         placeholder="Search all editions"
         autocomplete="off"
+        aria-keyshortcuts="/"
         data-site-search
       />
+      <!-- The key that jumps here, shown where there is a keyboard and the box is empty. -->
+      <kbd class="search__key" aria-hidden="true">/</kbd>
       <button type="submit" aria-label="Search" title="Search">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <circle cx="11" cy="11" r="7"></circle>
@@ -99,7 +102,9 @@ const name = at < 0 ? [SITE.name, '', ''] : [SITE.name.slice(0, at), SITE.accent
         <p class="folio">
           <span>Vol. {edition.volume} · No. {edition.number}</span>
           <span class="folio__tagline">{SITE.tagline}</span>
-          <span>{edition.date}</span>
+          <span class="folio__date">{edition.date}</span>
+          <!-- On a narrow page, where the ears are left out and the date is already above the nameplate. -->
+          <span class="folio__holds">{edition.holds}</span>
         </p>
       </div>
     ) : (

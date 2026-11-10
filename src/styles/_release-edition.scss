@@ -99,7 +99,7 @@
 
   > h2 {
     margin: 0 0 0.5rem;
-    font-size: 0.72rem;
+    font-size: var(--fs-small);
     font-weight: 700;
     letter-spacing: 0.06em;
     text-transform: uppercase;
@@ -380,7 +380,7 @@
   padding: 0;
   color: var(--ink);
   background: var(--surface);
-  border: 1px solid var(--rule);
+  border: 1px solid var(--control);
   border-radius: 0;
   cursor: pointer;
 
@@ -404,11 +404,14 @@
   display: flex;
   height: var(--tool);
   background: var(--surface);
-  border: 1px solid var(--rule);
+  border: 1px solid var(--control);
   border-radius: 0;
 
-  &:focus-within {
+  // Typing in the field rings the whole box, as focus rings everything else.
+  &:has(input:focus-visible) {
     border-color: var(--sky);
+    outline: 2px solid var(--sky);
+    outline-offset: 2px;
   }
 
   input {
@@ -438,13 +441,38 @@
     &:hover,
     &:focus-visible {
       color: var(--sky);
-      outline: none;
+    }
+
+    // Inside the box, so the ring is not cut off by its edge.
+    &:focus-visible {
+      outline-offset: -3px;
     }
 
     svg {
       width: 1.15rem;
       height: 1.15rem;
     }
+  }
+}
+
+// "/" jumps to the search. Said in the box while it is empty and not in use, where there is a keyboard to press it on.
+.search__key {
+  display: none;
+  align-self: center;
+  min-width: 1.5rem;
+  margin-right: 0.35rem;
+  padding: 0 0.35rem;
+  border: 1px solid var(--rule);
+  font-family: var(--display);
+  font-size: var(--fs-small);
+  line-height: 1.6;
+  text-align: center;
+  color: var(--muted);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .search input:placeholder-shown:not(:focus) + .search__key {
+    display: block;
   }
 }
 
@@ -500,7 +528,7 @@
   place-items: center;
   width: 1.75rem;
   height: 1.75rem;
-  border: 1px solid var(--rule);
+  border: 1px solid var(--control);
   border-radius: 0;
   color: var(--ink);
 
@@ -554,7 +582,7 @@ span.dateline__step {
 }
 
 .masthead__tagline {
-  font-size: 0.72rem;
+  font-size: var(--fs-small);
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;
@@ -581,7 +609,7 @@ span.dateline__step {
   padding: 0.45rem 0.7rem;
   border: 1px solid var(--ink);
   font-family: var(--display);
-  font-size: 0.78rem;
+  font-size: var(--fs-label);
   line-height: 1.4;
   text-align: center;
   font-variant-numeric: tabular-nums;
@@ -590,7 +618,7 @@ span.dateline__step {
   b {
     display: block;
     margin-bottom: 0.1rem;
-    font-size: 0.68rem;
+    font-size: var(--fs-small);
     font-weight: 700;
     letter-spacing: 0.08em;
     text-transform: uppercase;
@@ -620,7 +648,7 @@ span.dateline__step {
   padding: 0.35rem 0;
   border-top: 1px solid var(--ink);
   border-bottom: 1px solid var(--ink);
-  font-size: 0.7rem;
+  font-size: var(--fs-small);
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -635,6 +663,11 @@ span.dateline__step {
     text-align: center;
     text-wrap: balance;
   }
+
+  // What the edition holds: only where the ear that says so is left out.
+  .folio__holds {
+    display: none;
+  }
 }
 
 // No room for the ears on a narrow page, nor for the motto between volume and date.
@@ -647,8 +680,23 @@ span.dateline__step {
     display: none;
   }
 
-  .folio__tagline {
-    display: none;
+  // The motto keeps its place, on a line of its own under the volume: it is what tells a new reader what
+  // the paper is. The date is already above the nameplate, so what the edition holds takes its place.
+  .folio {
+    flex-wrap: wrap;
+
+    .folio__tagline {
+      order: 3;
+      flex-basis: 100%;
+    }
+
+    .folio__date {
+      display: none;
+    }
+
+    .folio__holds {
+      display: inline;
+    }
   }
 }
 
@@ -666,7 +714,7 @@ span.dateline__step {
   margin-left: 0.45rem;
   padding: 0.05rem 0.4rem;
   font-family: var(--display);
-  font-size: 0.68rem;
+  font-size: var(--fs-small);
   font-weight: 700;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -693,7 +741,7 @@ span.dateline__step {
 
   h2 {
     margin: 0 0 0.3rem;
-    font-size: 0.72rem;
+    font-size: var(--fs-small);
     letter-spacing: 0.08em;
     text-transform: uppercase;
   }

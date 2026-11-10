@@ -29,6 +29,12 @@
   .story--w2 .story__text,
   .story--w3 .story__text {
     columns: 1;
+
+    // One narrow column cannot be justified without gaps between the words.
+    p {
+      text-align: start;
+      hyphens: manual;
+    }
   }
 
   // The search gives way so Archive and the theme button keep their size.
@@ -36,24 +42,18 @@
     grid-template-columns: auto minmax(0, 1fr) auto;
   }
 
-  // The filters on one line that scrolls sideways, rather than wrapping to three. The far edge fades to show there is more.
+  // The filters on two lines, a group to each, so every choice is in view without scrolling sideways.
   .filters__line {
-    flex-wrap: nowrap;
-    justify-content: flex-start;
-    overflow-x: auto;
-    scrollbar-width: none;
-    mask-image: linear-gradient(to right, #000 calc(100% - 2rem), transparent);
+    flex-direction: column;
+    row-gap: 0.25rem;
   }
 
   .filters__group {
-    flex: none;
-    flex-wrap: nowrap;
-    white-space: nowrap;
     gap: 0.1rem 1.1rem;
-    padding-inline: 0 1.1rem;
+    padding-inline: 0;
 
     & + & {
-      padding-left: 1.1rem;
+      border-left: 0;
     }
   }
 
@@ -61,7 +61,46 @@
     display: none;
   }
 
+  // Not when the filters have left it empty: the page says so below.
+  .contents:has(li:not([hidden])) {
+    display: block;
+  }
+
   .dateline__short {
     display: inline;
+  }
+}
+
+// Fingers need more room than a pointer. The words stay the size they are; the place that takes the press
+// grows around them, so the rules under the tabs and filters stay close to their words.
+@media (pointer: coarse) {
+  .tabs a,
+  .filters__group .chip,
+  .why__button {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      inset: -0.5rem;
+    }
+  }
+
+  // The tabs stand right above the filters: each reaches towards the other only as far as half the gap.
+  .tabs a::after {
+    inset-block: -0.6rem -0.35rem;
+  }
+
+  .filters__group .chip::after {
+    inset-block: -0.4rem;
+  }
+
+  .filters__line {
+    row-gap: 0.85rem;
+  }
+
+  .dateline__step {
+    width: 2.75rem;
+    height: 2.75rem;
   }
 }
