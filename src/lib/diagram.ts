@@ -32,6 +32,11 @@ const LEAD = 1.25;
 const SIZE = 15;
 const PAD = 8;
 const WIDTH: Record<Layout, number> = { wide: 720, narrow: 360 };
+/** From this many steps the wide drawing is one long row, this wide. */
+export const LONG_FROM = 6;
+const LONG_WIDTH = 1160;
+/** Whether a figure's wide drawing is the long row, which needs a story the width of the page. */
+export const isLong = (figure: Drawn) => figure.kind === 'steps' && figure.steps.length >= LONG_FROM;
 
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -91,22 +96,40 @@ const arrow = (x1: number, y1: number, x2: number, y2: number, p: Palette) => {
 
 const icons = (figure: Drawn) => (figure.icons ?? []) as (IconName | undefined)[];
 
-/** A drawing and the height it takes; the width is the layout's. */
-type Drawing = { body: string; height: number };
+/** A drawing and the height it takes; the width is the layout's unless it says otherwise. */
+type Drawing = { body: string; height: number; width?: number };
 
 function steps(figure: Extract<Drawn, { kind: 'steps' }>, layout: Layout, p: Palette): Drawing {
   const W = WIDTH[layout];
   const pictures = icons(figure);
   const n = figure.steps.length;
   const ICON = 26;
+  if (layout === 'wide' && n > LONG_FROM - 1) {
+    // Six or seven steps: one row of smaller boxes, without pictures, drawn wider so the words keep their size.
+    // It is shown only in a story wide enough for it (see .fig--long in _figure.scss).
+    const W = LONG_WIDTH;
+    const gap = 18;
+    const w = (W - 2 * PAD - (n - 1) * gap) / n;
+    const lines = figure.steps.map((step) => wrap(step, w - 18));
+    const tallest = Math.max(...lines.map((l) => height(l)));
+    const h = 14 + 22 + 8 + tallest + 14;
+    const body = figure.steps
+      .map((_, i) => {
+        const shorter = (tallest - height(lines[i])) / 2;
+        const x = PAD + i * (w + gap);
+        return (
+          box(x, PAD, w, h, p) +
+          badge(x + w / 2, PAD + 14 + 11, i + 1, p) +
+          text(x + w / 2, PAD + 14 + 22 + 8 + shorter, lines[i], p.ink) +
+          (i < n - 1 ? arrow(x + w + 3, PAD + h / 2, x + w + gap - 3, PAD + h / 2, p) : '')
+        );
+      })
+      .join('');
+    return { body, height: h + 2 * PAD, width: W };
+  }
   if (layout === 'wide') {
-    // Up to five steps on one row. More would leave each box too narrow to read, so they run onto a second
-    // row, as words run onto a second line: the numbers keep the order, and an arrow joins two on the same row.
-    const perRow = n <= 5 ? n : Math.ceil(n / 2);
-    const rows = Math.ceil(n / perRow);
     const gap = 30;
-    const rowGap = 24;
-    const w = (W - 2 * PAD - (perRow - 1) * gap) / perRow;
+    const w = (W - 2 * PAD - (n - 1) * gap) / n;
     const lines = figure.steps.map((step) => wrap(step, w - 20));
     const iconBand = pictures.some(Boolean) ? ICON + 10 : 0;
     const tallest = Math.max(...lines.map((l) => height(l)));
@@ -115,20 +138,18 @@ function steps(figure: Extract<Drawn, { kind: 'steps' }>, layout: Layout, p: Pal
       .map((_, i) => {
         // A short label sits in the middle of the room left for the tallest.
         const shorter = (tallest - height(lines[i])) / 2;
-        const row = Math.floor(i / perRow);
-        const x = PAD + (i % perRow) * (w + gap);
-        const top = PAD + row * (h + rowGap);
-        const nextOnRow = i < n - 1 && Math.floor((i + 1) / perRow) === row;
+        const x = PAD + i * (w + gap);
+        const top = PAD;
         return (
           box(x, top, w, h, p) +
           badge(x + w / 2, top + 14 + 11, i + 1, p) +
           icon(pictures[i], x + w / 2, top + 14 + 22 + 6 + ICON / 2, ICON, p.ink) +
           text(x + w / 2, top + 14 + 22 + iconBand + 4 + shorter, lines[i], p.ink) +
-          (nextOnRow ? arrow(x + w + 5, top + h / 2, x + w + gap - 5, top + h / 2, p) : '')
+          (i < n - 1 ? arrow(x + w + 5, top + h / 2, x + w + gap - 5, top + h / 2, p) : '')
         );
       })
       .join('');
-    return { body, height: rows * h + (rows - 1) * rowGap + 2 * PAD };
+    return { body, height: h + 2 * PAD };
   }
   const gap = 24;
   const w = W - 2 * PAD;
@@ -306,7 +327,7 @@ export function describe(figure: Drawn): string {
 /** The figure as an SVG document in one of its two layouts. */
 export function figureSvg(figure: Drawn, layout: Layout, palette: Palette = PAGE): string {
   const drawn = { steps, parts, compare, numbers }[figure.kind](figure as never, layout, palette);
-  const W = WIDTH[layout];
+  const W = drawn.width ?? WIDTH[layout];
   const H = Math.ceil(drawn.height);
   const background = palette.background ? `<rect width="${W}" height="${H}" fill="${palette.background}"/>` : '';
   return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" font-family="${esc(FONT)}" role="img" aria-label="${esc(describe(figure))}">${background}${drawn.body}</svg>`;

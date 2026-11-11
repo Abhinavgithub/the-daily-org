@@ -127,7 +127,7 @@ Use what exists. Add a component only when none of these fits, and add it here.
 | Disclosure | `details` | For what most readers will skip. Its summary is a `--sky` label |
 | Tool | `.tool`, `.search` | A 2.5rem square button; the search field with its button |
 | Votes and report | `.verdict` | The paper's question in italic, two square buttons, a panel that opens beneath |
-| Diagram | `.fig` | Line art drawn by code in ink and `--sun`. No photographs, no decoration |
+| Diagram | `.fig` | Line art drawn by code in ink and `--sun`. No photographs, no decoration. Up to five steps sit in a row of boxes with pictures; six or seven sit in one long row of smaller boxes without them (`.fig--long`), shown only in a story at least 60rem wide, and stacked in a narrower one |
 
 ## States
 

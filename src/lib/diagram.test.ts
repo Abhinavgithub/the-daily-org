@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { figureSvg, wrap, type Drawn } from './diagram';
+import { figureSvg, isLong, wrap, type Drawn } from './diagram';
 
 const figures: Drawn[] = [
   { kind: 'steps', caption: 'How it runs', steps: ['Edit Apex locally', 'Run tests', 'Deploy'], icons: ['code', 'test', 'cloud'] },
@@ -44,11 +44,15 @@ test('labels wrap at spaces to fit their box, and text is escaped', () => {
   assert.ok(figureSvg({ kind: 'steps', caption: 'A & B', steps: ['<script>', 'x & y'] }, 'narrow').includes('&lt;script&gt;'));
 });
 
-test('more than five steps run onto a second row across, each still drawn and numbered', () => {
-  const seven = { kind: 'steps', caption: 'Seven stages', steps: ['Ground', 'Specify', 'Build', 'Verify', 'Review', 'Release', 'Observe'] } as Extract<Drawn, { kind: 'steps' }>;
+test('six or seven steps are one long row, without pictures, and need a wide story', () => {
+  const seven = { kind: 'steps', caption: 'Seven stages', steps: ['Ground', 'Specify', 'Build', 'Verify', 'Review', 'Release', 'Observe'], icons: ['search', 'doc', 'code', 'test', 'check', 'rocket', 'chart'] } as Extract<Drawn, { kind: 'steps' }>;
   const svg = figureSvg(seven, 'wide');
   for (const step of seven.steps) assert.ok(drawnText(svg).includes(step), step);
-  assert.equal(svg.match(/<rect /g)?.length, 7);
-  const one = figureSvg({ ...seven, steps: seven.steps.slice(0, 5) }, 'wide');
-  assert.ok(Number(svg.match(/height="(\d+)"/)![1]) > Number(one.match(/height="(\d+)"/)![1]), 'two rows are taller than one');
+  const tops = [...svg.matchAll(/<rect x="[^"]+" y="([^"]+)"/g)].map((m) => m[1]);
+  assert.equal(tops.length, 7);
+  assert.equal(new Set(tops).size, 1, 'all on one row');
+  assert.match(svg, /viewBox="0 0 1160 /);
+  assert.equal(svg.match(/<path d="M3 5h18/g), null, 'no pictures');
+  assert.ok(isLong(seven));
+  assert.ok(!isLong({ ...seven, steps: seven.steps.slice(0, 5) }));
 });

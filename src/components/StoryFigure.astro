@@ -1,5 +1,5 @@
 ---
-import { figureSvg, type Drawn } from '../lib/diagram';
+import { figureSvg, isLong, type Drawn } from '../lib/diagram';
 
 interface Props {
   figure: Drawn;
@@ -7,12 +7,12 @@ interface Props {
 
 const { figure } = Astro.props;
 // Drawn by code in the page's own colours, so it follows the reader's theme. Both layouts are on the page,
-// and the width of the story's box decides which one shows.
+// and the width of the story's box decides which one shows. Six or seven steps across need the page's width.
 const wide = figureSvg(figure, 'wide');
 const narrow = figureSvg(figure, 'narrow');
 ---
 
-<figure class="fig">
+<figure class:list={['fig', isLong(figure) && 'fig--long']}>
   <div class="fig__drawing fig__drawing--wide" set:html={wide} />
   <div class="fig__drawing fig__drawing--narrow" set:html={narrow} />
   <figcaption>{figure.caption}</figcaption>

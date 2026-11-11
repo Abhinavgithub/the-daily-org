@@ -181,3 +181,31 @@
     display: block;
   }
 }
+
+// Six or seven steps in one row: the drawing is as wide as the story, and is shown only in a story wide
+// enough for its words to keep their size. A narrower story shows the stacked steps.
+.fig--long {
+  .fig__drawing--wide {
+    max-width: none;
+  }
+
+  @container (min-width: 36rem) {
+    .fig__drawing--wide {
+      display: none;
+    }
+
+    .fig__drawing--narrow {
+      display: block;
+    }
+  }
+
+  @container (min-width: 60rem) {
+    .fig__drawing--wide {
+      display: block;
+    }
+
+    .fig__drawing--narrow {
+      display: none;
+    }
+  }
+}
