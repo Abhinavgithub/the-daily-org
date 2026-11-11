@@ -1,3 +1,5 @@
+@use 'mixins' as *;
+
 // Reader feedback --------------------------------------------------------
 
 // "Worth reading? Yes No": the last line of a story, under a hairline, so the
@@ -5,7 +7,7 @@
 .verdict {
   // The line knows its own width, so a narrow story can set "Report an error" as its flag alone.
   container-type: inline-size;
-  margin: 1rem 0 0;
+  margin: var(--space-4) 0 0;
   padding-top: 0.7rem;
   border-top: 1px solid var(--rule);
   font-family: var(--display);
@@ -23,12 +25,12 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem 0.4rem;
+  gap: var(--space-2) 0.4rem;
 }
 
 // The question, set as a line of the story.
 .verdict__ask {
-  margin-right: 0.25rem;
+  margin-right: var(--space-1);
   font-family: var(--headline);
   font-style: italic;
   font-size: var(--fs-body);
@@ -46,7 +48,7 @@
   align-items: center;
   gap: 0.4rem;
   min-height: 1.875rem;
-  padding: 0.25rem 0.65rem;
+  padding: var(--space-1) 0.65rem;
   font: inherit;
   font-weight: 500;
   color: var(--ink);
@@ -145,7 +147,7 @@
 // After No, or for a report: a note set off by an ink rule, as a paper sets a pull quote.
 .verdict__panel {
   margin: 0.85rem 0 0;
-  padding: 0.15rem 0 0.2rem 1rem;
+  padding: 0.15rem 0 0.2rem var(--space-4);
   border-left: 2px solid var(--ink);
   color: var(--ink);
 
@@ -193,9 +195,7 @@
   margin-left: 0.3rem;
   font-family: var(--display);
   font-style: normal;
-  font-size: var(--fs-small);
-  letter-spacing: var(--caps);
-  text-transform: uppercase;
+  @include label(var(--fs-small), null);
   color: var(--muted);
 }
 
@@ -203,7 +203,7 @@
 .verdict__choices {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr));
-  gap: 0 1rem;
+  gap: 0 var(--space-4);
 }
 
 .verdict__choice {
@@ -248,7 +248,7 @@
   display: block;
   width: 100%;
   box-sizing: border-box;
-  padding: 0.5rem 0.6rem;
+  padding: var(--space-2) 0.6rem;
   font-family: var(--text);
   font-size: var(--fs-body);
   line-height: 1.4;
@@ -294,19 +294,16 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: 0.5rem 1rem;
+  gap: var(--space-2) var(--space-4);
   margin-top: 0.85rem;
 }
 
 // The one solid button: ink on paper, square, in small capitals.
 .verdict__send {
   min-height: 2.25rem;
-  padding: 0.4rem 1rem;
+  padding: 0.4rem var(--space-4);
   font-family: var(--display);
-  font-size: var(--fs-label);
-  font-weight: 600;
-  letter-spacing: var(--caps);
-  text-transform: uppercase;
+  @include label(var(--fs-label), 600);
   color: var(--paper);
   background: var(--ink);
   border: 1px solid var(--ink);
@@ -337,7 +334,7 @@
 
 // Turnstile's box, when Cloudflare asks the reader to tick it.
 .verdict__check:not(:empty) {
-  margin-top: 0.75rem;
+  margin-top: var(--space-3);
 }
 
 // A correction, printed as a paper prints one: a ruled note under the text (PLAN.md, step 8c).
@@ -353,11 +350,8 @@
 .correction__label {
   margin-right: 0.35rem;
   font-family: var(--display);
-  font-size: var(--fs-label);
+  @include label(var(--fs-label), 700);
   font-style: normal;
-  font-weight: 700;
-  letter-spacing: var(--caps);
-  text-transform: uppercase;
 }
 
 // Fingers need more room than a pointer.

@@ -34,6 +34,7 @@ Use a colour for its role. Never write a colour value in a partial: every colour
 | `--sun` | The paper's own voice: "What to do", a mark in a list, a diagram's numbers, the Bulletin's count | `#8f4a08` | `#f0a85a` |
 | `--alarm` | A failure of the service, and a share price that fell. Nothing else | `#b3261e` | `#ff6b5e` |
 | `--rise` | A share price that rose | `#1f7a3d` | `#5fc27e` |
+| `--mark`, `--mark-light`, `--mark-rest`, `--mark-faint`, `--mark-aside` | The bars of a chart on the Stats and Logs pages. Charts only | blues, beiges, a green | the same, lighter |
 
 Rules:
 
@@ -69,9 +70,10 @@ The scale. Every `font-size` is one of these; do not write a size.
 
 Rules:
 
-- Headlines: Newsreader, weight 700, `letter-spacing: -0.005em`, line-height 1.2 to 1.25.
+- Headlines: Newsreader, weight 700, line-height 1.2 to 1.25.
 - Reading text: Newsreader, weight 400, line-height 1.5, at most about 46rem wide.
-- Capitals: Libre Franklin, weight 600 or 700, `letter-spacing: var(--caps)`, usually `--fs-small` and `--muted`. Capitals are for labels of a word or three, never for a sentence.
+- Headline tracking is `var(--tight)`; the lead's, at its size, `var(--tighter)`.
+- Capitals: Libre Franklin, usually `--muted`, and always set with the mixin, never by hand: `@include label;` for the smallest size at weight 700, or `@include label(var(--fs-label), 600);` for another size or weight (`src/styles/_mixins.scss`; a partial that uses it opens with `@use 'mixins' as *;`). Capitals are for labels of a word or three, never for a sentence.
 - Text is set ragged right. Nothing is justified.
 - Figures that line up (prices, counts, dates in a column) take `font-variant-numeric: tabular-nums`.
 - Headings go in order, h1 to h2 to h3, with no level skipped. Each page has one h1, in the masthead.
@@ -81,15 +83,23 @@ Rules:
 - The sheet is `--width` (78rem) at most, with `--gutter` between its edge and its content.
 - A front page is three columns with a 2.25rem gap; two under 64rem; one under 44rem. `src/lib/pack.ts` places the stories.
 - A ledger page (Bulletin, Deadlines, Archive, Stats) is one column of 62rem: each section's name in an 11rem margin, its content beside it. Under 44rem the name goes above.
-- Steps of space for new work: `--space-1` to `--space-6` (0.25, 0.5, 0.75, 1, 1.5, 2.25rem). Older rules use values near these; bring them to a step when you touch them.
+- Space is in steps: `--space-1` to `--space-6` (0.25, 0.5, 0.75, 1, 1.5, 2.25rem). A margin, a padding or a gap that is one of these is written as its token. Some older rules use a value between two steps; bring them to a step when you touch them, and look at the page after.
 - Breakpoints, and only these: 64rem (three columns to two), 46rem (the masthead's ears and share price go), 44rem (one column, filters on two lines, ledger names above), 40rem (the release edition's lists). The narrow rules live in `_narrow.scss`, last in the cascade.
 - Nothing scrolls sideways at 320px.
 
 ## Rules, corners and depth
 
 - Three rules: 1px `--rule` between items; 2px `--ink` to head a section or a list; 3px double `--ink` to close the masthead's filter bar. A section is not headed twice.
-- `border-radius: 0` everywhere. A circle is allowed for a radio's mark and the round "why read this" icon. Diagram boxes are 2px.
+- `border-radius: 0` everywhere, the editor's own pages included. A circle is allowed for a radio's mark and the round "why read this" icon. Diagram boxes are 2px.
 - Shadows: `--shadow-sheet` on the sheet, `--shadow-2` on a note floating over the page. Stories and sections have none.
+
+## Icons and pictures
+
+- Icons are drawn in line, inline in the page as SVG: a 24 by 24 grid (16 by 16 for the smallest), `fill="none"`, `stroke="currentColor"`, a stroke of 1.8 to 2, round caps and joins. They take their colour from the text beside them.
+- An icon is `aria-hidden="true"` and stands beside words, or its button carries an `aria-label`. An icon alone is used only where the words do not fit, and then with a `title` as well.
+- At most one icon to a control. No icon is decoration: if the words say it, leave it out.
+- A diagram's small pictures come from the set in `src/lib/icons.ts`, in the same line.
+- Pictures are diagrams drawn by code (`src/lib/diagram.ts`) in `--ink`, `--surface` and `--sun`. No photographs, no painted illustrations, no logos of other companies.
 
 ## Components
 

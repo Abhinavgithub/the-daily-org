@@ -1,3 +1,5 @@
+@use 'mixins' as *;
+
 // Stats ----------------------------------------------------------------
 
 .wrap:has([data-stats]) {
@@ -8,7 +10,7 @@
 .stats__pick {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--space-2);
   color: var(--muted);
 
   select {
@@ -28,23 +30,14 @@
 
 .wrap:has([data-stats]) .filters {
   border-bottom: 0;
-  margin-bottom: 0.5rem;
+  margin-bottom: var(--space-2);
 }
 
 // The page is a ledger: one column in the middle of the sheet, its sections
 // divided by rules, each named in the margin. Nothing here is boxed, so it does
 // not read as a page of stories.
 .ledger {
-  // The colours of the bars, apart from the paper's own ink. Chosen in pairs,
-  // light and dark, and checked for being told apart by eye and with colour blindness.
-  --mark: #1f5f94;
-  --mark-light: #5d9bcb;
-  --mark-rest: #9a917e;
-  --mark-faint: #c4baa3;
-  // Apart from the blues and beiges, for what is printed but is not a story: the Bulletin's lines.
-  --mark-aside: #5e8a2e;
-  // Behind a weekend day, in a chart a day.
-
+  // The colours of the bars are --mark and its kin, in _tokens.scss.
   max-width: 62rem;
   margin: 0 auto;
   font-family: var(--display);
@@ -55,26 +48,6 @@
     color: var(--ink);
     font-variant-numeric: tabular-nums;
   }
-}
-
-@mixin dark-marks {
-  .ledger {
-    --mark: #4d9ad6;
-    --mark-light: #a9d0ee;
-    --mark-rest: #8a8272;
-    --mark-faint: #5c5647;
-    --mark-aside: #7fbf6a;
-  }
-}
-
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme='light']) {
-    @include dark-marks;
-  }
-}
-
-:root[data-theme='dark'] {
-  @include dark-marks;
 }
 
 .mark--main {
@@ -113,11 +86,11 @@
 }
 
 .ledger__head {
-  padding: 0.5rem 0 1.75rem;
+  padding: var(--space-2) 0 1.75rem;
   text-align: center;
 
   h2 {
-    margin: 0 0 0.5rem;
+    margin: 0 0 var(--space-2);
     font-family: var(--headline);
     font-weight: 700;
     font-size: var(--fs-title);
@@ -136,30 +109,28 @@
 .ledger__row {
   display: grid;
   grid-template-columns: 11rem minmax(0, 1fr);
-  gap: 1rem 2rem;
-  padding: 1.5rem 0 1.75rem;
+  gap: var(--space-4) 2rem;
+  padding: var(--space-5) 0 1.75rem;
   border-top: 1px solid var(--rule);
 
   &:first-of-type {
     border-top: 2px solid var(--ink);
   }
 
-  // The row's name, in the margin. On the Stats and Logs pages it is an h3, under the period's h2; on the
-  // Bulletin, the Deadlines and the Archive, which have no such heading, it is the h2.
+  // The row's name, in the margin. On the Stats page it is an h3, under the period's h2; on every other
+  // ledger page, which has no such heading, it is the h2.
   > h2,
   h3 {
     margin: 0.15rem 0 0;
-    font-size: var(--fs-small);
-    font-weight: 700;
-    letter-spacing: var(--caps);
-    text-transform: uppercase;
+    @include label;
     color: var(--muted);
   }
 
   // A heading within the row. On the pages whose row is named by an h2, that is an h3: a notice, a year, a month.
   // :where keeps it no heavier than the rules that set each of those.
   h4,
-  :where(.bulletin__item, .past__month, .cal__head) h3 {
+  :where(.bulletin__item, .past__month, .cal__head, .review__item) h3,
+  h3:where(.readers__head) {
     margin: 0 0 0.6rem;
     font-size: var(--fs-label);
     font-weight: 700;
@@ -171,7 +142,7 @@
 
 .ledger__note,
 .ledger__none {
-  margin: 0.75rem 0 0;
+  margin: var(--space-3) 0 0;
   color: var(--muted);
 }
 
@@ -183,7 +154,7 @@
 .ledger__sum {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.25rem 1.75rem;
+  gap: var(--space-1) 1.75rem;
   margin: 0 0 1.1rem;
   color: var(--muted);
 
@@ -227,7 +198,7 @@
 .key {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.3rem 1.5rem;
+  gap: 0.3rem var(--space-5);
   margin: 0.7rem 0 0;
   padding: 0;
   list-style: none;
@@ -263,7 +234,7 @@
   li {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto 3rem;
-    gap: 0.3rem 0.75rem;
+    gap: 0.3rem var(--space-3);
     align-items: baseline;
   }
 }
@@ -320,7 +291,7 @@
 // Phone, desktop and tablet, as one bar under the readership figures.
 .ledger__devices {
   max-width: 44rem;
-  margin: 0 0 1.5rem;
+  margin: 0 0 var(--space-5);
 }
 
 // A ranked list: the name and its count, and a slim bar beneath.
@@ -334,7 +305,7 @@
   li {
     display: grid;
     grid-template-columns: minmax(0, 1fr) auto;
-    gap: 0.25rem 0.75rem;
+    gap: var(--space-1) var(--space-3);
   }
 }
 
@@ -384,7 +355,7 @@
   display: flex;
   align-items: center;
   gap: 0.45rem;
-  margin: 0 0 0.5rem;
+  margin: 0 0 var(--space-2);
   color: var(--muted);
 }
 
@@ -621,7 +592,7 @@
 @media (max-width: 44rem) {
   .ledger__row {
     grid-template-columns: minmax(0, 1fr);
-    gap: 0.75rem;
+    gap: var(--space-3);
   }
 }
 
@@ -656,8 +627,8 @@
   }
 }
 
-.logcols__base {
-  border-top: 1px solid var(--muted) !important;
+.logcols__grid .logcols__base {
+  border-top: 1px solid var(--muted);
   z-index: 1;
 }
 

@@ -109,7 +109,7 @@ const title = (id: string) => byId.get(id)?.data.title ?? id;
   {
     listed.length > 0 && (
       <>
-        <h4 class="readers__head">Reports</h4>
+        <h3 class="readers__head">Reports</h3>
         <ol class="readers__reports">
           {listed.map((report) => {
             const story = byId.get(report.story);

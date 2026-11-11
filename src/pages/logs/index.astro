@@ -228,15 +228,15 @@ const readersUpdated = readerFeedback && fs.existsSync(READER_FILE) ? fs.statSyn
         panels.map((panel) => (
           <div data-period={panel.id} hidden={panel.id !== 'all'}>
             <section class="ledger__row" id={panel.id === 'all' ? 'attention' : undefined}>
-              <h3>Needs attention</h3>
+              <h2>Needs attention</h2>
               <LogFindings findings={panel.findings} />
             </section>
             <section class="ledger__row" id={panel.id === 'all' ? 'glance' : undefined}>
-              <h3>At a glance</h3>
+              <h2>At a glance</h2>
               <LogGlance glance={panel.glance} spending={money} />
             </section>
             <section class="ledger__row" id={panel.id === 'all' ? 'how' : undefined}>
-              <h3>Day by day</h3>
+              <h2>Day by day</h2>
               <div class="ledger__charts">
                 <LogColumns
                   title="What became of each day's articles"
@@ -253,7 +253,7 @@ const readersUpdated = readerFeedback && fs.existsSync(READER_FILE) ? fs.statSyn
       }
 
       <section class="ledger__row" id="sources">
-        <h3>Sources</h3>
+        <h2>Sources</h2>
         <div class="sources">
           <p class="ledger__sum">{standings(scores)} Over the last {SCORE_DAYS} days.</p>
           <dl class="glance sources__figures">
@@ -361,19 +361,19 @@ const readersUpdated = readerFeedback && fs.existsSync(READER_FILE) ? fs.statSyn
       {
         readerFeedback && (
           <section class="ledger__row" id="readers">
-            <h3>Readers</h3>
+            <h2>Readers</h2>
             <LogReaders votes={readerFeedback.votes} reports={readerFeedback.reports} handled={loadHandled()} feedback={feedback} stories={readerStories} updated={readersUpdated} />
           </section>
         )
       }
 
       <section class="ledger__row" id="articles">
-        <h3>Articles</h3>
+        <h2>Articles</h2>
         <LogArticles articles={articles} feedback={feedback} canFlag={import.meta.env.DEV} />
       </section>
 
       <section class="ledger__row" id="runs">
-        <h3>Runs</h3>
+        <h2>Runs</h2>
         <div>
           <div class="articles__controls">
             <div class="articles__chips" role="group" aria-label="Runs" data-run-filter>

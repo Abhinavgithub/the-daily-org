@@ -26,6 +26,15 @@ $accent: null !default;
   --alarm: #b3261e;
   --backdrop: rgb(28 26 22 / 0.55);
 
+  // The colours of a chart's bars, apart from the paper's own ink. Chosen in pairs, light and dark, and
+  // checked for being told apart by eye and with colour blindness. Charts only: nothing else is blue or green.
+  --mark: #1f5f94;
+  --mark-light: #5d9bcb;
+  --mark-rest: #9a917e;
+  --mark-faint: #c4baa3;
+  // Apart from the blues and beiges, for what is printed but is not a story: the Bulletin's lines.
+  --mark-aside: #5e8a2e;
+
   // The box rule around a story: ink, thinned so it reads as printed, not framed.
   --edge: color-mix(in srgb, var(--ink) 38%, transparent);
   // The outline of something to press or type in. --rule is too faint to be the only thing that shows where
@@ -71,6 +80,9 @@ $accent: null !default;
 
   // Words in capitals are always spaced this much.
   --caps: 0.06em;
+  // A headline is drawn a little closer; the lead's, at its size, closer still.
+  --tight: -0.005em;
+  --tighter: -0.012em;
 
   // How a colour or a border changes under the pointer. Nothing moves; nothing takes longer.
   --ease: 120ms ease-out;
@@ -106,6 +118,11 @@ $accent: null !default;
   --sun: #f0a85a;
   --alarm: #ff6b5e;
   --backdrop: rgb(0 0 0 / 0.7);
+  --mark: #4d9ad6;
+  --mark-light: #a9d0ee;
+  --mark-rest: #8a8272;
+  --mark-faint: #5c5647;
+  --mark-aside: #7fbf6a;
 
   // Soft shadows barely show on a dark page, so they are stronger here and
   // paired with a faint light along the top edge.

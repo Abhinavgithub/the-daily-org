@@ -1,9 +1,11 @@
+@use 'mixins' as *;
+
 // Footer ---------------------------------------------------------------
 
 .site-footer {
   // The rule stops short of the sheet's edge, like the one under the masthead.
   margin: 0 var(--gutter);
-  padding: 1.25rem 0 1.5rem;
+  padding: 1.25rem 0 var(--space-5);
   border-top: 1px solid var(--rule);
   font-family: var(--display);
   font-size: var(--fs-label);
@@ -20,7 +22,7 @@
     display: flex;
     justify-content: center;
     gap: 1.25rem;
-    margin-top: 0.5rem;
+    margin-top: var(--space-2);
   }
 }
 
@@ -36,10 +38,7 @@
   line-height: 1.75rem;
 
   span {
-    font-size: var(--fs-small);
-    font-weight: 700;
-    letter-spacing: var(--caps);
-    text-transform: uppercase;
+    @include label;
   }
 
   a {

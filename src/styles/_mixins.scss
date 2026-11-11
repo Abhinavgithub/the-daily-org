@@ -1,0 +1,10 @@
+// Mixins --------------------------------------------------------------
+
+// A label in capitals: a section's name, a flag, the folio. Always spaced alike; at the smallest size and the
+// heaviest weight unless it says otherwise. Give `null` for a size or a weight the rule takes from elsewhere.
+@mixin label($size: var(--fs-small), $weight: 700) {
+  font-size: $size;
+  font-weight: $weight;
+  letter-spacing: var(--caps);
+  text-transform: uppercase;
+}

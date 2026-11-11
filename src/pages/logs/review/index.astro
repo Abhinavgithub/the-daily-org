@@ -45,15 +45,15 @@ const stamp = (iso: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric'
       {
         groups.map((group) => (
           <section class="ledger__row" id={group.kind} data-group={group.kind}>
-            <h3>
+            <h2>
               {group.label} <span class="review__n">{group.items.length || ''}</span>
-            </h3>
+            </h2>
             <div class="review__items">
               {group.items.length === 0 && <p class="ledger__none">{group.none}</p>}
               {group.items.map((item) => (
                 <article class="review__item" data-item={item.id}>
                   <div class="review__head">
-                    <h4>{item.title}</h4>
+                    <h3>{item.title}</h3>
                     {canMark && (
                       <button type="button" class="review__done" data-done={item.id} data-report={item.kind === 'report' ? item.id.slice('report:'.length) : undefined}>
                         Done
@@ -103,7 +103,7 @@ const stamp = (iso: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric'
       {
         done.length > 0 && (
           <section class="ledger__row" id="done">
-            <h3>Done this week</h3>
+            <h2>Done this week</h2>
             <ul class="review__dealt">
               {done.map((item) => (
                 <li data-item={item.id}>

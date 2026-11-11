@@ -1,8 +1,10 @@
+@use 'mixins' as *;
+
 // The Archive ----------------------------------------------------------
 // A ledger of every edition: release editions, then daily ones on a calendar,
 // then the sections. One column, so everything on it shares its edges.
 .past {
-  margin-top: 0.5rem;
+  margin-top: var(--space-2);
 }
 
 .past__sum {
@@ -34,7 +36,7 @@
     font-weight: 700;
     font-size: var(--fs-headline);
     line-height: 1.2;
-    letter-spacing: -0.005em;
+    letter-spacing: var(--tight);
     color: var(--ink);
     text-decoration: none;
 
@@ -89,7 +91,7 @@
   }
 
   .past__list {
-    padding: 0 0 0.75rem 1.55rem;
+    padding: 0 0 var(--space-3) 1.55rem;
   }
 }
 
@@ -112,16 +114,13 @@
   border-top: 1px solid var(--rule);
 
   li {
-    gap: 0.3rem 1rem;
+    gap: 0.3rem var(--space-4);
     padding: 1.1rem 0;
   }
 }
 
 .results__section {
-  font-weight: 600;
-  letter-spacing: var(--caps);
-  text-transform: uppercase;
-  font-size: var(--fs-small);
+  @include label(var(--fs-small), 600);
 }
 
 // A result's headline, as the paper sets every other: in ink, and a link by its place and on hover.
@@ -148,7 +147,7 @@
 
 .results__more {
   display: flex;
-  margin: 1.5rem auto 0;
+  margin: var(--space-5) auto 0;
   padding: 0.45rem 0.9rem;
 }
 
@@ -171,10 +170,7 @@
 
   legend {
     padding: 0 0 0.4rem;
-    font-weight: 700;
-    font-size: var(--fs-small);
-    letter-spacing: var(--caps);
-    text-transform: uppercase;
+    @include label;
     color: var(--muted);
   }
 }
@@ -218,14 +214,14 @@
   display: grid;
   grid-template-columns: auto minmax(0, 1fr);
   align-items: center;
-  gap: 0.3rem 0.5rem;
+  gap: 0.3rem var(--space-2);
   margin: 0.15rem 0 0 1.55rem;
   color: var(--muted);
 
   input {
     min-width: 0;
     width: 100%;
-    padding: 0.2rem 0.25rem;
+    padding: 0.2rem var(--space-1);
     font: inherit;
     font-size: var(--fs-label);
     color: var(--ink);
@@ -254,7 +250,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: baseline;
-  gap: 0.5rem 1rem;
+  gap: var(--space-2) var(--space-4);
   padding-bottom: 0.6rem;
   border-bottom: 1px solid var(--ink);
   font-family: var(--display);
@@ -272,16 +268,13 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
   gap: 0.35rem;
 
   > span {
-    margin-right: 0.25rem;
-    font-weight: 700;
-    font-size: var(--fs-small);
-    letter-spacing: var(--caps);
-    text-transform: uppercase;
+    margin-right: var(--space-1);
+    @include label;
     color: var(--muted);
   }
 
   .chip {
-    padding: 0.25rem 0.7rem;
+    padding: var(--space-1) 0.7rem;
   }
 }
 
@@ -317,7 +310,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
   // The filters are folded away until asked for, so the results are what a phone shows first.
   .search-filters {
     position: static;
-    gap: 0.75rem;
+    gap: var(--space-3);
 
     &:not([data-open]) {
       display: none;
@@ -326,7 +319,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
     fieldset {
       display: flex;
       flex-wrap: wrap;
-      gap: 0 1.5rem;
+      gap: 0 var(--space-5);
     }
   }
 
@@ -359,7 +352,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
 .cal__nav {
   display: flex;
   align-items: center;
-  gap: 0.5rem;
+  gap: var(--space-2);
 
   &[hidden] {
     display: none;
@@ -380,12 +373,12 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
     appearance: none;
     max-width: 100%;
     min-height: 2.75rem;
-    padding: 0 1.75rem 0 0.5rem;
+    padding: 0 1.75rem 0 var(--space-2);
     font-family: var(--headline);
     font-size: var(--fs-headline);
     font-weight: 700;
     line-height: 1.15;
-    letter-spacing: -0.005em;
+    letter-spacing: var(--tight);
     text-align: center;
     text-overflow: ellipsis;
     color: var(--ink);
@@ -402,7 +395,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
 
     // One month so far: the menu has nothing to offer, so it reads as the name.
     &:disabled {
-      padding-right: 0.5rem;
+      padding-right: var(--space-2);
       opacity: 1;
       cursor: default;
     }
@@ -439,7 +432,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
 // The month's name and how many editions it holds. Paged, the name is in the
 // menu above, so only the count shows here, under it.
 .cal__head {
-  padding-bottom: 0.75rem;
+  padding-bottom: var(--space-3);
   border-bottom: 2px solid var(--ink);
 
   h3 {
@@ -451,7 +444,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
     font-size: var(--fs-headline);
     font-weight: 700;
     line-height: 1.15;
-    letter-spacing: -0.005em;
+    letter-spacing: var(--tight);
   }
 }
 
@@ -475,10 +468,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
 
 .cal__count {
   font-family: var(--display);
-  font-size: var(--fs-small);
-  font-weight: 600;
-  letter-spacing: var(--caps);
-  text-transform: uppercase;
+  @include label(var(--fs-small), 600);
   color: var(--muted);
   font-variant-numeric: tabular-nums;
 }
@@ -509,7 +499,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
 }
 
 .cal__grid {
-  margin-top: 0.25rem;
+  margin-top: var(--space-1);
   border-collapse: separate;
   border-spacing: 0.25rem;
   table-layout: fixed;
@@ -517,10 +507,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
 
   th {
     padding: 0.4rem 0 0.15rem;
-    font-size: var(--fs-small);
-    font-weight: 700;
-    letter-spacing: var(--caps);
-    text-transform: uppercase;
+    @include label;
     color: var(--muted);
 
     abbr {

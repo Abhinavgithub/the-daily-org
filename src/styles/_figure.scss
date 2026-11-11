@@ -24,7 +24,7 @@
   }
 
   figcaption {
-    margin-top: 0.75rem;
+    margin-top: var(--space-3);
     font-family: var(--text);
     font-style: italic;
     font-size: var(--fs-label);

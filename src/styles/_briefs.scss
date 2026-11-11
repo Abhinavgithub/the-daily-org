@@ -11,7 +11,7 @@
   font-weight: 700;
   font-size: var(--fs-headline);
   line-height: 1.2;
-  letter-spacing: -0.005em;
+  letter-spacing: var(--tight);
 }
 
 .briefs {
@@ -94,7 +94,7 @@
 
 .briefs--alone li {
   break-inside: avoid;
-  padding: 0 0 1rem;
+  padding: 0 0 var(--space-4);
   border-bottom: 0;
 }
 
@@ -104,6 +104,6 @@
   text-align: center;
 
   p {
-    margin: 0 0 0.5rem;
+    margin: 0 0 var(--space-2);
   }
 }

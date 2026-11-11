@@ -1,9 +1,11 @@
+@use 'mixins' as *;
+
 // Masthead -------------------------------------------------------------
 
 .masthead {
   max-width: var(--width);
   margin: 0 auto;
-  padding: 1rem var(--gutter) 0;
+  padding: var(--space-4) var(--gutter) 0;
   text-align: center;
 
   &::after {
@@ -17,16 +19,13 @@
 // A flag: a word or two reversed out of ink, the heaviest mark the paper makes. It says what an alert is.
 .flag {
   display: inline-block;
-  margin: 0 0 0.5rem;
+  margin: 0 0 var(--space-2);
   padding: 0.05rem 0.4rem;
   background: var(--ink);
   color: var(--paper);
   font-family: var(--display);
-  font-size: var(--fs-small);
-  font-weight: 700;
-  letter-spacing: var(--caps);
+  @include label;
   line-height: 1.45;
-  text-transform: uppercase;
 }
 
 // The quieter flag: ruled in ink, not filled. For the second of two ranks, so the first stands out beside it.
@@ -41,15 +40,12 @@
 .tabs {
   display: flex;
   justify-content: center;
-  gap: 2.25rem;
+  gap: var(--space-6);
   max-width: var(--width);
   margin: 0 auto;
-  padding: 0.5rem var(--gutter) 0;
+  padding: var(--space-2) var(--gutter) 0;
   font-family: var(--display);
-  font-size: var(--fs-label);
-  font-weight: 600;
-  letter-spacing: var(--caps);
-  text-transform: uppercase;
+  @include label(var(--fs-label), 600);
 
   a {
     padding: 0.2rem 0 0.35rem;
@@ -89,11 +85,11 @@
 
 // The Bulletin is set as a ledger: a section to a kind of thing, named in the margin.
 .bulletin {
-  margin-top: 0.5rem;
+  margin-top: var(--space-2);
 
   .ledger__row > h2 {
     display: grid;
-    gap: 0.25rem;
+    gap: var(--space-1);
     align-content: start;
   }
 }
@@ -144,7 +140,7 @@
     font-weight: 700;
     font-size: var(--fs-sub);
     line-height: 1.25;
-    letter-spacing: -0.005em;
+    letter-spacing: var(--tight);
     text-transform: none;
 
     a {
@@ -198,7 +194,7 @@
 
 // A line to the Deadlines when something falls due soon, under the release dates.
 .bulletin__release.bulletin__due {
-  margin-top: 0.75rem;
+  margin-top: var(--space-3);
 
   a {
     color: var(--sky);
@@ -209,17 +205,17 @@
 // is already in force is kept, greyed, below what is still to come.
 .deadlines .ledger__row > h2 {
   display: grid;
-  gap: 0.25rem;
+  gap: var(--space-1);
   align-content: start;
 }
 
 // The filter bar on this page takes away the room above the page's content, so the first line gives it back.
 .ledger .deadlines__intro {
-  margin: 1rem 0 0.25rem;
+  margin: var(--space-4) 0 var(--space-1);
 }
 
 .ledger .deadlines__calendar {
-  margin: 0 0 1rem;
+  margin: 0 0 var(--space-4);
 }
 
 // What falls due soon, at the head of the page: a name that leads to the update below, and its day.
@@ -234,7 +230,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    gap: 0.1rem 0.75rem;
+    gap: 0.1rem var(--space-3);
   }
 
   a {
@@ -304,10 +300,7 @@
 .deadlines__label {
   margin-right: 0.35rem;
   font-family: var(--display);
-  font-size: var(--fs-small);
-  font-weight: 700;
-  letter-spacing: var(--caps);
-  text-transform: uppercase;
+  @include label;
   color: var(--sun);
 }
 

@@ -73,7 +73,7 @@ code {
     left: var(--gutter);
     top: 0.5rem;
     background: var(--surface);
-    padding: 0.5rem 0.75rem;
+    padding: var(--space-2) var(--space-3);
     z-index: 10;
   }
 }
@@ -100,7 +100,7 @@ code {
   background: none;
   border: 1px solid var(--control);
   border-radius: 0;
-  padding: 0.25rem 0.5rem;
+  padding: var(--space-1) var(--space-2);
   text-decoration: none;
   cursor: pointer;
 
