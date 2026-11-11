@@ -40,6 +40,9 @@ figure:
       - Rolls out via Metadata API through October
       - Defines programmatic sharing reasons in code
       - Best for developers using Apex or Flow
+  icons:
+    - lock
+    - chart
 figure_image: /figures/2026-10-21/01-sf-developers-protect-apex-shares-custom-row-causes-on-standard-objects.webp
 ---
 

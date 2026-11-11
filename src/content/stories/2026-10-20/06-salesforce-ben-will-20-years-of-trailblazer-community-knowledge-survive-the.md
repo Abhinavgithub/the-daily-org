@@ -39,6 +39,9 @@ figure:
       - Real-time conversations and quicker interactions
       - Summarized accepted answers syncing back
       - Conversational discussions in channels
+  icons:
+    - people
+    - mobile
 figure_image: /figures/2026-10-20/06-salesforce-ben-will-20-years-of-trailblazer-community-knowledge-survive-the.webp
 ---
 

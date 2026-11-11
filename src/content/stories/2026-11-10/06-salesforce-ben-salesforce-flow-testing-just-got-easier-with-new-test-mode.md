@@ -32,6 +32,11 @@ figure:
     - Enable Automated Test Scenario
     - Add assertions and mock outputs
     - Run All for coverage and results
+  icons:
+    - test
+    - gear
+    - check
+    - chart
 image: https://www.salesforceben.com/wp-content/uploads/2026/11/ftm1.webp
 figure_image: /figures/2026-11-10/06-salesforce-ben-salesforce-flow-testing-just-got-easier-with-new-test-mode.png
 ---

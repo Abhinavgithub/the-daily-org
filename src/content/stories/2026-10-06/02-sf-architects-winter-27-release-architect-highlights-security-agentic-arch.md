@@ -33,6 +33,11 @@ figure:
     - Capacity and automation updates
     - Agentic architecture design
     - Governance and observability
+  icons:
+    - shield
+    - gear
+    - robot
+    - chart
 figure_image: /figures/2026-10-06/02-sf-architects-winter-27-release-architect-highlights-security-agentic-arch.webp
 ---
 

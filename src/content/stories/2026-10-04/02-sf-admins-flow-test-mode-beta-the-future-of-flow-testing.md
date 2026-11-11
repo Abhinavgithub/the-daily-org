@@ -41,6 +41,9 @@ figure:
       - Merges debugging and automated testing
       - Saves runs as reusable manual test scenarios
       - Converts manual tests to regression tests with assertions
+  icons:
+    - gear
+    - test
 ---
 
 Salesforce has released a beta version of Test Mode, a dedicated workspace that replaces the traditional Debug button in Flow Builder. This update merges debugging and automated testing into a single interface, requiring administrators to enable the feature through Process Automation Settings before it becomes available for Record-triggered and autolaunched flows.

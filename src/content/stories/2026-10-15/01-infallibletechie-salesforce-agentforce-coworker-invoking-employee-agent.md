@@ -33,6 +33,12 @@ figure:
     - Reads accessible agent and subagent descriptions
     - Compares request against agent capabilities
     - Delegates request to matching Employee Agent
+  icons:
+    - person
+    - warning
+    - doc
+    - search
+    - robot
 figure_image: /figures/2026-10-15/01-infallibletechie-salesforce-agentforce-coworker-invoking-employee-agent.webp
 ---
 

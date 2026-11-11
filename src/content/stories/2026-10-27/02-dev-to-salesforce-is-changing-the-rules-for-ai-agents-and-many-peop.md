@@ -37,6 +37,9 @@ figure:
     points:
       - Counted as HPIs
       - Drawn from Flex Credits
+  icons:
+    - plug
+    - robot
 ---
 
 Salesforce has described upcoming changes to AIforce and the Headless Toolkit in its help documentation. The main changes are agent-specific security features, agent registration, and a consumption-based billing model. Agentic Identity would give AI agents their own identity rather than having them act under the identity of the human they assist, allowing separate credentials, finer permissions and better oversight.

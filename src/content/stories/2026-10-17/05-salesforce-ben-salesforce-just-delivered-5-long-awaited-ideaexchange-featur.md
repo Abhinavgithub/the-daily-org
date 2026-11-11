@@ -33,6 +33,12 @@ figure:
     - Inline Editing on List Views
     - Field History Tracking for Users
     - Restart Superbadge Progress
+  icons:
+    - flow
+    - lock
+    - doc
+    - clock
+    - test
 figure_image: /figures/2026-10-17/05-salesforce-ben-salesforce-just-delivered-5-long-awaited-ideaexchange-featur.webp
 ---
 

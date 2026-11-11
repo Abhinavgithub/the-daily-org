@@ -48,6 +48,9 @@ figure:
       - Returns full record collection
       - Requires additional Loop steps
       - Standard element configuration
+  icons:
+    - layers
+    - flow
 figure_image: /figures/2026-10-18/01-salesforce-time-collection-filter-criteria-resource-in-flow.webp
 ---
 

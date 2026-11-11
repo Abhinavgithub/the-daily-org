@@ -36,6 +36,13 @@ figure:
     - Localization and internationalization
     - Multi-factor authentication
     - Multi-Framework Insights
+  icons:
+    - code
+    - plug
+    - doc
+    - people
+    - lock
+    - chart
 figure_image: /figures/2026-10-16/05-sf-developers-what-s-new-in-salesforce-multi-framework-angular-is-now-ga.webp
 ---
 

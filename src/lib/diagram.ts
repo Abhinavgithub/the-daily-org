@@ -8,6 +8,7 @@
 
 import type { Figure } from './figure';
 import { ICONS, type IconName } from './icons';
+import { LETTERS, WIDTHS } from './letter-widths';
 
 export type Drawn = Exclude<Figure, { kind: 'none' }>;
 export type Layout = 'wide' | 'narrow';
@@ -26,8 +27,6 @@ export interface Palette {
 export const PAGE: Palette = { surface: 'var(--surface)', ink: 'var(--ink)', accent: 'var(--sun)' };
 
 const FONT = `'Libre Franklin', 'Franklin Gothic Medium', 'Helvetica Neue', Arial, sans-serif`;
-/** The width of an average letter, as a share of the type size. Generous, so a line is never wider than its box. */
-const LETTER = 0.54;
 const LEAD = 1.25;
 const SIZE = 15;
 const PAD = 8;
@@ -38,29 +37,82 @@ const LONG_WIDTH = 1160;
 /** Whether a figure's wide drawing is the long row, which needs a story the width of the page. */
 export const isLong = (figure: Drawn) => figure.kind === 'steps' && figure.steps.length >= LONG_FROM;
 
+/**
+ * The narrowest story, in rem, in which the drawing across is shown; narrower, the stacked one is. A row of steps
+ * needs about 9rem a box for its words to keep to two or three lines, so four and five steps wait for more room.
+ */
+export function wideFrom(figure: Drawn): 36 | 42 | 52 | 60 {
+  if (figure.kind !== 'steps') return 36;
+  const n = figure.steps.length;
+  return n >= LONG_FROM ? 60 : n === 5 ? 52 : n === 4 ? 42 : 36;
+}
+
+/** A figure as a value is printed: a leading hyphen is a true minus sign, the width and height of the plus. */
+export const value = (text: string) => text.replace(/^-(?=[\d$£€.])/, '\u2212');
+
 const esc = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-/** Break a label into lines that fit `width` at `size`, at spaces. A word longer than a line is broken with a hyphen. */
-export function wrap(label: string, width: number, size = SIZE): string[] {
-  const max = Math.max(4, Math.floor(width / (size * LETTER)));
+// Each letter's width at the two weights the drawing uses, from the font itself (letter-widths.ts). A letter not
+// measured counts as wide as an "n". Lines are kept a little short of their room, for the kerning the browser adds
+// and for a picture drawn where the font is missing (the edition's social card).
+const MEASURED = { 500: new Map<string, number>(), 700: new Map<string, number>() };
+[...LETTERS].forEach((letter, i) => {
+  MEASURED[500].set(letter, WIDTHS[500][i]);
+  MEASURED[700].set(letter, WIDTHS[700][i]);
+});
+const SLACK = 0.95;
+type Weight = 500 | 700;
+
+/** How wide `line` is when set at `size`, in the drawing's units. */
+export function measure(line: string, size = SIZE, weight: Weight = 500): number {
+  const widths = MEASURED[weight];
+  let total = 0;
+  for (const letter of line) total += widths.get(letter) ?? widths.get('n')!;
+  return (total * size) / 1000;
+}
+
+/** Words into lines, each as full as it will go within `width`. */
+function fill(words: string[], width: number, size: number, weight: Weight): string[] {
   const lines: string[] = [];
+  for (const word of words) {
+    const last = lines.at(-1);
+    if (last !== undefined && measure(`${last} ${word}`, size, weight) <= width) lines[lines.length - 1] = `${last} ${word}`;
+    else lines.push(word);
+  }
+  return lines;
+}
+
+/**
+ * Break a label into lines that fit `width` at `size`, at spaces, measured with the font's own letter widths. A word
+ * longer than a line is broken with a hyphen. The lines are then balanced, as a headline is: the label keeps the
+ * fewest lines it needs, each about as long as the others, so no word is left on a line of its own.
+ */
+export function wrap(label: string, width: number, size = SIZE, weight: Weight = 500): string[] {
+  const room = width * SLACK;
   const words = label
     .split(/\s+/)
     .filter(Boolean)
     .flatMap((word) => {
       const pieces: string[] = [];
-      while (word.length > max) {
-        pieces.push(`${word.slice(0, max - 1)}-`);
-        word = word.slice(max - 1);
+      while (measure(word, size, weight) > room && word.length > 2) {
+        let cut = word.length - 1;
+        while (cut > 1 && measure(`${word.slice(0, cut)}-`, size, weight) > room) cut--;
+        pieces.push(`${word.slice(0, cut)}-`);
+        word = word.slice(cut);
       }
       return [...pieces, word];
     });
-  for (const word of words) {
-    const last = lines.at(-1);
-    if (last !== undefined && last.length + 1 + word.length <= max) lines[lines.length - 1] = `${last} ${word}`;
-    else lines.push(word);
+  const lines = fill(words, room, size, weight);
+  if (lines.length < 2) return lines;
+  // The narrowest measure that still needs no more lines.
+  let narrow = Math.max(...words.map((word) => measure(word, size, weight)));
+  let wide = room;
+  for (let i = 0; i < 12; i++) {
+    const mid = (narrow + wide) / 2;
+    if (fill(words, mid, size, weight).length <= lines.length) wide = mid;
+    else narrow = mid;
   }
-  return lines;
+  return fill(words, wide, size, weight);
 }
 
 const height = (lines: string[], size = SIZE) => lines.length * size * LEAD;
@@ -184,7 +236,7 @@ function parts(figure: Extract<Drawn, { kind: 'parts' }>, layout: Layout, p: Pal
     const lines = figure.parts.map((part) => wrap(part, cw - 20));
     const tallest = Math.max(...lines.map((l) => height(l)));
     const ch = 14 + iconBand + tallest + 14;
-    const hubLines = wrap(figure.whole, 170, 19);
+    const hubLines = wrap(figure.whole, 170, 19, 700);
     const hw = 200;
     const hh = height(hubLines, 19) + 28;
     const rx = W / 2 - PAD - cw / 2;
@@ -205,12 +257,13 @@ function parts(figure: Extract<Drawn, { kind: 'parts' }>, layout: Layout, p: Pal
         return box(x, cy + node.y - ch / 2, cw, ch, p) + icon(pictures[i], node.x, y + 14 + ICON / 2, ICON, p.ink) + text(node.x, y + 14 + iconBand, lines[i], p.ink);
       })
       .join('');
-    const hub = box(W / 2 - hw / 2, cy - hh / 2, hw, hh, p, p.accent, p.accent) + text(W / 2, cy - height(hubLines, 19) / 2, hubLines, p.surface, { size: 19, weight: 700 });
+    // The whole is reversed out of ink, as a flag is: the heaviest mark, with the paper's colour left for the spokes.
+    const hub = box(W / 2 - hw / 2, cy - hh / 2, hw, hh, p, p.ink, p.ink) + text(W / 2, cy - height(hubLines, 19) / 2, hubLines, p.surface, { size: 19, weight: 700 });
     return { body: spokes + cards + hub, height: bottom - top };
   }
 
   // Stacked: the whole above, its parts below on a stem down the left.
-  const hubLines = wrap(figure.whole, W - 2 * PAD - 24, 18);
+  const hubLines = wrap(figure.whole, W - 2 * PAD - 24, 18, 700);
   const hh = height(hubLines, 18) + 24;
   const stem = PAD + 18;
   const left = stem + 18;
@@ -231,7 +284,7 @@ function parts(figure: Extract<Drawn, { kind: 'parts' }>, layout: Layout, p: Pal
     .join('');
   const lines =
     `<path d="M${stem} ${PAD + hh}V${r(branches.at(-1)!)}${branches.map((b) => `M${stem} ${r(b)}H${left}`).join('')}" fill="none" stroke="${p.accent}" stroke-width="2.5"/>`;
-  const hub = box(PAD, PAD, W - 2 * PAD, hh, p, p.accent, p.accent) + text(W / 2, PAD + 12, hubLines, p.surface, { size: 18, weight: 700 });
+  const hub = box(PAD, PAD, W - 2 * PAD, hh, p, p.ink, p.ink) + text(W / 2, PAD + 12, hubLines, p.surface, { size: 18, weight: 700 });
   return { body: lines + hub + cards, height: y - gap + PAD };
 }
 
@@ -246,7 +299,7 @@ function compare(figure: Extract<Drawn, { kind: 'compare' }>, layout: Layout, p:
   /** One side, its top at `y`: its heading with a rule under it, then its points. */
   const side = (s: (typeof sides)[number], picture: IconName | undefined, x: number, y: number): Drawing => {
     const headLeft = picture ? ICON + 10 : 0;
-    const head = wrap(s.heading, w - headLeft, 16);
+    const head = wrap(s.heading, w - headLeft, 16, 700);
     const headH = Math.max(height(head, 16), picture ? ICON : 0);
     let out = icon(picture, x + ICON / 2, y + headH / 2, ICON, p.accent) + text(x + headLeft, y + (headH - height(head, 16)) / 2, head, p.accent, { size: 16, weight: 700, anchor: 'start' });
     let at = y + headH + 8;
@@ -292,7 +345,7 @@ function numbers(figure: Extract<Drawn, { kind: 'numbers' }>, layout: Layout, p:
         return (
           rule +
           icon(pictures[i], cx, PAD + ICON / 2, ICON, p.ink) +
-          text(cx, PAD + iconBand, [num.value], p.accent, { size: VALUE, weight: 700 }) +
+          text(cx, PAD + iconBand, [value(num.value)], p.accent, { size: VALUE, weight: 700 }) +
           text(cx, PAD + iconBand + VALUE * LEAD + 6, labels[i], p.ink, { size: 14 })
         );
       })
@@ -308,7 +361,7 @@ function numbers(figure: Extract<Drawn, { kind: 'numbers' }>, layout: Layout, p:
       const out =
         (i > 0 ? `<line x1="${PAD}" y1="${r(y - 9)}" x2="${W - PAD}" y2="${r(y - 9)}" stroke="${p.ink}" stroke-width="1" stroke-dasharray="3 4"/>` : '') +
         icon(pictures[i], PAD + ICON / 2, y + h / 2, ICON, p.ink) +
-        text(textLeft, y, [num.value], p.accent, { size: VALUE, weight: 700, anchor: 'start' }) +
+        text(textLeft, y, [value(num.value)], p.accent, { size: VALUE, weight: 700, anchor: 'start' }) +
         text(textLeft, y + VALUE * LEAD, labels, p.ink, { size: 14, anchor: 'start' });
       y += h + 18;
       return out;
@@ -317,18 +370,39 @@ function numbers(figure: Extract<Drawn, { kind: 'numbers' }>, layout: Layout, p:
   return { body, height: y - 18 + PAD };
 }
 
-/** What the diagram says, in words, for readers who cannot see it. */
+/** What the diagram says, in words, for a picture made of it (the social card), which has no page around it. */
 export function describe(figure: Drawn): string {
-  const words = (value: unknown): string[] => (typeof value === 'string' ? [value] : value && typeof value === 'object' ? Object.values(value).flatMap(words) : []);
+  const words = (item: unknown): string[] => (typeof item === 'string' ? [item] : item && typeof item === 'object' ? Object.values(item).flatMap(words) : []);
   const labels = Object.entries(figure).filter(([key]) => !['kind', 'caption', 'icons'].includes(key));
   return `${figure.caption}: ${words(Object.fromEntries(labels)).join('; ')}`;
 }
 
-/** The figure as an SVG document in one of its two layouts. */
-export function figureSvg(figure: Drawn, layout: Layout, palette: Palette = PAGE): string {
+/**
+ * What the diagram says, as lists, for a reader who cannot see it: the steps in order, each side of a comparison
+ * under its heading, the parts under the whole, the numbers with what they count. The page prints these out of
+ * sight beside the drawing, and the caption names the figure.
+ */
+export function outline(figure: Drawn): { heading?: string; ordered: boolean; items: string[] }[] {
+  switch (figure.kind) {
+    case 'steps':
+      return [{ ordered: true, items: figure.steps }];
+    case 'compare':
+      return [figure.left, figure.right].map((side) => ({ heading: side.heading, ordered: false, items: side.points }));
+    case 'parts':
+      return [{ heading: figure.whole, ordered: false, items: figure.parts }];
+    case 'numbers':
+      return [{ ordered: false, items: figure.numbers.map((num) => `${value(num.value)}: ${num.label}`) }];
+  }
+}
+
+/**
+ * The figure as an SVG document in one of its two layouts. On the page the drawing is `hidden` from screen readers,
+ * which read its outline instead; a picture made on its own carries its description.
+ */
+export function figureSvg(figure: Drawn, layout: Layout, palette: Palette = PAGE, { hidden = false } = {}): string {
   const drawn = { steps, parts, compare, numbers }[figure.kind](figure as never, layout, palette);
   const W = drawn.width ?? WIDTH[layout];
   const H = Math.ceil(drawn.height);
   const background = palette.background ? `<rect width="${W}" height="${H}" fill="${palette.background}"/>` : '';
-  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" font-family="${esc(FONT)}" role="img" aria-label="${esc(describe(figure))}">${background}${drawn.body}</svg>`;
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" font-family="${esc(FONT)}" ${hidden ? 'aria-hidden="true" focusable="false"' : `role="img" aria-label="${esc(describe(figure))}"`}>${background}${drawn.body}</svg>`;
 }

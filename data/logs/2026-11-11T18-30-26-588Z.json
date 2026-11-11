@@ -1,0 +1,214 @@
+{
+  "kind": "figures",
+  "ranAt": "2026-11-11T18:30:26.588Z",
+  "day": "",
+  "seconds": 1155,
+  "finished": true,
+  "feeds": [],
+  "articles": [],
+  "proofread": [],
+  "figures": [
+    {
+      "title": "Advanced PySpark patterns for batch data transforms in Data 360",
+      "outcome": "drawn",
+      "kind": "steps"
+    },
+    {
+      "title": "Building interactive UI with the Headless Experience Layer for Agentforce and MCP clients",
+      "outcome": "drawn",
+      "kind": "steps"
+    },
+    {
+      "title": "Configuring permissions and security guardrails for Agentforce and Prompt Builder",
+      "outcome": "drawn",
+      "kind": "parts"
+    },
+    {
+      "title": "Preparing your org for the Claudeforce partnership and new billing model",
+      "outcome": "drawn",
+      "kind": "steps"
+    },
+    {
+      "title": "Using Prompt Builder and generative AI to manage requirements and prevent scope creep",
+      "outcome": "drawn",
+      "kind": "steps"
+    },
+    {
+      "title": "Automate temporary access management with Permission Set expiration dates",
+      "outcome": "drawn",
+      "kind": "compare"
+    },
+    {
+      "title": "Using Microfrontends and UI Embedding to integrate external web apps into Lightning",
+      "outcome": "drawn",
+      "kind": "parts"
+    },
+    {
+      "title": "How Agentforce Coworker delegates requests to Employee Agents",
+      "outcome": "drawn",
+      "kind": "steps"
+    },
+    {
+      "title": "Salesforce Multi-Framework now supports Angular, microfrontends, and Managed Packages",
+      "outcome": "drawn",
+      "kind": "parts"
+    },
+    {
+      "title": "Salesforce retires the OAuth username password flow and guides migration to client credentials",
+      "outcome": "drawn",
+      "kind": "steps"
+    },
+    {
+      "title": "New Collection Filter Criteria Resource simplifies Flow Builder data manipulation",
+      "outcome": "drawn",
+      "kind": "compare"
+    },
+    {
+      "title": "Salesforce delivers long-awaited Flow actions, List View permissions, and User history tracking",
+      "outcome": "drawn",
+      "kind": "parts"
+    },
+    {
+      "title": "Winter '26 adds multi-column sorting and Flow version comparison",
+      "outcome": "drawn",
+      "kind": "parts"
+    },
+    {
+      "title": "Connecting ChatGPT and Codex to Salesforce through plugins and the DX MCP",
+      "outcome": "drawn",
+      "kind": "parts"
+    },
+    {
+      "title": "Salesforce moves Trailblazer Community forums to Slack in November 2026",
+      "outcome": "drawn",
+      "kind": "compare"
+    },
+    {
+      "title": "Custom sharing reasons now roll out for standard objects alongside a setting to preserve manual shares",
+      "outcome": "drawn",
+      "kind": "compare"
+    },
+    {
+      "title": "Route real phone calls to your Agentforce Voice agent using Salesforce CLI and Omni-Channel flows",
+      "outcome": "drawn",
+      "kind": "steps"
+    },
+    {
+      "title": "How a local Apex runtime speeds up testing without replacing your org",
+      "outcome": "drawn",
+      "kind": "parts"
+    },
+    {
+      "title": "Migrating HubSpot to Salesforce: External IDs, upsert, and load order",
+      "outcome": "drawn",
+      "kind": "steps"
+    },
+    {
+      "title": "Salesforce plans agent identities and metered billing for Agentic API calls",
+      "outcome": "drawn",
+      "kind": "compare"
+    },
+    {
+      "title": "B2C Commerce October 2026 release adds events GA and self-service unpairing",
+      "outcome": "drawn",
+      "kind": "compare"
+    },
+    {
+      "title": "Testing Salesforce Flows locally with renmy runtime before activation",
+      "outcome": "drawn",
+      "kind": "steps"
+    },
+    {
+      "title": "Running Apex tests locally lets new developers skip the sandbox wait",
+      "outcome": "drawn",
+      "kind": "steps"
+    },
+    {
+      "title": "Lessons from building a Flow Version Cleaner on the Tooling API",
+      "outcome": "drawn",
+      "kind": "steps"
+    },
+    {
+      "title": "Salesforce Ecosystem grows at the top while Salesforce talent demand contracts",
+      "outcome": "drawn",
+      "kind": "numbers"
+    },
+    {
+      "title": "A raw List in an @InvocableMethod stops Apex completion across the whole file",
+      "outcome": "drawn",
+      "kind": "compare"
+    },
+    {
+      "title": "Sharding Apex tests across CI jobs with renmy runtime",
+      "outcome": "drawn",
+      "kind": "steps"
+    },
+    {
+      "title": "Salesforce Headless 360 exposes the platform to agents through APIs and MCP",
+      "outcome": "drawn",
+      "kind": "steps"
+    },
+    {
+      "title": "Salesforce unveils AIforce apps linking platform data to Claude and Slack",
+      "outcome": "drawn",
+      "kind": "parts"
+    },
+    {
+      "title": "Agentforce Memory policy update roughly doubles recall of stated and changing facts",
+      "outcome": "drawn",
+      "kind": "compare"
+    },
+    {
+      "title": "Detecting wrong-parent Contacts after a migration using External IDs and SOQL",
+      "outcome": "drawn",
+      "kind": "steps"
+    },
+    {
+      "title": "Salesforce Health Insights scans an org and ranks what to fix first",
+      "outcome": "drawn",
+      "kind": "steps"
+    },
+    {
+      "title": "Finding hidden duplicate accounts after a Salesforce Data migration",
+      "outcome": "drawn",
+      "kind": "steps"
+    },
+    {
+      "title": "Checking dependent picklist combinations by Record Type before a CSV load",
+      "outcome": "drawn",
+      "kind": "steps"
+    },
+    {
+      "title": "How LWR differs from Aura for Experience Cloud sites and what migration involves",
+      "outcome": "drawn",
+      "kind": "compare"
+    },
+    {
+      "title": "Choosing between Record Types, Profiles and Permission Sets",
+      "outcome": "drawn",
+      "kind": "compare"
+    },
+    {
+      "title": "Flow Test Mode adds saved Test Scenarios, assertions and mock outputs to Flow Builder",
+      "outcome": "drawn",
+      "kind": "steps"
+    },
+    {
+      "title": "Salesforce Catalog gives AI assistants a live index of your org's metadata",
+      "outcome": "drawn",
+      "kind": "compare"
+    }
+  ],
+  "model": {
+    "calls": 72,
+    "retries": {
+      "HTTP 429": 34
+    },
+    "usage": {
+      "qwen/qwen3.7-flash": {
+        "input": 7951,
+        "output": 91736
+      }
+    }
+  }
+}

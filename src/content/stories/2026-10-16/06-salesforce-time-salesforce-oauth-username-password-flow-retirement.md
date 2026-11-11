@@ -32,6 +32,12 @@ figure:
     - Get the Client ID and Client Secret
     - Update the Authentication Request
     - Handle Token Expiration
+  icons:
+    - plug
+    - person
+    - lock
+    - flow
+    - clock
 ---
 
 Salesforce will retire the OAuth 2.0 Username-Password Flow on February 20, 2027. The flow has an external application send a Salesforce username, password and security token to the token endpoint. Salesforce first announced the change in Spring '26 and later moved enforcement from Winter '27 to the Spring '27 release. The article calls this a breaking change: integrations that still use the flow will fail when they request new access tokens after enforcement, and the failures may go unnoticed, such as a scheduled job that quietly stops updating records. Orgs created in Summer '26 and later already block the flow, and the article says that an org with no matching release update may already be blocked.

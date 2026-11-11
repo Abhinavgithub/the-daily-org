@@ -30,6 +30,10 @@ figure:
     - List Views
     - Flow Builder
     - Reporting and dashboards
+  icons:
+    - doc
+    - flow
+    - chart
 ---
 
 The Winter '26 release introduces several quality of life improvements for administrators, starting with List Views. Users can now sort records by up to five columns simultaneously, each set to ascending or descending order. Configuring this stays persistent until manually reset. Field pickers within List View controls also support type ahead search, allowing admins to quickly locate fields by typing characters and using keyboard shortcuts.

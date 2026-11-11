@@ -40,6 +40,9 @@ figure:
       - Agent searches the live index
       - Returns closest real matches
       - Answers only what user may see
+  icons:
+    - warning
+    - check
 image: https://www.salesforce.com/blog/wp-content/uploads/sites/2/2026/11/image1_ee0631.png?strip=all&#038;quality=95
 ---
 

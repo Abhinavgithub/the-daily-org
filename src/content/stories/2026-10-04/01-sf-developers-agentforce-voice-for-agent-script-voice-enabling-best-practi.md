@@ -32,6 +32,10 @@ figure:
     - Verify Agentforce Voice is active
     - Insert language, telephony, and modality blocks
     - Rewrite instructions for spoken delivery
+  icons:
+    - check
+    - gear
+    - doc
 figure_image: /figures/2026-10-04/01-sf-developers-agentforce-voice-for-agent-script-voice-enabling-best-practi.webp
 ---
 

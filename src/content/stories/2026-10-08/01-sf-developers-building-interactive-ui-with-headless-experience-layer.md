@@ -33,6 +33,12 @@ figure:
     - Link output shape to widget via renderer config
     - Update Agent Script to mark data displayable
     - Test layouts in HXL Playground before deploy
+  icons:
+    - code
+    - gear
+    - plug
+    - code
+    - test
 figure_image: /figures/2026-10-08/01-sf-developers-building-interactive-ui-with-headless-experience-layer.webp
 ---
 

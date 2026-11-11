@@ -31,6 +31,11 @@ figure:
     - Preserve exact API values in the CSV
     - Run local preflight against saved metadata
     - Review each non-match row with its owner
+  icons:
+    - doc
+    - chart
+    - test
+    - person
 figure_image: /figures/2026-11-08/01-dev-to-before-a-salesforce-csv-load-check-dependent-picklist-combin.png
 ---
 

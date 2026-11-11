@@ -52,13 +52,64 @@
   max-width: 26rem;
 }
 
-@container (min-width: 36rem) {
-  .fig__drawing--wide {
-    display: block;
-  }
+// The caption is as wide as the drawing above it: the stacked one's width here, the drawing across's below.
+.fig figcaption {
+  max-width: 26rem;
+  // No word left alone on the caption's last line, as none is in the drawing.
+  text-wrap: pretty;
+}
 
-  .fig__drawing--narrow {
-    display: none;
+// The drawing across shows from the story width its figure needs (wideFrom in diagram.ts): 36rem for most, more
+// for a row of four, five or more steps. Until then the stacked drawing shows. Where the drawing across shows,
+// the caption is set to the same width and centred with it, so the two read as one figure.
+@container (min-width: 36rem) {
+  .fig--from-36 {
+    .fig__drawing--wide {
+      display: block;
+    }
+
+    .fig__drawing--narrow {
+      display: none;
+    }
+
+    figcaption {
+      max-width: 50rem;
+      margin-inline: auto;
+    }
+  }
+}
+
+@container (min-width: 42rem) {
+  .fig--from-42 {
+    .fig__drawing--wide {
+      display: block;
+    }
+
+    .fig__drawing--narrow {
+      display: none;
+    }
+
+    figcaption {
+      max-width: 50rem;
+      margin-inline: auto;
+    }
+  }
+}
+
+@container (min-width: 52rem) {
+  .fig--from-52 {
+    .fig__drawing--wide {
+      display: block;
+    }
+
+    .fig__drawing--narrow {
+      display: none;
+    }
+
+    figcaption {
+      max-width: 50rem;
+      margin-inline: auto;
+    }
   }
 }
 
@@ -206,29 +257,23 @@
 }
 
 // Six or seven steps in one row: the drawing is as wide as the story, and is shown only in a story wide
-// enough for its words to keep their size. A narrower story shows the stacked steps.
-.fig--long {
-  .fig__drawing--wide {
-    max-width: none;
-  }
+// enough for its words to keep their size (60rem). A narrower story shows the stacked steps.
+.fig--long .fig__drawing--wide {
+  max-width: none;
+}
 
-  @container (min-width: 36rem) {
-    .fig__drawing--wide {
-      display: none;
-    }
-
-    .fig__drawing--narrow {
-      display: block;
-    }
-  }
-
-  @container (min-width: 60rem) {
+@container (min-width: 60rem) {
+  .fig--from-60 {
     .fig__drawing--wide {
       display: block;
     }
 
     .fig__drawing--narrow {
       display: none;
+    }
+
+    figcaption {
+      max-width: none;
     }
   }
 }

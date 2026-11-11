@@ -1,5 +1,5 @@
 ---
-import { figureSvg, isLong, type Drawn } from '../lib/diagram';
+import { figureSvg, isLong, outline, wideFrom, type Drawn } from '../lib/diagram';
 
 interface Props {
   figure: Drawn;
@@ -7,13 +7,38 @@ interface Props {
 
 const { figure } = Astro.props;
 // Drawn by code in the page's own colours, so it follows the reader's theme. Both layouts are on the page,
-// and the width of the story's box decides which one shows. Six or seven steps across need the page's width.
-const wide = figureSvg(figure, 'wide');
-const narrow = figureSvg(figure, 'narrow');
+// and the width of the story's box decides which one shows (wideFrom: a long row of steps needs more room).
+// The drawings are hidden from screen readers, which read the same things as lists, out of sight, instead;
+// the caption names the figure, once.
+const wide = figureSvg(figure, 'wide', undefined, { hidden: true });
+const narrow = figureSvg(figure, 'narrow', undefined, { hidden: true });
+const lists = outline(figure);
 ---
 
-<figure class:list={['fig', isLong(figure) && 'fig--long']}>
+<figure class:list={['fig', `fig--from-${wideFrom(figure)}`, isLong(figure) && 'fig--long']}>
   <div class="fig__drawing fig__drawing--wide" set:html={wide} />
   <div class="fig__drawing fig__drawing--narrow" set:html={narrow} />
+  <div class="visually-hidden">
+    {
+      lists.map((list) => (
+        <>
+          {list.heading && <p>{list.heading}</p>}
+          {list.ordered ? (
+            <ol>
+              {list.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ol>
+          ) : (
+            <ul>
+              {list.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          )}
+        </>
+      ))
+    }
+  </div>
   <figcaption>{figure.caption}</figcaption>
 </figure>

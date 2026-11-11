@@ -32,6 +32,12 @@ figure:
     - Load records following dependency order
     - Enable read only mode and run delta load
     - Verify record counts and relationship integrity
+  icons:
+    - code
+    - test
+    - database
+    - plug
+    - check
 ---
 
 The article addresses the complexity of moving historical records and relationships from HubSpot to Salesforce, emphasizing that simple export import fails due to differing data models. It establishes the External ID field as the foundation for tracking records, enabling idempotent upserts, and linking related objects without relying on Salesforce generated identifiers.

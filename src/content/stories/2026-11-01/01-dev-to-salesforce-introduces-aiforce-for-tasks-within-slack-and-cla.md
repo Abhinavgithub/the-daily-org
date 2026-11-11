@@ -32,6 +32,10 @@ figure:
     - Claudeforce
     - Slackforce
     - Agentforce Coworker
+  icons:
+    - cloud
+    - mail
+    - robot
 ---
 
 Salesforce announced AIforce at Dreamforce, a set of applications that connect platform data and workflows to Claude and Slack. The initial release has three parts: Claudeforce, Slackforce and Agentforce Coworker. Claudeforce comes out of an expanded partnership with Anthropic and ships with 37 pre-installed sales capabilities, from prospecting to opportunity management, plus a Claude Code development add-on with more than 40 further tools. Deloitte, GitLab and Legora piloted it, and it is now in beta for all customers.

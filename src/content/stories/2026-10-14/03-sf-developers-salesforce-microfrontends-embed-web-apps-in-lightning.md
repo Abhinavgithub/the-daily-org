@@ -32,6 +32,10 @@ figure:
     - Lightning host
     - UI Embedding
     - Embedded web application
+  icons:
+    - bolt
+    - plug
+    - cloud
 figure_image: /figures/2026-10-14/03-sf-developers-salesforce-microfrontends-embed-web-apps-in-lightning.webp
 ---
 

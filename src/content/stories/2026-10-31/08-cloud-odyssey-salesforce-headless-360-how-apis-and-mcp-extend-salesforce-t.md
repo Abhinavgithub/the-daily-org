@@ -34,6 +34,12 @@ figure:
     - Connect a sandbox client
     - Define agent identity and limits
     - Test, trace and measure
+  icons:
+    - flow
+    - doc
+    - plug
+    - lock
+    - test
 image: https://cloudodyssey.com/wp-content/uploads/2026/10/Salesforce-AIforce-Explained_-What-It-Is-How-It-Works-and-Where-It-Fits-in-Your-Business.png
 held_from: 2026-10-28
 ---

@@ -37,6 +37,9 @@ figure:
       - Set expiration on Permission Set assignments
       - Choose fixed dates or relative day counts
       - Automatically lapse access for clean audits
+  icons:
+    - person
+    - robot
 figure_image: /figures/2026-10-13/04-dev-to-stop-manually-removing-salesforce-permissions-assign-permiss.webp
 ---
 

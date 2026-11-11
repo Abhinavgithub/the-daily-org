@@ -41,6 +41,9 @@ figure:
       - Travels through source control
       - One record per region plus Default
       - Read via $CustomMetadata reference
+  icons:
+    - code
+    - database
 ---
 
 The article argues that developers often hard-code business values such as thresholds, defaults, feature switches and mappings into formulas, Flows and Apex without noticing, which makes later changes hard to trace. Custom Metadata Types offer a central, deployable home for these values. Unlike Custom Settings or Custom Objects, which hold data, Custom Metadata holds configuration that ships with application code through source control and CI/CD. The author illustrates this with a Deal_Policy__mdt type holding a shared maximum discount and regional records for large-deal amount, default discount and approval threshold, selected by region name.

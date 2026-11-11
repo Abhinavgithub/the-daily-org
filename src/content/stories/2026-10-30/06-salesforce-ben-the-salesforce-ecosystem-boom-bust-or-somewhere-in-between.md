@@ -34,6 +34,10 @@ figure:
       label: Global demand for Salesforce talent, year on year
     - value: $3.9B
       label: Agentforce and Data 360 annual recurring revenue
+  icons:
+    - people
+    - person
+    - money
 image: https://www.salesforceben.com/wp-content/uploads/2026/10/image-21.png
 held_from: 2026-10-27
 ---

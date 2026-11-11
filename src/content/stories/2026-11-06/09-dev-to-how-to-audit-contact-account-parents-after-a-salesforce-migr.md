@@ -32,6 +32,11 @@ figure:
     - Export Contacts with parent key
     - Match Contacts on their key
     - Compare Account keys
+  icons:
+    - check
+    - doc
+    - search
+    - test
 held_from: 2026-11-03
 ---
 

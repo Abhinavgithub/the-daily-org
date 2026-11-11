@@ -31,6 +31,11 @@ figure:
     - Create Flow action on the object
     - Add to List View Button Layout
     - Add to Dynamic Related List – Single
+  icons:
+    - flow
+    - gear
+    - layers
+    - person
 ---
 
 Starting in Winter '27, users can select several records in a List View or a Related List and hand them to a Screen Flow that opens in a modal. The article treats it as an overlooked part of a large release because it lets admins build mass actions without code.

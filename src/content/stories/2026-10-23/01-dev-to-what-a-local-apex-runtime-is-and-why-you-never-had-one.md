@@ -30,6 +30,10 @@ figure:
     - Apex interpreter
     - Local database for SOQL and DML
     - Rule engine for limits and execution
+  icons:
+    - code
+    - database
+    - gear
 figure_image: /figures/2026-10-23/01-dev-to-what-a-local-apex-runtime-is-and-why-you-never-had-one.webp
 ---
 

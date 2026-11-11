@@ -33,6 +33,12 @@ figure:
     - Build quick prototypes to catch edge cases
     - Ground change requests with Prompt Builder
     - Keep final approval with human project managers
+  icons:
+    - doc
+    - warning
+    - test
+    - robot
+    - person
 figure_image: /figures/2026-10-10/01-salesforce-ben-how-to-use-ai-to-prevent-scope-creep-in-salesforce.webp
 ---
 

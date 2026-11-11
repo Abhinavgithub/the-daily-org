@@ -40,6 +40,9 @@ figure:
       - No Data 360 license needed
       - Self-service unpairing
       - Any Salesforce sandbox type
+  icons:
+    - clock
+    - clock
 image: https://salesforce.vidyard.com/watch/X7EhGA5im2vNzH9pRMgiBf
 figure_image: /figures/2026-10-28/10-sf-blog-peak-ready-precision-the-october-2026-b2c-commerce-release.png
 ---

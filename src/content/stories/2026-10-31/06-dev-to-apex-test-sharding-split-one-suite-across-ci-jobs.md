@@ -30,6 +30,10 @@ figure:
     - Balance classes by recorded duration
     - Run each slice on its own CI job
     - Merge the shard JUnit XML results
+  icons:
+    - clock
+    - gear
+    - doc
 held_from: 2026-10-28
 ---
 

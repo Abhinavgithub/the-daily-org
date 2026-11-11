@@ -38,6 +38,9 @@ figure:
       - Grants additional access
       - Assigned to selected users
       - Field and object permissions
+  icons:
+    - doc
+    - shield
 image: https://www.salesforceben.com/wp-content/uploads/2026/11/Record-Type-Profile-or-Permission-Set-Graphic-2-1024x868.webp
 ---
 

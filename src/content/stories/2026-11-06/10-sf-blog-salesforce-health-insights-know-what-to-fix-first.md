@@ -31,6 +31,11 @@ figure:
     - Evaluate against benchmarks
     - Rank findings by severity
     - Deliver next best actions
+  icons:
+    - search
+    - chart
+    - warning
+    - mail
 image: https://www.salesforce.com/blog/wp-content/themes/salesforce-blog/dist/images/offer-block/offer-illustration-layout-one.png
 held_from: 2026-11-03
 ---

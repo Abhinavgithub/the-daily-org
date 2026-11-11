@@ -90,7 +90,7 @@ Rules:
 - A ledger page (Bulletin, Deadlines, Archive, Stats) is one column of 62rem: each section's name in an 11rem margin, its content beside it. Under 44rem the name goes above.
 - Space is in steps: `--space-1` to `--space-6` (0.25, 0.5, 0.75, 1, 1.5, 2.25rem). Every margin, padding and gap is one of these, written as its token. The only values written out are nudges under 0.2rem, which line one thing up with another, and sizes worked out with `calc()`.
 - Breakpoints, and only these: 64rem (three columns to two), 46rem (the masthead's ears go and, on an edition, its motto and curator's line, so a phone reaches the stories sooner), 44rem (one column, filters on two lines, ledger names above), 40rem (the release edition's lists). The narrow rules live in `_narrow.scss`, last in the cascade.
-- Inside a story, sizes follow the story's own width, not the window's: each `.story` is a container named `story`. Its text runs in one column, in two from 40rem and, in a three-wide story, in three from 60rem, so a column is never much under 18rem; a wide story's headline is `--fs-title` under 40rem and `--fs-lead` from it. A diagram is a container too (36rem and 60rem, below). These are the only container widths.
+- Inside a story, sizes follow the story's own width, not the window's: each `.story` is a container named `story`. Its text runs in one column, in two from 40rem and, in a three-wide story, in three from 60rem, so a column is never much under 18rem; a wide story's headline is `--fs-title` under 40rem and `--fs-lead` from it. A diagram is a container too (36rem, 42rem, 52rem and 60rem, below). These are the only container widths.
 - Nothing scrolls sideways at 320px.
 
 ## Rules, corners and depth
@@ -129,7 +129,7 @@ Use what exists. Add a component only when none of these fits, and add it here.
 | Disclosure | `details` | For what most readers will skip. Its summary is a `--sky` label |
 | Tool | `.tool`, `.search` | A 2.5rem square button; the search field with its button |
 | Votes and report | `.verdict` | The paper's question in italic, two square buttons, a panel that opens beneath |
-| Diagram | `.fig` | Line art drawn by code in ink and `--sun`. No photographs, no decoration. Up to five steps sit in a row of boxes with pictures; six or seven sit in one long row of smaller boxes without them (`.fig--long`), shown only in a story at least 60rem wide, and stacked in a narrower one |
+| Diagram | `.fig` | Line art drawn by code in ink and `--sun`. No photographs, no decoration. A row of boxes with pictures shows in a story 36rem wide; four steps wait for 42rem and five for 52rem, so a label keeps to two or three lines; six or seven sit in one long row of smaller boxes without pictures (`.fig--long`) from 60rem. Narrower, every diagram is stacked. Labels are wrapped by the font's own letter widths and balanced, so no word sits alone on a line. A parts diagram's whole is reversed out of ink, as a flag is; `--sun` is for its spokes, arrows and numbers. A value is printed with a true minus (−13%). Where the drawing across shows, the caption takes its width and is centred with it. The drawing is hidden from screen readers, which read the same things as lists beside it; the caption names the figure |
 
 ## States
 

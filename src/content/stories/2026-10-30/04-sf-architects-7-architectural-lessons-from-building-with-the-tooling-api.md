@@ -33,6 +33,12 @@ figure:
     - Keep recent inactive versions as fallback
     - Delete flow interviews via callouts
     - Delete remaining obsolete flow versions
+  icons:
+    - flow
+    - check
+    - clock
+    - mail
+    - warning
 ---
 
 The author built an open-source Flow Version Cleaner to prune obsolete flow versions in orgs with hundreds of flows. The tool keeps the active version, keeps newer versions that may be under review, and retains a configurable number of recent inactive versions as a fallback. Requirements were refined during the build, once it became clear that version numbers alone do not show which versions are safe to remove.

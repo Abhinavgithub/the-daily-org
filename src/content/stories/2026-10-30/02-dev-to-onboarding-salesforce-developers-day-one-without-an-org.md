@@ -32,6 +32,11 @@ figure:
     - Install renmy runtime
     - Run renmy doctor
     - Run renmy test
+  icons:
+    - code
+    - gear
+    - check
+    - test
 ---
 
 The article argues that onboarding a Salesforce developer usually means waiting days for a sandbox, a user, a Permission Set and VPN access before the first Apex test can run. It presents renmy runtime, a local Apex runtime made by Renmy UG in Berlin, as a way to skip that wait. The tool executes Apex, SOQL, DML and Salesforce Flows on the developer's machine against an embedded PostgreSQL, ships as one binary for macOS, Linux and Windows, and needs no org, Scratch Org, Docker or JVM. The author says governor limits are enforced and each test runs in its own transaction, and cites a public benchmark in which 837 tests ran roughly 45 times faster locally than in an org.

@@ -1,0 +1,53 @@
+{
+  "kind": "figures",
+  "ranAt": "2026-11-11T18:27:56.499Z",
+  "day": "",
+  "seconds": 134,
+  "finished": true,
+  "feeds": [],
+  "articles": [],
+  "proofread": [],
+  "figures": [
+    {
+      "title": "Custom Metadata Types as one deployable home for values across Salesforce and Agentforce",
+      "outcome": "drawn",
+      "kind": "compare"
+    },
+    {
+      "title": "Winter '27 lets admins trigger Screen Flows from List Views and Related Lists",
+      "outcome": "drawn",
+      "kind": "steps"
+    },
+    {
+      "title": "How to voice-enable an Agent Script agent with proven best practices",
+      "outcome": "drawn",
+      "kind": "steps"
+    },
+    {
+      "title": "Salesforce introduces beta Test Mode for Flow debugging and regression testing",
+      "outcome": "drawn",
+      "kind": "compare"
+    },
+    {
+      "title": "Winter ’27 release guides architects through security enforcement and agent scaling",
+      "outcome": "drawn",
+      "kind": "parts"
+    }
+  ],
+  "model": {
+    "calls": 10,
+    "retries": {
+      "HTTP 429": 5
+    },
+    "usage": {
+      "qwen/qwen3.7-flash": {
+        "input": 803,
+        "output": 8209
+      },
+      "inclusionai/ling-3.1-flash": {
+        "input": 216,
+        "output": 1453
+      }
+    }
+  }
+}

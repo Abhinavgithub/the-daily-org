@@ -33,6 +33,12 @@ figure:
     - Build an Omni-Channel routing flow
     - Activate the flow and PSTN Voice channel
     - Test the call and query records
+  icons:
+    - check
+    - person
+    - flow
+    - plug
+    - test
 figure_image: /figures/2026-10-22/02-sf-developers-agentforce-voice-for-agent-script-route-real-phone-calls-to.webp
 ---
 

@@ -32,6 +32,12 @@ figure:
     - Run renmy test locally
     - Fix overlap, rerun in seconds
     - Activate and review in sandbox
+  icons:
+    - flow
+    - test
+    - gear
+    - clock
+    - shield
 figure_image: /figures/2026-10-29/01-dev-to-test-salesforce-flows-locally-before-you-activate-them.png
 ---
 

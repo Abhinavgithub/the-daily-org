@@ -32,6 +32,10 @@ figure:
     - License and Permission Set Allocation
     - Field-Level Security Inheritance
     - Agentforce Action Boundaries
+  icons:
+    - lock
+    - shield
+    - robot
 ---
 
 The article outlines a structured approach to managing generative AI access by separating feature availability through Permission Set Licenses from functional capabilities via Permission Sets and Permission Set Groups. It defines four core roles, including an AI System Administrator, Prompt Template Author, Standard End-User, and Agentforce Runtime User, emphasizing that bundling permissions into groups prevents security drift when users change departments.

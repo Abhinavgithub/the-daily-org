@@ -31,6 +31,11 @@ figure:
     - Validate script locally via SF CLI command
     - Deploy packaged extension to Data 360 org
     - Execute managed Spark job on demand or schedule
+  icons:
+    - code
+    - check
+    - rocket
+    - clock
 figure_image: /figures/2026-10-07/04-sf-developers-advanced-code-extension-pyspark-examples-for-batch-data-tran.webp
 ---
 

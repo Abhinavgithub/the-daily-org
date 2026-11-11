@@ -49,6 +49,7 @@ It refuses to run with uncommitted changes and asks before deleting anything. Th
 | `npm run sources` | How each source has done (`-- --days 90` for a longer span), with a verdict on each. |
 | `npm run try-source -- <feed address>` | What a new source would add. `--review 3` has the model score its latest three; `--youtube <channel ID>` tries a channel. |
 | `npm run figures` | Adds missing diagrams to stories. `-- --day YYYY-MM-DD` for one edition, `-- --redo` to draw them again. |
+| `npm run figure-icons` | Gives pictograms to diagrams that have none, keeping each diagram as it is. Reads only the labels, so it is cheap (about $0.0003 a diagram). `-- --limit 5` to try a few first. |
 | `npm run readership` | Saves who read the paper, up to yesterday, for the Stats page. Needs the `READERSHIP_` settings. |
 | `npm run revise -- --glossary-only` | Re-applies the glossary to every story, with no model calls. |
 | `npm run revise -- --resummarise` | Writes again, from the whole article, the summary of every story first summarised from only its opening (the model once read 12,000 characters). `-- --list` says which, with no model calls; `-- --story <day/name>` does one. Only the summary changes. |

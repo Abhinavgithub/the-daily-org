@@ -38,6 +38,9 @@ figure:
     points:
       - Keeps more of what customers say
       - Treats an update as a correction
+  icons:
+    - doc
+    - doc
 also:
   - title: "Double recall: Inside the Agentforce Memory update"
     url: https://www.salesforce.com/news/linked-content/double-recall-inside-the-agentforce-memory-update/

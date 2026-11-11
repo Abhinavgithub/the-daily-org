@@ -21,7 +21,7 @@ Which file does what. Every source file opens with a comment saying what it is f
 | 6. Decide | `decide.ts`, `hold.ts`, `same-story.ts` | Published, held for a quieter day, brief, or dropped. A story told again becomes a line under the first: the model is asked, and `same-story.ts` compares headlines behind it, on arrival and again once held stories are printed, against the day and the week before. |
 | 7. Proof-read | `curate.ts` (`proofread`, `proofreadAll`), `style.ts` | The model proof-reads; `style.ts` then applies the house style in code. |
 | 8. Write | `write.ts` | Story Markdown into `src/content/`. |
-| 9. Diagrams | `figure.ts`, `figures.ts` | One diagram per story, and the edition's social card. |
+| 9. Diagrams | `figure.ts`, `figures.ts` | One diagram per story, and the edition's social card. `figure-icons.ts` gives pictograms to diagrams drawn before they had them (`npm run figure-icons`). |
 | 10. Record | `log.ts` | One file per run in `data/logs/`, plus a line in `data/stats.jsonl`. |
 | 11. Release edition | `release-edition-cli.ts` → `release-due.ts`, `release-notes.ts`, `release-edition.ts`, `release-notices.ts` | Only when one is owed: a new release, its second build, or its weekly check. What changed in the notes is worked out by `src/lib/release-changes.ts`; a changed Release Update becomes a Bulletin alert. |
 
@@ -35,6 +35,7 @@ Which file does what. Every source file opens with a comment saying what it is f
 | A forum post's first look | `pipeline/curate.ts`: `firstLook`, `firstLooks` |
 | Proof-read | `pipeline/curate.ts`: `proofSystem` |
 | Diagram | `pipeline/figure.ts`: `system` |
+| Pictograms for an older diagram | `pipeline/figure-icons.ts`: `iconSystem` |
 | Release edition | `pipeline/release-edition.ts`: `prompt` and the two inline system messages |
 | Fix a reported mistake | `pipeline/correct.ts`: `fixSystem` |
 | Write a story's summary again | `pipeline/curate.ts`: `resummarise`, with the same `SUMMARY_RULE` as a new story |
@@ -52,7 +53,7 @@ Each `npm run` script in package.json maps to one file in `pipeline/` (e.g. `rep
 | Page | Logic | Page and components | Styles |
 |---|---|---|---|
 | Edition (`/`, `/[day]/`) | `stories.ts`, `editions.ts`, `signal.ts`, `layout.ts`, `pack.ts` | `pages/index.astro`, `pages/[day]/`, `pages/section/`, `pages/tag/`, `EditionPage`, `StoryGrid`, `StoryCard`, `BriefList` | `_sheet`, `_stories`, `_briefs`, `_page-turn` |
-| Diagram | `figure.ts`, `diagram.ts`, `icons.ts` | `StoryFigure` | `_figure` |
+| Diagram | `figure.ts`, `diagram.ts`, `icons.ts`, `letter-widths.ts` (Libre Franklin's letter widths, for wrapping) | `StoryFigure` | `_figure` |
 | Masthead | `releases.ts` (`nextStage`, for the ear), `release-store.ts` (`getReleaseDates`), `theme.ts` | `Masthead`, `Tabs`, `FilterBar`, `NewTab` | `_masthead`, `_filter-bar` |
 | Bulletin | `bulletin.ts`, `quote.ts` and `quote-store.ts` (the share price) | `pages/bulletin/` | `_masthead` (the `bulletin__` rules), `_release-edition` |
 | Deadlines | `deadlines.ts`, `ics.ts` (the calendar) | `pages/deadlines/`, `pages/deadlines.ics.ts` | `_masthead` (reuses `bulletin__`), `_release-edition` |

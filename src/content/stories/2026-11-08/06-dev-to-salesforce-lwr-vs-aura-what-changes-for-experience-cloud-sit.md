@@ -40,6 +40,9 @@ figure:
       - Static, cacheable resources
       - CDN can serve eligible files
       - Republish to expose component changes
+  icons:
+    - bolt
+    - server
 held_from: 2026-11-05
 ---
 

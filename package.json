@@ -23,6 +23,7 @@
     "backfill-authors": "tsx pipeline/backfill-authors.ts",
     "revise": "tsx pipeline/revise.ts",
     "figures": "tsx pipeline/figures.ts",
+    "figure-icons": "tsx pipeline/figure-icons-cli.ts",
     "readership": "tsx pipeline/readership.ts",
     "favicon": "tsx pipeline/favicon.ts",
     "feedback": "tsx pipeline/feedback-cli.ts",

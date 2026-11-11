@@ -39,6 +39,9 @@ figure:
       - Only a syntax error is reported
       - Completion keeps working
       - Harmless, so not flagged
+  icons:
+    - code
+    - code
 image: https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2Fi3m0hboqkfytq9fwrweq.png
 figure_image: /figures/2026-10-31/05-dev-to-how-a-raw-list-in-an-invocablemethod-breaks-apex-completion.png
 ---

@@ -36,6 +36,11 @@ figure:
     - Agentforce Sales app plugin
     - Tableau plugin
     - Salesforce DX MCP connector
+  icons:
+    - database
+    - robot
+    - chart
+    - plug
 figure_image: /figures/2026-10-19/02-salesforce-ben-ultimate-guide-to-chatgpt-and-codex-for-salesforce-professio.webp
 ---
 

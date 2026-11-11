@@ -35,6 +35,12 @@ figure:
     - Keep approvals on
     - Pilot in a sandbox
     - Name an owner for connections
+  icons:
+    - shield
+    - database
+    - check
+    - test
+    - person
 figure_image: /figures/2026-10-09/07-cloud-odyssey-claudeforce-by-salesforce-and-anthropic-what-ships-how-it-wo.webp
 ---
 
