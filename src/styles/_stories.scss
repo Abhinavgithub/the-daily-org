@@ -186,20 +186,18 @@
 }
 
 // A wide story's headline is set large only while the story is wide enough for it; narrower, it is a page title.
-.story--w2 .story__title,
-.story--w3 .story__title {
+// Held in :where() so these stay defaults: the banner, also three wide, sets its own size and spacing above.
+:where(.story--w2, .story--w3) .story__title {
   font-size: var(--fs-title);
 }
 
 @container story (min-width: 40rem) {
-  .story--w2 .story__title,
-  .story--w3 .story__title {
+  :where(.story--w2, .story--w3) .story__title {
     font-size: var(--fs-lead);
   }
 }
 
-.story--w2 .story__title,
-.story--w3 .story__title {
+:where(.story--w2, .story--w3) .story__title {
   line-height: 1.08;
   letter-spacing: var(--tighter);
   margin-bottom: var(--space-2);
