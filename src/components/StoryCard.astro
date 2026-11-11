@@ -42,7 +42,7 @@ const mark = signal === 'must' ? 'Must-read' : signal === 'recommended' ? 'Recom
   data-personas={data.personas.join(' ')}
   data-signal={signal}
 >
-  {mark && <p class="flag story__mark">{mark}</p>}
+  {mark && <p class:list={['flag', 'story__mark', signal === 'recommended' && 'flag--quiet']}>{mark}</p>}
   <p class="story__byline">
     <span>{writer ? `By ${writer}` : source}{writer && <span class="story__source"> · {source}</span>}</span>
     {why.rest && (

@@ -122,7 +122,7 @@
   margin: 0 0 0.8rem;
   font-family: var(--headline);
   font-style: italic;
-  font-size: 1.04rem;
+  font-size: var(--fs-deck);
   line-height: 1.4;
   color: var(--muted);
   text-wrap: pretty;
@@ -130,7 +130,7 @@
 
 .story--w2 .story__deck,
 .story--w3 .story__deck {
-  font-size: 1.28rem;
+  font-size: var(--fs-headline);
   margin-bottom: 1rem;
 }
 
@@ -179,7 +179,7 @@
     font-family: var(--display);
     font-size: var(--fs-small);
     font-weight: 700;
-    letter-spacing: 0.06em;
+    letter-spacing: var(--caps);
     text-transform: uppercase;
     color: var(--muted);
   }
@@ -201,7 +201,7 @@
   a {
     font-family: var(--headline);
     font-weight: 700;
-    font-size: 1.0625rem;
+    font-size: var(--fs-deck);
     line-height: 1.25;
     color: var(--ink);
     text-decoration: none;
@@ -224,7 +224,7 @@
   font-family: var(--display);
   font-size: var(--fs-small);
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: var(--caps);
   text-transform: uppercase;
   color: var(--sun);
 }
@@ -244,15 +244,15 @@
   font-weight: 600;
 }
 
-// A wide story's text in columns of its own, justified, with a drop cap: the lead, set as a front page sets it.
+// A wide story's text in columns of its own, with a drop cap: the lead, set as a front page sets it. Ragged
+// right, not justified: a column this narrow cannot be justified without gaps between the words.
 .story--w2 .story__text,
 .story--w3 .story__text {
   columns: 2;
   column-gap: var(--gap);
 
   p {
-    text-align: justify;
-    hyphens: auto;
+    text-wrap: pretty;
     // Kept whole where it can be, so a column does not end on one line of a paragraph.
     orphans: 2;
     widows: 2;

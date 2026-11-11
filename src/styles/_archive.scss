@@ -75,7 +75,7 @@
       margin: 0;
       font-family: var(--headline);
       font-weight: 700;
-      font-size: 1.125rem;
+      font-size: var(--fs-sub);
       line-height: 1.25;
     }
 
@@ -119,19 +119,31 @@
 
 .results__section {
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: var(--caps);
   text-transform: uppercase;
   font-size: var(--fs-small);
 }
 
-// A searched word where it was found: underlined in the accent colour, not painted over.
-.results mark {
+// A result's headline, as the paper sets every other: in ink, and a link by its place and on hover.
+.search-page .results a {
+  color: var(--ink);
+  text-decoration: none;
+
+  &:hover {
+    color: var(--sky);
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+  }
+}
+
+// A searched word where it was found: on a wash of the accent, as a marker pen leaves it. One rule for the
+// results and for the line above them.
+.results mark,
+.search-summary mark {
+  padding: 0 0.1em;
   color: inherit;
-  background: none;
-  text-decoration: underline;
-  text-decoration-color: var(--sun);
-  text-decoration-thickness: 2px;
-  text-underline-offset: 0.18em;
+  background: color-mix(in srgb, var(--sun) 20%, transparent);
+  box-decoration-break: clone;
 }
 
 .results__more {
@@ -161,7 +173,7 @@
     padding: 0 0 0.4rem;
     font-weight: 700;
     font-size: var(--fs-small);
-    letter-spacing: 0.08em;
+    letter-spacing: var(--caps);
     text-transform: uppercase;
     color: var(--muted);
   }
@@ -252,14 +264,6 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
     margin: 0;
   }
 
-  mark {
-    color: inherit;
-    background: none;
-    text-decoration: underline;
-    text-decoration-color: var(--sun);
-    text-decoration-thickness: 2px;
-    text-underline-offset: 0.18em;
-  }
 }
 
 .search-sort {
@@ -271,14 +275,13 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
     margin-right: 0.25rem;
     font-weight: 700;
     font-size: var(--fs-small);
-    letter-spacing: 0.08em;
+    letter-spacing: var(--caps);
     text-transform: uppercase;
     color: var(--muted);
   }
 
   .chip {
     padding: 0.25rem 0.7rem;
-    border-radius: 999px;
   }
 }
 
@@ -379,7 +382,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
     min-height: 2.75rem;
     padding: 0 1.75rem 0 0.5rem;
     font-family: var(--headline);
-    font-size: 1.375rem;
+    font-size: var(--fs-headline);
     font-weight: 700;
     line-height: 1.15;
     letter-spacing: -0.005em;
@@ -394,7 +397,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
 
     &:hover:not(:disabled) {
       border-color: var(--rule);
-      background: var(--sky-wash);
+      background: var(--wash);
     }
 
     // One month so far: the menu has nothing to offer, so it reads as the name.
@@ -408,7 +411,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
   option,
   optgroup {
     font-family: var(--text);
-    font-size: 1rem;
+    font-size: var(--fs-body);
     color: CanvasText;
     background: Canvas;
   }
@@ -445,7 +448,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
     gap: 0.1rem;
     margin: 0;
     font-family: var(--headline);
-    font-size: 1.375rem;
+    font-size: var(--fs-headline);
     font-weight: 700;
     line-height: 1.15;
     letter-spacing: -0.005em;
@@ -474,7 +477,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
   font-family: var(--display);
   font-size: var(--fs-small);
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: var(--caps);
   text-transform: uppercase;
   color: var(--muted);
   font-variant-numeric: tabular-nums;
@@ -496,7 +499,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
 
   &:hover:not(:disabled) {
     border-color: var(--ink);
-    background: var(--sky-wash);
+    background: var(--wash);
   }
 
   &:disabled {
@@ -516,7 +519,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
     padding: 0.4rem 0 0.15rem;
     font-size: var(--fs-small);
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: var(--caps);
     text-transform: uppercase;
     color: var(--muted);
 
@@ -545,14 +548,14 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
 
 .cal__date {
   font-family: var(--headline);
-  font-size: 1.0625rem;
+  font-size: var(--fs-deck);
   line-height: 1;
   font-variant-numeric: lining-nums tabular-nums;
 }
 
 .cal__stories {
   font-family: var(--display);
-  font-size: 0.6875rem;
+  font-size: var(--fs-small);
   font-weight: 600;
   line-height: 1;
   color: var(--muted);
@@ -569,7 +572,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
 .cal__day--edition {
   color: var(--ink);
   text-decoration: none;
-  background: var(--sky-wash);
+  background: var(--wash);
   border-color: var(--rule);
 
   .cal__date {

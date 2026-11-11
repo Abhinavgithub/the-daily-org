@@ -32,13 +32,26 @@ input {
   border-radius: 0;
 }
 
+// A link or a control changes colour softly under the pointer, for those who have not asked for stillness.
+@media (prefers-reduced-motion: no-preference) {
+  a,
+  button,
+  summary,
+  .search {
+    transition:
+      color var(--ease),
+      background-color var(--ease),
+      border-color var(--ease);
+  }
+}
+
 [hidden] {
   display: none !important;
 }
 
 code {
   font-size: inherit;
-  background: var(--sky-wash);
+  background: var(--wash);
   padding: 0.1em 0.35em;
   border-radius: 0;
 }

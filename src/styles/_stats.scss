@@ -128,7 +128,7 @@
 .ledger__lede {
   margin: 0;
   font-family: var(--text);
-  font-size: 1.125rem;
+  font-size: var(--fs-sub);
   color: var(--muted);
   text-wrap: balance;
 }
@@ -151,7 +151,7 @@
     margin: 0.15rem 0 0;
     font-size: var(--fs-small);
     font-weight: 700;
-    letter-spacing: 0.08em;
+    letter-spacing: var(--caps);
     text-transform: uppercase;
     color: var(--muted);
   }
@@ -188,7 +188,7 @@
   color: var(--muted);
 
   b {
-    font-size: 1.05rem;
+    font-size: var(--fs-deck);
   }
 }
 
@@ -312,7 +312,7 @@
 // What the model read and what it wrote, under its bar.
 .models__parts {
   grid-column: 1 / -1;
-  font-size: 0.75rem;
+  font-size: var(--fs-small);
   color: var(--muted);
   font-variant-numeric: tabular-nums;
 }

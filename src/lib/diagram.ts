@@ -78,7 +78,7 @@ function icon(name: IconName | undefined, cx: number, cy: number, size: number, 
 }
 
 const box = (x: number, y: number, w: number, h: number, p: Palette, fill = p.surface, stroke = p.ink) =>
-  `<rect x="${r(x)}" y="${r(y)}" width="${r(w)}" height="${r(h)}" rx="6" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>`;
+  `<rect x="${r(x)}" y="${r(y)}" width="${r(w)}" height="${r(h)}" rx="2" fill="${fill}" stroke="${stroke}" stroke-width="1.5"/>`;
 
 const badge = (cx: number, cy: number, n: number, p: Palette) =>
   `<circle cx="${r(cx)}" cy="${r(cy)}" r="11" fill="${p.accent}"/>${text(cx, cy - (13 * LEAD) / 2, [String(n)], p.surface, { size: 13, weight: 700 })}`;

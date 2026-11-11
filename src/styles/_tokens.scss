@@ -20,7 +20,7 @@ $accent: null !default;
   --nameplate-accent: #00a1e0;
   // A share price that rose. One that fell takes the alarm red.
   --rise: #1f7a3d;
-  --sky-wash: #e8e0cd;
+  --wash: #e8e0cd;
   --sun: #{$accent};
   // For a failure of the service, and nothing else: the one red on the page.
   --alarm: #b3261e;
@@ -54,16 +54,34 @@ $accent: null !default;
   --text: 'Newsreader', Georgia, 'Times New Roman', serif;
   --display: 'Libre Franklin', 'Franklin Gothic Medium', 'Helvetica Neue', Arial, sans-serif;
 
-  // The whole type scale. Every font-size on the site is one of these.
+  // The whole type scale. Every font-size on the site is one of these (docs/design-system.md).
   --fs-nameplate: clamp(2.6rem, 8vw, 4.75rem);
   --fs-title: 2rem;
   // The lead story's headline: the largest type on the page after the nameplate.
   --fs-lead: clamp(2rem, 3.4vw, 2.75rem);
   --fs-headline: 1.25rem;
+  // A headline in a list: a notice, a brief, a search result's neighbour.
+  --fs-sub: 1.125rem;
+  // A deck under a headline, a question the paper asks, a headline among many.
+  --fs-deck: 1.0625rem;
   --fs-body: 1rem;
   --fs-label: 0.8125rem;
   // The smallest type: flags, the folio, a label in capitals. Nothing is set smaller.
   --fs-small: 0.75rem;
+
+  // Words in capitals are always spaced this much.
+  --caps: 0.06em;
+
+  // How a colour or a border changes under the pointer. Nothing moves; nothing takes longer.
+  --ease: 120ms ease-out;
+
+  // The steps of space, for new work: a gap or a margin is one of these.
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2.25rem;
 
   // Space between the sheet's edge and its content, and between the sheet and the window.
   --gutter: clamp(1rem, 2.4vw, 1.5rem);
@@ -84,7 +102,7 @@ $accent: null !default;
   --sky: #9cc3e0;
   --nameplate-accent: #00a1e0;
   --rise: #5fc27e;
-  --sky-wash: #2e2a22;
+  --wash: #2e2a22;
   --sun: #f0a85a;
   --alarm: #ff6b5e;
   --backdrop: rgb(0 0 0 / 0.7);

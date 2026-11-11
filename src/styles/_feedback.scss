@@ -3,6 +3,8 @@
 // "Worth reading? Yes No": the last line of a story, under a hairline, so the
 // story ends on its own text and the question reads as the paper asking.
 .verdict {
+  // The line knows its own width, so a narrow story can set "Report an error" as its flag alone.
+  container-type: inline-size;
   margin: 1rem 0 0;
   padding-top: 0.7rem;
   border-top: 1px solid var(--rule);
@@ -29,7 +31,7 @@
   margin-right: 0.25rem;
   font-family: var(--headline);
   font-style: italic;
-  font-size: 1rem;
+  font-size: var(--fs-body);
   color: var(--ink);
 }
 
@@ -38,24 +40,20 @@
   gap: 0.4rem;
 }
 
-// A rounded button with its thumb. Pressed, it fills with ink and so does its thumb.
+// A square button with its thumb, ruled like every other control on the page. Pressed, it fills with ink and so does its thumb.
 .verdict__vote {
   display: inline-flex;
   align-items: center;
   gap: 0.4rem;
-  min-height: 2rem;
-  padding: 0.3rem 0.8rem;
+  min-height: 1.875rem;
+  padding: 0.25rem 0.65rem;
   font: inherit;
   font-weight: 500;
   color: var(--ink);
   background: none;
   border: 1px solid var(--control);
-  border-radius: 999px;
+  border-radius: 0;
   cursor: pointer;
-  transition:
-    background-color 120ms ease-out,
-    border-color 120ms ease-out,
-    color 120ms ease-out;
 
   &:hover {
     border-color: var(--ink);
@@ -82,7 +80,7 @@
   align-items: center;
   gap: 0.35rem;
   font-family: var(--text);
-  font-size: 0.95rem;
+  font-size: var(--fs-body);
   font-style: italic;
   color: var(--muted);
 
@@ -112,6 +110,30 @@
   &:hover,
   &[aria-expanded='true'] {
     color: var(--ink);
+  }
+}
+
+// In a one-column story the three parts do not fit on a line, and the report would drop to a line of its own.
+// There it is its flag only; its words are still what a screen reader says.
+@container (max-width: 24rem) {
+  .verdict__report-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .verdict__report {
+    justify-content: center;
+    min-width: 1.875rem;
+    padding: 0;
+
+    svg {
+      width: 1.15em;
+      height: 1.15em;
+    }
   }
 }
 
@@ -162,7 +184,7 @@
 .verdict__label {
   font-family: var(--headline);
   font-style: italic;
-  font-size: 1.05rem;
+  font-size: var(--fs-deck);
   font-weight: 400;
   color: var(--ink);
 }
@@ -172,7 +194,7 @@
   font-family: var(--display);
   font-style: normal;
   font-size: var(--fs-small);
-  letter-spacing: 0.06em;
+  letter-spacing: var(--caps);
   text-transform: uppercase;
   color: var(--muted);
 }
@@ -189,7 +211,7 @@
   align-items: center;
   gap: 0.55rem;
   min-height: 2rem;
-  font-size: 0.9rem;
+  font-size: var(--fs-label);
   color: var(--ink);
   cursor: pointer;
 
@@ -228,7 +250,7 @@
   box-sizing: border-box;
   padding: 0.5rem 0.6rem;
   font-family: var(--text);
-  font-size: 0.95rem;
+  font-size: var(--fs-body);
   line-height: 1.4;
   color: var(--ink);
   background: var(--paper);
@@ -283,7 +305,7 @@
   font-family: var(--display);
   font-size: var(--fs-label);
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: var(--caps);
   text-transform: uppercase;
   color: var(--paper);
   background: var(--ink);
@@ -309,7 +331,7 @@
 
 .verdict__skip {
   font-family: var(--display);
-  font-size: 0.85rem;
+  font-size: var(--fs-label);
   color: var(--muted);
 }
 
@@ -334,7 +356,7 @@
   font-size: var(--fs-label);
   font-style: normal;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: var(--caps);
   text-transform: uppercase;
 }
 

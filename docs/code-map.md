@@ -62,6 +62,7 @@ Each `npm run` script in package.json maps to one file in `pipeline/` (e.g. `rep
 | Logs (dev only for flags and readers) | `logs.ts`, `insights.ts`, `sources.ts` | `pages/logs/`, `Log*` | `_logs` |
 | Reader votes | `verdict.ts` | `Verdict` | `_feedback` |
 
+- How it should look, and the rules for changing it: [design-system.md](design-system.md). Read it before changing a page, a component or a style.
 - Styles: `src/styles/main.scss` only lists the partials, in cascade order; `_tokens.scss` holds the colours and sizes; `_narrow.scss` (last) holds the narrow-screen rules.
 - Content collections (stories, briefs, bulletin): `src/content.config.ts`.
 - Cloudflare Worker for votes and reports: `worker/index.ts`, configured in `wrangler.jsonc`.

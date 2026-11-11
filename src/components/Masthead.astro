@@ -23,7 +23,7 @@ const at = SITE.accent ? SITE.name.indexOf(SITE.accent) : -1;
 const name = at < 0 ? [SITE.name, '', ''] : [SITE.name.slice(0, at), SITE.accent, SITE.name.slice(at + SITE.accent!.length)];
 ---
 
-<header class="masthead">
+<header class:list={['masthead', !edition && 'masthead--inner']}>
   <div class="masthead__bar">
     {/* The share price balances the theme button at the other end. On an edition it is in the ear beside the nameplate. */}
     {

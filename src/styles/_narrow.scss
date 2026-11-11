@@ -29,12 +29,6 @@
   .story--w2 .story__text,
   .story--w3 .story__text {
     columns: 1;
-
-    // One narrow column cannot be justified without gaps between the words.
-    p {
-      text-align: start;
-      hyphens: manual;
-    }
   }
 
   // The search takes the room the theme button leaves.

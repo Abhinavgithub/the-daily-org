@@ -1,4 +1,5 @@
 - Which file does what, and where each model prompt is: docs/code-map.md
+- Before changing a page, a component or a style: read docs/design-system.md and keep to it. A new token, component or state is added there in the same change.
 - What each data file holds, what writes it, its type, and how to review a daily run: docs/data.md
 - What is planned and pending: PLAN.md. How to run the paper: README.md
 - Dev server: `npx astro dev status` before starting one; restart it after `npm run pipeline` or a `.env` change, or it serves old stories.

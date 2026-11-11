@@ -39,7 +39,7 @@
     margin: 0 0 0.3rem;
     font-family: var(--headline);
     font-weight: 600;
-    font-size: 1.0625rem;
+    font-size: var(--fs-deck);
     line-height: 1.25;
   }
 
@@ -60,20 +60,21 @@
 
   p {
     margin: 0;
-    font-size: 0.9375rem;
+    font-size: var(--fs-body);
     line-height: 1.45;
   }
 }
 
-.briefs__source {
-  margin-top: 0.35rem !important;
+// Named with the box, so these stand against its rule for every paragraph in it.
+.briefs .briefs__source {
+  margin-top: 0.35rem;
   font-family: var(--display);
-  font-size: var(--fs-label) !important;
+  font-size: var(--fs-label);
   color: var(--muted);
 }
 
-.briefs__note {
-  margin: 0.8rem 0 0.2rem !important;
+.briefs .briefs__note {
+  margin: 0.8rem 0 0.2rem;
   font-style: italic;
   color: var(--muted);
 

@@ -24,9 +24,17 @@
   font-family: var(--display);
   font-size: var(--fs-small);
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: var(--caps);
   line-height: 1.45;
   text-transform: uppercase;
+}
+
+// The quieter flag: ruled in ink, not filled. For the second of two ranks, so the first stands out beside it.
+.flag--quiet {
+  padding: calc(0.05rem - 1px) calc(0.4rem - 1px);
+  background: none;
+  border: 1px solid var(--ink);
+  color: var(--ink);
 }
 
 // The two parts of the paper, as links under the nameplate. The one the reader is on is underlined in ink.
@@ -40,7 +48,7 @@
   font-family: var(--display);
   font-size: var(--fs-label);
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: var(--caps);
   text-transform: uppercase;
 
   a {
@@ -62,8 +70,8 @@
 }
 
 // How many of the Bulletin's items the reader has not seen. Incidents are counted apart, in red.
-.tabs__count--incident {
-  background: var(--alarm) !important;
+.tabs__count.tabs__count--incident {
+  background: var(--alarm);
 }
 
 .tabs__count {
@@ -90,8 +98,9 @@
   }
 }
 
-.bulletin__asof {
-  margin: 0 0 1rem;
+// Named with the ledger so these stand against its own rule for a note, which comes later in the cascade.
+.ledger .bulletin__asof {
+  margin: 0 0 0.6rem;
 }
 
 // How far back the section reaches, under its name.
@@ -127,12 +136,13 @@
     border-top: 1px solid var(--rule);
   }
 
-  // A list of notices, so a size below a story's headline.
-  h3 {
-    margin: 0;
+  // A list of notices, so a size below a story's headline. Named with the ledger, to stand against its
+  // rule for a heading within a row.
+  .ledger & h3 {
+    margin: 0 0 0.6rem;
     font-family: var(--headline);
     font-weight: 700;
-    font-size: 1.125rem !important;
+    font-size: var(--fs-sub);
     line-height: 1.25;
     letter-spacing: -0.005em;
     text-transform: none;
@@ -187,8 +197,8 @@
 }
 
 // A line to the Deadlines when something falls due soon, under the release dates.
-.bulletin__due {
-  margin-top: 0.75rem !important;
+.bulletin__release.bulletin__due {
+  margin-top: 0.75rem;
 
   a {
     color: var(--sky);
@@ -203,16 +213,13 @@
   align-content: start;
 }
 
-.deadlines__intro {
-  margin: 0 0 0.25rem;
+// The filter bar on this page takes away the room above the page's content, so the first line gives it back.
+.ledger .deadlines__intro {
+  margin: 1rem 0 0.25rem;
 }
 
-.deadlines__calendar {
+.ledger .deadlines__calendar {
   margin: 0 0 1rem;
-}
-
-.deadlines .filters {
-  margin-bottom: 1rem;
 }
 
 // What falls due soon, at the head of the page: a name that leads to the update below, and its day.
@@ -233,7 +240,7 @@
   a {
     font-family: var(--headline);
     font-weight: 700;
-    font-size: 1.0625rem;
+    font-size: var(--fs-deck);
     line-height: 1.25;
     color: var(--ink);
     text-decoration: none;
@@ -299,12 +306,17 @@
   font-family: var(--display);
   font-size: var(--fs-small);
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: var(--caps);
   text-transform: uppercase;
   color: var(--sun);
 }
 
-// The filter bar's rule already heads the first section.
-.deadlines .filters + .ledger__row {
+// The filter bar's double rule already heads the first section, so that section has no rule of its own
+// and sits right under it.
+.deadlines .filters {
+  margin-bottom: 0;
+}
+
+.deadlines:has(.filters) .ledger__row:first-of-type {
   border-top: 0;
 }

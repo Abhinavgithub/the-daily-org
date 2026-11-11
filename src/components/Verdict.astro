@@ -33,9 +33,9 @@ const turnstile = import.meta.env.DEV ? undefined : SITE.turnstileSiteKey;
       </button>
     </span>
     <span class="verdict__said" role="status" data-said></span>
-    <button type="button" class="verdict__report" data-report aria-expanded="false" aria-controls={`${id}-report`}>
+    <button type="button" class="verdict__report" data-report aria-expanded="false" aria-controls={`${id}-report`} title="Report an error">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><path d="M4 22v-7"></path></svg>
-      Report an error
+      <span class="verdict__report-text">Report an error</span>
     </button>
   </div>
 
