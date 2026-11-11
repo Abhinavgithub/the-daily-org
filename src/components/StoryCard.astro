@@ -18,9 +18,11 @@ interface Props {
   showDay?: boolean;
   /** List the story's section and tags under it. Left off the front page, where they crowd it. */
   tags?: boolean;
+  /** The edition's lead: its headline is set as a banner across the page. */
+  banner?: boolean;
 }
 
-const { story, span, signal, showDay = false, tags = true } = Astro.props;
+const { story, span, signal, showDay = false, tags = true, banner = false } = Astro.props;
 const { data } = story;
 const { Content } = await render(story);
 const slug = storySlug(story);
@@ -35,14 +37,22 @@ const mark = signal === 'must' ? 'Must-read' : signal === 'recommended' ? 'Recom
 ---
 
 <article
-  class:list={['story', `story--w${span}`]}
+  class:list={['story', `story--w${span}`, banner && 'story--banner']}
   id={slug}
   data-card
   data-id={story.id}
   data-personas={data.personas.join(' ')}
   data-signal={signal}
 >
-  {mark && <p class:list={['flag', 'story__mark', signal === 'recommended' && 'flag--quiet']}>{mark}</p>}
+  {/* The running head: the story's mark, and its section where the tags below do not already give it. */}
+  {
+    (mark || !tags) && (
+      <p class="story__kicker">
+        {mark && <span class:list={['flag', signal === 'recommended' && 'flag--quiet']}>{mark}</span>}
+        {!tags && <a href={`/section/${data.section}/`}>{sectionLabel(data.section)}</a>}
+      </p>
+    )
+  }
   <p class="story__byline">
     <span>{writer ? `By ${writer}` : source}{writer && <span class="story__source"> · {source}</span>}</span>
     {why.rest && (

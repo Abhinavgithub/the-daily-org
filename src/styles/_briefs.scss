@@ -4,8 +4,8 @@
 // worth a look. Each is set lighter than a story.
 
 .briefs__title {
-  margin: 0 0 0.2rem;
-  padding-bottom: 0.55rem;
+  margin: 0 0 var(--space-1);
+  padding-bottom: var(--space-2);
   border-bottom: 2px solid var(--ink);
   font-family: var(--headline);
   font-weight: 700;
@@ -22,7 +22,7 @@
   }
 
   li {
-    padding: 0.8rem 0;
+    padding: var(--space-3) 0;
     border-bottom: 1px solid var(--rule);
 
     &:last-child {
@@ -36,7 +36,7 @@
   }
 
   h3 {
-    margin: 0 0 0.3rem;
+    margin: 0 0 var(--space-1);
     font-family: var(--headline);
     font-weight: 600;
     font-size: var(--fs-deck);
@@ -67,14 +67,14 @@
 
 // Named with the box, so these stand against its rule for every paragraph in it.
 .briefs .briefs__source {
-  margin-top: 0.35rem;
+  margin-top: var(--space-1);
   font-family: var(--display);
   font-size: var(--fs-label);
   color: var(--muted);
 }
 
 .briefs .briefs__note {
-  margin: 0.8rem 0 0.2rem;
+  margin: var(--space-3) 0 var(--space-1);
   font-style: italic;
   color: var(--muted);
 
@@ -87,9 +87,9 @@
 // by side, with a rule between the columns as short items are set in print.
 .briefs--alone ul {
   columns: var(--columns, 3) 16rem;
-  column-gap: 2.5rem;
+  column-gap: var(--space-6);
   column-rule: 1px solid var(--rule);
-  margin-top: 0.8rem;
+  margin-top: var(--space-3);
 }
 
 .briefs--alone li {
@@ -99,11 +99,31 @@
 }
 
 .empty {
-  padding: 2rem 0;
+  padding: var(--space-6) 0;
   font-family: var(--display);
   text-align: center;
 
   p {
     margin: 0 0 var(--space-2);
+  }
+}
+
+// The rail: the briefs down the side of the stories, parted from them by a rule the height of the page. What
+// it holds stays in view while the stories beside it are read.
+.briefs--rail {
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: calc(var(--gap) / -2);
+    border-left: 1px solid var(--rule);
+  }
+
+  .briefs__hold {
+    position: sticky;
+    top: var(--space-4);
   }
 }

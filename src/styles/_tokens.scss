@@ -66,7 +66,9 @@ $accent: null !default;
   // The whole type scale. Every font-size on the site is one of these (docs/design-system.md).
   --fs-nameplate: clamp(2.6rem, 8vw, 4.75rem);
   --fs-title: 2rem;
-  // The lead story's headline: the largest type on the page after the nameplate.
+  // The banner: an edition's lead headline, across the whole page.
+  --fs-banner: clamp(2.25rem, 4.6vw, 3.75rem);
+  // The headline of a wide story on a page with no banner (a section, a tag).
   --fs-lead: clamp(2rem, 3.4vw, 2.75rem);
   --fs-headline: 1.25rem;
   // A headline in a list: a notice, a brief, a search result's neighbour.

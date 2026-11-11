@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { storySpans } from './layout';
+import { bodySpans, storySpans } from './layout';
 
 test('a story earns its width from its score', () => {
   assert.deepEqual(storySpans([9, 8, 7, 6]), [3, 2, 1, 1]);
@@ -20,4 +20,11 @@ test('a small edition is left as single columns', () => {
   assert.deepEqual(storySpans([7]), [1]);
   assert.deepEqual(storySpans([]), []);
   assert.deepEqual(storySpans([8, 7]), [2, 1], 'but a standout is still wide');
+});
+
+test('beneath the banner a story is no wider than the body, and none is widened for want of a lead', () => {
+  assert.deepEqual(bodySpans([9, 8, 7], 2), [2, 2, 1], 'two columns beside the briefs');
+  assert.deepEqual(bodySpans([9, 8, 7], 3), [3, 2, 1], 'three when there are no briefs');
+  assert.deepEqual(bodySpans([7, 7, 7, 7], 3), [1, 1, 1, 1]);
+  assert.deepEqual(bodySpans([], 2), []);
 });

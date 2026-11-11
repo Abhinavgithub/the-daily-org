@@ -5,8 +5,8 @@
 
 .fig {
   container-type: inline-size;
-  margin: 0 0 0.9rem;
-  padding: 0.85rem 0 0.6rem;
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3) 0 var(--space-2);
   border-top: 2px solid var(--ink);
   border-bottom: 1px solid var(--rule);
   font-family: var(--display);
@@ -65,9 +65,9 @@
 .story__meta {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.2rem 0.8rem;
-  margin: 0.9rem 0 0;
-  padding-top: 0.7rem;
+  gap: var(--space-1) var(--space-3);
+  margin: var(--space-4) 0 0;
+  padding-top: var(--space-3);
   border-top: 1px solid var(--rule);
   font-family: var(--display);
   font-size: var(--fs-label);
@@ -80,7 +80,7 @@
 
 // Other sources that told the same story: one quiet line under the text.
 .story__also {
-  margin: 0.7rem 0 0;
+  margin: var(--space-3) 0 0;
   font-family: var(--display);
   font-size: var(--fs-label);
   color: var(--muted);
@@ -97,9 +97,9 @@
 .story__tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 0 0.7rem;
+  gap: 0 var(--space-3);
   list-style: none;
-  margin: 0.45rem 0 0;
+  margin: var(--space-2) 0 0;
   padding: 0;
   font-family: var(--display);
   font-size: var(--fs-label);
@@ -120,8 +120,8 @@
 
 // When there is no source line above them, the tags carry the dividing rule.
 .story__text + .story__tags {
-  margin-top: 0.9rem;
-  padding-top: 0.7rem;
+  margin-top: var(--space-4);
+  padding-top: var(--space-3);
   border-top: 1px solid var(--rule);
 }
 
@@ -132,7 +132,7 @@
   // A comfortable target around a small icon.
   width: 1.5rem;
   height: 1.5rem;
-  margin: -0.25rem 0;
+  margin: calc(-1 * var(--space-1)) 0;
   padding: 0;
   color: var(--muted);
   background: none;
@@ -160,7 +160,7 @@
   top: calc(100% + 0.35rem);
   left: 0;
   width: min(22rem, 100%);
-  padding: 0.7rem 0.85rem;
+  padding: var(--space-3) var(--space-3);
   font-family: var(--text);
   font-size: var(--fs-body);
   font-style: italic;

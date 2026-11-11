@@ -6,8 +6,36 @@
 // as tall as its own text. Stories are parted by rules, as a printed page parts
 // them: a hairline down the gutter between columns and one across the gutter
 // between a story and the one above it.
+// An edition's page: the lead as a banner across the top, the other stories beneath it, and the briefs as a
+// rail down the side.
+.front {
+  --gap: var(--space-6);
+}
+
+.front__body--rail {
+  display: grid;
+  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+  gap: var(--gap);
+}
+
+// Beside the rail the stories are set in two columns. Named with the grid, to stand against its three.
+.grid.grid--two {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+// With the briefs filtered away, the stories take the whole width again.
+@media (min-width: 64.01rem) {
+  .front__body--rail:has(> .briefs[hidden]) {
+    grid-template-columns: minmax(0, 1fr);
+
+    .grid.grid--two {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+}
+
 .grid {
-  --gap: 2.25rem;
+  --gap: var(--space-6);
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--gap);
@@ -57,10 +85,10 @@
 
 // One column, or the script not run: stories follow one another under a rule.
 .grid:not(.is-packed) {
-  row-gap: 1.25rem;
+  row-gap: var(--space-5);
 
   > [data-card] + [data-card] {
-    padding-top: 1.25rem;
+    padding-top: var(--space-5);
     border-top: 1px solid var(--rule);
   }
 }
@@ -90,16 +118,59 @@
   position: relative;
   display: flex;
   align-items: center;
-  gap: 0.4rem;
-  margin: 0 0 0.3rem;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-1);
   font-family: var(--display);
   font-size: var(--fs-label);
   color: var(--muted);
 }
 
-// The story's mark in its edition, Must-read or Recommended, as a flag above the byline.
-.story__mark {
-  margin-bottom: 0.45rem;
+// The running head over a story: its mark in the edition, as a flag, and its section.
+.story__kicker {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 var(--space-3);
+  margin: 0 0 var(--space-1);
+  font-family: var(--display);
+
+  .flag {
+    margin: 0;
+  }
+
+  a {
+    @include label;
+    // Tall enough to press.
+    display: inline-block;
+    line-height: 1.5rem;
+    color: var(--muted);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--sky);
+      text-decoration: underline;
+    }
+  }
+}
+
+// The banner: the edition's lead, its headline across the whole page, closed by an ink rule.
+.story--banner {
+  margin-bottom: var(--space-5);
+  padding-bottom: var(--space-5);
+  border-bottom: 2px solid var(--ink);
+
+  .story__title {
+    margin-bottom: var(--space-3);
+    font-size: var(--fs-banner);
+    font-weight: 800;
+    line-height: 1.02;
+    letter-spacing: var(--tighter);
+    text-wrap: balance;
+  }
+
+  .story__deck {
+    max-width: 58rem;
+  }
 }
 
 .story__title {
@@ -108,7 +179,7 @@
   font-size: var(--fs-headline);
   line-height: 1.2;
   letter-spacing: var(--tight);
-  margin: 0 0 0.55rem;
+  margin: 0 0 var(--space-2);
 }
 
 .story--w2 .story__title,
@@ -121,7 +192,7 @@
 
 // The first sentence of the reason to read, under the headline, as a paper sets its deck.
 .story__deck {
-  margin: 0 0 0.8rem;
+  margin: 0 0 var(--space-3);
   font-family: var(--headline);
   font-style: italic;
   font-size: var(--fs-deck);
@@ -160,7 +231,7 @@
   line-height: 1.5;
 
   p {
-    margin: 0 0 0.7rem;
+    margin: 0 0 var(--space-3);
   }
 
   p:last-child {
@@ -173,7 +244,7 @@
 .contents {
   display: none;
   margin-bottom: var(--space-5);
-  padding-bottom: 1.25rem;
+  padding-bottom: var(--space-5);
   border-bottom: 1px solid var(--ink);
 
   h2 {
@@ -185,9 +256,9 @@
 
   ol {
     display: grid;
-    gap: 0.65rem;
+    gap: var(--space-3);
     margin: 0;
-    padding: 0 0 0 1.4rem;
+    padding: 0 0 0 var(--space-5);
   }
 
   li::marker {
@@ -234,7 +305,7 @@
 
 // The way to the article, in words, as the last line of the story.
 .story__more {
-  margin: 0.8rem 0 0;
+  margin: var(--space-3) 0 0;
   font-family: var(--display);
   font-size: var(--fs-label);
   font-weight: 600;

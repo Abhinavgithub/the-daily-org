@@ -8,6 +8,9 @@
   background: var(--paper);
   border: 1px solid var(--edge);
   box-shadow: var(--shadow-sheet);
+  // A hairline frame just inside the sheet's edge, as a printed page is ruled.
+  outline: 1px solid var(--rule);
+  outline-offset: -6px;
   // The part that turns when moving between editions.
   view-transition-name: sheet;
   position: relative;

@@ -2,7 +2,7 @@
 
 .browse {
   max-width: 46rem;
-  margin-bottom: 2.5rem;
+  margin-bottom: var(--space-6);
   // Clear the top of the page when reached by its link.
   scroll-margin-top: 1rem;
 
@@ -33,7 +33,7 @@
     display: grid;
     grid-template-columns: 1fr auto;
     gap: 0.1rem var(--space-4);
-    padding: 0.9rem 0;
+    padding: var(--space-4) 0;
     border-bottom: 1px solid var(--rule);
   }
 

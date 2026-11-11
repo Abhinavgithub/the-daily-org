@@ -6,6 +6,7 @@ import BriefList from './BriefList.astro';
 import FilterBar from './FilterBar.astro';
 import Masthead from './Masthead.astro';
 import Tabs from './Tabs.astro';
+import StoryCard from './StoryCard.astro';
 import StoryGrid from './StoryGrid.astro';
 
 interface Props {
@@ -25,7 +26,11 @@ const lastFull = stories.length > 0 ? undefined : editions.find((other) => other
 const count = (n: number, one: string, many: string) => `${n} ${n === 1 ? one : many}`;
 const holds = [stories.length && count(stories.length, 'story', 'stories'), briefs.length && count(briefs.length, 'brief', 'briefs')].filter(Boolean).join(' · ') || 'Nothing new';
 const numbered = folio(day, editions.map((other) => other.day));
-// The marks, for the list of the edition's headlines that opens a narrow page.
+// The page: the best story as a banner across the top; beneath it the others in columns, with the briefs as a
+// rail down the side. With no briefs the others take the whole width; with no others the briefs run across.
+const [lead, ...rest] = stories;
+const rail = rest.length > 0 && briefs.length > 0;
+// The marks, for the banner and for the list of the edition's headlines that opens a narrow page.
 const signals = await getSignals();
 const MARK = { must: 'Must-read', recommended: 'Recommended', other: undefined };
 const steps = [
@@ -93,9 +98,14 @@ const steps = [
         </nav>
       )
     }
-    <StoryGrid stories={stories} tags={false}>
-      <BriefList briefs={briefs} alone={stories.length === 0} lastFull={lastFull} />
-    </StoryGrid>
+    <div class="front">
+      {lead && <StoryCard story={lead} span={3} signal={signals.get(lead.id) ?? 'other'} tags={false} banner />}
+      <div class:list={['front__body', rail && 'front__body--rail']}>
+        {/* Always on the page, even with no story to hold: it carries the script for read marks and "why read this". */}
+        <StoryGrid stories={rest} tags={false} body={rail ? 2 : 3} />
+        <BriefList briefs={briefs} alone={stories.length === 0} lastFull={lastFull} rail={rail} />
+      </div>
+    </div>
     <div class="empty" data-empty hidden>
       <p>Nothing in this edition matches those filters.</p>
       <button type="button" class="link-button" data-filter-clear>Clear filters</button>

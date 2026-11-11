@@ -31,7 +31,7 @@
 .review__jump {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-1) 1.1rem;
+  gap: var(--space-1) var(--space-4);
   margin-left: auto;
 
   a {
@@ -62,7 +62,7 @@
 }
 
 .review .review__item {
-  padding: 0.9rem 0 var(--space-4);
+  padding: var(--space-4) 0 var(--space-4);
   border-top: 1px solid var(--rule);
   transition: opacity 0.2s ease;
 
@@ -93,7 +93,7 @@
 // Done: a quiet button that becomes ink when pointed at, so a page of them does not shout.
 .review__done {
   flex: none;
-  padding: 0.3rem 0.85rem;
+  padding: var(--space-1) var(--space-3);
   font: inherit;
   font-weight: 600;
   color: var(--ink);
@@ -115,7 +115,7 @@
 }
 
 .review__says {
-  margin: 0.35rem 0 0;
+  margin: var(--space-1) 0 0;
   max-width: 62ch;
   font-family: var(--text);
   font-size: var(--fs-body);
@@ -125,8 +125,8 @@
 .review__links {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-1) 1.1rem;
-  margin: 0.45rem 0 0;
+  gap: var(--space-1) var(--space-4);
+  margin: var(--space-2) 0 0;
 
   a {
     color: var(--sky);
@@ -134,7 +134,7 @@
 }
 
 .review__more {
-  margin-top: 0.45rem;
+  margin-top: var(--space-2);
 
   summary {
     cursor: pointer;
@@ -149,7 +149,7 @@
 .review__text {
   max-width: 62ch;
   margin: var(--space-2) 0 0;
-  padding-left: 0.9rem;
+  padding-left: var(--space-4);
   border-left: 2px solid var(--rule);
   font-family: var(--text);
   font-size: var(--fs-body);
@@ -160,9 +160,9 @@
 // An article's life: one line a run, the day a link to that run.
 .review__life {
   display: grid;
-  gap: 0.35rem;
+  gap: var(--space-1);
   margin: var(--space-2) 0 0;
-  padding: 0 0 0 0.9rem;
+  padding: 0 0 0 var(--space-4);
   border-left: 2px solid var(--rule);
   list-style: none;
 
@@ -185,7 +185,7 @@
 
 .review__dealt {
   display: grid;
-  gap: 0.35rem;
+  gap: var(--space-1);
   margin: 0;
   padding: 0;
   list-style: none;

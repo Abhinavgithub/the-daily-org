@@ -14,6 +14,15 @@ const WIDE_SCORE = 8;
 const MIN_FOR_LEAD = 4;
 
 /**
+ * The width of each story beneath an edition's lead, in a body of so many columns, given their interest scores
+ * in rank order. The lead has the banner across the top of the page, so no story here is widened for want of
+ * a lead, and none is wider than the body.
+ */
+export function bodySpans(interests: number[], columns: 2 | 3): Span[] {
+  return interests.map((score) => Math.min(columns, score >= FULL_WIDTH_SCORE ? 3 : score >= WIDE_SCORE ? 2 : 1) as Span);
+}
+
+/**
  * The width of each story, given the interest scores of an edition's stories
  * in rank order (best first). When no story scores high enough to earn a wide
  * box, the top story of a full enough edition takes two columns, so the page

@@ -8,7 +8,7 @@
   // The line knows its own width, so a narrow story can set "Report an error" as its flag alone.
   container-type: inline-size;
   margin: var(--space-4) 0 0;
-  padding-top: 0.7rem;
+  padding-top: var(--space-3);
   border-top: 1px solid var(--rule);
   font-family: var(--display);
   font-size: var(--fs-label);
@@ -25,7 +25,7 @@
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  gap: var(--space-2) 0.4rem;
+  gap: var(--space-2) var(--space-2);
 }
 
 // The question, set as a line of the story.
@@ -39,16 +39,16 @@
 
 .verdict__votes {
   display: inline-flex;
-  gap: 0.4rem;
+  gap: var(--space-2);
 }
 
 // A square button with its thumb, ruled like every other control on the page. Pressed, it fills with ink and so does its thumb.
 .verdict__vote {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: var(--space-2);
   min-height: 1.875rem;
-  padding: var(--space-1) 0.65rem;
+  padding: var(--space-1) var(--space-3);
   font: inherit;
   font-weight: 500;
   color: var(--ink);
@@ -80,7 +80,7 @@
 .verdict__said {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  gap: var(--space-1);
   font-family: var(--text);
   font-size: var(--fs-body);
   font-style: italic;
@@ -99,7 +99,7 @@
 .verdict__report {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: var(--space-2);
   margin-left: auto;
   min-height: 2rem;
   padding: 0 0.1rem;
@@ -146,8 +146,8 @@
 
 // After No, or for a report: a note set off by an ink rule, as a paper sets a pull quote.
 .verdict__panel {
-  margin: 0.85rem 0 0;
-  padding: 0.15rem 0 0.2rem var(--space-4);
+  margin: var(--space-3) 0 0;
+  padding: 0.15rem 0 var(--space-1) var(--space-4);
   border-left: 2px solid var(--ink);
   color: var(--ink);
 
@@ -164,7 +164,7 @@
 
   legend {
     padding: 0;
-    margin-bottom: 0.45rem;
+    margin-bottom: var(--space-2);
   }
 }
 
@@ -192,7 +192,7 @@
 }
 
 .verdict__optional {
-  margin-left: 0.3rem;
+  margin-left: var(--space-1);
   font-family: var(--display);
   font-style: normal;
   @include label(var(--fs-small), null);
@@ -209,7 +209,7 @@
 .verdict__choice {
   display: flex;
   align-items: center;
-  gap: 0.55rem;
+  gap: var(--space-2);
   min-height: 2rem;
   font-size: var(--fs-label);
   color: var(--ink);
@@ -241,14 +241,14 @@
 
 .verdict__label {
   display: block;
-  margin: 0.8rem 0 0.3rem;
+  margin: var(--space-3) 0 var(--space-1);
 }
 
 .verdict__note {
   display: block;
   width: 100%;
   box-sizing: border-box;
-  padding: var(--space-2) 0.6rem;
+  padding: var(--space-2) var(--space-2);
   font-family: var(--text);
   font-size: var(--fs-body);
   line-height: 1.4;
@@ -270,7 +270,7 @@
 }
 
 .verdict__help {
-  margin: 0.3rem 0 0;
+  margin: var(--space-1) 0 0;
   font-size: var(--fs-label);
   color: var(--muted);
 }
@@ -284,8 +284,8 @@
 }
 
 .verdict__failed {
-  margin: 0.6rem 0 0;
-  padding-left: 0.6rem;
+  margin: var(--space-2) 0 0;
+  padding-left: var(--space-2);
   border-left: 3px solid var(--ink);
   color: var(--ink);
 }
@@ -295,13 +295,13 @@
   flex-wrap: wrap;
   align-items: center;
   gap: var(--space-2) var(--space-4);
-  margin-top: 0.85rem;
+  margin-top: var(--space-3);
 }
 
 // The one solid button: ink on paper, square, in small capitals.
 .verdict__send {
   min-height: 2.25rem;
-  padding: 0.4rem var(--space-4);
+  padding: var(--space-2) var(--space-4);
   font-family: var(--display);
   @include label(var(--fs-label), 600);
   color: var(--paper);
@@ -339,8 +339,8 @@
 
 // A correction, printed as a paper prints one: a ruled note under the text (PLAN.md, step 8c).
 .correction {
-  margin: 0.8rem 0 0;
-  padding: 0.1rem 0 0.1rem 0.7rem;
+  margin: var(--space-3) 0 0;
+  padding: 0.1rem 0 0.1rem var(--space-3);
   border-left: 3px solid var(--ink);
   font-family: var(--text);
   font-style: italic;
@@ -348,7 +348,7 @@
 }
 
 .correction__label {
-  margin-right: 0.35rem;
+  margin-right: var(--space-1);
   font-family: var(--display);
   @include label(var(--fs-label), 700);
   font-style: normal;

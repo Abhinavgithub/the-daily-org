@@ -11,7 +11,7 @@
   &::after {
     content: '';
     display: block;
-    margin-top: 1.1rem;
+    margin-top: var(--space-4);
     border-bottom: 1px solid var(--ink);
   }
 }
@@ -20,7 +20,7 @@
 .flag {
   display: inline-block;
   margin: 0 0 var(--space-2);
-  padding: 0.05rem 0.4rem;
+  padding: 0.05rem var(--space-2);
   background: var(--ink);
   color: var(--paper);
   font-family: var(--display);
@@ -48,7 +48,7 @@
   @include label(var(--fs-label), 600);
 
   a {
-    padding: 0.2rem 0 0.35rem;
+    padding: var(--space-1) 0 var(--space-1);
     border-bottom: 2px solid transparent;
     color: var(--muted);
     text-decoration: none;
@@ -73,7 +73,7 @@
 .tabs__count {
   display: inline-block;
   min-width: 1.35em;
-  margin-left: 0.3rem;
+  margin-left: var(--space-1);
   padding: 0 0.3em;
   background: var(--sun);
   color: var(--paper);
@@ -96,7 +96,7 @@
 
 // Named with the ledger so these stand against its own rule for a note, which comes later in the cascade.
 .ledger .bulletin__asof {
-  margin: 0 0 0.6rem;
+  margin: 0 0 var(--space-2);
 }
 
 // How far back the section reaches, under its name.
@@ -114,7 +114,7 @@
   color: var(--ink);
 
   & + & {
-    margin-top: 0.35rem;
+    margin-top: var(--space-1);
   }
 
   strong {
@@ -127,15 +127,15 @@
   scroll-margin-top: 1rem;
 
   & + & {
-    margin-top: 1.1rem;
-    padding-top: 1.1rem;
+    margin-top: var(--space-4);
+    padding-top: var(--space-4);
     border-top: 1px solid var(--rule);
   }
 
   // A list of notices, so a size below a story's headline. Named with the ledger, to stand against its
   // rule for a heading within a row.
   .ledger & h3 {
-    margin: 0 0 0.6rem;
+    margin: 0 0 var(--space-2);
     font-family: var(--headline);
     font-weight: 700;
     font-size: var(--fs-sub);
@@ -157,12 +157,12 @@
 
 // What the source states for certain, or the day: small and quiet under the headline.
 .bulletin__facts {
-  margin: 0.35rem 0 0;
+  margin: var(--space-1) 0 0;
   color: var(--muted);
 }
 
 .bulletin__text {
-  margin: 0.45rem 0 0;
+  margin: var(--space-2) 0 0;
   max-width: 44rem;
   font-family: var(--text);
   font-size: var(--fs-body);
@@ -176,7 +176,7 @@
 // A release update: what to do, then the notes' own words, closed until asked for, then the way to the Deadlines.
 .bulletin__notice {
   display: grid;
-  gap: 0.4rem;
+  gap: var(--space-2);
 
   summary {
     width: fit-content;
@@ -187,7 +187,7 @@
   }
 
   details p {
-    margin-top: 0.35rem;
+    margin-top: var(--space-1);
     color: var(--muted);
   }
 }
@@ -221,7 +221,7 @@
 // What falls due soon, at the head of the page: a name that leads to the update below, and its day.
 .deadlines__soon {
   display: grid;
-  gap: 0.6rem;
+  gap: var(--space-2);
   margin: 0;
   padding: 0;
   list-style: none;
@@ -281,7 +281,7 @@
 }
 
 .deadlines__item .flag {
-  margin-bottom: 0.35rem;
+  margin-bottom: var(--space-1);
 }
 
 .deadlines__item .bulletin__facts a {
@@ -291,14 +291,14 @@
 // The paper's own reading, told apart from the notes' words by its label.
 // A recent change to the update in the notes, above what it says: the date moved, or its standing.
 .deadlines__changed {
-  margin: 0.2rem 0 0.4rem;
+  margin: var(--space-1) 0 var(--space-2);
   font-family: var(--display);
   font-size: var(--fs-label);
   font-weight: 600;
 }
 
 .deadlines__label {
-  margin-right: 0.35rem;
+  margin-right: var(--space-1);
   font-family: var(--display);
   @include label;
   color: var(--sun);

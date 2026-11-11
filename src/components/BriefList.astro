@@ -12,22 +12,28 @@ interface Props {
   alone?: boolean;
   /** The most recent edition that has stories, to point to when this one has none. */
   lastFull?: string;
+  /** Set as a rail down the side of the stories, the height of the page. */
+  rail?: boolean;
 }
 
-const { briefs, alone = false, lastFull } = Astro.props;
+const { briefs, alone = false, lastFull, rail = false } = Astro.props;
+// Across the page, in columns: when the briefs are the edition, or stand under a lead with no other stories.
+const across = !rail;
 const personas = [...new Set(briefs.flatMap((brief) => brief.data.personas))];
 ---
 
 {
   briefs.length > 0 && (
     <section
-      class:list={['story', alone ? 'story--w3' : 'story--w1', 'briefs', alone && 'briefs--alone']}
+      class:list={['briefs', rail ? 'briefs--rail' : 'briefs--alone']}
       id="in-brief"
       aria-labelledby="briefs-title"
       data-card
       data-id="in-brief"
       data-personas={personas.join(' ')}
     >
+      {/* The rail is as tall as the stories beside it; what it holds stays in view as they are read. */}
+      <div class="briefs__hold">
       <h2 class="briefs__title" id="briefs-title">In brief</h2>
       {
         alone && (
@@ -43,7 +49,7 @@ const personas = [...new Set(briefs.flatMap((brief) => brief.data.personas))];
         )
       }
       <!-- Alone, the briefs run in as many columns as there are, up to three. -->
-      <ul style={alone ? `--columns: ${Math.min(briefs.length, 3)}` : undefined}>
+      <ul style={across ? `--columns: ${Math.min(briefs.length, 3)}` : undefined}>
         {briefs.map((brief) => (
           <li data-brief data-id={brief.data.url} data-personas={brief.data.personas.join(' ')}>
             <h3>
@@ -54,6 +60,7 @@ const personas = [...new Set(briefs.flatMap((brief) => brief.data.personas))];
           </li>
         ))}
       </ul>
+      </div>
     </section>
   )
 }

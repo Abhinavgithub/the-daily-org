@@ -1,6 +1,36 @@
 // Narrower screens -----------------------------------------------------
 
 @media (max-width: 64rem) {
+  // No room for a rail: the briefs go under the stories, across the page in columns.
+  .front__body--rail {
+    display: block;
+  }
+
+  .briefs--rail {
+    margin-top: var(--space-5);
+
+    &::before {
+      content: none;
+    }
+
+    .briefs__hold {
+      position: static;
+    }
+
+    ul {
+      columns: 2 16rem;
+      column-gap: var(--space-6);
+      column-rule: 1px solid var(--rule);
+      margin-top: var(--space-3);
+    }
+
+    li {
+      break-inside: avoid;
+      padding: 0 0 var(--space-4);
+      border-bottom: 0;
+    }
+  }
+
   // Two columns: a wide story takes both.
   .grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -17,7 +47,8 @@
 }
 
 @media (max-width: 44rem) {
-  .grid {
+  .grid,
+  .grid.grid--two {
     grid-template-columns: minmax(0, 1fr);
   }
 
@@ -47,7 +78,7 @@
   // Four parts on one line of a phone: closer together, and onto a second line only if they must.
   .tabs {
     flex-wrap: wrap;
-    gap: var(--space-1) 1.1rem;
+    gap: var(--space-1) var(--space-4);
     letter-spacing: 0.04em;
   }
 
@@ -58,7 +89,7 @@
   }
 
   .filters__group {
-    gap: 0.1rem 1.1rem;
+    gap: 0.1rem var(--space-4);
     padding-inline: 0;
 
     & + & {
@@ -105,7 +136,7 @@
   }
 
   .filters__line {
-    row-gap: 0.85rem;
+    row-gap: var(--space-3);
   }
 
   .dateline__step {

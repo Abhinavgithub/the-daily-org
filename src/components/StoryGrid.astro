@@ -1,5 +1,5 @@
 ---
-import { storySpans } from '../lib/layout';
+import { bodySpans, storySpans } from '../lib/layout';
 import { getSignals, type Story } from '../lib/stories';
 import StoryCard from './StoryCard.astro';
 
@@ -8,14 +8,20 @@ interface Props {
   showDay?: boolean;
   /** List each story's section and tags. */
   tags?: boolean;
+  /**
+   * On an edition, where the lead is set above as a banner: the columns these stories are set in, two beside
+   * the briefs or three without them. Left out, the page is three columns and its best story may be its lead.
+   */
+  body?: 2 | 3;
 }
 
-const { stories, showDay = false, tags = true } = Astro.props;
-const spans = storySpans(stories.map((story) => story.data.interest_score));
+const { stories, showDay = false, tags = true, body } = Astro.props;
+const scores = stories.map((story) => story.data.interest_score);
+const spans = body ? bodySpans(scores, body) : storySpans(scores);
 const signals = await getSignals();
 ---
 
-<div class="grid" data-grid>
+<div class:list={['grid', body === 2 && 'grid--two']} data-grid hidden={stories.length === 0 && !Astro.slots.has('default')}>
   {
     stories.map((story, i) => (
       <StoryCard story={story} span={spans[i]} signal={signals.get(story.id) ?? 'other'} showDay={showDay} tags={tags} />

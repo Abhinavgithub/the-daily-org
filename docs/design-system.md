@@ -59,7 +59,8 @@ The scale. Every `font-size` is one of these; do not write a size.
 | Token | Size | For |
 |---|---|---|
 | `--fs-nameplate` | clamp(2.6rem, 8vw, 4.75rem) | The nameplate on an edition. Other pages set it smaller (`.masthead--inner`) |
-| `--fs-lead` | clamp(2rem, 3.4vw, 2.75rem) | The lead story's headline |
+| `--fs-banner` | clamp(2.25rem, 4.6vw, 3.75rem) | The banner: an edition's lead headline, across the whole page |
+| `--fs-lead` | clamp(2rem, 3.4vw, 2.75rem) | A wide story's headline on a page with no banner (a section, a tag) |
 | `--fs-title` | 2rem | A page's own large title |
 | `--fs-headline` | 1.25rem | A story's headline; a lead's deck |
 | `--fs-sub` | 1.125rem | A headline in a list: a notice, a year in the Archive |
@@ -70,7 +71,7 @@ The scale. Every `font-size` is one of these; do not write a size.
 
 Rules:
 
-- Headlines: Newsreader, weight 700, line-height 1.2 to 1.25.
+- Headlines: Newsreader, weight 700, line-height 1.2 to 1.25. The banner alone is weight 800, line-height 1.02.
 - Reading text: Newsreader, weight 400, line-height 1.5, at most about 46rem wide.
 - Headline tracking is `var(--tight)`; the lead's, at its size, `var(--tighter)`.
 - Capitals: Libre Franklin, usually `--muted`, and always set with the mixin, never by hand: `@include label;` for the smallest size at weight 700, or `@include label(var(--fs-label), 600);` for another size or weight (`src/styles/_mixins.scss`; a partial that uses it opens with `@use 'mixins' as *;`). Capitals are for labels of a word or three, never for a sentence.
@@ -81,9 +82,13 @@ Rules:
 ## Space and layout
 
 - The sheet is `--width` (78rem) at most, with `--gutter` between its edge and its content.
-- A front page is three columns with a 2.25rem gap; two under 64rem; one under 44rem. `src/lib/pack.ts` places the stories.
+- An edition's page has three parts. The **banner**: the best story across the whole width, its headline at `--fs-banner`, closed by a 2px ink rule. The **body**: the other stories, in two columns beside the rail, or three when there are no briefs. The **rail**: the briefs down the right-hand third, parted from the body by a hairline the height of the page; what it holds stays in view as the body is read. With no other stories the briefs run across the page in columns. Under 64rem the rail goes under the body; under 44rem everything is one column.
+- A page of stories that is not an edition (a section, a tag) is three columns, and a story's score may make it two or three wide.
+- Columns are parted by a 2.25rem gap. `src/lib/layout.ts` decides how wide each story is; `src/lib/pack.ts` places them.
+- Over each story on an edition runs its **running head**: its mark, if it has one, and its section in capitals.
+- The sheet carries a hairline frame 6px inside its edge.
 - A ledger page (Bulletin, Deadlines, Archive, Stats) is one column of 62rem: each section's name in an 11rem margin, its content beside it. Under 44rem the name goes above.
-- Space is in steps: `--space-1` to `--space-6` (0.25, 0.5, 0.75, 1, 1.5, 2.25rem). A margin, a padding or a gap that is one of these is written as its token. Some older rules use a value between two steps; bring them to a step when you touch them, and look at the page after.
+- Space is in steps: `--space-1` to `--space-6` (0.25, 0.5, 0.75, 1, 1.5, 2.25rem). Every margin, padding and gap is one of these, written as its token. The only values written out are nudges under 0.2rem, which line one thing up with another, and sizes worked out with `calc()`.
 - Breakpoints, and only these: 64rem (three columns to two), 46rem (the masthead's ears and share price go), 44rem (one column, filters on two lines, ledger names above), 40rem (the release edition's lists). The narrow rules live in `_narrow.scss`, last in the cascade.
 - Nothing scrolls sideways at 320px.
 
@@ -113,8 +118,10 @@ Use what exists. Add a component only when none of these fits, and add it here.
 | Chip | `.chip` | A small ruled control. Pressed, it fills with ink |
 | Tabs | `.tabs` | The parts of the paper: News, Bulletin, Deadlines, Archive. On every page |
 | Filter bar | `.filters` | Plain words; the chosen one bold and underlined. Its choice is kept in the address |
-| Story | `.story` | Mark, byline, headline, deck, diagram, text, "Read the original", votes. In that order |
-| Briefs | `.briefs` | A ruled list of headlines with a sentence each |
+| Story | `.story` | Running head, byline, headline, deck, diagram, text, "Read the original", votes. In that order |
+| Banner | `.story.story--banner` | The edition's lead: a story with its headline across the page. One to an edition |
+| Running head | `.story__kicker` | Over a story: its mark as a flag, and its section in capitals, which leads to the section |
+| Briefs | `.briefs` | A ruled list of headlines with a sentence each: a rail beside the stories (`.briefs--rail`) or across the page (`.briefs--alone`) |
 | Ledger row | `.ledger__row` | A section named in the margin |
 | Notice | `.bulletin__item` | Flag, headline, a line of facts, text. Used by the Bulletin and the Deadlines |
 | Disclosure | `details` | For what most readers will skip. Its summary is a `--sky` label |

@@ -17,15 +17,15 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  padding: 0.55rem 0;
+  padding: var(--space-2) 0;
 }
 
 .filters__group {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 0.1rem 1.4rem;
-  padding: 0.15rem 1.4rem;
+  gap: 0.1rem var(--space-5);
+  padding: 0.15rem var(--space-5);
 
   // A rule between Show and For.
   & + & {
@@ -34,7 +34,7 @@
 
   // Plain words rather than pills; the chosen one is bold and underlined.
   .chip {
-    padding: 0.2rem 0;
+    padding: var(--space-1) 0;
     border: 0;
     border-bottom: 2px solid transparent;
     border-radius: 0;
