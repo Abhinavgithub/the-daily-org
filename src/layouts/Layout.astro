@@ -1,5 +1,6 @@
 ---
-import { SITE } from '../config';
+import { SECTIONS, SITE } from '../config';
+import { getAllStories } from '../lib/stories';
 import '../styles/main.scss';
 
 interface Props {
@@ -18,6 +19,10 @@ const pageTitle = title ? `${title} | ${SITE.name}` : SITE.name;
 // This page's own address and its picture, in full, for search engines and link previews.
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const preview = new URL(image ?? '/icon-512.png', Astro.site);
+// The sections that have stories, for the foot of every page: the front page leaves them off its stories, so
+// this is where a reader finds them without going through the Archive or a search.
+const filed = new Set((await getAllStories()).map((story) => story.data.section));
+const sections = SECTIONS.filter((section) => filed.has(section.id));
 ---
 
 <!doctype html>
@@ -88,6 +93,16 @@ const preview = new URL(image ?? '/icon-512.png', Astro.site);
     <div class="sheet">
       <slot />
       <footer class="site-footer">
+        {
+          sections.length > 0 && (
+            <nav class="site-footer__sections" aria-label="Sections">
+              <span>Sections</span>
+              {sections.map((section) => (
+                <a href={`/section/${section.id}/`}>{section.label}</a>
+              ))}
+            </nav>
+          )
+        }
         <p>{SITE.name} is an independent paper{SITE.disclaimer ? `, ${SITE.disclaimer}` : ''}.</p>
         <p>Each story is summarised by AI from the article its headline links to. AI can get things wrong, so read the original before you act on a story.</p>
         <p class="site-footer__links">

@@ -25,6 +25,17 @@ const name = at < 0 ? [SITE.name, '', ''] : [SITE.name.slice(0, at), SITE.accent
 
 <header class="masthead">
   <div class="masthead__bar">
+    {/* The share price balances the theme button at the other end. On an edition it is in the ear beside the nameplate. */}
+    {
+      quote && shares && !edition && (
+        <p class="quote" title={shares.says}>
+          <span class="visually-hidden">{shares.says}</span>
+          <span aria-hidden="true">
+            <b>{quote.symbol}</b> {shares.price} <span class:list={['quote__move', shares.mark && (quote.change > 0 ? 'quote__move--up' : 'quote__move--down')]}>{shares.mark} {shares.change}</span>
+          </span>
+        </p>
+      )
+    }
     <form class="search" action="/search/" method="get" role="search">
       <label class="visually-hidden" for="site-search">Search all editions</label>
       <input
@@ -47,16 +58,6 @@ const name = at < 0 ? [SITE.name, '', ''] : [SITE.name.slice(0, at), SITE.accent
       </button>
     </form>
     <div class="masthead__tools">
-      {
-        quote && shares && !edition && (
-          <p class="quote" title={shares.says}>
-            <span class="visually-hidden">{shares.says}</span>
-            <span aria-hidden="true">
-              <b>{quote.symbol}</b> {shares.price} <span class:list={['quote__move', shares.mark && (quote.change > 0 ? 'quote__move--up' : 'quote__move--down')]}>{shares.mark} {shares.change}</span>
-            </span>
-          </p>
-        )
-      }
       <button type="button" class="tool" data-theme-toggle aria-label="Switch to dark mode">
       <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a7 7 0 1 0 10.5 10.5Z"></path>

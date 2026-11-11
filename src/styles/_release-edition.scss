@@ -311,7 +311,7 @@
   }
 }
 
-// The search and, at the end, the share price and the theme button. Equal side columns keep the search centred.
+// The share price, where the paper prints one, the search, and the theme button. Equal side columns keep the search centred.
 .masthead__bar {
   display: grid;
   grid-template-columns: 1fr minmax(0, 28rem) 1fr;
@@ -319,6 +319,11 @@
   gap: 0.75rem;
   font-family: var(--display);
   font-size: var(--fs-body);
+
+  > .quote {
+    grid-column: 1;
+    justify-self: start;
+  }
 
   > .search {
     grid-column: 2;
@@ -330,7 +335,7 @@
   }
 }
 
-// At the end of the bar: the share price, where the paper prints one, and the theme button.
+// At the end of the bar: the theme button.
 .masthead__tools {
   display: flex;
   align-items: center;

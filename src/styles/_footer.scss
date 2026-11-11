@@ -23,3 +23,33 @@
     margin-top: 0.5rem;
   }
 }
+
+// The sections, as a line of links above the footer's words. Each is tall enough to press.
+.site-footer__sections {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0 1.1rem;
+  margin-bottom: 0.9rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--rule);
+  line-height: 1.75rem;
+
+  span {
+    font-size: var(--fs-small);
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+  }
+
+  a {
+    display: inline-block;
+    color: var(--ink);
+    text-decoration: none;
+
+    &:hover {
+      color: var(--sky);
+      text-decoration: underline;
+    }
+  }
+}
