@@ -52,3 +52,57 @@
     }
   }
 }
+
+// Where the browser can tie one element to another, the underline is drawn once for each group, under the
+// word chosen, and moves along to the next word chosen rather than vanishing and reappearing. Each group
+// names its own chosen word, so the two underlines do not follow each other. It is a border, not a background,
+// so it still shows in forced colours. Without this, each chosen word carries its own underline, as above.
+@supports (position-anchor: auto) {
+  .filters__group {
+    &--show .chip[aria-pressed='true'] {
+      anchor-name: --chosen-show;
+    }
+
+    &--for .chip[aria-pressed='true'] {
+      anchor-name: --chosen-for;
+    }
+
+    // After the words, since the word it is tied to must come first.
+    &::after {
+      content: '';
+      position: absolute;
+      inset-block-start: calc(anchor(bottom) - 2px);
+      inset-inline: anchor(left) anchor(right);
+      border-bottom: 2px solid var(--ink);
+      pointer-events: none;
+      // Hidden while no word in the group is chosen, rather than drawn somewhere else.
+      position-visibility: anchors-valid;
+    }
+
+    &--show::after {
+      position-anchor: --chosen-show;
+    }
+
+    &--for::after {
+      position-anchor: --chosen-for;
+    }
+
+    // The group's own line does the underlining; the chosen word keeps its weight.
+    .chip[aria-pressed='true'] {
+      border-bottom-color: transparent;
+    }
+
+    .chip[aria-pressed='true']:hover {
+      border-bottom-color: transparent;
+    }
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .filters__group::after {
+      transition:
+        inset-block-start 160ms ease-out,
+        inset-inline-start 160ms ease-out,
+        inset-inline-end 160ms ease-out;
+    }
+  }
+}

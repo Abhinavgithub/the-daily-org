@@ -64,6 +64,9 @@ Each `npm run` script in package.json maps to one file in `pipeline/` (e.g. `rep
 | Reader votes | `verdict.ts` | `Verdict` | `_feedback` |
 
 - How it should look, and the rules for changing it: [design-system.md](design-system.md). Read it before changing a page, a component or a style.
+- Every page's frame: `src/layouts/Layout.astro`. Its one inline script, which must run before the page is drawn (the page turn and the saved theme), is `src/scripts/head.js`, printed as it is with its hash added to the page's policy.
+- Content Security Policy: `security.csp` in `astro.config.mjs` (a `<meta>` tag on each page, with a hash for every script and style Astro writes); the headers a `<meta>` tag cannot carry (`frame-ancestors` and the rest) are in `public/_headers`. A new third-party script, frame or call has to be added there, or the browser refuses it. Check with `npm run build && npm run preview`: the dev server does not apply the policy.
+- Prefetching: `prefetch` in `astro.config.mjs`. A link to another page of the paper is fetched while the pointer rests on it.
 - Styles: `src/styles/main.scss` only lists the partials, in cascade order; `_tokens.scss` holds the colours and sizes; `_narrow.scss` (last) holds the narrow-screen rules.
 - Content collections (stories, briefs, bulletin): `src/content.config.ts`.
 - Cloudflare Worker for votes and reports: `worker/index.ts`, configured in `wrangler.jsonc`.

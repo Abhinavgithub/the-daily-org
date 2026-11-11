@@ -32,7 +32,7 @@ const turnstile = import.meta.env.DEV ? undefined : SITE.turnstileSiteKey;
         No
       </button>
     </span>
-    <span class="verdict__said" role="status" data-said></span>
+    <span class="verdict__said" role="status" tabindex="-1" data-said></span>
     <button type="button" class="verdict__report" data-report aria-expanded="false" aria-controls={`${id}-report`} title="Report an error">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"></path><path d="M4 22v-7"></path></svg>
       <span class="verdict__report-text">Report an error</span>
@@ -214,14 +214,26 @@ const turnstile = import.meta.env.DEV ? undefined : SITE.turnstileSiteKey;
       say(words, ok);
       resized();
     };
+    const noButton = votes.find((button) => button.dataset.vote === 'no')!;
     const open = (panel?: HTMLFormElement) => {
+      // A panel closing with the keyboard's place inside it would send that place to the top of the page.
+      // It goes back to what opened the panel instead, or, once the report is sent and its button gone, to the thanks.
+      const closing = [why, form].find((other) => other !== panel && !other.hidden && other.contains(document.activeElement));
       why.hidden = panel !== why;
       form.hidden = panel !== form;
       reportButton.setAttribute('aria-expanded', String(panel === form));
       if (panel === form) guard.start();
       panel?.querySelector<HTMLElement>('input:not([tabindex="-1"]), textarea')?.focus();
+      if (closing && !panel) (closing === why ? noButton : reportButton.hidden ? said : reportButton).focus();
       resized();
     };
+    // Esc closes an open panel, as Cancel and "No thanks" do.
+    line.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && (!why.hidden || !form.hidden)) {
+        event.preventDefault();
+        open();
+      }
+    });
     if (kept[story]) show(kept[story], 'Thanks.');
 
     for (const button of votes) {
@@ -282,9 +294,9 @@ const turnstile = import.meta.env.DEV ? undefined : SITE.turnstileSiteKey;
       if (result.ok) {
         submit.textContent = 'Send report';
         form.reset();
-        open();
         reportButton.hidden = true;
         say('Thanks. The editor reads every report, and a story found wrong is corrected with a note.');
+        open();
         resized();
         return;
       }

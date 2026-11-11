@@ -100,7 +100,7 @@ html[data-turn='older']::view-transition-new(turn-fold) {
   display: none;
 }
 
-html[data-turn]::view-transition-new(turn-fold) {
+html:is([data-turn='newer'], [data-turn='older'])::view-transition-new(turn-fold) {
   // Wide enough for the curl and both of its shadows, and long enough to
   // cross the window at any lean. The fold is the strip's centre line.
   --strip: 60vw;
@@ -155,6 +155,28 @@ html[data-turn='older']::view-transition-new(turn-fold) {
   to {
     --fold: calc(0% - 18vh);
     --curl: 0px;
+  }
+}
+
+// Any other page of the paper: the old sheet fades as the new one comes up through it, in the time a panel
+// takes to open. The desk behind does not move, so only the printed page seems to change.
+html[data-turn='fade']::view-transition-old(sheet) {
+  animation: sheet-out 160ms ease-out both;
+}
+
+html[data-turn='fade']::view-transition-new(sheet) {
+  animation: sheet-in 160ms ease-out both;
+}
+
+@keyframes sheet-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes sheet-in {
+  from {
+    opacity: 0;
   }
 }
 

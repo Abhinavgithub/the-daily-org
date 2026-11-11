@@ -5,13 +5,15 @@ interface Props {
   stories: { data: { personas: string[] } }[];
   /** Offer Recommended and Must-read. Left out on a day with no stories, which has neither. */
   marks?: boolean;
+  /** What the page lists, one and many, for the line a screen reader says after a choice. */
+  noun?: [string, string];
 }
 
-const { stories, marks = true } = Astro.props;
+const { stories, marks = true, noun = ['story', 'stories'] } = Astro.props;
 const personas = PERSONAS.filter((p) => stories.some((s) => s.data.personas.includes(p.id)));
 ---
 
-<div class="filters" data-filters>
+<div class="filters" data-filters data-noun={noun.join(' ')}>
   <div class="filters__line">
     <!-- Each group's name is also its key in the page address. -->
     {
@@ -38,6 +40,8 @@ const personas = PERSONAS.filter((p) => stories.some((s) => s.data.personas.incl
       )
     }
   </div>
+  <!-- What a choice left on the page, said by a screen reader once the choice is made; the eye sees the page change. -->
+  <p class="visually-hidden" role="status" data-filter-result></p>
 </div>
 
 <script>
@@ -95,14 +99,30 @@ const personas = PERSONAS.filter((p) => stories.some((s) => s.data.personas.incl
     document.dispatchEvent(new Event('stories:filtered'));
   }
 
+  // Said after a choice, not when the page opens: "6 stories and 2 briefs shown."
+  const result = root.querySelector<HTMLElement>('[data-filter-result]')!;
+  const [one, many] = (root.dataset.noun ?? 'story stories').split(' ');
+  const count = (n: number, singular: string, plural: string) => `${n} ${n === 1 ? singular : plural}`;
+  function announce() {
+    const items = cards.filter((card) => card.tagName === 'ARTICLE' && !card.hidden).length;
+    const shownBriefs = briefs.filter((brief) => !brief.hidden && !brief.closest('[hidden]')).length;
+    if (items + shownBriefs === 0) return void (result.textContent = 'Nothing matches these filters.');
+    result.textContent = `${count(items, one, many)}${briefs.length ? ` and ${count(shownBriefs, 'brief', 'briefs')}` : ''} shown.`;
+  }
+
   for (const group of groups) {
     group.addEventListener('click', (event) => {
       const pill = (event.target as HTMLElement).closest<HTMLElement>('button');
-      if (pill) write({ [group.dataset.group!]: pill.dataset.value ?? '' });
+      if (!pill) return;
+      write({ [group.dataset.group!]: pill.dataset.value ?? '' });
+      announce();
     });
   }
   for (const button of document.querySelectorAll('[data-filter-clear]')) {
-    button.addEventListener('click', () => write({ for: '', show: '' }));
+    button.addEventListener('click', () => {
+      write({ for: '', show: '' });
+      announce();
+    });
   }
 
   apply();

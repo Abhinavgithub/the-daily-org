@@ -52,6 +52,9 @@
 .story {
   position: relative;
   grid-column: span 1;
+  // A story sets its text and headline by its own width, not the window's: the same story is three columns
+  // wide on a section page, two beside the rail, and one on a phone.
+  container: story / inline-size;
   // Room above the story when the page scrolls to it from a link.
   scroll-margin-top: 1.5rem;
 }
@@ -182,9 +185,21 @@
   margin: 0 0 var(--space-2);
 }
 
+// A wide story's headline is set large only while the story is wide enough for it; narrower, it is a page title.
 .story--w2 .story__title,
 .story--w3 .story__title {
-  font-size: var(--fs-lead);
+  font-size: var(--fs-title);
+}
+
+@container story (min-width: 40rem) {
+  .story--w2 .story__title,
+  .story--w3 .story__title {
+    font-size: var(--fs-lead);
+  }
+}
+
+.story--w2 .story__title,
+.story--w3 .story__title {
   line-height: 1.08;
   letter-spacing: var(--tighter);
   margin-bottom: var(--space-2);
@@ -313,9 +328,10 @@
 
 // A wide story's text in columns of its own, with a drop cap: the lead, set as a front page sets it. Ragged
 // right, not justified: a column this narrow cannot be justified without gaps between the words.
+// Each column at least about 18rem, so a line keeps its words: one column in a narrow story, two from 40rem,
+// three from 60rem (the width at which a diagram's long row shows too).
 .story--w2 .story__text,
 .story--w3 .story__text {
-  columns: 2;
   column-gap: var(--gap);
 
   p {
@@ -336,6 +352,15 @@
   }
 }
 
-.story--w3 .story__text {
-  columns: 3;
+@container story (min-width: 40rem) {
+  .story--w2 .story__text,
+  .story--w3 .story__text {
+    columns: 2;
+  }
+}
+
+@container story (min-width: 60rem) {
+  .story--w3 .story__text {
+    columns: 3;
+  }
 }

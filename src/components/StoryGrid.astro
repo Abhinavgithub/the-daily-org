@@ -44,14 +44,27 @@ const signals = await getSignals();
   /** How each grid was last arranged, so a story that grows can be made room for in place. */
   const arranged = new WeakMap<HTMLElement, { cards: HTMLElement[]; placements: Placement[]; gap: number }>();
   const spanOf = (card: HTMLElement) => (card.classList.contains('story--w3') ? 3 : card.classList.contains('story--w2') ? 2 : 1);
+  /**
+   * Each box's measured heights, for the grid width and columns they were measured at. A box is as tall as its
+   * width makes it, so choosing a filter, which only hides and shows boxes, can place them again without
+   * measuring: that measuring lays the page out twice and was most of the time a filter took to answer.
+   */
+  const measured = new WeakMap<HTMLElement, { key: string; heights: Map<HTMLElement, { height: number; wide?: number }> }>();
 
   function arrange(grid: HTMLElement) {
     const all = [...grid.querySelectorAll<HTMLElement>('[data-card]')];
     const cards = all.filter((card) => !card.hidden);
+    const style = getComputedStyle(grid);
+    const key = `${Math.round(grid.getBoundingClientRect().width)} ${style.gridTemplateColumns.split(' ').length}`;
+    const known = measured.get(grid);
+    if (grid.classList.contains('is-packed') && known?.key === key && cards.every((card) => known.heights.has(card))) {
+      return placeAll(grid, cards, known.heights, style);
+    }
 
     // Back to ordinary rows, so each box can be measured at its natural height.
     grid.classList.remove('is-packed');
     arranged.delete(grid);
+    measured.delete(grid);
     for (const card of all) {
       card.style.gridColumn = '';
       card.style.gridRow = '';
@@ -59,20 +72,29 @@ const signals = await getSignals();
       delete card.dataset.column;
       delete card.dataset.below;
     }
-    const style = getComputedStyle(grid);
     const columns = style.gridTemplateColumns.split(' ').length;
     // One column needs no arranging: boxes simply follow one another.
     if (columns < 2 || cards.length === 0) return;
-    const gap = parseFloat(style.columnGap) || 0;
 
-    const heights = cards.map((card) => card.getBoundingClientRect().height);
+    // Every box is measured, shown or not, so a later filter has them all. A hidden box has no height, so it is shown for the moment.
+    const hidden = all.filter((card) => card.hidden);
+    for (const card of hidden) card.hidden = false;
+    const heights = new Map(all.map((card) => [card, { height: card.getBoundingClientRect().height } as { height: number; wide?: number }]));
     // A one-column story may be set across two columns at the foot of the page, so measure that too.
-    const singles = cards.filter((card) => spanOf(card) === 1);
+    const singles = all.filter((card) => spanOf(card) === 1);
     for (const card of singles) card.classList.add('story--stretch');
-    const stretched = new Map(singles.map((card) => [card, card.getBoundingClientRect().height]));
+    for (const card of singles) heights.get(card)!.wide = card.getBoundingClientRect().height;
     for (const card of singles) card.classList.remove('story--stretch');
+    for (const card of hidden) card.hidden = true;
+    measured.set(grid, { key, heights });
+    placeAll(grid, cards, heights, style);
+  }
 
-    const boxes: Box[] = cards.map((card, i) => ({ span: spanOf(card), height: heights[i], heightWide: stretched.get(card) }));
+  function placeAll(grid: HTMLElement, cards: HTMLElement[], heights: Map<HTMLElement, { height: number; wide?: number }>, style: CSSStyleDeclaration) {
+    const columns = style.gridTemplateColumns.split(' ').length;
+    if (columns < 2 || cards.length === 0) return;
+    const gap = parseFloat(style.columnGap) || 0;
+    const boxes: Box[] = cards.map((card) => ({ span: spanOf(card), height: heights.get(card)!.height, heightWide: heights.get(card)!.wide }));
     const { placements } = pack(boxes, columns, gap);
 
     grid.classList.add('is-packed');
@@ -101,6 +123,8 @@ const signals = await getSignals();
     for (const grid of grids) {
       const last = arranged.get(grid);
       if (!last) continue;
+      // A box has a new height, so the next filter measures afresh.
+      measured.delete(grid);
       // Each box at its own height, not the height of the rows it was given.
       for (const card of last.cards) card.style.alignSelf = 'start';
       const heights = last.cards.map((card) => card.getBoundingClientRect().height);
@@ -137,7 +161,11 @@ const signals = await getSignals();
     widths.set(grid, Math.round(grid.getBoundingClientRect().width));
     observer.observe(grid);
   }
-  document.fonts?.ready.then(packAll);
+  // The fonts change every box's height, so they are measured again.
+  document.fonts?.ready.then(() => {
+    for (const grid of grids) measured.delete(grid);
+    packAll();
+  });
   document.addEventListener('stories:filtered', packAll);
   // A story that grew, such as by the panel under "Worth reading?".
   document.addEventListener('stories:resized', () => requestAnimationFrame(settleAll));

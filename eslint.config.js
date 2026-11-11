@@ -14,6 +14,11 @@ export default tseslint.config(
   { rules: { 'no-empty': ['error', { allowEmptyCatch: true }] } },
   // Config files run in Node.
   { files: ['*.mjs', '*.js'], languageOptions: { globals: { process: 'readonly', URL: 'readonly' } } },
+  // Scripts printed into the page as they are (src/scripts/), which run in the browser without being bundled.
+  {
+    files: ['src/scripts/*.js'],
+    languageOptions: { globals: { document: 'readonly', addEventListener: 'readonly', sessionStorage: 'readonly', localStorage: 'readonly' } },
+  },
   // The tests match YAML, where the run of spaces is the indentation being checked.
   { files: ['**/*.test.ts'], rules: { 'no-regex-spaces': 'off' } },
 );

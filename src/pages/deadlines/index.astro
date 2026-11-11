@@ -63,7 +63,7 @@ const heading = (group: (typeof groups)[number]) => (group.kind === 'unknown' ? 
       <p class="ledger__note deadlines__calendar">
         In your calendar: <a href={subscribe}>subscribe</a>, or <a href={ics.pathname} download>download the file</a>. Each update falls on its day and each release on its dates; a date that moves here moves there.
       </p>
-      {deadlines.length > 0 && <FilterBar stories={deadlines.map((deadline) => ({ data: { personas: rolesOf(deadline.roles) } }))} marks={false} />}
+      {deadlines.length > 0 && <FilterBar stories={deadlines.map((deadline) => ({ data: { personas: rolesOf(deadline.roles) } }))} marks={false} noun={['deadline', 'deadlines']} />}
 
       {
         soon.length > 0 && (
