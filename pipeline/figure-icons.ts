@@ -19,6 +19,8 @@ export function iconLabels(figure: Drawn): string[] {
       return figure.numbers.map((num) => num.label);
     case 'compare':
       return [figure.left.heading, figure.right.heading];
+    case 'timeline':
+      return figure.events.map((event) => event.label);
   }
 }
 

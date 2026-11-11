@@ -42,6 +42,11 @@ export const isLong = (figure: Drawn) => figure.kind === 'steps' && figure.steps
  * needs about 9rem a box for its words to keep to two or three lines, so four and five steps wait for more room.
  */
 export function wideFrom(figure: Drawn): 36 | 42 | 52 | 60 {
+  if (figure.kind === 'timeline') {
+    // A timeline's columns are as narrow as a row of steps, but no box is drawn round them.
+    const n = figure.events.length;
+    return n >= 5 ? 52 : n === 4 ? 42 : 36;
+  }
   if (figure.kind !== 'steps') return 36;
   const n = figure.steps.length;
   return n >= LONG_FROM ? 60 : n === 5 ? 52 : n === 4 ? 42 : 36;
@@ -370,6 +375,70 @@ function numbers(figure: Extract<Drawn, { kind: 'numbers' }>, layout: Layout, p:
   return { body, height: y - 18 + PAD };
 }
 
+function timeline(figure: Extract<Drawn, { kind: 'timeline' }>, layout: Layout, p: Palette): Drawing {
+  const W = WIDTH[layout];
+  const pictures = icons(figure);
+  const ICON = 24;
+  const DOT = 6;
+  const WHEN = 15;
+  const n = figure.events.length;
+  const rule = (x1: number, y1: number, x2: number, y2: number) =>
+    `<line x1="${r(x1)}" y1="${r(y1)}" x2="${r(x2)}" y2="${r(y2)}" stroke="${p.ink}" stroke-width="2"/>`;
+  const dot = (cx: number, cy: number) => `<circle cx="${r(cx)}" cy="${r(cy)}" r="${DOT}" fill="${p.accent}" stroke="${p.surface}" stroke-width="2"/>`;
+
+  if (layout === 'wide') {
+    // One rule across, read left to right: each date above its dot, what happens then below it.
+    const cw = (W - 2 * PAD) / n;
+    const whens = figure.events.map((event) => wrap(event.when, cw - 12, WHEN, 700));
+    const labels = figure.events.map((event) => wrap(event.label, cw - 16));
+    const iconBand = pictures.some(Boolean) ? ICON + 10 : 0;
+    const whenH = Math.max(...whens.map((lines) => height(lines, WHEN)));
+    const line = PAD + whenH + 12;
+    const below = line + DOT + 14;
+    const tallest = Math.max(...labels.map((lines) => height(lines)));
+    const body =
+      rule(PAD, line, W - PAD, line) +
+      // The rule runs on past the last date, and ends in an arrow: time goes on.
+      arrow(W - PAD - 14, line, W - PAD + 1, line, { ...p, accent: p.ink }) +
+      figure.events
+        .map((event, i) => {
+          const cx = PAD + cw * (i + 0.5);
+          return (
+            text(cx, line - 12 - height(whens[i], WHEN), whens[i], p.accent, { size: WHEN, weight: 700 }) +
+            dot(cx, line) +
+            icon(pictures[i], cx, below + ICON / 2, ICON, p.ink) +
+            text(cx, below + iconBand, labels[i], p.ink)
+          );
+        })
+        .join('');
+    return { body, height: below + iconBand + tallest + PAD };
+  }
+
+  // Stacked: the rule runs down the left, each date and what happens then beside its dot.
+  const stem = PAD + DOT + 2;
+  const textLeft = stem + DOT + 14 + (pictures.some(Boolean) ? ICON + 10 : 0);
+  let y = PAD;
+  const dots: number[] = [];
+  const parts = figure.events
+    .map((event, i) => {
+      const whenLines = wrap(event.when, W - textLeft - PAD, WHEN, 700);
+      const labels = wrap(event.label, W - textLeft - PAD);
+      const h = height(whenLines, WHEN) + 2 + height(labels);
+      const mid = y + (WHEN * LEAD) / 2;
+      dots.push(mid);
+      const out =
+        icon(pictures[i], stem + DOT + 14 + ICON / 2, y + h / 2, ICON, p.ink) +
+        text(textLeft, y, whenLines, p.accent, { size: WHEN, weight: 700, anchor: 'start' }) +
+        text(textLeft, y + height(whenLines, WHEN) + 2, labels, p.ink, { anchor: 'start' });
+      y += h + 18;
+      return out;
+    })
+    .join('');
+  const end = y - 18;
+  const body = rule(stem, dots[0], stem, end) + arrow(stem, end - 14, stem, end + 1, { ...p, accent: p.ink }) + parts + dots.map((d) => dot(stem, d)).join('');
+  return { body, height: end + PAD };
+}
+
 /** What the diagram says, in words, for a picture made of it (the social card), which has no page around it. */
 export function describe(figure: Drawn): string {
   const words = (item: unknown): string[] => (typeof item === 'string' ? [item] : item && typeof item === 'object' ? Object.values(item).flatMap(words) : []);
@@ -392,6 +461,8 @@ export function outline(figure: Drawn): { heading?: string; ordered: boolean; it
       return [{ heading: figure.whole, ordered: false, items: figure.parts }];
     case 'numbers':
       return [{ ordered: false, items: figure.numbers.map((num) => `${value(num.value)}: ${num.label}`) }];
+    case 'timeline':
+      return [{ ordered: true, items: figure.events.map((event) => `${event.when}: ${event.label}`) }];
   }
 }
 
@@ -400,7 +471,7 @@ export function outline(figure: Drawn): { heading?: string; ordered: boolean; it
  * which read its outline instead; a picture made on its own carries its description.
  */
 export function figureSvg(figure: Drawn, layout: Layout, palette: Palette = PAGE, { hidden = false } = {}): string {
-  const drawn = { steps, parts, compare, numbers }[figure.kind](figure as never, layout, palette);
+  const drawn = { steps, parts, compare, numbers, timeline }[figure.kind](figure as never, layout, palette);
   const W = drawn.width ?? WIDTH[layout];
   const H = Math.ceil(drawn.height);
   const background = palette.background ? `<rect width="${W}" height="${H}" fill="${palette.background}"/>` : '';

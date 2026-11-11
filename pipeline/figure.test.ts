@@ -184,3 +184,19 @@ test('a caption that counts the steps must count those drawn', () => {
   assert.doesNotThrow(() => checkFigure({ ...five, caption: 'The five stages of the lifecycle' }, story));
   assert.doesNotThrow(() => checkFigure({ ...five, caption: 'How the lifecycle runs' }, story));
 });
+
+test('a timeline is kept with its dates in order, and a date the story does not give is refused', () => {
+  const dated = { ...story, summary: `${story.summary} Old junctions retire on 6 Feb 2027, and the new boxes go live in Spring 2027.` };
+  const figure = validateFigure(
+    '{"kind":"timeline","caption":"When the junctions change","events":[{"when":"6 Feb 2027","label":"Old junctions retire"},{"when":"Spring 2027","label":"New signal boxes go live"}],"icons":["warning","check"]}',
+    dated,
+  );
+  assert.equal(figure.kind, 'timeline');
+  assert.deepEqual(figure.kind === 'timeline' && figure.icons, ['warning', 'check'], 'one pictogram for each event is kept');
+  assert.deepEqual(figure.kind === 'timeline' && figure.events.map((event) => event.when), ['6 Feb 2027', 'Spring 2027']);
+  assert.throws(
+    () => validateFigure('{"kind":"timeline","caption":"Dates","events":[{"when":"9 Mar 2031","label":"Switch over"},{"when":"6 Feb 2027","label":"Retire"}]}', dated),
+    /9, which is not in the story|2031, which is not in the story/,
+  );
+  assert.throws(() => validateFigure('{"kind":"timeline","caption":"One date","events":[{"when":"6 Feb 2027","label":"Retire"}]}', dated), 'a timeline needs two dates');
+});

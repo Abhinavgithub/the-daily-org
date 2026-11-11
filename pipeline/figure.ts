@@ -38,13 +38,16 @@ export const diagramBrief = () => `The kinds of diagram:
 {"kind":"parts","caption":"...","whole":"...","parts":["...","..."]}
   One named thing and the 3 to 6 parts it is made of. "whole" and each part at most ${LIMITS.part} characters.
 
-{"kind":"none"}
-  When the story has no clear process, comparison, figures or structure.
+{"kind":"timeline","caption":"...","events":[{"when":"...","label":"..."}]}
+  Dated events the story turns on, in the order they happen: a release reaching sandboxes then production, a feature retired, a change enforced. 2 to 6 events. "when" is the date or period exactly as the article gives it, at most ${LIMITS.when} characters ("6 Feb 2027", "Spring '27", "Summer 2026"); "label" is what happens then, at most ${LIMITS.event} characters. Choose it over "steps" when the dates are the point: what a reader must do by when.
 
-Every kind but "none" may also have "icons": a list of pictogram names, one for each step, part or number in order, or two for "compare" (the left side, then the right). Choose each from this list only, for what best stands for its label: ${ICON_NAMES.join(', ')}. Leave "icons" out rather than choose one that does not fit.
+{"kind":"none"}
+  When the story has no clear process, comparison, figures, dates or structure.
+
+Every kind but "none" may also have "icons": a list of pictogram names, one for each step, part, number or event in order, or two for "compare" (the left side, then the right). Choose each from this list only, for what best stands for its label: ${ICON_NAMES.join(', ')}. Leave "icons" out rather than choose one that does not fit.
 
 Rules:
-- Use only what the article and the summary say. Every number must appear in one of them exactly as written there. Never invent a step, a part or a figure.
+- Use only what the article and the summary say. Every number must appear in one of them exactly as written there, dates included. Never invent a step, a part, a figure or a date.
 - Labels are short noun or verb phrases, not sentences, with no full stop at the end.
 - The limits on length are exact, and spaces count. A label one character over is thrown away with the whole diagram, so write well inside each limit: ${LIMITS.step} characters is about six words, ${LIMITS.heading} about four.
 - "caption" is one plain sentence, at most ${LIMITS.caption} characters, saying what the diagram shows. Do not repeat the headline.
@@ -73,6 +76,8 @@ function labels(figure: Figure): string[] {
       return [figure.caption, ...figure.numbers.flatMap((n) => [n.value, n.label])];
     case 'parts':
       return [figure.caption, figure.whole, ...figure.parts];
+    case 'timeline':
+      return [figure.caption, ...figure.events.flatMap((event) => [event.when, event.label])];
   }
 }
 
@@ -108,7 +113,17 @@ export function checkFigure(value: unknown, story: FigureStory, paper: Paper = P
   // Pictograms are a nicety: a wrong name or count loses them, not the diagram.
   if (reply && typeof reply === 'object' && 'icons' in reply) {
     const shape = reply as Record<string, unknown>;
-    const nodes = Array.isArray(shape.steps) ? shape.steps : Array.isArray(shape.parts) ? shape.parts : Array.isArray(shape.numbers) ? shape.numbers : shape.kind === 'compare' ? [0, 0] : [];
+    const nodes = Array.isArray(shape.steps)
+      ? shape.steps
+      : Array.isArray(shape.parts)
+        ? shape.parts
+        : Array.isArray(shape.numbers)
+          ? shape.numbers
+          : Array.isArray(shape.events)
+            ? shape.events
+            : shape.kind === 'compare'
+              ? [0, 0]
+              : [];
     const icons = shape.icons;
     const known = Array.isArray(icons) && icons.length === nodes.length && icons.every((icon) => (ICON_NAMES as string[]).includes(String(icon)));
     if (!known) delete shape.icons;

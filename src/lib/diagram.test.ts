@@ -7,6 +7,7 @@ const figures: Drawn[] = [
   { kind: 'parts', caption: 'What it is made of', whole: 'Local Apex runtime', parts: ['Apex interpreter', 'Local database for SOQL and DML', 'Rule engine for limits and execution'] },
   { kind: 'compare', caption: 'Old and new', left: { heading: 'Deploy loop', points: ['Minutes', 'Needs an org'] }, right: { heading: 'Local runtime', points: ['Seconds', 'On a laptop'] } },
   { kind: 'numbers', caption: 'The figures', numbers: [{ value: '200 ms', label: 'Median test run' }, { value: '5 x', label: 'Faster cycle' }] },
+  { kind: 'timeline', caption: 'When it lands', events: [{ when: '6 Feb 2027', label: 'Sandboxes upgraded' }, { when: '20 Feb 2027', label: 'Production upgraded' }, { when: 'Summer 2027', label: 'Old runtime retired' }], icons: ['server', 'cloud', 'warning'] },
 ];
 
 /** Every word of the labels, in the order drawn, read back from the SVG's text. */
@@ -15,7 +16,7 @@ const drawnText = (svg: string) => [...svg.matchAll(/<tspan[^>]*>([^<]*)<\/tspan
 test('every label of a diagram is drawn, whole, in both layouts', () => {
   for (const figure of figures) {
     const rest = Object.fromEntries(Object.entries(figure).filter(([key]) => !['kind', 'caption', 'icons'].includes(key)));
-    const labels = JSON.stringify(rest).match(/"[^"]{2,}"/g)!.map((s) => s.slice(1, -1)).filter((s) => !['heading', 'points', 'value', 'label', 'left', 'right', 'whole', 'parts', 'steps', 'numbers'].includes(s));
+    const labels = JSON.stringify(rest).match(/"[^"]{2,}"/g)!.map((s) => s.slice(1, -1)).filter((s) => !['heading', 'points', 'value', 'label', 'left', 'right', 'whole', 'parts', 'steps', 'numbers', 'events', 'when'].includes(s));
     for (const layout of ['wide', 'narrow'] as const) {
       const text = drawnText(figureSvg(figure, layout));
       for (const label of labels) assert.ok(text.includes(label.split(' ')[0]), `${figure.kind} ${layout}: ${label}`);
@@ -94,4 +95,21 @@ test('six or seven steps are one long row, without pictures, and need a wide sto
   assert.equal(svg.match(/<path d="M3 5h18/g), null, 'no pictures');
   assert.ok(isLong(seven));
   assert.ok(!isLong({ ...seven, steps: seven.steps.slice(0, 5) }));
+});
+
+test('a timeline puts each date on one rule, in order, across or down the page', () => {
+  const timeline = figures[4] as Extract<Drawn, { kind: 'timeline' }>;
+  const wide = figureSvg(timeline, 'wide');
+  const dots = [...wide.matchAll(/<circle cx="([^"]+)" cy="([^"]+)" r="6"/g)].map((m) => ({ x: Number(m[1]), y: Number(m[2]) }));
+  assert.equal(dots.length, 3);
+  assert.equal(new Set(dots.map((d) => d.y)).size, 1, 'across: every dot on one rule');
+  assert.ok(dots[0].x < dots[1].x && dots[1].x < dots[2].x, 'left to right in order');
+  const narrow = figureSvg(timeline, 'narrow');
+  const down = [...narrow.matchAll(/<circle cx="([^"]+)" cy="([^"]+)" r="6"/g)].map((m) => ({ x: Number(m[1]), y: Number(m[2]) }));
+  assert.equal(new Set(down.map((d) => d.x)).size, 1, 'stacked: every dot on one rule down the left');
+  assert.ok(down[0].y < down[1].y && down[1].y < down[2].y, 'top to bottom in order');
+  assert.match(wide, /<tspan[^>]*>6 Feb 2027<\/tspan>/);
+  assert.deepEqual(outline(timeline), [{ ordered: true, items: ['6 Feb 2027: Sandboxes upgraded', '20 Feb 2027: Production upgraded', 'Summer 2027: Old runtime retired'] }]);
+  const events = (n: number) => ({ kind: 'timeline', caption: 'c', events: Array.from({ length: n }, (_, i) => ({ when: `${i + 1} Jan`, label: 'Event' })) }) as Drawn;
+  assert.deepEqual([2, 3, 4, 5, 6].map((n) => wideFrom(events(n))), [36, 36, 42, 52, 52]);
 });
