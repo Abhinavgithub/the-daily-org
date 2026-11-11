@@ -21,6 +21,11 @@
   list-style: none;
   margin: 0;
   padding: 0;
+
+  // A section's name too long for the line, at a large text size, wraps inside its chip.
+  .chip {
+    white-space: normal;
+  }
 }
 
 .results {

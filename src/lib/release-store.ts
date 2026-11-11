@@ -2,6 +2,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { PAPER } from '../config';
 import { DEFAULT_BAR, readEdition, type Edition } from './release-edition';
+import { readReleases, type Release } from './releases';
 
 // The release editions on disk, for the pages that are built from them. This
 // reads files, so it is for pages and never for a script that runs in the browser.
@@ -23,6 +24,16 @@ export function getReleaseEditions(): Edition[] {
       }
     })
     .sort((a, b) => b.release.number.localeCompare(a.release.number, 'en', { numeric: true }));
+}
+
+/** The release dates the pipeline last read (data/releases.json), or none when it has read none. */
+export function getReleaseDates(): Release[] {
+  try {
+    return readReleases(JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', 'releases.json'), 'utf8')));
+  } catch {
+    // No dates have been read yet, or the file is unreadable.
+    return [];
+  }
 }
 
 /** The fewest points a feature needs to be printed in this paper. */

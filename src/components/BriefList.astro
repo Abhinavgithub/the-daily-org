@@ -1,4 +1,5 @@
 ---
+import NewTab from './NewTab.astro';
 import { formatDay, type Brief } from '../lib/stories';
 
 // The close calls: articles that fell one point short of a story, set as one
@@ -53,7 +54,7 @@ const personas = [...new Set(briefs.flatMap((brief) => brief.data.personas))];
         {briefs.map((brief) => (
           <li data-brief data-id={brief.data.url} data-personas={brief.data.personas.join(' ')}>
             <h3>
-              <a href={brief.data.url} target="_blank" rel="noopener">{brief.data.title}</a>
+              <a href={brief.data.url} target="_blank" rel="noopener">{brief.data.title}<NewTab /></a>
             </h3>
             <p>{brief.data.why_read}</p>
             <p class="briefs__source">{brief.data.source}</p>

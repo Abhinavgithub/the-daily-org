@@ -89,7 +89,7 @@ Rules:
 - The sheet carries a hairline frame 6px inside its edge.
 - A ledger page (Bulletin, Deadlines, Archive, Stats) is one column of 62rem: each section's name in an 11rem margin, its content beside it. Under 44rem the name goes above.
 - Space is in steps: `--space-1` to `--space-6` (0.25, 0.5, 0.75, 1, 1.5, 2.25rem). Every margin, padding and gap is one of these, written as its token. The only values written out are nudges under 0.2rem, which line one thing up with another, and sizes worked out with `calc()`.
-- Breakpoints, and only these: 64rem (three columns to two), 46rem (the masthead's ears and share price go), 44rem (one column, filters on two lines, ledger names above), 40rem (the release edition's lists). The narrow rules live in `_narrow.scss`, last in the cascade.
+- Breakpoints, and only these: 64rem (three columns to two), 46rem (the masthead's ears go and, on an edition, its motto and curator's line, so a phone reaches the stories sooner), 44rem (one column, filters on two lines, ledger names above), 40rem (the release edition's lists). The narrow rules live in `_narrow.scss`, last in the cascade.
 - Inside a story, sizes follow the story's own width, not the window's: each `.story` is a container named `story`. Its text runs in one column, in two from 40rem and, in a three-wide story, in three from 60rem, so a column is never much under 18rem; a wide story's headline is `--fs-title` under 40rem and `--fs-lead` from it. A diagram is a container too (36rem and 60rem, below). These are the only container widths.
 - Nothing scrolls sideways at 320px.
 
@@ -119,11 +119,12 @@ Use what exists. Add a component only when none of these fits, and add it here.
 | Chip | `.chip` | A small ruled control. Pressed, it fills with ink |
 | Tabs | `.tabs` | The parts of the paper: News, Bulletin, Deadlines, Archive. On every page |
 | Filter bar | `.filters` | Plain words; the chosen one bold and underlined. Its choice is kept in the address. Where the browser has anchor positioning, each group draws one underline that moves to the word chosen; elsewhere the chosen word carries its own. A status line, heard and not seen, says what a choice left |
-| Story | `.story` | Running head, byline, headline, deck, diagram, text, "Read the original", votes. In that order |
+| Story | `.story` | Running head, byline, headline, deck, diagram, text, "Read the original", votes. In that order. The rest of the reason to read opens from a small button by the byline; on a phone, from a "Why read this" disclosure under the deck |
 | Banner | `.story.story--banner` | The edition's lead: a story with its headline across the page. One to an edition |
 | Running head | `.story__kicker` | Over a story: its mark as a flag, and its section in capitals, which leads to the section |
 | Briefs | `.briefs` | A ruled list of headlines with a sentence each: a rail beside the stories (`.briefs--rail`) or across the page (`.briefs--alone`) |
 | Ledger row | `.ledger__row` | A section named in the margin |
+| Ears | `.ear` | The two boxes beside an edition's nameplate: what it holds, and the next release date (a link to the Bulletin). The share price is on the Bulletin, not here |
 | Notice | `.bulletin__item` | Flag, headline, a line of facts, text. Used by the Bulletin and the Deadlines |
 | Disclosure | `details` | For what most readers will skip. Its summary is a `--sky` label |
 | Tool | `.tool`, `.search` | A 2.5rem square button; the search field with its button |
@@ -160,7 +161,7 @@ The paper meets WCAG 2.2 AA. A change that breaks any of these is not finished.
 - Contrast: text 4.5 to 1, a control's outline and large text 3 to 1, in both themes.
 - Anything pressed is at least 24px by 24px, and on a touch screen takes a press of about 40px or more (`@media (pointer: coarse)` in `_narrow.scss` and `_feedback.scss`).
 - Everything works from the keyboard, in the order it is read. The skip link goes to `#main`, which every page's `<main>` carries.
-- A control with no words has an `aria-label`. A link that opens a new tab says so.
+- A control with no words has an `aria-label`. A link that opens a new tab says so: `<NewTab />` inside it, last, says it to a screen reader.
 - A panel that closes gives the keyboard's place back to the control that opened it, never to the top of the page; Esc closes it. A control that changes what the page shows (a filter) says what it left, in a `role="status"` line.
 - Words hidden from the eye but kept for a screen reader use `.visually-hidden`, never `display: none`.
 

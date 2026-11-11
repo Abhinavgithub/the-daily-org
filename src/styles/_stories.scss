@@ -126,6 +126,12 @@
   font-family: var(--display);
   font-size: var(--fs-label);
   color: var(--muted);
+  // A long byline, or one at a large text size, goes on to a second line rather than past the story's edge.
+  flex-wrap: wrap;
+
+  > :first-child {
+    min-width: 0;
+  }
 }
 
 // The running head over a story: its mark in the edition, as a flag, and its section.
@@ -220,8 +226,12 @@
   margin-bottom: var(--space-4);
 }
 
-.story__source {
-  white-space: nowrap;
+// The blog's name is kept on one line where the story has room for it; in a story narrower than about 20 of the
+// reader's characters' widths (a phone with large text) it may break like any other words.
+@container story (min-width: 20rem) {
+  .story__source {
+    white-space: nowrap;
+  }
 }
 
 // Opens the original article.

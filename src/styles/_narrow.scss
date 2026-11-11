@@ -87,6 +87,15 @@
     display: none;
   }
 
+  // "Why read this" as words under the deck, not a small button by the byline.
+  .story__why {
+    display: block;
+  }
+
+  .why {
+    display: none;
+  }
+
   // Not when the filters have left it empty: the page says so below.
   .contents:has(li:not([hidden])) {
     display: block;

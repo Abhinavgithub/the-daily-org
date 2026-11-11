@@ -1,4 +1,5 @@
 ---
+import NewTab from '../../components/NewTab.astro';
 // Deadlines: what is being enforced or retired, and when, from the release
 // notes' Release Updates. Each release is a section, named in the margin with
 // its dates beside it; what is still to come leads, what is in force follows,
@@ -103,7 +104,7 @@ const heading = (group: (typeof groups)[number]) => (group.kind === 'unknown' ? 
                     <h3>
                       <a href={deadline.link} target="_blank" rel="noopener">
                         {deadline.name}
-                      </a>
+                      <NewTab /></a>
                     </h3>
                     {changeOf(deadline) && (
                       <p class="deadlines__changed">

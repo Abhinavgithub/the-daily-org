@@ -1,4 +1,5 @@
 ---
+import NewTab from '../components/NewTab.astro';
 import { SECTIONS, SITE } from '../config';
 import { getAllStories } from '../lib/stories';
 import '../styles/main.scss';
@@ -85,7 +86,7 @@ Astro.csp?.insertScriptHash(`sha256-${Buffer.from(digest).toString('base64')}`);
             SITE.repository && (
               <a href={SITE.repository} target="_blank" rel="noopener">
                 GitHub
-              </a>
+              <NewTab /></a>
             )
           }
         </p>

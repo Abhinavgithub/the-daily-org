@@ -53,8 +53,8 @@ Each `npm run` script in package.json maps to one file in `pipeline/` (e.g. `rep
 |---|---|---|---|
 | Edition (`/`, `/[day]/`) | `stories.ts`, `editions.ts`, `signal.ts`, `layout.ts`, `pack.ts` | `pages/index.astro`, `pages/[day]/`, `pages/section/`, `pages/tag/`, `EditionPage`, `StoryGrid`, `StoryCard`, `BriefList` | `_sheet`, `_stories`, `_briefs`, `_page-turn` |
 | Diagram | `figure.ts`, `diagram.ts`, `icons.ts` | `StoryFigure` | `_figure` |
-| Masthead | `quote.ts`, `quote-store.ts`, `releases.ts`, `theme.ts` | `Masthead`, `Tabs`, `FilterBar` | `_masthead`, `_filter-bar` |
-| Bulletin | `bulletin.ts` | `pages/bulletin/` | `_masthead` (the `bulletin__` rules), `_release-edition` |
+| Masthead | `releases.ts` (`nextStage`, for the ear), `release-store.ts` (`getReleaseDates`), `theme.ts` | `Masthead`, `Tabs`, `FilterBar`, `NewTab` | `_masthead`, `_filter-bar` |
+| Bulletin | `bulletin.ts`, `quote.ts` and `quote-store.ts` (the share price) | `pages/bulletin/` | `_masthead` (the `bulletin__` rules), `_release-edition` |
 | Deadlines | `deadlines.ts`, `ics.ts` (the calendar) | `pages/deadlines/`, `pages/deadlines.ics.ts` | `_masthead` (reuses `bulletin__`), `_release-edition` |
 | Release edition | `release-edition.ts`, `release-store.ts` | `pages/releases/[slug]/` | `_release-edition` |
 | Archive, search | `calendar.ts`, `search.ts` (matching, ranking, filters; the index is `pages/search.json.ts`) | `pages/archive/`, `pages/search/` | `_archive`, `_archive-and-search` |

@@ -84,7 +84,7 @@ const synonyms = JSON.stringify(PAPER.synonyms ?? []);
             </fieldset>
           )
         }
-        <fieldset data-group="section" data-hide-empty>
+        <fieldset data-group="section">
           <legend>Section</legend>
           {
             sections.map((s) => (
@@ -97,7 +97,7 @@ const synonyms = JSON.stringify(PAPER.synonyms ?? []);
           }
         </fieldset>
         <!-- Filled from the index, most printed first; the first few are shown until the reader asks for the rest. -->
-        <fieldset data-group="source" data-hide-empty data-sources>
+        <fieldset data-group="source" data-sources>
           <legend>Source</legend>
           <button type="button" class="search-filters__more" data-more-sources hidden></button>
         </fieldset>
@@ -304,8 +304,8 @@ const synonyms = JSON.stringify(PAPER.synonyms ?? []);
     const matches = search(index, clauses, sort);
     if (matches.length === 0) return nothing(`Nothing matches “${query}”. Try a shorter or more general word${browse ? ', or browse a section' : ''}.`);
 
-    // Beside each box: how many results it would show, given every other filter. A section or source
-    // with none is left out unless it is ticked; a kind, a mark or a reader with none is greyed.
+    // Beside each box: how many results it would show, given every other filter. A box with none is left out
+    // unless it is ticked, or the reader is on it; a group left with no box goes with them.
     for (const group of GROUPS) {
       const groupBoxes = boxes().filter((box) => groupOf(box) === group);
       const tally = counts(matches, filters, today, group, groupBoxes.map((box) => box.value));
@@ -313,9 +313,10 @@ const synonyms = JSON.stringify(PAPER.synonyms ?? []);
         const n = tally.get(box.value) ?? 0;
         const label = box.closest('label')!;
         label.querySelector('[data-count]')!.textContent = String(n);
-        if (box.closest('[data-hide-empty]')) label.hidden = n === 0 && !box.checked;
-        else box.disabled = n === 0 && !box.checked;
+        label.hidden = n === 0 && !box.checked && box !== document.activeElement;
       }
+      const set = groupBoxes[0]?.closest('fieldset');
+      if (set) set.hidden = groupBoxes.every((box) => box.closest('label')!.hidden);
     }
     // Sources with the most results first. Not while the reader is ticking one, so the box stays under the pointer.
     const sourceLabels = [...sourceSet.querySelectorAll<HTMLLabelElement>('label')];

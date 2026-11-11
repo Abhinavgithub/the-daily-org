@@ -1,4 +1,5 @@
 ---
+import NewTab from '../../../components/NewTab.astro';
 // A release edition: one release, from its own release notes. The page opens
 // short: the headlines by name, a line to the Deadlines for what the release
 // enforces, and the notes' own areas, closed. An area opens to its products
@@ -52,7 +53,7 @@ const found = (...parts: string[]) => parts.join(' ').toLowerCase();
         {edition.notes ? (
           <a href={edition.notes} target="_blank" rel="noopener">
             the official release notes
-          </a>
+          <NewTab /></a>
         ) : (
           'the official release notes'
         )}
@@ -105,7 +106,7 @@ const found = (...parts: string[]) => parts.join(' ').toLowerCase();
                 <li data-feature data-text={found(feature.area, feature.product, feature.name)}>
                   <a href={linkTo(edition, feature.topic)} target="_blank" rel="noopener">
                     {feature.name}
-                  </a>
+                  <NewTab /></a>
                   {label(feature.topic) && <span class:list={['edition__label', `edition__label--${label(feature.topic)!.kind}`]}>{LABEL[label(feature.topic)!.kind]} {dayMonth(label(feature.topic)!.at)}</span>}
                   <span class="edition__kicker">{feature.product !== feature.area ? feature.product : feature.area}</span>
                 </li>
@@ -145,7 +146,7 @@ const found = (...parts: string[]) => parts.join(' ').toLowerCase();
                       <li data-feature data-text={found(area.name, product.name, feature.name)}>
                         <a href={linkTo(edition, feature.topic)} target="_blank" rel="noopener">
                           {feature.name}
-                        </a>
+                        <NewTab /></a>
                         {label(feature.topic) && <span class:list={['edition__label', `edition__label--${label(feature.topic)!.kind}`]}>{LABEL[label(feature.topic)!.kind]} {dayMonth(label(feature.topic)!.at)}</span>}
                         <p>{feature.says}</p>
                       </li>

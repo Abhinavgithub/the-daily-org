@@ -1,23 +1,23 @@
 ---
-import { SITE } from '../config';
-import { quoteLine } from '../lib/quote';
-import { getQuote } from '../lib/quote-store';
+import NewTab from './NewTab.astro';
+import { PAPER, SITE } from '../config';
+import { getReleaseDates } from '../lib/release-store';
+import { nextStage } from '../lib/releases';
 
 interface Props {
   /** Pre-fills the search box on the search page. */
   query?: string;
   /**
-   * On an edition: what it holds, for the box beside the nameplate, and its
-   * volume and number, for the folio line under it. The share price then moves
-   * from the bar above into the box on the other side, as a paper's ears.
+   * On an edition: what it holds, for the box beside the nameplate, and its volume and number, for the folio
+   * line under it. The box on the other side gives the next release date, as a paper's ears. The date itself
+   * is the line above the nameplate, so the folio does not say it again.
    */
-  edition?: { holds: string; volume: string; number: number; date: string };
+  edition?: { holds: string; volume: string; number: number; day: string };
 }
 
 const { query = '', edition } = Astro.props;
-// The share price at the last close, when the paper prints one and has a fresh one.
-const quote = SITE.shares ? getQuote() : undefined;
-const shares = quote && quoteLine(quote, SITE.shares!.name);
+// The next release date after the edition's day, for the ear: an old edition says what was next on its own day.
+const next = edition && PAPER.releases ? nextStage(getReleaseDates(), edition.day) : undefined;
 // The name in three parts, when one word of it is printed in the paper's colour.
 const at = SITE.accent ? SITE.name.indexOf(SITE.accent) : -1;
 const name = at < 0 ? [SITE.name, '', ''] : [SITE.name.slice(0, at), SITE.accent, SITE.name.slice(at + SITE.accent!.length)];
@@ -25,17 +25,6 @@ const name = at < 0 ? [SITE.name, '', ''] : [SITE.name.slice(0, at), SITE.accent
 
 <header class:list={['masthead', !edition && 'masthead--inner']}>
   <div class="masthead__bar">
-    {/* The share price balances the theme button at the other end. On an edition it is in the ear beside the nameplate. */}
-    {
-      quote && shares && !edition && (
-        <p class="quote" title={shares.says}>
-          <span class="visually-hidden">{shares.says}</span>
-          <span aria-hidden="true">
-            <b>{quote.symbol}</b> {shares.price} <span class:list={['quote__move', shares.mark && (quote.change > 0 ? 'quote__move--up' : 'quote__move--down')]}>{shares.mark} {shares.change}</span>
-          </span>
-        </p>
-      )
-    }
     <form class="search" action="/search/" method="get" role="search">
       <label class="visually-hidden" for="site-search">Search all editions</label>
       <input
@@ -82,13 +71,10 @@ const name = at < 0 ? [SITE.name, '', ''] : [SITE.name.slice(0, at), SITE.accent
     }
     <a class="masthead__name" href="/">{name[0]}{name[1] && <span class="masthead__accent">{name[1]}</span>}{name[2]}</a>
     {
-      edition && quote && shares && (
-        <p class="ear ear--right" title={shares.says}>
-          <span class="visually-hidden">{shares.says}</span>
-          <span aria-hidden="true">
-            <b>{quote.symbol}</b>
-            {shares.price} <span class:list={['quote__move', shares.mark && (quote.change > 0 ? 'quote__move--up' : 'quote__move--down')]}>{shares.mark} {shares.change}</span>
-          </span>
+      next && (
+        <p class="ear ear--right">
+          <b>{next.name}</b>
+          <a href="/bulletin/#releases">{next.says}</a>
         </p>
       )
     }
@@ -97,13 +83,12 @@ const name = at < 0 ? [SITE.name, '', ''] : [SITE.name.slice(0, at), SITE.accent
     edition ? (
       <div class="masthead__motto masthead__motto--folio">
         <p class="masthead__by">
-          Curated by <a href={SITE.creator.url} target="_blank" rel="noopener">{SITE.creator.name}</a>
+          Curated by <a href={SITE.creator.url} target="_blank" rel="noopener">{SITE.creator.name}<NewTab /></a>
         </p>
         <p class="folio">
           <span>Vol. {edition.volume} · No. {edition.number}</span>
           <span class="folio__tagline">{SITE.tagline}</span>
-          <span class="folio__date">{edition.date}</span>
-          <!-- On a narrow page, where the ears are left out and the date is already above the nameplate. -->
+          <!-- On a narrow page, where the ears are left out. -->
           <span class="folio__holds">{edition.holds}</span>
         </p>
       </div>
@@ -111,7 +96,7 @@ const name = at < 0 ? [SITE.name, '', ''] : [SITE.name.slice(0, at), SITE.accent
       <div class="masthead__motto">
         <p class="masthead__tagline">{SITE.tagline}</p>
         <p class="masthead__by">
-          Curated by <a href={SITE.creator.url} target="_blank" rel="noopener">{SITE.creator.name}</a>
+          Curated by <a href={SITE.creator.url} target="_blank" rel="noopener">{SITE.creator.name}<NewTab /></a>
         </p>
       </div>
     )

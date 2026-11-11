@@ -1,19 +1,20 @@
 ---
+import NewTab from '../../components/NewTab.astro';
 // The Bulletin: what the paper keeps apart from its stories. Release dates,
 // notices printed whatever they score, the releases of the tools it follows,
 // and posts from the community. It shows the picture as it stands, so it is one
 // page and not one a day; each kind of item stays on it for a while.
-import fs from 'node:fs';
-import path from 'node:path';
 import { render } from 'astro:content';
 import Masthead from '../../components/Masthead.astro';
 import Tabs from '../../components/Tabs.astro';
-import { PAPER } from '../../config';
+import { PAPER, SITE } from '../../config';
 import Layout from '../../layouts/Layout.astro';
 import { WINDOWS, type BulletinKind } from '../../lib/bulletin';
 import { deadlinesFrom, dueWithin, grouped } from '../../lib/deadlines';
-import { openReleases, readReleases } from '../../lib/releases';
-import { getReleaseEditions } from '../../lib/release-store';
+import { quoteLine } from '../../lib/quote';
+import { getQuote } from '../../lib/quote-store';
+import { openReleases } from '../../lib/releases';
+import { getReleaseDates, getReleaseEditions } from '../../lib/release-store';
 import { formatDay, getBulletin } from '../../lib/stories';
 
 const { latest, items } = await getBulletin();
@@ -38,18 +39,16 @@ const tools = of('release');
 const community = of('community');
 const slug = (id: string) => id.split('/').pop()!;
 
-let releases = readReleases(null);
-try {
-  releases = readReleases(JSON.parse(fs.readFileSync(path.join(process.cwd(), 'data', 'releases.json'), 'utf8')));
-} catch {
-  // No dates have been read yet, or the file is unreadable.
-}
+const releases = getReleaseDates();
 const today = new Date().toISOString().slice(0, 10);
 const open = openReleases(releases, today);
 // A release whose notes are out has an edition of its own, which its line leads to.
 const editions = new Map(getReleaseEditions().map((edition) => [edition.release.name, `/releases/${edition.release.slug}/`]));
 // What the release notes say falls due within the month, which the Deadlines page sets out.
 const due = dueWithin(grouped(deadlinesFrom(getReleaseEditions()), releases, today), today, 30);
+// The share price at the last close, when the paper prints one and has a fresh one.
+const quote = SITE.shares ? getQuote() : undefined;
+const shares = quote && quoteLine(quote, SITE.shares!.name);
 // A section is shown when the paper reads that kind of thing, whether or not there is any just now.
 const follows = {
   releases: Boolean(PAPER.releases),
@@ -103,6 +102,26 @@ const follows = {
       }
 
       {
+        quote && shares && (
+          <section class="ledger__row" id="shares">
+            <h2>Share price</h2>
+            <div>
+              <p class="quote">
+                <span class="visually-hidden">{shares.says}</span>
+                <span aria-hidden="true">
+                  <b>{quote.symbol}</b> {shares.price}{' '}
+                  <span class:list={['quote__move', shares.mark && (quote.change > 0 ? 'quote__move--up' : 'quote__move--down')]}>
+                    {shares.mark} {shares.change}
+                  </span>
+                </span>
+              </p>
+              <p class="ledger__note" aria-hidden="true">{SITE.shares!.name}, at the close on {formatDay(quote.day, 'short')}.</p>
+            </div>
+          </section>
+        )
+      }
+
+      {
         follows.alerts && (
           <section class="ledger__row" id="alerts">
             <h2>
@@ -115,7 +134,7 @@ const follows = {
                   <h3>
                     <a href={item.data.url} target="_blank" rel="noopener">
                       {item.data.title}
-                    </a>
+                    <NewTab /></a>
                   </h3>
                   {item.data.facts && <p class="bulletin__facts">{item.data.facts}</p>}
                   {notice ? (
@@ -165,7 +184,7 @@ const follows = {
                   <h3>
                     <a href={item.data.url} target="_blank" rel="noopener">
                       {item.data.title}
-                    </a>
+                    <NewTab /></a>
                   </h3>
                   <p class="bulletin__text">{item.data.line}</p>
                   <p class="bulletin__facts">{formatDay(item.data.date, 'short')}</p>
@@ -189,7 +208,7 @@ const follows = {
                   <h3>
                     <a href={item.data.url} target="_blank" rel="noopener">
                       {item.data.title}
-                    </a>
+                    <NewTab /></a>
                   </h3>
                   <p class="bulletin__text">{item.data.line}</p>
                   <p class="bulletin__facts">

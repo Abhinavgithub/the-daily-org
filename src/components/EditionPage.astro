@@ -40,7 +40,7 @@ const steps = [
 ---
 
 <Layout title={isLatest ? undefined : formatDay(day)} edition={day} image={stories.find((story) => story.data.figure_image)?.data.figure_image}>
-  <Masthead edition={numbered && { holds, ...numbered, date: formatDay(day) }}>
+  <Masthead edition={numbered && { holds, ...numbered, day }}>
     {
       steps.map((step, i) => {
         const icon = (

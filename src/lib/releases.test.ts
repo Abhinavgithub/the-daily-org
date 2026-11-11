@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { openReleases, readReleases, sentence, type Release } from './releases';
+import { nextStage, openReleases, readReleases, sentence, type Release } from './releases';
 
 const winter: Release = {
   name: "Winter '27",
@@ -63,4 +63,15 @@ test('the line comes with its name apart, for the page to set in bold', () => {
   const [open] = openReleases([winter], '2026-10-06');
   assert.equal(open.rest, ' is arriving in production. Last orgs get it 9 to 10 Oct.');
   assert.equal(open.release.name + open.rest, open.says);
+});
+
+test('the next date is the earliest stage still to begin, in any release', () => {
+  const releases: Release[] = [
+    { name: "Spring '27", stages: [{ place: 'sandboxes', from: '2027-02-06', to: '2027-02-06' }, { place: 'production', from: '2027-02-19', to: '2027-02-20' }] },
+    { name: "Winter '27", stages: [{ place: 'production', from: '2026-11-10', to: '2026-11-12' }, { place: 'production', from: '2026-11-20', to: '2026-11-21' }] },
+  ];
+  // Winter's first wave has begun, so its second is next.
+  assert.deepEqual(nextStage(releases, '2026-11-11'), { name: "Winter '27", says: 'Production 20 to 21 Nov' });
+  assert.deepEqual(nextStage(releases, '2026-11-25'), { name: "Spring '27", says: 'Sandboxes 6 Feb 2027' });
+  assert.equal(nextStage(releases, '2027-03-01'), undefined);
 });

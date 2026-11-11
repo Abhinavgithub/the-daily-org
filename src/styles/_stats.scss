@@ -9,11 +9,14 @@
 // The edition list beside the period words.
 .stats__pick {
   display: inline-flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--space-2);
+  max-width: 100%;
   color: var(--muted);
 
   select {
+    max-width: 100%;
     padding: var(--space-1) var(--space-2);
     border: 1px solid var(--edge-solid);
     border-radius: 0;
@@ -165,7 +168,8 @@
 
 .ledger__lists {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  // A column is 13rem or the whole width, whichever is less, so large text never pushes it past the page.
+  grid-template-columns: repeat(auto-fit, minmax(min(13rem, 100%), 1fr));
   gap: var(--space-5) var(--space-6);
 }
 

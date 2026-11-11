@@ -1,4 +1,5 @@
 ---
+import NewTab from './NewTab.astro';
 import type { ArticleRow } from '../lib/insights';
 import { OUTCOME_LABELS, type ArticleOutcome } from '../lib/logs';
 import { kindFor, normalizeUrl, type Feedback, type FeedbackKind } from '../../pipeline/feedback';
@@ -110,7 +111,7 @@ const present = (Object.keys(SHORT) as ArticleOutcome[]).filter((outcome) => art
                   <td>
                     <a href={article.url} target="_blank" rel="noopener" title={article.outcome === 'published' && article.reason ? `${article.title} (${article.reason})` : article.title}>
                       {article.title}
-                    </a>
+                    <NewTab /></a>
                     {/* A second line only where it explains a decision. */}
                     {article.reason && article.outcome !== 'published' && <span class="log__reason">{article.reason}</span>}
                     {kind && canFlag && (

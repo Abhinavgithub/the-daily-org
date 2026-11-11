@@ -72,6 +72,17 @@ export function openReleases(releases: Release[], today: string): { release: Rel
   });
 }
 
+/**
+ * The next date to come in any release, for the box beside the nameplate: "Spring '27", "Sandboxes 6 Feb".
+ * A stage that has begun is not next; nothing is returned when no date lies ahead.
+ */
+export function nextStage(releases: Release[], today: string): { name: string; says: string } | undefined {
+  const next = releases
+    .flatMap((release) => release.stages.filter((stage) => stage.from > today).map((stage) => ({ release, stage })))
+    .sort((a, b) => a.stage.from.localeCompare(b.stage.from))[0];
+  return next && { name: next.release.name, says: `${capital(next.stage.place)} ${when(next.stage, today)}` };
+}
+
 /** Whatever was saved, read as releases; anything misshapen is left out. */
 export function readReleases(raw: unknown): Release[] {
   if (!Array.isArray(raw)) return [];

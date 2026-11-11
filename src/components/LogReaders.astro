@@ -1,4 +1,5 @@
 ---
+import NewTab from './NewTab.astro';
 import { normalizeUrl, type Feedback } from '../../pipeline/feedback';
 import { CORRECTION_LENGTH, reasonLine, tally, wanting, type ReportRow, type VoteRow } from '../lib/verdict';
 import { storyHref, type Story } from '../lib/stories';
@@ -131,7 +132,7 @@ const title = (id: string) => byId.get(id)?.data.title ?? id;
                   {story && (
                     <a class="chip" href={story.data.url} target="_blank" rel="noopener">
                       Read the original
-                    </a>
+                    <NewTab /></a>
                   )}
                 </p>
                 {story && (

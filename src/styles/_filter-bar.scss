@@ -34,6 +34,8 @@
 
   // Plain words rather than pills; the chosen one is bold and underlined.
   .chip {
+    // In a row that wraps, a choice too long for the line (large text, a long date) wraps too.
+    white-space: normal;
     padding: var(--space-1) 0;
     border: 0;
     border-bottom: 2px solid transparent;

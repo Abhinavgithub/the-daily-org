@@ -240,10 +240,13 @@
   }
 
   > summary {
+    // With large text an area's name and its count share no line: the count goes under the name.
+    flex-wrap: wrap;
     padding: var(--space-3) 0;
 
     h3 {
       flex: 1;
+      min-width: 0;
       font-size: var(--fs-headline);
     }
   }
@@ -313,7 +316,7 @@
   }
 }
 
-// The share price, where the paper prints one, the search, and the theme button. Equal side columns keep the search centred.
+// The search and the theme button. Equal side columns keep the search centred.
 .masthead__bar {
   display: grid;
   grid-template-columns: 1fr minmax(0, 28rem) 1fr;
@@ -321,11 +324,6 @@
   gap: var(--space-3);
   font-family: var(--display);
   font-size: var(--fs-body);
-
-  > .quote {
-    grid-column: 1;
-    justify-self: start;
-  }
 
   > .search {
     grid-column: 2;
@@ -344,7 +342,8 @@
   gap: var(--space-4);
 }
 
-// The share price at the last close, set small as a paper sets its market figures.
+// The share price at the last close, set small as a paper sets its market figures. On the Bulletin, not the
+// masthead: it is the company's news, not the reader's.
 .quote {
   margin: 0;
   font-size: var(--fs-label);
@@ -355,11 +354,6 @@
   b {
     font-weight: 700;
     letter-spacing: var(--caps);
-  }
-
-  // There is no room for it beside the search on a narrow page.
-  @media (max-width: 46rem) {
-    display: none;
   }
 }
 
@@ -655,15 +649,16 @@ span.dateline__step {
   justify-self: end;
 }
 
-// The folio: volume and number, the motto and the date, in small capitals between two rules.
+// The folio: volume and number, and the motto centred, in small capitals between two rules. The date is the
+// line above the nameplate, so it is not said again here.
 .masthead__motto--folio {
   gap: var(--space-2);
   padding-top: var(--space-2);
 }
 
 .folio {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
   gap: var(--space-2) var(--space-5);
   padding: var(--space-1) 0;
   border-top: 1px solid var(--ink);
@@ -673,6 +668,11 @@ span.dateline__step {
 
   span {
     white-space: nowrap;
+  }
+
+  // The volume at the left edge; the motto in the middle column, centred on the page.
+  > :first-child {
+    justify-self: start;
   }
 
   .folio__tagline {
@@ -697,23 +697,24 @@ span.dateline__step {
     display: none;
   }
 
-  // The motto keeps its place, on a line of its own under the volume: it is what tells a new reader what
-  // the paper is. The date is already above the nameplate, so what the edition holds takes its place.
+  // A phone has a screen's height before the first story, so the edition's masthead is kept short: the folio
+  // is the volume and what the edition holds. The motto and the curator's line are on every other page.
   .folio {
+    display: flex;
     flex-wrap: wrap;
+    justify-content: space-between;
 
     .folio__tagline {
-      order: 3;
-      flex-basis: 100%;
-    }
-
-    .folio__date {
       display: none;
     }
 
     .folio__holds {
       display: inline;
     }
+  }
+
+  .masthead__motto--folio .masthead__by {
+    display: none;
   }
 }
 

@@ -231,9 +231,10 @@
   }
 }
 
-// Until "Between" is chosen the dates are quieter, but still there to be picked, which chooses it.
-fieldset:has(input[value='any']:checked, input[value='week']:checked, input[value='month']:checked, input[value='quarter']:checked) .search-filters__range {
-  opacity: 0.55;
+// Until "Between" is chosen the dates are quieter, but still there to be picked, which chooses it. Quieter in
+// colour, not faded: faded words fall below the contrast a reader needs.
+fieldset:has(input[value='any']:checked, input[value='week']:checked, input[value='month']:checked, input[value='quarter']:checked) .search-filters__range input {
+  color: var(--muted);
 }
 
 .search-filters__more {
@@ -264,6 +265,7 @@ fieldset:has(input[value='any']:checked, input[value='week']:checked, input[valu
 
 .search-sort {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: var(--space-1);
 

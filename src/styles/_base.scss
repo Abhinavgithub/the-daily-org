@@ -14,6 +14,8 @@ body {
   font-size: var(--fs-body);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  // A word longer than its line, at a large text size or in a narrow column, breaks rather than pushing the page sideways.
+  overflow-wrap: break-word;
 }
 
 a {
