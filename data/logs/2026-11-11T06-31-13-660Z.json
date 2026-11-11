@@ -1,0 +1,430 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-11-11T06:31:13.660Z",
+  "day": "2026-11-11",
+  "seconds": 117,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 1
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 0
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 0
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 1
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 2
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 1
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 2
+    },
+    {
+      "id": "sf-blog",
+      "name": "Salesforce Blog",
+      "items": 10
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 5
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 1
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 0
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 0
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 1
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "jitendra-zaa",
+      "name": "Jitendra Zaa",
+      "items": 0
+    },
+    {
+      "id": "simplysfdc",
+      "name": "SimplySfdc",
+      "items": 0
+    },
+    {
+      "id": "salesforcedevops-net",
+      "name": "SalesforceDevOps.net",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 12
+    },
+    {
+      "id": "dev-to-agentforce",
+      "name": "dev.to (Agentforce)",
+      "items": 0
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 20
+    }
+  ],
+  "articles": [
+    {
+      "title": "Exam date/time changes",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xt5fd3/exam_datetime_changes/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "After the USA midterms",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xswkuc/after_the_usa_midterms/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "3 Ways an Email Authoring Agent Can Boost Your Marketing Campaigns",
+      "url": "https://www.salesforce.com/blog/small-business/email-authoring-agent-for-smbs/",
+      "source": "Salesforce Blog",
+      "outcome": "dropped",
+      "reason": "none of the paper's keywords"
+    },
+    {
+      "title": "Formstack Salesforce integration for a mid size org, worth another subscription?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xt7t69/formstack_salesforce_integration_for_a_mid_size/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Previous Full Stack Developer, now Salesforce Developer, struggling to find clients.",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xt4024/previous_full_stack_developer_now_salesforce/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce Catalog gives AI assistants a live index of your org's metadata",
+      "url": "https://www.salesforce.com/blog/salesforce-catalog-ai-agents/",
+      "source": "Salesforce Blog",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: With Salesforce Catalog, agents stop guessing how your org works"
+    },
+    {
+      "title": "Securing Salesforce with Salesforce: Retiring the Catch-All Inbox for an Agentic Frontline",
+      "url": "https://www.salesforce.com/blog/securing-salesforce-agentic-security-triage/",
+      "source": "Salesforce Blog",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Design a Salesforce security model around user personas",
+      "url": "https://www.salesforce.com/blog/persona-based-security-model/",
+      "source": "Salesforce Architects",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Design a Salesforce Persona-Centered Security Model"
+    },
+    {
+      "title": "From Months to Minutes: How to Launch an Agentic Contact Center Fast",
+      "url": "https://www.salesforce.com/blog/launch-agentic-contact-center/",
+      "source": "Salesforce Blog",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "AI Skills in Agentforce Coworker are now generally available",
+      "url": "https://www.salesforce.com/blog/ai-skills-in-coworker/",
+      "source": "Salesforce Blog",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Enabling Agentforce in an unlimited sandbox",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xswq31/enabling_agentforce_in_an_unlimited_sandbox/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce Admin Exam failed cuz of FoF(K2U)",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xswcp7/salesforce_admin_exam_failed_cuz_of_fofk2u/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "How Salesforce Scaled Engineering AI Adoption Without Stifling Innovation",
+      "url": "https://engineering.salesforce.com/how-salesforce-scaled-engineering-ai-adoption-without-stifling-innovation/",
+      "source": "Salesforce Engineering",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Before you estimate an ERP or CRM implementation, trace one real order to cash",
+      "url": "https://dev.to/juanma_garrido_1974/before-you-estimate-an-erp-or-crm-implementation-trace-one-real-order-to-cash-3ep8",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "New Data Shows Sales Agents Are Rescuing the Sales Cycle",
+      "url": "https://www.salesforce.com/news/stories/how-ai-agents-improve-crm-data-accuracy/",
+      "source": "Salesforce News",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "AgentExchange now lets partners sell apps and services in one private offer",
+      "url": "https://www.salesforce.com/blog/sell-your-full-portfolio-on-agentexchange-in-one-private-offer/",
+      "source": "Salesforce Blog",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Sell Your Full Portfolio on AgentExchange, in One Private Offer"
+    },
+    {
+      "title": "Change Email Name in Automated Campaigns - Engagement Studio/Pardot",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xsqq99/change_email_name_in_automated_campaigns/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Running a seven-stage agent-driven Salesforce lifecycle with the Headless Toolkit",
+      "url": "https://developer.salesforce.com/blogs/2026/11/accelerate-agent-driven-development-with-the-headless-toolkit",
+      "source": "Salesforce Developers Blog",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Accelerate Agent-Driven Development with the Headless Toolkit"
+    },
+    {
+      "title": "Checking a Salesforce Data Export is complete before migrating",
+      "url": "https://dev.to/richardc_ailstudio/how-to-check-that-a-salesforce-data-export-is-complete-before-you-migrate-2c2d",
+      "source": "dev.to",
+      "outcome": "held",
+      "score": 7,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Building a household intake workflow from FormAssembly into Salesforce",
+      "url": "https://salesforcebreak.com/2026/11/10/building-salesforce-intake-workflows-with-formassembly-ai/",
+      "source": "Salesforce Break",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Missionforce National Security Achieves ‘Awardable’ Status for Department of War Recruiting Capabilities in the CDAO’s Tradewinds Solutions Marketplace",
+      "url": "https://www.salesforce.com/news/press-releases/2026/11/10/missionforce-achieves-awardable-status/",
+      "source": "Salesforce News",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Formstack and the Salesforce Integration",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xsl8cm/formstack_and_the_salesforce_integration/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce Backup and Recovery: Protecting Your Org Before Disaster Strikes",
+      "url": "https://dev.to/rohanmehta/salesforce-backup-and-recovery-protecting-your-org-before-disaster-strikes-2m38",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Verify customer code action works for contact but not for lead. Why?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xsik59/verify_customer_code_action_works_for_contact_but/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Upserting Contacts to Accounts with an External ID in Data Loader",
+      "url": "https://dev.to/richardc_ailstudio/how-to-upsert-related-salesforce-records-with-an-external-id-load-accounts-before-contacts-3jh1",
+      "source": "dev.to",
+      "outcome": "held",
+      "score": 7,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Hire Dedicated Salesforce Developer Talent That Treats Connected Apps as Risk",
+      "url": "https://dev.to/rio_albert/hire-dedicated-salesforce-developer-talent-that-treats-connected-apps-as-risk-bh0",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Connecting Shopify, Salesforce, and Marketing Automation Into One Revenue System",
+      "url": "https://dev.to/xapdigital/connecting-shopify-salesforce-and-marketing-automation-into-one-revenue-system-2ie2",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "I’ve been a solo Salesforce admin for 6 years and I keep a few manual processes alive that I could automate in an afternoon",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xsfzxl/ive_been_a_solo_salesforce_admin_for_6_years_and/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce disables Talent Rover integrations after suspicious token use",
+      "url": "https://status.salesforce.com/generalmessages/20000271",
+      "source": "Salesforce Trust",
+      "outcome": "published",
+      "score": 8,
+      "reason": "printed in the Bulletin as an alert (security advisory), whatever its score"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Salesforce disables Talent Rover integrations after suspicious token use",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Salesforce Catalog gives AI assistants a live index of your org's metadata",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Design a Salesforce security model around user personas",
+      "outcome": "corrected"
+    },
+    {
+      "title": "AI Skills in Agentforce Coworker are now generally available",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "AgentExchange now lets partners sell apps and services in one private offer",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Running a seven-stage agent-driven Salesforce lifecycle with the Headless Toolkit",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Checking a Salesforce Data Export is complete before migrating",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Building a household intake workflow from FormAssembly into Salesforce",
+      "outcome": "corrected",
+      "reason": "summary: \"salesforce\" was removed"
+    },
+    {
+      "title": "Upserting Contacts to Accounts with an External ID in Data Loader",
+      "outcome": "corrected"
+    }
+  ],
+  "figures": [
+    {
+      "title": "Running a seven-stage agent-driven Salesforce lifecycle with the Headless Toolkit",
+      "outcome": "drawn",
+      "kind": "steps"
+    }
+  ],
+  "model": {
+    "calls": 24,
+    "retries": {
+      "invalid diagram": 1
+    },
+    "usage": {
+      "anthropic/claude-haiku-5.5": {
+        "input": 108916,
+        "output": 17131
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    },
+    {
+      "name": "Known Issues",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-11-11T06:33:10.498Z"
+}
