@@ -100,8 +100,13 @@ function steps(figure: Extract<Drawn, { kind: 'steps' }>, layout: Layout, p: Pal
   const n = figure.steps.length;
   const ICON = 26;
   if (layout === 'wide') {
+    // Up to five steps on one row. More would leave each box too narrow to read, so they run onto a second
+    // row, as words run onto a second line: the numbers keep the order, and an arrow joins two on the same row.
+    const perRow = n <= 5 ? n : Math.ceil(n / 2);
+    const rows = Math.ceil(n / perRow);
     const gap = 30;
-    const w = (W - 2 * PAD - (n - 1) * gap) / n;
+    const rowGap = 24;
+    const w = (W - 2 * PAD - (perRow - 1) * gap) / perRow;
     const lines = figure.steps.map((step) => wrap(step, w - 20));
     const iconBand = pictures.some(Boolean) ? ICON + 10 : 0;
     const tallest = Math.max(...lines.map((l) => height(l)));
@@ -110,18 +115,20 @@ function steps(figure: Extract<Drawn, { kind: 'steps' }>, layout: Layout, p: Pal
       .map((_, i) => {
         // A short label sits in the middle of the room left for the tallest.
         const shorter = (tallest - height(lines[i])) / 2;
-        const x = PAD + i * (w + gap);
-        const top = PAD;
+        const row = Math.floor(i / perRow);
+        const x = PAD + (i % perRow) * (w + gap);
+        const top = PAD + row * (h + rowGap);
+        const nextOnRow = i < n - 1 && Math.floor((i + 1) / perRow) === row;
         return (
           box(x, top, w, h, p) +
           badge(x + w / 2, top + 14 + 11, i + 1, p) +
           icon(pictures[i], x + w / 2, top + 14 + 22 + 6 + ICON / 2, ICON, p.ink) +
           text(x + w / 2, top + 14 + 22 + iconBand + 4 + shorter, lines[i], p.ink) +
-          (i < n - 1 ? arrow(x + w + 5, top + h / 2, x + w + gap - 5, top + h / 2, p) : '')
+          (nextOnRow ? arrow(x + w + 5, top + h / 2, x + w + gap - 5, top + h / 2, p) : '')
         );
       })
       .join('');
-    return { body, height: h + 2 * PAD };
+    return { body, height: rows * h + (rows - 1) * rowGap + 2 * PAD };
   }
   const gap = 24;
   const w = W - 2 * PAD;

@@ -27,7 +27,7 @@ const Schema = figureSchema(z);
 export const diagramBrief = () => `The kinds of diagram:
 
 {"kind":"steps","caption":"...","steps":["...","..."]}
-  A process or sequence. 2 to 5 steps, in order, each at most ${LIMITS.step} characters.
+  A process or sequence. 2 to 7 steps, in order, each at most ${LIMITS.step} characters.
 
 {"kind":"compare","caption":"...","left":{"heading":"...","points":["...","..."]},"right":{"heading":"...","points":["...","..."]}}
   Two things set side by side: before and after, old and new, one approach against another. Headings at most ${LIMITS.heading} characters; 2 to 4 points a side, each at most ${LIMITS.point} characters.
@@ -48,6 +48,7 @@ Rules:
 - Labels are short noun or verb phrases, not sentences, with no full stop at the end.
 - The limits on length are exact, and spaces count. A label one character over is thrown away with the whole diagram, so write well inside each limit: ${LIMITS.step} characters is about six words, ${LIMITS.heading} about four.
 - "caption" is one plain sentence, at most ${LIMITS.caption} characters, saying what the diagram shows. Do not repeat the headline.
+- Never leave out or merge steps to fit the limit. If the article's process has more steps than "steps" allows, choose another kind, or "none". A caption that gives a count ("the seven stages") must match the steps or parts drawn.
 - Write the names of products and features exactly as the article does.
 - No markdown, no emoji, no quotation marks around labels.`;
 
@@ -119,6 +120,16 @@ export function checkFigure(value: unknown, story: FigureStory, paper: Paper = P
     for (const n of numbersIn(label)) if (!known.has(n)) throw new Error(`"${label}" has the number ${n}, which is not in the story`);
   }
   if (figure.kind === 'numbers' && figure.numbers.some((n) => !/\d/.test(n.value))) throw new Error('a figure in "numbers" has no number in it');
+  // A caption that counts the steps or parts must count those drawn: "the seven stages" over five boxes is wrong.
+  if (figure.kind === 'steps' || figure.kind === 'parts') {
+    const drawn = figure.kind === 'steps' ? figure.steps.length : figure.parts.length;
+    const WORDS = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve'];
+    const counted = figure.caption.toLowerCase().match(new RegExp(`\\b(\\d+|${WORDS.join('|')})[ -](?:[a-z-]+ )?(?:stages?|steps?|phases?|parts?|layers?|pieces?|components?)\\b`));
+    if (counted) {
+      const n = /^\d+$/.test(counted[1]) ? Number(counted[1]) : WORDS.indexOf(counted[1]);
+      if (n !== drawn) throw new Error(`the caption counts ${n} but the diagram has ${drawn}`);
+    }
+  }
   return figure;
 }
 

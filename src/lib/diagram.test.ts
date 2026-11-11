@@ -43,3 +43,12 @@ test('labels wrap at spaces to fit their box, and text is escaped', () => {
   assert.deepEqual(wrap('Use ExperienceCloudSiteBuilder', 80), ['Use', 'Experien-', 'ceCloudS-', 'iteBuild-', 'er'], 'no line wider than its box');
   assert.ok(figureSvg({ kind: 'steps', caption: 'A & B', steps: ['<script>', 'x & y'] }, 'narrow').includes('&lt;script&gt;'));
 });
+
+test('more than five steps run onto a second row across, each still drawn and numbered', () => {
+  const seven = { kind: 'steps', caption: 'Seven stages', steps: ['Ground', 'Specify', 'Build', 'Verify', 'Review', 'Release', 'Observe'] } as Extract<Drawn, { kind: 'steps' }>;
+  const svg = figureSvg(seven, 'wide');
+  for (const step of seven.steps) assert.ok(drawnText(svg).includes(step), step);
+  assert.equal(svg.match(/<rect /g)?.length, 7);
+  const one = figureSvg({ ...seven, steps: seven.steps.slice(0, 5) }, 'wide');
+  assert.ok(Number(svg.match(/height="(\d+)"/)![1]) > Number(one.match(/height="(\d+)"/)![1]), 'two rows are taller than one');
+});

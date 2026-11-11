@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import sharp from 'sharp';
-import { addFigures, makeFigure as makeFigureFor, socialCard, validateFigure as validateFigureFor } from './figure';
+import { addFigures, checkFigure, makeFigure as makeFigureFor, socialCard, validateFigure as validateFigureFor } from './figure';
 import { LlmClient } from './llm';
 
 // The tests' own paper, not the one this project publishes.
@@ -175,4 +175,12 @@ test('every story gets a diagram, best first, and only the top one a social card
   assert.match(fs.readFileSync(path.join(dir, '01-story.md'), 'utf8'), /kind: steps/);
   assert.doesNotMatch(fs.readFileSync(path.join(dir, '06-story.md'), 'utf8'), /kind: steps/);
   assert.deepEqual(fs.readdirSync(path.join(places.figuresDir, '2026-10-04')), ['01-story.png']);
+});
+
+test('a caption that counts the steps must count those drawn', () => {
+  const story = { title: 'A lifecycle', summary: 'Seven stages.' };
+  const five = { kind: 'steps', caption: 'The seven stages of the lifecycle', steps: ['A step', 'B step', 'C step', 'D step', 'E step'] };
+  assert.throws(() => checkFigure(five, story), /counts 7 but the diagram has 5/);
+  assert.doesNotThrow(() => checkFigure({ ...five, caption: 'The five stages of the lifecycle' }, story));
+  assert.doesNotThrow(() => checkFigure({ ...five, caption: 'How the lifecycle runs' }, story));
 });

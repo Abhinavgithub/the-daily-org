@@ -20,7 +20,7 @@ export function figureSchema(z: typeof Zod) {
   return z.discriminatedUnion('kind', [
     // The model looked and found nothing worth drawing. Kept so the story is not asked about again.
     z.object({ kind: z.literal('none') }),
-    z.object({ kind: z.literal('steps'), caption, steps: z.array(text(LIMITS.step)).min(2).max(5), icons }),
+    z.object({ kind: z.literal('steps'), caption, steps: z.array(text(LIMITS.step)).min(2).max(7), icons }),
     z.object({ kind: z.literal('compare'), caption, left: side, right: side, icons }),
     z.object({
       kind: z.literal('numbers'),

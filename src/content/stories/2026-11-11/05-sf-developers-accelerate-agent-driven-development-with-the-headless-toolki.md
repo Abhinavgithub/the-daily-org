@@ -31,15 +31,19 @@ figure:
   steps:
     - Ground in business and org
     - Specify what to build
-    - Build, then verify
+    - Build with the agent
+    - Verify with tests and checks
     - Review with a reviewer agent
     - Release through a human gate
+    - Observe and feed mistakes back
   icons:
     - search
     - doc
     - code
+    - test
     - check
     - rocket
+    - chart
 figure_image: /figures/2026-11-11/05-sf-developers-accelerate-agent-driven-development-with-the-headless-toolki.png
 ---
 
