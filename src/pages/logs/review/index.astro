@@ -36,13 +36,6 @@ const stamp = (iso: string) => new Intl.DateTimeFormat('en-GB', { day: 'numeric'
 
     <div class="ledger ledger--wide review">
       {
-        !canMark && (
-          <p class="ledger__note">
-            Read only. Items are marked done under <code>npm run dev</code>.
-          </p>
-        )
-      }
-      {
         groups.map((group) => (
           <section class="ledger__row" id={group.kind} data-group={group.kind}>
             <h2>
