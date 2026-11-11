@@ -9,6 +9,8 @@ import { fetchTranscript, VIDEO_CHARS, videoId, videoText, type Transcript } fro
 // How much of an article the model reads. Long enough for nearly every article whole: of 104 printed from
 // 20 October to 11 November 2026, 30 ran past 12,000 characters and lost their later sections, and one past 30,000.
 const MAX_CHARS = 30_000;
+/** How much the model read before that, for finding the stories summarised from too little. */
+export const OLD_CUT = 12_000;
 /** With this much text in the feed, the article page adds nothing and is not requested. */
 export const FULL_TEXT = 1500;
 const IMAGE_META = [

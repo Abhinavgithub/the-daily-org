@@ -37,6 +37,7 @@ Which file does what. Every source file opens with a comment saying what it is f
 | Diagram | `pipeline/figure.ts`: `system` |
 | Release edition | `pipeline/release-edition.ts`: `prompt` and the two inline system messages |
 | Fix a reported mistake | `pipeline/correct.ts`: `fixSystem` |
+| Write a story's summary again | `pipeline/curate.ts`: `resummarise`, with the same `SUMMARY_RULE` as a new story |
 
 Read the prompt before blaming it: a limit or rule may already be there.
 

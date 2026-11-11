@@ -3,8 +3,8 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { parseArgs } from 'node:util';
 import { withCorrection, fixStory } from './correct';
-import { proofread, type Copy } from './curate';
-import { articleText } from './extract';
+import { proofread, resummarise, type Copy } from './curate';
+import { articleText, OLD_CUT } from './extract';
 import { configFromEnv, LlmClient, modelsOrStop } from './llm';
 import { applyGlossary, sentenceCase } from './style';
 import { loadReaderFeedback, markHandled } from './verdict-dev';
@@ -24,6 +24,14 @@ import { openStory, STORIES_DIR, storyText } from './write';
 //
 //   npm run revise -- --report <id>   a report from the Logs page (/logs/#readers), which is then dealt with
 //   npm run revise -- --story 2026-10-04/some-story --hint "the limit is 50, not 100"
+//
+// And writes a story's summary again from its whole article, for one summarised from too little of it: the
+// model once read only the first ${'${OLD_CUT}'} characters. Only the summary changes, and no correction is printed,
+// since nothing it said was wrong. Its headline, reason to read, scores and diagram stand.
+//
+//   npm run revise -- --resummarise --list   which stories are owed one, by reading their articles; no model calls
+//   npm run revise -- --resummarise          every story whose article ran past the old cut
+//   npm run revise -- --resummarise --story 2026-11-11/some-story
 
 const { values: args } = parseArgs({
   options: {
@@ -32,6 +40,8 @@ const { values: args } = parseArgs({
     story: { type: 'string' },
     report: { type: 'string' },
     hint: { type: 'string' },
+    resummarise: { type: 'boolean', default: false },
+    list: { type: 'boolean', default: false },
   },
 });
 const glossaryOnly = args['glossary-only'];
@@ -64,8 +74,13 @@ if (only && !fs.existsSync(files[0])) {
   process.exit(1);
 }
 
+if (args.resummarise && (hint || glossaryOnly)) {
+  console.error('--resummarise goes alone, or with --story or --list.');
+  process.exit(1);
+}
+
 let llm: LlmClient | undefined;
-if (!glossaryOnly) {
+if (!glossaryOnly && !(args.resummarise && args.list)) {
   const config = configFromEnv({ model: args.model });
   const models = await modelsOrStop(config, {
     noKey: 'LLM_API_KEY is not set. Use --glossary-only to fix capitalisation without the model.',
@@ -85,6 +100,49 @@ function show(label: string, before: string, after: string) {
     console.log(`      before: ${paragraph}`);
     console.log(`      after:  ${now[i] ?? '(removed)'}`);
   });
+}
+
+if (args.resummarise) {
+  let done = 0;
+  let owed = 0;
+  for (const file of files) {
+    const story = openStory(fs.readFileSync(file, 'utf8'));
+    if (!story) continue;
+    const data = story.doc.toJS() as { title: string; why_read: string; url: string; source: string; source_type?: string };
+    const name = path.relative(STORIES_DIR, file).replace(/\.md$/, '');
+    if (data.source_type === 'video') continue;
+    const article = await articleText(data.url);
+    // A story named is written again whatever its length; otherwise only one the old cut left short.
+    if (!article || (!only && article.length <= OLD_CUT)) {
+      if (only) console.log(`  ${name}: its article could not be read, so it is left as it is.`);
+      continue;
+    }
+    owed++;
+    if (args.list || !llm) {
+      console.log(`  ${name}  (${article.length.toLocaleString('en-GB')} characters)`);
+      continue;
+    }
+    const before = story.body.trim();
+    const fresh = await resummarise(llm, data, article);
+    if ('failed' in fresh) {
+      console.log(`  Not written again: ${data.title} (${fresh.failed})`);
+      continue;
+    }
+    // Proof-read as every story is; only its summary is taken.
+    const proof = await proofread(llm, { title: data.title, why_read: data.why_read, summary: fresh.summary });
+    const summary = proof.usable ? proof.copy.summary : fresh.summary;
+    fs.writeFileSync(file, storyText(story.doc, `\n${summary}\n`));
+    done++;
+    const words = (text: string) => text.split(/\s+/).filter(Boolean).length;
+    const paras = (text: string) => text.split(/\n\s*\n/).filter((p) => p.trim()).length;
+    console.log(`  ${data.title}\n    ${words(before)} words in ${paras(before)} paragraphs, now ${words(summary)} in ${paras(summary)}`);
+  }
+  console.log(
+    args.list || !llm
+      ? `\n${owed} ${owed === 1 ? 'story is' : 'stories are'} owed a summary from the whole article.`
+      : `\nWrote ${done} of ${owed} summaries again${llm ? ` (${llm.calls} model calls, $${llm.cost.toFixed(4)})` : ''}. See them with \`git diff\`.`,
+  );
+  process.exit(0);
 }
 
 if (hint && llm) {

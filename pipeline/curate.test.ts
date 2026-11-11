@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { cleanHeadline as cleanHeadlineFor, curate as curateFor, editorPrompt, firstLook, firstLooks, InvalidVerdict, namesIn, parseJsonLoosely, plainText, prefilter as prefilterFor, proofread as proofreadFor, proofreadAll, unfaithful, verdictSchema } from './curate';
+import { cleanHeadline as cleanHeadlineFor, curate as curateFor, editorPrompt, firstLook, firstLooks, InvalidVerdict, namesIn, parseJsonLoosely, plainText, prefilter as prefilterFor, proofread as proofreadFor, proofreadAll, resummarise, SUMMARY_RULE, unfaithful, verdictSchema } from './curate';
 import { definePaper, problemsWith } from '../src/paper';
 import { canonicalUrl } from './dedupe';
 import { client, good, item, ok, PAPER } from './testing';
@@ -370,4 +370,20 @@ test('forum posts get their first look together, and a muddled reply decides not
   assert.equal((await firstLooks(run.llm, posts, PAPER)).size, 0, 'one answer short');
   run = client([]);
   assert.equal((await firstLooks(run.llm, [posts[0]], PAPER)).size, 0, 'a post alone is left to its own first look');
+});
+
+test('a summary written again covers the whole article, and only the summary comes back', async () => {
+  const story = { title: 'A seven-stage lifecycle', why_read: 'You will learn the stages.', source: 'A blog' };
+  const two = 'The first part covers grounding.\n\nThe second part covers the rest of the stages.';
+  const { llm } = client([() => ok(JSON.stringify({ summary: two }))]);
+  assert.deepEqual(await resummarise(llm, story, 'The whole article.', PAPER), { summary: two });
+  assert.ok(editorPrompt(PAPER).includes(SUMMARY_RULE), 'the same rule as for a new story');
+  assert.match(SUMMARY_RULE, /Cover the whole piece/);
+});
+
+test('a summary of one paragraph, or not JSON, is asked for again, and then given up', async () => {
+  const story = { title: 'A lifecycle', why_read: 'You will learn it.', source: 'A blog' };
+  const { llm } = client([() => ok(JSON.stringify({ summary: 'Only one paragraph.' })), () => ok('not json')]);
+  const result = await resummarise(llm, story, 'The article.', PAPER);
+  assert.ok('failed' in result);
 });
