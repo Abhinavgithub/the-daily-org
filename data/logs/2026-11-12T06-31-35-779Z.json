@@ -1,0 +1,448 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-11-12T06:31:35.779Z",
+  "day": "2026-11-12",
+  "seconds": 130,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 3
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 0
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 0
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 2
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 3
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 1
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 3
+    },
+    {
+      "id": "sf-blog",
+      "name": "Salesforce Blog",
+      "items": 10
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 9
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 1
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 0
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 0
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 2
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "jitendra-zaa",
+      "name": "Jitendra Zaa",
+      "items": 0
+    },
+    {
+      "id": "simplysfdc",
+      "name": "SimplySfdc",
+      "items": 0
+    },
+    {
+      "id": "salesforcedevops-net",
+      "name": "SalesforceDevOps.net",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 12
+    },
+    {
+      "id": "dev-to-agentforce",
+      "name": "dev.to (Agentforce)",
+      "items": 0
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 23
+    }
+  ],
+  "articles": [
+    {
+      "title": "Salesforce Developers working a abroad can we connect ?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xu45s7/salesforce_developers_working_a_abroad_can_we/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "10 B2B Vs. B2C Marketing Tips for Small Teams",
+      "url": "https://www.salesforce.com/blog/small-business/b2b-vs-b2c-marketing-tips-for-small-teams/",
+      "source": "Salesforce Blog",
+      "outcome": "dropped",
+      "reason": "none of the paper's keywords"
+    },
+    {
+      "title": "Salesforce Financial Services Cloud for Banking and Insurance: The 2026 Guide",
+      "url": "https://dev.to/shashi_kanthk_03a0520b720/salesforce-financial-services-cloud-for-banking-and-insurance-the-2026-guide-5e4h",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Advice on career",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xu4ssm/advice_on_career/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Got my Admin + PD1 certs, built a Salesforce app with Agentforce, and now trying to land my first job. What else should I be doing?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xu4bp6/got_my_admin_pd1_certs_built_a_salesforce_app/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce SF shuttles",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xu13h5/salesforce_sf_shuttles/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "What's the actual difference between SQL and SOQL?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xu0op9/whats_the_actual_difference_between_sql_and_soql/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Several Connected Apps reported disabled in nonprofit orgs",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xtynf7/all_the_apps_are_down/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 6,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "EGI-Bench scores AI agents across six enterprise skill dimensions",
+      "url": "https://engineering.salesforce.com/6-ai-agent-capabilities-to-evaluate-before-enterprise-deployment/",
+      "source": "Salesforce Engineering",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Calendar / asset booking software that integrates with Opportunities on Salesforce?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xtwkgx/calendar_asset_booking_software_that_integrates/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Anyone interviewed for Salesforce FDE in Saudi Arabia?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xtth6a/anyone_interviewed_for_salesforce_fde_in_saudi/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce Maps mobile app retires on 31 August 2026",
+      "url": "https://dev.to/shaoor_ahmad_f9ab22689b95/salesforce-maps-mobile-app-retired-on-31-august-2026-options-for-field-sales-teams-1d55",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Salesforce Maps mobile app retired on 31 August 2026: options for field sales teams"
+    },
+    {
+      "title": "Is the Salesforce Job Market Finally Recovering?",
+      "url": "https://www.salesforceben.com/is-the-salesforce-job-market-finally-recovering/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Salesforce’s Next Big Bet? Agentforce Coworker Usage Grew 21x in 3 Months",
+      "url": "https://www.salesforceben.com/salesforces-next-big-bet-agentforce-coworker-usage-grew-21x-in-3-months/",
+      "source": "Salesforce Ben",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Write a metric contract before giving an AI agent access to CRM and ERP data",
+      "url": "https://dev.to/juanma_garrido_1974/three-systems-three-numbers-write-a-metric-contract-before-you-put-an-ai-agent-on-your-crm-and-erp-38on",
+      "source": "dev.to",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Trailblazer Community forums move to Slack, with read-only dates and access steps",
+      "url": "https://salesforcebreak.com/2026/11/11/trailblazer-community-forums-move-to-slack/",
+      "source": "Salesforce Break",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Trailblazer Community Forums Move to Slack: Dates, Access, and What Changes"
+    },
+    {
+      "title": "Agentforce agents move to AiAgentDefinition metadata types in API version 68.0",
+      "url": "https://developer.salesforce.com/blogs/2026/11/agentforce-metadata-types-in-winter-27-dive-into-aiagentdefinition",
+      "source": "Salesforce Developers Blog",
+      "outcome": "published",
+      "score": 9,
+      "reason": "article title: Agentforce Metadata Types in Winter ’27: Dive into AiAgentDefinition"
+    },
+    {
+      "title": "Salesforce Releases R&D Agents That Improve Its AI Models",
+      "url": "https://www.salesforce.com/news/stories/agents-that-improve-ai-models/",
+      "source": "Salesforce News",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Why Agentforce Needs Customer Feedback on the Salesforce Record",
+      "url": "https://www.salesforceben.com/why-agentforce-needs-customer-feedback-on-the-salesforce-record/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Reconciling record counts and parent relationships after a Salesforce load",
+      "url": "https://dev.to/richardc_ailstudio/how-to-check-record-counts-and-parent-relationships-after-a-salesforce-load-1k5a",
+      "source": "dev.to",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "D'fflib, a planned open-source extension to the fflib Apex framework",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xthw0t/dfflib_extending_the_fflib_apexcommon_framework/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 6,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "ApexAgent, an open source Apex framework for AI agents and MCP servers",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xthndu/7_months_building_apexagent_an_open_source_apex/",
+      "source": "r/salesforce",
+      "outcome": "published",
+      "score": 5,
+      "reason": "printed in the Bulletin, as a line from the community"
+    },
+    {
+      "title": "is SFCC the best platform for 3 brands on one stack?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xthmmr/is_sfcc_the_best_platform_for_3_brands_on_one/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Salesforce Platform Events: Build Event-Driven Applications With Apex",
+      "url": "https://dev.to/neha_6ddfbf87f8ffe5f87b89/salesforce-platform-events-build-event-driven-applications-with-apex-1o5",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Using Apex savepoints to roll back a failed multi-step transaction",
+      "url": "https://dev.to/neha_6ddfbf87f8ffe5f87b89/salesforce-apex-savepoints-how-to-handle-transaction-rollbacks-2jfn",
+      "source": "dev.to",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Salesforce Koa, a reasoning model trained on CRM work, is in pilot",
+      "url": "https://dev.to/rohanmehta/salesforce-koa-explained-a-crm-reasoning-model-built-for-agentforce-nk0",
+      "source": "dev.to",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "What's a mistake you made at work that taught you a valuable lesson?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xtcjgg/whats_a_mistake_you_made_at_work_that_taught_you/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Modelling FCA complaints data in Salesforce and avoiding the UTC time zone trap",
+      "url": "https://dev.to/anuragsfdc/modelling-fca-complaints-data-in-salesforce-five-fields-and-a-time-zone-trap-1c6k",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Modelling FCA Complaints Data in Salesforce: Five Fields and a Time Zone Trap"
+    },
+    {
+      "title": "Salesforce disables GoFundMe Pro Connected App after suspicious token use",
+      "url": "https://status.salesforce.com/generalmessages/20000272",
+      "source": "Salesforce Trust",
+      "outcome": "published",
+      "score": 7,
+      "reason": "printed in the Bulletin as an alert (security advisory), whatever its score"
+    },
+    {
+      "title": "Apex compilation and deployment disrupted on 179 instances after a release",
+      "url": "https://status.salesforce.com/incidents/20004592",
+      "source": "Salesforce Trust",
+      "outcome": "published",
+      "score": 7,
+      "reason": "printed in the Bulletin as an alert (incident), whatever its score"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Salesforce disables GoFundMe Pro Connected App after suspicious token use",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Apex compilation and deployment disrupted on 179 instances after a release",
+      "outcome": "corrected"
+    },
+    {
+      "title": "EGI-Bench scores AI agents across six enterprise skill dimensions",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Salesforce Maps mobile app retires on 31 August 2026",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Write a metric contract before giving an AI agent access to CRM and ERP data",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Trailblazer Community forums move to Slack, with read-only dates and access steps",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Agentforce agents move to AiAgentDefinition metadata types in API version 68.0",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Reconciling record counts and parent relationships after a Salesforce load",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Using Apex savepoints to roll back a failed multi-step transaction",
+      "outcome": "kept",
+      "reason": "reason to read: \"database\" was removed"
+    },
+    {
+      "title": "Salesforce Koa, a reasoning model trained on CRM work, is in pilot",
+      "outcome": "kept",
+      "reason": "reason to read: \"gpt-4\" was removed; summary: \"gpt-4\" was removed"
+    },
+    {
+      "title": "Modelling FCA complaints data in Salesforce and avoiding the UTC time zone trap",
+      "outcome": "unchanged"
+    }
+  ],
+  "figures": [
+    {
+      "title": "Trailblazer Community forums move to Slack, with read-only dates and access steps",
+      "outcome": "drawn",
+      "kind": "timeline"
+    }
+  ],
+  "model": {
+    "calls": 26,
+    "retries": {},
+    "usage": {
+      "anthropic/claude-haiku-5.5": {
+        "input": 117203,
+        "output": 22096
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    },
+    {
+      "name": "Known Issues",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-11-12T06:33:46.168Z"
+}
