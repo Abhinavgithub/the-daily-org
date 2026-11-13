@@ -4,7 +4,7 @@ original_title: "Agentforce Coworker: The AI Front Door Your Salesforce Users Ac
 url: https://dev.to/rohanmehta/agentforce-coworker-the-ai-front-door-your-salesforce-users-actually-need-1hgl
 source: dev.to
 source_type: community
-date: 2026-11-10
+date: 2026-11-13
 section: agentforce-and-ai
 personas:
   - admin
@@ -36,6 +36,7 @@ figure:
     - lock
     - robot
     - mail
+held_from: 2026-11-10
 ---
 
 Agentforce Coworker is described as Salesforce's AI assistant for employees, sitting in the search bar and routing user requests to specialist agents. Without well-built agents it can still answer questions from org data but can do little else. The article says it reached general availability at Dreamforce and that more than 185,000 people use it.

@@ -4,7 +4,7 @@ original_title: Your AI agent is a while loop. Your company's approval policy is
 url: https://dev.to/juanma_garrido_1974/your-ai-agent-is-a-while-loop-your-companys-approval-policy-is-not-4bba
 source: dev.to
 source_type: community
-date: 2026-11-10
+date: 2026-11-13
 section: agentforce-and-ai
 personas:
   - architect
@@ -36,6 +36,7 @@ figure:
     - search
     - check
     - warning
+held_from: 2026-11-10
 ---
 
 The article argues that an AI agent is essentially an LLM in a loop, and that the difficulty in a company lies in the policy questions nobody has answered, such as who may approve a discount above a rep's limit when the usual approver is unavailable. An agent should not invent such a policy, because any answer it gives looks like a decision but is only a guess.

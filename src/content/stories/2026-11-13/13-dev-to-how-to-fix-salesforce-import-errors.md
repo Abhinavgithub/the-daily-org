@@ -4,7 +4,7 @@ original_title: How to fix Salesforce import errors
 url: https://dev.to/operelio/how-to-fix-salesforce-import-errors-3fig
 source: dev.to
 source_type: community
-date: 2026-11-10
+date: 2026-11-13
 section: flow-and-admin
 personas:
   - admin
@@ -43,6 +43,7 @@ figure:
   icons:
     - cloud
     - server
+held_from: 2026-11-10
 ---
 
 The article starts by separating the two import routes. The Data Import Wizard runs in the browser from Setup, suits smaller loads under 50,000 records on supported objects, and is the easier starting point. Data Loader is a desktop application that needs Java 17 or later, covers all objects including Custom Objects, supports upserts, deletes and scheduled command-line loads, and is the route to take when a file outgrows the wizard.

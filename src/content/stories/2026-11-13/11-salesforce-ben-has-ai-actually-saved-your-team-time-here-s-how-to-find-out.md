@@ -4,7 +4,7 @@ original_title: Has AI Actually Saved Your Team Time? Here’s How to Find Out
 url: https://www.salesforceben.com/has-ai-actually-saved-your-team-time-heres-how-to-find-out/
 source: Salesforce Ben
 source_type: community
-date: 2026-11-10
+date: 2026-11-13
 section: devops
 personas:
   - admin
@@ -24,6 +24,22 @@ depth_score: 5
 novelty_score: 4
 utility_score: 6
 model: anthropic/claude-haiku-5.5
+held_from: 2026-11-10
+figure:
+  kind: steps
+  caption: The four DORA metrics plus rework rate, used together to test whether faster delivery costs stability
+  steps:
+    - Deployment frequency
+    - Lead time to change
+    - Change failure rate
+    - Time to recover
+    - Rework rate
+  icons:
+    - rocket
+    - clock
+    - warning
+    - check
+    - flow
 ---
 
 The article argues that organisations judge AI-assisted development by activity such as lines of code, tickets closed and pull requests merged, which are easy to game and say little about whether the work is valuable. It cites Google's DORA research finding that rising AI use correlates with greater org instability, and that the rework this creates can consume the time AI was meant to save.

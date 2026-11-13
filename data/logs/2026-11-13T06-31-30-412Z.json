@@ -1,0 +1,510 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-11-13T06:31:30.412Z",
+  "day": "2026-11-13",
+  "seconds": 114,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 3
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 1
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 0
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 2
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 2
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 1
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 1
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 3
+    },
+    {
+      "id": "sf-blog",
+      "name": "Salesforce Blog",
+      "items": 6
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 6
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 1
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 0
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 0
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 1
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "jitendra-zaa",
+      "name": "Jitendra Zaa",
+      "items": 0
+    },
+    {
+      "id": "simplysfdc",
+      "name": "SimplySfdc",
+      "items": 0
+    },
+    {
+      "id": "salesforcedevops-net",
+      "name": "SalesforceDevOps.net",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 11
+    },
+    {
+      "id": "dev-to-agentforce",
+      "name": "dev.to (Agentforce)",
+      "items": 0
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 23
+    }
+  ],
+  "articles": [
+    {
+      "title": "Anyone else Love flow after finding Avonni?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xuxlbd/anyone_else_love_flow_after_finding_avonni/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Question regarding M365 outage today",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xuwl0x/question_regarding_m365_outage_today/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "And to think, just a few months ago, Mark was walking around the keynote with Jensen",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xuo1w3/and_to_think_just_a_few_months_ago_mark_was/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Slack for Trailblazer Community",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xuk7z2/slack_for_trailblazer_community/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "New Data: Holiday Shoppers Will Rely on Agents. Retailers Must Be Ready.",
+      "url": "https://www.salesforce.com/news/stories/ai-first-holiday/",
+      "source": "Salesforce News",
+      "outcome": "dropped",
+      "reason": "none of the paper's keywords"
+    },
+    {
+      "title": "Service and Sales: Unifying the Customer Journey for a Better Customer Experience",
+      "url": "https://www.salesforce.com/blog/service-sales-unified-customer/",
+      "source": "Salesforce Blog",
+      "outcome": "dropped",
+      "reason": "none of the paper's keywords"
+    },
+    {
+      "title": "For AI Advice to Be Any Good, It Has to Actually Change the Outcome",
+      "url": "https://www.salesforce.com/news/stories/visual-ai-assistants-ivg-lessons/",
+      "source": "Salesforce News",
+      "outcome": "dropped",
+      "reason": "none of the paper's keywords"
+    },
+    {
+      "title": "Clients vibe coding",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xuxs9q/clients_vibe_coding/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce CRM: What It Is, Objects, Editions and Setup",
+      "url": "https://dev.to/billionverify/salesforce-crm-what-it-is-objects-editions-and-setup-1eo1",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "The Agentic AI Overlay:  Modernizing IT Service Without “Rip and Replace”",
+      "url": "https://www.salesforce.com/blog/it-agentic-overlay/",
+      "source": "Salesforce Blog",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "AI sales tools hit a new low. HighLevel didn't care.",
+      "url": "https://dev.to/rankdude/ai-sales-tools-hit-a-new-low-highlevel-didnt-care-33p1",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "creating an opp from a contact",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xuohxv/creating_an_opp_from_a_contact/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Threat actors are using the ARTEX framework against Salesforce orgs; here is how to defend",
+      "url": "https://www.salesforce.com/blog/artex-agentic-ai-attacks/",
+      "source": "Salesforce Blog",
+      "outcome": "published",
+      "score": 8,
+      "reason": "article title: Agentic AI Attacks Are Here: What We’re Seeing with ARTEX, and How to Protect Your Org"
+    },
+    {
+      "title": "Do Salesforce developers need admin support just to discover accessible fields?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xuitm3/do_salesforce_developers_need_admin_support_just/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "I didn't realize Salesforce had permissions at the individual column level",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xuiqv9/i_didnt_realize_salesforce_had_permissions_at_the/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Need career advice – Junior Salesforce Developer facing an unexpected job release due to lack of projects",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xuhruo/need_career_advice_junior_salesforce_developer/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "AIforce exposes Salesforce configuration to outside agents through MCP and the Headless Toolkit",
+      "url": "https://admin.salesforce.com/blog/2026/introduction-to-aiforce-for-admins",
+      "source": "Salesforce Admins Blog",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Introduction to AIforce for Admins"
+    },
+    {
+      "title": "Create a Report/Dashboard for effective forecasting",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xugvz8/create_a_reportdashboard_for_effective_forecasting/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "How HXL widgets reach the screen in Agentforce and MCP clients",
+      "url": "https://developer.salesforce.com/blogs/2026/11/how-hxl-widgets-render-in-agentforce-and-mcp-clients",
+      "source": "Salesforce Developers Blog",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: How HXL Widgets Render in Agentforce and MCP Clients"
+    },
+    {
+      "title": "Deployment of Custom Fields + Translations and Permission Set Access",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xug55u/deployment_of_custom_fields_translations_and/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce Admin Certification Exam in 2 Days – Need Last-Minute Preparation Tips!",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xuel0o/salesforce_admin_certification_exam_in_2_days/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Where would you pivot with an eye on tomorrow?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xudof8/where_would_you_pivot_with_an_eye_on_tomorrow/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Talk Like an Architect: How to Turn Objections Into Decisions",
+      "url": "https://www.salesforce.com/blog/talk-like-an-architect-turn-objections-into-decisions/",
+      "source": "Salesforce Architects",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "4 Headless Commerce Strategies For SMB Shops",
+      "url": "https://www.salesforce.com/blog/small-business/4-headless-commerce-strategies-for-smb-shops/",
+      "source": "Salesforce Blog",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Best way to build a 4-level dependent classification in Salesforce when Level 2 values repeat across Level 1?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xucwk6/best_way_to_build_a_4level_dependent/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "What I hate most about Agentforce Coworker",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xucjd1/what_i_hate_most_about_agentforce_coworker/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce disables two Connected Apps over suspicious access token use",
+      "url": "https://www.salesforceben.com/connected-app-warnings-return-as-salesforce-disables-two-integrations/",
+      "source": "Salesforce Ben",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Builder Central lets admins build and edit in a virtual layer before touching the sandbox",
+      "url": "https://admin.salesforce.com/blog/2026/how-builder-central-is-changing-the-way-admins-build-podcast",
+      "source": "Salesforce Admins Blog",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: How Builder Central Is Changing the Way Admins Build"
+    },
+    {
+      "title": "AI Skills let Agentforce Coworker run repeatable team tasks",
+      "url": "https://www.salesforceben.com/salesforce-launches-ai-skills-in-agentforce-coworker/",
+      "source": "Salesforce Ben",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Interview feedback process for GDC STC",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xubpmt/interview_feedback_process_for_gdc_stc/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "AIforce brings Salesforce data into Claude, Slack and Lightning through MCP",
+      "url": "https://dev.to/rohanmehta/aiforce-explained-salesforces-data-and-ai-wherever-you-actually-work-2j58",
+      "source": "dev.to",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Salesforce and SharePoint Integration:  Make Your Documents Work Together",
+      "url": "https://salesforcetime.com/2026/11/12/salesforce-and-sharepoint-integration-make-your-documents-work-together/",
+      "source": "Salesforce Time",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Bulkifying an Opportunity trigger to avoid the 101 SOQL limit error",
+      "url": "https://dev.to/sanya_mittal_a509a2c50a2d/fixing-salesforce-governor-limit-errors-in-apex-triggers-1i7l",
+      "source": "dev.to",
+      "outcome": "held",
+      "score": 7,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "We're trying to improve how we manage google forms and salesforce. What's a practical way to connect them?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xu7eqe/were_trying_to_improve_how_we_manage_google_forms/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Salesforce CLI 2.159.7: deploys now include package directories behind symbolic links",
+      "url": "https://github.com/forcedotcom/cli/blob/main/releasenotes/README.md?v=2.159.7#21597-november-11-2026-stable-rc",
+      "source": "Salesforce CLI",
+      "outcome": "published",
+      "score": 3,
+      "reason": "printed in the Bulletin; every release of a tool is"
+    },
+    {
+      "title": "Finding Contacts with a blank AccountId after a Salesforce migration",
+      "url": "https://dev.to/richardc_ailstudio/how-to-find-orphan-contacts-after-a-salesforce-migration-accountid-is-blank-4adn",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-11-10; printed today, having waited its days for room"
+    },
+    {
+      "title": "Keep approval policy in data and deterministic code, not in an agent's prompt",
+      "url": "https://dev.to/juanma_garrido_1974/your-ai-agent-is-a-while-loop-your-companys-approval-policy-is-not-4bba",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-11-10; printed today, having waited its days for room"
+    },
+    {
+      "title": "Measure AI's effect on Salesforce delivery with DORA metrics, not output counts",
+      "url": "https://www.salesforceben.com/has-ai-actually-saved-your-team-time-heres-how-to-find-out/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-11-10; printed today, having waited its days for room"
+    },
+    {
+      "title": "Agentforce Coworker is switched on in some orgs, so check it before users ask",
+      "url": "https://dev.to/rohanmehta/agentforce-coworker-the-ai-front-door-your-salesforce-users-actually-need-1hgl",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-11-10; printed today, having waited its days for room"
+    },
+    {
+      "title": "Fixing common Salesforce Import errors and the surprises that follow a Load",
+      "url": "https://dev.to/operelio/how-to-fix-salesforce-import-errors-3fig",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-11-10; printed today, having waited its days for room"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Threat actors are using the ARTEX framework against Salesforce orgs; here is how to defend",
+      "outcome": "corrected"
+    },
+    {
+      "title": "AIforce exposes Salesforce configuration to outside agents through MCP and the Headless Toolkit",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "How HXL widgets reach the screen in Agentforce and MCP clients",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Salesforce disables two Connected Apps over suspicious access token use",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Builder Central lets admins build and edit in a virtual layer before touching the sandbox",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "AI Skills let Agentforce Coworker run repeatable team tasks",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "AIforce brings Salesforce data into Claude, Slack and Lightning through MCP",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Bulkifying an Opportunity trigger to avoid the 101 SOQL limit error",
+      "outcome": "kept",
+      "reason": "summary: \"limits\" was removed"
+    }
+  ],
+  "figures": [
+    {
+      "title": "Threat actors are using the ARTEX framework against Salesforce orgs; here is how to defend",
+      "outcome": "drawn",
+      "kind": "steps"
+    },
+    {
+      "title": "Measure AI's effect on Salesforce delivery with DORA metrics, not output counts",
+      "outcome": "drawn",
+      "kind": "steps"
+    }
+  ],
+  "model": {
+    "calls": 21,
+    "retries": {
+      "invalid diagram": 1
+    },
+    "usage": {
+      "anthropic/claude-haiku-5.5": {
+        "input": 118303,
+        "output": 16982
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    },
+    {
+      "name": "Known Issues",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-11-13T06:33:24.677Z"
+}

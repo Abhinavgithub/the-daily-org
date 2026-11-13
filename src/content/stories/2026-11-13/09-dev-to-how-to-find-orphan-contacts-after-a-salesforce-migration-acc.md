@@ -4,7 +4,7 @@ original_title: How to find orphan Contacts after a Salesforce migration (Accoun
 url: https://dev.to/richardc_ailstudio/how-to-find-orphan-contacts-after-a-salesforce-migration-accountid-is-blank-4adn
 source: dev.to
 source_type: community
-date: 2026-11-10
+date: 2026-11-13
 section: flow-and-admin
 personas:
   - admin
@@ -39,6 +39,7 @@ figure:
     - check
     - lock
     - test
+held_from: 2026-11-10
 ---
 
 After a migration, a Contact can keep all its field values and still have a blank AccountId. That is an orphan, which differs from a wrong-parent Contact whose AccountId points at the wrong company. The article notes that Salesforce Help says Contacts not linked to an Account are private, visible only to the owner and to administrators with View All Data or Modify All Data, and not governed by Contact Sharing Rules. It lists example causes such as Accounts loaded after Contacts or a failed parent lookup on insert, while stressing that a blank AccountId is one finding to be assessed rather than a diagnosis.
