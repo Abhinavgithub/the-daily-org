@@ -337,9 +337,11 @@
 // A wide story's text in columns of its own, with a drop cap: the lead, set as a front page sets it. Ragged
 // right, not justified: a column this narrow cannot be justified without gaps between the words.
 // Each column at least about 18rem, so a line keeps its words: one column in a narrow story, two from 40rem,
-// three from 60rem (the width at which a diagram's long row shows too).
+// three from 60rem (the width at which a diagram's long row shows too). A one-column story the page widens
+// across two columns to close a gap at its foot (.story--stretch) is set as a two-column story is.
 .story--w2 .story__text,
-.story--w3 .story__text {
+.story--w3 .story__text,
+.story--stretch .story__text {
   column-gap: var(--gap);
 
   p {
@@ -349,7 +351,8 @@
     widows: 2;
   }
 
-  > p:first-child::first-letter {
+  // The first paragraph, after the diagram when there is one.
+  > :is(p:first-child, .fig + p)::first-letter {
     float: left;
     margin: 0.06em 0.1em 0 0;
     font-family: var(--headline);
@@ -362,7 +365,8 @@
 
 @container story (min-width: 40rem) {
   .story--w2 .story__text,
-  .story--w3 .story__text {
+  .story--w3 .story__text,
+  .story--stretch .story__text {
     columns: 2;
   }
 }
@@ -370,5 +374,38 @@
 @container story (min-width: 60rem) {
   .story--w3 .story__text {
     columns: 3;
+  }
+}
+
+// The diagram opens the text. It runs across all the story's columns, except while it is stacked in a story set
+// in columns: then it stands at the head of the first column and the text runs on beside it, as a one-column
+// graphic does in print, instead of leaving the width beside it empty. A story's width is its text's, so these
+// widths are the figure's own (wideFrom, in _figure.scss).
+.story__text > .fig {
+  column-span: all;
+  break-inside: avoid;
+}
+
+@container story (min-width: 40rem) {
+  .story__text > .fig:not(.fig--from-36) {
+    column-span: none;
+  }
+}
+
+@container story (min-width: 42rem) {
+  .story__text > .fig.fig--from-42 {
+    column-span: all;
+  }
+}
+
+@container story (min-width: 52rem) {
+  .story__text > .fig.fig--from-52 {
+    column-span: all;
+  }
+}
+
+@container story (min-width: 60rem) {
+  .story__text > .fig.fig--from-60 {
+    column-span: all;
   }
 }

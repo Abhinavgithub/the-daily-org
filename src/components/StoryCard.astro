@@ -82,8 +82,8 @@ const mark = signal === 'must' ? 'Must-read' : signal === 'recommended' ? 'Recom
       </details>
     )
   }
-  {figure && <StoryFigure figure={figure} />}
-  <div class="story__text"><Content /></div>
+  {/* The diagram opens the text, so that while it is stacked it can stand in the first of the story's columns with the text running beside it. */}
+  <div class="story__text">{figure && <StoryFigure figure={figure} />}<Content /></div>
   <!-- The way to the article, said in words: the headline goes there too, but does not look like a link. -->
   <p class="story__more">
     <a href={data.url} target="_blank" rel="noopener" data-original>
