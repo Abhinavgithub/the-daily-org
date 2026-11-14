@@ -4,7 +4,7 @@ original_title: 6 AI Agent Capabilities to Evaluate Before Enterprise Deployment
 url: https://engineering.salesforce.com/6-ai-agent-capabilities-to-evaluate-before-enterprise-deployment/
 source: Salesforce Engineering
 source_type: official
-date: 2026-11-12
+date: 2026-11-14
 section: agentforce-and-ai
 personas:
   - developer
@@ -40,6 +40,7 @@ figure:
     - clock
     - bolt
 image: https://engineering.salesforce.com/wp-content/uploads/2026/11/image-417a8f54.png?w=1024
+held_from: 2026-11-12
 ---
 
 Salesforce's AI research team has built EGI-Bench, a framework for judging whether the LLMs behind enterprise agents are ready for production. The authors argue that many benchmarks test narrow skills, so an agent can pass evaluation and still fail on real enterprise work. EGI-Bench combines eight independently developed benchmarks, spanning more than 20 subdomains and 1,500 test tasks.

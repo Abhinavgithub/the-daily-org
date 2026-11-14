@@ -1,0 +1,354 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-11-14T06:31:26.965Z",
+  "day": "2026-11-14",
+  "seconds": 77,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 4
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 0
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 0
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 1
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 2
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 1
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 2
+    },
+    {
+      "id": "sf-blog",
+      "name": "Salesforce Blog",
+      "items": 7
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 4
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 1
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 0
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 0
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 0
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "jitendra-zaa",
+      "name": "Jitendra Zaa",
+      "items": 0
+    },
+    {
+      "id": "simplysfdc",
+      "name": "SimplySfdc",
+      "items": 0
+    },
+    {
+      "id": "salesforcedevops-net",
+      "name": "SalesforceDevOps.net",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 9
+    },
+    {
+      "id": "dev-to-agentforce",
+      "name": "dev.to (Agentforce)",
+      "items": 0
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 21
+    }
+  ],
+  "articles": [
+    {
+      "title": "Why was the snowfakery project archived?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xvruin/why_was_the_snowfakery_project_archived/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "Need tasks to show up at 8am when I put them on their specific days.",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xvdbwe/need_tasks_to_show_up_at_8am_when_i_put_them_on/",
+      "source": "r/salesforce",
+      "outcome": "dropped",
+      "reason": "too short"
+    },
+    {
+      "title": "AI Agent Vs. Chatbot: What’s The Best For Small Biz?",
+      "url": "https://www.salesforce.com/blog/small-business/ai-agent-vs-chatbot-for-growing-teams/",
+      "source": "Salesforce Blog",
+      "outcome": "dropped",
+      "reason": "none of the paper's keywords"
+    },
+    {
+      "title": "Agentforce incorrectly blocking legitimate customer messages as Inappropriate_Content – any ideas?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xvirnm/agentforce_incorrectly_blocking_legitimate/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Mining OpportunityHistory with pandas to see how sales really run before automating",
+      "url": "https://dev.to/juanma_garrido_1974/before-an-ai-agent-automates-your-sales-process-mine-how-it-really-runs-salesforce-18lm",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Before an AI agent automates your sales process, mine how it really runs: Salesforce OpportunityHistory and pandas"
+    },
+    {
+      "title": "Reverse-engineer the shadow spreadsheet: turn the Excel your team still uses after go-live into a backlog",
+      "url": "https://dev.to/juanma_garrido_1974/reverse-engineer-the-shadow-spreadsheet-turn-the-excel-your-team-still-uses-after-go-live-into-a-2m1h",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Anyone used DataGroomr vs Cloudingo and have opinions?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xvfm0p/anyone_used_datagroomr_vs_cloudingo_and_have/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "The Guide to Salesforce Agent, Application, and Headless Development",
+      "url": "https://www.salesforce.com/blog/salesforce-agent-application-development/",
+      "source": "Salesforce Blog",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Certificate Platform Administrator",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xvee2b/certificate_platform_administrator/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Anyone else having trouble booking an exam?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xva8a9/anyone_else_having_trouble_booking_an_exam/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Does Salesforce Flow Builder Have an Expiration Date?",
+      "url": "https://www.salesforceben.com/does-salesforce-flow-builder-have-an-expiration-date/",
+      "source": "Salesforce Ben",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Salesforce Docusign Integration Across Countries, Languages and Legal Entities",
+      "url": "https://dev.to/balki1/salesforce-docusign-integration-across-countries-languages-and-legal-entities-4of0",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Salesforce's new Core, Advanced and Max editions and what they mean at renewal",
+      "url": "https://www.salesforceben.com/enterprise-edition-is-dead-how-to-prepare-for-your-next-salesforce-renewal/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Enterprise Edition Is Dead: How to Prepare for Your Next Salesforce Renewal"
+    },
+    {
+      "title": "Choosing between Custom Metadata Types and Custom Settings for org configuration",
+      "url": "https://dev.to/rohanmehta/salesforce-custom-metadata-types-vs-custom-settings-which-one-to-use-and-when-24pn",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Salesforce Custom Metadata Types vs Custom Settings: Which One to Use and When"
+    },
+    {
+      "title": "5 Signs Your Store, CRM and Warehouse Aren't Talking",
+      "url": "https://dev.to/xapdigital/5-signs-your-store-crm-and-warehouse-arent-talking-3i3j",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Salesforce disables ComplianceQuest Connected Apps over suspicious token use",
+      "url": "https://status.salesforce.com/generalmessages/20000273",
+      "source": "Salesforce Trust",
+      "outcome": "published",
+      "score": 7,
+      "reason": "printed in the Bulletin as an alert (security advisory), whatever its score"
+    },
+    {
+      "title": "Checking a Salesforce Data Export is complete before migrating",
+      "url": "https://dev.to/richardc_ailstudio/how-to-check-that-a-salesforce-data-export-is-complete-before-you-migrate-2c2d",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "held since 2026-11-11; printed today, having waited its days for room"
+    },
+    {
+      "title": "Upserting Contacts to Accounts with an External ID in Data Loader",
+      "url": "https://dev.to/richardc_ailstudio/how-to-upsert-related-salesforce-records-with-an-external-id-load-accounts-before-contacts-3jh1",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "held since 2026-11-11; printed today, having waited its days for room"
+    },
+    {
+      "title": "AI Skills in Agentforce Coworker are now generally available",
+      "url": "https://www.salesforce.com/blog/ai-skills-in-coworker/",
+      "source": "Salesforce Blog",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-11-11; printed today, having waited its days for room"
+    },
+    {
+      "title": "Building a household intake workflow from FormAssembly into Salesforce",
+      "url": "https://salesforcebreak.com/2026/11/10/building-salesforce-intake-workflows-with-formassembly-ai/",
+      "source": "Salesforce Break",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-11-11; printed today, having waited its days for room"
+    },
+    {
+      "title": "EGI-Bench scores AI agents across six enterprise skill dimensions",
+      "url": "https://engineering.salesforce.com/6-ai-agent-capabilities-to-evaluate-before-enterprise-deployment/",
+      "source": "Salesforce Engineering",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-11-12 for a quieter day, and printed today"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Salesforce disables ComplianceQuest Connected Apps over suspicious token use",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Mining OpportunityHistory with pandas to see how sales really run before automating",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Salesforce's new Core, Advanced and Max editions and what they mean at renewal",
+      "outcome": "kept",
+      "reason": "summary: \"business\" was removed"
+    },
+    {
+      "title": "Choosing between Custom Metadata Types and Custom Settings for org configuration",
+      "outcome": "unchanged"
+    }
+  ],
+  "figures": [
+    {
+      "title": "Choosing between Custom Metadata Types and Custom Settings for org configuration",
+      "outcome": "drawn",
+      "kind": "compare"
+    }
+  ],
+  "model": {
+    "calls": 16,
+    "retries": {
+      "invalid diagram": 1
+    },
+    "usage": {
+      "anthropic/claude-haiku-5.5": {
+        "input": 64686,
+        "output": 10521
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    },
+    {
+      "name": "Known Issues",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-11-14T06:32:44.106Z"
+}

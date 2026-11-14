@@ -4,7 +4,7 @@ original_title: Building Salesforce Intake Workflows with FormAssembly AI
 url: https://salesforcebreak.com/2026/11/10/building-salesforce-intake-workflows-with-formassembly-ai/
 source: Salesforce Break
 source_type: community
-date: 2026-11-11
+date: 2026-11-14
 section: integration
 personas:
   - admin
@@ -44,6 +44,7 @@ figure:
     - layers
     - check
 image: https://salesforcebreak.com/wp-content/uploads/2026/11/Building-Salesforce-Intake-Workflows-with-FormAssembly-AI.png
+held_from: 2026-11-11
 ---
 
 The author argues that public intake forms are better handled by a dedicated external form engine than by a Salesforce Experience Cloud site, which needs heavy configuration and guest-user sharing management. They test the new FormAssembly platform, which models data collection as an end-to-end workflow with an AI assistant, Fai, that builds the form from a plain-language specification.

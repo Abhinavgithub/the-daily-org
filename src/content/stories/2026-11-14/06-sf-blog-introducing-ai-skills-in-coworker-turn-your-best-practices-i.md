@@ -4,7 +4,7 @@ original_title: "Introducing AI Skills in Coworker: Turn Your Best Practices Int
 url: https://www.salesforce.com/blog/ai-skills-in-coworker/
 source: Salesforce Blog
 source_type: official
-date: 2026-11-11
+date: 2026-11-14
 section: agentforce-and-ai
 personas:
   - admin
@@ -45,6 +45,7 @@ figure:
     - doc
     - robot
 image: https://salesforce.vidyard.com/watch/5R4FSco7me4VLTtgkouPVP
+held_from: 2026-11-11
 ---
 
 AI Skills in Agentforce Coworker are now generally available. A skill is a reusable set of plain-language instructions that tells an agent how to complete a repeatable task. Unlike a Prompt Template, which produces text output such as an email or a record summary, a skill describes an entire task that the agent works through step by step and can act on.

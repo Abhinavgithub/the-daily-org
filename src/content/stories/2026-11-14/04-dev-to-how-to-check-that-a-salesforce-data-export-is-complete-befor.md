@@ -4,7 +4,7 @@ original_title: How to check that a Salesforce Data Export is complete before yo
 url: https://dev.to/richardc_ailstudio/how-to-check-that-a-salesforce-data-export-is-complete-before-you-migrate-2c2d
 source: dev.to
 source_type: community
-date: 2026-11-11
+date: 2026-11-14
 section: devops
 personas:
   - admin
@@ -32,6 +32,8 @@ figure:
     - Confirm each expected object CSV is present
     - Confirm attachments and files were included
     - Compare each CSV row count to SOQL COUNT()
+held_from: 2026-11-11
+figure_image: /figures/2026-11-14/04-dev-to-how-to-check-that-a-salesforce-data-export-is-complete-befor.png
 ---
 
 A finished Data Export job does not guarantee a complete file set. Archives can be missing, expire after 48 hours, or be overwritten when a new export is queued, so the piece recommends downloading every zip promptly and counting them against what was saved. It also flags that Sandboxes do not support Data Export and that the scheduling user receives the download email.

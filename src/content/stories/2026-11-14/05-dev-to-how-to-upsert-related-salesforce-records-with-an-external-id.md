@@ -4,7 +4,7 @@ original_title: How to upsert related Salesforce records with an External ID (lo
 url: https://dev.to/richardc_ailstudio/how-to-upsert-related-salesforce-records-with-an-external-id-load-accounts-before-contacts-3jh1
 source: dev.to
 source_type: community
-date: 2026-11-11
+date: 2026-11-14
 section: integration
 personas:
   - admin
@@ -36,6 +36,7 @@ figure:
     - shield
     - layers
     - people
+held_from: 2026-11-11
 ---
 
 Relationships in Salesforce are stored as record IDs, so a source system's Account key in a Contact file cannot be used as AccountId. The walkthrough follows Salesforce Help: create or reuse a unique External ID field on Account, load Accounts first (insert, or upsert for reruns), then upsert Contacts and map the source-key column to the Account:External_ID__c field.
