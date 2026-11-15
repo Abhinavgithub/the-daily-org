@@ -4,7 +4,7 @@ original_title: Salesforce Launches AI Skills in Agentforce Coworker
 url: https://www.salesforceben.com/salesforce-launches-ai-skills-in-agentforce-coworker/
 source: Salesforce Ben
 source_type: community
-date: 2026-11-13
+date: 2026-11-15
 section: agentforce-and-ai
 personas:
   - admin
@@ -26,6 +26,7 @@ model: anthropic/claude-haiku-5.5
 figure:
   kind: none
 image: https://www.salesforceben.com/wp-content/uploads/2026/11/aiskills1.webp
+held_from: 2026-11-13
 ---
 
 AI Skills are reusable sets of instructions that tell Agentforce Coworker how to complete a repeatable task. The author compares them to skills in Claude: the task is defined once, and anyone with access can run it the same way each time. Salesforce says Coworker is the first Agentforce agent to include them. They were announced in pilot in September, with general availability planned for October, as part of a wider Coworker expansion covering Microsoft Teams, mobile and desktop apps, and an MCP server.

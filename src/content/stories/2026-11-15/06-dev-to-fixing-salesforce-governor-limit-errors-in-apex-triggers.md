@@ -4,7 +4,7 @@ original_title: Fixing Salesforce Governor Limit Errors in Apex Triggers
 url: https://dev.to/sanya_mittal_a509a2c50a2d/fixing-salesforce-governor-limit-errors-in-apex-triggers-1i7l
 source: dev.to
 source_type: community
-date: 2026-11-13
+date: 2026-11-15
 section: apex-and-platform
 personas:
   - developer
@@ -38,6 +38,8 @@ figure:
       - Collect deltas in a map by AccountId
       - One SOQL query with IN
       - One DML update for the list
+held_from: 2026-11-13
+figure_image: /figures/2026-11-15/06-dev-to-fixing-salesforce-governor-limit-errors-in-apex-triggers.png
 ---
 
 A trigger that passes a single-record test can fail a 200-row bulk import with a Too many SOQL queries error. This happens with Data Loader, Bulk API and scheduled integrations, and it usually shows up first in production, because sandbox test data rarely reaches 200 rows per batch. The article argues that the fix is to change how the trigger reads and writes data, not to retry or buy more licences.

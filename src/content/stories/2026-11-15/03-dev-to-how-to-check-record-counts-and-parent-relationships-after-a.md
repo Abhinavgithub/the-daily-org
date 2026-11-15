@@ -4,7 +4,7 @@ original_title: How to check record counts and parent relationships after a Sale
 url: https://dev.to/richardc_ailstudio/how-to-check-record-counts-and-parent-relationships-after-a-salesforce-load-1k5a
 source: dev.to
 source_type: community
-date: 2026-11-12
+date: 2026-11-15
 section: flow-and-admin
 personas:
   - admin
@@ -37,6 +37,7 @@ figure:
     - search
     - warning
     - layers
+held_from: 2026-11-12
 ---
 
 After a Data Loader or Bulk API job finishes, a load can be short on rows or leave parent lookups blank even when every child is accepted. The article suggests reconciling counts per object using the job's success and error files, along with the JobInfo fields numberRecordsProcessed and numberRecordsFailed when the Bulk API is used. It then compares those numbers with a SOQL COUNT() on the target object, and shows spreadsheet formulas to check that success plus error matches the source and that the target matches the success file.

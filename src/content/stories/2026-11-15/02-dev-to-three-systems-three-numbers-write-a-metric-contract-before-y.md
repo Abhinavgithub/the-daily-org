@@ -4,7 +4,7 @@ original_title: "Three systems, three numbers: write a metric contract before yo
 url: https://dev.to/juanma_garrido_1974/three-systems-three-numbers-write-a-metric-contract-before-you-put-an-ai-agent-on-your-crm-and-erp-38on
 source: dev.to
 source_type: community
-date: 2026-11-12
+date: 2026-11-15
 section: architecture
 personas:
   - architect
@@ -42,6 +42,7 @@ figure:
   icons:
     - chart
     - doc
+held_from: 2026-11-12
 ---
 
 A sales manager asking for one figure often gets three answers: the CRM, the ERP and a spreadsheet each record a different moment of the same sale. The author says this is common in mid-sized companies running Salesforce beside a separate ERP, and that an AI agent given access without resolving it will simply pick one number.

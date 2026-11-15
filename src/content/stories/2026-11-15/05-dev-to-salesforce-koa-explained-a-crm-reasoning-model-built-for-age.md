@@ -4,7 +4,7 @@ original_title: "Salesforce Koa Explained: A CRM Reasoning Model Built for Agent
 url: https://dev.to/rohanmehta/salesforce-koa-explained-a-crm-reasoning-model-built-for-agentforce-nk0
 source: dev.to
 source_type: community
-date: 2026-11-12
+date: 2026-11-15
 section: agentforce-and-ai
 personas:
   - architect
@@ -34,6 +34,7 @@ figure:
       label: GPT-4.1 multi-step CRM tasks completed
     - value: 91%
       label: GPT-5.5 multi-step CRM tasks completed
+held_from: 2026-11-12
 ---
 
 Salesforce announced Koa at Dreamforce 2026 as its first AI reasoning model built specifically for CRM work. Inside an agent, the reasoning model decides which steps to take, in what order, and which tools to use, while the rest of the agent carries them out. Koa runs behind the scenes, and admins choose it for an agent the same way they choose any other model.

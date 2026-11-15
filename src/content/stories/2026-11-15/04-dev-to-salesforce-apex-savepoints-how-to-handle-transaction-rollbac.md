@@ -4,7 +4,7 @@ original_title: "Salesforce Apex Savepoints: How to Handle Transaction Rollbacks
 url: https://dev.to/neha_6ddfbf87f8ffe5f87b89/salesforce-apex-savepoints-how-to-handle-transaction-rollbacks-2jfn
 source: dev.to
 source_type: community
-date: 2026-11-12
+date: 2026-11-15
 section: apex-and-platform
 personas:
   - developer
@@ -31,6 +31,7 @@ figure:
     - Insert the related Contact
     - "Contact insert fails: catch the exception"
     - Call Database.rollback(sp) to undo the Account
+held_from: 2026-11-12
 ---
 
 The article describes a common problem: an Apex method performs several database operations, and a later one fails, leaving earlier changes saved. Savepoints address this by marking a point in the current transaction that can later be restored.

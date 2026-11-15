@@ -4,7 +4,7 @@ original_title: Connected App Warnings Return as Salesforce Disables Two Integra
 url: https://www.salesforceben.com/connected-app-warnings-return-as-salesforce-disables-two-integrations/
 source: Salesforce Ben
 source_type: community
-date: 2026-11-13
+date: 2026-11-15
 section: integration
 personas:
   - admin
@@ -26,6 +26,7 @@ model: anthropic/claude-haiku-5.5
 figure:
   kind: none
 image: https://www.salesforceben.com/wp-content/uploads/2026/11/appwarnings1.webp
+held_from: 2026-11-13
 ---
 
 Salesforce disabled integrations with two Connected Apps in the week of November 10, 2025, after identifying suspicious use of access tokens linked to the third-party providers. The first advisory, posted on November 10, covered Talent Rover, a product owned by Bullhorn. Salesforce disabled its Connected Apps and managed packages as a precaution and said the issue did not stem from a vulnerability in the Salesforce platform.
