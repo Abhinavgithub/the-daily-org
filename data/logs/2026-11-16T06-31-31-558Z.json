@@ -1,0 +1,249 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-11-16T06:31:31.558Z",
+  "day": "2026-11-16",
+  "seconds": 48,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 4
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 0
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 0
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 0
+    },
+    {
+      "id": "sf-blog",
+      "name": "Salesforce Blog",
+      "items": 2
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 2
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 1
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 0
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 1
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 0
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "jitendra-zaa",
+      "name": "Jitendra Zaa",
+      "items": 0
+    },
+    {
+      "id": "simplysfdc",
+      "name": "SimplySfdc",
+      "items": 0
+    },
+    {
+      "id": "salesforcedevops-net",
+      "name": "SalesforceDevOps.net",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 12
+    },
+    {
+      "id": "dev-to-agentforce",
+      "name": "dev.to (Agentforce)",
+      "items": 0
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 16
+    }
+  ],
+  "articles": [
+    {
+      "title": "Why a static Boolean trigger guard silently skips records in bulk",
+      "url": "https://dev.to/apexcraftstudio/why-your-run-once-trigger-guard-silently-skips-records-4507",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 8,
+      "reason": "article title: Why Your 'Run Once' Trigger Guard Silently Skips Records"
+    },
+    {
+      "title": "Route a voice agent's Salesforce calls through a small endpoint you control",
+      "url": "https://dev.to/dograh/put-a-small-endpoint-between-your-voice-agent-and-salesforce-5db5",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Put a Small Endpoint Between Your Voice Agent and Salesforce"
+    },
+    {
+      "title": "I failed on my first attempt salesforce admin cert",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xxdr8w/i_failed_on_my_first_attempt_salesforce_admin_cert/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Passed Agentforce Specialist!",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xxc82g/passed_agentforce_specialist/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Accused of using AI assistance during interviews",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xx7hr2/accused_of_using_ai_assistance_during_interviews/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Design the permission model before the screens in occupational health cases",
+      "url": "https://dev.to/innerluxes/the-permission-model-is-the-product-occupational-health-case-management-on-salesforce-5ddg",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: The Permission Model Is the Product: Occupational Health Case Management on Salesforce"
+    },
+    {
+      "title": "I built a free Chrome extension that answers \"why can't this user see that?\" in Salesforce, with no server",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xx3wz0/i_built_a_free_chrome_extension_that_answers_why/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Looking for advice: Salesforce certification opportunities for employees at a newly registered partner startup",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xx0jva/looking_for_advice_salesforce_certification/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce Outlook Integration: Syncing Email and Calendar Without the Busywork",
+      "url": "https://dev.to/rohanmehta/salesforce-outlook-integration-syncing-email-and-calendar-without-the-busywork-52e5",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Why a static Boolean Trigger guard silently skips records in bulk",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Route a voice agent's Salesforce calls through a small endpoint you control",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Design the permission model before the screens in occupational health cases",
+      "outcome": "unchanged"
+    }
+  ],
+  "figures": [],
+  "model": {
+    "calls": 6,
+    "retries": {},
+    "usage": {
+      "anthropic/claude-haiku-5.5": {
+        "input": 22370,
+        "output": 5539
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    },
+    {
+      "name": "Known Issues",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-11-16T06:32:19.633Z"
+}
