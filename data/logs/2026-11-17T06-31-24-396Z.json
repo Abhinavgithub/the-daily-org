@@ -1,0 +1,373 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-11-17T06:31:24.396Z",
+  "day": "2026-11-17",
+  "seconds": 119,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 5
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 0
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 0
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 0
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 0
+    },
+    {
+      "id": "sf-blog",
+      "name": "Salesforce Blog",
+      "items": 3
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 4
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 0
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 0
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 0
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 0
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "jitendra-zaa",
+      "name": "Jitendra Zaa",
+      "items": 0
+    },
+    {
+      "id": "simplysfdc",
+      "name": "SimplySfdc",
+      "items": 0
+    },
+    {
+      "id": "salesforcedevops-net",
+      "name": "SalesforceDevOps.net",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 11
+    },
+    {
+      "id": "dev-to-agentforce",
+      "name": "dev.to (Agentforce)",
+      "items": 1
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 10
+    }
+  ],
+  "articles": [
+    {
+      "title": "More Care, Less Complexity: Meet the New Health Cloud Editions",
+      "url": "https://www.salesforce.com/blog/health-cloud-editions/",
+      "source": "Salesforce Blog",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Is salesforce worth it for a small nonprofit when intake forms are the main headache?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xy8oah/is_salesforce_worth_it_for_a_small_nonprofit_when/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Static Boolean trigger guards silently skip records in bulk Apex transactions",
+      "url": "https://dev.to/apexcraftstudio/why-your-run-once-trigger-guard-silently-skips-records-1hee",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 8,
+      "reason": "the same story as \"Why a static Boolean Trigger guard silently skips records in bulk\", printed on 2026-11-16, found by its headline; printed as a line under it"
+    },
+    {
+      "title": "Seven bugs that passed a 113-test Salesforce suite and the fix for each",
+      "url": "https://dev.to/apexcraftstudio/7-bugs-that-passed-100-tests-in-my-salesforce-starter-kit-bm1",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: 7 bugs that passed 100+ tests in my Salesforce starter kit"
+    },
+    {
+      "title": "Salesforce joins the Personal Agent Protocol to help brands meet shoppers’ AI agents",
+      "url": "https://www.salesforce.com/blog/salesforce-joins-personal-agent-protocol/",
+      "source": "Salesforce Blog",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Salesforce Developer (5 YOE, 12 LPA) – Expected Salary & Which Companies to Target for Next Switch?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xxxabq/salesforce_developer_5_yoe_12_lpa_expected_salary/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "When a Salesforce recommendation keeps getting ignored, write the risk down and set a limit",
+      "url": "https://dev.to/juanma_garrido_1974/when-a-salesforce-recommendation-keeps-getting-ignored-write-the-risk-down-and-set-a-limit-3oke",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Check what else runs on an object before shipping AI-generated changes",
+      "url": "https://dev.to/juanma_garrido_1974/review-an-ai-generated-salesforce-change-list-what-else-runs-on-the-same-object-4ejb",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Review an AI-generated Salesforce change: list what else runs on the same object"
+    },
+    {
+      "title": "Account-Based Marketing for Small Business: A Practical Starter Guide",
+      "url": "https://www.salesforce.com/blog/small-business/account-based-marketing/",
+      "source": "Salesforce Blog",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Working around the 2,000-row cap on report exports after step-up authentication",
+      "url": "https://www.salesforceben.com/how-to-fix-the-2000-row-cap-on-salesforce-report-exports/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: How To Fix the 2,000-Row Cap On Salesforce Report Exports"
+    },
+    {
+      "title": "Thinking of switching from Salesforce Development to AI/ML. Is it worth it?",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xxnnfq/thinking_of_switching_from_salesforce_development/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "reason": "turned away on a first look, without a full assessment"
+    },
+    {
+      "title": "Salesforce Data Cloud Basics: Unifying Customer Data Without the Complexity",
+      "url": "https://dev.to/rohanmehta/salesforce-data-cloud-basics-unifying-customer-data-without-the-complexity-3dnh",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 4,
+      "reason": "scored 4, the threshold is 6"
+    },
+    {
+      "title": "Salesforce Data Cloud – Records from a custom Salesforce object not appearing in Batch Data Transform preview",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xxn7ux/salesforce_data_cloud_records_from_a_custom/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "How round robin lead assignment works in Salesforce, HubSpot and Pipedrive",
+      "url": "https://dev.to/operelio/round-robin-lead-assignment-in-salesforce-hubspot-and-pipedrive-4lao",
+      "source": "dev.to",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "How to set up Enhanced Omni-Channel routing for Service Cloud agents",
+      "url": "https://www.salesforceben.com/salesforce-omni-channel/",
+      "source": "Salesforce Ben",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Pearson VUE Payment Issues",
+      "url": "https://www.reddit.com/r/salesforce/comments/1xxlqym/pearson_vue_payment_issues/",
+      "source": "r/salesforce",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Are Offshore Salesforce Jobs Disappearing Due to AI Productivity?",
+      "url": "https://www.salesforceben.com/are-offshore-salesforce-jobs-disappearing-due-to-ai-productivity/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Beyond CRM Automation: Building Smarter Experiences With AI",
+      "url": "https://dev.to/michael_keller_9d83ef0ce5/beyond-crm-automation-building-smarter-experiences-with-ai-2mc1",
+      "source": "dev.to (Agentforce)",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Building Custom Objects and Permission Sets with the Salesforce Development Plugin for Claude Code",
+      "url": "https://www.salesforceben.com/how-salesforce-admins-can-build-metadata-with-the-salesforce-development-plugin/",
+      "source": "Salesforce Ben",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "How to Simplify Bulk Email Marketing and Automation in Salesforce",
+      "url": "https://dev.to/sivadevaki121212/how-to-simplify-bulk-email-marketing-and-automation-in-salesforce-1bok",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "WhatsForce Brings Real WhatsApp Conversations Right Inside Your Salesforce CRM",
+      "url": "https://dev.to/debajyoti_ghosh/whatsforce-brings-real-whatsapp-conversations-right-inside-your-salesforce-crm-2513",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Salesforce disables Optimizely scripts after unauthorized changes",
+      "url": "https://status.salesforce.com/generalmessages/20000274",
+      "source": "Salesforce Trust",
+      "outcome": "published",
+      "score": 7,
+      "reason": "printed in the Bulletin as an alert (security advisory), whatever its score"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Salesforce disables Optimizely scripts after unauthorized changes",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Static Boolean Trigger guards silently skip records in bulk Apex transactions",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Seven bugs that passed a 113-test Salesforce suite and the fix for each",
+      "outcome": "kept",
+      "reason": "headline: \"113-test\" was changed or removed"
+    },
+    {
+      "title": "Check what else runs on an object before shipping AI-Generated changes",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Working around the 2,000-row cap on report exports after step-up authentication",
+      "outcome": "kept",
+      "reason": "headline: \"000-row\" was changed or removed"
+    },
+    {
+      "title": "How Round Robin lead Assignment works in Salesforce, HubSpot and pipedrive",
+      "outcome": "corrected"
+    },
+    {
+      "title": "How to set up Enhanced Omni-Channel Routing for Service Cloud agents",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Building Custom Objects and Permission Sets with the Salesforce Development Plugin for Claude Code",
+      "outcome": "corrected"
+    }
+  ],
+  "figures": [
+    {
+      "title": "Check what else runs on an object before shipping AI-Generated changes",
+      "outcome": "drawn",
+      "kind": "steps"
+    }
+  ],
+  "model": {
+    "calls": 23,
+    "retries": {},
+    "usage": {
+      "anthropic/claude-haiku-5.5": {
+        "input": 103691,
+        "output": 18499
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    },
+    {
+      "name": "Known Issues",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-11-17T06:33:23.824Z"
+}

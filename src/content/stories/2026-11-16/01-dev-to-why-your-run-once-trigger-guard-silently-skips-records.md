@@ -47,6 +47,9 @@ also:
   - title: "AIforce Explained: Salesforce's Data and AI, Wherever You Actually Work"
     url: https://dev.to/rohanmehta/aiforce-explained-salesforces-data-and-ai-wherever-you-actually-work-2j58
     source: dev.to
+  - title: Why Your 'Run Once' Trigger Guard Silently Skips Records
+    url: https://dev.to/apexcraftstudio/why-your-run-once-trigger-guard-silently-skips-records-1hee
+    source: dev.to
 figure_image: /figures/2026-11-16/01-dev-to-why-your-run-once-trigger-guard-silently-skips-records.png
 ---
 
