@@ -1,0 +1,422 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-11-18T06:31:36.426Z",
+  "day": "2026-11-18",
+  "seconds": 147,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 3
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 0
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 0
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 1
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 1
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 1
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 2
+    },
+    {
+      "id": "sf-blog",
+      "name": "Salesforce Blog",
+      "items": 10
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 5
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 1
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 0
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 1
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 0
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "jitendra-zaa",
+      "name": "Jitendra Zaa",
+      "items": 0
+    },
+    {
+      "id": "simplysfdc",
+      "name": "SimplySfdc",
+      "items": 0
+    },
+    {
+      "id": "salesforcedevops-net",
+      "name": "SalesforceDevOps.net",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 12
+    },
+    {
+      "id": "dev-to-agentforce",
+      "name": "dev.to (Agentforce)",
+      "items": 1
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 0,
+      "error": "HTTP 429 (2 attempts: HTTP 404, HTTP 429)"
+    }
+  ],
+  "articles": [
+    {
+      "title": "The agentic era brings new challenges for commerce. Here’s how to solve them.",
+      "url": "https://www.salesforce.com/blog/agentic-commerce-challenges-solutions/",
+      "source": "Salesforce Blog",
+      "outcome": "dropped",
+      "reason": "none of the paper's keywords"
+    },
+    {
+      "title": "Salesforce Services on Hyperforce now runs on Google Cloud and has first certifications",
+      "url": "https://www.salesforce.com/blog/salesforce-services-achieves-first-certifications-for-new-hyperforce-on-google-cloud-environment/",
+      "source": "Salesforce Blog",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Forecasts That Fix Themselves: Self-Evolving Data Science Agents at Salesforce",
+      "url": "https://www.salesforce.com/blog/self-evolving-data-science-agents/",
+      "source": "Salesforce Blog",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Agent Optimizer guides Agentforce agents through build, test, fix and improve stages",
+      "url": "https://www.salesforce.com/blog/improve-ai-agents/",
+      "source": "Salesforce Blog",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Meet Bridget: The AI Agent that Bridges Your Systems and Gets Work Done",
+      "url": "https://www.salesforce.com/blog/bridget-systems-integration-agent/",
+      "source": "Salesforce Blog",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Exposing an Agentforce agent to Slackbot through a Salesforce MCP Server",
+      "url": "https://www.infallibletechie.com/2026/11/orchestrate-salesforce-agentforce-agent-in-slackbot.html",
+      "source": "InfallibleTechie",
+      "outcome": "published",
+      "score": 6,
+      "reason": "the same story as \"Exposing HXL widgets to Slackbot through a custom MCP server\", which scored higher, found by its headline; printed as a line under it"
+    },
+    {
+      "title": "Who Is a Datablazer? Everything You Need to Know",
+      "url": "https://www.salesforce.com/blog/who-is-a-datablazer-everything-you-need-to-know/",
+      "source": "Salesforce Blog",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Salesforce in Microsoft Copilot and Teams, with zero-copy access to Fabric",
+      "url": "https://www.salesforce.com/news/stories/copilotforce-announcement/",
+      "source": "Salesforce News",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Salesforce and Microsoft Announce Copilotforce, Bringing Salesforce Customer Context and Sales Workflows to Microsoft Copilot"
+    },
+    {
+      "title": "Informatica adds governed enterprise data to Copilot, Foundry and Fabric",
+      "url": "https://www.salesforce.com/news/stories/informatica-trusted-enterprise-data-microsoft-collaboration/",
+      "source": "Salesforce News",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "How an MCP tool cut triage of 600 test failures to about 90 minutes",
+      "url": "https://engineering.salesforce.com/how-ai-slashed-600-test-failure-triage-from-days-to-90-minutes/",
+      "source": "Salesforce Engineering",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Staging an AI agent's Salesforce access in three permission levels",
+      "url": "https://dev.to/juanma_garrido_1974/read-propose-write-three-permission-levels-for-an-ai-agent-working-on-salesforce-opportunities-1fcm",
+      "source": "dev.to",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "How Salesforce Guardian's AIforce security tools govern admin and agent access",
+      "url": "https://admin.salesforce.com/blog/2026/unlocking-trust-security-with-aiforce-in-salesforce-guardian",
+      "source": "Salesforce Admins Blog",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Exposing HXL widgets to Slackbot through a custom MCP server",
+      "url": "https://developer.salesforce.com/blogs/2026/11/expose-hxl-widgets-slackbot-custom-mcp-server",
+      "source": "Salesforce Developers Blog",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Expose HXL Widgets to Slackbot with a Custom MCP Server"
+    },
+    {
+      "title": "How to Show Files and Attachments Below Case Description",
+      "url": "https://salesforcetime.com/2026/11/17/how-to-show-files-and-attachments-below-case-description/",
+      "source": "Salesforce Time",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Carter, a shopper agent for B2C Commerce storefronts built on Agentforce",
+      "url": "https://www.salesforce.com/blog/carter-shopper-agent/",
+      "source": "Salesforce Blog",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "6 Tips to Sell Out for Black Friday (Ecommerce Holiday Strategies for Startups)",
+      "url": "https://www.salesforce.com/blog/small-business/ecommerce-tips-for-black-friday/",
+      "source": "Salesforce Blog",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Building a Salesforce–NetSuite sync in Python that proves the two systems agree",
+      "url": "https://dev.to/eproxim/a-salesforce-netsuite-sync-in-python-that-proves-the-two-systems-agree-28bn",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: A Salesforce–NetSuite Sync in Python That Proves the Two Systems Agree"
+    },
+    {
+      "title": "Salesforce Opportunity Stages: Building a Sales Process Your Reps Actually Follow",
+      "url": "https://dev.to/rohanmehta/salesforce-opportunity-stages-building-a-sales-process-your-reps-actually-follow-4670",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Five ways Lightning Web Components can share data between components",
+      "url": "https://dev.to/renuka_singh_65783f63cbba/salesforce-lwc-communication-5-practical-ways-components-can-share-data-11oa",
+      "source": "dev.to",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Salesforce Apex Test Data Factory: Write Cleaner and Reusable Unit Tests",
+      "url": "https://dev.to/renuka_singh_65783f63cbba/salesforce-apex-test-data-factory-write-cleaner-and-reusable-unit-tests-45dc",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 4,
+      "reason": "scored 4, the threshold is 6"
+    },
+    {
+      "title": "How the Salesforce order of execution sequences flows, triggers and validation",
+      "url": "https://dev.to/neha_6ddfbf87f8ffe5f87b89/salesforce-order-of-execution-9-important-steps-every-admin-and-developer-should-understand-6ng",
+      "source": "dev.to",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Optimizely compromise injected malicious scripts into Salesforce sites",
+      "url": "https://www.salesforceben.com/salesforce-among-178-brands-hit-by-optimizely-exploit/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Salesforce Among 178 Brands Hit by Optimizely Exploit"
+    },
+    {
+      "title": "Resuming a Salesforce CDC consumer from a durable replay checkpoint",
+      "url": "https://dev.to/sanya_mittal_a509a2c50a2d/how-to-build-a-resumable-salesforce-cdc-consumer-in-nodejs-5ecf",
+      "source": "dev.to",
+      "outcome": "held",
+      "score": 7,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Salesforce Services on Hyperforce now runs on Google Cloud and has first certifications",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Agent Optimizer guides Agentforce agents through build, test, fix and improve stages",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Salesforce in Microsoft Copilot and Teams, with zero-copy access to Fabric",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Informatica adds governed enterprise data to Copilot, Foundry and Fabric",
+      "outcome": "kept",
+      "reason": "reason to read: \"u\" was removed; summary: \"u\" was removed"
+    },
+    {
+      "title": "How an MCP tool cut triage of 600 test failures to about 90 minutes",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Staging an AI agent's Salesforce access in three permission levels",
+      "outcome": "corrected"
+    },
+    {
+      "title": "How Salesforce Guardian's AIforce security tools govern admin and agent access",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Exposing HXL widgets to Slackbot through a custom MCP server",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Carter, a shopper agent for B2C Commerce storefronts built on Agentforce",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Building a Salesforce–NetSuite sync in Python that proves the two systems agree",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Five ways Lightning Web Components can share data between components",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "How the Salesforce order of execution sequences flows, triggers and validation",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Optimizely compromise injected malicious scripts into Salesforce sites",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Resuming a Salesforce CDC consumer from a durable replay checkpoint",
+      "outcome": "kept",
+      "reason": "summary: \"node\" was removed"
+    }
+  ],
+  "figures": [
+    {
+      "title": "Salesforce in Microsoft Copilot and Teams, with zero-copy access to Fabric",
+      "outcome": "drawn",
+      "kind": "compare"
+    },
+    {
+      "title": "Optimizely compromise injected malicious scripts into Salesforce sites",
+      "outcome": "drawn",
+      "kind": "steps"
+    }
+  ],
+  "model": {
+    "calls": 26,
+    "retries": {
+      "invalid diagram": 1
+    },
+    "usage": {
+      "anthropic/claude-haiku-5.5": {
+        "input": 141166,
+        "output": 28050
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    },
+    {
+      "name": "Known Issues",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-11-18T06:34:03.339Z"
+}
