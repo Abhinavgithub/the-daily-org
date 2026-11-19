@@ -38,6 +38,10 @@ figure:
     - cloud
     - robot
 image: https://www.salesforce.com/news/wp-content/uploads/sites/3/2026/11/824_1126_T15_Salesforce-and-Microsoft-Put-Customer-Intelligence_b_v1_111326-1.jpg?w=1024
+also:
+  - title: Salesforce and Microsoft Announce Copilotforce
+    url: https://salesforcetime.com/2026/11/18/salesforce-and-microsoft-announce-copilotforce/
+    source: Salesforce Time
 ---
 
 Informatica from Salesforce has expanded its collaboration with Microsoft, announced at Microsoft Ignite 2026. The integration brings Informatica's enterprise data intelligence into Microsoft Copilot and Teams, giving business users access to business definitions, data quality, governance and lineage through natural-language experiences. The article presents this as a response to the gap between agents that can access data and agents that understand it and operate within access policies.
