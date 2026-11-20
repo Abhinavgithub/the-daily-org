@@ -4,7 +4,7 @@ original_title: Round robin lead assignment in Salesforce, HubSpot and Pipedrive
 url: https://dev.to/operelio/round-robin-lead-assignment-in-salesforce-hubspot-and-pipedrive-4lao
 source: dev.to
 source_type: community
-date: 2026-11-17
+date: 2026-11-20
 section: flow-and-admin
 personas:
   - admin
@@ -39,6 +39,7 @@ figure:
       - Load balanced, round robin, random
       - Assign to available users only
 image: https://media2.dev.to/dynamic/image/width=800%2Cheight=%2Cfit=scale-down%2Cgravity=auto%2Cformat=auto/https%3A%2F%2Fdev-to-uploads.s3.us-east-2.amazonaws.com%2Fuploads%2Farticles%2Fc67qwul144bdxs8xbrym.png
+held_from: 2026-11-17
 ---
 
 Round robin lead assignment hands each new lead to the next rep in a fixed order, which suits teams where reps sell the same thing and leads are broadly alike. The article sets it against weighted, load-balanced and rules-based approaches, and notes that real setups usually combine rules to pick a team with a rotation inside it. It lists four common cases where a plain rotation breaks down: leads from existing accounts, uneven lead quality, reps who are away, and reps who own territories.

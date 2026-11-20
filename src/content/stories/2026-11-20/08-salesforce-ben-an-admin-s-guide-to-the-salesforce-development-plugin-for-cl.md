@@ -4,7 +4,7 @@ original_title: An Admin’s Guide to the Salesforce Development Plugin for Clau
 url: https://www.salesforceben.com/how-salesforce-admins-can-build-metadata-with-the-salesforce-development-plugin/
 source: Salesforce Ben
 source_type: community
-date: 2026-11-17
+date: 2026-11-20
 section: agentforce-and-ai
 personas:
   - admin
@@ -34,6 +34,8 @@ figure:
     - Build the Lightning page
     - Package the metadata for a human to deploy
 image: https://www.salesforceben.com/wp-content/uploads/2026/11/image-1-1024x389.png
+held_from: 2026-11-17
+figure_image: /figures/2026-11-20/08-salesforce-ben-an-admin-s-guide-to-the-salesforce-development-plugin-for-cl.png
 ---
 
 The article explains how the Salesforce Development Plugin for Claude Code differs from other tools with similar names. It groups Skills, the Salesforce CLI and hosted metadata servers into one toolset, while the Salesforce DX MCP Server reaches end-of-life on November 2, 2026, and Salesforce in Claude is aimed at end users rather than builders. The author lists the prerequisites: Node.js, Python, the Salesforce CLI and Claude Code, with a Claude plan that includes Claude Code. The org must have the MCP Servers page under Integrations and API Catalog used to enable the metadata-experts and salesforce-api-context MCP Servers.

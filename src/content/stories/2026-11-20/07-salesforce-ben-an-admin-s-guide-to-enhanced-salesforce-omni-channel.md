@@ -4,7 +4,7 @@ original_title: An Admin’s Guide to Enhanced Salesforce Omni-Channel
 url: https://www.salesforceben.com/salesforce-omni-channel/
 source: Salesforce Ben
 source_type: community
-date: 2026-11-17
+date: 2026-11-20
 section: flow-and-admin
 personas:
   - admin
@@ -33,6 +33,7 @@ figure:
     - Define routing configurations
     - Test with a sample case
 image: https://www.salesforceben.com/wp-content/uploads/2021/10/eoc1.webp
+held_from: 2026-11-17
 ---
 
 Standard Omni-Channel was retired in Summer '26, and Salesforce upgraded orgs automatically during the rollout. Enhanced Omni-Channel, generally available since 2023, takes work items such as Cases, Leads, chats, messaging sessions and voice calls and routes them to reps based on availability, skills, capacity and priority. Existing routing configurations, queues, skills and routing rules were carried over. The feature requires a Service Cloud license or one of several add-on licenses, and it works only in Lightning Experience.
