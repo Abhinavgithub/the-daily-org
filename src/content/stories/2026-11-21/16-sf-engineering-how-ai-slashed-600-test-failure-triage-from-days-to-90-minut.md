@@ -4,7 +4,7 @@ original_title: How AI Slashed 600-Test-Failure Triage From Days to 90 Minutes
 url: https://engineering.salesforce.com/how-ai-slashed-600-test-failure-triage-from-days-to-90-minutes/
 source: Salesforce Engineering
 source_type: official
-date: 2026-11-18
+date: 2026-11-21
 section: devops
 personas:
   - developer
@@ -39,6 +39,7 @@ figure:
     - layers
     - flow
 image: https://engineering.salesforce.com/wp-content/uploads/2026/11/image-ab61eade.png
+held_from: 2026-11-18
 ---
 
 Salesforce's engineering team faced over 600 test failures triggered by the retirement of the SOAP API login mechanism. Expected failures and genuine regressions could produce similar exceptions and span several scrum teams, so a wrong classification could hide a real defect or send engineers chasing the wrong problem for days. The existing process required manual stack trace reading and reassignment through an interface limited to 50 failures at a time, and it could create duplicate work items or misroute failures.

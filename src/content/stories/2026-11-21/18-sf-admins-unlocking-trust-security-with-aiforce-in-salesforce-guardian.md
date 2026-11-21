@@ -4,7 +4,7 @@ original_title: Unlocking Trust & Security with AIforce in Salesforce Guardian
 url: https://admin.salesforce.com/blog/2026/unlocking-trust-security-with-aiforce-in-salesforce-guardian
 source: Salesforce Admins Blog
 source_type: official
-date: 2026-11-18
+date: 2026-11-21
 section: agentforce-and-ai
 personas:
   - admin
@@ -33,6 +33,7 @@ figure:
     - Data Compliance
     - Data Resilience
 image: https://d3nqfz2gm66yqg.cloudfront.net/images/20261116105320/3layerssecurityarch.jpg
+held_from: 2026-11-18
 ---
 
 Salesforce describes security as a shared responsibility. It provides the foundational platform security, admins configure the built-in controls such as multi-factor authentication, IP allowlisting and Permission Sets, and Salesforce Guardian sits on top as a portfolio of enterprise security, privacy and data protection products. The article frames this as three layers: Foundationals, Configurables and Enhanceables.

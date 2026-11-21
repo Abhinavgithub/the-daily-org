@@ -4,7 +4,7 @@ original_title: "Forming, Storming, Norming, Performing: Four Stages Every AI Ag
 url: https://www.salesforce.com/blog/improve-ai-agents/
 source: Salesforce Blog
 source_type: official
-date: 2026-11-18
+date: 2026-11-21
 section: agentforce-and-ai
 personas:
   - admin
@@ -41,6 +41,7 @@ figure:
     - search
     - check
 image: https://www.salesforce.com/blog/wp-content/uploads/sites/2/2026/11/AdobeStock_1511565478.jpeg?strip=all&#038;quality=95
+held_from: 2026-11-18
 ---
 
 The post borrows Bruce Tuckman's model of forming, storming, norming and performing to describe how an AI agent matures. Forming covers building the agent and proving it is ready before it meets customers. Agent Optimizer drafts the agent in Agent Script from a plain-language description, combining deterministic business rules with Atlas Reasoning Engine planning, and builds on existing Salesforce data, Flows, Apex and permissions. Testing with custom scorers is described as coming soon.

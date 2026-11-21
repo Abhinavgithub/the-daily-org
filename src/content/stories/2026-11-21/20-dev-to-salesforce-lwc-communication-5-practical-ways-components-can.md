@@ -4,7 +4,7 @@ original_title: "Salesforce LWC Communication: 5 Practical Ways Components Can S
 url: https://dev.to/renuka_singh_65783f63cbba/salesforce-lwc-communication-5-practical-ways-components-can-share-data-11oa
 source: dev.to
 source_type: community
-date: 2026-11-18
+date: 2026-11-21
 section: lwc-and-ui
 personas:
   - developer
@@ -40,6 +40,7 @@ figure:
   icons:
     - flow
     - bolt
+held_from: 2026-11-18
 ---
 
 The article surveys five ways Lightning Web Components can communicate. The simplest is parent-to-child communication through a public property marked with the @api decorator, where the parent sets an HTML attribute and the child receives it. Code examples show a child component declaring a message property and a parent passing a welcome string into it.

@@ -4,7 +4,7 @@ original_title: Salesforce Services Achieves First Certifications for New Hyperf
 url: https://www.salesforce.com/blog/salesforce-services-achieves-first-certifications-for-new-hyperforce-on-google-cloud-environment/
 source: Salesforce Blog
 source_type: official
-date: 2026-11-18
+date: 2026-11-21
 section: architecture
 personas:
   - architect
@@ -27,6 +27,7 @@ model: anthropic/claude-haiku-5.5
 figure:
   kind: none
 image: https://www.salesforce.com/blog/wp-content/themes/salesforce-blog/dist/images/offer-block/offer-illustration-layout-one.png
+held_from: 2026-11-18
 ---
 
 Salesforce has announced that Salesforce Services on Hyperforce now runs on Google Cloud infrastructure. The environment has completed its first round of security compliance assessments and certifications, covering SOC 1, SOC 2 and SOC 3, PCI DSS, ISO 27001, ISO 27017, ISO 27018 and NEN 7510. Salesforce says customers keep the Salesforce experience they already know, with the same security and compliance baseline as its other Hyperforce environments.

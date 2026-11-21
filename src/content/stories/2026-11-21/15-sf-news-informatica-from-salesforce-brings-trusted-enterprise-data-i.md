@@ -4,7 +4,7 @@ original_title: Informatica from Salesforce brings Trusted Enterprise Data into 
 url: https://www.salesforce.com/news/stories/informatica-trusted-enterprise-data-microsoft-collaboration/
 source: Salesforce News
 source_type: official
-date: 2026-11-18
+date: 2026-11-21
 section: data-cloud
 personas:
   - architect
@@ -42,6 +42,7 @@ also:
   - title: Salesforce and Microsoft Announce Copilotforce
     url: https://salesforcetime.com/2026/11/18/salesforce-and-microsoft-announce-copilotforce/
     source: Salesforce Time
+held_from: 2026-11-18
 ---
 
 Informatica from Salesforce has expanded its collaboration with Microsoft, announced at Microsoft Ignite 2026. The integration brings Informatica's enterprise data intelligence into Microsoft Copilot and Teams, giving business users access to business definitions, data quality, governance and lineage through natural-language experiences. The article presents this as a response to the gap between agents that can access data and agents that understand it and operate within access policies.

@@ -4,7 +4,7 @@ original_title: How to Build a Resumable Salesforce CDC Consumer in Node.js
 url: https://dev.to/sanya_mittal_a509a2c50a2d/how-to-build-a-resumable-salesforce-cdc-consumer-in-nodejs-5ecf
 source: dev.to
 source_type: community
-date: 2026-11-18
+date: 2026-11-21
 section: integration
 personas:
   - developer
@@ -38,6 +38,7 @@ figure:
     - database
     - check
     - layers
+held_from: 2026-11-18
 ---
 
 A Change Data Capture consumer that restarts from the wrong position either drops record updates or replays several days of them. The article's fix is a durable checkpoint: it stores replay IDs, resumes a gRPC subscription from them, and makes replays harmless. The worked example is a worker subscribing to the OpportunityChangeEvent channel and mirroring each change into Postgres, using Node.js, the Pub/Sub API and the pub_sub proto file from the Salesforce repository.

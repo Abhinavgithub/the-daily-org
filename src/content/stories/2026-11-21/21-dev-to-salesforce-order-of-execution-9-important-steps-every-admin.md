@@ -4,7 +4,7 @@ original_title: "Salesforce Order of Execution: 9 Important Steps Every Admin an
 url: https://dev.to/neha_6ddfbf87f8ffe5f87b89/salesforce-order-of-execution-9-important-steps-every-admin-and-developer-should-understand-6ng
 source: dev.to
 source_type: community
-date: 2026-11-18
+date: 2026-11-21
 section: architecture
 personas:
   - developer
@@ -43,6 +43,7 @@ figure:
     - database
     - flow
     - rocket
+held_from: 2026-11-18
 ---
 
 When a record is created, updated or deleted, Salesforce runs several kinds of automation in a defined sequence. The article says this matters because multiple automations touching the same record can produce unexpected results, repeated updates or errors. Understanding the sequence helps teams troubleshoot and avoid needless complexity.

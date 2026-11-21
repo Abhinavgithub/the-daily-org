@@ -4,7 +4,7 @@ original_title: Meet Carter, the Shopper Agent that Works Like Your Best Sales A
 url: https://www.salesforce.com/blog/carter-shopper-agent/
 source: Salesforce Blog
 source_type: official
-date: 2026-11-18
+date: 2026-11-21
 section: agentforce-and-ai
 personas:
   - developer
@@ -34,6 +34,7 @@ figure:
     - Carter routes to a subagent
     - Answer grounded in the product catalog
 image: https://www.salesforce.com/blog/wp-content/uploads/sites/2/2026/11/Guided-Discovery.png?strip=all&#038;quality=95
+held_from: 2026-11-18
 ---
 
 Salesforce introduces Carter, a shopper agent from Commerce Cloud that gives online shoppers a conversational interface in place of keyword search and category pages. The article argues that shoppers now expect the guided, context-aware help a good in-store sales associate gives, and that Carter is meant to provide it. It is available through B2C Commerce and can be reached from the search bar, the header icon, or FAQ widgets on product detail pages.

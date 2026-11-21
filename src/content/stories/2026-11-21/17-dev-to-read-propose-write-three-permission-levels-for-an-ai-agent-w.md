@@ -4,7 +4,7 @@ original_title: "Read, propose, write: three permission levels for an AI agent w
 url: https://dev.to/juanma_garrido_1974/read-propose-write-three-permission-levels-for-an-ai-agent-working-on-salesforce-opportunities-1fcm
 source: dev.to
 source_type: community
-date: 2026-11-18
+date: 2026-11-21
 section: agentforce-and-ai
 personas:
   - architect
@@ -36,6 +36,7 @@ figure:
     - search
     - check
     - database
+held_from: 2026-11-18
 ---
 
 The author describes an AI agent that reviews Salesforce Opportunities with no activity for 30 days, checks recent interactions and prepares follow-up actions. The design question is what the agent is allowed to do, and the author splits this into three permission levels that the agent moves through only once the level below works.
