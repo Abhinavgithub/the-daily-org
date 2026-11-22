@@ -1,0 +1,230 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-11-22T06:31:35.005Z",
+  "day": "2026-11-22",
+  "seconds": 31,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 5
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 0
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 1
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 1
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 3
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 1
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 1
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 2
+    },
+    {
+      "id": "sf-blog",
+      "name": "Salesforce Blog",
+      "items": 10
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 3
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 2
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 1
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 0
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 1
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 1
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "jitendra-zaa",
+      "name": "Jitendra Zaa",
+      "items": 0
+    },
+    {
+      "id": "simplysfdc",
+      "name": "SimplySfdc",
+      "items": 0
+    },
+    {
+      "id": "salesforcedevops-net",
+      "name": "SalesforceDevOps.net",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 9
+    },
+    {
+      "id": "dev-to-agentforce",
+      "name": "dev.to (Agentforce)",
+      "items": 0
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 0,
+      "error": "HTTP 429 (2 attempts: HTTP 404, HTTP 429)"
+    }
+  ],
+  "articles": [
+    {
+      "title": "Nightly CSV from an SFTP server into Salesforce: 7 things that break",
+      "url": "https://dev.to/floverk/nightly-csv-from-an-sftp-server-into-salesforce-7-things-that-break-2j7h",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Salesforce Custom Objects: Designing a Data Model That Won't Haunt You Later",
+      "url": "https://dev.to/rohanmehta/salesforce-custom-objects-designing-a-data-model-that-wont-haunt-you-later-4ki6",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "How to Break Into Salesforce Without a CS Degree: The 4 Steps I'd Follow Again",
+      "url": "https://dev.to/blazer2role/how-to-break-into-salesforce-without-a-cs-degree-the-4-steps-id-follow-again-2bk2",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "Rolling out multi-factor authentication across a Salesforce org in stages",
+      "url": "https://dev.to/rohanmehta/salesforce-mfa-setting-up-multi-factor-authentication-for-your-org-f5m",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-11-20 for a quieter day, and printed today"
+    },
+    {
+      "title": "Deterministic gates let an AI agent approve production changes in seconds",
+      "url": "https://engineering.salesforce.com/how-an-ai-agent-cut-production-change-reviews-from-24-hours-to-12-seconds/",
+      "source": "Salesforce Engineering",
+      "outcome": "published",
+      "score": 7,
+      "reason": "held since 2026-11-21 for a quieter day, and printed today"
+    },
+    {
+      "title": "Six practices for taking Tableau MCP agents from prototype to production",
+      "url": "https://www.salesforce.com/blog/deploying-agents-tableau-mcp-best-practices/",
+      "source": "Salesforce Blog",
+      "outcome": "published",
+      "score": 7,
+      "reason": "held since 2026-11-21 for a quieter day, and printed today"
+    },
+    {
+      "title": "Running Apex tests locally with Renmy Runtime, without an org",
+      "url": "https://dev.to/oblitus/salesforce-for-java-developers-where-did-my-test-runner-go-1beo",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-11-21 for a quieter day, and printed today"
+    }
+  ],
+  "proofread": [],
+  "figures": [
+    {
+      "title": "Deterministic gates let an AI agent approve production changes in seconds",
+      "outcome": "drawn",
+      "kind": "steps"
+    }
+  ],
+  "model": {
+    "calls": 4,
+    "retries": {},
+    "usage": {
+      "anthropic/claude-haiku-5.5": {
+        "input": 16667,
+        "output": 2009
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    },
+    {
+      "name": "Known Issues",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-11-22T06:32:05.604Z"
+}

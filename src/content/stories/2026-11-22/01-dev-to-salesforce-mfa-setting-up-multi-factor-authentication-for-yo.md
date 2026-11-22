@@ -4,7 +4,7 @@ original_title: "Salesforce MFA: Setting Up Multi-Factor Authentication for Your
 url: https://dev.to/rohanmehta/salesforce-mfa-setting-up-multi-factor-authentication-for-your-org-f5m
 source: dev.to
 source_type: community
-date: 2026-11-20
+date: 2026-11-22
 section: flow-and-admin
 personas:
   - admin
@@ -38,6 +38,7 @@ figure:
     - search
     - layers
     - check
+held_from: 2026-11-20
 ---
 
 The article opens by framing MFA as a requirement for Salesforce sign-in, since a password alone no longer protects customer data in an org. It then sets out a five-part plan for the admin running the rollout. The first step is choosing a verification method: the Salesforce Authenticator app as the smooth default, a third-party TOTP app, or a physical security key, with keys recommended for System Administrators and users with broad data access.

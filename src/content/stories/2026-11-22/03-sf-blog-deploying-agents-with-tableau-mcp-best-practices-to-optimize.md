@@ -4,7 +4,7 @@ original_title: "Deploying Agents with Tableau MCP: Best Practices to Optimize f
 url: https://www.salesforce.com/blog/deploying-agents-tableau-mcp-best-practices/
 source: Salesforce Blog
 source_type: official
-date: 2026-11-21
+date: 2026-11-22
 section: agentforce-and-ai
 personas:
   - architect
@@ -36,6 +36,8 @@ figure:
     - Pre-build queries for known questions
     - Build evaluation and monitoring
 image: https://www.salesforce.com/blog/wp-content/uploads/sites/2/2026/11/mcp1_logic.png?strip=all&#038;quality=95
+held_from: 2026-11-21
+figure_image: /figures/2026-11-22/03-sf-blog-deploying-agents-with-tableau-mcp-best-practices-to-optimize.png
 ---
 
 The post describes a large enterprise customer in a regulated industry that moved from Tableau dashboards to custom agents built on Tableau MCP. Off-the-shelf Tableau agents were too broad for the customer, who needed specialized workflows, agents that could act on results, embedding in a purpose-built application, and fine-grained control. Custom agents bring more need for testing, governance and monitoring, so the authors set out six practices.

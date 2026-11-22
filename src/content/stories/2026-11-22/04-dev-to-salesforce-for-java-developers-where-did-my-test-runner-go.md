@@ -4,7 +4,7 @@ original_title: "Salesforce for Java developers: where did my test runner go?"
 url: https://dev.to/oblitus/salesforce-for-java-developers-where-did-my-test-runner-go-1beo
 source: dev.to
 source_type: community
-date: 2026-11-21
+date: 2026-11-22
 section: devops
 personas:
   - developer
@@ -26,6 +26,7 @@ utility_score: 8
 model: anthropic/claude-haiku-5.5
 figure:
   kind: none
+held_from: 2026-11-21
 ---
 
 The article explains that Apex looks like Java but only compiles, runs and tests inside a Salesforce org, so every iteration means deploying, waiting and reading logs. It argues that this deploy-to-run loop is slow, and that CI pipelines need an org and certificate just to run unit tests. Its benchmark claims four open-source Apex suites of 837 tests took about 1 min 46 s in an org versus 2.4 s locally, with every test passing in both.

@@ -4,7 +4,7 @@ original_title: How an AI Agent Cut Production Change Reviews From 24 Hours to 1
 url: https://engineering.salesforce.com/how-an-ai-agent-cut-production-change-reviews-from-24-hours-to-12-seconds/
 source: Salesforce Engineering
 source_type: official
-date: 2026-11-21
+date: 2026-11-22
 section: agentforce-and-ai
 personas:
   - architect
@@ -25,6 +25,22 @@ novelty_score: 7
 utility_score: 6
 model: anthropic/claude-haiku-5.5
 image: https://engineering.salesforce.com/wp-content/uploads/2026/11/image-fcb22045.png?w=1024
+held_from: 2026-11-21
+figure:
+  kind: steps
+  caption: ROAM's gate verifies each requirement independently, and routes unverifiable requests to a human
+  steps:
+    - Verify approver identity and role
+    - Check linked passing QA test run
+    - Confirm pull request and approval trail
+    - Route to human if any gate is unverified
+    - Write every outcome to audit table
+  icons:
+    - lock
+    - check
+    - search
+    - people
+    - doc
 ---
 
 Salesforce Engineering describes ROAM, the Release Operations Agentic Manager, an Agentforce-pattern agent that reviews production patches for 18 Salesforce products. Before automation, requesters and reviewers chased approvals across Slack, change records, QA evidence and release calendars, with median turnaround around 24 hours. The team mapped the Change Advisory Board process first, then built ROAM on an internal platform providing event ingestion, durable workflow state and shared clients.
