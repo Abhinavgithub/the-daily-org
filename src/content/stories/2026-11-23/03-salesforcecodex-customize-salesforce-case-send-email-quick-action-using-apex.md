@@ -4,7 +4,7 @@ original_title: Customize Salesforce Case Send Email Quick Action Using Apex
 url: https://salesforcecodex.com/salesforce/customize-case-send-email-action-apex/
 source: SalesforceCodex
 source_type: community
-date: 2026-11-21
+date: 2026-11-23
 section: flow-and-admin
 personas:
   - developer
@@ -43,6 +43,8 @@ figure:
     - doc
     - code
 image: https://res.cloudinary.com/duws9yaa5/image/upload/v1795187255/customize-salesforce-case-email-with-apex-SalesforceCodex_gz4cit.webp
+held_from: 2026-11-21
+figure_image: /figures/2026-11-23/03-salesforcecodex-customize-salesforce-case-send-email-quick-action-using-apex.png
 ---
 
 The article explains that Salesforce Service Cloud's standard Send Email Quick Action in the Case Feed lets agents compose and send emails from a Case, with default values for recipients, sender and subject. It argues that many requirements, such as a fixed sender, a subject built from the Case Number or a recipient taken from the Case Contact, can be met declaratively through Predefined Field Values and formula expressions on the action's configuration page.

@@ -4,7 +4,7 @@ original_title: Salesforce Flow Builder vs. Apex
 url: https://www.salesforceben.com/salesforce-flow-builder-vs-apex/
 source: Salesforce Ben
 source_type: community
-date: 2026-11-21
+date: 2026-11-23
 section: flow-and-admin
 personas:
   - admin
@@ -39,6 +39,7 @@ figure:
     - layers
     - code
 image: https://www.salesforceben.com/wp-content/uploads/2023/02/flowvsapex1.webp
+held_from: 2026-11-21
 ---
 
 The article compares Salesforce Flow with Apex for building business automation. Flow lets Salesforce Admins build automations without code, with a gentler learning curve, while Apex is a Java-like language that needs developer resources but has no functional limits beyond what a developer can write. The author notes that Flow Builder is still powerful for agent-era work.
