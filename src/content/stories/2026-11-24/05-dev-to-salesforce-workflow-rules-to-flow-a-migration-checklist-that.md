@@ -4,7 +4,7 @@ original_title: "Salesforce Workflow Rules to Flow: A Migration Checklist That W
 url: https://dev.to/rohanmehta/salesforce-workflow-rules-to-flow-a-migration-checklist-that-wont-break-your-automations-2de1
 source: dev.to
 source_type: community
-date: 2026-11-21
+date: 2026-11-24
 section: flow-and-admin
 personas:
   - admin
@@ -41,6 +41,7 @@ figure:
     - test
     - flow
     - doc
+held_from: 2026-11-21
 ---
 
 The article begins with the retirement of Workflow Rules and Process Builder in favor of Flow, and argues that a rushed migration is how working automations quietly break. It recommends a checklist that runs in a fixed order, starting with an inventory of every rule and process in the org: the object each fires on, its criteria and its actions.

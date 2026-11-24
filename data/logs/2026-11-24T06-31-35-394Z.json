@@ -1,0 +1,293 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-11-24T06:31:35.394Z",
+  "day": "2026-11-24",
+  "seconds": 75,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 5
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 0
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 1
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 0
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 1
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 0
+    },
+    {
+      "id": "sf-blog",
+      "name": "Salesforce Blog",
+      "items": 2
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 4
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 0
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 0
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 0
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 0
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "jitendra-zaa",
+      "name": "Jitendra Zaa",
+      "items": 0
+    },
+    {
+      "id": "simplysfdc",
+      "name": "SimplySfdc",
+      "items": 0
+    },
+    {
+      "id": "salesforcedevops-net",
+      "name": "SalesforceDevOps.net",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 9
+    },
+    {
+      "id": "dev-to-agentforce",
+      "name": "dev.to (Agentforce)",
+      "items": 0
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 0,
+      "error": "HTTP 429 (2 attempts: HTTP 404, HTTP 429)"
+    }
+  ],
+  "articles": [
+    {
+      "title": "How the DataGroomr MCP server exposes Salesforce data-quality work to AI assistants",
+      "url": "https://dev.to/scriptmasterlabs01/how-does-the-datagroomr-mcp-server-work-3djh",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: How does the DataGroomr MCP server work?"
+    },
+    {
+      "title": "Precomputing and scoping customer context for AI agents with Data 360 data graphs",
+      "url": "https://engineering.salesforce.com/5-lessons-in-ai-context-engineering-why-more-context-is-not-better/",
+      "source": "Salesforce Engineering",
+      "outcome": "published",
+      "score": 8,
+      "reason": "article title: 5 Lessons in AI Context Engineering: Why More Context Is Not Better"
+    },
+    {
+      "title": "How Salesforce suspends third-party apps and how they are restored",
+      "url": "https://www.salesforce.com/blog/understanding-salesforce-connected-app-or-external-client-app-suspension/",
+      "source": "Salesforce Blog",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Understanding Salesforce Connected App or External Client App Suspension"
+    },
+    {
+      "title": "The State of Salesforce Development 2026: Download the Report Now!",
+      "url": "https://www.salesforceben.com/the-state-of-salesforce-development-2026-download-the-report-now/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Lightning Web Components 9.6.1 fixes a renderer factory bug in the engine",
+      "url": "https://github.com/salesforce/lwc/releases/tag/v9.6.1",
+      "source": "Lightning Web Components",
+      "outcome": "published",
+      "score": 3,
+      "reason": "printed in the Bulletin; every release of a tool is"
+    },
+    {
+      "title": "The End of CRM Busywork: How Agentforce Coworker Helps Run Your Small Business",
+      "url": "https://www.salesforce.com/blog/small-business/agentforce-coworker-in-salesforce-suites/",
+      "source": "Salesforce Blog",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "The Rise of the Boutique Salesforce Consultancy",
+      "url": "https://www.salesforceben.com/the-rise-of-the-boutique-salesforce-consultancy/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Loading large data sets with Bulk API 2.0 and avoiding common failures",
+      "url": "https://dev.to/rohanmehta/salesforce-bulk-api-20-loading-large-data-sets-without-the-headaches-39ap",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: Salesforce Bulk API 2.0: Loading Large Data Sets Without the Headaches"
+    },
+    {
+      "title": "Comprehensive Guide to Salesforce Marketing Attribution in 2027",
+      "url": "https://www.salesforceben.com/comprehensive-guide-to-salesforce-marketing-attribution-in-2027/",
+      "source": "Salesforce Ben",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "The Evolution of the Salesforce UX and What Comes Next",
+      "url": "https://www.salesforceben.com/the-evolution-of-the-salesforce-ux-and-what-comes-next/",
+      "source": "Salesforce Ben",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Salesforce Implementation: Cost, Timeline and Failure Modes",
+      "url": "https://dev.to/mecanik-dev/salesforce-implementation-cost-timeline-and-failure-modes-2op2",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Migrating from Workflow Rules and Process Builder to Flow without breaking automations",
+      "url": "https://dev.to/rohanmehta/salesforce-workflow-rules-to-flow-a-migration-checklist-that-wont-break-your-automations-2de1",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-11-21; printed today, having waited its days for room"
+    },
+    {
+      "title": "Copilotforce brings Salesforce Sales Data and skills into Microsoft Copilot and Teams",
+      "url": "https://cloudodyssey.com/blog/copilotforce-explained-how-salesforce-in-microsoft-copilot-teams-and-fabric-works/",
+      "source": "Cloud Odyssey",
+      "outcome": "published",
+      "score": 6,
+      "reason": "held since 2026-11-21; printed today, having waited its days for room"
+    }
+  ],
+  "proofread": [
+    {
+      "title": "How the DataGroomr MCP Server exposes Salesforce data-quality work to AI assistants",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Precomputing and scoping customer context for AI agents with Data 360 Data Graphs",
+      "outcome": "corrected"
+    },
+    {
+      "title": "How Salesforce suspends third-party Apps and how they are restored",
+      "outcome": "corrected"
+    },
+    {
+      "title": "Loading large Data sets with Bulk API 2.0 and avoiding common failures",
+      "outcome": "corrected"
+    }
+  ],
+  "figures": [
+    {
+      "title": "How Salesforce suspends third-party Apps and how they are restored",
+      "outcome": "drawn",
+      "kind": "steps"
+    }
+  ],
+  "model": {
+    "calls": 13,
+    "retries": {},
+    "usage": {
+      "anthropic/claude-haiku-5.5": {
+        "input": 75118,
+        "output": 11330
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    },
+    {
+      "name": "Known Issues",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-11-24T06:32:50.405Z"
+}

@@ -4,7 +4,7 @@ original_title: "Copilotforce Explained: How Salesforce in Microsoft Copilot, Te
 url: https://cloudodyssey.com/blog/copilotforce-explained-how-salesforce-in-microsoft-copilot-teams-and-fabric-works/
 source: Cloud Odyssey
 source_type: community
-date: 2026-11-21
+date: 2026-11-24
 section: agentforce-and-ai
 personas:
   - admin
@@ -33,6 +33,7 @@ figure:
     - Sales Cloud in Teams
     - Data 360 and Fabric zero copy
 image: https://cloudodyssey.com/wp-content/uploads/2026/11/Copilotforce_-Salesforce-in-Microsoft-Copilot-Explained.png
+held_from: 2026-11-21
 ---
 
 Copilotforce is a partnership between Salesforce and Microsoft, announced at Microsoft Ignite on November 17, 2026. It brings Salesforce customer context, business processes and actions into Microsoft Copilot, Teams and Fabric, so sellers can work with CRM records without switching to a CRM tab. The article describes three parts: Salesforce in Copilot, a plugin in public preview with 38+ prebuilt sales skills; Sales Cloud in Teams, in pilot with an open beta expected later in 2026; and a two-way zero copy link between Salesforce Data 360 and Microsoft Fabric.
