@@ -1,0 +1,336 @@
+{
+  "kind": "pipeline",
+  "ranAt": "2026-11-26T06:31:35.697Z",
+  "day": "2026-11-26",
+  "seconds": 99,
+  "finished": true,
+  "trigger": "workflow_dispatch",
+  "feeds": [
+    {
+      "id": "salesforce-trust",
+      "name": "Salesforce Trust",
+      "items": 4
+    },
+    {
+      "id": "sf-cli",
+      "name": "Salesforce CLI",
+      "items": 0
+    },
+    {
+      "id": "sf-code-analyzer",
+      "name": "Salesforce Code Analyzer",
+      "items": 0
+    },
+    {
+      "id": "lwc",
+      "name": "Lightning Web Components",
+      "items": 1
+    },
+    {
+      "id": "sf-developers",
+      "name": "Salesforce Developers Blog",
+      "items": 1
+    },
+    {
+      "id": "sf-admins",
+      "name": "Salesforce Admins Blog",
+      "items": 1
+    },
+    {
+      "id": "sf-engineering",
+      "name": "Salesforce Engineering",
+      "items": 3
+    },
+    {
+      "id": "sf-architects",
+      "name": "Salesforce Architects",
+      "items": 0
+    },
+    {
+      "id": "sf-news",
+      "name": "Salesforce News",
+      "items": 0
+    },
+    {
+      "id": "sf-blog",
+      "name": "Salesforce Blog",
+      "items": 9
+    },
+    {
+      "id": "salesforce-ben",
+      "name": "Salesforce Ben",
+      "items": 9
+    },
+    {
+      "id": "andy-in-the-cloud",
+      "name": "Andy in the Cloud",
+      "items": 0
+    },
+    {
+      "id": "beyond-the-cloud",
+      "name": "Beyond the Cloud",
+      "items": 0
+    },
+    {
+      "id": "bob-buzzard",
+      "name": "Bob Buzzard Blog",
+      "items": 0
+    },
+    {
+      "id": "salesforce-time",
+      "name": "Salesforce Time",
+      "items": 2
+    },
+    {
+      "id": "cloud-odyssey",
+      "name": "Cloud Odyssey",
+      "items": 0
+    },
+    {
+      "id": "infallibletechie",
+      "name": "InfallibleTechie",
+      "items": 2
+    },
+    {
+      "id": "salesforcecodex",
+      "name": "SalesforceCodex",
+      "items": 0
+    },
+    {
+      "id": "salesforce-break",
+      "name": "Salesforce Break",
+      "items": 1
+    },
+    {
+      "id": "nebula-consulting",
+      "name": "Nebula Consulting",
+      "items": 0
+    },
+    {
+      "id": "jitendra-zaa",
+      "name": "Jitendra Zaa",
+      "items": 0
+    },
+    {
+      "id": "simplysfdc",
+      "name": "SimplySfdc",
+      "items": 0
+    },
+    {
+      "id": "salesforcedevops-net",
+      "name": "SalesforceDevOps.net",
+      "items": 0
+    },
+    {
+      "id": "dev-to",
+      "name": "dev.to",
+      "items": 12
+    },
+    {
+      "id": "dev-to-agentforce",
+      "name": "dev.to (Agentforce)",
+      "items": 0
+    },
+    {
+      "id": "reddit-salesforce",
+      "name": "r/salesforce",
+      "items": 0,
+      "error": "HTTP 429 (2 attempts: HTTP 404, HTTP 429)"
+    }
+  ],
+  "articles": [
+    {
+      "title": "Salesforce Graduate Program: Eoin’s Path from the Pitch to Tech",
+      "url": "https://www.salesforce.com/blog/salesforce-graduate-program-eoins-path-pitch-to-tech/",
+      "source": "Salesforce Blog",
+      "outcome": "dropped",
+      "reason": "none of the paper's keywords"
+    },
+    {
+      "title": "Sending a Pre-Chat answer as the first message to an Agentforce Service Agent",
+      "url": "https://www.infallibletechie.com/2026/11/pre-chat-as-initial-prompt-for-agentforce-service-agent.html",
+      "source": "InfallibleTechie",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Pre-Chat as Initial Prompt for Agentforce Service Agent"
+    },
+    {
+      "title": "How MuleSoft moved observability to Hyperforce without breaking customers",
+      "url": "https://engineering.salesforce.com/how-mulesoft-rebuilt-a-live-observability-platform-while-migrating-39-petabytes-of-customer-data/",
+      "source": "Salesforce Engineering",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Live at World Tour NYC: Meet the People Building Salesforce on Salesforce",
+      "url": "https://www.salesforce.com/blog/world-tour-new-york-executives-customer-zero/",
+      "source": "Salesforce Blog",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "What Agentforce costs per action, and why agent design sets the bill",
+      "url": "https://dev.to/mecanik-dev/agentforce-what-salesforce-ai-agents-actually-cost-1fhc",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Agentforce: What Salesforce AI Agents Actually Cost"
+    },
+    {
+      "title": "5 ways customers are already innovating with Salesforce in Claude",
+      "url": "https://www.salesforce.com/blog/5-ways-customers-are-already-innovating-with-salesforce-in-claude/",
+      "source": "Salesforce Blog",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Give Credit to the Right Person: Use Git Trailers to Name Who Built and Tested Each Salesforce Release",
+      "url": "https://dev.to/juanma_garrido_1974/give-credit-to-the-right-person-use-git-trailers-to-name-who-built-and-tested-each-salesforce-bfg",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Why Are More Startups Taking Aim at Salesforce?",
+      "url": "https://www.salesforceben.com/why-are-more-startups-taking-aim-at-salesforce/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "Loading central bank exchange rates into Salesforce with Apex batch jobs",
+      "url": "https://dev.to/allratestodaycom/loading-dated-exchange-rates-into-salesforce-why-apex-dml-fails-and-what-works-2fff",
+      "source": "dev.to",
+      "outcome": "published",
+      "score": 7,
+      "reason": "article title: Loading Dated Exchange Rates into Salesforce: Why Apex DML Fails and What Works"
+    },
+    {
+      "title": "Bring Your Whole Stack Together Around Salesforce Commerce Cloud",
+      "url": "https://dev.to/harperfast/bring-your-whole-stack-together-around-salesforce-commerce-cloud-4ekh",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "How Agentforce Voice works, how it is configured, and what it costs",
+      "url": "https://www.salesforceben.com/ultimate-guide-to-salesforce-agentforce-voice/",
+      "source": "Salesforce Ben",
+      "outcome": "held",
+      "score": 7,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Is Salesforce Cutting Its Partner Ecosystem Off?",
+      "url": "https://www.salesforceben.com/is-salesforce-cutting-its-partner-ecosystem-off/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 4
+    },
+    {
+      "title": "What is Conversational CRM? Everything You Need to Know",
+      "url": "https://www.salesforce.com/blog/small-business/what-is-conversational-crm/",
+      "source": "Salesforce Blog",
+      "outcome": "not-relevant",
+      "score": 2
+    },
+    {
+      "title": "Combining selected and edited Data Table rows in a Screen Flow",
+      "url": "https://salesforcetime.com/2026/11/25/how-to-combine-selected-and-edited-data-table-rows-in-flow/",
+      "source": "Salesforce Time",
+      "outcome": "held",
+      "score": 6,
+      "reason": "the day had its 4 stories; held for a quieter day"
+    },
+    {
+      "title": "Salesforce LWC Basics: Your First Lightning Web Component, Explained for Admins-Turned-Devs",
+      "url": "https://dev.to/rohanmehta/salesforce-lwc-basics-your-first-lightning-web-component-explained-for-admins-turned-devs-4ieo",
+      "source": "dev.to",
+      "outcome": "below-threshold",
+      "score": 5,
+      "reason": "scored 5, the threshold is 6; printed in brief"
+    },
+    {
+      "title": "Salesforce Implementation Partner With a Guarantee: Turn Every Deliverable Into an Acceptance Test",
+      "url": "https://dev.to/joinsarvo/salesforce-implementation-partner-with-a-guarantee-turn-every-deliverable-into-an-acceptance-test-1h5h",
+      "source": "dev.to",
+      "outcome": "not-relevant",
+      "score": 3
+    },
+    {
+      "title": "CPQ moves to end of sale as its admin certification retires",
+      "url": "https://www.salesforceben.com/what-happened-to-cpq-a-timeline-of-salesforces-most-controversial-product/",
+      "source": "Salesforce Ben",
+      "outcome": "published",
+      "score": 6,
+      "reason": "article title: What Happened to CPQ? A Timeline of Salesforce’s Most Controversial Product"
+    },
+    {
+      "title": "Salesforce Offers Agentforce Coworker at No Extra Cost to SMBs",
+      "url": "https://www.salesforceben.com/salesforce-offers-agentforce-coworker-at-no-extra-cost-to-smbs/",
+      "source": "Salesforce Ben",
+      "outcome": "not-relevant",
+      "score": 4
+    }
+  ],
+  "proofread": [
+    {
+      "title": "Sending a Pre-Chat Answer as the First Message to an Agentforce Service Agent",
+      "outcome": "corrected"
+    },
+    {
+      "title": "How MuleSoft moved observability to Hyperforce without breaking customers",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "What Agentforce costs per action, and why agent design sets the bill",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Loading central bank exchange rates into Salesforce with Apex batch Jobs",
+      "outcome": "corrected"
+    },
+    {
+      "title": "How Agentforce Voice works, how it is configured, and what it costs",
+      "outcome": "unchanged"
+    },
+    {
+      "title": "Combining Selected and Edited Data Table Rows in a Screen Flow",
+      "outcome": "corrected"
+    },
+    {
+      "title": "CPQ moves to End of Sale as its Admin certification retires",
+      "outcome": "corrected"
+    }
+  ],
+  "figures": [],
+  "model": {
+    "calls": 18,
+    "retries": {},
+    "usage": {
+      "anthropic/claude-haiku-5.5": {
+        "input": 104797,
+        "output": 17260
+      }
+    }
+  },
+  "checks": [
+    {
+      "name": "Release dates",
+      "ok": true
+    },
+    {
+      "name": "The share price",
+      "ok": true
+    },
+    {
+      "name": "Known Issues",
+      "ok": true
+    }
+  ],
+  "statsAt": "2026-11-26T06:33:14.736Z"
+}
