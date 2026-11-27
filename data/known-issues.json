@@ -229,9 +229,10 @@
   "cloud": "Field Service",
   "created": "2026-11-04",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-11",
+  "lastSeen": "2026-11-27",
   "status": {
-   "2026-11-05": "In Review"
+   "2026-11-05": "In Review",
+   "2026-11-27": "Solution in Progress"
   },
   "affected": {
    "2026-11-05": 0
@@ -444,7 +445,7 @@
   "cloud": "Revenue",
   "created": "2026-11-04",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "In Review",
    "2026-11-16": "Solution in Progress",
@@ -3462,12 +3463,14 @@
   "cloud": "Platform",
   "created": "2026-10-29",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-05",
+  "lastSeen": "2026-11-27",
   "status": {
-   "2026-11-05": "In Review"
+   "2026-11-05": "In Review",
+   "2026-11-27": "Solution Scheduled"
   },
   "affected": {
-   "2026-11-05": 1
+   "2026-11-05": 1,
+   "2026-11-27": 2
   }
  },
  "KI-77213": {
@@ -4539,7 +4542,7 @@
   "cloud": "Uncategorized",
   "created": "2017-02-17",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Closed"
   },
@@ -4554,7 +4557,7 @@
   "cloud": "Uncategorized",
   "created": "2019-05-18",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Scheduled"
   },
@@ -4569,7 +4572,7 @@
   "cloud": "Platform",
   "created": "2024-11-22",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -4584,7 +4587,7 @@
   "cloud": "Platform",
   "created": "2021-07-23",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -4599,7 +4602,7 @@
   "cloud": "Uncategorized",
   "created": "2015-05-28",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -4614,7 +4617,7 @@
   "cloud": "Sales",
   "created": "2026-05-15",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -4639,7 +4642,7 @@
   "cloud": "Platform",
   "created": "2026-06-18",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deploying"
   },
@@ -4654,7 +4657,7 @@
   "cloud": "Sales",
   "created": "2021-01-05",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -4669,7 +4672,7 @@
   "cloud": "Uncategorized",
   "created": "2017-09-13",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -4684,7 +4687,7 @@
   "cloud": "Platform",
   "created": "2021-02-13",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -4699,7 +4702,7 @@
   "cloud": "Platform",
   "created": "2024-06-21",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -4714,7 +4717,7 @@
   "cloud": "Platform",
   "created": "2022-04-07",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "In Review"
   },
@@ -4731,7 +4734,7 @@
   "cloud": "Uncategorized",
   "created": "2013-03-04",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "In Review"
   },
@@ -4746,7 +4749,7 @@
   "cloud": "Platform",
   "created": "2020-07-27",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -4761,7 +4764,7 @@
   "cloud": "Analytics",
   "created": "2022-11-11",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -4776,7 +4779,7 @@
   "cloud": "Cross-Platform Features",
   "created": "2023-02-17",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -4791,7 +4794,7 @@
   "cloud": "Platform",
   "created": "2026-07-17",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deploying"
   },
@@ -4808,7 +4811,7 @@
   "cloud": "Uncategorized",
   "created": "2016-05-11",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "In Review"
   },
@@ -4825,7 +4828,7 @@
   "cloud": "Mobile",
   "created": "2019-06-20",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -4840,7 +4843,7 @@
   "cloud": "Platform",
   "created": "2022-05-19",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Scheduled"
   },
@@ -4855,7 +4858,7 @@
   "cloud": "Service",
   "created": "2023-03-02",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -4870,7 +4873,7 @@
   "cloud": "Uncategorized",
   "created": "2017-06-14",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Scheduled"
   },
@@ -4885,7 +4888,7 @@
   "cloud": "Uncategorized",
   "created": "2015-10-29",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Closed"
   },
@@ -4900,7 +4903,7 @@
   "cloud": "Uncategorized",
   "created": "2019-03-16",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Closed"
   },
@@ -4915,7 +4918,7 @@
   "cloud": "Uncategorized",
   "created": "2016-05-27",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Closed"
   },
@@ -4930,7 +4933,7 @@
   "cloud": "Uncategorized",
   "created": "2013-01-17",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Closed"
   },
@@ -4945,7 +4948,7 @@
   "cloud": "Uncategorized",
   "created": "2017-03-14",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -4960,7 +4963,7 @@
   "cloud": "Uncategorized",
   "created": "2015-06-16",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -4975,7 +4978,7 @@
   "cloud": "Uncategorized",
   "created": "2017-10-24",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -4990,7 +4993,7 @@
   "cloud": "Uncategorized",
   "created": "2016-11-22",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "In Review"
   },
@@ -5005,7 +5008,7 @@
   "cloud": "Platform",
   "created": "2024-02-12",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5020,7 +5023,7 @@
   "cloud": "Platform",
   "created": "2025-09-15",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5035,7 +5038,7 @@
   "cloud": "Platform",
   "created": "2021-08-31",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5050,7 +5053,7 @@
   "cloud": "Analytics",
   "created": "2019-10-21",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "In Review"
   },
@@ -5065,7 +5068,7 @@
   "cloud": "Uncategorized",
   "created": "2016-09-27",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Working as Expected"
   },
@@ -5080,7 +5083,7 @@
   "cloud": "Uncategorized",
   "created": "2018-01-18",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Scheduled"
   },
@@ -5095,7 +5098,7 @@
   "cloud": "Uncategorized",
   "created": "2017-01-27",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5110,7 +5113,7 @@
   "cloud": "Uncategorized",
   "created": "2014-09-25",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5125,7 +5128,7 @@
   "cloud": "Platform",
   "created": "2023-02-08",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5140,7 +5143,7 @@
   "cloud": "Uncategorized",
   "created": "2016-06-29",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "In Review"
   },
@@ -5155,7 +5158,7 @@
   "cloud": "Platform",
   "created": "2024-11-15",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5170,7 +5173,7 @@
   "cloud": "Uncategorized",
   "created": "2014-03-27",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5185,7 +5188,7 @@
   "cloud": "Search",
   "created": "2022-06-16",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5200,7 +5203,7 @@
   "cloud": "Uncategorized",
   "created": "2016-12-21",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5215,7 +5218,7 @@
   "cloud": "Service",
   "created": "2026-07-07",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5230,7 +5233,7 @@
   "cloud": "Platform",
   "created": "2025-03-03",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5245,7 +5248,7 @@
   "cloud": "Service",
   "created": "2019-08-05",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Closed"
   },
@@ -5260,7 +5263,7 @@
   "cloud": "Uncategorized",
   "created": "2013-10-22",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Closed"
   },
@@ -5275,7 +5278,7 @@
   "cloud": "Platform",
   "created": "2020-07-31",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Scheduled"
   },
@@ -5290,7 +5293,7 @@
   "cloud": "Platform",
   "created": "2025-04-03",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Scheduled"
   },
@@ -5305,7 +5308,7 @@
   "cloud": "Uncategorized",
   "created": "2018-06-26",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5320,7 +5323,7 @@
   "cloud": "Uncategorized",
   "created": "2015-12-18",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "In Review"
   },
@@ -5335,7 +5338,7 @@
   "cloud": "Marketing",
   "created": "2020-01-12",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Closed"
   },
@@ -5350,7 +5353,7 @@
   "cloud": "Uncategorized",
   "created": "2019-02-11",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5365,7 +5368,7 @@
   "cloud": "Analytics",
   "created": "2026-07-24",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5383,7 +5386,7 @@
   "cloud": "Analytics",
   "created": "2026-06-12",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deploying"
   },
@@ -5399,7 +5402,7 @@
   "cloud": "Uncategorized",
   "created": "2015-08-27",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Scheduled"
   },
@@ -5414,7 +5417,7 @@
   "cloud": "Platform",
   "created": "2019-10-21",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5430,13 +5433,14 @@
   "cloud": "Platform",
   "created": "2023-10-03",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Working as Expected"
   },
   "affected": {
    "2026-11-05": 369,
-   "2026-11-20": 370
+   "2026-11-20": 370,
+   "2026-11-27": 371
   }
  },
  "KI-30339": {
@@ -5446,7 +5450,7 @@
   "cloud": "Uncategorized",
   "created": "2020-04-07",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Closed"
   },
@@ -5461,7 +5465,7 @@
   "cloud": "Uncategorized",
   "created": "2015-12-15",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Scheduled"
   },
@@ -5476,7 +5480,7 @@
   "cloud": "Platform",
   "created": "2026-07-16",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "In Review"
   },
@@ -5493,7 +5497,8 @@
    "2026-11-21": 380,
    "2026-11-24": 381,
    "2026-11-25": 382,
-   "2026-11-26": 384
+   "2026-11-26": 384,
+   "2026-11-27": 385
   }
  },
  "KI-62785": {
@@ -5503,7 +5508,7 @@
   "cloud": "Your Salesforce Experience",
   "created": "2025-08-01",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5518,7 +5523,7 @@
   "cloud": "Sales",
   "created": "2021-10-01",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "In Review"
   },
@@ -5533,7 +5538,7 @@
   "cloud": "Uncategorized",
   "created": "2016-05-27",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5548,7 +5553,7 @@
   "cloud": "Sales",
   "created": "2021-02-09",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Working as Expected"
   },
@@ -5563,7 +5568,7 @@
   "cloud": "Uncategorized",
   "created": "2013-01-24",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "In Review"
   },
@@ -5578,7 +5583,7 @@
   "cloud": "Uncategorized",
   "created": "2017-03-07",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "In Review"
   },
@@ -5593,7 +5598,7 @@
   "cloud": "Platform",
   "created": "2022-10-11",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "In Review"
   },
@@ -5608,7 +5613,7 @@
   "cloud": "Platform",
   "created": "2022-05-11",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5623,7 +5628,7 @@
   "cloud": "Service",
   "created": "2026-01-12",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5638,7 +5643,7 @@
   "cloud": "Uncategorized",
   "created": "2015-06-26",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Scheduled"
   },
@@ -5653,7 +5658,7 @@
   "cloud": "Uncategorized",
   "created": "2017-09-07",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "In Review"
   },
@@ -5668,7 +5673,7 @@
   "cloud": "Uncategorized",
   "created": "2018-08-31",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "In Review"
   },
@@ -5683,7 +5688,7 @@
   "cloud": "Uncategorized",
   "created": "2017-03-16",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5698,7 +5703,7 @@
   "cloud": "Analytics",
   "created": "2022-07-12",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5713,7 +5718,7 @@
   "cloud": "Service",
   "created": "2020-07-24",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution in Progress"
   },
@@ -5728,7 +5733,7 @@
   "cloud": "Platform",
   "created": "2020-01-06",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5743,7 +5748,7 @@
   "cloud": "Platform",
   "created": "2019-07-23",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Closed"
   },
@@ -5758,7 +5763,7 @@
   "cloud": "Platform",
   "created": "2024-09-06",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Scheduled"
   },
@@ -5773,7 +5778,7 @@
   "cloud": "Your Salesforce Experience",
   "created": "2021-11-20",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5788,7 +5793,7 @@
   "cloud": "Service",
   "created": "2024-10-10",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5803,7 +5808,7 @@
   "cloud": "Search",
   "created": "2020-02-10",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution in Progress"
   },
@@ -5818,7 +5823,7 @@
   "cloud": "Sales",
   "created": "2019-08-09",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5833,7 +5838,7 @@
   "cloud": "Sales",
   "created": "2024-10-14",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5848,7 +5853,7 @@
   "cloud": "Uncategorized",
   "created": "2019-01-17",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Scheduled"
   },
@@ -5863,7 +5868,7 @@
   "cloud": "Uncategorized",
   "created": "2017-01-23",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution in Progress"
   },
@@ -5878,7 +5883,7 @@
   "cloud": "Platform",
   "created": "2020-07-17",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5893,7 +5898,7 @@
   "cloud": "Uncategorized",
   "created": "2015-03-19",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5908,7 +5913,7 @@
   "cloud": "Uncategorized",
   "created": "2019-01-25",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5923,7 +5928,7 @@
   "cloud": "Sales",
   "created": "2022-03-09",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5938,7 +5943,7 @@
   "cloud": "Platform",
   "created": "2021-08-26",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5953,7 +5958,7 @@
   "cloud": "Analytics",
   "created": "2024-07-12",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -5968,7 +5973,7 @@
   "cloud": "Platform",
   "created": "2026-08-05",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deploying"
   },
@@ -5984,7 +5989,7 @@
   "cloud": "Commerce",
   "created": "2022-01-04",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Scheduled"
   },
@@ -5999,7 +6004,7 @@
   "cloud": "Uncategorized",
   "created": "2022-03-16",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Closed"
   },
@@ -6014,7 +6019,7 @@
   "cloud": "Sales",
   "created": "2021-01-22",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -6029,7 +6034,7 @@
   "cloud": "Uncategorized",
   "created": "2019-05-05",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -6044,7 +6049,7 @@
   "cloud": "Uncategorized",
   "created": "2017-01-23",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Scheduled"
   },
@@ -6059,7 +6064,7 @@
   "cloud": "Uncategorized",
   "created": "2017-03-01",
   "firstSeen": "2026-11-05",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-05": "Solution Deployed"
   },
@@ -9537,10 +9542,11 @@
   "cloud": "Einstein",
   "created": "2026-11-08",
   "firstSeen": "2026-11-09",
-  "lastSeen": "2026-11-24",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-09": "In Review",
-   "2026-11-24": "Solution in Progress"
+   "2026-11-24": "Solution in Progress",
+   "2026-11-27": "Solution Scheduled"
   },
   "affected": {
    "2026-11-09": 0
@@ -11884,7 +11890,7 @@
   "cloud": "Mobile",
   "created": "2026-11-10",
   "firstSeen": "2026-11-11",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-11": "In Review",
    "2026-11-14": "Solution in Progress",
@@ -13119,9 +13125,10 @@
   "cloud": "Mobile",
   "created": "2026-11-11",
   "firstSeen": "2026-11-12",
-  "lastSeen": "2026-11-18",
+  "lastSeen": "2026-11-27",
   "status": {
-   "2026-11-12": "In Review"
+   "2026-11-12": "In Review",
+   "2026-11-27": "Solution Scheduled"
   },
   "affected": {
    "2026-11-12": 0,
@@ -14735,7 +14742,7 @@
   "cloud": "Platform",
   "created": "2026-11-12",
   "firstSeen": "2026-11-13",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-13": "In Review",
    "2026-11-20": "Solution in Progress"
@@ -15952,10 +15959,11 @@
   "cloud": "Commerce",
   "created": "2026-11-13",
   "firstSeen": "2026-11-14",
-  "lastSeen": "2026-11-23",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-14": "In Review",
-   "2026-11-19": "Solution in Progress"
+   "2026-11-19": "Solution in Progress",
+   "2026-11-27": "Solution Scheduled"
   },
   "affected": {
    "2026-11-14": 3
@@ -16126,9 +16134,10 @@
   "cloud": "Revenue",
   "created": "2026-11-12",
   "firstSeen": "2026-11-14",
-  "lastSeen": "2026-11-19",
+  "lastSeen": "2026-11-27",
   "status": {
-   "2026-11-14": "Solution in Progress"
+   "2026-11-14": "Solution in Progress",
+   "2026-11-27": "Solution Scheduled"
   },
   "affected": {
    "2026-11-14": 0
@@ -16584,7 +16593,7 @@
   "cloud": "MuleSoft",
   "created": "2026-10-28",
   "firstSeen": "2026-11-14",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-14": "Solution in Progress",
    "2026-11-26": "Solution Scheduled"
@@ -17401,10 +17410,11 @@
   "cloud": "Field Service",
   "created": "2026-11-16",
   "firstSeen": "2026-11-17",
-  "lastSeen": "2026-11-23",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-17": "In Review",
-   "2026-11-19": "Solution in Progress"
+   "2026-11-19": "Solution in Progress",
+   "2026-11-27": "In Review"
   },
   "affected": {
    "2026-11-17": 1
@@ -17434,9 +17444,10 @@
   "cloud": "Platform",
   "created": "2026-11-16",
   "firstSeen": "2026-11-17",
-  "lastSeen": "2026-11-23",
+  "lastSeen": "2026-11-27",
   "status": {
-   "2026-11-17": "Solution in Progress"
+   "2026-11-17": "Solution in Progress",
+   "2026-11-27": "Solution Scheduled"
   },
   "affected": {
    "2026-11-17": 0
@@ -17764,9 +17775,10 @@
   "cloud": "Revenue",
   "created": "2026-11-16",
   "firstSeen": "2026-11-17",
-  "lastSeen": "2026-11-23",
+  "lastSeen": "2026-11-27",
   "status": {
-   "2026-11-17": "In Review"
+   "2026-11-17": "In Review",
+   "2026-11-27": "Solution in Progress"
   },
   "affected": {
    "2026-11-17": 0
@@ -17964,7 +17976,7 @@
   "cloud": "Einstein",
   "created": "2026-10-16",
   "firstSeen": "2026-11-17",
-  "lastSeen": "2026-11-25",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-17": "Solution in Progress",
    "2026-11-25": "Solution Scheduled"
@@ -18198,9 +18210,10 @@
   "cloud": "Marketing App",
   "created": "2026-11-18",
   "firstSeen": "2026-11-18",
-  "lastSeen": "2026-11-25",
+  "lastSeen": "2026-11-27",
   "status": {
-   "2026-11-18": "In Review"
+   "2026-11-18": "In Review",
+   "2026-11-27": "Solution in Progress"
   },
   "affected": {
    "2026-11-18": 0,
@@ -19732,9 +19745,10 @@
   "cloud": "Media",
   "created": "2026-11-18",
   "firstSeen": "2026-11-19",
-  "lastSeen": "2026-11-25",
+  "lastSeen": "2026-11-27",
   "status": {
-   "2026-11-19": "In Review"
+   "2026-11-19": "In Review",
+   "2026-11-27": "Solution in Progress"
   },
   "affected": {
    "2026-11-19": 0
@@ -20382,7 +20396,7 @@
   "cloud": "Commerce",
   "created": "2026-11-20",
   "firstSeen": "2026-11-20",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-20": "In Review",
    "2026-11-24": "Solution in Progress"
@@ -20398,7 +20412,7 @@
   "cloud": "Data Cloud",
   "created": "2026-11-20",
   "firstSeen": "2026-11-20",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-20": "In Review",
    "2026-11-24": "Solution in Progress",
@@ -20416,7 +20430,7 @@
   "cloud": "Tableau",
   "created": "2026-11-20",
   "firstSeen": "2026-11-20",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-20": "Solution in Progress",
    "2026-11-25": "Solution Scheduled"
@@ -20432,7 +20446,7 @@
   "cloud": "Revenue",
   "created": "2026-11-20",
   "firstSeen": "2026-11-20",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-20": "Solution in Progress",
    "2026-11-24": "Solution Scheduled"
@@ -20448,7 +20462,7 @@
   "cloud": "Healthcare & Life Sciences",
   "created": "2026-11-20",
   "firstSeen": "2026-11-20",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-20": "Solution Scheduled"
   },
@@ -20463,7 +20477,7 @@
   "cloud": "Analytics",
   "created": "2026-11-20",
   "firstSeen": "2026-11-20",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-20": "In Review",
    "2026-11-24": "Solution in Progress"
@@ -20668,9 +20682,10 @@
   "cloud": "Platform",
   "created": "2026-11-19",
   "firstSeen": "2026-11-20",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
-   "2026-11-20": "In Review"
+   "2026-11-20": "In Review",
+   "2026-11-27": "Solution in Progress"
   },
   "affected": {
    "2026-11-20": 0
@@ -20746,7 +20761,7 @@
   "cloud": "Healthcare & Life Sciences",
   "created": "2026-11-19",
   "firstSeen": "2026-11-20",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-20": "In Review",
    "2026-11-25": "Solution in Progress",
@@ -20779,9 +20794,10 @@
   "cloud": "Loyalty Management",
   "created": "2026-11-19",
   "firstSeen": "2026-11-20",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
-   "2026-11-20": "In Review"
+   "2026-11-20": "In Review",
+   "2026-11-27": "Solution in Progress"
   },
   "affected": {
    "2026-11-20": 0
@@ -21362,7 +21378,7 @@
   "cloud": "Sales",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review",
    "2026-11-24": "Solution in Progress"
@@ -21378,7 +21394,7 @@
   "cloud": "Analytics",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "Solution in Progress"
   },
@@ -21393,7 +21409,7 @@
   "cloud": "Commerce",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "Solution in Progress",
    "2026-11-26": "Solution Scheduled"
@@ -21409,7 +21425,7 @@
   "cloud": "Sales",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review"
   },
@@ -21424,7 +21440,7 @@
   "cloud": "Marketing",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review"
   },
@@ -21439,7 +21455,7 @@
   "cloud": "Sales",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review",
    "2026-11-23": "Solution in Progress",
@@ -21456,7 +21472,7 @@
   "cloud": "Industries",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review"
   },
@@ -21471,7 +21487,7 @@
   "cloud": "Platform",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "Solution in Progress"
   },
@@ -21487,7 +21503,7 @@
   "cloud": "Platform",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review"
   },
@@ -21502,7 +21518,7 @@
   "cloud": "Service",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "Solution in Progress"
   },
@@ -21517,9 +21533,10 @@
   "cloud": "Platform",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
-   "2026-11-21": "In Review"
+   "2026-11-21": "In Review",
+   "2026-11-27": "Solution in Progress"
   },
   "affected": {
    "2026-11-21": 0
@@ -21532,7 +21549,7 @@
   "cloud": "Service",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review"
   },
@@ -21547,7 +21564,7 @@
   "cloud": "Service",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review"
   },
@@ -21562,7 +21579,7 @@
   "cloud": "Field Service",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "Solution in Progress",
    "2026-11-25": "Solution Scheduled"
@@ -21578,7 +21595,7 @@
   "cloud": "Einstein",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review",
    "2026-11-25": "Solution in Progress"
@@ -21595,7 +21612,7 @@
   "cloud": "Marketing",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review"
   },
@@ -21610,7 +21627,7 @@
   "cloud": "Service",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review"
   },
@@ -21625,7 +21642,7 @@
   "cloud": "MuleSoft",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review"
   },
@@ -21640,7 +21657,7 @@
   "cloud": "Analytics",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review"
   },
@@ -21655,7 +21672,7 @@
   "cloud": "Data Cloud",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "Solution in Progress"
   },
@@ -21670,7 +21687,7 @@
   "cloud": "Tableau",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review"
   },
@@ -21685,7 +21702,7 @@
   "cloud": "Service",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "Solution in Progress"
   },
@@ -21700,7 +21717,7 @@
   "cloud": "Field Service",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review"
   },
@@ -21716,9 +21733,10 @@
   "cloud": "Communications",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
-   "2026-11-21": "In Review"
+   "2026-11-21": "In Review",
+   "2026-11-27": "Solution in Progress"
   },
   "affected": {
    "2026-11-21": 0,
@@ -21732,7 +21750,7 @@
   "cloud": "Service",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review"
   },
@@ -21747,7 +21765,7 @@
   "cloud": "Data Cloud",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "Solution Scheduled"
   },
@@ -21763,7 +21781,7 @@
   "cloud": "Einstein",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review"
   },
@@ -21778,7 +21796,7 @@
   "cloud": "Data Cloud",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review"
   },
@@ -21793,7 +21811,7 @@
   "cloud": "Data Cloud",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review"
   },
@@ -21809,7 +21827,7 @@
   "cloud": "Platform",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review",
    "2026-11-24": "Solution in Progress"
@@ -21825,7 +21843,7 @@
   "cloud": "Sales",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "Solution Scheduled"
   },
@@ -21840,14 +21858,15 @@
   "cloud": "Marketing",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review",
    "2026-11-24": "Solution in Progress"
   },
   "affected": {
    "2026-11-21": 0,
-   "2026-11-25": 1
+   "2026-11-25": 1,
+   "2026-11-27": 2
   }
  },
  "KI-78063": {
@@ -21857,7 +21876,7 @@
   "cloud": "MuleSoft",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "Solution in Progress"
   },
@@ -21872,7 +21891,7 @@
   "cloud": "Analytics",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review"
   },
@@ -21887,7 +21906,7 @@
   "cloud": "Sales",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review"
   },
@@ -21903,7 +21922,7 @@
   "cloud": "Healthcare & Life Sciences",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "Solution Scheduled"
   },
@@ -21918,7 +21937,7 @@
   "cloud": "Healthcare & Life Sciences",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "Solution Scheduled"
   },
@@ -21933,7 +21952,7 @@
   "cloud": "Tableau",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review"
   },
@@ -21941,7 +21960,8 @@
    "2026-11-21": 0,
    "2026-11-24": 3,
    "2026-11-25": 5,
-   "2026-11-26": 6
+   "2026-11-26": 6,
+   "2026-11-27": 8
   }
  },
  "KI-78053": {
@@ -21951,7 +21971,7 @@
   "cloud": "Sales",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "In Review"
   },
@@ -21968,7 +21988,7 @@
   "cloud": "Data Cloud",
   "created": "2026-11-20",
   "firstSeen": "2026-11-21",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-21": "Solution in Progress"
   },
@@ -22527,7 +22547,7 @@
   "cloud": "Search",
   "created": "2026-11-23",
   "firstSeen": "2026-11-23",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-23": "In Review"
   },
@@ -22542,7 +22562,7 @@
   "cloud": "Education",
   "created": "2026-11-23",
   "firstSeen": "2026-11-23",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-23": "In Review",
    "2026-11-25": "Solution in Progress"
@@ -22559,7 +22579,7 @@
   "cloud": "Commerce",
   "created": "2026-11-23",
   "firstSeen": "2026-11-23",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-23": "In Review"
   },
@@ -22575,7 +22595,7 @@
   "cloud": "Data Cloud",
   "created": "2026-11-20",
   "firstSeen": "2026-11-23",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-23": "Solution Scheduled"
   },
@@ -22680,7 +22700,7 @@
   "cloud": "Service",
   "created": "2026-11-24",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review"
   },
@@ -22696,7 +22716,7 @@
   "cloud": "Revenue",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "Solution in Progress"
   },
@@ -22711,7 +22731,7 @@
   "cloud": "Service",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "Solution in Progress"
   },
@@ -22727,7 +22747,7 @@
   "cloud": "Service",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review"
   },
@@ -22742,7 +22762,7 @@
   "cloud": "Analytics",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review"
   },
@@ -22757,7 +22777,7 @@
   "cloud": "Sales",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review",
    "2026-11-25": "Solution Deployed"
@@ -22765,7 +22785,8 @@
   "affected": {
    "2026-11-24": 2,
    "2026-11-25": 4,
-   "2026-11-26": 6
+   "2026-11-26": 6,
+   "2026-11-27": 7
   }
  },
  "KI-78155": {
@@ -22775,7 +22796,7 @@
   "cloud": "Marketing Intelligence App (on Data Cloud)",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review"
   },
@@ -22791,7 +22812,7 @@
   "cloud": "Marketing Intelligence App (on Data Cloud)",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review"
   },
@@ -22806,7 +22827,7 @@
   "cloud": "Healthcare & Life Sciences",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "Solution in Progress",
    "2026-11-25": "Solution Scheduled"
@@ -22823,7 +22844,7 @@
   "cloud": "Field Service",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "Solution Scheduled"
   },
@@ -22838,7 +22859,7 @@
   "cloud": "Platform",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review"
   },
@@ -22853,7 +22874,7 @@
   "cloud": "Platform",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review",
    "2026-11-26": "Solution in Progress"
@@ -22870,7 +22891,7 @@
   "cloud": "Experience",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review"
   },
@@ -22886,7 +22907,7 @@
   "cloud": "Marketing App",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review"
   },
@@ -22901,7 +22922,7 @@
   "cloud": "Nonprofit",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review"
   },
@@ -22916,7 +22937,7 @@
   "cloud": "MuleSoft",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review"
   },
@@ -22933,7 +22954,7 @@
   "cloud": "Data Cloud",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review"
   },
@@ -22949,7 +22970,7 @@
   "cloud": "Analytics",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review"
   },
@@ -22964,7 +22985,7 @@
   "cloud": "Tableau",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review",
    "2026-11-25": "Solution in Progress"
@@ -22980,7 +23001,7 @@
   "cloud": "Communications",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review",
    "2026-11-25": "Solution in Progress"
@@ -22997,7 +23018,7 @@
   "cloud": "Data Cloud",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review"
   },
@@ -23012,7 +23033,7 @@
   "cloud": "Tableau",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "Solution Deployed"
   },
@@ -23027,7 +23048,7 @@
   "cloud": "Sales",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review"
   },
@@ -23042,7 +23063,7 @@
   "cloud": "Marketing",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review"
   },
@@ -23057,7 +23078,7 @@
   "cloud": "Media",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review",
    "2026-11-25": "Solution Scheduled"
@@ -23073,7 +23094,7 @@
   "cloud": "Marketing",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review"
   },
@@ -23089,13 +23110,14 @@
   "cloud": "Field Service",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review",
    "2026-11-25": "Solution in Progress"
   },
   "affected": {
-   "2026-11-24": 0
+   "2026-11-24": 0,
+   "2026-11-27": 1
   }
  },
  "KI-78131": {
@@ -23105,7 +23127,7 @@
   "cloud": "Analytics",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "Solution in Progress"
   },
@@ -23121,7 +23143,7 @@
   "cloud": "Service",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review",
    "2026-11-26": "Solution in Progress"
@@ -23137,7 +23159,7 @@
   "cloud": "Service",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review"
   },
@@ -23153,7 +23175,7 @@
   "cloud": "Data Cloud",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "Solution Scheduled"
   },
@@ -23168,9 +23190,10 @@
   "cloud": "Communications",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
-   "2026-11-24": "In Review"
+   "2026-11-24": "In Review",
+   "2026-11-27": "Solution in Progress"
   },
   "affected": {
    "2026-11-24": 1
@@ -23183,7 +23206,7 @@
   "cloud": "Marketing",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "Solution in Progress"
   },
@@ -23199,7 +23222,7 @@
   "cloud": "Platform",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review"
   },
@@ -23215,7 +23238,7 @@
   "cloud": "Commerce",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review"
   },
@@ -23230,7 +23253,7 @@
   "cloud": "Salesforce Payments",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review"
   },
@@ -23245,7 +23268,7 @@
   "cloud": "Communications",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review"
   },
@@ -23260,7 +23283,7 @@
   "cloud": "Platform",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review"
   },
@@ -23275,7 +23298,7 @@
   "cloud": "Marketing App",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review",
    "2026-11-25": "Solution in Progress"
@@ -23291,7 +23314,7 @@
   "cloud": "Commerce",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "In Review",
    "2026-11-25": "Solution in Progress"
@@ -23307,7 +23330,7 @@
   "cloud": "Marketing",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "Solution Scheduled"
   },
@@ -23322,7 +23345,7 @@
   "cloud": "Platform",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "Solution Scheduled"
   },
@@ -23337,9 +23360,10 @@
   "cloud": "Field Service",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
-   "2026-11-24": "Solution in Progress"
+   "2026-11-24": "Solution in Progress",
+   "2026-11-27": "Solution Scheduled"
   },
   "affected": {
    "2026-11-24": 1
@@ -23352,7 +23376,7 @@
   "cloud": "Commerce",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "Solution in Progress"
   },
@@ -23367,7 +23391,7 @@
   "cloud": "Healthcare & Life Sciences",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "Solution Scheduled"
   },
@@ -23382,7 +23406,7 @@
   "cloud": "Data Cloud",
   "created": "2026-11-23",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "Solution in Progress"
   },
@@ -23397,7 +23421,7 @@
   "cloud": "Healthcare & Life Sciences",
   "created": "2026-11-22",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "Solution in Progress"
   },
@@ -23412,7 +23436,7 @@
   "cloud": "Revenue",
   "created": "2026-11-20",
   "firstSeen": "2026-11-24",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-24": "Solution Scheduled"
   },
@@ -23862,7 +23886,7 @@
   "cloud": "Sales",
   "created": "2026-11-25",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "Solution in Progress"
   },
@@ -23877,7 +23901,7 @@
   "cloud": "Tableau",
   "created": "2026-11-25",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -23893,7 +23917,7 @@
   "cloud": "Marketing App",
   "created": "2026-11-25",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -23908,9 +23932,10 @@
   "cloud": "Revenue",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
-   "2026-11-25": "In Review"
+   "2026-11-25": "In Review",
+   "2026-11-27": "Closed"
   },
   "affected": {
    "2026-11-25": 1
@@ -23923,7 +23948,7 @@
   "cloud": "MuleSoft",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -23938,7 +23963,7 @@
   "cloud": "MuleSoft",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -23953,7 +23978,7 @@
   "cloud": "Analytics",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -23968,7 +23993,7 @@
   "cloud": "Healthcare & Life Sciences",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "Solution in Progress"
   },
@@ -23983,7 +24008,7 @@
   "cloud": "Service",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -23998,7 +24023,7 @@
   "cloud": "Platform",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -24013,7 +24038,7 @@
   "cloud": "MuleSoft",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "Solution Scheduled"
   },
@@ -24028,7 +24053,7 @@
   "cloud": "Tableau",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "Solution in Progress"
   },
@@ -24043,7 +24068,7 @@
   "cloud": "MuleSoft",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review",
    "2026-11-26": "Solution in Progress"
@@ -24059,7 +24084,7 @@
   "cloud": "Marketing",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -24074,7 +24099,7 @@
   "cloud": "Service",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review",
    "2026-11-26": "Solution in Progress"
@@ -24090,7 +24115,7 @@
   "cloud": "Field Service",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "Solution Scheduled"
   },
@@ -24105,7 +24130,7 @@
   "cloud": "Service",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -24121,7 +24146,7 @@
   "cloud": "Experience",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -24136,7 +24161,7 @@
   "cloud": "Service",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -24152,7 +24177,7 @@
   "cloud": "Sales",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "Solution in Progress"
   },
@@ -24167,7 +24192,7 @@
   "cloud": "Data Cloud",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "Solution in Progress"
   },
@@ -24182,7 +24207,7 @@
   "cloud": "Experience",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -24198,12 +24223,13 @@
   "cloud": "Platform",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
   "affected": {
-   "2026-11-25": 1
+   "2026-11-25": 1,
+   "2026-11-27": 2
   }
  },
  "KI-78188": {
@@ -24213,7 +24239,7 @@
   "cloud": "Platform",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -24228,7 +24254,7 @@
   "cloud": "Commerce",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review",
    "2026-11-26": "Solution in Progress"
@@ -24244,7 +24270,7 @@
   "cloud": "Analytics",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -24259,7 +24285,7 @@
   "cloud": "Data Cloud",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -24275,7 +24301,7 @@
   "cloud": "Platform",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -24290,7 +24316,7 @@
   "cloud": "Commerce",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "Solution Scheduled"
   },
@@ -24305,7 +24331,7 @@
   "cloud": "Tableau",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "Solution in Progress"
   },
@@ -24320,7 +24346,7 @@
   "cloud": "Analytics",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -24336,9 +24362,10 @@
   "cloud": "Field Service",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
-   "2026-11-25": "In Review"
+   "2026-11-25": "In Review",
+   "2026-11-27": "Solution Scheduled"
   },
   "affected": {
    "2026-11-25": 1
@@ -24351,7 +24378,7 @@
   "cloud": "Sales",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -24366,7 +24393,7 @@
   "cloud": "Field Service",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -24381,7 +24408,7 @@
   "cloud": "Field Service",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review",
    "2026-11-26": "Solution in Progress"
@@ -24397,7 +24424,7 @@
   "cloud": "Tableau",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -24413,7 +24440,7 @@
   "cloud": "Sales",
   "created": "2026-11-24",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -24428,7 +24455,7 @@
   "cloud": "Sales",
   "created": "2026-11-23",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "Solution in Progress"
   },
@@ -24443,7 +24470,7 @@
   "cloud": "Commerce",
   "created": "2026-11-23",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -24459,7 +24486,7 @@
   "cloud": "Service",
   "created": "2026-11-23",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "Solution Scheduled"
   },
@@ -24474,7 +24501,7 @@
   "cloud": "Service",
   "created": "2026-11-23",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -24489,7 +24516,7 @@
   "cloud": "AppExchange",
   "created": "2026-11-23",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review"
   },
@@ -24504,7 +24531,7 @@
   "cloud": "Platform",
   "created": "2026-11-20",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review",
    "2026-11-26": "Solution in Progress"
@@ -24520,7 +24547,7 @@
   "cloud": "Tableau",
   "created": "2026-11-20",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "Solution in Progress"
   },
@@ -24535,7 +24562,7 @@
   "cloud": "Financial Services",
   "created": "2026-05-06",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review",
    "2026-11-26": "Solution in Progress"
@@ -24957,10 +24984,11 @@
   "cloud": "Sales",
   "created": "2026-08-10",
   "firstSeen": "2026-11-25",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-25": "In Review",
-   "2026-11-26": "Solution in Progress"
+   "2026-11-26": "Solution in Progress",
+   "2026-11-27": "Solution Scheduled"
   },
   "affected": {
    "2026-11-25": 0
@@ -24973,7 +25001,7 @@
   "cloud": "Healthcare & Life Sciences",
   "created": "2026-11-26",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Solution in Progress"
   },
@@ -24988,7 +25016,7 @@
   "cloud": "Platform",
   "created": "2026-11-26",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25003,7 +25031,7 @@
   "cloud": "Field Service",
   "created": "2026-11-26",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25018,7 +25046,7 @@
   "cloud": "Field Service",
   "created": "2026-11-26",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25033,7 +25061,7 @@
   "cloud": "Marketing Cloud Account Engagement (Pardot)",
   "created": "2026-11-26",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25048,7 +25076,7 @@
   "cloud": "MuleSoft",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25063,7 +25091,7 @@
   "cloud": "Marketing Intelligence App (on Data Cloud)",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25078,7 +25106,7 @@
   "cloud": "Tableau",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Solution in Progress"
   },
@@ -25093,7 +25121,7 @@
   "cloud": "Tableau",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Solution in Progress"
   },
@@ -25108,7 +25136,7 @@
   "cloud": "MuleSoft",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Solution in Progress"
   },
@@ -25123,7 +25151,7 @@
   "cloud": "Search",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25138,12 +25166,13 @@
   "cloud": "Marketing",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
   "affected": {
-   "2026-11-26": 0
+   "2026-11-26": 0,
+   "2026-11-27": 1
   }
  },
  "KI-78257": {
@@ -25153,7 +25182,7 @@
   "cloud": "Marketing App",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Solution in Progress"
   },
@@ -25168,7 +25197,7 @@
   "cloud": "Data Cloud",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Solution in Progress"
   },
@@ -25183,7 +25212,7 @@
   "cloud": "Marketing",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25198,7 +25227,7 @@
   "cloud": "Sales",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25213,12 +25242,13 @@
   "cloud": "Sales",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
   "affected": {
-   "2026-11-26": 1
+   "2026-11-26": 1,
+   "2026-11-27": 2
   }
  },
  "KI-78251": {
@@ -25228,7 +25258,7 @@
   "cloud": "Service",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25243,12 +25273,13 @@
   "cloud": "Marketing App",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
   "affected": {
-   "2026-11-26": 3
+   "2026-11-26": 3,
+   "2026-11-27": 4
   }
  },
  "KI-78249": {
@@ -25258,7 +25289,7 @@
   "cloud": "Revenue",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25273,7 +25304,7 @@
   "cloud": "Service",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25288,7 +25319,7 @@
   "cloud": "Revenue",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25303,7 +25334,7 @@
   "cloud": "Commerce",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25318,7 +25349,7 @@
   "cloud": "Healthcare & Life Sciences",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Solution Scheduled"
   },
@@ -25333,7 +25364,7 @@
   "cloud": "MuleSoft",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25348,7 +25379,7 @@
   "cloud": "MuleSoft",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25363,7 +25394,7 @@
   "cloud": "Marketing App",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25378,7 +25409,7 @@
   "cloud": "Data Cloud",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25393,7 +25424,7 @@
   "cloud": "Your Salesforce Experience",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25408,7 +25439,7 @@
   "cloud": "Commerce",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25423,7 +25454,7 @@
   "cloud": "MuleSoft",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Solution Scheduled"
   },
@@ -25438,12 +25469,13 @@
   "cloud": "Healthcare & Life Sciences",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Solution Scheduled"
   },
   "affected": {
-   "2026-11-26": 0
+   "2026-11-26": 0,
+   "2026-11-27": 1
   }
  },
  "KI-78235": {
@@ -25453,7 +25485,7 @@
   "cloud": "Healthcare & Life Sciences",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Solution Scheduled"
   },
@@ -25468,7 +25500,7 @@
   "cloud": "Industries",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Solution in Progress"
   },
@@ -25483,9 +25515,10 @@
   "cloud": "Platform",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
-   "2026-11-26": "In Review"
+   "2026-11-26": "In Review",
+   "2026-11-27": "Solution in Progress"
   },
   "affected": {
    "2026-11-26": 3
@@ -25498,7 +25531,7 @@
   "cloud": "Service",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Solution in Progress"
   },
@@ -25513,7 +25546,7 @@
   "cloud": "Marketing App",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25528,7 +25561,7 @@
   "cloud": "Tableau",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Solution in Progress"
   },
@@ -25543,7 +25576,7 @@
   "cloud": "MuleSoft",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25558,7 +25591,7 @@
   "cloud": "Commerce",
   "created": "2026-11-25",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25573,7 +25606,7 @@
   "cloud": "Service",
   "created": "2026-11-24",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25588,7 +25621,7 @@
   "cloud": "Platform",
   "created": "2026-11-24",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Solution Scheduled"
   },
@@ -25603,7 +25636,7 @@
   "cloud": "Sales",
   "created": "2026-11-24",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Solution in Progress"
   },
@@ -25618,7 +25651,7 @@
   "cloud": "Data Cloud",
   "created": "2026-11-24",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Solution Scheduled"
   },
@@ -25633,12 +25666,13 @@
   "cloud": "Revenue",
   "created": "2026-11-24",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Solution in Progress"
   },
   "affected": {
-   "2026-11-26": 0
+   "2026-11-26": 0,
+   "2026-11-27": 1
   }
  },
  "KI-78087": {
@@ -25648,7 +25682,7 @@
   "cloud": "Tableau",
   "created": "2026-11-20",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "In Review"
   },
@@ -25663,7 +25697,7 @@
   "cloud": "Financial Services",
   "created": "2026-10-22",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Solution in Progress"
   },
@@ -25678,7 +25712,7 @@
   "cloud": "Service",
   "created": "2023-08-08",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Solution in Progress"
   },
@@ -25693,7 +25727,7 @@
   "cloud": "Revenue",
   "created": "2026-02-20",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Closed"
   },
@@ -25708,7 +25742,7 @@
   "cloud": "Tableau",
   "created": "2025-03-17",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Solution in Progress"
   },
@@ -25723,9 +25757,10 @@
   "cloud": "Platform",
   "created": "2026-09-08",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
-   "2026-11-26": "Solution in Progress"
+   "2026-11-26": "Solution in Progress",
+   "2026-11-27": "Solution Scheduled"
   },
   "affected": {
    "2026-11-26": 0
@@ -25738,7 +25773,7 @@
   "cloud": "Cross-Platform Features",
   "created": "2026-08-19",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Solution in Progress"
   },
@@ -25753,7 +25788,7 @@
   "cloud": "Financial Services",
   "created": "2026-05-26",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Solution in Progress"
   },
@@ -25768,7 +25803,7 @@
   "cloud": "MuleSoft",
   "created": "2023-07-06",
   "firstSeen": "2026-11-26",
-  "lastSeen": "2026-11-26",
+  "lastSeen": "2026-11-27",
   "status": {
    "2026-11-26": "Solution Scheduled"
   },
@@ -26224,6 +26259,816 @@
   },
   "affected": {
    "2026-11-26": 1
+  }
+ },
+ "KI-78321": {
+  "key": "a02g700000FL0dtAAD",
+  "subject": "Expert Details Not Displayed When Adding an Expert from the Related List on iPad",
+  "product": "Public Sector Health",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-11-27",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78319": {
+  "key": "a02g700000FKS5xAAH",
+  "subject": "[Salesforce for iOS] Camera launched from Chatter post action displays a narrow window on first launch.",
+  "product": "Mobile",
+  "cloud": "Sales",
+  "created": "2026-11-27",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "In Review"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78318": {
+  "key": "a02g700000FKQVZAA5",
+  "subject": "EAC Google Outbound Sync: Multi-day All-day Events Lose Last Day",
+  "product": "Einstein Activity Capture",
+  "cloud": "Field Service",
+  "created": "2026-11-27",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-27": 1
+  }
+ },
+ "KI-78317": {
+  "key": "a02g700000FKOvBAAX",
+  "subject": "Access Management: Access Overview does not list users whose permissions come only from team membership",
+  "product": "Access Management",
+  "cloud": "MuleSoft",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "In Review"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78315": {
+  "key": "a02g700000FJv1xAAD",
+  "subject": "Replies to emails sent to a Lead don’t appear on the Opportunity Activity Timeline after the Lead is converted",
+  "product": "Sales Cloud Einstein",
+  "cloud": "Einstein",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78314": {
+  "key": "a02g700000FJtg5AAD",
+  "subject": "Storefront Preview - Adding a product to cart causes a 429 errors",
+  "product": "B2C Commerce",
+  "cloud": "Commerce",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "In Review"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78312": {
+  "key": "a02g700000FJhAHAA1",
+  "subject": "Lead convert workflow error does not identify the blocking WorkflowTimeQueue record",
+  "product": "Leads",
+  "cloud": "Sales",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "In Review"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78311": {
+  "key": "a02g700000FJfurAAD",
+  "subject": "Prompt Builder preview rejects PDFs under the 15 MB limit due to file size calculation discrepancy",
+  "product": "Known Issues",
+  "cloud": "Your Salesforce Experience",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78309": {
+  "key": "a02g700000FJONlAAP",
+  "subject": "Data 360  SharePoint Unstructured (Site Pages) data stream leaves SourceUrl__c null in the harmonized DMO, so Agentforce citations have no URL",
+  "product": "Data Shares",
+  "cloud": "Data Cloud",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "In Review"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78307": {
+  "key": "a02g700000FIgRZAA1",
+  "subject": "Omni MCP Registry: Create fails with \"extraneous key [cacheScope]/[ttlMs]\" when an MCP server returns MCP caching fields",
+  "product": "Anypoint Control Plane",
+  "cloud": "MuleSoft",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78306": {
+  "key": "a02g700000FIZbOAAX",
+  "subject": "Issue with Account Filter validation in LSC Ipad App",
+  "product": "Life Sciences Cloud",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "In Review"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78304": {
+  "key": "a02g700000FI0KhAAL",
+  "subject": "Salesforce Voice – Call Transcription Missing After Call Transfer with Multi-Party Enabled",
+  "product": "Service Cloud Voice",
+  "cloud": "Service",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "In Review"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78303": {
+  "key": "a02g700000FIbZxAAL",
+  "subject": "Salesforce POS - Gross Revenue by Payment Method Payment Dashboard drops cents from tender totals.",
+  "product": "POS",
+  "cloud": "Commerce",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78302": {
+  "key": "a02g700000FIUPsAAP",
+  "subject": "Experience Cloud Logout Does Not Remove Parent and Child Session Entries from Session Management",
+  "product": "Experience Builder",
+  "cloud": "Experience",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "In Review"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78301": {
+  "key": "a02g700000FIYgvAAH",
+  "subject": "Agentforce Grid: Formula column with Double return type is rejected as a non-numeric value when building a chart",
+  "product": "Agentforce",
+  "cloud": "Sales",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "In Review"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78300": {
+  "key": "a02g700000FIYLxAAP",
+  "subject": "Salesforce POS - Checkout button intermittently becomes unresponsive after signing a digital contract.",
+  "product": "POS",
+  "cloud": "Commerce",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78298": {
+  "key": "a02g700000FIKURAA5",
+  "subject": "Saved credentials for the Tableau Semantics connector fail shortly after sign-in when Refresh Token Rotation is enabled on the Salesforce External Cli",
+  "product": "Tableau Cloud",
+  "cloud": "Tableau",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "In Review"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78297": {
+  "key": "a02g700000FIHI6AAP",
+  "subject": "SFTP Connector 2.x collapses repeated slashes in the Write operation path before sending it to the server",
+  "product": "Anypoint Connectors",
+  "cloud": "MuleSoft",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "In Review"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78296": {
+  "key": "a02g700000FIFb3AAH",
+  "subject": "Testing Center: Object-typed context variable in an Agent Test column always fails with \"Sync API returned HTTP 400\"",
+  "product": "Agentforce",
+  "cloud": "Sales",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "In Review"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78295": {
+  "key": "a02g700000FI9iXAAT",
+  "subject": "POS returns, exchanges and refunds can fail or show incorrect rows in the Failed Orders report",
+  "product": "POS",
+  "cloud": "Commerce",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "In Review"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78294": {
+  "key": "a02g700000FHmasAAD",
+  "subject": "User cannot delete asset(s) under Common Assets in Marketing Cloud Next",
+  "product": "Content",
+  "cloud": "Marketing App",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78291": {
+  "key": "a02g700000FHn25AAD",
+  "subject": "Agentforce Coworker: Search index fails for a batch transform copy of an unstructured file source",
+  "product": "Customer 360 Data Manager",
+  "cloud": "Platform",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "In Review"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78290": {
+  "key": "a02g700000FHlczAAD",
+  "subject": "[Redis] Increase prod1 Redis node size: primary at 94-106 % memory and evicting keys",
+  "product": "Trade Promotion Management",
+  "cloud": "Consumer Goods",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78289": {
+  "key": "a02g700000FHhmHAAT",
+  "subject": "Candidates action fails with “Schedule optimization incomplete. HTTP: 400” when a resource has a multi-day SA that overlaps a Resource Absence.",
+  "product": "Scheduling & Optimization",
+  "cloud": "Field Service",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "In Review"
+  },
+  "affected": {
+   "2026-11-27": 1
+  }
+ },
+ "KI-78288": {
+  "key": "a02g700000FHfyzAAD",
+  "subject": "package version create fails with \"External string does not exist\" for a dependent package's own labels when it ships label translations",
+  "product": "Develop & Deploy",
+  "cloud": "Experience",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "In Review"
+  },
+  "affected": {
+   "2026-11-27": 2
+  }
+ },
+ "KI-78287": {
+  "key": "a02g700000FHX3lAAH",
+  "subject": "Mule 4.11.2 Cluster May Experience Deployment Failures During Rolling Restarts",
+  "product": "MuleSoft Runtime 4",
+  "cloud": "MuleSoft",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "In Review"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78286": {
+  "key": "a02g700000FHUdlAAH",
+  "subject": "[Data 360] Queries fail with Error 2003 when profile-based data governance policies are applied",
+  "product": "Customer 360 Data Manager",
+  "cloud": "Platform",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-27": 1
+  }
+ },
+ "KI-78284": {
+  "key": "a02g700000FHRZRAA5",
+  "subject": "Aggregate Fields option is being ignored during data import",
+  "product": "Tableau Cloud",
+  "cloud": "Tableau",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "In Review"
+  },
+  "affected": {
+   "2026-11-27": 1
+  }
+ },
+ "KI-78283": {
+  "key": "a02g700000FHRBFAA5",
+  "subject": "Agentforce Data Library Retrieval May Miss Recently Published Knowledge Articles Due to Blank Source Information in the Index DMO",
+  "product": "AgentForce",
+  "cloud": "Service",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-27": 2
+  }
+ },
+ "KI-78282": {
+  "key": "a02g700000FHPXdAAP",
+  "subject": "Flow Test Fails with Apex Error When Using Apex Test Data Source to Insert Service Appointment.",
+  "product": "Development (Apex, LWC & VF)",
+  "cloud": "Platform",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "In Review"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78281": {
+  "key": "a02g700000FHNHJAA5",
+  "subject": "Specialties column is blank, and related lists are empty when an account is opened from Accounts filter with a HealthCareProvider Specialty Criterion",
+  "product": "Life Sciences Cloud",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78280": {
+  "key": "a02g700000FHHmzAAH",
+  "subject": "Managed Event Participant Status Path Not Progressing on iPad",
+  "product": "Public Sector Health",
+  "cloud": "Healthcare & Life Sciences",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "In Review"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78279": {
+  "key": "a02g700000FHGPVAA5",
+  "subject": "Outbound AS2: certificate rotation in existing keystore entry not detected — endpoint never repackaged",
+  "product": "Partner Manager",
+  "cloud": "MuleSoft",
+  "created": "2026-11-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78254": {
+  "key": "a02g700000FENTxAAP",
+  "subject": "[Accessibility] Screen flow: Screen reader focus lost on navigation to display-only screen in multi-step Screen Flow",
+  "product": "Disability and Product Accessibility",
+  "cloud": "Platform",
+  "created": "2026-11-25",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78248": {
+  "key": "a02g700000FDXFFAA5",
+  "subject": "SFTP Connector | Pooled Connection Is Not Released When a Listener File Read Fails After a Connection Reset, Exhausting the Pool",
+  "product": "Anypoint Connectors",
+  "cloud": "MuleSoft",
+  "created": "2026-11-25",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "In Review"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78225": {
+  "key": "a02g700000FAsRVAA1",
+  "subject": "User and Owner fields on a VoiceCall record can show an agent who did not handle the call",
+  "product": "Service Cloud Voice",
+  "cloud": "Service",
+  "created": "2026-11-25",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "In Review"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78219": {
+  "key": "a02g700000FA8RtAAL",
+  "subject": "Persistent Offline Map Warning Displayed on Every Map Interaction Without a Dismiss or Suppression Option",
+  "product": "Tableau Server",
+  "cloud": "Tableau",
+  "created": "2026-11-24",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "In Review"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-78171": {
+  "key": "a02g700000F7VGAAA3",
+  "subject": "Fixed LOD calculation is shown as valid in the editor but invalid in the Data pane when a data source has multiple fact tables",
+  "product": "Tableau Desktop",
+  "cloud": "Tableau",
+  "created": "2026-11-24",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-27": 1
+  }
+ },
+ "KI-73537": {
+  "key": "a02g7000006XDvtAAG",
+  "subject": "MULTIPLE_ENSURE_FUNDS_ASYNC - Balance remaining after running on an order with two invoices and shared PaymentAuthorization",
+  "product": "Order Management and Omnichannel Inventory",
+  "cloud": "Commerce",
+  "created": "2026-07-23",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-74088": {
+  "key": "a02g7000006rGMXAA2",
+  "subject": "Translations configured through the Translation Workbench for Reports are not consistently applied to the \"View Report\" label in Dashboards.",
+  "product": "Lightning Experience",
+  "cloud": "Platform",
+  "created": "2026-08-07",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-27": 2
+  }
+ },
+ "KI-70197": {
+  "key": "a02Ka00000mnJR3IAM",
+  "subject": "Anypoint Monitoring custom dashboard table shows duplicate rows for the same day after a daylight saving time change when using fill(0)",
+  "product": "Anypoint Monitoring",
+  "cloud": "MuleSoft",
+  "created": "2026-04-13",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-27": 6
+  }
+ },
+ "KI-76987": {
+  "key": "a02g700000CUQNxAAP",
+  "subject": "Industries CME – Media on Managed Package (262) | Inconsistent Cardinality Override Validation for Grandchild Products During Media Plan Edit",
+  "product": "Advertising Sales Management",
+  "cloud": "Media",
+  "created": "2026-10-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-74260": {
+  "key": "a02g7000006xoDRAAY",
+  "subject": "[UX] [Reports] Chart properties - Inconsistent Dialog Dismissal Patterns Create Usability Friction",
+  "product": "Disability and Product Accessibility",
+  "cloud": "Analytics",
+  "created": "2026-08-13",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-71349": {
+  "key": "a02Ka00000mGM26IAG",
+  "subject": "Anypoint Platform API Docs Update required for API Manager Proxies in CH2",
+  "product": "API Manager",
+  "cloud": "MuleSoft",
+  "created": "2026-05-19",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Closed"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-73285": {
+  "key": "a02g70000066NWLAA2",
+  "subject": "Attachment on a translated article is not attached to its new version",
+  "product": "Knowledge",
+  "cloud": "Service",
+  "created": "2026-07-16",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-27": 1
+  }
+ },
+ "KI-76877": {
+  "key": "a02g700000CDK3dAAH",
+  "subject": "Intermittent Process Exception (DUPLICATE_VALUE) During Order Creation in B2B Commerce.",
+  "product": "B2B Commerce",
+  "cloud": "Commerce",
+  "created": "2026-10-22",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-26558": {
+  "key": "a028c00000qQ1q3AAC",
+  "subject": "Activity Custom Lookups do not support Sort options, but they currently display",
+  "product": "Uncategorized",
+  "cloud": "Uncategorized",
+  "created": "2015-02-09",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Closed"
+  },
+  "affected": {
+   "2026-11-27": 10
+  }
+ },
+ "KI-75417": {
+  "key": "a02g7000009e5VFAAY",
+  "subject": "[UX][Agentforce] Update Assistant panel toggle button labels to \"Expand the View\" / \"Collapse the View\"",
+  "product": "Disability and Product Accessibility",
+  "cloud": "Platform",
+  "created": "2026-09-16",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-27": 0
+  }
+ },
+ "KI-76986": {
+  "key": "a02g700000CUQJ7AAP",
+  "subject": "Field Update milestone action fails with \"Entity Name not supported\" for ServiceRequest SLA policies",
+  "product": "Service Contracts & Entitlements",
+  "cloud": "Field Service",
+  "created": "2026-10-26",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-27": 1
+  }
+ },
+ "KI-75494": {
+  "key": "a02g7000009k6urAAA",
+  "subject": "Backup Jobs Leave Salesforce Bulk Data Load Jobs Open after completion",
+  "product": "Salesforce Backup and Recover",
+  "cloud": "Platform",
+  "created": "2026-09-17",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-27": 1
+  }
+ },
+ "KI-76222": {
+  "key": "a02g700000BB0JJAA1",
+  "subject": "Picklist DefaultValue validation fails on initial data seeding for AttributeDefinition",
+  "product": "Salesforce Data Seeding",
+  "cloud": "Platform",
+  "created": "2026-10-06",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-27": 1
+  }
+ },
+ "KI-60177": {
+  "key": "a02Ka00000f8kXEIAY",
+  "subject": "edge WebSocket handler do not respect idleSocketTimeout",
+  "product": "CloudHub 2.0",
+  "cloud": "MuleSoft",
+  "created": "2025-05-19",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution in Progress"
+  },
+  "affected": {
+   "2026-11-27": 1
+  }
+ },
+ "KI-70721": {
+  "key": "a02Ka00000moIPVIA2",
+  "subject": "[Intermittent Issue] Messaging sessions stuck in waiting/active state and is not routed to the agent",
+  "product": "Omni-Channel",
+  "cloud": "Service",
+  "created": "2026-04-28",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution Deployed"
+  },
+  "affected": {
+   "2026-11-27": 6
+  }
+ },
+ "KI-73170": {
+  "key": "a02g70000063O8nAAE",
+  "subject": "Unable to Disable Link Shortening in Mobile Connect SMS",
+  "product": "Marketing Cloud Platform",
+  "cloud": "Marketing",
+  "created": "2026-07-13",
+  "firstSeen": "2026-11-27",
+  "lastSeen": "2026-11-27",
+  "status": {
+   "2026-11-27": "Solution Scheduled"
+  },
+  "affected": {
+   "2026-11-27": 0
   }
  }
 }

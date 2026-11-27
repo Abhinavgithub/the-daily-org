@@ -4,7 +4,7 @@ original_title: Ultimate Guide to Salesforce Agentforce Voice
 url: https://www.salesforceben.com/ultimate-guide-to-salesforce-agentforce-voice/
 source: Salesforce Ben
 source_type: community
-date: 2026-11-26
+date: 2026-11-27
 section: agentforce-and-ai
 personas:
   - admin
@@ -26,6 +26,7 @@ model: anthropic/claude-haiku-5.5
 figure:
   kind: none
 image: https://www.salesforceben.com/wp-content/uploads/2026/11/Agentforce-Voice-vs-Salesforce-Voice-vs-Contact-Center@2x.webp
+held_from: 2026-11-26
 ---
 
 Agentforce Voice lets customers speak with an AI agent over the phone, through a website or in a mobile app, instead of navigating menus or waiting for a person. The agent can use data held in Salesforce, take actions such as updating records or creating cases, and pass the conversation to a human with its context intact. The article notes that the product has been generally available for about a year and clears up the confusion between Agentforce Voice, Salesforce Voice and Agentforce Contact Center. Agentforce Voice is the AI layer, Salesforce Voice is the telephony connection to Salesforce, and Agentforce Contact Center is Salesforce's own contact center add-on.
