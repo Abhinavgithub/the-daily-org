@@ -4,7 +4,7 @@ original_title: How MuleSoft Rebuilt a Live Observability Platform While Migrati
 url: https://engineering.salesforce.com/how-mulesoft-rebuilt-a-live-observability-platform-while-migrating-39-petabytes-of-customer-data/
 source: Salesforce Engineering
 source_type: official
-date: 2026-11-26
+date: 2026-11-28
 section: architecture
 personas:
   - architect
@@ -44,6 +44,7 @@ figure:
     - server
     - layers
 image: https://engineering.salesforce.com/wp-content/uploads/2026/11/How-MuleSoft-Rebuilt-a-Live-Observability-Platform-While-Migrating-39-Petabytes-of-Customer-Data-A.png
+held_from: 2026-11-26
 ---
 
 MuleSoft's legacy observability platform ran on nearly 3,000 independently provisioned monitoring clusters, and operating it at that scale was increasingly hard. The team first stabilized the existing system by reorganizing ownership around horizontal capabilities such as ingestion and logging, so each team maintained its part of the legacy system while building its replacement. Replacing ad hoc production fixes with root cause analysis brought incidents down within about six weeks.

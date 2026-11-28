@@ -4,7 +4,7 @@ original_title: How to Combine Selected and Edited Data Table Rows in Flow
 url: https://salesforcetime.com/2026/11/25/how-to-combine-selected-and-edited-data-table-rows-in-flow/
 source: Salesforce Time
 source_type: community
-date: 2026-11-26
+date: 2026-11-28
 section: flow-and-admin
 personas:
   - admin
@@ -33,6 +33,7 @@ figure:
     - Assign edited Quantity
     - Add row to new collection
 image: https://salesforcetime.com/wp-content/uploads/2026/11/image-24.png
+held_from: 2026-11-26
 ---
 
 The standard Data Table component in Screen Flow can return selected rows and edited rows as two separate collections. The Selected Rows output holds the records the user picked but not their edited field values, while the Edited Rows output holds the changed values whether or not the row was selected. Neither output alone gives the set of selected records with their updated values, and the component does not offer a single combined output.
